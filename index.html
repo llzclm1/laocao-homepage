@@ -48,6 +48,22 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
+    <script>
+      (() => {
+        const primaryOrigin = "https://laocao-homepage.edgeone.dev";
+        const githubHost = "llzclm1.github.io";
+
+        if (window.location.hostname === githubHost) {
+          const normalizedPath = window.location.pathname.replace(
+            /^\/laocao-homepage\/?/,
+            "/"
+          );
+          window.location.replace(
+            `${primaryOrigin}${normalizedPath}${window.location.search}${window.location.hash}`
+          );
+        }
+      })();
+    </script>
     <script defer src="https://vercount.one/js"></script>
     <script type="application/ld+json">
       {
