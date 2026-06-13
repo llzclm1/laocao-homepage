@@ -173,6 +173,21 @@
             <a class="button primary" href="#projects">查看项目</a>
             <a class="button ghost" href="#contact">联系合作</a>
           </div>
+          <a class="hero-email" href="mailto:25132283@qq.com">邮件联系 25132283@qq.com</a>
+        </div>
+        <div class="hero-showcase" aria-label="项目预览">
+          <figure class="showcase-card showcase-card-pixroom">
+            <img src="assets/projects/pixroom-preview.png" alt="PixRoom 项目界面预览" />
+            <figcaption>PixRoom</figcaption>
+          </figure>
+          <figure class="showcase-card showcase-card-material">
+            <img src="assets/projects/material-box-preview.svg" alt="素材收纳箱 App 界面预览" />
+            <figcaption>素材收纳箱</figcaption>
+          </figure>
+          <figure class="showcase-card showcase-card-game">
+            <img src="assets/projects/office-survivor-cover.png" alt="工位突围游戏封面预览" />
+            <figcaption>工位突围</figcaption>
+          </figure>
         </div>
         <div class="hero-metrics" aria-label="项目概览">
           <div>
@@ -198,11 +213,12 @@
         </div>
 
         <div class="filter-bar" aria-label="项目筛选">
-          <button class="filter-button active" type="button" data-filter="all">全部</button>
-          <button class="filter-button" type="button" data-filter="miniapp">小程序</button>
-          <button class="filter-button" type="button" data-filter="tool">工具</button>
-          <button class="filter-button" type="button" data-filter="game">游戏</button>
-          <button class="filter-button" type="button" data-filter="app">App</button>
+          <button class="filter-button active" type="button" data-filter="all" aria-pressed="true">全部</button>
+          <button class="filter-button" type="button" data-filter="miniapp" aria-pressed="false">小程序</button>
+          <button class="filter-button" type="button" data-filter="tool" aria-pressed="false">工具</button>
+          <button class="filter-button" type="button" data-filter="game" aria-pressed="false">游戏</button>
+          <button class="filter-button" type="button" data-filter="app" aria-pressed="false">App</button>
+          <span class="filter-result" aria-live="polite">显示 4 个项目</span>
         </div>
 
         <div class="project-grid">
@@ -219,6 +235,11 @@
             <p>
               面向普通用户的在线 P 图小程序，目标是把抠图、换背景、图片美化和轻量编辑做成手机里随手可用的小工具。
             </p>
+            <dl class="project-case">
+              <div><dt>定位</dt><dd>手机里的轻量修图入口</dd></div>
+              <div><dt>解决</dt><dd>普通用户不会复杂修图软件的问题</dd></div>
+              <div><dt>合作点</dt><dd>渠道测试、模板内容、商业化验证</dd></div>
+            </dl>
             <ul class="project-points">
               <li>适合日常头像、商品图、证件照和社媒配图处理。</li>
               <li>第一阶段做“上传图片、选择效果、快速保存”的基础体验。</li>
@@ -240,6 +261,11 @@
             <p>
               手机上的信息收纳 App，用来把微信、小红书、网页、聊天里看到的有用信息随手放进去，并自动归纳、提取重点。
             </p>
+            <dl class="project-case">
+              <div><dt>定位</dt><dd>手机信息与灵感的临时收纳箱</dd></div>
+              <div><dt>解决</dt><dd>有用内容分散在聊天、网页和收藏里</dd></div>
+              <div><dt>合作点</dt><dd>知识整理、内容创作、效率工具场景</dd></div>
+            </dl>
             <ul class="project-points">
               <li>面向“看到有用信息，但很快就散落找不到”的日常场景。</li>
               <li>核心是快速收纳链接、文字、截图和灵感，再提炼重点。</li>
@@ -261,6 +287,11 @@
             <p>
               一款微信小游戏，把上班、突围、成长和爽感做成轻量化生存玩法。
             </p>
+            <dl class="project-case">
+              <div><dt>定位</dt><dd>上班族题材的轻量生存小游戏</dd></div>
+              <div><dt>解决</dt><dd>碎片时间需要低门槛爽感体验</dd></div>
+              <div><dt>合作点</dt><dd>试玩反馈、广告变现、内容联动</dd></div>
+            </dl>
             <ul class="project-points">
               <li>当前重点是稳定战斗主循环、角色系统和皮肤系统。</li>
               <li>商业化方向包含激励广告、分享传播、商城和留存目标。</li>
@@ -282,6 +313,11 @@
             <p>
               本地优先的摩托车数字车库，用来记录保养、里程、费用、改装档案和车辆生命周期。
             </p>
+            <dl class="project-case">
+              <div><dt>定位</dt><dd>摩托车生命周期的私人档案</dd></div>
+              <div><dt>解决</dt><dd>保养、费用和改装记录分散难追踪</dd></div>
+              <div><dt>合作点</dt><dd>垂直社区、车友服务、工具生态</dd></div>
+            </dl>
             <ul class="project-points">
               <li>MVP 覆盖车辆主页、保养提醒、费用账本和改装档案。</li>
               <li>iOS 使用 SwiftUI，本地 JSON 存储；Android 有 Compose 骨架。</li>
@@ -373,6 +409,11 @@
         </div>
         <div class="contact-panel">
           <p>如果你对 PixRoom、素材收纳箱、小游戏或 App 方向感兴趣，可以通过邮件联系我。</p>
+          <ul class="contact-fit">
+            <li>项目试用、早期反馈和真实用户访谈</li>
+            <li>渠道合作、内容共创和商业化测试</li>
+            <li>图片工具、效率工具、小游戏或摩托车 App 方向交流</li>
+          </ul>
           <dl class="contact-list" aria-label="联系方式">
             <div>
               <dt>邮箱</dt>
