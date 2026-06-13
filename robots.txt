@@ -2,3 +2,5 @@ User-agent: *
 Allow: /
 
 Sitemap: https://llzclm1.github.io/laocao-homepage/sitemap.xml
+
+LLMs: https://llzclm1.github.io/laocao-homepage/llms.txt

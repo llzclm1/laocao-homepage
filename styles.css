@@ -245,6 +245,7 @@ h1 {
 .projects-section,
 .audience-section,
 .about-section,
+.faq-section,
 .contact-section {
   width: min(1120px, calc(100% - 44px));
   margin: 0 auto;
@@ -431,6 +432,49 @@ h1 {
   padding: 70px 0;
 }
 
+.faq-section {
+  border-top: 1px solid var(--line);
+  padding: 70px 0;
+}
+
+.faq-list {
+  display: grid;
+  gap: 12px;
+}
+
+.faq-list details {
+  border: 1px solid rgba(255, 255, 255, 0.74);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 16px 48px rgba(49, 103, 130, 0.09);
+}
+
+.faq-list summary {
+  cursor: pointer;
+  padding: 18px 20px;
+  color: #173e56;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.faq-list summary:focus-visible {
+  outline: 2px solid rgba(36, 119, 215, 0.36);
+  outline-offset: 2px;
+}
+
+.faq-list p {
+  margin: 0;
+  padding: 0 20px 20px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.faq-list a {
+  color: #176fd4;
+  font-weight: 800;
+}
+
 .audience-section {
   border-top: 1px solid var(--line);
   padding: 72px 0 18px;
@@ -599,6 +643,7 @@ h1 {
   .projects-section,
   .audience-section,
   .about-section,
+  .faq-section,
   .contact-section {
     width: min(100% - 32px, 1120px);
   }

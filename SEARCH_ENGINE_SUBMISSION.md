@@ -18,11 +18,18 @@ Robots 地址：
 https://llzclm1.github.io/laocao-homepage/robots.txt
 ```
 
+LLMs 地址：
+
+```text
+https://llzclm1.github.io/laocao-homepage/llms.txt
+```
+
 ## 已在代码中添加
 
 - `robots.txt`：允许搜索引擎抓取，并声明 sitemap。
 - `sitemap.xml`：声明首页 URL。
 - `index.html`：添加 canonical、description、Open Graph、Twitter Card、结构化数据。
+- `llms.txt`：给 AI 搜索和问答工具读取的项目说明。
 - `8221b5ee5eb23147b8f2422b2cb6096e.txt`：IndexNow 验证文件。
 - `scripts/submit-indexnow.mjs`：向支持 IndexNow 的搜索引擎提交首页 URL。
 
@@ -77,6 +84,6 @@ https://llzclm1.github.io/laocao-homepage/sitemap.xml
 把下面几处的 `https://llzclm1.github.io/laocao-homepage/` 替换成正式域名：
 
 - `index.html` 中的 canonical、og:url、结构化数据 url。
-- `robots.txt` 中的 Sitemap 地址。
+- `robots.txt` 中的 Sitemap 和 LLMs 地址。
 - `sitemap.xml` 中的 loc。
 - 本文件中的提交地址。

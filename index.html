@@ -15,6 +15,7 @@
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <link rel="canonical" href="https://llzclm1.github.io/laocao-homepage/" />
     <link rel="sitemap" type="application/xml" href="/laocao-homepage/sitemap.xml" />
+    <link rel="alternate" type="text/plain" href="/laocao-homepage/llms.txt" title="LLMs.txt" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="zh_CN" />
     <meta property="og:title" content="老曹造物集" />
@@ -86,6 +87,54 @@
         ]
       }
     </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "老曹造物集是什么？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "老曹造物集是一个个人项目主页，集中展示 PixRoom、素材收纳箱、工位突围、Motorcycle Garage 等产品、工具和游戏实验。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "PixRoom 是什么？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "PixRoom 是一个面向普通用户的在线 P 图小程序，目标是把抠图、换背景、图片美化和轻量编辑做成手机里随手可用的小工具。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "素材收纳箱解决什么问题？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "素材收纳箱用于整理图片、文案、灵感和项目资料，把散落在文件夹、聊天记录和临时目录里的素材重新收回来。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "工位突围现在是什么阶段？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "工位突围是一款微信小游戏，当前重点是稳定战斗主循环、角色系统、皮肤系统和商业化入口。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "怎么联系老曹？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "可以通过微信 25132283 或邮箱 25132283@qq.com 联系。"
+            }
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <header class="site-header">
@@ -96,18 +145,22 @@
       <nav class="nav" aria-label="主导航">
         <a href="#projects">项目</a>
         <a href="#about">关于</a>
+        <a href="#faq">FAQ</a>
         <a href="#contact">联系</a>
       </nav>
     </header>
 
     <main id="top">
       <section class="hero" aria-labelledby="hero-title">
-        <img
-          class="hero-visual"
-          src="assets/hero-homepage.png"
-          alt=""
-          aria-hidden="true"
-        />
+        <picture>
+          <source srcset="assets/hero-homepage.webp" type="image/webp" />
+          <img
+            class="hero-visual"
+            src="assets/hero-homepage.png"
+            alt=""
+            aria-hidden="true"
+          />
+        </picture>
         <div class="hero-scrim"></div>
         <div class="hero-content">
           <p class="eyebrow">Products · Tools · Games</p>
@@ -259,6 +312,40 @@
           <p>
             当前优先推进 PixRoom 和工位突围；素材收纳箱用于验证个人素材工作流；Motorcycle Garage 是面向摩托车生命周期管理的本地优先 App。
           </p>
+        </div>
+      </section>
+
+      <section class="faq-section" id="faq" aria-labelledby="faq-title">
+        <div class="section-heading compact">
+          <p class="eyebrow">FAQ</p>
+          <h2 id="faq-title">常见问题</h2>
+          <p>给搜索引擎、AI 搜索和第一次访问的人一个更清晰的项目说明。</p>
+        </div>
+        <div class="faq-list">
+          <details open>
+            <summary>老曹造物集是什么？</summary>
+            <p>老曹造物集是一个个人项目主页，集中展示 PixRoom、素材收纳箱、工位突围、Motorcycle Garage 等产品、工具和游戏实验。</p>
+          </details>
+          <details>
+            <summary>PixRoom 是什么？</summary>
+            <p>PixRoom 是一个面向普通用户的在线 P 图小程序，目标是把抠图、换背景、图片美化和轻量编辑做成手机里随手可用的小工具。</p>
+          </details>
+          <details>
+            <summary>素材收纳箱解决什么问题？</summary>
+            <p>素材收纳箱用于整理图片、文案、灵感和项目资料，把散落在文件夹、聊天记录和临时目录里的素材重新收回来。</p>
+          </details>
+          <details>
+            <summary>工位突围现在是什么阶段？</summary>
+            <p>工位突围是一款微信小游戏，当前重点是稳定战斗主循环、角色系统、皮肤系统和商业化入口。</p>
+          </details>
+          <details>
+            <summary>Motorcycle Garage 支持什么场景？</summary>
+            <p>Motorcycle Garage 是本地优先的摩托车数字车库，用来记录车辆资料、保养提醒、费用账本和改装档案。</p>
+          </details>
+          <details>
+            <summary>怎么联系老曹？</summary>
+            <p>可以通过微信 25132283 或邮箱 <a href="mailto:25132283@qq.com">25132283@qq.com</a> 联系。</p>
+          </details>
         </div>
       </section>
 
