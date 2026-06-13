@@ -1,0 +1,26 @@
+<svg width="1080" height="1440" viewBox="0 0 1080 1440" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="素材收纳箱手机信息收纳预览">
+  <rect width="1080" height="1440" fill="#F6FBFC"/>
+  <rect x="82" y="80" width="916" height="1280" rx="54" fill="white" stroke="#D8E9ED" stroke-width="3"/>
+  <rect x="128" y="136" width="824" height="1168" rx="38" fill="#F2F8FA"/>
+  <text x="168" y="224" fill="#12212B" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="58" font-weight="800">素材收纳箱</text>
+  <text x="168" y="280" fill="#607482" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="28">手机看到有用信息，随手收进来</text>
+  <rect x="168" y="344" width="744" height="150" rx="26" fill="white" stroke="#D8E9ED" stroke-width="2"/>
+  <circle cx="224" cy="419" r="30" fill="#13A7AD"/>
+  <text x="276" y="407" fill="#12212B" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="30" font-weight="700">小红书笔记链接</text>
+  <text x="276" y="450" fill="#607482" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="24">穿搭灵感 · 已提取 5 个重点</text>
+  <rect x="168" y="526" width="744" height="150" rx="26" fill="white" stroke="#D8E9ED" stroke-width="2"/>
+  <circle cx="224" cy="601" r="30" fill="#2477D7"/>
+  <text x="276" y="589" fill="#12212B" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="30" font-weight="700">微信文章片段</text>
+  <text x="276" y="632" fill="#607482" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="24">产品方法 · 自动生成摘要</text>
+  <rect x="168" y="708" width="744" height="150" rx="26" fill="white" stroke="#D8E9ED" stroke-width="2"/>
+  <circle cx="224" cy="783" r="30" fill="#D88B3A"/>
+  <text x="276" y="771" fill="#12212B" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="30" font-weight="700">聊天截图灵感</text>
+  <text x="276" y="814" fill="#607482" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="24">待办建议 · 归入项目资料</text>
+  <rect x="168" y="926" width="744" height="270" rx="32" fill="#173E56"/>
+  <text x="216" y="1004" fill="white" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="34" font-weight="800">今日重点</text>
+  <text x="216" y="1068" fill="#DDF6F7" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="28">1. 把散落信息统一收纳</text>
+  <text x="216" y="1124" fill="#DDF6F7" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="28">2. 自动提炼摘要和标签</text>
+  <text x="216" y="1180" fill="#DDF6F7" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="28">3. 后续可按主题复用</text>
+  <rect x="168" y="1236" width="744" height="18" rx="9" fill="#D8E9ED"/>
+  <rect x="168" y="1236" width="438" height="18" rx="9" fill="#13A7AD"/>
+</svg>
