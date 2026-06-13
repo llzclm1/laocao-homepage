@@ -365,16 +365,23 @@ h1 {
 }
 
 .projects-section,
+.manuals-section,
 .audience-section,
 .about-section,
 .faq-section,
 .contact-section {
   width: min(1120px, calc(100% - 44px));
   margin: 0 auto;
+  scroll-margin-top: 96px;
 }
 
 .projects-section {
   padding: 92px 0 76px;
+}
+
+.manuals-section {
+  border-top: 1px solid var(--line);
+  padding: 76px 0;
 }
 
 .section-heading {
@@ -459,10 +466,16 @@ h1 {
   gap: 22px;
 }
 
-.project-card {
+.manual-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.project-card,
+.manual-card {
   position: relative;
   display: flex;
-  min-height: 690px;
   flex-direction: column;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.72);
@@ -478,7 +491,19 @@ h1 {
     border-color 220ms ease;
 }
 
-.project-card::before {
+.project-card {
+  min-height: 690px;
+}
+
+.manual-card {
+  min-height: 640px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(247, 250, 248, 0.78)),
+    var(--panel-strong);
+}
+
+.project-card::before,
+.manual-card::before {
   position: absolute;
   inset: 0 0 auto;
   height: 4px;
@@ -486,7 +511,8 @@ h1 {
   content: "";
 }
 
-.project-card:hover {
+.project-card:hover,
+.manual-card:hover {
   border-color: rgba(13, 165, 168, 0.22);
   box-shadow: 0 28px 86px rgba(28, 79, 104, 0.17);
   transform: translateY(-4px);
@@ -517,6 +543,58 @@ h1 {
 
 .project-card:hover .project-shot img {
   transform: scale(1.04);
+}
+
+.manual-shot {
+  position: relative;
+  display: grid;
+  height: 330px;
+  margin: 0 0 24px;
+  overflow: hidden;
+  place-items: center;
+  border: 1px solid rgba(31, 93, 114, 0.14);
+  border-radius: 8px;
+  background:
+    linear-gradient(145deg, rgba(231, 246, 248, 0.78), rgba(255, 255, 255, 0.96)),
+    #f6fbfc;
+}
+
+.manual-shot::after {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 8px;
+  padding: 7px 10px;
+  color: #173e56;
+  background: rgba(255, 255, 255, 0.84);
+  box-shadow: 0 10px 30px rgba(49, 103, 130, 0.12);
+  content: "PDF 预览";
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.manual-shot img {
+  display: block;
+  width: min(86%, 292px);
+  height: auto;
+  max-height: 306px;
+  border-radius: 8px;
+  box-shadow: 0 24px 60px rgba(28, 79, 104, 0.2);
+  transform: rotate(-2deg);
+  transition: transform 260ms ease;
+}
+
+.manual-card:nth-child(2) .manual-shot img {
+  transform: rotate(1.5deg);
+}
+
+.manual-card:nth-child(3) .manual-shot img {
+  transform: rotate(-1deg);
+}
+
+.manual-card:hover .manual-shot img {
+  transform: rotate(0deg) translateY(-4px);
 }
 
 .project-shot figcaption {
@@ -563,13 +641,15 @@ h1 {
   color: #0e6f73;
 }
 
-.project-card h3 {
+.project-card h3,
+.manual-card h3 {
   margin: 0 0 12px;
   font-size: clamp(24px, 2.6vw, 34px);
   line-height: 1.08;
 }
 
-.project-card p {
+.project-card p,
+.manual-card p {
   margin: 0;
   color: #516a79;
   font-size: 16px;
@@ -991,11 +1071,13 @@ h1 {
   .section-heading.compact,
   .about-section,
   .contact-section,
-  .project-grid {
+  .project-grid,
+  .manual-grid {
     grid-template-columns: 1fr;
   }
 
   .projects-section,
+  .manuals-section,
   .audience-section,
   .about-section,
   .faq-section,
@@ -1005,6 +1087,10 @@ h1 {
 
   .projects-section {
     padding-top: 64px;
+  }
+
+  .manuals-section {
+    padding: 64px 0;
   }
 
   .audience-grid {
@@ -1082,8 +1168,17 @@ h1 {
     padding: 16px;
   }
 
+  .manual-card {
+    min-height: auto;
+    padding: 16px;
+  }
+
   .project-shot {
     height: 230px;
+  }
+
+  .manual-shot {
+    height: 280px;
   }
 
   .button {
