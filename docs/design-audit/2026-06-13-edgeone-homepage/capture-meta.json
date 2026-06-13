@@ -1,0 +1,21 @@
+{
+  "title": "老曹造物集",
+  "lang": "zh-CN",
+  "h1": "老曹造物集",
+  "navLinks": [
+    "项目",
+    "关于",
+    "FAQ",
+    "联系"
+  ],
+  "projectCards": [
+    "PixRoom",
+    "素材收纳箱",
+    "工位突围",
+    "Motorcycle Garage"
+  ],
+  "imageCount": 5,
+  "brokenImages": [],
+  "bodyWidth": 390,
+  "viewportWidth": 390
+}
