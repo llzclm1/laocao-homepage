@@ -1,0 +1,13 @@
+.env
+.env.local
+.env.production
+secrets.json
+private.key
+node_modules/
+dist/
+build/
+.DS_Store
+.codex-exec/
+**/.codex-exec/
+outputs/
+outputs/*-homepage.png
