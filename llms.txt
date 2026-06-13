@@ -2,7 +2,7 @@
 
 > 老曹造物集是老曹的个人项目主页，展示正在推进的产品、工具、小游戏和垂直 App。
 
-站点地址：https://llzclm1.github.io/laocao-homepage/
+站点地址：https://laocao-homepage.edgeone.dev/
 
 联系方式：
 
