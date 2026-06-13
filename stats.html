@@ -211,7 +211,7 @@
       <section class="panel" aria-labelledby="stats-title">
         <p class="eyebrow">Private Stats</p>
         <h1 id="stats-title">访问统计</h1>
-        <p>这个页面不在主页展示，也不会被搜索引擎索引。输入口令后查看老曹造物集的访问数据。</p>
+        <p>这个页面不在主页展示，也不会被搜索引擎索引。输入当天日期口令后查看老曹造物集的访问数据，例如 6 月 13 日输入 0613。</p>
 
         <form class="gate" id="stats-gate">
           <label for="stats-password">查看口令</label>
@@ -238,16 +238,18 @@
     </main>
 
     <script>
-      const passwordHash =
-        "fa8bdf9490ff3a31812de5ee8a9e47c160ead672696669c6e665bf2ae0831003";
       const gate = document.querySelector("#stats-gate");
       const input = document.querySelector("#stats-password");
       const error = document.querySelector("#stats-error");
       const panel = document.querySelector("#stats-panel");
       const sessionKey = "laocao_stats_session";
 
-      const toHex = (buffer) =>
-        [...new Uint8Array(buffer)].map((item) => item.toString(16).padStart(2, "0")).join("");
+      const getTodayPassword = () => {
+        const today = new Date();
+        const month = String(today.getMonth() + 1).padStart(2, "0");
+        const day = String(today.getDate()).padStart(2, "0");
+        return `${month}${day}`;
+      };
 
       const loadCounter = () => {
         gate.hidden = true;
@@ -269,12 +271,7 @@
         event.preventDefault();
         error.textContent = "";
 
-        const digest = await crypto.subtle.digest(
-          "SHA-256",
-          new TextEncoder().encode(input.value.trim())
-        );
-
-        if (toHex(digest) !== passwordHash) {
+        if (input.value.trim() !== getTodayPassword()) {
           error.textContent = "口令不对。";
           input.select();
           return;
