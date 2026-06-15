@@ -14,7 +14,7 @@ const detailImage = document.querySelector(".project-detail-image");
 const projectDetails = {
   pixroom: {
     title: "PixRoom",
-    image: "assets/projects/pixroom-preview.png",
+    image: "assets/projects/detail-crops/pixroom-detail.png",
     intro: "面向普通用户的在线 P 图小程序，目标是把抠图、换背景、图片美化和轻量编辑做成手机里随手可用的小工具。",
     meta: [
       ["定位", "手机里的轻量修图入口"],
@@ -31,7 +31,7 @@ const projectDetails = {
   },
   "material-box": {
     title: "素材收纳箱",
-    image: "assets/projects/material-box-preview.svg",
+    image: "assets/projects/detail-crops/material-box-detail.png",
     intro: "手机上的信息收纳 App，用来把微信、小红书、网页、聊天里看到的有用信息随手放进去，并自动归纳、提取重点。",
     meta: [
       ["定位", "手机信息与灵感的临时收纳箱"],
@@ -65,7 +65,7 @@ const projectDetails = {
   },
   "motorcycle-garage": {
     title: "Motorcycle Garage",
-    image: "assets/projects/motorcycle-garage-preview.svg",
+    image: "assets/projects/detail-crops/motorcycle-garage-detail.png",
     intro: "本地优先的摩托车数字车库，用来记录保养、里程、费用、改装档案和车辆生命周期。",
     meta: [
       ["定位", "摩托车生命周期的私人档案"],
