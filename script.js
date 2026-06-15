@@ -31,7 +31,7 @@ const projectDetails = {
   },
   "material-box": {
     title: "素材收纳箱",
-    image: "assets/projects/detail-crops/material-box-detail.png",
+    image: "assets/projects/detail-crops/memoris-material-board.png",
     intro: "手机上的信息收纳 App，用来把微信、小红书、网页、聊天里看到的有用信息随手放进去，并自动归纳、提取重点。",
     meta: [
       ["定位", "手机信息与灵感的临时收纳箱"],
@@ -65,7 +65,7 @@ const projectDetails = {
   },
   "motorcycle-garage": {
     title: "Motorcycle Garage",
-    image: "assets/projects/detail-crops/motorcycle-garage-detail.png",
+    image: "assets/projects/detail-crops/motorcycle-garage-material-board.png",
     intro: "本地优先的摩托车数字车库，用来记录保养、里程、费用、改装档案和车辆生命周期。",
     meta: [
       ["定位", "摩托车生命周期的私人档案"],
