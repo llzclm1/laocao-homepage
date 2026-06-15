@@ -47,7 +47,7 @@ const projectDetails = {
     ],
   },
   "office-survivor": {
-    title: "工位突袭",
+    title: "工位突围",
     image: "assets/projects/office-survivor-cover.png",
     intro: "一款微信小游戏，测试版已上架，正式版正在审批，把空间、成长和爽感做成轻量化玩法。",
     meta: [
@@ -56,7 +56,7 @@ const projectDetails = {
       ["阶段", "测试版已上架，正式版在审批"],
     ],
     summary:
-      "工位突袭测试版已经上架，正式版正在审批。当前重点是围绕正式发布和早期反馈继续推进。",
+      "工位突围测试版已经上架，正式版正在审批。当前重点是围绕正式发布和早期反馈继续推进。",
     points: [
       "测试版已经上架，可用于收集早期体验反馈。",
       "正式版正在审批，审批通过后进入更完整的公开发布阶段。",
