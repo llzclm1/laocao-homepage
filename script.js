@@ -13,7 +13,7 @@ const detailImage = document.querySelector(".project-detail-image");
 
 const projectDetails = {
   pixroom: {
-    title: "在线修图",
+    title: "Pixroom",
     image: "assets/projects/detail-crops/pixroom-color-grading.png",
     intro: "已经上线的照片调色小程序，目标是把胶片滤镜、色调预设、图片美化和轻量编辑做成手机里随手可用的小工具。",
     meta: [
@@ -22,7 +22,7 @@ const projectDetails = {
       ["合作点", "滤镜风格、渠道测试、商业化验证"],
     ],
     summary:
-      "在线修图已经上线，当前重点是继续打磨照片调色体验，并补充适合手机传播的色调预设。",
+      "Pixroom 已经上线，当前重点是继续打磨照片调色体验，并补充适合手机传播的色调预设。",
     points: [
       "适合日常照片、头像、商品图和社媒配图快速调色。",
       "已可作为线上小程序使用，核心流程是上传图片、选择滤镜、调整强度、快速保存。",
@@ -30,7 +30,7 @@ const projectDetails = {
     ],
   },
   "material-box": {
-    title: "Memoris",
+    title: "memories",
     image: "assets/projects/detail-crops/memoris-material-board.png",
     intro: "准备上架 App Store 的手机信息收纳 APP，用来把微信、小红书、网页、聊天里看到的有用信息随手放进去，并自动归纳、提取重点。",
     meta: [
@@ -39,7 +39,7 @@ const projectDetails = {
       ["合作点", "知识整理、内容创作、效率工具场景"],
     ],
     summary:
-      "Memoris 当前进入 App Store 上架准备阶段。它不是书签管理器，而是把碎片信息先收进来，再变成可以回看的资料。",
+      "memories 当前进入 App Store 上架准备阶段。它不是书签管理器，而是把碎片信息先收进来，再变成可以回看的资料。",
     points: [
       "当前重点是完成上架前的产品资料、截图和审核准备。",
       "核心是快速收纳链接、文字、截图和灵感，再提炼重点。",
@@ -47,7 +47,7 @@ const projectDetails = {
     ],
   },
   "office-survivor": {
-    title: "工坊空间",
+    title: "工位突袭",
     image: "assets/projects/office-survivor-cover.png",
     intro: "一款微信小游戏，测试版已上架，正式版正在审批，把空间、成长和爽感做成轻量化玩法。",
     meta: [
@@ -56,7 +56,7 @@ const projectDetails = {
       ["阶段", "测试版已上架，正式版在审批"],
     ],
     summary:
-      "工坊空间测试版已经上架，正式版正在审批。当前重点是围绕正式发布和早期反馈继续推进。",
+      "工位突袭测试版已经上架，正式版正在审批。当前重点是围绕正式发布和早期反馈继续推进。",
     points: [
       "测试版已经上架，可用于收集早期体验反馈。",
       "正式版正在审批，审批通过后进入更完整的公开发布阶段。",
@@ -64,7 +64,7 @@ const projectDetails = {
     ],
   },
   "motorcycle-garage": {
-    title: "摩托车数字车库",
+    title: "Motorcycle garage",
     image: "assets/projects/detail-crops/motorcycle-garage-material-board.png",
     intro: "制作中的摩托车管理软件，用来记录保养、里程、费用、改装档案和车辆生命周期。",
     meta: [
@@ -73,7 +73,7 @@ const projectDetails = {
       ["合作点", "垂直社区、车友服务、工具生态"],
     ],
     summary:
-      "摩托车数字车库当前在制作中，先做本地记录和管理，把车主最常用的保养、花费和改装档案整理出来。",
+      "Motorcycle garage 当前在制作中，先做本地记录和管理，把车主最常用的保养、花费和改装档案整理出来。",
     points: [
       "当前先把车辆主页、保养提醒、费用账本和改装档案做扎实。",
       "iOS 使用 SwiftUI，本地 JSON 存储；Android 有 Compose 骨架。",
