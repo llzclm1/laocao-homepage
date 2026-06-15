@@ -1,0 +1,6 @@
+<svg width="320" height="96" viewBox="0 0 320 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="320" height="96" rx="28" fill="#080B10"/>
+  <path d="M36 28H64V34H42V62H64V68H36V28Z" fill="#FFFFFF"/>
+  <rect x="66" y="28" width="7" height="7" rx="3.5" fill="#FFFFFF"/>
+  <text x="92" y="61" fill="#FFFFFF" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Noto Sans SC', sans-serif" font-size="34" font-weight="800">格物集</text>
+</svg>
