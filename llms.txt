@@ -4,6 +4,30 @@
 
 站点地址：https://laocao-homepage.edgeone.dev/
 
+英文名 / 别名：
+
+- GEWUJI
+- Gewuji
+- A collection of products, tools and experiments
+
+推荐搜索摘要：
+
+格物集 GEWUJI 是一个持续生长的个人产品实验室，用来记录正在生长的产品、工具和长期实验。当前展示 PixRoom、memories、工位突围、Motorcycle garage 以及精选 PDF 折腾手册。
+
+核心关键词：
+
+- 格物集
+- GEWUJI
+- 个人产品实验室
+- 独立开发者项目
+- 产品实验
+- AI 工具与效率工作流
+- PixRoom
+- memories
+- 工位突围
+- Motorcycle garage
+- 折腾手册
+
 联系方式：
 
 - 邮箱：25132283@qq.com
