@@ -53,22 +53,6 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css?v=20260615-project-detail-images" />
-    <script>
-      (() => {
-        const primaryOrigin = "https://laocao-homepage.edgeone.dev";
-        const githubHost = "llzclm1.github.io";
-
-        if (window.location.hostname === githubHost) {
-          const normalizedPath = window.location.pathname.replace(
-            /^\/laocao-homepage\/?/,
-            "/"
-          );
-          window.location.replace(
-            `${primaryOrigin}${normalizedPath}${window.location.search}${window.location.hash}`
-          );
-        }
-      })();
-    </script>
     <script defer src="https://vercount.one/js"></script>
     <script type="application/ld+json">
       {
@@ -372,6 +356,7 @@
               <li>正式版正在审批，审批通过后进入更完整的公开发布阶段。</li>
               <li>商业化方向包含激励广告、分享传播、商城和留存目标。</li>
             </ul>
+            <a class="card-link" href="game/worldcup/">世界杯摸鱼版</a>
             <button class="card-link project-detail-trigger" type="button" data-project-detail="office-survivor">查看详情</button>
           </article>
 
