@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://laocao-homepage.edgeone.dev/sitemap.xml
+Sitemap: https://gewuji.dev/sitemap.xml
 
-LLMs: https://laocao-homepage.edgeone.dev/llms.txt
+LLMs: https://gewuji.dev/llms.txt

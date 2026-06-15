@@ -1,6 +1,6 @@
 # 老曹造物集首页设计审查
 
-审查对象：https://laocao-homepage.edgeone.dev/
+审查对象：https://gewuji.dev/
 
 审查时间：2026-06-13
 

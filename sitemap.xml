@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://laocao-homepage.edgeone.dev/</loc>
+    <loc>https://gewuji.dev/</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://laocao-homepage.edgeone.dev/llms.txt</loc>
+    <loc>https://gewuji.dev/llms.txt</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://laocao-homepage.edgeone.dev/game/worldcup/</loc>
+    <loc>https://gewuji.dev/game/worldcup/</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>

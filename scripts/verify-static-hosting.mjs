@@ -9,6 +9,7 @@ const githubPagesHostSuffix = ["github", "io"].join(".");
 
 assert.ok(fs.existsSync(path.join(dist, "index.html")), "dist/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "game", "worldcup", "index.html")), "dist/game/worldcup/index.html is missing");
+assert.equal(fs.readFileSync(path.join(dist, "CNAME"), "utf8").trim(), "gewuji.dev", "dist/CNAME should keep the custom domain");
 
 const textFiles = [
   "index.html",

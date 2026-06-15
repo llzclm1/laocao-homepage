@@ -3,25 +3,25 @@
 站点预设公开地址：
 
 ```text
-https://laocao-homepage.edgeone.dev/
+https://gewuji.dev/
 ```
 
 Sitemap 地址：
 
 ```text
-https://laocao-homepage.edgeone.dev/sitemap.xml
+https://gewuji.dev/sitemap.xml
 ```
 
 Robots 地址：
 
 ```text
-https://laocao-homepage.edgeone.dev/robots.txt
+https://gewuji.dev/robots.txt
 ```
 
 LLMs 地址：
 
 ```text
-https://laocao-homepage.edgeone.dev/llms.txt
+https://gewuji.dev/llms.txt
 ```
 
 ## 已在代码中添加
@@ -45,7 +45,7 @@ IndexNow 可通知 Bing、Yandex 等支持该协议的搜索引擎。站点公�
 npm run submit:indexnow
 ```
 
-如果最终域名不是当前 EdgeOne 地址，先指定正式地址：
+如需临时提交其他部署环境，先指定对应地址：
 
 ```bash
 SITE_URL=https://your-domain.example/ npm run submit:indexnow
@@ -58,7 +58,7 @@ SITE_URL=https://your-domain.example/ npm run submit:indexnow
 3. 在 Sitemaps 中提交：
 
 ```text
-https://laocao-homepage.edgeone.dev/sitemap.xml
+https://gewuji.dev/sitemap.xml
 ```
 
 ### Bing
@@ -79,9 +79,9 @@ https://laocao-homepage.edgeone.dev/sitemap.xml
 2. 添加并验证站点。
 3. 在 Sitemap files 中提交 sitemap。
 
-## 如果改用自定义域名
+## 如果以后更换域名
 
-把下面几处的 `https://laocao-homepage.edgeone.dev/` 替换成正式域名：
+把下面几处的 `https://gewuji.dev/` 替换成新的正式域名：
 
 - `index.html` 中的 canonical、og:url、结构化数据 url。
 - `robots.txt` 中的 Sitemap 和 LLMs 地址。

@@ -2,7 +2,7 @@
   "scripts": {
     "build": "node scripts/build-static-site.mjs",
     "build:github": "PUBLIC_BASE_PATH=/laocao-homepage/ node scripts/build-static-site.mjs",
-    "build:prod": "SITE_URL=https://laocao-homepage.edgeone.dev PUBLIC_BASE_PATH=/ node scripts/build-static-site.mjs",
+    "build:prod": "SITE_URL=https://gewuji.dev PUBLIC_BASE_PATH=/ node scripts/build-static-site.mjs",
     "verify:static": "node scripts/verify-static-hosting.mjs",
     "submit:indexnow": "node scripts/submit-indexnow.mjs"
   }

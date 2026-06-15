@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const outDir = path.resolve(root, process.env.STATIC_OUT_DIR || "dist");
-const siteUrl = normalizeSiteUrl(process.env.SITE_URL || "https://laocao-homepage.edgeone.dev");
+const siteUrl = normalizeSiteUrl(process.env.SITE_URL || "https://gewuji.dev");
 const basePath = normalizeBasePath(process.env.PUBLIC_BASE_PATH || "/");
 const publicBaseUrl = new URL(basePath, `${siteUrl}/`).toString().replace(/\/$/, "");
 const lastmod = "2026-06-15";
@@ -12,6 +12,7 @@ const lastmod = "2026-06-15";
 const copyEntries = [
   "8221b5ee5eb23147b8f2422b2cb6096e.txt",
   "assets",
+  "CNAME",
   "docs",
   "favicon.svg",
   "game",
@@ -36,13 +37,13 @@ for (const entry of copyEntries) {
 }
 
 rewriteTextFile("index.html", (html) =>
-  html.replaceAll("https://laocao-homepage.edgeone.dev", publicBaseUrl)
+  html.replaceAll("https://gewuji.dev", publicBaseUrl)
 );
 rewriteTextFile("llms.txt", (text) =>
-  text.replaceAll("https://laocao-homepage.edgeone.dev", publicBaseUrl)
+  text.replaceAll("https://gewuji.dev", publicBaseUrl)
 );
 rewriteTextFile("SEARCH_ENGINE_SUBMISSION.md", (text) =>
-  text.replaceAll("https://laocao-homepage.edgeone.dev", publicBaseUrl)
+  text.replaceAll("https://gewuji.dev", publicBaseUrl)
 );
 
 fs.writeFileSync(path.join(outDir, "robots.txt"), buildRobots(), "utf8");

@@ -1,4 +1,4 @@
-const siteUrl = process.env.SITE_URL || "https://laocao-homepage.edgeone.dev/";
+const siteUrl = process.env.SITE_URL || "https://gewuji.dev/";
 const key = process.env.INDEXNOW_KEY || "8221b5ee5eb23147b8f2422b2cb6096e";
 const endpoint = process.env.INDEXNOW_ENDPOINT || "https://api.indexnow.org/indexnow";
 
