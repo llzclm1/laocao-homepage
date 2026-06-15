@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="老曹造物集：展示 PixRoom、素材收纳箱、工位突围、Motorcycle Garage 等产品、工具、游戏实验和精选 PDF 折腾手册。"
+      content="老曹造物集：展示 PixRoom、素材收纳箱、工位突围、Motorcycle Garage、主页更新助手等产品、工具、游戏实验和精选 PDF 折腾手册。"
     />
     <meta
       name="keywords"
@@ -71,7 +71,7 @@
         "@type": "WebSite",
         "name": "老曹造物集",
         "url": "https://laocao-homepage.edgeone.dev/",
-        "description": "展示 PixRoom、素材收纳箱、工位突围、Motorcycle Garage 等产品、工具、游戏实验和精选 PDF 折腾手册。",
+        "description": "展示 PixRoom、素材收纳箱、工位突围、Motorcycle Garage、主页更新助手等产品、工具、游戏实验和精选 PDF 折腾手册。",
         "inLanguage": "zh-CN",
         "publisher": {
           "@type": "Person",
@@ -106,6 +106,12 @@
             "@type": "CreativeWork",
             "name": "折腾手册",
             "description": "精选 PDF 手册集合，整理 AI 工具、个人项目上线和小程序增长等实践经验。"
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "主页更新助手",
+            "applicationCategory": "ProductivityApplication",
+            "description": "每天检查老曹造物集的新工作，并把有效变化整理进网站更新记录和 LLMs.txt。"
           }
         ]
       }
@@ -191,7 +197,7 @@
           <p class="eyebrow">Products · Tools · Games</p>
           <h1 id="hero-title">老曹造物集</h1>
           <p class="hero-copy">
-            一些正在长出来的产品、工具和游戏实验。这里放我正在做和已经跑起来的项目：在线修图小程序、手机信息收纳工具、微信小游戏，以及摩托车数字车库。
+            一些正在长出来的产品、工具和游戏实验。这里放我正在做和已经跑起来的项目：在线修图小程序、手机信息收纳工具、微信小游戏、摩托车数字车库，以及主页自动更新助手。
           </p>
           <div class="hero-actions" aria-label="主要操作">
             <a class="button primary" href="#projects">查看项目</a>
@@ -215,7 +221,7 @@
         </div>
         <div class="hero-metrics" aria-label="项目概览">
           <div>
-            <strong>4</strong>
+            <strong>5</strong>
             <span>个项目</span>
           </div>
           <div>
@@ -233,7 +239,7 @@
         <div class="section-heading">
           <p class="eyebrow">Selected Work</p>
           <h2 id="projects-title">正在推进的项目</h2>
-          <p>面向真实用户的图片产品、信息收纳工具、微信小游戏和垂直 App。</p>
+          <p>面向真实用户的图片产品、信息收纳工具、微信小游戏、垂直 App 和个人工作流自动化。</p>
         </div>
 
         <div class="filter-bar" aria-label="项目筛选">
@@ -242,7 +248,8 @@
           <button class="filter-button" type="button" data-filter="tool" aria-pressed="false">工具</button>
           <button class="filter-button" type="button" data-filter="game" aria-pressed="false">游戏</button>
           <button class="filter-button" type="button" data-filter="app" aria-pressed="false">App</button>
-          <span class="filter-result" aria-live="polite">显示 4 个项目</span>
+          <button class="filter-button" type="button" data-filter="automation" aria-pressed="false">自动化</button>
+          <span class="filter-result" aria-live="polite">显示 5 个项目</span>
         </div>
 
         <div class="project-grid">
@@ -348,6 +355,32 @@
               <li>暂不做登录、社区和云同步，先验证单车本地使用场景。</li>
             </ul>
             <a class="card-link" href="#contact">查看方向</a>
+          </article>
+
+          <article class="project-card" data-category="tool automation">
+            <figure class="project-shot">
+              <img src="assets/projects/homepage-update-assistant-preview.svg" alt="主页更新助手自动整理更新记录预览" loading="lazy" />
+              <figcaption>自动化 / 更新记录</figcaption>
+            </figure>
+            <div class="card-topline">
+              <span class="status">运行中</span>
+              <span class="type">工具 / 内容自动化</span>
+            </div>
+            <h3>主页更新助手</h3>
+            <p>
+              一个用于维护老曹造物集的自动化流程，每天检查新增工作，把有效变化整理进网站更新记录和 LLMs.txt。
+            </p>
+            <dl class="project-case">
+              <div><dt>定位</dt><dd>个人主页的更新记录维护工具</dd></div>
+              <div><dt>解决</dt><dd>工作做完后容易忘记沉淀到公开页面</dd></div>
+              <div><dt>合作点</dt><dd>个人品牌主页、项目日志、内容运营自动化</dd></div>
+            </dl>
+            <ul class="project-points">
+              <li>每天 23:30 自动检查新增的有效工作内容。</li>
+              <li>只记录对网站、内容、部署、SEO/GEO 和项目展示有意义的变化。</li>
+              <li>保持更新记录和 LLMs.txt 同步，避免访客和 AI 搜索读到过期信息。</li>
+            </ul>
+            <a class="card-link" href="#updates">查看更新</a>
           </article>
         </div>
       </section>
