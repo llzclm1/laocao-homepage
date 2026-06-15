@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="老曹造物集：展示 PixRoom、素材收纳箱、工位突围、Motorcycle Garage 等产品、工具、游戏实验和精选 PDF 折腾手册。"
+      content="老曹造物集：展示 PixRoom、Memoris、工位突围、Motorcycle Garage 等产品、工具、游戏实验和精选 PDF 折腾手册。"
     />
     <meta
       name="keywords"
-      content="老曹造物集, PixRoom, 在线P图, 素材收纳箱, 手机信息收纳, 重点提取, 工位突围, Motorcycle Garage, AI图片工具, 微信小游戏, 摩托车App, 折腾手册, PDF手册"
+      content="老曹造物集, PixRoom, Memoris, 手机信息收纳, 重点提取, 工位突围, Motorcycle Garage, AI图片工具, 微信小游戏, 摩托车App, 折腾手册, PDF手册"
     />
     <meta name="author" content="老曹" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -22,7 +22,7 @@
     <meta property="og:title" content="老曹造物集" />
     <meta
       property="og:description"
-      content="一些正在长出来的产品、工具和游戏实验：PixRoom、素材收纳箱、工位突围、Motorcycle Garage。"
+      content="一些正在长出来的产品、工具和游戏实验：PixRoom、Memoris、工位突围、Motorcycle Garage。"
     />
     <meta property="og:url" content="https://laocao-homepage.edgeone.dev/" />
     <meta property="og:site_name" content="老曹造物集" />
@@ -71,7 +71,7 @@
         "@type": "WebSite",
         "name": "老曹造物集",
         "url": "https://laocao-homepage.edgeone.dev/",
-        "description": "展示 PixRoom、素材收纳箱、工位突围、Motorcycle Garage 等产品、工具、游戏实验和精选 PDF 折腾手册。",
+        "description": "展示 PixRoom、Memoris、工位突围、Motorcycle Garage 等产品、工具、游戏实验和精选 PDF 折腾手册。",
         "inLanguage": "zh-CN",
         "publisher": {
           "@type": "Person",
@@ -87,9 +87,9 @@
           },
           {
             "@type": "SoftwareApplication",
-            "name": "素材收纳箱",
+              "name": "Memoris",
             "applicationCategory": "ProductivityApplication",
-            "description": "手机上的信息收纳工具，用来保存微信、小红书、网页等场景里看到的有用信息，并提取重点。"
+              "description": "一个会自动整理的本地资料工具，用来保存微信、小红书、网页等场景里看到的有用信息，并提取重点。"
           },
           {
             "@type": "VideoGame",
@@ -120,7 +120,7 @@
             "name": "老曹造物集是什么？",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "老曹造物集是一个个人项目主页，集中展示 PixRoom、素材收纳箱、工位突围、Motorcycle Garage 等产品、工具和游戏实验。"
+              "text": "老曹造物集是一个个人项目主页，集中展示 PixRoom、Memoris、工位突围、Motorcycle Garage 等产品、工具和游戏实验。"
             }
           },
           {
@@ -133,10 +133,10 @@
           },
           {
             "@type": "Question",
-            "name": "素材收纳箱解决什么问题？",
+            "name": "Memoris 解决什么问题？",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "素材收纳箱是一个手机信息收纳 App，用来把平时在微信、小红书、网页和聊天里看到的有用信息随手放进去，再自动归纳和提取重点。"
+              "text": "Memoris 是一个手机信息收纳 App，用来把平时在微信、小红书、网页和聊天里看到的有用信息随手放进去，再自动归纳和提取重点。"
             }
           },
           {
@@ -205,8 +205,8 @@
             <figcaption>PixRoom</figcaption>
           </figure>
           <figure class="showcase-card showcase-card-material">
-            <img src="assets/projects/material-box-preview.svg" alt="素材收纳箱 App 界面预览" />
-            <figcaption>素材收纳箱</figcaption>
+            <img src="assets/projects/material-box-preview.svg" alt="Memoris App 界面预览" />
+            <figcaption>Memoris</figcaption>
           </figure>
           <figure class="showcase-card showcase-card-game">
             <img src="assets/projects/office-survivor-cover.png" alt="工位突围游戏封面预览" />
@@ -246,7 +246,7 @@
         </div>
 
         <div class="project-grid">
-          <article class="project-card featured" data-category="miniapp tool">
+          <article class="project-card featured" data-category="miniapp tool" tabindex="0" role="button" aria-haspopup="dialog" data-project-detail="pixroom">
             <figure class="project-shot">
               <img src="assets/projects/pixroom-preview.png" alt="PixRoom 像素屋胶片滤镜小程序宣传预览" loading="lazy" />
               <figcaption>界面方向 / PixRoom 像素屋</figcaption>
@@ -269,19 +269,19 @@
               <li>第一阶段做“上传图片、选择效果、快速保存”的基础体验。</li>
               <li>后续接入免费次数、邀请奖励和激励视频广告。</li>
             </ul>
-            <a class="card-link" href="#contact">了解合作</a>
+            <button class="card-link project-detail-trigger" type="button" data-project-detail="pixroom">查看详情</button>
           </article>
 
-          <article class="project-card" data-category="tool">
+          <article class="project-card" data-category="tool" tabindex="0" role="button" aria-haspopup="dialog" data-project-detail="material-box">
             <figure class="project-shot">
-              <img src="assets/projects/material-box-preview.svg" alt="素材收纳箱手机信息收纳 App 预览" loading="lazy" />
+            <img src="assets/projects/material-box-preview.svg" alt="Memoris 手机信息收纳 App 预览" loading="lazy" />
               <figcaption>产品预览 / 信息收纳</figcaption>
             </figure>
             <div class="card-topline">
               <span class="status">构思中</span>
               <span class="type">手机 App / 信息收纳</span>
             </div>
-            <h3>素材收纳箱</h3>
+            <h3>Memoris</h3>
             <p>
               手机上的信息收纳 App，用来把微信、小红书、网页、聊天里看到的有用信息随手放进去，并自动归纳、提取重点。
             </p>
@@ -295,10 +295,10 @@
               <li>核心是快速收纳链接、文字、截图和灵感，再提炼重点。</li>
               <li>适合做知识整理、选题沉淀、购物决策和项目资料积累。</li>
             </ul>
-            <a class="card-link" href="#contact">关注进展</a>
+            <button class="card-link project-detail-trigger" type="button" data-project-detail="material-box">查看详情</button>
           </article>
 
-          <article class="project-card" data-category="game">
+          <article class="project-card" data-category="game" tabindex="0" role="button" aria-haspopup="dialog" data-project-detail="office-survivor">
             <figure class="project-shot">
               <img src="assets/projects/office-survivor-cover.png" alt="工位突围 Office Survivor 微信小游戏封面" loading="lazy" />
               <figcaption>游戏封面 / 工位突围</figcaption>
@@ -321,10 +321,10 @@
               <li>商业化方向包含激励广告、分享传播、商城和留存目标。</li>
               <li>成功标准是不看广告也能完整玩，入口自然不打断战斗。</li>
             </ul>
-            <a class="card-link" href="#contact">试玩咨询</a>
+            <button class="card-link project-detail-trigger" type="button" data-project-detail="office-survivor">查看详情</button>
           </article>
 
-          <article class="project-card" data-category="app">
+          <article class="project-card" data-category="app" tabindex="0" role="button" aria-haspopup="dialog" data-project-detail="motorcycle-garage">
             <figure class="project-shot">
               <img src="assets/projects/motorcycle-garage-preview.svg" alt="Motorcycle Garage 摩托车数字车库 App 预览" loading="lazy" />
               <figcaption>产品预览 / Motorcycle Garage</figcaption>
@@ -347,7 +347,7 @@
               <li>iOS 使用 SwiftUI，本地 JSON 存储；Android 有 Compose 骨架。</li>
               <li>暂不做登录、社区和云同步，先验证单车本地使用场景。</li>
             </ul>
-            <a class="card-link" href="#contact">查看方向</a>
+            <button class="card-link project-detail-trigger" type="button" data-project-detail="motorcycle-garage">查看详情</button>
           </article>
         </div>
       </section>
@@ -423,7 +423,7 @@
         <div class="update-grid">
           <article class="update-card highlighted">
             <span>06.15</span>
-            <h3>素材收纳箱方向明确</h3>
+            <h3>Memoris 方向明确</h3>
             <p>明确为手机信息收纳 App，支持把微信、小红书、网页和聊天里的有用信息集中归纳、提取重点。</p>
           </article>
           <article class="update-card">
@@ -469,7 +469,7 @@
             我关注 AI 工具、个人效率工作流、小游戏和垂直产品。这个主页先作为项目入口，用来把不同阶段的想法整理成别人能快速理解的项目卡片。
           </p>
           <p>
-            当前优先推进 PixRoom 和工位突围；素材收纳箱用于验证手机端信息收纳和重点提取工作流；Motorcycle Garage 是面向摩托车生命周期管理的本地优先 App。
+            当前优先推进 PixRoom 和工位突围；Memoris 用于验证手机端信息收纳和重点提取工作流；Motorcycle Garage 是面向摩托车生命周期管理的本地优先 App。
           </p>
         </div>
       </section>
@@ -483,15 +483,15 @@
         <div class="faq-list">
           <details open>
             <summary>老曹造物集是什么？</summary>
-            <p>老曹造物集是一个个人项目主页，集中展示 PixRoom、素材收纳箱、工位突围、Motorcycle Garage 等产品、工具和游戏实验。</p>
+            <p>老曹造物集是一个个人项目主页，集中展示 PixRoom、Memoris、工位突围、Motorcycle Garage 等产品、工具和游戏实验。</p>
           </details>
           <details>
             <summary>PixRoom 是什么？</summary>
             <p>PixRoom 是一个面向普通用户的在线 P 图小程序，目标是把抠图、换背景、图片美化和轻量编辑做成手机里随手可用的小工具。</p>
           </details>
           <details>
-            <summary>素材收纳箱解决什么问题？</summary>
-            <p>素材收纳箱是一个手机信息收纳 App，用来把平时在微信、小红书、网页和聊天里看到的有用信息随手放进去，再自动归纳和提取重点。</p>
+            <summary>Memoris 解决什么问题？</summary>
+            <p>Memoris 是一个手机信息收纳 App，用来把平时在微信、小红书、网页和聊天里看到的有用信息随手放进去，再自动归纳和提取重点。</p>
           </details>
           <details>
             <summary>工位突围现在是什么阶段？</summary>
@@ -514,7 +514,7 @@
           <h2 id="contact-title">合作、试用或交流</h2>
         </div>
         <div class="contact-panel">
-          <p>如果你对 PixRoom、素材收纳箱、小游戏或 App 方向感兴趣，可以通过邮件联系我。</p>
+          <p>如果你对 PixRoom、Memoris、小游戏或 App 方向感兴趣，可以通过邮件联系我。</p>
           <ul class="contact-fit">
             <li>项目试用、早期反馈和真实用户访谈</li>
             <li>渠道合作、内容共创和商业化测试</li>
@@ -533,6 +533,22 @@
         </div>
       </section>
     </main>
+
+    <dialog class="project-detail-dialog" aria-labelledby="project-detail-title">
+      <button class="dialog-close" type="button" aria-label="关闭项目详情">×</button>
+      <div class="project-detail-shell">
+        <p class="eyebrow">Project Detail</p>
+        <h2 id="project-detail-title"></h2>
+        <p class="project-detail-intro"></p>
+        <dl class="project-detail-meta"></dl>
+        <div class="project-detail-body">
+          <h3>具体介绍</h3>
+          <p class="project-detail-summary"></p>
+          <ul class="project-detail-points"></ul>
+        </div>
+        <a class="button primary project-detail-contact" href="#contact">联系合作</a>
+      </div>
+    </dialog>
 
     <footer class="site-footer">
       <span>© 2026 老曹造物集</span>

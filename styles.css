@@ -773,9 +773,12 @@ h1 {
   width: fit-content;
   margin-top: auto;
   padding-top: 26px;
+  border: 0;
+  background: transparent;
   color: #176fd4;
   font-weight: 800;
   transition: color 180ms ease;
+  cursor: pointer;
 }
 
 .card-link:hover,
@@ -786,6 +789,128 @@ h1 {
 
 .project-card.hidden {
   display: none;
+}
+
+.project-card[role="button"] {
+  cursor: pointer;
+}
+
+.project-card[role="button"]:focus-visible {
+  outline: 3px solid rgba(13, 165, 168, 0.32);
+  outline-offset: 4px;
+}
+
+.project-detail-dialog {
+  width: min(760px, calc(100vw - 32px));
+  max-width: none;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  border-radius: 26px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(247, 251, 249, 0.98));
+  box-shadow: 0 30px 90px rgba(37, 69, 87, 0.26);
+}
+
+.project-detail-dialog::backdrop {
+  background: rgba(14, 25, 34, 0.45);
+  backdrop-filter: blur(4px);
+}
+
+.project-detail-shell {
+  position: relative;
+  padding: 28px;
+}
+
+.dialog-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(15, 31, 42, 0.08);
+  color: var(--graphite);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.project-detail-intro {
+  margin-top: 10px;
+  color: #35566a;
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+.project-detail-meta {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 20px 0 0;
+}
+
+.project-detail-meta div {
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(242, 247, 244, 0.95);
+}
+
+.project-detail-meta dt {
+  color: #617b8a;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.project-detail-meta dd {
+  margin: 6px 0 0;
+  color: var(--graphite);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.project-detail-body {
+  margin-top: 24px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+
+.project-detail-body h3 {
+  font-size: 18px;
+}
+
+.project-detail-summary {
+  margin-top: 12px;
+  color: #406071;
+  line-height: 1.8;
+}
+
+.project-detail-points {
+  display: grid;
+  gap: 10px;
+  margin: 16px 0 0;
+  padding: 0;
+  color: #3f5969;
+  list-style: none;
+}
+
+.project-detail-points li {
+  position: relative;
+  padding-left: 18px;
+}
+
+.project-detail-points li::before {
+  position: absolute;
+  top: 0.7em;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--blue), var(--teal));
+  content: "";
+}
+
+.project-detail-contact {
+  margin-top: 22px;
 }
 
 .about-section,
