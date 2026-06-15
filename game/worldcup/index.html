@@ -623,13 +623,22 @@
         lastSfx: {}
       };
 
+      function defaultQualityMode() {
+        if (typeof wx !== "undefined") return "low";
+        const width = typeof window !== "undefined" ? window.innerWidth || 0 : 0;
+        const coarsePointer = typeof matchMedia === "function" && matchMedia("(pointer: coarse)").matches;
+        const narrowViewport = width > 0 && width <= 820;
+        const lowMemory = typeof navigator !== "undefined" && navigator.deviceMemory && navigator.deviceMemory <= 4;
+        return coarsePointer || narrowViewport || lowMemory ? "auto" : "high";
+      }
+
       const runtime = {
         platform: typeof wx !== "undefined" ? "wechat-mini-program" : "browser",
         assetScale: 1,
         frame: { fps: 60, acc: 0, count: 0, sample: 0 },
         render: { view: null, drawn: 0, skipped: 0 },
         quality: {
-          mode: storageGet("officeSurvivorQuality") || (typeof wx !== "undefined" ? "low" : "auto"),
+          mode: storageGet("officeSurvivorQuality") || defaultQualityMode(),
           low: false,
           lowFor: 0,
           highFor: 0

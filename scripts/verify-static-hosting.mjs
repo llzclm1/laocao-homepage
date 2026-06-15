@@ -41,6 +41,9 @@ assert.equal(worldcup.includes("../wechat-game/"), false, "worldcup page should 
 assert.equal(worldcup.includes("手机APP版"), false, "worldcup page should not request old local app fallback assets");
 assert.equal(worldcup.includes("assets/premium/"), false, "worldcup page should not request missing premium fallback assets");
 assert.equal(worldcup.includes("if (simplified && !e.boss && !e.elite)"), false, "low quality should not draw old simple enemy colors");
+assert.ok(worldcup.includes("function defaultQualityMode()"), "worldcup page should choose quality defaults per device");
+assert.ok(worldcup.includes("const narrowViewport = width > 0 && width <= 820;"), "mobile-width browser should default to auto quality");
+assert.ok(worldcup.includes('return coarsePointer || narrowViewport || lowMemory ? "auto" : "high";'), "desktop browser should default to high quality");
 
 const requiredAssets = [
   "game/worldcup/assets/office_survivor_atlas.png",
