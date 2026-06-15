@@ -820,6 +820,20 @@ h1 {
   padding: 28px;
 }
 
+.project-detail-visual {
+  overflow: hidden;
+  margin: 0 0 22px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, rgba(13, 165, 168, 0.08), rgba(23, 111, 212, 0.08));
+}
+
+.project-detail-image {
+  display: block;
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+}
+
 .dialog-close {
   position: absolute;
   top: 16px;
