@@ -40,6 +40,7 @@ assert.equal(worldcup.includes('href="/'), false, "worldcup page should not use 
 assert.equal(worldcup.includes("../wechat-game/"), false, "worldcup page should not request old wechat-game fallback assets");
 assert.equal(worldcup.includes("手机APP版"), false, "worldcup page should not request old local app fallback assets");
 assert.equal(worldcup.includes("assets/premium/"), false, "worldcup page should not request missing premium fallback assets");
+assert.equal(worldcup.includes("if (simplified && !e.boss && !e.elite)"), false, "low quality should not draw old simple enemy colors");
 
 const requiredAssets = [
   "game/worldcup/assets/office_survivor_atlas.png",

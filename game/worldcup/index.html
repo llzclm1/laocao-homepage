@@ -3252,9 +3252,7 @@
           if (e.hitFlash > 0) {
             ctx.globalAlpha = 0.72;
           }
-          if (simplified && !e.boss && !e.elite) {
-            drawSimpleEnemy(e);
-          } else if (e.boss) {
+          if (e.boss) {
             const base = enemySpriteBase(e) || "boss";
             const sprite = `${base}${Math.sin(state.elapsed * 3.2 + e.x * 0.01) > 0 ? 1 : 2}`;
             drawSpriteAsset(sprite, -84, -92, 168, 168, () => drawPixelSprite("boss", -60, -66, 6));
@@ -3285,18 +3283,6 @@
           ctx.globalAlpha = 1;
           ctx.restore();
         }
-      }
-
-      function drawSimpleEnemy(e) {
-        const size = e.r * 2;
-        const color = e.color || (e.type === "kpi" ? "#ff6868"
-          : e.type === "meeting" ? "#b990ff"
-          : e.type === "mail" ? "#67d8ff"
-          : "#ffcf4a");
-        pixelRect(-size / 2, -size / 2 - 8, size, size + 8, "#2a2230", 2);
-        pixelRect(-size / 2 + 4, -size / 2 - 4, size - 8, size, color, 2);
-        pixelRect(-5, -8, 4, 4, "#11131b", 1);
-        pixelRect(4, -8, 4, 4, "#11131b", 1);
       }
 
       function drawProjectiles() {
