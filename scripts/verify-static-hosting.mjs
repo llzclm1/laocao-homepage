@@ -45,8 +45,9 @@ assert.equal(worldcup.includes("手机APP版"), false, "worldcup page should not
 assert.equal(worldcup.includes("assets/premium/"), false, "worldcup page should not request missing premium fallback assets");
 assert.equal(worldcup.includes("if (simplified && !e.boss && !e.elite)"), false, "low quality should not draw old simple enemy colors");
 assert.ok(worldcup.includes("function defaultQualityMode()"), "worldcup page should choose quality defaults per device");
-assert.ok(worldcup.includes("const narrowViewport = width > 0 && width <= 820;"), "mobile-width browser should default to auto quality");
-assert.ok(worldcup.includes('return coarsePointer || narrowViewport || lowMemory ? "auto" : "high";'), "desktop browser should default to high quality");
+assert.ok(worldcup.includes('return lowMemory ? "auto" : "high";'), "browser H5 should default to high quality unless memory is constrained");
+assert.ok(worldcup.includes("@media (max-width: 820px), (pointer: coarse)"), "mobile browser should fill the viewport height");
+assert.ok(worldcup.includes("premiumName && premiumSources[premiumName]"), "worldcup characters should not fall back to old atlas sprites");
 
 const requiredAssets = [
   "game/worldcup/assets/office_survivor_atlas.png",

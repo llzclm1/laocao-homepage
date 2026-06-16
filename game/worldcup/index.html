@@ -56,6 +56,16 @@
       box-shadow: 0 22px 80px rgba(0, 0, 0, 0.44);
     }
 
+    @media (max-width: 820px), (pointer: coarse) {
+      canvas {
+        width: calc(100vh * 9 / 16);
+        height: 100vh;
+        width: calc(100dvh * 9 / 16);
+        height: 100dvh;
+        max-width: none;
+      }
+    }
+
     .hud {
       position: fixed;
       inset: 0;
@@ -143,6 +153,11 @@
       border: 1px solid var(--line);
       background: rgba(255, 255, 255, 0.08);
       color: var(--ink);
+    }
+
+    button:disabled {
+      cursor: wait;
+      opacity: 0.64;
     }
 
     .upgrade-grid {
@@ -493,6 +508,7 @@
       const inviteReviveBtn = document.getElementById("inviteReviveBtn");
       const audioBtn = document.getElementById("audioBtn");
       const qualityBtn = document.getElementById("qualityBtn");
+      const startBtn = document.getElementById("startBtn");
       const tune = {
         enemyRate: 1,
         playerSpeed: 1,
@@ -511,33 +527,45 @@
       atlasImage.src = atlasSources[0];
       const premiumImages = {};
       const premiumReady = {};
+      const requiredPremiumKeys = [
+        "player",
+        "playerWalk",
+        "bossPrinter",
+        "chairElite",
+        "coffeeEnemy",
+        "kpiFolder",
+        "staplerEnemy",
+        "meetingNotice",
+        "messageSupervisor"
+      ];
+      let premiumFallbackTimer = null;
       const premiumSources = {
         player: [
-          "assets/worldcup/worldcup_player_idle.png"
+          "assets/worldcup/worldcup_player_idle.png?v=20260616-blue"
         ],
         playerWalk: [
-          "assets/worldcup/worldcup_player_run.png"
+          "assets/worldcup/worldcup_player_run.png?v=20260616-blue"
         ],
         bossPrinter: [
-          "assets/worldcup/worldcup_boss.png"
+          "assets/worldcup/worldcup_boss.png?v=20260616-blue"
         ],
         chairElite: [
-          "assets/worldcup/worldcup_hr.png"
+          "assets/worldcup/worldcup_hr.png?v=20260616-blue"
         ],
         coffeeEnemy: [
-          "assets/worldcup/worldcup_message_supervisor.png"
+          "assets/worldcup/worldcup_message_supervisor.png?v=20260616-blue"
         ],
         kpiFolder: [
-          "assets/worldcup/worldcup_patrol_colleague.png"
+          "assets/worldcup/worldcup_patrol_colleague.png?v=20260616-blue"
         ],
         staplerEnemy: [
-          "assets/worldcup/worldcup_patrol_colleague.png"
+          "assets/worldcup/worldcup_patrol_colleague.png?v=20260616-blue"
         ],
         meetingNotice: [
-          "assets/worldcup/worldcup_meeting_notice.png"
+          "assets/worldcup/worldcup_meeting_notice.png?v=20260616-blue"
         ],
         messageSupervisor: [
-          "assets/worldcup/worldcup_message_supervisor.png"
+          "assets/worldcup/worldcup_message_supervisor.png?v=20260616-blue"
         ]
       };
 
@@ -547,15 +575,36 @@
         premiumReady[key] = false;
         image.onload = () => {
           premiumReady[key] = true;
+          updateStartButton();
         };
         image.onerror = () => {
           premiumReady[key] = false;
           if (index + 1 < sources.length) loadPremiumImage(key, sources, index + 1);
+          else updateStartButton();
         };
         image.src = sources[index];
       }
 
       Object.entries(premiumSources).forEach(([key, sources]) => loadPremiumImage(key, sources));
+      function hasRequiredPremiumSprites() {
+        return requiredPremiumKeys.every((key) => premiumReady[key]);
+      }
+
+      function updateStartButton() {
+        if (!startBtn || startScreen.classList.contains("hidden")) return;
+        const ready = hasRequiredPremiumSprites();
+        startBtn.disabled = !ready && premiumFallbackTimer !== null;
+        startBtn.textContent = ready ? "开始摸鱼" : "加载角色中...";
+      }
+
+      premiumFallbackTimer = setTimeout(() => {
+        premiumFallbackTimer = null;
+        if (startBtn && !startScreen.classList.contains("hidden")) {
+          startBtn.disabled = false;
+          startBtn.textContent = "开始摸鱼";
+        }
+      }, 2000);
+      updateStartButton();
       const atlas = {
         playerIdle1: [0, 0],
         playerIdle2: [96, 0],
@@ -625,11 +674,8 @@
 
       function defaultQualityMode() {
         if (typeof wx !== "undefined") return "low";
-        const width = typeof window !== "undefined" ? window.innerWidth || 0 : 0;
-        const coarsePointer = typeof matchMedia === "function" && matchMedia("(pointer: coarse)").matches;
-        const narrowViewport = width > 0 && width <= 820;
         const lowMemory = typeof navigator !== "undefined" && navigator.deviceMemory && navigator.deviceMemory <= 4;
-        return coarsePointer || narrowViewport || lowMemory ? "auto" : "high";
+        return lowMemory ? "auto" : "high";
       }
 
       const runtime = {
@@ -1251,6 +1297,7 @@
         hud.classList.remove("hidden");
         renderMetaPanel();
         startScreen.classList.remove("hidden");
+        updateStartButton();
         upgradeScreen.classList.add("hidden");
         floorScreen.classList.add("hidden");
         resultScreen.classList.add("hidden");
@@ -4251,7 +4298,7 @@
           ]
         },
         kpiMonster: {
-          palette: { R: "#ff5d5d", D: "#8b2633", W: "#fff1f1", K: "#1a1114", Y: "#ffcf4a" },
+          palette: { R: "#2d4f7c", D: "#162033", W: "#f4f0e8", K: "#0d111a", Y: "#ffcf4a" },
           rows: [
             "...DDDDDD...",
             "..DRRRRRD..",
@@ -4265,7 +4312,7 @@
           ]
         },
         meetingMonster: {
-          palette: { P: "#a982ff", D: "#52317e", W: "#f7f0ff", K: "#1d1530", C: "#67d8ff" },
+          palette: { P: "#8ce9ff", D: "#2a4f6b", W: "#f7fbff", K: "#162533", C: "#67d8ff" },
           rows: [
             "..DDDDDD..",
             ".DPPPPPPD.",
@@ -4279,7 +4326,7 @@
           ]
         },
         mailMonster: {
-          palette: { B: "#5fc7ff", D: "#245778", W: "#edf8ff", K: "#162533", R: "#ff6868" },
+          palette: { B: "#5f84b8", D: "#24354f", W: "#edf8ff", K: "#162533", R: "#ffcf4a" },
           rows: [
             "..DDDDDD..",
             ".DWWWWWWD.",
@@ -4293,7 +4340,7 @@
           ]
         },
         punchMonster: {
-          palette: { Y: "#ffb23f", D: "#7b481e", W: "#fff2c6", K: "#2a180b", R: "#ff6868" },
+          palette: { Y: "#3f5f8f", D: "#18243a", W: "#f4f0e8", K: "#11131b", R: "#ffcf4a" },
           rows: [
             "...DDDD...",
             "..DYYYYD..",
@@ -4307,7 +4354,7 @@
           ]
         },
         elite: {
-          palette: { M: "#ff4d92", D: "#7a173f", W: "#ffe7f0", K: "#22111a", R: "#ffcf4a", C: "#67d8ff" },
+          palette: { M: "#252a36", D: "#10131a", W: "#f4f0e8", K: "#0b0e14", R: "#ffcf4a", C: "#67d8ff" },
           rows: [
             "....DDDDDD....",
             "...DMMMMMMD...",
@@ -4323,7 +4370,7 @@
           ]
         },
         boss: {
-          palette: { G: "#d9a83c", D: "#6b4816", S: "#2b2f39", W: "#fff6d6", R: "#ff6969", K: "#19140a", B: "#4e6580" },
+          palette: { G: "#5b6472", D: "#252a36", S: "#2b2f39", W: "#f4f0e8", R: "#ffcf4a", K: "#11131b", B: "#4e6580" },
           rows: [
             ".....DDDDDDDD.....",
             "...DDGGGGGGGGDD...",
@@ -4356,7 +4403,11 @@
 
       function drawSpriteAsset(name, x, y, w, h, fallback) {
         const premiumName = premiumSpriteFor(name);
-        if (premiumName && drawPremiumSprite(premiumName, x, y, w, h)) return;
+        if (premiumName && premiumSources[premiumName]) {
+          if (drawPremiumSprite(premiumName, x, y, w, h)) return;
+          if (fallback) fallback();
+          return;
+        }
         if (!canDrawSpriteAsset(name)) {
           if (fallback) fallback();
           return;
