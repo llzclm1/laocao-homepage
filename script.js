@@ -159,6 +159,11 @@ filterButtons.forEach((button) => {
 
 projectCards.forEach((card) => {
   card.addEventListener("click", (event) => {
+    if (card.dataset.href && !event.target.closest("a, button")) {
+      window.location.href = card.dataset.href;
+      return;
+    }
+
     const trigger = event.target.closest(".project-detail-trigger");
     if (trigger || event.target === card || !event.target.closest(".card-link")) {
       openProjectDetail(trigger?.dataset.projectDetail ?? card.dataset.projectDetail);
@@ -168,6 +173,11 @@ projectCards.forEach((card) => {
   card.addEventListener("keydown", (event) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
+      if (card.dataset.href) {
+        window.location.href = card.dataset.href;
+        return;
+      }
+
       openProjectDetail(card.dataset.projectDetail);
     }
   });
