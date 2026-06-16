@@ -189,14 +189,7 @@ if (detailDialog && detailClose) {
   });
 
   detailDialog.addEventListener("click", (event) => {
-    const rect = detailDialog.getBoundingClientRect();
-    const clickedOutside =
-      event.clientX < rect.left ||
-      event.clientX > rect.right ||
-      event.clientY < rect.top ||
-      event.clientY > rect.bottom;
-
-    if (clickedOutside) {
+    if (event.target === detailDialog) {
       detailDialog.close();
     }
   });
