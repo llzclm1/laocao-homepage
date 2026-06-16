@@ -719,15 +719,15 @@
         { type: "meeting", x: 1430, y: 1950, w: 310, h: 160 },
         { type: "cabinet", x: 2170, y: 1990, w: 130, h: 250 }
       ];
-      const RUN_SECONDS = 300;
+      const RUN_SECONDS = 240;
       const FLOORS = [
         {
           name: "1F 普通办公区",
           short: "1F",
           bossName: "老板",
           duration: RUN_SECONDS,
-          waveScale: 1,
-          bossHp: 3500,
+          waveScale: 1.18,
+          bossHp: 4300,
           bossColor: "#f6cf50",
           floorBase: "#e7e0d2",
           tileColor: "#d8d0c0",
@@ -743,8 +743,8 @@
           short: "2F",
           bossName: "老板",
           duration: RUN_SECONDS,
-          waveScale: 1.16,
-          bossHp: 4800,
+          waveScale: 1.36,
+          bossHp: 6100,
           bossColor: "#67d8ff",
           floorBase: "#e3e8dd",
           tileColor: "#cfd8cb",
@@ -760,8 +760,8 @@
           short: "3F",
           bossName: "老板",
           duration: RUN_SECONDS,
-          waveScale: 1.32,
-          bossHp: 6500,
+          waveScale: 1.58,
+          bossHp: 8200,
           bossColor: "#ff6868",
           floorBase: "#ece1cf",
           tileColor: "#dac9aa",
@@ -774,7 +774,7 @@
         }
       ];
       const START_NEXT_EXP = 6;
-      const PACE_TARGETS = { firstUpgrade: 15, thirdSkill: 60, buildOnline: 90, boss: 300 };
+      const PACE_TARGETS = { firstUpgrade: 15, thirdSkill: 60, buildOnline: 90, boss: 240 };
       const ACHIEVEMENTS = [
         { id: "firstRun", name: "首场摸鱼赛", desc: "完成任意一局", reward: 30 },
         { id: "hundredKills", name: "百人防守", desc: "单局击退 100 个干扰", reward: 60 },
@@ -1129,12 +1129,12 @@
       };
 
       const enemyTypes = {
-        kpi: { name: "巡逻同事", hp: 25, speed: 94, damage: 8, exp: 2, color: "#ff7b7b", r: 16 },
-        meeting: { name: "会议通知", hp: 58, speed: 62, damage: 10, exp: 3, color: "#b990ff", r: 18 },
-        mail: { name: "发消息的主管", hp: 35, speed: 58, damage: 6, exp: 3, color: "#7fc6ff", r: 17, caster: true },
-        punch: { name: "巡逻同事", hp: 60, speed: 158, damage: 12, exp: 4, color: "#ffbe52", r: 19, charger: true },
-        elite: { name: "HR", hp: 650, speed: 82, damage: 15, exp: 24, color: "#ff4d92", r: 34, elite: true },
-        boss: { name: "老板", hp: 3500, speed: 58, damage: 20, exp: 0, color: "#f6cf50", r: 52, boss: true }
+        kpi: { name: "巡逻同事", hp: 32, speed: 108, damage: 10, exp: 2, color: "#ff7b7b", r: 16 },
+        meeting: { name: "会议通知", hp: 72, speed: 72, damage: 13, exp: 3, color: "#b990ff", r: 18 },
+        mail: { name: "发消息的主管", hp: 48, speed: 68, damage: 8, exp: 3, color: "#7fc6ff", r: 17, caster: true },
+        punch: { name: "巡逻同事", hp: 76, speed: 176, damage: 15, exp: 4, color: "#ffbe52", r: 19, charger: true },
+        elite: { name: "HR", hp: 820, speed: 96, damage: 18, exp: 24, color: "#ff4d92", r: 34, elite: true },
+        boss: { name: "老板", hp: 4300, speed: 68, damage: 24, exp: 0, color: "#f6cf50", r: 52, boss: true }
       };
       const floorEnemyLooks = [
         {
@@ -1164,12 +1164,12 @@
       ];
 
       const waves = [
-        { t: 0, rate: 2.4, pool: ["kpi"] },
-        { t: 45, rate: 3.4, pool: ["kpi", "kpi", "meeting"] },
-        { t: 90, rate: 4.6, pool: ["kpi", "kpi", "meeting", "mail"] },
-        { t: 140, rate: 5.5, pool: ["kpi", "kpi", "meeting", "punch"], elite: true },
-        { t: 190, rate: 6.4, pool: ["kpi", "kpi", "meeting", "mail", "punch"], eliteEvery: 42 },
-        { t: 240, rate: 7.2, pool: ["kpi", "kpi", "kpi", "meeting", "punch"], eliteEvery: 36 }
+        { t: 0, rate: 3.2, pool: ["kpi", "kpi", "meeting"] },
+        { t: 32, rate: 4.4, pool: ["kpi", "kpi", "meeting", "mail"] },
+        { t: 70, rate: 5.8, pool: ["kpi", "meeting", "mail", "punch"] },
+        { t: 112, rate: 7.0, pool: ["kpi", "kpi", "meeting", "punch"], elite: true },
+        { t: 160, rate: 8.2, pool: ["kpi", "meeting", "mail", "punch", "punch"], eliteEvery: 34 },
+        { t: 205, rate: 9.4, pool: ["kpi", "meeting", "mail", "punch", "punch"], eliteEvery: 28 }
       ];
 
       let spawnBudget = 0;
@@ -1467,7 +1467,7 @@
           state.messageT = 2;
           gainExp(Math.max(0, state.nextExp - state.exp));
         }
-        if (!state.paceFlags.secondWeapon && state.elapsed >= 26) {
+        if (!state.paceFlags.secondWeapon && state.elapsed >= 22) {
           state.paceFlags.secondWeapon = true;
           if (countUnlockedWeapons() < 2 && unlockStarterWeapon()) {
             state.message = "替补席送来第二个技能";
@@ -1476,14 +1476,14 @@
             spawnPowerBurst(player.x, player.y - 18, "#67d8ff", 120, 10);
           }
         }
-        if (!state.paceFlags.firstElite && state.elapsed >= 45) {
+        if (!state.paceFlags.firstElite && state.elapsed >= 36) {
           state.paceFlags.firstElite = true;
           spawnEnemy("elite");
           state.message = "第一个HR提前巡场";
           state.messageT = 2.4;
           playSound("bossWarning", 0.12);
         }
-        if (!state.paceFlags.bossSupply && state.elapsed >= currentFloor().duration - 20) {
+        if (!state.paceFlags.bossSupply && state.elapsed >= currentFloor().duration - 16) {
           state.paceFlags.bossSupply = true;
           spawnPickup("heal");
           spawnPickup("magnet");
