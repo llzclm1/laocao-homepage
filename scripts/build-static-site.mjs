@@ -15,6 +15,7 @@ const copyEntries = [
   "CNAME",
   "docs",
   "favicon.svg",
+  "films",
   "game",
   "google985cfee1847b0d86.html",
   "index.html",
@@ -45,6 +46,7 @@ rewriteTextFile("llms.txt", (text) =>
 rewriteTextFile("SEARCH_ENGINE_SUBMISSION.md", (text) =>
   text.replaceAll("https://gewuji.dev", publicBaseUrl)
 );
+injectAnalyticsTags();
 
 fs.writeFileSync(path.join(outDir, "robots.txt"), buildRobots(), "utf8");
 fs.writeFileSync(path.join(outDir, "sitemap.xml"), buildSitemap(), "utf8");
@@ -72,6 +74,67 @@ function rewriteTextFile(file, transform) {
   const target = path.join(outDir, file);
   if (!fs.existsSync(target)) return;
   fs.writeFileSync(target, transform(fs.readFileSync(target, "utf8")), "utf8");
+}
+
+function injectAnalyticsTags() {
+  const tags = buildAnalyticsTags();
+  if (!tags) return;
+
+  for (const file of listHtmlFiles(outDir)) {
+    const html = fs.readFileSync(file, "utf8");
+    if (!html.includes("</head>")) continue;
+    fs.writeFileSync(file, html.replace("</head>", `${tags}\n  </head>`), "utf8");
+  }
+}
+
+function buildAnalyticsTags() {
+  const tags = [];
+  const googleVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
+  const cloudflareToken = process.env.NEXT_PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN;
+  const clarityId = process.env.NEXT_PUBLIC_CLARITY_ID;
+
+  if (googleVerification) {
+    tags.push(`    <meta name="google-site-verification" content="${escapeHtmlAttribute(googleVerification)}" />`);
+  }
+
+  if (cloudflareToken) {
+    const beaconConfig = escapeHtmlAttribute(JSON.stringify({ token: cloudflareToken }));
+    tags.push(
+      `    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="${beaconConfig}"></script>`
+    );
+  }
+
+  if (clarityId) {
+    tags.push(`    <script>
+      (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "${escapeJsString(clarityId)}");
+    </script>`);
+  }
+
+  return tags.join("\n");
+}
+
+function listHtmlFiles(directory) {
+  return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+    const file = path.join(directory, entry.name);
+    if (entry.isDirectory()) return listHtmlFiles(file);
+    return entry.isFile() && entry.name.endsWith(".html") ? [file] : [];
+  });
+}
+
+function escapeHtmlAttribute(value) {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
+}
+
+function escapeJsString(value) {
+  return value.replaceAll("\\", "\\\\").replaceAll('"', '\\"').replaceAll("</script", "<\\/script");
 }
 
 function buildRobots() {
