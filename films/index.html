@@ -77,7 +77,7 @@
             <p class="eyebrow">Personal Archive</p>
             <h2 id="films-notes-title">观影记录</h2>
           </div>
-          <p>第一版使用本地 JSON 维护。后续每新增一部电影，只需要在 <code>films/films.json</code> 中追加一条记录。</p>
+          <p>第一版使用本地 JSON 维护。后续每新增一部电影，只需要在 <code>films/films.json</code> 中追加一条记录。<span class="film-count" data-film-count></span></p>
         </div>
 
         <div class="film-note-grid" data-film-list>
@@ -97,9 +97,23 @@
 
     <script>
       const filmList = document.querySelector("[data-film-list]");
+      const filmCount = document.querySelector("[data-film-count]");
+
+      function escapeHtml(value) {
+        return String(value ?? "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
 
       function renderFilmNotes(items) {
         if (!filmList || !Array.isArray(items) || items.length === 0) return;
+
+        if (filmCount) {
+          filmCount.textContent = `已记录 ${items.length} 部`;
+        }
 
         filmList.innerHTML = items
           .map((film) => {
@@ -107,18 +121,18 @@
             return `
               <article class="film-note-card">
                 <div class="film-note-topline">
-                  <span>${film.year || "年份未填"}</span>
-                  <span>${film.rating || "未评分"}</span>
+                  <span>${escapeHtml(film.year || "年份未填")}</span>
+                  <span>${escapeHtml(film.rating || "未评分")}</span>
                 </div>
-                <h3>${film.title || "未命名电影"}</h3>
-                <p class="film-note-date">${film.watchedAt || "观看时间未填"}</p>
-                <p>${film.summary || "一句话感受待补充。"}</p>
+                <h3>${escapeHtml(film.title || "未命名电影")}</h3>
+                <p class="film-note-date">${escapeHtml(film.watchedAt || "观看时间未填")}</p>
+                <p>${escapeHtml(film.summary || "一句话感受待补充。")}</p>
                 <div class="film-keywords">
-                  ${keywords.map((keyword) => `<span>${keyword}</span>`).join("")}
+                  ${keywords.map((keyword) => `<span>${escapeHtml(keyword)}</span>`).join("")}
                 </div>
                 <dl class="film-note-meta">
-                  <div><dt>适合谁看</dt><dd>${film.forWho || "待补充"}</dd></div>
-                  <div><dt>启发</dt><dd>${film.inspiration || "待补充"}</dd></div>
+                  <div><dt>适合谁看</dt><dd>${escapeHtml(film.forWho || "待补充")}</dd></div>
+                  <div><dt>启发</dt><dd>${escapeHtml(film.inspiration || "待补充")}</dd></div>
                 </dl>
               </article>
             `;

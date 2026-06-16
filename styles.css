@@ -1505,6 +1505,13 @@ h1 {
   font-size: 0.92em;
 }
 
+.film-count {
+  display: inline-flex;
+  margin-left: 8px;
+  color: #080b10;
+  font-weight: 800;
+}
+
 .film-note-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
