@@ -143,8 +143,6 @@ function buildRobots() {
     "Allow: /",
     "",
     `Sitemap: ${publicUrl("sitemap.xml")}`,
-    "",
-    `LLMs: ${publicUrl("llms.txt")}`,
     ""
   ].join("\n");
 }
@@ -152,6 +150,7 @@ function buildRobots() {
 function buildSitemap() {
   const entries = [
     ["", "1.0"],
+    ["films/", "0.8"],
     ["game/worldcup/", "0.8"],
     ["llms.txt", "0.6"]
   ];

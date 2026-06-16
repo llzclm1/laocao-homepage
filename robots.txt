@@ -2,5 +2,3 @@ User-agent: *
 Allow: /
 
 Sitemap: https://gewuji.dev/sitemap.xml
-
-LLMs: https://gewuji.dev/llms.txt

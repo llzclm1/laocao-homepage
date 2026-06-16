@@ -27,7 +27,7 @@ https://gewuji.dev/llms.txt
 ## 已在代码中添加
 
 - `robots.txt`：允许搜索引擎抓取，并声明 sitemap。
-- `sitemap.xml`：声明首页 URL。
+- `sitemap.xml`：声明首页、光影志和重点页面 URL。
 - `index.html`：添加 canonical、description、Open Graph、Twitter Card、结构化数据。
 - `llms.txt`：给 AI 搜索和问答工具读取的项目说明。
 - `8221b5ee5eb23147b8f2422b2cb6096e.txt`：IndexNow 验证文件。
