@@ -1325,6 +1325,23 @@ h1 {
   gap: 16px;
 }
 
+.about-portrait-card {
+  overflow: hidden;
+  margin: 12px 0 0;
+  border: 1px solid rgba(10, 15, 22, 0.08);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: var(--shadow-tight);
+}
+
+.about-portrait-card img {
+  display: block;
+  width: 100%;
+  max-height: 620px;
+  object-fit: cover;
+  object-position: center 42%;
+}
+
 .contact-panel {
   border: 1px solid rgba(10, 15, 22, 0.08);
   border-radius: 14px;
