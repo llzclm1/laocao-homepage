@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1536" height="1024" viewBox="0 0 1536 1024" role="img" aria-labelledby="title desc">
+  <title id="title">光影志 Film Notes</title>
+  <desc id="desc">浅色极简电影记录封面占位图</desc>
+  <rect width="1536" height="1024" fill="#f7f8fa"/>
+  <rect x="48" y="48" width="1440" height="928" rx="32" fill="#ffffff" stroke="#d9dde3" stroke-width="2"/>
+  <g opacity="0.72">
+    <rect x="148" y="156" width="520" height="712" rx="24" fill="#eef0f3"/>
+    <rect x="188" y="204" width="440" height="264" rx="18" fill="#dfe3e8"/>
+    <rect x="188" y="512" width="340" height="20" rx="10" fill="#111820"/>
+    <rect x="188" y="560" width="400" height="14" rx="7" fill="#8b939e"/>
+    <rect x="188" y="594" width="290" height="14" rx="7" fill="#b7bec8"/>
+  </g>
+  <g fill="#080b10">
+    <text x="784" y="372" font-family="Inter, Arial, sans-serif" font-size="72" font-weight="800">光影志</text>
+    <text x="788" y="438" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="600" fill="#526070">Film Notes</text>
+  </g>
+  <text x="788" y="526" font-family="Inter, Arial, sans-serif" font-size="28" fill="#3f4b59">一些看过的电影，和被它们改变过的瞬间。</text>
+  <g fill="none" stroke="#aeb6c2" stroke-width="2">
+    <path d="M788 610H1288"/>
+    <path d="M788 672H1150"/>
+    <path d="M788 734H1248"/>
+  </g>
+</svg>

@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="光影志 Film Notes 是格物集中的个人观影记录板块，记录看过的电影、当时的情绪、留下的记忆，以及对摄影、创作和生活的启发。"
+    />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <link rel="canonical" href="https://gewuji.dev/films/" />
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../styles.css?v=20260616-films" />
+    <title>光影志 Film Notes｜格物集</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "@id": "https://gewuji.dev/films/#webpage",
+        "url": "https://gewuji.dev/films/",
+        "name": "光影志 Film Notes｜格物集",
+        "description": "光影志 Film Notes 是格物集中的个人观影记录板块，记录看过的电影、当时的情绪、留下的记忆，以及对摄影、创作和生活的启发。",
+        "inLanguage": "zh-CN",
+        "isPartOf": {
+          "@type": "WebSite",
+          "@id": "https://gewuji.dev/#website",
+          "name": "格物集"
+        },
+        "primaryImageOfPage": {
+          "@type": "ImageObject",
+          "url": "https://gewuji.dev/assets/films/film-notes-cover.svg",
+          "caption": "光影志 Film Notes"
+        },
+        "about": {
+          "@type": "CreativeWork",
+          "name": "光影志",
+          "alternateName": "Film Notes",
+          "description": "私人观影手帐，用来记录看过的电影、情绪、记忆和创作启发。"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../#top" aria-label="回到格物集首页">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>格物集</span>
+      </a>
+      <nav class="nav" aria-label="主导航">
+        <a href="../#projects">项目</a>
+        <a href="../#manuals">手册</a>
+        <a href="../#updates">更新</a>
+        <a href="../#about">关于</a>
+        <a href="../#faq">FAQ</a>
+        <a href="../#contact">联系</a>
+      </nav>
+    </header>
+
+    <main class="films-page" id="top">
+      <section class="films-hero" aria-labelledby="films-title">
+        <div class="films-hero-copy">
+          <p class="eyebrow">Film Notes</p>
+          <h1 id="films-title">光影志</h1>
+          <p class="hero-subtitle">一些看过的电影，和被它们改变过的瞬间。</p>
+          <p class="films-intro">
+            这是个人观影记录板块，不是产品页，不是影视资源下载站，不提供网盘资源。它更像一本私人观影手帐，用来记录情绪、记忆，以及电影对摄影、创作和生活的启发。
+          </p>
+        </div>
+        <figure class="films-hero-visual">
+          <img src="../assets/films/film-notes-cover.svg" alt="光影志 Film Notes" />
+        </figure>
+      </section>
+
+      <section class="films-notes-section" aria-labelledby="films-notes-title">
+        <div class="section-heading compact">
+          <div>
+            <p class="eyebrow">Personal Archive</p>
+            <h2 id="films-notes-title">观影记录</h2>
+          </div>
+          <p>第一版使用本地 JSON 维护。后续每新增一部电影，只需要在 <code>films/films.json</code> 中追加一条记录。</p>
+        </div>
+
+        <div class="film-note-grid" data-film-list>
+          <article class="film-empty-card">
+            <span>Film Notes</span>
+            <h3>还没有公开记录</h3>
+            <p>这里会逐步放入看过的电影、当时的情绪、关键词，以及对摄影、创作或生活留下的启发。</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>© 2026 格物集 · 光影志 · 记录情绪 · 留下记忆 · 继续观看</span>
+      <a href="../#top">回到首页</a>
+    </footer>
+
+    <script>
+      const filmList = document.querySelector("[data-film-list]");
+
+      function renderFilmNotes(items) {
+        if (!filmList || !Array.isArray(items) || items.length === 0) return;
+
+        filmList.innerHTML = items
+          .map((film) => {
+            const keywords = Array.isArray(film.keywords) ? film.keywords : [];
+            return `
+              <article class="film-note-card">
+                <div class="film-note-topline">
+                  <span>${film.year || "年份未填"}</span>
+                  <span>${film.rating || "未评分"}</span>
+                </div>
+                <h3>${film.title || "未命名电影"}</h3>
+                <p class="film-note-date">${film.watchedAt || "观看时间未填"}</p>
+                <p>${film.summary || "一句话感受待补充。"}</p>
+                <div class="film-keywords">
+                  ${keywords.map((keyword) => `<span>${keyword}</span>`).join("")}
+                </div>
+                <dl class="film-note-meta">
+                  <div><dt>适合谁看</dt><dd>${film.forWho || "待补充"}</dd></div>
+                  <div><dt>启发</dt><dd>${film.inspiration || "待补充"}</dd></div>
+                </dl>
+              </article>
+            `;
+          })
+          .join("");
+      }
+
+      fetch("films.json")
+        .then((response) => (response.ok ? response.json() : []))
+        .then(renderFilmNotes)
+        .catch(() => {});
+    </script>
+  </body>
+</html>
