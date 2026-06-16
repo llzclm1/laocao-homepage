@@ -701,24 +701,63 @@
       const MAX_ENEMIES = 165;
       const MAX_ENEMY_TYPES = { mail: 8, punch: 10, elite: 2, boss: 1 };
       const enemyGrid = { cellSize: 220, cells: new Map(), activeCells: 0 };
-      const obstacles = [
-        { type: "meeting", x: 250, y: 250, w: 280, h: 150 },
-        { type: "desk", x: 760, y: 260, w: 210, h: 92 },
-        { type: "printer", x: 1290, y: 210, w: 150, h: 110 },
-        { type: "cabinet", x: 1880, y: 270, w: 120, h: 230 },
-        { type: "desk", x: 410, y: 760, w: 220, h: 96 },
-        { type: "plant", x: 1060, y: 700, w: 90, h: 90 },
-        { type: "sofa", x: 1680, y: 790, w: 270, h: 90 },
-        { type: "meeting", x: 2070, y: 850, w: 300, h: 160 },
-        { type: "cabinet", x: 260, y: 1320, w: 130, h: 250 },
-        { type: "desk", x: 760, y: 1270, w: 240, h: 96 },
-        { type: "printer", x: 1540, y: 1280, w: 160, h: 120 },
-        { type: "desk", x: 2050, y: 1400, w: 230, h: 96 },
-        { type: "sofa", x: 420, y: 1960, w: 290, h: 92 },
-        { type: "plant", x: 1060, y: 2080, w: 92, h: 92 },
-        { type: "meeting", x: 1430, y: 1950, w: 310, h: 160 },
-        { type: "cabinet", x: 2170, y: 1990, w: 130, h: 250 }
+      const OBSTACLE_LAYOUTS = [
+        [
+          { type: "meeting", x: 250, y: 250, w: 280, h: 150 },
+          { type: "desk", x: 760, y: 260, w: 210, h: 92 },
+          { type: "printer", x: 1290, y: 210, w: 150, h: 110 },
+          { type: "cabinet", x: 1880, y: 270, w: 120, h: 230 },
+          { type: "desk", x: 410, y: 760, w: 220, h: 96 },
+          { type: "plant", x: 1060, y: 700, w: 90, h: 90 },
+          { type: "sofa", x: 1680, y: 790, w: 270, h: 90 },
+          { type: "meeting", x: 2070, y: 850, w: 300, h: 160 },
+          { type: "cabinet", x: 260, y: 1320, w: 130, h: 250 },
+          { type: "desk", x: 760, y: 1270, w: 240, h: 96 },
+          { type: "printer", x: 1540, y: 1280, w: 160, h: 120 },
+          { type: "desk", x: 2050, y: 1400, w: 230, h: 96 },
+          { type: "sofa", x: 420, y: 1960, w: 290, h: 92 },
+          { type: "plant", x: 1060, y: 2080, w: 92, h: 92 },
+          { type: "meeting", x: 1430, y: 1950, w: 310, h: 160 },
+          { type: "cabinet", x: 2170, y: 1990, w: 130, h: 250 }
+        ],
+        [
+          { type: "desk", x: 240, y: 360, w: 250, h: 96 },
+          { type: "printer", x: 740, y: 280, w: 160, h: 116 },
+          { type: "meeting", x: 1280, y: 330, w: 330, h: 158 },
+          { type: "cabinet", x: 2130, y: 300, w: 130, h: 250 },
+          { type: "sofa", x: 520, y: 900, w: 310, h: 92 },
+          { type: "plant", x: 1080, y: 900, w: 92, h: 92 },
+          { type: "desk", x: 1840, y: 840, w: 250, h: 96 },
+          { type: "cabinet", x: 2260, y: 980, w: 120, h: 230 },
+          { type: "meeting", x: 250, y: 1510, w: 310, h: 160 },
+          { type: "desk", x: 890, y: 1650, w: 240, h: 96 },
+          { type: "printer", x: 1480, y: 1650, w: 160, h: 120 },
+          { type: "desk", x: 2010, y: 1580, w: 230, h: 96 },
+          { type: "plant", x: 360, y: 2180, w: 92, h: 92 },
+          { type: "sofa", x: 1040, y: 2200, w: 300, h: 92 },
+          { type: "meeting", x: 1700, y: 2080, w: 310, h: 160 },
+          { type: "cabinet", x: 2260, y: 2070, w: 130, h: 250 }
+        ],
+        [
+          { type: "cabinet", x: 280, y: 270, w: 130, h: 250 },
+          { type: "meeting", x: 780, y: 300, w: 320, h: 160 },
+          { type: "desk", x: 1500, y: 270, w: 230, h: 96 },
+          { type: "printer", x: 2180, y: 290, w: 160, h: 120 },
+          { type: "desk", x: 300, y: 830, w: 240, h: 96 },
+          { type: "sofa", x: 900, y: 760, w: 300, h: 92 },
+          { type: "cabinet", x: 1740, y: 770, w: 130, h: 250 },
+          { type: "meeting", x: 2100, y: 920, w: 310, h: 160 },
+          { type: "printer", x: 340, y: 1460, w: 160, h: 120 },
+          { type: "desk", x: 930, y: 1390, w: 240, h: 96 },
+          { type: "plant", x: 1660, y: 1370, w: 92, h: 92 },
+          { type: "desk", x: 2170, y: 1510, w: 230, h: 96 },
+          { type: "meeting", x: 400, y: 2070, w: 310, h: 160 },
+          { type: "cabinet", x: 1180, y: 2070, w: 130, h: 250 },
+          { type: "sofa", x: 1600, y: 2140, w: 300, h: 92 },
+          { type: "plant", x: 2250, y: 2100, w: 92, h: 92 }
+        ]
       ];
+      let obstacles = generateRunObstacles();
       const RUN_SECONDS = 240;
       const FLOORS = [
         {
@@ -1186,6 +1225,30 @@
         }
       }
 
+      function generateRunObstacles() {
+        const layout = OBSTACLE_LAYOUTS[Math.floor(Math.random() * OBSTACLE_LAYOUTS.length)] || OBSTACLE_LAYOUTS[0];
+        return layout.map((item) => nudgeObstacle({ ...item }));
+      }
+
+      function nudgeObstacle(item) {
+        const jitter = item.type === "plant" ? 70 : item.type === "cabinet" ? 52 : 86;
+        item.x = clamp(item.x + rand(-jitter, jitter), 90, WORLD.w - item.w - 90);
+        item.y = clamp(item.y + rand(-jitter, jitter), 90, WORLD.h - item.h - 90);
+        return keepObstacleOutOfSpawn(item);
+      }
+
+      function keepObstacleOutOfSpawn(item) {
+        const safe = { x: WORLD.w / 2 - 380, y: WORLD.h / 2 - 330, w: 760, h: 660 };
+        if (!rectIntersects(item.x, item.y, item.w, item.h, safe)) return item;
+        const centerX = item.x + item.w / 2;
+        const centerY = item.y + item.h / 2;
+        const pushX = centerX < WORLD.w / 2 ? -1 : 1;
+        const pushY = centerY < WORLD.h / 2 ? -1 : 1;
+        item.x = clamp(item.x + pushX * 260, 90, WORLD.w - item.w - 90);
+        item.y = clamp(item.y + pushY * 220, 90, WORLD.h - item.h - 90);
+        return item;
+      }
+
       function clearTransientWorld() {
         enemies.length = 0;
         projectiles.length = 0;
@@ -1232,6 +1295,7 @@
         state.coinsAwarded = false;
         spawnBudget = 0;
         resetWaveMarkers();
+        obstacles = generateRunObstacles();
 
         player.x = WORLD.w / 2;
         player.y = WORLD.h / 2;
