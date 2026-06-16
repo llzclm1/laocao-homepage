@@ -500,6 +500,127 @@ h1 {
   font-weight: 800;
 }
 
+.worldcup-event-banner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.58fr);
+  gap: 28px;
+  align-items: center;
+  margin: 0 0 24px;
+  overflow: hidden;
+  border: 1px solid rgba(249, 115, 22, 0.22);
+  border-radius: 14px;
+  padding: 28px;
+  background:
+    linear-gradient(135deg, rgba(255, 247, 237, 0.98), rgba(255, 255, 255, 0.92)),
+    #fff7ed;
+  box-shadow: 0 18px 52px rgba(154, 86, 28, 0.12);
+}
+
+.worldcup-event-copy {
+  min-width: 0;
+}
+
+.event-label {
+  display: inline-flex;
+  width: fit-content;
+  margin-bottom: 16px;
+  border: 1px solid rgba(249, 115, 22, 0.22);
+  border-radius: 999px;
+  padding: 7px 10px;
+  color: #c2410c;
+  background: rgba(255, 255, 255, 0.72);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.worldcup-event-banner h3 {
+  margin: 0;
+  color: #080b10;
+  font-size: clamp(28px, 3.2vw, 42px);
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+.event-subtitle {
+  margin: 14px 0 0;
+  color: #080b10;
+  font-size: clamp(17px, 2vw, 22px);
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.event-description {
+  margin: 10px 0 0;
+  color: #65707d;
+  font-size: 16px;
+  line-height: 1.72;
+}
+
+.event-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  margin-top: 26px;
+}
+
+.button.event-primary {
+  color: #fff;
+  background: #f97316;
+  box-shadow: 0 16px 38px rgba(249, 115, 22, 0.22);
+}
+
+.button.event-primary:hover,
+.button.event-primary:focus-visible {
+  background: #ea580c;
+}
+
+.event-link {
+  display: inline-flex;
+  min-height: 46px;
+  align-items: center;
+  color: #ea580c;
+  font-size: 15px;
+  font-weight: 800;
+  transition:
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.event-link:hover,
+.event-link:focus-visible {
+  color: #9a3412;
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.worldcup-event-preview {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid rgba(10, 15, 22, 0.12);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 16px 44px rgba(15, 23, 42, 0.12);
+  transition:
+    transform 220ms var(--ease),
+    box-shadow 220ms var(--ease);
+}
+
+.worldcup-event-preview:hover,
+.worldcup-event-preview:focus-visible {
+  outline: none;
+  box-shadow: 0 24px 66px rgba(15, 23, 42, 0.16);
+  transform: translateY(-3px);
+}
+
+.worldcup-event-preview img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 7;
+  object-fit: cover;
+}
+
 .project-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1295,6 +1416,7 @@ h1 {
   .section-heading.compact,
   .about-section,
   .contact-section,
+  .worldcup-event-banner,
   .project-grid,
   .manual-grid,
   .update-grid {
@@ -1313,6 +1435,11 @@ h1 {
 
   .projects-section {
     padding-top: 64px;
+  }
+
+  .worldcup-event-banner {
+    gap: 22px;
+    padding: 22px;
   }
 
   .manuals-section {
@@ -1391,6 +1518,28 @@ h1 {
   .filter-result {
     width: 100%;
     margin-left: 0;
+  }
+
+  .worldcup-event-banner {
+    padding: 18px;
+  }
+
+  .worldcup-event-banner h3 {
+    font-size: 28px;
+  }
+
+  .event-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .event-link {
+    justify-content: center;
+  }
+
+  .worldcup-event-preview img {
+    aspect-ratio: 16 / 8.5;
   }
 
   .project-card {

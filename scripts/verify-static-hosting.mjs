@@ -27,6 +27,8 @@ for (const file of textFiles) {
 
 const home = fs.readFileSync(path.join(dist, "index.html"), "utf8");
 assert.ok(home.includes('href="game/worldcup/"'), "homepage should link to game/worldcup with a relative URL");
+assert.ok(home.includes("工位突围：世界杯摸鱼版"), "homepage should include the world cup event banner");
+assert.ok(home.includes('src="assets/projects/worldcup-game-preview.png"'), "homepage should use the world cup preview image");
 assert.equal(home.includes('href="/'), false, "homepage should not use root-relative href paths");
 assert.equal(home.includes('src="/'), false, "homepage should not use root-relative src paths");
 
@@ -54,7 +56,8 @@ const requiredAssets = [
   "game/worldcup/assets/worldcup/worldcup_hr.png",
   "game/worldcup/assets/worldcup/worldcup_boss.png",
   "game/worldcup/assets/worldcup/worldcup_message_supervisor.png",
-  "game/worldcup/assets/worldcup/worldcup_meeting_notice.png"
+  "game/worldcup/assets/worldcup/worldcup_meeting_notice.png",
+  "assets/projects/worldcup-game-preview.png"
 ];
 
 for (const file of requiredAssets) {
