@@ -14,7 +14,7 @@ const detailImage = document.querySelector(".project-detail-image");
 const projectDetails = {
   pixroom: {
     title: "PixRoom",
-    image: "assets/projects/detail-crops/pixroom-color-grading.png",
+    image: "assets/projects/detail-crops/pixroom-color-grading.webp",
     intro: "已经上线的照片调色小程序，目标是把胶片滤镜、色调预设、图片美化和轻量编辑做成手机里随手可用的小工具。",
     meta: [
       ["定位", "手机里的轻量照片调色入口"],
@@ -31,7 +31,7 @@ const projectDetails = {
   },
   "material-box": {
     title: "memories",
-    image: "assets/projects/detail-crops/memoris-material-board.png",
+    image: "assets/projects/detail-crops/memoris-material-board.webp",
     intro: "准备上架 App Store 的手机信息收纳 APP，用来把微信、小红书、网页、聊天里看到的有用信息随手放进去，并自动归纳、提取重点。",
     meta: [
       ["定位", "手机信息与灵感的临时收纳箱"],
@@ -48,7 +48,7 @@ const projectDetails = {
   },
   "baodan-workshop": {
     title: "爆单工坊",
-    image: "assets/projects/baodan-workshop-cover.png",
+    image: "assets/projects/baodan-workshop-cover.webp",
     intro: "爆单工坊是一套 AI 营销内容生成工具。",
     meta: [
       ["英文名", "AI Marketing Studio"],
@@ -65,7 +65,7 @@ const projectDetails = {
   },
   "office-survivor": {
     title: "工位突围",
-    image: "assets/projects/office-survivor-cover.png",
+    image: "assets/projects/office-survivor-cover.webp",
     intro: "一款微信小游戏，测试版已上架，正式版正在审批，把空间、成长和爽感做成轻量化玩法。",
     meta: [
       ["定位", "上班族题材的轻量生存小游戏"],
@@ -82,7 +82,7 @@ const projectDetails = {
   },
   "motorcycle-garage": {
     title: "Motorcycle garage",
-    image: "assets/projects/detail-crops/motorcycle-garage-material-board.png",
+    image: "assets/projects/detail-crops/motorcycle-garage-material-board.webp",
     intro: "制作中的摩托车管理软件，用来记录保养、里程、费用、改装档案和车辆生命周期。",
     meta: [
       ["定位", "摩托车生命周期的私人档案"],
