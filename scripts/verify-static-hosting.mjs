@@ -44,8 +44,8 @@ assert.equal(contentAssistant.includes('src="/'), false, "content assistant shou
 assert.equal(contentAssistant.includes('href="/'), false, "content assistant should not use root-relative href paths");
 
 const contentAssistantAdmin = fs.readFileSync(path.join(dist, "tools", "content-assistant", "admin", "index.html"), "utf8");
-assert.ok(contentAssistantAdmin.includes('href="./styles.css"'), "content assistant admin should use relative stylesheet paths");
-assert.ok(contentAssistantAdmin.includes('src="./script.js"'), "content assistant admin should use relative script paths");
+assert.match(contentAssistantAdmin, /href="\.\/styles\.css(?:\?[^"]*)?"/, "content assistant admin should use relative stylesheet paths");
+assert.match(contentAssistantAdmin, /src="\.\/script\.js(?:\?[^"]*)?"/, "content assistant admin should use relative script paths");
 assert.equal(contentAssistantAdmin.includes('src="/'), false, "content assistant admin should not use root-relative src paths");
 assert.equal(contentAssistantAdmin.includes('href="/'), false, "content assistant admin should not use root-relative href paths");
 
