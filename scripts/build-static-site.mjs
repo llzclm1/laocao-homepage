@@ -51,6 +51,7 @@ rewriteTextFile("SEARCH_ENGINE_SUBMISSION.md", (text) =>
   text.replaceAll("https://gewuji.dev", publicBaseUrl)
 );
 injectAnalyticsTags();
+injectContentAssistantSeo();
 injectContentAssistantConfig();
 
 fs.writeFileSync(path.join(outDir, "robots.txt"), buildRobots(), "utf8");
@@ -151,6 +152,80 @@ function injectContentAssistantConfig() {
   fs.writeFileSync(file, cleanHtml.replace("</head>", `${script}\n  </head>`), "utf8");
 }
 
+function injectContentAssistantSeo() {
+  const file = path.join(outDir, "tools", "content-assistant", "index.html");
+  if (!fs.existsSync(file)) return;
+
+  const pageUrl = publicUrl("tools/content-assistant/");
+  const title = "知铺｜朋友圈文案生成器、小红书文案生成器和经营内容助手";
+  const description = "知铺是懂经营的内容助手，可作为朋友圈文案生成器、小红书文案生成器、活动宣传文案生成器、视频号文案生成器和 AI 宣传文案工具使用，并输出豆包生图提示词。";
+  const keywords = "知铺, 经营内容助手, 朋友圈文案生成器, 小红书文案生成器, 活动宣传文案生成, 豆包生图提示词, 视频号文案生成, AI 宣传文案工具, AI 文案生成, 宣传文案生成";
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "@id": `${pageUrl}#software`,
+    name: "知铺",
+    alternateName: [
+      "经营内容助手",
+      "朋友圈文案生成器",
+      "小红书文案生成器",
+      "活动宣传文案生成",
+      "豆包生图提示词",
+      "视频号文案生成",
+      "AI 宣传文案工具"
+    ],
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Web",
+    url: pageUrl,
+    description,
+    inLanguage: "zh-CN",
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "CNY",
+      price: "39",
+      description: "基础包 100 点，可用于生成经营宣传文案、图片和视频提示词。"
+    },
+    featureList: [
+      "朋友圈文案生成",
+      "小红书文案生成",
+      "活动宣传文案生成",
+      "豆包生图提示词",
+      "视频号文案生成",
+      "AI 宣传文案工具"
+    ]
+  };
+  const seoTags = [
+    `    <meta name="description" content="${escapeHtmlAttribute(description)}" />`,
+    `    <meta name="keywords" content="${escapeHtmlAttribute(keywords)}" />`,
+    `    <meta name="robots" content="index, follow, max-image-preview:large" />`,
+    `    <link rel="canonical" href="${escapeHtmlAttribute(pageUrl)}" />`,
+    `    <meta property="og:type" content="website" />`,
+    `    <meta property="og:locale" content="zh_CN" />`,
+    `    <meta property="og:title" content="${escapeHtmlAttribute(title)}" />`,
+    `    <meta property="og:description" content="${escapeHtmlAttribute(description)}" />`,
+    `    <meta property="og:url" content="${escapeHtmlAttribute(pageUrl)}" />`,
+    `    <meta property="og:site_name" content="格物集" />`,
+    `    <meta name="twitter:card" content="summary" />`,
+    `    <meta name="twitter:title" content="${escapeHtmlAttribute(title)}" />`,
+    `    <meta name="twitter:description" content="${escapeHtmlAttribute(description)}" />`,
+    `    <script type="application/ld+json">${JSON.stringify(schema).replaceAll("</script", "<\\/script")}</script>`
+  ].join("\n");
+  const html = fs.readFileSync(file, "utf8");
+  if (!html.includes("</head>")) return;
+
+  const cleanedHtml = html
+    .replace(/<title>.*?<\/title>/, `<title>${escapeHtmlText(title)}</title>`)
+    .replace(/\s*<meta name="description" content="[^"]*" \/>/g, "")
+    .replace(/\s*<meta name="keywords" content="[^"]*" \/>/g, "")
+    .replace(/\s*<meta name="robots" content="[^"]*" \/>/g, "")
+    .replace(/\s*<link rel="canonical" href="[^"]*" \/>/g, "")
+    .replace(/\s*<meta property="og:[^"]+" content="[^"]*" \/>/g, "")
+    .replace(/\s*<meta name="twitter:[^"]+" content="[^"]*" \/>/g, "")
+    .replace(/\s*<script type="application\/ld\+json">.*?<\/script>/gs, "");
+
+  fs.writeFileSync(file, cleanedHtml.replace("</head>", `${seoTags}\n  </head>`), "utf8");
+}
+
 function buildAnalyticsTags() {
   const tags = [];
   const googleVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
@@ -193,6 +268,13 @@ function escapeHtmlAttribute(value) {
   return value
     .replaceAll("&", "&amp;")
     .replaceAll('"', "&quot;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
+}
+
+function escapeHtmlText(value) {
+  return value
+    .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;");
 }
