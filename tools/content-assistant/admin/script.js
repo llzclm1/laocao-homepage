@@ -1,4 +1,5 @@
 const settingsKey = "gewuji-content-admin-settings";
+const adminSecretSessionKey = "gewuji-content-admin-secret";
 const defaultApiBaseUrl = "https://156-238-232-37.sslip.io";
 const clientHeaders = {
   "Content-Type": "application/json",
@@ -17,7 +18,7 @@ restoreSettings();
 
 document.querySelector("#saveSettings").addEventListener("click", () => {
   saveSettings();
-  writeStatus("设置已保存到当前浏览器。");
+  writeStatus("API 地址已保存，管理员密钥仅保存在当前浏览器会话。");
 });
 
 document.querySelectorAll("[data-code-preset]").forEach((button) => {
@@ -146,7 +147,12 @@ function restoreSettings() {
   try {
     const settings = JSON.parse(localStorage.getItem(settingsKey) || "{}");
     apiBaseUrlInput.value = settings.apiBaseUrl || defaultApiBaseUrl;
-    adminSecretInput.value = settings.adminSecret || "";
+    adminSecretInput.value = sessionStorage.getItem(adminSecretSessionKey) || "";
+    if (settings.adminSecret) {
+      localStorage.setItem(settingsKey, JSON.stringify({
+        apiBaseUrl: settings.apiBaseUrl || defaultApiBaseUrl,
+      }));
+    }
   } catch {
     apiBaseUrlInput.value = defaultApiBaseUrl;
   }
@@ -155,8 +161,8 @@ function restoreSettings() {
 function saveSettings() {
   localStorage.setItem(settingsKey, JSON.stringify({
     apiBaseUrl: normalizedApiBaseUrl(),
-    adminSecret: adminSecretInput.value.trim(),
   }));
+  sessionStorage.setItem(adminSecretSessionKey, adminSecretInput.value.trim());
 }
 
 function normalizedApiBaseUrl() {
