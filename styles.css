@@ -751,6 +751,40 @@ h1 {
   transform: scale(1.04);
 }
 
+.project-shot-text {
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+
+.project-shot-text div {
+  display: grid;
+  gap: 12px;
+  width: min(82%, 320px);
+  border: 1px solid rgba(10, 15, 22, 0.08);
+  border-radius: 14px;
+  padding: 28px 22px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
+}
+
+.project-shot-text span,
+.project-shot-text small {
+  color: #65707d;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.project-shot-text span {
+  text-transform: uppercase;
+}
+
+.project-shot-text strong {
+  color: #080b10;
+  font-size: clamp(30px, 5vw, 44px);
+  line-height: 1.06;
+}
+
 .manual-shot {
   position: relative;
   display: grid;

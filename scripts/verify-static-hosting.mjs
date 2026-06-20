@@ -9,6 +9,7 @@ const githubPagesHostSuffix = ["github", "io"].join(".");
 
 assert.ok(fs.existsSync(path.join(dist, "index.html")), "dist/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "game", "worldcup", "index.html")), "dist/game/worldcup/index.html is missing");
+assert.ok(fs.existsSync(path.join(dist, "tools", "content-assistant", "index.html")), "dist/tools/content-assistant/index.html is missing");
 assert.equal(fs.readFileSync(path.join(dist, "CNAME"), "utf8").trim(), "gewuji.dev", "dist/CNAME should keep the custom domain");
 
 const textFiles = [
@@ -35,6 +36,11 @@ assert.equal(home.includes('src="/'), false, "homepage should not use root-relat
 
 const stats = fs.readFileSync(path.join(dist, "stats.html"), "utf8");
 assert.ok(stats.includes('href="./"'), "stats page should use a relative home link");
+
+const contentAssistant = fs.readFileSync(path.join(dist, "tools", "content-assistant", "index.html"), "utf8");
+assert.ok(contentAssistant.includes('src="./assets/'), "content assistant should use relative asset paths");
+assert.equal(contentAssistant.includes('src="/'), false, "content assistant should not use root-relative src paths");
+assert.equal(contentAssistant.includes('href="/'), false, "content assistant should not use root-relative href paths");
 
 const worldcup = fs.readFileSync(path.join(dist, "game", "worldcup", "index.html"), "utf8");
 assert.ok(worldcup.includes('assets/worldcup/worldcup_player_idle.png'), "worldcup page should use relative worldcup assets");
@@ -71,5 +77,6 @@ for (const file of requiredAssets) {
 
 const sitemap = fs.readFileSync(path.join(dist, "sitemap.xml"), "utf8");
 assert.ok(sitemap.includes("/game/worldcup/"), "sitemap should include /game/worldcup/");
+assert.ok(sitemap.includes("/tools/content-assistant/"), "sitemap should include /tools/content-assistant/");
 
 console.log("static hosting audit ok");

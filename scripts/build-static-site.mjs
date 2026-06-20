@@ -28,7 +28,8 @@ const copyEntries = [
   "SEARCH_ENGINE_SUBMISSION.md",
   "sitemap.xml",
   "stats.html",
-  "styles.css"
+  "styles.css",
+  "tools"
 ];
 
 fs.rmSync(outDir, { recursive: true, force: true });
@@ -195,6 +196,7 @@ function buildSitemap() {
     ["", "1.0"],
     ["films/", "0.8"],
     ["game/worldcup/", "0.8"],
+    ["tools/content-assistant/", "0.8"],
     ["llms.txt", "0.6"]
   ];
 
