@@ -3,6 +3,9 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+
+loadLocalEnv();
+
 const outDir = path.resolve(root, process.env.STATIC_OUT_DIR || "dist");
 const siteUrl = normalizeSiteUrl(process.env.SITE_URL || "https://gewuji.dev");
 const basePath = normalizeBasePath(process.env.PUBLIC_BASE_PATH || "/");
@@ -54,6 +57,46 @@ fs.writeFileSync(path.join(outDir, "sitemap.xml"), buildSitemap(), "utf8");
 console.log(`Static site built at ${path.relative(root, outDir)}`);
 console.log(`SITE_URL=${siteUrl}`);
 console.log(`PUBLIC_BASE_PATH=${basePath}`);
+console.log(
+  `Analytics: google=${enabledFlag(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION)} ` +
+    `cloudflare=${enabledFlag(process.env.NEXT_PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN)} ` +
+    `clarity=${enabledFlag(process.env.NEXT_PUBLIC_CLARITY_ID)}`
+);
+
+function loadLocalEnv() {
+  for (const file of [".env.local", ".env"]) {
+    const envPath = path.join(root, file);
+    if (!fs.existsSync(envPath)) continue;
+
+    for (const line of fs.readFileSync(envPath, "utf8").split(/\r?\n/)) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith("#")) continue;
+
+      const separatorIndex = trimmed.indexOf("=");
+      if (separatorIndex === -1) continue;
+
+      const key = trimmed.slice(0, separatorIndex).trim();
+      if (!key || Object.hasOwn(process.env, key)) continue;
+
+      process.env[key] = parseEnvValue(trimmed.slice(separatorIndex + 1).trim());
+    }
+  }
+}
+
+function parseEnvValue(value) {
+  if (
+    (value.startsWith('"') && value.endsWith('"')) ||
+    (value.startsWith("'") && value.endsWith("'"))
+  ) {
+    return value.slice(1, -1);
+  }
+
+  return value;
+}
+
+function enabledFlag(value) {
+  return value ? "on" : "off";
+}
 
 function normalizeSiteUrl(value) {
   return value.replace(/\/+$/, "");
