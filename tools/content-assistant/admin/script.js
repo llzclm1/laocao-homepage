@@ -23,8 +23,13 @@ document.querySelectorAll("[data-code-preset]").forEach((button) => {
   button.addEventListener("click", () => {
     const credits = button.getAttribute("data-code-preset") || "100";
     const form = document.querySelector("#codeForm");
-    form.elements.credits.value = credits;
-    form.elements.plan.value = credits === "300" ? "team" : "pro";
+    const creditsInput = form.querySelector('input[name="credits"]');
+    const planSelect = form.querySelector('select[name="plan"]');
+    creditsInput.value = credits;
+    planSelect.value = credits === "300" ? "team" : "pro";
+    document.querySelectorAll("[data-code-preset]").forEach((presetButton) => {
+      presetButton.classList.toggle("selected", presetButton === button);
+    });
     writeStatus(`已选择 ${credits} 点套餐。`);
   });
 });

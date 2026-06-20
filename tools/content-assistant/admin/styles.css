@@ -147,6 +147,12 @@ button:hover {
   color: var(--ink);
 }
 
+.quick-actions button.selected {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+}
+
 .status {
   margin: -4px 0 12px;
   border: 1px solid var(--line);
