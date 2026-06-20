@@ -133,6 +133,31 @@ button:hover {
   transform: translateY(-1px);
 }
 
+.quick-actions,
+.result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.quick-actions button,
+.result-actions button {
+  border-color: var(--line);
+  background: #fff;
+  color: var(--ink);
+}
+
+.status {
+  margin: -4px 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--panel-soft);
+  padding: 10px 12px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
 pre {
   min-height: 140px;
   overflow: auto;
@@ -145,11 +170,36 @@ pre {
 }
 
 @media (max-width: 760px) {
+  .shell {
+    width: min(100% - 20px, 1080px);
+    padding: 20px 0 32px;
+  }
+
+  h1 {
+    font-size: 38px;
+  }
+
+  .panel {
+    border-radius: 14px;
+    padding: 14px;
+  }
+
   .two {
     grid-template-columns: 1fr;
   }
 
   .panel-head {
     display: grid;
+  }
+
+  button {
+    width: 100%;
+    min-height: 44px;
+  }
+
+  .quick-actions,
+  .result-actions {
+    display: grid;
+    grid-template-columns: 1fr;
   }
 }

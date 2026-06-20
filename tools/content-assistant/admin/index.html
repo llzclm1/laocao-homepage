@@ -18,14 +18,14 @@
         <div class="panel-head">
           <div>
             <h2>连接设置</h2>
-            <p>管理员密钥只保存在当前浏览器，不会提交到网站代码里。</p>
+            <p>手机第一次填管理员密钥后点保存，之后会记在当前浏览器里。</p>
           </div>
           <button id="saveSettings" type="button">保存</button>
         </div>
         <div class="grid two">
           <label>
             API 地址
-            <input id="apiBaseUrl" placeholder="https://api.example.com" />
+            <input id="apiBaseUrl" placeholder="https://156-238-232-37.sslip.io" />
           </label>
           <label>
             管理员密钥
@@ -84,6 +84,10 @@
               <input name="expiresInDays" required type="number" min="1" value="30" />
             </label>
           </div>
+          <div class="quick-actions">
+            <button type="button" data-code-preset="100">基础包 100 点</button>
+            <button type="button" data-code-preset="300">进阶包 300 点</button>
+          </div>
           <label>
             版本
             <select name="plan">
@@ -104,10 +108,14 @@
         <div class="panel-head">
           <div>
             <h2>操作结果</h2>
-            <p>成功后可以复制结果发给客户。</p>
+            <p>生成兑换码后，手机上点复制即可发给客户。</p>
           </div>
-          <button id="copyResult" type="button">复制</button>
+          <div class="result-actions">
+            <button id="copyCode" type="button">复制兑换码</button>
+            <button id="copyResult" type="button">复制全部</button>
+          </div>
         </div>
+        <p id="status" class="status">等待操作。</p>
         <pre id="result">等待操作。</pre>
       </section>
     </main>

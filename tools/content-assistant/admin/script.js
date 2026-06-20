@@ -1,4 +1,5 @@
 const settingsKey = "gewuji-content-admin-settings";
+const defaultApiBaseUrl = "https://156-238-232-37.sslip.io";
 const clientHeaders = {
   "Content-Type": "application/json",
   "X-Promotion-Client": "official-web",
@@ -8,12 +9,24 @@ const clientHeaders = {
 const apiBaseUrlInput = document.querySelector("#apiBaseUrl");
 const adminSecretInput = document.querySelector("#adminSecret");
 const result = document.querySelector("#result");
+const statusText = document.querySelector("#status");
+let lastRedeemCode = "";
 
 restoreSettings();
 
 document.querySelector("#saveSettings").addEventListener("click", () => {
   saveSettings();
-  writeResult("设置已保存到当前浏览器。");
+  writeStatus("设置已保存到当前浏览器。");
+});
+
+document.querySelectorAll("[data-code-preset]").forEach((button) => {
+  button.addEventListener("click", () => {
+    const credits = button.getAttribute("data-code-preset") || "100";
+    const form = document.querySelector("#codeForm");
+    form.elements.credits.value = credits;
+    form.elements.plan.value = credits === "300" ? "team" : "pro";
+    writeStatus(`已选择 ${credits} 点套餐。`);
+  });
 });
 
 document.querySelector("#grantForm").addEventListener("submit", async (event) => {
@@ -40,6 +53,16 @@ document.querySelector("#codeForm").addEventListener("submit", async (event) => 
 
 document.querySelector("#copyResult").addEventListener("click", async () => {
   await navigator.clipboard.writeText(result.textContent || "");
+  writeStatus("已复制全部结果。");
+});
+
+document.querySelector("#copyCode").addEventListener("click", async () => {
+  if (!lastRedeemCode) {
+    writeStatus("暂无可复制的兑换码。");
+    return;
+  }
+  await navigator.clipboard.writeText(lastRedeemCode);
+  writeStatus(`已复制兑换码：${lastRedeemCode}`);
 });
 
 async function postAdmin(path, body) {
@@ -48,15 +71,15 @@ async function postAdmin(path, body) {
   const adminSecret = adminSecretInput.value.trim();
 
   if (!apiBaseUrl) {
-    writeResult("请先填写 API 地址。");
+    writeStatus("请先填写 API 地址。");
     return;
   }
   if (!adminSecret) {
-    writeResult("请先填写管理员密钥。");
+    writeStatus("请先填写管理员密钥。");
     return;
   }
 
-  writeResult("提交中...");
+  writeStatus("提交中...");
   try {
     const response = await fetch(`${apiBaseUrl}${path}`, {
       method: "POST",
@@ -68,17 +91,19 @@ async function postAdmin(path, body) {
     });
     const payload = await response.json().catch(() => ({}));
     if (!response.ok) {
-      writeResult(payload?.error?.message || `请求失败：${response.status}`);
+      writeStatus(payload?.error?.message || `请求失败：${response.status}`);
       return;
     }
     writeResult(formatSuccess(payload));
+    writeStatus("操作成功。");
   } catch (error) {
-    writeResult(`请求失败：${error.message || error}`);
+    writeStatus(`请求失败：${error.message || error}`);
   }
 }
 
 function formatSuccess(payload) {
   if (payload?.code?.code) {
+    lastRedeemCode = payload.code.code;
     return [
       "兑换码生成成功",
       "",
@@ -93,6 +118,7 @@ function formatSuccess(payload) {
   }
 
   if (payload?.user) {
+    lastRedeemCode = "";
     return [
       "额度开通成功",
       "",
@@ -103,16 +129,17 @@ function formatSuccess(payload) {
     ].join("\n");
   }
 
+  lastRedeemCode = "";
   return JSON.stringify(payload, null, 2);
 }
 
 function restoreSettings() {
   try {
     const settings = JSON.parse(localStorage.getItem(settingsKey) || "{}");
-    apiBaseUrlInput.value = settings.apiBaseUrl || "";
+    apiBaseUrlInput.value = settings.apiBaseUrl || defaultApiBaseUrl;
     adminSecretInput.value = settings.adminSecret || "";
   } catch {
-    // Ignore broken local settings.
+    apiBaseUrlInput.value = defaultApiBaseUrl;
   }
 }
 
@@ -129,4 +156,8 @@ function normalizedApiBaseUrl() {
 
 function writeResult(text) {
   result.textContent = text;
+}
+
+function writeStatus(text) {
+  statusText.textContent = text;
 }
