@@ -88,7 +88,7 @@ function formatSuccess(payload) {
       `有效期：${payload.code.expiresAt}`,
       "",
       "发给客户的话术：",
-      `你的经营内容助手兑换码是 ${payload.code.code}，登录后在“账号权益”里输入兑换即可到账。`,
+      `你的知铺兑换码是 ${payload.code.code}，登录后在“账号权益”里输入兑换即可到账。`,
     ].join("\n");
   }
 
