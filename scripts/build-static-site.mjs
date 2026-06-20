@@ -147,7 +147,8 @@ function injectContentAssistantConfig() {
   const script = `    <script>window.__PROMOTION_ASSISTANT_CONFIG__=${JSON.stringify(config).replaceAll("</script", "<\\/script")};</script>`;
   const html = fs.readFileSync(file, "utf8");
   if (!html.includes("</head>")) return;
-  fs.writeFileSync(file, html.replace("</head>", `${script}\n  </head>`), "utf8");
+  const cleanHtml = html.replace(/\s*<script>window\.__PROMOTION_ASSISTANT_CONFIG__=.*?<\/script>/g, "");
+  fs.writeFileSync(file, cleanHtml.replace("</head>", `${script}\n  </head>`), "utf8");
 }
 
 function buildAnalyticsTags() {
