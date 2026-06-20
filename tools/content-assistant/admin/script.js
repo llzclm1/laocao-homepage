@@ -10,6 +10,7 @@ const apiBaseUrlInput = document.querySelector("#apiBaseUrl");
 const adminSecretInput = document.querySelector("#adminSecret");
 const result = document.querySelector("#result");
 const statusText = document.querySelector("#status");
+const codeForm = document.querySelector("#codeForm");
 let lastRedeemCode = "";
 
 restoreSettings();
@@ -22,9 +23,8 @@ document.querySelector("#saveSettings").addEventListener("click", () => {
 document.querySelectorAll("[data-code-preset]").forEach((button) => {
   button.addEventListener("click", () => {
     const credits = button.getAttribute("data-code-preset") || "100";
-    const form = document.querySelector("#codeForm");
-    const creditsInput = form.querySelector('input[name="credits"]');
-    const planSelect = form.querySelector('select[name="plan"]');
+    const creditsInput = codeForm.elements.namedItem("credits");
+    const planSelect = codeForm.elements.namedItem("plan");
     creditsInput.value = credits;
     planSelect.value = credits === "300" ? "team" : "pro";
     document.querySelectorAll("[data-code-preset]").forEach((presetButton) => {
@@ -45,14 +45,18 @@ document.querySelector("#grantForm").addEventListener("submit", async (event) =>
   });
 });
 
-document.querySelector("#codeForm").addEventListener("submit", async (event) => {
+codeForm.addEventListener("submit", async (event) => {
   event.preventDefault();
-  const form = new FormData(event.currentTarget);
+  const formElement = event.currentTarget;
+  const creditsInput = formElement.elements.namedItem("credits");
+  const expiresInput = formElement.elements.namedItem("expiresInDays");
+  const planSelect = formElement.elements.namedItem("plan");
+  const codeInput = formElement.elements.namedItem("code");
   await postAdmin("/api/admin/redeem-codes", {
-    credits: Number(form.get("credits") || 0),
-    expiresInDays: Number(form.get("expiresInDays") || 30),
-    plan: String(form.get("plan") || "pro"),
-    code: String(form.get("code") || "").trim(),
+    credits: Number(creditsInput.value || 0),
+    expiresInDays: Number(expiresInput.value || 30),
+    plan: String(planSelect.value || "pro"),
+    code: String(codeInput.value || "").trim(),
   });
 });
 
