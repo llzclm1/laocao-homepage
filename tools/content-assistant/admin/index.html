@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>经营内容助手管理台</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="hero">
+        <p class="eyebrow">GEWUJI · CONTENT ASSISTANT</p>
+        <h1>经营内容助手管理台</h1>
+        <p>给客户人工加额度，或生成兑换码后发给客户自助兑换。</p>
+      </header>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>连接设置</h2>
+            <p>管理员密钥只保存在当前浏览器，不会提交到网站代码里。</p>
+          </div>
+          <button id="saveSettings" type="button">保存</button>
+        </div>
+        <div class="grid two">
+          <label>
+            API 地址
+            <input id="apiBaseUrl" placeholder="https://api.example.com" />
+          </label>
+          <label>
+            管理员密钥
+            <input id="adminSecret" type="password" placeholder="OFFICIAL_ADMIN_SECRET" />
+          </label>
+        </div>
+      </section>
+
+      <section class="grid two">
+        <form id="grantForm" class="panel">
+          <div class="panel-head">
+            <div>
+              <h2>直接加额度</h2>
+              <p>适合客户已经注册，并且你已经收到款。</p>
+            </div>
+          </div>
+          <label>
+            客户手机号或邮箱
+            <input name="loginId" required placeholder="user@example.com" />
+          </label>
+          <div class="grid two compact">
+            <label>
+              额度
+              <input name="credits" required type="number" min="1" value="100" />
+            </label>
+            <label>
+              版本
+              <select name="plan">
+                <option value="pro">专业版</option>
+                <option value="team">团队版</option>
+                <option value="trial">试用版</option>
+              </select>
+            </label>
+          </div>
+          <label>
+            备注
+            <input name="title" value="人工开通" />
+          </label>
+          <button type="submit">确认加额度</button>
+        </form>
+
+        <form id="codeForm" class="panel">
+          <div class="panel-head">
+            <div>
+              <h2>生成兑换码</h2>
+              <p>适合客户还没打开页面，或你想先发码。</p>
+            </div>
+          </div>
+          <div class="grid two compact">
+            <label>
+              额度
+              <input name="credits" required type="number" min="1" value="100" />
+            </label>
+            <label>
+              有效天数
+              <input name="expiresInDays" required type="number" min="1" value="30" />
+            </label>
+          </div>
+          <label>
+            版本
+            <select name="plan">
+              <option value="pro">专业版</option>
+              <option value="team">团队版</option>
+              <option value="trial">试用版</option>
+            </select>
+          </label>
+          <label>
+            自定义兑换码，可不填
+            <input name="code" placeholder="GEWUJI-XXXX-XXXX" />
+          </label>
+          <button type="submit">生成兑换码</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>操作结果</h2>
+            <p>成功后可以复制结果发给客户。</p>
+          </div>
+          <button id="copyResult" type="button">复制</button>
+        </div>
+        <pre id="result">等待操作。</pre>
+      </section>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

@@ -51,6 +51,7 @@ rewriteTextFile("SEARCH_ENGINE_SUBMISSION.md", (text) =>
   text.replaceAll("https://gewuji.dev", publicBaseUrl)
 );
 injectAnalyticsTags();
+injectContentAssistantConfig();
 
 fs.writeFileSync(path.join(outDir, "robots.txt"), buildRobots(), "utf8");
 fs.writeFileSync(path.join(outDir, "sitemap.xml"), buildSitemap(), "utf8");
@@ -131,6 +132,24 @@ function injectAnalyticsTags() {
   }
 }
 
+function injectContentAssistantConfig() {
+  const apiBaseUrl = process.env.VITE_PROMOTION_API_BASE_URL || "";
+  const authUrl = process.env.VITE_PROMOTION_AUTH_URL || "";
+  if (!apiBaseUrl && !authUrl) return;
+
+  const file = path.join(outDir, "tools", "content-assistant", "index.html");
+  if (!fs.existsSync(file)) return;
+
+  const config = {
+    apiBaseUrl,
+    authUrl,
+  };
+  const script = `    <script>window.__PROMOTION_ASSISTANT_CONFIG__=${JSON.stringify(config).replaceAll("</script", "<\\/script")};</script>`;
+  const html = fs.readFileSync(file, "utf8");
+  if (!html.includes("</head>")) return;
+  fs.writeFileSync(file, html.replace("</head>", `${script}\n  </head>`), "utf8");
+}
+
 function buildAnalyticsTags() {
   const tags = [];
   const googleVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
@@ -197,6 +216,7 @@ function buildSitemap() {
     ["films/", "0.8"],
     ["game/worldcup/", "0.8"],
     ["tools/content-assistant/", "0.8"],
+    ["tools/content-assistant/admin/", "0.4"],
     ["llms.txt", "0.6"]
   ];
 
