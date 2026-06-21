@@ -16,7 +16,8 @@ const detailQrImage = document.querySelector(".project-detail-qr-image");
 const projectDetails = {
   pixroom: {
     title: "PixRoom",
-    image: "assets/projects/pixroom-miniapp-qrcode.png",
+    image: "assets/projects/detail-crops/pixroom-color-grading.webp",
+    qrImage: "assets/projects/pixroom-miniapp-qrcode.png",
     intro: "已经上线的照片调色小程序，目标是把胶片滤镜、色调预设、图片美化和轻量编辑做成手机里随手可用的小工具。",
     meta: [
       ["定位", "手机里的轻量照片调色入口"],
