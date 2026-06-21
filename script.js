@@ -10,6 +10,8 @@ const detailPoints = document.querySelector(".project-detail-points");
 const detailContact = document.querySelector(".project-detail-contact");
 const detailClose = document.querySelector(".dialog-close");
 const detailImage = document.querySelector(".project-detail-image");
+const detailQr = document.querySelector(".project-detail-qr");
+const detailQrImage = document.querySelector(".project-detail-qr-image");
 
 const projectDetails = {
   pixroom: {
@@ -125,6 +127,18 @@ function openProjectDetail(detailKey) {
     .join("");
   detailSummary.textContent = detail.summary;
   detailPoints.innerHTML = detail.points.map((point) => `<li>${point}</li>`).join("");
+
+  if (detailQr && detailQrImage) {
+    const hasQr = Boolean(detail.qrImage);
+    detailQr.hidden = !hasQr;
+    if (hasQr) {
+      detailQrImage.src = detail.qrImage;
+      detailQrImage.alt = `${detail.title} 小程序二维码`;
+    } else {
+      detailQrImage.removeAttribute("src");
+      detailQrImage.alt = "";
+    }
+  }
 
   if (detailContact) {
     detailContact.href = "#contact";
