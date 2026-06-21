@@ -978,6 +978,13 @@ h1 {
   color: #080b10;
 }
 
+.status-live {
+  border-color: rgba(52, 211, 153, 0.44);
+  color: #047857;
+  background: rgba(209, 250, 229, 0.92);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
+}
+
 .project-card h3,
 .manual-card h3 {
   margin: 0 0 12px;

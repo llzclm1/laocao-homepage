@@ -14,7 +14,7 @@ const detailImage = document.querySelector(".project-detail-image");
 const projectDetails = {
   pixroom: {
     title: "PixRoom",
-    image: "assets/projects/detail-crops/pixroom-color-grading.webp",
+    image: "assets/projects/pixroom-miniapp-qrcode.png",
     intro: "已经上线的照片调色小程序，目标是把胶片滤镜、色调预设、图片美化和轻量编辑做成手机里随手可用的小工具。",
     meta: [
       ["定位", "手机里的轻量照片调色入口"],
@@ -28,6 +28,7 @@ const projectDetails = {
       "已可作为线上小程序使用，核心流程是上传图片、选择滤镜、调整强度、快速保存。",
       "后续继续补充胶片、清透、复古等可复用色调预设。",
     ],
+    contactLabel: "扫码使用",
   },
   "material-box": {
     title: "memories",
@@ -81,20 +82,20 @@ const projectDetails = {
     ],
   },
   "motorcycle-garage": {
-    title: "Motorcycle garage",
+    title: "机车库",
     image: "assets/projects/detail-crops/motorcycle-garage-material-board.webp",
-    intro: "制作中的摩托车管理软件，用来记录保养、里程、费用、改装档案和车辆生命周期。",
+    intro: "已迁移为微信小程序的摩托车数字车库，用来记录车辆信息、保养提醒、改装档案和费用账本。",
     meta: [
-      ["定位", "摩托车生命周期的私人档案"],
-      ["解决", "保养、费用和改装记录分散难追踪"],
-      ["合作点", "垂直社区、车友服务、工具生态"],
+      ["定位", "微信里的摩托车数字车库"],
+      ["解决", "车辆、保养、改装和支出记录分散难追踪"],
+      ["合作点", "微信小程序、车友服务、工具生态"],
     ],
     summary:
-      "Motorcycle garage 当前在制作中，先做本地记录和管理，把车主最常用的保养、花费和改装档案整理出来。",
+      "机车库当前已改为微信小程序，围绕车辆首页、微信登录入口、总投入、下次保养、最近保养、改装和支出账本做核心记录闭环。",
     points: [
-      "当前先把车辆主页、保养提醒、费用账本和改装档案做扎实。",
-      "iOS 使用 SwiftUI，本地 JSON 存储；Android 有 Compose 骨架。",
-      "暂不做登录、社区和云同步，先验证单车本地使用场景。",
+      "当前已改为微信小程序，先完成车辆首页、保养提醒、改装记录和费用账本闭环。",
+      "小程序默认使用微信本地存储，登录仅用于识别微信用户，车辆账本仍保存在本机。",
+      "已预留微信登录入口和云同步接口，当前重点是本地数据可靠与核心记录体验。",
     ],
   },
 };
@@ -127,6 +128,7 @@ function openProjectDetail(detailKey) {
 
   if (detailContact) {
     detailContact.href = "#contact";
+    detailContact.textContent = detail.contactLabel ?? "联系合作";
   }
 
   detailDialog.showModal();
