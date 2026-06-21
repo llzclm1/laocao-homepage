@@ -18,14 +18,14 @@ const projectDetails = {
     title: "PixRoom",
     image: "assets/projects/detail-crops/pixroom-color-grading.webp",
     qrImage: "assets/projects/pixroom-miniapp-qrcode.png",
-    intro: "已经上线的照片调色小程序，目标是把胶片滤镜、色调预设、图片美化和轻量编辑做成手机里随手可用的小工具。",
+    intro: "小程序已上线的照片调色工具，目标是把胶片滤镜、色调预设、图片美化和轻量编辑做成手机里随手可用的小工具。",
     meta: [
       ["定位", "手机里的轻量照片调色入口"],
       ["解决", "普通用户调色和套滤镜门槛高的问题"],
       ["合作点", "滤镜风格、渠道测试、商业化验证"],
     ],
     summary:
-      "PixRoom 已经上线，当前重点是继续打磨照片调色体验，并补充适合手机传播的色调预设。",
+      "PixRoom 小程序已上线，当前重点是继续打磨照片调色体验，并补充适合手机传播的色调预设。",
     points: [
       "适合日常照片、头像、商品图和社媒配图快速调色。",
       "已可作为线上小程序使用，核心流程是上传图片、选择滤镜、调整强度、快速保存。",
