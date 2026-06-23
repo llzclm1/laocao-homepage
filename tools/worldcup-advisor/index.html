@@ -15,6 +15,7 @@
       <a class="brand" href="../../">格物集</a>
       <nav aria-label="页面导航">
         <a href="#fixtures">赛程</a>
+        <a href="#review">复盘</a>
         <a href="#advisor">参谋</a>
         <a href="../../game/worldcup/">摸鱼版</a>
       </nav>
@@ -58,6 +59,77 @@
           <p>示例数据用于产品试跑，不代表真实赛果。后续可以接入真实赛程数据。</p>
         </div>
         <div class="fixture-grid" id="fixture-grid"></div>
+      </section>
+
+      <section class="review-section" id="review" aria-labelledby="review-title">
+        <div class="section-heading">
+          <p class="eyebrow">Match Review</p>
+          <h2 id="review-title">比赛结果复盘</h2>
+          <p>把真实赛果、赛前判断、偏差原因和下一场修正放在同一屏，方便连续优化世界杯赛程分析和比分判断。</p>
+        </div>
+
+        <article class="review-board">
+          <div class="review-hero">
+            <span>复盘样本 · 法国 vs 塞内加尔</span>
+            <strong>实际赛果：3-1</strong>
+          </div>
+
+          <div class="review-metrics" aria-label="比赛结果复盘卡片">
+            <div>
+              <span>实际赛果</span>
+              <strong>3-1</strong>
+            </div>
+            <div>
+              <span>赛前预测</span>
+              <strong>2-1 / 1-1</strong>
+              <p>塞内加尔受让或双平更稳</p>
+            </div>
+            <div>
+              <span>错误类型</span>
+              <strong>胜负方向对，比分线偏保守</strong>
+              <p>法国后段拉开比分，受让思路失效。</p>
+            </div>
+            <div>
+              <span>下一步修正</span>
+              <strong>已记录</strong>
+              <p>强队边路爆点占优时，不轻易压低大球。</p>
+            </div>
+          </div>
+
+          <p class="review-note">强队边路爆点 + 对手追分开放时，比分不能只压在一球差。</p>
+
+          <div class="prediction-card">
+            <div class="prediction-head">
+              <div>
+                <span>赛前预测原文</span>
+                <h3>法国 vs 塞内加尔</h3>
+              </div>
+              <strong>主让 0.5/1 · 参考 2-1</strong>
+            </div>
+            <div class="prediction-tags">
+              <span>法国强势</span>
+              <span>小胜倾向</span>
+              <span>不追深盘</span>
+            </div>
+            <div class="prediction-body">
+              <p>法国阵容结构更完整，控球和推进质量占优，但塞内加尔身体对抗和反击速度不弱，初始判断是法国小胜。</p>
+              <p>如果法国先入球后节奏放缓，比赛可能停在 2-1；如果塞内加尔过早压上，后场空间会被法国边路连续利用。</p>
+            </div>
+          </div>
+
+          <div class="correction-grid">
+            <article>
+              <span>修正 01</span>
+              <h3>领先方后段仍有冲击力</h3>
+              <p>强队替补速度和反击质量足够时，不能只按“领先后收比赛”处理。</p>
+            </article>
+            <article>
+              <span>修正 02</span>
+              <h3>受让判断要看追分风险</h3>
+              <p>弱队一旦必须压上，受让优势会被尾段空间反噬。</p>
+            </article>
+          </div>
+        </article>
       </section>
 
       <section class="advisor-section" id="advisor" aria-labelledby="advisor-title">
