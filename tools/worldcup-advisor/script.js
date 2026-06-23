@@ -1709,7 +1709,39 @@ function render() {
 }
 
 function renderHistory() {
-  historyList.innerHTML = completedFixtures.slice().reverse().map((fixture) => `
+  const sourceMatches = liveWorldCupData?.matches ?? [];
+  const historyFixtures = (sourceMatches.length ? sourceMatches : completedFixtures.map(([date, group, city, stadium, home, away, score]) => ({
+    date,
+    group: `Group ${group.replace("组", "")}`,
+    city,
+    stadium,
+    home,
+    away,
+    score: { ft: score.split("-").map(Number) }
+  })))
+    .filter((match) => Array.isArray(match.score?.ft))
+    .map((match) => {
+      const score = `${match.score.ft[0]}-${match.score.ft[1]}`;
+      const beijingDate = new Date(`${match.date}T00:00:00+08:00`);
+      const timeLabel = Number.isFinite(beijingDate.getTime())
+        ? `北京时间 ${beijingDate.getFullYear()}-${String(beijingDate.getMonth() + 1).padStart(2, "0")}-${String(beijingDate.getDate()).padStart(2, "0")} 已完赛`
+        : `北京时间 ${match.date} 已完赛`;
+      return {
+        timeLabel,
+        sortKey: Number.isFinite(beijingDate.getTime()) ? beijingDate.getTime() : 0,
+        group: normalizeGroupLabel(match.group),
+        city: match.city ?? match.ground ?? "赛地待更新",
+        stadium: match.stadium ?? match.ground ?? "球场待更新",
+        watchTime: match.watchTime ?? `赛事当地日期：${match.date ?? "待更新"}`,
+        home: getCanonicalTeamName(match.team1 ?? match.home),
+        away: getCanonicalTeamName(match.team2 ?? match.away),
+        score,
+        reason: `${formatTeamName(match.team1 ?? match.home)} ${score} ${formatTeamName(match.team2 ?? match.away)}，已记录全场赛果。`
+      };
+    })
+    .sort((a, b) => b.sortKey - a.sortKey);
+
+  historyList.innerHTML = historyFixtures.map((fixture) => `
     <article class="history-row">
       <div>
         <span>${fixture.timeLabel}</span>
