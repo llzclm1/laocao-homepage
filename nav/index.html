@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="格物集实用工具导航，收集 AI、图片处理、PDF、格式转换、开发辅助、网站检测和白板画图等常用外部工具。"
+      content="格物集实用工具导航，整理 AI 助手、AI 搜索、图片设计、视频创作、PDF 办公、开发调试、站长 SEO 等常用外部工具入口。"
     />
     <meta
       name="keywords"
-      content="实用工具导航, AI工具导航, 图片压缩, PDF工具, JSON格式化, 网站测速, 格物集导航"
+      content="实用工具导航, AI工具导航, AI搜索, 图片压缩, PDF工具, JSON格式化, 网站测速, SEO工具, 格物集导航"
     />
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta name="theme-color" content="#f7f8fa" />
@@ -17,14 +17,14 @@
     <link rel="canonical" href="https://gewuji.dev/nav/" />
     <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="../assets/brand/gewuji-app-icon.svg" />
-    <link rel="stylesheet" href="../styles.css?v=20260624-nav-page" />
-    <link rel="stylesheet" href="styles.css?v=20260624-nav-page" />
+    <link rel="stylesheet" href="../styles.css?v=20260624-nav-catalog" />
+    <link rel="stylesheet" href="styles.css?v=20260624-nav-catalog" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="zh_CN" />
     <meta property="og:title" content="实用工具导航｜格物集" />
     <meta
       property="og:description"
-      content="收集打开就能用的外部工具网站：AI、图片处理、PDF、格式转换、开发辅助、网站检测和白板画图。"
+      content="一个面向日常工作流的工具导航页，收集 AI、设计、视频、办公、开发和站长工具。"
     />
     <meta property="og:url" content="https://gewuji.dev/nav/" />
     <meta property="og:site_name" content="格物集" />
@@ -40,103 +40,284 @@
         <a href="../">首页</a>
         <a href="#ai">AI</a>
         <a href="#image">图片</a>
-        <a href="#file">文件</a>
+        <a href="#office">办公</a>
         <a href="#dev">开发</a>
+        <a href="#seo">站长</a>
       </nav>
     </header>
 
     <main class="utility-nav-shell">
       <section class="utility-nav-hero" aria-labelledby="utility-nav-title">
-        <p class="eyebrow">Useful Tools</p>
-        <h1 id="utility-nav-title">实用工具导航</h1>
-        <p>收集常用的外部工具网站，优先放无需复杂配置、打开就能解决问题的入口。</p>
-      </section>
-
-      <section class="tool-section" id="ai" aria-labelledby="ai-title">
-        <div class="tool-section-heading">
-          <p class="eyebrow">AI</p>
-          <h2 id="ai-title">AI 与搜索</h2>
+        <div>
+          <p class="eyebrow">Useful Tools Catalog</p>
+          <h1 id="utility-nav-title">实用工具导航</h1>
         </div>
-        <div class="tool-grid">
-          <a class="tool-card tool-card-dark" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">
-            <span>AI 助手</span>
-            <strong>ChatGPT</strong>
-            <p>写作、总结、翻译、代码和日常问题处理。</p>
-          </a>
-          <a class="tool-card" href="https://www.perplexity.ai/" target="_blank" rel="noopener noreferrer">
-            <span>AI 搜索</span>
-            <strong>Perplexity</strong>
-            <p>带来源的资料检索，适合快速查概念和找线索。</p>
-          </a>
+        <div class="hero-search-panel">
+          <p>不是大而全的黄页，只收集日常会真的打开的工具：写作、搜索、图片、视频、PDF、开发调试、网站检测。</p>
+          <div class="search-links" aria-label="常用搜索入口">
+            <a href="https://www.google.com/search?q=AI+工具" target="_blank" rel="noopener noreferrer">Google 搜 AI 工具</a>
+            <a href="https://www.bing.com/search?q=图片压缩工具" target="_blank" rel="noopener noreferrer">Bing 搜图片压缩</a>
+            <a href="https://www.google.com/search?q=PDF+在线工具" target="_blank" rel="noopener noreferrer">Google 搜 PDF 工具</a>
+          </div>
         </div>
       </section>
 
-      <section class="tool-section" id="image" aria-labelledby="image-title">
-        <div class="tool-section-heading">
-          <p class="eyebrow">Image</p>
-          <h2 id="image-title">图片处理</h2>
-        </div>
-        <div class="tool-grid">
-          <a class="tool-card" href="https://squoosh.app/" target="_blank" rel="noopener noreferrer">
-            <span>图片压缩</span>
-            <strong>Squoosh</strong>
-            <p>在线压缩图片、转换格式，适合网页图片优化。</p>
-          </a>
-          <a class="tool-card" href="https://tinypng.com/" target="_blank" rel="noopener noreferrer">
-            <span>图片瘦身</span>
-            <strong>TinyPNG</strong>
-            <p>批量压缩 PNG、JPEG、WebP 图片，操作很快。</p>
-          </a>
-          <a class="tool-card" href="https://www.photopea.com/" target="_blank" rel="noopener noreferrer">
-            <span>在线修图</span>
-            <strong>Photopea</strong>
-            <p>浏览器里的类 Photoshop 工具，适合临时改图。</p>
-          </a>
-        </div>
-      </section>
+      <div class="catalog-layout">
+        <aside class="catalog-sidebar" aria-label="工具分类">
+          <a href="#ai">AI 助手与搜索</a>
+          <a href="#create">AI 创作</a>
+          <a href="#image">图片与设计</a>
+          <a href="#video">视频与音频</a>
+          <a href="#office">办公与文件</a>
+          <a href="#dev">开发调试</a>
+          <a href="#seo">站长与 SEO</a>
+          <a href="#gewuji">格物集工具</a>
+        </aside>
 
-      <section class="tool-section" id="file" aria-labelledby="file-title">
-        <div class="tool-section-heading">
-          <p class="eyebrow">File</p>
-          <h2 id="file-title">文件与格式</h2>
-        </div>
-        <div class="tool-grid">
-          <a class="tool-card" href="https://www.ilovepdf.com/" target="_blank" rel="noopener noreferrer">
-            <span>PDF 工具</span>
-            <strong>iLovePDF</strong>
-            <p>合并、拆分、压缩、转换 PDF 的常用入口。</p>
-          </a>
-          <a class="tool-card" href="https://cloudconvert.com/" target="_blank" rel="noopener noreferrer">
-            <span>格式转换</span>
-            <strong>CloudConvert</strong>
-            <p>文档、图片、音视频和压缩包格式转换。</p>
-          </a>
-        </div>
-      </section>
+        <div class="catalog-content">
+          <section class="tool-section" id="ai" aria-labelledby="ai-title">
+            <div class="tool-section-heading">
+              <p class="eyebrow">AI</p>
+              <h2 id="ai-title">AI 助手与搜索</h2>
+            </div>
+            <div class="tool-grid">
+              <a class="tool-card tool-card-dark" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">
+                <span>AI 助手</span>
+                <strong>ChatGPT</strong>
+                <p>适合写作、总结、翻译、代码解释和日常问题处理。</p>
+              </a>
+              <a class="tool-card" href="https://claude.ai/" target="_blank" rel="noopener noreferrer">
+                <span>长文处理</span>
+                <strong>Claude</strong>
+                <p>适合整理长文档、分析材料、写作和代码讨论。</p>
+              </a>
+              <a class="tool-card" href="https://gemini.google.com/" target="_blank" rel="noopener noreferrer">
+                <span>Google AI</span>
+                <strong>Gemini</strong>
+                <p>适合搜索生态里的问答、内容生成和多模态任务。</p>
+              </a>
+              <a class="tool-card" href="https://www.perplexity.ai/" target="_blank" rel="noopener noreferrer">
+                <span>AI 搜索</span>
+                <strong>Perplexity</strong>
+                <p>带来源的资料检索，适合快速查概念和找线索。</p>
+              </a>
+              <a class="tool-card" href="https://poe.com/" target="_blank" rel="noopener noreferrer">
+                <span>模型集合</span>
+                <strong>Poe</strong>
+                <p>一个入口试用多个 AI 模型，方便横向比较回答质量。</p>
+              </a>
+              <a class="tool-card" href="https://notebooklm.google.com/" target="_blank" rel="noopener noreferrer">
+                <span>资料问答</span>
+                <strong>NotebookLM</strong>
+                <p>围绕自己的资料做摘要、问答和学习整理。</p>
+              </a>
+            </div>
+          </section>
 
-      <section class="tool-section" id="dev" aria-labelledby="dev-title">
-        <div class="tool-section-heading">
-          <p class="eyebrow">Dev & Design</p>
-          <h2 id="dev-title">开发与设计</h2>
+          <section class="tool-section" id="create" aria-labelledby="create-title">
+            <div class="tool-section-heading">
+              <p class="eyebrow">Create</p>
+              <h2 id="create-title">AI 创作</h2>
+            </div>
+            <div class="tool-grid">
+              <a class="tool-card" href="https://www.midjourney.com/" target="_blank" rel="noopener noreferrer">
+                <span>AI 图像</span>
+                <strong>Midjourney</strong>
+                <p>适合做概念图、视觉风格探索和创意海报参考。</p>
+              </a>
+              <a class="tool-card" href="https://ideogram.ai/" target="_blank" rel="noopener noreferrer">
+                <span>文字海报</span>
+                <strong>Ideogram</strong>
+                <p>适合尝试带文字的海报、封面和视觉概念。</p>
+              </a>
+              <a class="tool-card" href="https://runwayml.com/" target="_blank" rel="noopener noreferrer">
+                <span>AI 视频</span>
+                <strong>Runway</strong>
+                <p>适合视频生成、片段处理和动态视觉探索。</p>
+              </a>
+              <a class="tool-card" href="https://www.krea.ai/" target="_blank" rel="noopener noreferrer">
+                <span>实时生成</span>
+                <strong>Krea</strong>
+                <p>适合快速试视觉方向、图像增强和风格变化。</p>
+              </a>
+            </div>
+          </section>
+
+          <section class="tool-section" id="image" aria-labelledby="image-title">
+            <div class="tool-section-heading">
+              <p class="eyebrow">Image</p>
+              <h2 id="image-title">图片与设计</h2>
+            </div>
+            <div class="tool-grid">
+              <a class="tool-card" href="https://squoosh.app/" target="_blank" rel="noopener noreferrer">
+                <span>图片压缩</span>
+                <strong>Squoosh</strong>
+                <p>在线压缩图片、转换格式，适合网页图片优化。</p>
+              </a>
+              <a class="tool-card" href="https://tinypng.com/" target="_blank" rel="noopener noreferrer">
+                <span>图片瘦身</span>
+                <strong>TinyPNG</strong>
+                <p>批量压缩 PNG、JPEG、WebP 图片，操作很快。</p>
+              </a>
+              <a class="tool-card" href="https://www.photopea.com/" target="_blank" rel="noopener noreferrer">
+                <span>在线修图</span>
+                <strong>Photopea</strong>
+                <p>浏览器里的类 Photoshop 工具，适合临时改图。</p>
+              </a>
+              <a class="tool-card" href="https://www.remove.bg/" target="_blank" rel="noopener noreferrer">
+                <span>去背景</span>
+                <strong>remove.bg</strong>
+                <p>快速抠图去背景，适合商品图和头像素材。</p>
+              </a>
+              <a class="tool-card" href="https://www.canva.com/" target="_blank" rel="noopener noreferrer">
+                <span>设计模板</span>
+                <strong>Canva</strong>
+                <p>用模板做海报、社媒图、演示文稿和简单物料。</p>
+              </a>
+              <a class="tool-card" href="https://www.figma.com/" target="_blank" rel="noopener noreferrer">
+                <span>界面设计</span>
+                <strong>Figma</strong>
+                <p>适合产品界面、原型、设计协作和组件整理。</p>
+              </a>
+            </div>
+          </section>
+
+          <section class="tool-section" id="video" aria-labelledby="video-title">
+            <div class="tool-section-heading">
+              <p class="eyebrow">Video</p>
+              <h2 id="video-title">视频与音频</h2>
+            </div>
+            <div class="tool-grid">
+              <a class="tool-card" href="https://www.capcut.com/" target="_blank" rel="noopener noreferrer">
+                <span>视频剪辑</span>
+                <strong>CapCut</strong>
+                <p>适合短视频剪辑、字幕、模板和轻量包装。</p>
+              </a>
+              <a class="tool-card" href="https://www.veed.io/" target="_blank" rel="noopener noreferrer">
+                <span>在线视频</span>
+                <strong>VEED</strong>
+                <p>浏览器里做字幕、剪辑、录屏和视频处理。</p>
+              </a>
+              <a class="tool-card" href="https://podcast.adobe.com/enhance" target="_blank" rel="noopener noreferrer">
+                <span>音频增强</span>
+                <strong>Adobe Enhance</strong>
+                <p>改善人声录音质量，适合播客、口播和课程音频。</p>
+              </a>
+            </div>
+          </section>
+
+          <section class="tool-section" id="office" aria-labelledby="office-title">
+            <div class="tool-section-heading">
+              <p class="eyebrow">Office</p>
+              <h2 id="office-title">办公与文件</h2>
+            </div>
+            <div class="tool-grid">
+              <a class="tool-card" href="https://www.ilovepdf.com/" target="_blank" rel="noopener noreferrer">
+                <span>PDF 工具</span>
+                <strong>iLovePDF</strong>
+                <p>合并、拆分、压缩、转换 PDF 的常用入口。</p>
+              </a>
+              <a class="tool-card" href="https://smallpdf.com/" target="_blank" rel="noopener noreferrer">
+                <span>PDF 处理</span>
+                <strong>Smallpdf</strong>
+                <p>PDF 转换、签名、压缩和日常文档处理。</p>
+              </a>
+              <a class="tool-card" href="https://cloudconvert.com/" target="_blank" rel="noopener noreferrer">
+                <span>格式转换</span>
+                <strong>CloudConvert</strong>
+                <p>文档、图片、音视频和压缩包格式转换。</p>
+              </a>
+              <a class="tool-card" href="https://www.deepl.com/translator" target="_blank" rel="noopener noreferrer">
+                <span>翻译</span>
+                <strong>DeepL</strong>
+                <p>适合中英文长句、邮件和商务文本翻译。</p>
+              </a>
+            </div>
+          </section>
+
+          <section class="tool-section" id="dev" aria-labelledby="dev-title">
+            <div class="tool-section-heading">
+              <p class="eyebrow">Dev</p>
+              <h2 id="dev-title">开发调试</h2>
+            </div>
+            <div class="tool-grid">
+              <a class="tool-card" href="https://jsonformatter.org/" target="_blank" rel="noopener noreferrer">
+                <span>开发辅助</span>
+                <strong>JSON Formatter</strong>
+                <p>格式化、校验和查看 JSON，排查接口数据更方便。</p>
+              </a>
+              <a class="tool-card" href="https://regex101.com/" target="_blank" rel="noopener noreferrer">
+                <span>正则测试</span>
+                <strong>Regex101</strong>
+                <p>调试正则表达式，查看匹配结果和解释。</p>
+              </a>
+              <a class="tool-card" href="https://httpie.io/app" target="_blank" rel="noopener noreferrer">
+                <span>接口调试</span>
+                <strong>HTTPie</strong>
+                <p>发起 API 请求、检查响应，适合轻量接口测试。</p>
+              </a>
+              <a class="tool-card" href="https://caniuse.com/" target="_blank" rel="noopener noreferrer">
+                <span>兼容性</span>
+                <strong>Can I use</strong>
+                <p>查询浏览器对 CSS、HTML、Web API 的支持情况。</p>
+              </a>
+            </div>
+          </section>
+
+          <section class="tool-section" id="seo" aria-labelledby="seo-title">
+            <div class="tool-section-heading">
+              <p class="eyebrow">SEO</p>
+              <h2 id="seo-title">站长与 SEO</h2>
+            </div>
+            <div class="tool-grid">
+              <a class="tool-card" href="https://pagespeed.web.dev/" target="_blank" rel="noopener noreferrer">
+                <span>网站检测</span>
+                <strong>PageSpeed Insights</strong>
+                <p>检测网页速度、性能、SEO 和核心体验指标。</p>
+              </a>
+              <a class="tool-card" href="https://search.google.com/search-console" target="_blank" rel="noopener noreferrer">
+                <span>Google 收录</span>
+                <strong>Search Console</strong>
+                <p>查看 Google 收录、搜索表现、索引和站点问题。</p>
+              </a>
+              <a class="tool-card" href="https://www.bing.com/webmasters/" target="_blank" rel="noopener noreferrer">
+                <span>Bing 站长</span>
+                <strong>Bing Webmaster</strong>
+                <p>查看 Bing 收录、关键词表现和站点诊断。</p>
+              </a>
+              <a class="tool-card" href="https://www.screamingfrog.co.uk/seo-spider/" target="_blank" rel="noopener noreferrer">
+                <span>站点爬取</span>
+                <strong>Screaming Frog</strong>
+                <p>检查站内链接、标题、状态码和基础 SEO 问题。</p>
+              </a>
+            </div>
+          </section>
+
+          <section class="tool-section" id="gewuji" aria-labelledby="gewuji-title">
+            <div class="tool-section-heading">
+              <p class="eyebrow">GEWUJI</p>
+              <h2 id="gewuji-title">格物集工具</h2>
+            </div>
+            <div class="tool-grid">
+              <a class="tool-card" href="../tools/content-assistant/">
+                <span>经营内容</span>
+                <strong>知铺</strong>
+                <p>生成朋友圈、小红书、视频号/抖音文案和豆包生图提示词。</p>
+              </a>
+              <a class="tool-card" href="../tools/seo-content-tools/">
+                <span>文案工具</span>
+                <strong>经营小工具</strong>
+                <p>活动文案、商品卖点、门店宣传和种草文案工具集。</p>
+              </a>
+              <a class="tool-card" href="../tools/worldcup-advisor/">
+                <span>赛事工具</span>
+                <strong>世界杯参谋站</strong>
+                <p>查看赛程、赛前判断、比分情景、小组和赛后复盘。</p>
+              </a>
+            </div>
+          </section>
         </div>
-        <div class="tool-grid">
-          <a class="tool-card" href="https://jsonformatter.org/" target="_blank" rel="noopener noreferrer">
-            <span>开发辅助</span>
-            <strong>JSON Formatter</strong>
-            <p>格式化、校验和查看 JSON，排查接口数据更方便。</p>
-          </a>
-          <a class="tool-card" href="https://pagespeed.web.dev/" target="_blank" rel="noopener noreferrer">
-            <span>网站检测</span>
-            <strong>PageSpeed Insights</strong>
-            <p>检测网页速度、性能、SEO 和核心体验指标。</p>
-          </a>
-          <a class="tool-card" href="https://excalidraw.com/" target="_blank" rel="noopener noreferrer">
-            <span>画图白板</span>
-            <strong>Excalidraw</strong>
-            <p>快速画流程图、草图、产品结构和沟通示意图。</p>
-          </a>
-        </div>
-      </section>
+      </div>
     </main>
 
     <footer class="site-footer">
