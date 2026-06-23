@@ -2412,10 +2412,10 @@ function renderTodayFocus() {
   const nextMatchDay = upcomingFixtures
     .map(getBeijingMatchDay)
     .sort()[0];
-  const todayFocusFixtures = upcomingFixtures.filter((fixture) => getBeijingMatchDay(fixture) === nextMatchDay && fixture.focus);
+  const todayFocusFixtures = upcomingFixtures.filter((fixture) => getBeijingMatchDay(fixture) === nextMatchDay);
 
   if (!todayFocusFixtures.length) {
-    todayFocusGrid.innerHTML = '<p class="empty-state">最近一个比赛日暂无重点场，先去赛程页看完整列表。</p>';
+    todayFocusGrid.innerHTML = '<p class="empty-state">最近一个比赛日暂无比赛，先去赛程页看完整列表。</p>';
     return;
   }
 
@@ -2423,7 +2423,7 @@ function renderTodayFocus() {
     <article class="today-focus-card ${index === 0 ? "primary-focus" : ""}">
       <div class="fixture-top">
         <span>${fixture.group} · ${fixture.city}</span>
-        <span class="badge focus">重点看</span>
+        <span class="badge">今日比赛</span>
       </div>
       <strong>${formatTeamName(fixture.home)} vs ${formatTeamName(fixture.away)}</strong>
       <span class="fixture-time">${fixture.timeLabel}</span>
