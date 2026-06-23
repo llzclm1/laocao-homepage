@@ -52,8 +52,196 @@ const teamNameMap = {
   Uzbekistan: "乌兹别克斯坦"
 };
 
+const teamNameAliases = {
+  "Bosnia & Herzegovina": "Bosnia and Herzegovina",
+  "Cape Verde": "Cabo Verde",
+  "Czech Republic": "Czechia",
+  Turkey: "Türkiye",
+  USA: "United States"
+};
+
+const playerNameMap = {
+  "Riyad Mahrez": "里亚德·马赫雷斯",
+  "Ismael Bennacer": "伊斯梅尔·本纳赛尔",
+  "Amine Gouiri": "阿明·古伊里",
+  "Lionel Messi": "利昂内尔·梅西",
+  "Julian Alvarez": "胡利安·阿尔瓦雷斯",
+  "Emiliano Martinez": "埃米利亚诺·马丁内斯",
+  "Mathew Ryan": "马修·瑞安",
+  "Jackson Irvine": "杰克逊·欧文",
+  "Craig Goodwin": "克雷格·古德温",
+  "David Alaba": "大卫·阿拉巴",
+  "Marcel Sabitzer": "马塞尔·萨比策",
+  "Christoph Baumgartner": "克里斯托夫·鲍姆加特纳",
+  "Kevin De Bruyne": "凯文·德布劳内",
+  "Romelu Lukaku": "罗梅卢·卢卡库",
+  "Jeremy Doku": "热雷米·多库",
+  "Edin Dzeko": "埃丁·哲科",
+  "Miralem Pjanic": "米拉莱姆·皮亚尼奇",
+  "Rade Krunic": "拉德·克鲁尼奇",
+  "Vinicius Junior": "维尼修斯·儒尼奥尔",
+  Rodrygo: "罗德里戈",
+  "Bruno Guimaraes": "布鲁诺·吉马良斯",
+  "Ryan Mendes": "瑞安·门德斯",
+  "Garry Rodrigues": "加里·罗德里格斯",
+  "Logan Costa": "洛甘·科斯塔",
+  "Alphonso Davies": "阿方索·戴维斯",
+  "Jonathan David": "乔纳森·戴维",
+  "Stephen Eustaquio": "斯蒂芬·欧斯塔基奥",
+  "Luis Diaz": "路易斯·迪亚斯",
+  "James Rodriguez": "哈梅斯·罗德里格斯",
+  "Jhon Duran": "洪·杜兰",
+  "Luka Modric": "卢卡·莫德里奇",
+  "Mateo Kovacic": "马特奥·科瓦契奇",
+  "Josko Gvardiol": "约什科·格瓦迪奥尔",
+  "Leandro Bacuna": "莱安德罗·巴库纳",
+  "Juninho Bacuna": "朱尼尼奥·巴库纳",
+  "Vurnon Anita": "沃农·安妮塔",
+  "Patrik Schick": "帕特里克·希克",
+  "Tomas Soucek": "托马什·绍切克",
+  "Antonin Barak": "安东宁·巴拉克",
+  "Yoane Wissa": "约安·维萨",
+  "Cedric Bakambu": "塞德里克·巴坎布",
+  "Chancel Mbemba": "尚塞尔·姆本巴",
+  "Moises Caicedo": "莫伊塞斯·凯塞多",
+  "Piero Hincapie": "皮耶罗·因卡皮耶",
+  "Enner Valencia": "恩纳·瓦伦西亚",
+  "Mohamed Salah": "穆罕默德·萨拉赫",
+  "Omar Marmoush": "奥马尔·马尔穆什",
+  "Mostafa Mohamed": "穆斯塔法·穆罕默德",
+  "Harry Kane": "哈里·凯恩",
+  "Jude Bellingham": "裘德·贝林厄姆",
+  "Bukayo Saka": "布卡约·萨卡",
+  "Kylian Mbappe": "基利安·姆巴佩",
+  "Antoine Griezmann": "安托万·格列兹曼",
+  "Aurelien Tchouameni": "奥雷连·楚阿梅尼",
+  "Jamal Musiala": "贾马尔·穆西亚拉",
+  "Florian Wirtz": "弗洛里安·维尔茨",
+  "Joshua Kimmich": "约书亚·基米希",
+  "Mohammed Kudus": "穆罕默德·库杜斯",
+  "Thomas Partey": "托马斯·帕尔特伊",
+  "Inaki Williams": "伊尼亚基·威廉斯",
+  "Duckens Nazon": "杜肯斯·纳宗",
+  "Frantzdy Pierrot": "弗朗茨迪·皮埃罗",
+  "Wilde-Donald Guerrier": "维尔德-唐纳德·格里耶",
+  "Mehdi Taremi": "迈赫迪·塔雷米",
+  "Sardar Azmoun": "萨达尔·阿兹蒙",
+  "Alireza Jahanbakhsh": "阿里礼萨·贾汉巴赫什",
+  "Aymen Hussein": "艾曼·侯赛因",
+  "Ali Jasim": "阿里·贾西姆",
+  "Zidane Iqbal": "齐达内·伊克巴尔",
+  "Sebastien Haller": "塞巴斯蒂安·阿莱",
+  "Franck Kessie": "弗兰克·凯西",
+  "Simon Adingra": "西蒙·阿丁格拉",
+  "Takefusa Kubo": "久保建英",
+  "Kaoru Mitoma": "三笘薰",
+  "Wataru Endo": "远藤航",
+  "Mousa Al-Tamari": "穆萨·塔马里",
+  "Yazan Al-Naimat": "亚赞·阿尔-奈马特",
+  "Nizar Al-Rashdan": "尼扎尔·拉什丹",
+  "Hirving Lozano": "欧文·洛萨诺",
+  "Santiago Gimenez": "圣地亚哥·希门尼斯",
+  "Edson Alvarez": "埃德松·阿尔瓦雷斯",
+  "Achraf Hakimi": "阿什拉夫·哈基米",
+  "Sofyan Amrabat": "索菲扬·阿姆拉巴特",
+  "Hakim Ziyech": "哈基姆·齐耶赫",
+  "Virgil van Dijk": "维吉尔·范戴克",
+  "Frenkie de Jong": "弗朗基·德容",
+  "Cody Gakpo": "科迪·加克波",
+  "Chris Wood": "克里斯·伍德",
+  "Liberato Cacace": "利贝拉托·卡卡切",
+  "Joe Bell": "乔·贝尔",
+  "Erling Haaland": "埃尔林·哈兰德",
+  "Martin Odegaard": "马丁·厄德高",
+  "Alexander Sorloth": "亚历山大·瑟洛特",
+  "Adalberto Carrasquilla": "阿达尔韦托·卡拉斯基利亚",
+  "Michael Murillo": "迈克尔·穆里略",
+  "Anibal Godoy": "阿尼巴尔·戈多伊",
+  "Miguel Almiron": "米格尔·阿尔米隆",
+  "Julio Enciso": "胡里奥·恩西索",
+  "Gustavo Gomez": "古斯塔沃·戈麦斯",
+  "Cristiano Ronaldo": "克里斯蒂亚诺·罗纳尔多",
+  "Bruno Fernandes": "布鲁诺·费尔南德斯",
+  "Bernardo Silva": "贝尔纳多·席尔瓦",
+  "Akram Afif": "阿克拉姆·阿菲夫",
+  "Almoez Ali": "阿尔莫埃兹·阿里",
+  "Hassan Al-Haydos": "哈桑·海多斯",
+  "Salem Al-Dawsari": "萨利姆·多萨里",
+  "Firas Al-Buraikan": "菲拉斯·布赖坎",
+  "Mohamed Kanno": "穆罕默德·卡努",
+  "Scott McTominay": "斯科特·麦克托米奈",
+  "Andy Robertson": "安德鲁·罗伯逊",
+  "John McGinn": "约翰·麦金",
+  "Sadio Mane": "萨迪奥·马内",
+  "Kalidou Koulibaly": "卡利杜·库利巴利",
+  "Nicolas Jackson": "尼古拉斯·杰克逊",
+  "Percy Tau": "珀西·陶",
+  "Teboho Mokoena": "特博霍·莫科埃纳",
+  "Ronwen Williams": "罗恩文·威廉斯",
+  "Son Heung-min": "孙兴慜",
+  "Kim Min-jae": "金玟哉",
+  "Lee Kang-in": "李刚仁",
+  Rodri: "罗德里",
+  Pedri: "佩德里",
+  "Lamine Yamal": "拉明·亚马尔",
+  "Alexander Isak": "亚历山大·伊萨克",
+  "Dejan Kulusevski": "德扬·库卢塞夫斯基",
+  "Viktor Gyokeres": "维克托·约克雷斯",
+  "Granit Xhaka": "格拉尼特·扎卡",
+  "Manuel Akanji": "曼努埃尔·阿坎吉",
+  "Breel Embolo": "布雷尔·恩博洛",
+  "Ellyes Skhiri": "埃利耶斯·斯希里",
+  "Wahbi Khazri": "瓦赫比·哈兹里",
+  "Hannibal Mejbri": "汉尼拔·梅杰布里",
+  "Hakan Calhanoglu": "哈坎·恰尔汗奥卢",
+  "Arda Guler": "阿尔达·居莱尔",
+  "Kenan Yildiz": "凯南·伊尔迪兹",
+  "Christian Pulisic": "克里斯蒂安·普利希奇",
+  "Weston McKennie": "韦斯顿·麦肯尼",
+  "Tyler Adams": "泰勒·亚当斯",
+  "Federico Valverde": "费德里科·巴尔韦德",
+  "Darwin Nunez": "达尔文·努涅斯",
+  "Ronald Araujo": "罗纳德·阿劳霍",
+  "Eldor Shomurodov": "埃尔多尔·肖穆罗多夫",
+  "Abbosbek Fayzullaev": "阿博斯别克·法伊祖拉耶夫",
+  "Abdukodir Khusanov": "阿卜杜科迪尔·胡萨诺夫"
+};
+
+const localizedTeamEntries = Object.entries({
+  ...teamNameMap,
+  "Bosnia & Herzegovina": "波黑",
+  "Cape Verde": "佛得角",
+  "Czech Republic": "捷克",
+  Turkey: "土耳其",
+  USA: "美国"
+}).sort((entryA, entryB) => entryB[0].length - entryA[0].length);
+
+const localizedPlayerEntries = Object.entries(playerNameMap).sort((entryA, entryB) => entryB[0].length - entryA[0].length);
+
+function getCanonicalTeamName(team) {
+  return teamNameAliases[team] ?? team;
+}
+
 function formatTeamName(team) {
-  return teamNameMap[team] ? `${team}（${teamNameMap[team]}）` : team;
+  const canonicalTeam = getCanonicalTeamName(team);
+  return teamNameMap[canonicalTeam] ?? team;
+}
+
+function formatPlayerName(player) {
+  return playerNameMap[player] ?? player;
+}
+
+function localizeText(text) {
+  if (!text) return text;
+  let localized = text;
+  for (const [englishName, chineseName] of localizedPlayerEntries) {
+    localized = localized.replaceAll(englishName, chineseName);
+  }
+  for (const [englishName, chineseName] of localizedTeamEntries) {
+    localized = localized.replaceAll(`${englishName}（${chineseName}）`, chineseName);
+    localized = localized.replaceAll(englishName, chineseName);
+  }
+  return localized;
 }
 
 function getPlayerRole(player) {
@@ -204,7 +392,8 @@ function getPlayerRole(player) {
     "Abdukodir Khusanov": ["后卫", "身体和回追是防线抗压关键。"]
   };
 
-  return roleMap[player] ?? ["核心球员", "当前只记录基础名单，详细角色待后续补充。"];
+  const [role, note] = roleMap[player] ?? ["核心球员", "当前只记录基础名单，详细角色待后续补充。"];
+  return [role, localizeText(note)];
 }
 
 function addDays(dateText, days) {
@@ -1018,9 +1207,9 @@ function render() {
       formatTeamName(fixture.home),
       fixture.away,
       formatTeamName(fixture.away),
-      fixture.reason,
-      ...(teamProfiles.find((profile) => profile.team === fixture.home)?.players ?? []),
-      ...(teamProfiles.find((profile) => profile.team === fixture.away)?.players ?? [])
+      localizeText(fixture.reason),
+      ...(teamProfiles.find((profile) => profile.team === fixture.home)?.players ?? []).flatMap((player) => [player, formatPlayerName(player)]),
+      ...(teamProfiles.find((profile) => profile.team === fixture.away)?.players ?? []).flatMap((player) => [player, formatPlayerName(player)])
     ].join(" ").toLowerCase();
     const matchesSearch = !query || haystack.includes(query);
     const matchesFilter = activeFilter === "all" || fixture.status === activeFilter || (activeFilter === "focus" && fixture.focus);
@@ -1038,9 +1227,10 @@ function render() {
       </div>
       <div class="fixture-time">${fixture.timeLabel}</div>
       <div class="teams"><span>${formatTeamName(fixture.home)}</span><span class="versus">${fixture.score}</span><span>${formatTeamName(fixture.away)}</span></div>
-      <p class="reason">${fixture.stadium} · ${fixture.watchTime} · ${fixture.reason}</p>
+      <p class="reason">${fixture.stadium} · ${fixture.watchTime} · ${localizeText(fixture.reason)}</p>
       <div class="fixture-details">
         ${(fixture.facts ?? [`赛前判断：${fixture.prediction}`, `关键变量：${fixture.keyPoint}`, `观赛重点：${fixture.watchFor}`])
+          .map((item) => localizeText(item))
           .map((item) => `<span>${item}</span>`)
           .join("")}
       </div>
@@ -1068,7 +1258,7 @@ function renderHistory() {
         <strong>${formatTeamName(fixture.home)} ${fixture.score} ${formatTeamName(fixture.away)}</strong>
       </div>
       <p>${fixture.group} · ${fixture.city} · ${fixture.stadium} · ${fixture.watchTime}</p>
-      <small>${fixture.reason}</small>
+      <small>${localizeText(fixture.reason)}</small>
     </article>
   `).join("");
 }
@@ -1081,13 +1271,13 @@ function renderTeamProfiles() {
         <span>${formatTeamName(profile.team)}</span>
         <h3>${formatTeamName(profile.team)}</h3>
       </div>
-      <p class="team-style">${profile.style}</p>
+      <p class="team-style">${localizeText(profile.style)}</p>
       <div class="player-list" aria-label="${formatTeamName(profile.team)} 核心球员">
         ${profile.players.map((player) => {
           const [role, note] = getPlayerRole(player);
           return `
             <div class="player-row">
-              <strong>${player}</strong>
+              <strong>${formatPlayerName(player)}</strong>
               <span>${role}</span>
               <p>${note}</p>
             </div>
@@ -1095,9 +1285,9 @@ function renderTeamProfiles() {
         }).join("")}
       </div>
       <div class="team-profile-notes">
-        <div><span>优势</span><p>${profile.strength}</p></div>
-        <div><span>风险</span><p>${profile.risk}</p></div>
-        <div><span>参谋观察</span><p>${profile.watch}</p></div>
+        <div><span>优势</span><p>${localizeText(profile.strength)}</p></div>
+        <div><span>风险</span><p>${localizeText(profile.risk)}</p></div>
+        <div><span>参谋观察</span><p>${localizeText(profile.watch)}</p></div>
       </div>
     </article>
   `).join("");
@@ -1209,7 +1399,7 @@ function renderLatestReview() {
     <article>
       <span>${index === 0 ? "最近完赛" : fixture.tone === "低比分" ? "低比分样本" : "强队兑现"}</span>
       <h3>${formatTeamName(fixture.home)} ${fixture.score} ${formatTeamName(fixture.away)}</h3>
-      <p>${fixture.reason}</p>
+      <p>${localizeText(fixture.reason)}</p>
     </article>
   `).join("");
 }
@@ -1251,15 +1441,15 @@ function renderMatchAdvisor() {
       <div class="match-advisor-body">
         <div>
           <span>赛前方向</span>
-          <p>${fixture.prediction}</p>
+          <p>${localizeText(fixture.prediction)}</p>
         </div>
         <div>
           <span>关键变量</span>
-          <p>${fixture.keyPoint}</p>
+          <p>${localizeText(fixture.keyPoint)}</p>
         </div>
         <div>
           <span>观赛重点</span>
-          <p>${fixture.watchFor}</p>
+          <p>${localizeText(fixture.watchFor)}</p>
         </div>
       </div>
       <div class="fixture-top">
@@ -1307,8 +1497,8 @@ function renderTodayFocus() {
       </div>
       <strong>${formatTeamName(fixture.home)} vs ${formatTeamName(fixture.away)}</strong>
       <span class="fixture-time">${fixture.timeLabel}</span>
-      <p>${fixture.prediction}</p>
-      <small>关键变量：${fixture.keyPoint}</small>
+      <p>${localizeText(fixture.prediction)}</p>
+      <small>关键变量：${localizeText(fixture.keyPoint)}</small>
       ${fixture.href ? `<a class="text-link fixture-link" href="${fixture.href}">查看单场详情</a>` : ""}
     </article>
   `).join("");
