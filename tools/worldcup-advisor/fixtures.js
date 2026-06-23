@@ -134,7 +134,7 @@
     });
   }
 
-  const fixtures = buildFixtures();
+  let fixtures = buildFixtures();
 
   function formatStatus(status) {
     return status === "done" ? "已完赛" : "未开赛";
@@ -245,6 +245,7 @@
 
   window.addEventListener?.("worldcup-advisor-data-ready", () => {
     data = window.worldCupAdvisorData ?? {};
+    fixtures = buildFixtures();
     render();
   });
 })();
