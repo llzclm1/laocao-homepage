@@ -173,9 +173,10 @@ input { min-height:46px; border:1px solid var(--line); background:#fff; color:va
 .team-profile-head h3 { margin:4px 0 0; font-size:24px; line-height:1.15; }
 .team-style { margin:0; color:#354155; font-size:15px; font-weight:750; }
 .player-list { display:grid; gap:10px; }
-.player-row { display:grid; grid-template-columns:minmax(130px,.8fr) minmax(96px,.55fr) minmax(0,1.4fr); gap:10px; align-items:start; border:1px solid rgba(216,224,234,.86); border-radius:14px; background:#fff; padding:11px 12px; }
+.player-row { display:grid; grid-template-columns:46px minmax(130px,.8fr) minmax(96px,.55fr) minmax(0,1.4fr); gap:10px; align-items:start; border:1px solid rgba(216,224,234,.86); border-radius:14px; background:#fff; padding:11px 12px; }
+.player-number { display:inline-grid; place-items:center; width:34px; min-height:28px; border:1px solid rgba(30,95,214,.28); border-radius:10px; background:#edf5ff; color:var(--blue); font-size:13px; font-weight:950; font-variant-numeric:tabular-nums; line-height:1; }
 .player-row strong { color:var(--ink); font-size:14px; line-height:1.25; }
-.player-row span { color:var(--blue); font-size:12px; font-weight:900; }
+.player-role { color:var(--blue); font-size:12px; font-weight:900; }
 .player-row p { margin:0; color:#354155; font-size:13px; line-height:1.45; }
 .team-profile-notes { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
 .team-profile-notes div { border:1px solid rgba(216,224,234,.72); border-radius:12px; background:#fff; padding:10px; }

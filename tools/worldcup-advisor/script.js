@@ -207,6 +207,153 @@ const playerNameMap = {
   "Abdukodir Khusanov": "阿卜杜科迪尔·胡萨诺夫"
 };
 
+const playerNumberMap = {
+  "Riyad Mahrez": 7,
+  "Ismael Bennacer": 22,
+  "Amine Gouiri": 9,
+  "Lionel Messi": 10,
+  "Julian Alvarez": 9,
+  "Emiliano Martinez": 23,
+  "Mathew Ryan": 1,
+  "Jackson Irvine": 22,
+  "Craig Goodwin": 11,
+  "David Alaba": 8,
+  "Marcel Sabitzer": 9,
+  "Christoph Baumgartner": 19,
+  "Kevin De Bruyne": 7,
+  "Romelu Lukaku": 10,
+  "Jeremy Doku": 11,
+  "Edin Dzeko": 11,
+  "Miralem Pjanic": 10,
+  "Rade Krunic": 8,
+  "Vinicius Junior": 7,
+  Rodrygo: 10,
+  "Bruno Guimaraes": 5,
+  "Ryan Mendes": 20,
+  "Garry Rodrigues": 11,
+  "Logan Costa": 5,
+  "Alphonso Davies": 19,
+  "Jonathan David": 20,
+  "Stephen Eustaquio": 7,
+  "Luis Diaz": 7,
+  "James Rodriguez": 10,
+  "Jhon Duran": 14,
+  "Luka Modric": 10,
+  "Mateo Kovacic": 8,
+  "Josko Gvardiol": 4,
+  "Leandro Bacuna": 10,
+  "Juninho Bacuna": 7,
+  "Vurnon Anita": 8,
+  "Patrik Schick": 10,
+  "Tomas Soucek": 22,
+  "Antonin Barak": 7,
+  "Yoane Wissa": 20,
+  "Cedric Bakambu": 17,
+  "Chancel Mbemba": 22,
+  "Moises Caicedo": 23,
+  "Piero Hincapie": 3,
+  "Enner Valencia": 13,
+  "Mohamed Salah": 10,
+  "Omar Marmoush": 7,
+  "Mostafa Mohamed": 11,
+  "Harry Kane": 9,
+  "Jude Bellingham": 10,
+  "Bukayo Saka": 7,
+  "Kylian Mbappe": 10,
+  "Antoine Griezmann": 7,
+  "Aurelien Tchouameni": 8,
+  "Jamal Musiala": 10,
+  "Florian Wirtz": 17,
+  "Joshua Kimmich": 6,
+  "Mohammed Kudus": 20,
+  "Thomas Partey": 5,
+  "Inaki Williams": 19,
+  "Duckens Nazon": 9,
+  "Frantzdy Pierrot": 20,
+  "Wilde-Donald Guerrier": 11,
+  "Mehdi Taremi": 9,
+  "Sardar Azmoun": 20,
+  "Alireza Jahanbakhsh": 7,
+  "Aymen Hussein": 18,
+  "Ali Jasim": 17,
+  "Zidane Iqbal": 14,
+  "Sebastien Haller": 22,
+  "Franck Kessie": 8,
+  "Simon Adingra": 10,
+  "Takefusa Kubo": 20,
+  "Kaoru Mitoma": 7,
+  "Wataru Endo": 6,
+  "Mousa Al-Tamari": 10,
+  "Yazan Al-Naimat": 11,
+  "Nizar Al-Rashdan": 21,
+  "Hirving Lozano": 22,
+  "Santiago Gimenez": 11,
+  "Edson Alvarez": 4,
+  "Achraf Hakimi": 2,
+  "Sofyan Amrabat": 4,
+  "Hakim Ziyech": 7,
+  "Virgil van Dijk": 4,
+  "Frenkie de Jong": 21,
+  "Cody Gakpo": 11,
+  "Chris Wood": 9,
+  "Liberato Cacace": 13,
+  "Joe Bell": 6,
+  "Erling Haaland": 9,
+  "Martin Odegaard": 10,
+  "Alexander Sorloth": 19,
+  "Adalberto Carrasquilla": 8,
+  "Michael Murillo": 23,
+  "Anibal Godoy": 20,
+  "Miguel Almiron": 10,
+  "Julio Enciso": 19,
+  "Gustavo Gomez": 15,
+  "Cristiano Ronaldo": 7,
+  "Bruno Fernandes": 8,
+  "Bernardo Silva": 10,
+  "Akram Afif": 11,
+  "Almoez Ali": 19,
+  "Hassan Al-Haydos": 10,
+  "Salem Al-Dawsari": 10,
+  "Firas Al-Buraikan": 9,
+  "Mohamed Kanno": 23,
+  "Scott McTominay": 4,
+  "Andy Robertson": 3,
+  "John McGinn": 7,
+  "Sadio Mane": 10,
+  "Kalidou Koulibaly": 3,
+  "Nicolas Jackson": 7,
+  "Percy Tau": 10,
+  "Teboho Mokoena": 4,
+  "Ronwen Williams": 1,
+  "Son Heung-min": 7,
+  "Kim Min-jae": 4,
+  "Lee Kang-in": 18,
+  Rodri: 16,
+  Pedri: 20,
+  "Lamine Yamal": 19,
+  "Alexander Isak": 9,
+  "Dejan Kulusevski": 21,
+  "Viktor Gyokeres": 17,
+  "Granit Xhaka": 10,
+  "Manuel Akanji": 5,
+  "Breel Embolo": 7,
+  "Ellyes Skhiri": 17,
+  "Wahbi Khazri": 10,
+  "Hannibal Mejbri": 8,
+  "Hakan Calhanoglu": 10,
+  "Arda Guler": 8,
+  "Kenan Yildiz": 19,
+  "Christian Pulisic": 10,
+  "Weston McKennie": 8,
+  "Tyler Adams": 4,
+  "Federico Valverde": 15,
+  "Darwin Nunez": 9,
+  "Ronald Araujo": 4,
+  "Eldor Shomurodov": 14,
+  "Abbosbek Fayzullaev": 22,
+  "Abdukodir Khusanov": 2
+};
+
 const localizedTeamEntries = Object.entries({
   ...teamNameMap,
   "Bosnia & Herzegovina": "波黑",
@@ -229,6 +376,10 @@ function formatTeamName(team) {
 
 function formatPlayerName(player) {
   return playerNameMap[player] ?? player;
+}
+
+function formatPlayerNumber(player) {
+  return playerNumberMap[player] ? String(playerNumberMap[player]).padStart(2, "0") : "--";
 }
 
 function localizeText(text) {
@@ -545,10 +696,10 @@ const manualUpcomingFixtures = [
     status: "upcoming",
     focus: true,
     href: "matches/portugal-uzbekistan/",
-    prediction: "Portugal 控球和前场个人能力占优，赛前倾向 Portugal 不败，小胜可能性更高。",
-    keyPoint: "Uzbekistan 的防线站位和由守转攻速度，会决定比赛是否被早早打开。",
-    watchFor: "先看 Portugal 前 20 分钟压迫强度，以及 Uzbekistan 能不能稳住第一波冲击。",
-    reason: "Portugal 控球和前场个人能力占优，Uzbekistan 的防守纪律决定比赛会不会早早被打开。"
+    prediction: "葡萄牙控球和前场个人能力占优，赛前倾向葡萄牙不败，小胜可能性更高。",
+    keyPoint: "乌兹别克斯坦的防线站位和由守转攻速度，会决定比赛是否被早早打开。",
+    watchFor: "先看葡萄牙前 20 分钟压迫强度，以及乌兹别克斯坦能不能稳住第一波冲击。",
+    reason: "葡萄牙控球和前场个人能力占优，乌兹别克斯坦的防守纪律决定比赛会不会早早被打开。"
   },
   {
     date: "北京时间 2026-06-24 04:00",
@@ -563,10 +714,10 @@ const manualUpcomingFixtures = [
     status: "upcoming",
     focus: true,
     href: "matches/england-ghana/",
-    prediction: "England 阵容深度更好，赛前倾向 England 占优，但 Ghana 具备反击制造波动的能力。",
-    keyPoint: "Ghana 的边路速度和身体对抗，是 England 能否稳定控场的主要变量。",
-    watchFor: "观察 England 是否早早取得领先；如果久攻不下，比赛会更依赖定位球和替补冲击。",
-    reason: "England 纸面实力更强，Ghana 的反击速度和身体对抗会影响大小球判断。"
+    prediction: "英格兰阵容深度更好，赛前倾向英格兰占优，但加纳具备反击制造波动的能力。",
+    keyPoint: "加纳的边路速度和身体对抗，是英格兰能否稳定控场的主要变量。",
+    watchFor: "观察英格兰是否早早取得领先；如果久攻不下，比赛会更依赖定位球和替补冲击。",
+    reason: "英格兰纸面实力更强，加纳的反击速度和身体对抗会影响比分判断。"
   },
   {
     date: "北京时间 2026-06-24 07:00",
@@ -581,10 +732,10 @@ const manualUpcomingFixtures = [
     status: "upcoming",
     focus: false,
     href: "matches/panama-croatia/",
-    prediction: "Croatia 控场经验更好，赛前倾向 Croatia 占优，Panama 需要把比赛拖进低节奏。",
-    keyPoint: "Panama 如果长期低位防守，Croatia 的中场耐心和远射质量会成为突破口。",
-    watchFor: "重点看 Croatia 能不能在上半场打穿中路；若迟迟不开局，比分可能偏谨慎。",
-    reason: "Croatia 控场经验更好，Panama 如果低位防守，比赛节奏可能偏慢。"
+    prediction: "克罗地亚控场经验更好，赛前倾向克罗地亚占优，巴拿马需要把比赛拖进低节奏。",
+    keyPoint: "巴拿马如果长期低位防守，克罗地亚的中场耐心和远射质量会成为突破口。",
+    watchFor: "重点看克罗地亚能不能在上半场打穿中路；若迟迟不开局，比分可能偏谨慎。",
+    reason: "克罗地亚控场经验更好，巴拿马如果低位防守，比赛节奏可能偏慢。"
   },
   {
     date: "北京时间 2026-06-24 10:00",
@@ -599,10 +750,10 @@ const manualUpcomingFixtures = [
     status: "upcoming",
     focus: true,
     href: "matches/colombia-dr-congo/",
-    prediction: "Colombia 进攻层次更丰富，赛前倾向 Colombia 主动，DR Congo 更依赖身体冲击和转换。",
-    keyPoint: "如果 DR Congo 能把比赛变成往返冲刺，Colombia 后场空间会被持续测试。",
+    prediction: "哥伦比亚进攻层次更丰富，赛前倾向哥伦比亚主动，刚果民主共和国更依赖身体冲击和转换。",
+    keyPoint: "如果刚果民主共和国能把比赛变成往返冲刺，哥伦比亚后场空间会被持续测试。",
     watchFor: "看 Colombia 边路推进和禁区前二点球控制；这场更容易出现开放回合。",
-    reason: "Colombia 进攻层次更丰富，DR Congo 的身体冲击会让比赛更开放。"
+    reason: "哥伦比亚进攻层次更丰富，刚果民主共和国的身体冲击会让比赛更开放。"
   }
 ];
 
@@ -669,7 +820,7 @@ const teamProfiles = [
       "Jeremy Doku"
     ],
     "style": "进攻依赖核心传球和边路爆点，阵地战质量高。",
-    "strength": "Doku 的突破能改变防线站位，De Bruyne 决定上限。",
+    "strength": "热雷米·多库的突破能改变防线站位，凯文·德布劳内决定上限。",
     "risk": "转换防守和中卫回追是主要隐患。",
     "watch": "看边路是否能早早打开宽度，减少中路拥堵。"
   },
@@ -729,7 +880,7 @@ const teamProfiles = [
       "Jhon Duran"
     ],
     "style": "边路冲击和前腰调度兼具，比赛打开后威胁更大。",
-    "strength": "Luis Diaz 的单点能力可以持续制造犯规和角球。",
+    "strength": "路易斯·迪亚斯的单点能力可以持续制造犯规和角球。",
     "risk": "如果中场被迫低位，前场会和后场脱节。",
     "watch": "看 James 的触球区域，以及 Duran 是否能提供禁区冲击。"
   },
@@ -885,9 +1036,9 @@ const teamProfiles = [
       "Zidane Iqbal"
     ],
     "style": "中前场有速度和冲击，比赛情绪强度高。",
-    "strength": "Aymen Hussein 的支点和终结是主要威胁。",
+    "strength": "艾曼·侯赛因的支点和终结是主要威胁。",
     "risk": "面对强队时防线横移和禁区保护会被考验。",
-    "watch": "看 Ali Jasim 能否在转换中拿到正面空间。"
+    "watch": "看阿里·贾西姆能否在转换中拿到正面空间。"
   },
   {
     "team": "Ivory Coast",
@@ -957,7 +1108,7 @@ const teamProfiles = [
       "Cody Gakpo"
     ],
     "style": "中后场质量高，能在控球和直接进攻间切换。",
-    "strength": "Van Dijk 稳定防线，Frenkie 决定推进质量。",
+    "strength": "维吉尔·范戴克稳定防线，弗朗基·德容决定推进质量。",
     "risk": "锋线终结稳定性会影响优势兑现。",
     "watch": "看 Frenkie 是否能带球穿过第一道压迫。"
   },
@@ -1091,7 +1242,7 @@ const teamProfiles = [
     "style": "速度、纪律和核心个人能力结合，反击效率高。",
     "strength": "Son 的身后冲刺和 Lee 的创造力是主要入口。",
     "risk": "中场被压制时，前后场距离容易拉大。",
-    "watch": "看 Kim Min-jae 是否能压住对手支点。"
+    "watch": "看金玟哉是否能压住对手支点。"
   },
   {
     "team": "Spain",
@@ -1151,7 +1302,7 @@ const teamProfiles = [
     "style": "中前场技术和远射能力突出，创造力不错。",
     "strength": "Hakan 的定位球和长传能迅速改变进攻方向。",
     "risk": "年轻球员多，比赛稳定性会有波动。",
-    "watch": "看 Arda Guler 是否能在前腰区域获得自由度。"
+    "watch": "看阿尔达·居莱尔是否能在前腰区域获得自由度。"
   },
   {
     "team": "United States",
@@ -1173,9 +1324,9 @@ const teamProfiles = [
       "Ronald Araujo"
     ],
     "style": "强度、纵深和身体对抗极高，比赛风格直接。",
-    "strength": "Valverde 覆盖全场，Darwin 能持续冲击身后。",
+    "strength": "费德里科·巴尔韦德覆盖全场，达尔文·努涅斯能持续冲击身后。",
     "risk": "节奏过快时，传球失误会增加。",
-    "watch": "看 Araujo 是否能控制对手核心前锋。"
+    "watch": "看罗纳德·阿劳霍是否能控制对手核心前锋。"
   },
   {
     "team": "Uzbekistan",
@@ -1185,9 +1336,9 @@ const teamProfiles = [
       "Abdukodir Khusanov"
     ],
     "style": "纪律和反击速度不错，首次大赛更需要稳住开局。",
-    "strength": "Shomurodov 的支点和 Fayzullaev 的突破是主要出口。",
+    "strength": "埃尔多尔·肖穆罗多夫的支点和阿博斯别克·法伊祖拉耶夫的突破是主要出口。",
     "risk": "经验和抗压能力是最大未知。",
-    "watch": "看 Khusanov 能否顶住强队前锋冲击。"
+    "watch": "看阿卜杜科迪尔·胡萨诺夫能否顶住强队前锋冲击。"
   }
 ];
 
@@ -1354,8 +1505,9 @@ function renderTeamProfiles() {
           const [role, note] = getPlayerRole(player);
           return `
             <div class="player-row">
+              <span class="player-number" aria-label="${formatPlayerName(player)} 参考号码">${formatPlayerNumber(player)}</span>
               <strong>${formatPlayerName(player)}</strong>
-              <span>${role}</span>
+              <span class="player-role">${role}</span>
               <p>${note}</p>
             </div>
           `;

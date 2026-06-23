@@ -10,7 +10,7 @@ window.worldCupAdvisorData = {
       "url": "https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json"
     }
   ],
-  "syncedAt": "2026-06-23 14:33 Asia/Shanghai",
+  "syncedAt": "2026-06-23 15:26 Asia/Shanghai",
   "totalMatches": 104,
   "completedMatches": 44,
   "matches": [
