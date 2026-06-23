@@ -1870,6 +1870,53 @@ function getForecastBias(text) {
   return 0;
 }
 
+function getMarketOutcome(market, name) {
+  return market?.outcomes?.find((item) =>
+    normalizeMarketTeamName(item.name) === normalizeMarketTeamName(name)
+  );
+}
+
+function getImpliedProbability(price) {
+  return Number.isFinite(price) && price > 1 ? 1 / price : null;
+}
+
+function getMarketForecastAdjustment(fixture) {
+  const event = findOddsEventForFixture(fixture.home, fixture.away);
+  if (!event) return null;
+
+  const h2h = event.markets?.h2h;
+  const homePrice = getMarketOutcome(h2h, fixture.home)?.averagePrice;
+  const awayPrice = getMarketOutcome(h2h, fixture.away)?.averagePrice;
+  const drawPrice = getMarketOutcome(h2h, "Draw")?.averagePrice;
+  const homeImplied = getImpliedProbability(homePrice);
+  const awayImplied = getImpliedProbability(awayPrice);
+  const drawImplied = getImpliedProbability(drawPrice);
+  const impliedTotal = [homeImplied, awayImplied, drawImplied]
+    .filter(Number.isFinite)
+    .reduce((sum, value) => sum + value, 0);
+  const probabilityEdge = impliedTotal
+    ? ((homeImplied ?? 0) - (awayImplied ?? 0)) / impliedTotal
+    : 0;
+
+  const homeSpread = event.markets?.spreads?.line?.home;
+  const spreadEdge = Number.isFinite(homeSpread) ? clamp(-homeSpread * 0.34, -1.25, 1.25) : 0;
+  const totalLine = event.markets?.totals?.line?.over;
+
+  return {
+    edge: clamp((probabilityEdge * 1.05 + spreadEdge) / 2, -1.15, 1.15),
+    total: Number.isFinite(totalLine) ? clamp(totalLine, 1.6, 4.2) : null,
+    note: [
+      Number.isFinite(homePrice) && Number.isFinite(awayPrice)
+        ? `胜平负均价：${formatTeamName(fixture.home)} ${homePrice.toFixed(2)} / 平 ${Number.isFinite(drawPrice) ? drawPrice.toFixed(2) : "暂无"} / ${formatTeamName(fixture.away)} ${awayPrice.toFixed(2)}`
+        : "",
+      Number.isFinite(homeSpread)
+        ? `让球线：${formatTeamName(fixture.home)} ${formatMarketLine(homeSpread)}`
+        : "",
+      Number.isFinite(totalLine) ? `大小球线：${totalLine}` : ""
+    ].filter(Boolean).join("；")
+  };
+}
+
 function getScoreForecast(fixture, teamFormMap) {
   const homeForm = teamFormMap[fixture.home] ?? { played: 0, goalsFor: 0, goalsAgainst: 0 };
   const awayForm = teamFormMap[fixture.away] ?? { played: 0, goalsFor: 0, goalsAgainst: 0 };
@@ -1879,8 +1926,19 @@ function getScoreForecast(fixture, teamFormMap) {
   const awayDefense = awayForm.played ? awayForm.goalsAgainst / awayForm.played : 1.2;
   const textBias = getForecastBias(`${fixture.prediction} ${fixture.reason}`);
   const focusBias = fixture.focus ? 0.08 : 0;
-  const homeExpected = clamp(((homeAttack + awayDefense) / 2) + textBias + focusBias, 0.4, 3.4);
-  const awayExpected = clamp(((awayAttack + homeDefense) / 2) - textBias / 2, 0.2, 2.8);
+  const baseHomeExpected = clamp(((homeAttack + awayDefense) / 2) + textBias + focusBias, 0.4, 3.4);
+  const baseAwayExpected = clamp(((awayAttack + homeDefense) / 2) - textBias / 2, 0.2, 2.8);
+  const marketAdjustment = getMarketForecastAdjustment(fixture);
+  const baseTotal = baseHomeExpected + baseAwayExpected;
+  const baseEdge = baseHomeExpected - baseAwayExpected;
+  const expectedTotal = marketAdjustment?.total
+    ? baseTotal * 0.65 + marketAdjustment.total * 0.35
+    : baseTotal;
+  const expectedEdge = marketAdjustment
+    ? baseEdge * 0.55 + marketAdjustment.edge * 0.45
+    : baseEdge;
+  const homeExpected = clamp((expectedTotal + expectedEdge) / 2, 0.4, 3.8);
+  const awayExpected = clamp((expectedTotal - expectedEdge) / 2, 0.2, 3.2);
   const homeGoals = normalizeGoals(homeExpected);
   const awayGoals = normalizeGoals(awayExpected);
   const winner = homeGoals === awayGoals ? "平局倾向" : homeGoals > awayGoals ? `${formatTeamName(fixture.home)} 略优` : `${formatTeamName(fixture.away)} 略优`;
@@ -1890,7 +1948,7 @@ function getScoreForecast(fixture, teamFormMap) {
     {
       label: "主推",
       score: `${homeGoals}-${awayGoals}`,
-      note: "按当前赛果均值、攻防画像和赛前文字判断合成。"
+      note: marketAdjustment ? "按赛果均值、攻防画像和授权盘口情绪综合生成。" : "按当前赛果均值、攻防画像和赛前文字判断合成。"
     },
     {
       label: "保守",
@@ -1909,9 +1967,14 @@ function getScoreForecast(fixture, teamFormMap) {
     winner,
     tempo,
     scenarios,
+    marketAdjusted: Boolean(marketAdjustment),
     judgement: `${winner}，${tempo}。优先按 ${scenarios[0].score} 跟进，同时保留 ${scenarios[1].score} 和 ${scenarios[2].score} 两种节奏分支。`,
-    summary: `${formatTeamName(fixture.home)} 场均进球 ${homeAttack.toFixed(1)}、${formatTeamName(fixture.away)} 场均失球 ${awayDefense.toFixed(1)}，合成主队预期 ${homeExpected.toFixed(1)}。`,
-    risk: `${formatTeamName(fixture.away)} 场均进球 ${awayAttack.toFixed(1)}、${formatTeamName(fixture.home)} 场均失球 ${homeDefense.toFixed(1)}，客队仍有 ${awayExpected.toFixed(1)} 球上下的反击窗口。本栏只做观赛参考，不构成投注建议，也不承诺命中。`
+    summary: marketAdjustment
+      ? `${formatTeamName(fixture.home)} 基础预期 ${baseHomeExpected.toFixed(1)}、${formatTeamName(fixture.away)} 基础预期 ${baseAwayExpected.toFixed(1)}；融合盘口后预期调整为 ${homeExpected.toFixed(1)}-${awayExpected.toFixed(1)}。${marketAdjustment.note}`
+      : `${formatTeamName(fixture.home)} 场均进球 ${homeAttack.toFixed(1)}、${formatTeamName(fixture.away)} 场均失球 ${awayDefense.toFixed(1)}，合成主队预期 ${homeExpected.toFixed(1)}。`,
+    risk: marketAdjustment
+      ? `盘口只作为市场情绪参考，已用较低权重修正强弱差和总进球，不构成投注建议，不承诺命中。`
+      : `${formatTeamName(fixture.away)} 场均进球 ${awayAttack.toFixed(1)}、${formatTeamName(fixture.home)} 场均失球 ${homeDefense.toFixed(1)}，客队仍有 ${awayExpected.toFixed(1)} 球上下的反击窗口。本栏只做观赛参考，不构成投注建议，也不承诺命中。`
   };
 }
 
@@ -1944,6 +2007,7 @@ function renderScorePredictions() {
           </div>
           <div class="score-prediction-chips">
             ${forecast.scenarios.map((scenario, scenarioIndex) => `<span class="${scenarioIndex === 0 ? "is-primary" : ""}">${scenario.label} ${scenario.score}</span>`).join("")}
+            ${forecast.marketAdjusted ? '<span class="is-market">已融合市场情绪</span>' : ""}
             <span>北京时间观赛</span>
           </div>
         </div>
