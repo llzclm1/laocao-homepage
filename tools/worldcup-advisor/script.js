@@ -1529,38 +1529,42 @@ const teamProfiles = [
   }
 ];
 
-upcomingFixtures = (liveWorldCupData?.matches ?? [])
-  .filter((match) => !Array.isArray(match.score?.ft))
-  .map((match) => {
-    const { beijingDateTime, localDateTime } = convertMatchTimeToBeijing(match.date, match.time);
-    const home = getCanonicalTeamName(match.team1);
-    const away = getCanonicalTeamName(match.team2);
-    const manualFixture = manualUpcomingFixtureMap.get(`${home}__${away}__${beijingDateTime}`);
-    const autoPrediction = buildAutoPrediction(home, away);
-    const fixture = {
-      date: beijingDateTime.replace("北京时间开赛：", "北京时间 "),
-      timeLabel: beijingDateTime,
-      watchTime: localDateTime,
-      group: normalizeGroupLabel(match.group),
-      city: match.city ?? match.ground ?? manualFixture?.city ?? "赛地待更新",
-      stadium: match.stadium ?? match.ground ?? manualFixture?.stadium ?? "球场待更新",
-      home,
-      away,
-      score: "未开赛",
-      status: "upcoming",
-      focus: manualFixture?.focus ?? false,
-      href: manualFixture?.href,
-      prediction: manualFixture?.prediction ?? autoPrediction.prediction,
-      keyPoint: manualFixture?.keyPoint ?? autoPrediction.keyPoint,
-      watchFor: manualFixture?.watchFor ?? autoPrediction.watchFor,
-      reason: manualFixture?.reason ?? autoPrediction.reason
-    };
-    fixture.marketReference = getMarketReference(fixture);
-    return fixture;
-  })
-  .sort((fixtureA, fixtureB) => fixtureA.timeLabel.localeCompare(fixtureB.timeLabel, "zh-Hans-CN"));
+function buildUpcomingFixtures(matches) {
+  return (matches ?? [])
+    .filter((match) => !Array.isArray(match.score?.ft))
+    .map((match) => {
+      const { beijingDateTime, localDateTime } = convertMatchTimeToBeijing(match.date, match.time);
+      const home = getCanonicalTeamName(match.team1);
+      const away = getCanonicalTeamName(match.team2);
+      const manualFixture = manualUpcomingFixtureMap.get(`${home}__${away}__${beijingDateTime}`);
+      const autoPrediction = buildAutoPrediction(home, away);
+      const fixture = {
+        date: beijingDateTime.replace("北京时间开赛：", "北京时间 "),
+        timeLabel: beijingDateTime,
+        watchTime: localDateTime,
+        group: normalizeGroupLabel(match.group),
+        city: match.city ?? match.ground ?? manualFixture?.city ?? "赛地待更新",
+        stadium: match.stadium ?? match.ground ?? manualFixture?.stadium ?? "球场待更新",
+        home,
+        away,
+        score: "未开赛",
+        status: "upcoming",
+        focus: manualFixture?.focus ?? false,
+        href: manualFixture?.href,
+        prediction: manualFixture?.prediction ?? autoPrediction.prediction,
+        keyPoint: manualFixture?.keyPoint ?? autoPrediction.keyPoint,
+        watchFor: manualFixture?.watchFor ?? autoPrediction.watchFor,
+        reason: manualFixture?.reason ?? autoPrediction.reason
+      };
+      fixture.marketReference = getMarketReference(fixture);
+      return fixture;
+    })
+    .sort((fixtureA, fixtureB) => fixtureA.timeLabel.localeCompare(fixtureB.timeLabel, "zh-Hans-CN"));
+}
 
-const fixtures = [...upcomingFixtures, ...completedFixtures.slice().reverse()];
+let upcomingFixtures = buildUpcomingFixtures(liveWorldCupData?.matches ?? []);
+
+let fixtures = [...upcomingFixtures, ...completedFixtures.slice().reverse()];
 
 const grid = document.querySelector("#fixture-grid");
 const historyList = document.querySelector("#history-list");
@@ -2565,6 +2569,8 @@ window.addEventListener?.("worldcup-advisor-data-ready", () => {
 
 window.WorldCupAdvisorRefresh = () => {
   liveWorldCupData = window.worldCupAdvisorData;
+  upcomingFixtures = buildUpcomingFixtures(liveWorldCupData?.matches ?? []);
+  fixtures = [...upcomingFixtures, ...completedFixtures.slice().reverse()];
   if (pageId === "fixtures") {
     render();
     scheduleFixtureRefresh();
