@@ -316,6 +316,13 @@ function buildSitemap() {
     ["tools/seo-content-tools/templates/community-notice-copy/", "0.7"],
     ["tools/seo-content-tools/templates/wechat-channel-copy/", "0.7"],
     ["tools/seo-content-tools/templates/short-video-script/", "0.7"],
+    ["tools/seo-content-tools/guides/", "0.8"],
+    ["tools/seo-content-tools/guides/how-to-write-moments-copy/", "0.7"],
+    ["tools/seo-content-tools/guides/xiaohongshu-title-tips/", "0.7"],
+    ["tools/seo-content-tools/guides/promotion-copy-structure/", "0.7"],
+    ["tools/seo-content-tools/guides/doubao-prompt-tips/", "0.7"],
+    ["tools/seo-content-tools/guides/selling-point-method/", "0.7"],
+    ["tools/seo-content-tools/guides/short-video-hook-tips/", "0.7"],
     ["tools/content-assistant/admin/", "0.4"],
     ["llms.txt", "0.6"]
   ];

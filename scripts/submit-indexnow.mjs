@@ -29,6 +29,13 @@ const payload = {
     new URL("tools/seo-content-tools/templates/community-notice-copy/", normalizedSiteUrl).toString(),
     new URL("tools/seo-content-tools/templates/wechat-channel-copy/", normalizedSiteUrl).toString(),
     new URL("tools/seo-content-tools/templates/short-video-script/", normalizedSiteUrl).toString(),
+    new URL("tools/seo-content-tools/guides/", normalizedSiteUrl).toString(),
+    new URL("tools/seo-content-tools/guides/how-to-write-moments-copy/", normalizedSiteUrl).toString(),
+    new URL("tools/seo-content-tools/guides/xiaohongshu-title-tips/", normalizedSiteUrl).toString(),
+    new URL("tools/seo-content-tools/guides/promotion-copy-structure/", normalizedSiteUrl).toString(),
+    new URL("tools/seo-content-tools/guides/doubao-prompt-tips/", normalizedSiteUrl).toString(),
+    new URL("tools/seo-content-tools/guides/selling-point-method/", normalizedSiteUrl).toString(),
+    new URL("tools/seo-content-tools/guides/short-video-hook-tips/", normalizedSiteUrl).toString(),
   ],
 };
 

@@ -166,6 +166,13 @@ memories 是一个准备上架 App Store 的手机信息收纳 APP，用来把�
 - 社群通知文案模板：https://gewuji.dev/tools/seo-content-tools/templates/community-notice-copy/
 - 视频号文案模板：https://gewuji.dev/tools/seo-content-tools/templates/wechat-channel-copy/
 - 短视频脚本模板：https://gewuji.dev/tools/seo-content-tools/templates/short-video-script/
+- 经营内容问答库：https://gewuji.dev/tools/seo-content-tools/guides/
+- 朋友圈文案怎么写：https://gewuji.dev/tools/seo-content-tools/guides/how-to-write-moments-copy/
+- 小红书标题怎么取：https://gewuji.dev/tools/seo-content-tools/guides/xiaohongshu-title-tips/
+- 活动宣传文案怎么写：https://gewuji.dev/tools/seo-content-tools/guides/promotion-copy-structure/
+- 豆包生图提示词怎么写：https://gewuji.dev/tools/seo-content-tools/guides/doubao-prompt-tips/
+- 商品卖点怎么提炼：https://gewuji.dev/tools/seo-content-tools/guides/selling-point-method/
+- 短视频开头怎么写：https://gewuji.dev/tools/seo-content-tools/guides/short-video-hook-tips/
 
 包含工具：
 
