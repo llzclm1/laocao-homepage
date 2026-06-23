@@ -47,11 +47,20 @@ input { min-height:46px; border:1px solid var(--line); background:#fff; color:va
 .today-focus-card p { margin:18px 0 10px; color:#edf4ff; font-size:16px; font-weight:750; }
 .today-focus-card small { display:block; margin-top:auto; color:#c9d6ea; font-size:13px; line-height:1.55; }
 .today-focus-card .text-link { color:#9ec4ff; }
-.quick-links-section { padding:0 0 18px; margin:0; }
-.quick-links-section .section-heading { margin-bottom:10px; }
-.quick-links-section h2 { font-size:20px; line-height:1.2; }
-.quick-link-list { display:flex; flex-wrap:wrap; gap:10px; }
-.quick-link-list a { border:1px solid var(--line); border-radius:999px; background:rgba(255,255,255,.7); padding:8px 12px; color:var(--muted); font-size:14px; font-weight:850; }
+.quick-links-section { border:1px solid var(--line); border-radius:var(--radius); background:rgba(255,255,255,.92); box-shadow:var(--shadow); padding:clamp(22px,4vw,34px); margin:22px 0; }
+.quick-links-heading { display:flex; justify-content:space-between; gap:24px; align-items:end; max-width:none; }
+.quick-links-heading p:last-child { max-width:460px; margin:0; text-align:right; }
+.quick-links-section h2 { max-width:none; font-size:clamp(30px,4vw,46px); line-height:1; }
+.quick-link-list { display:grid; grid-template-columns:1.15fr repeat(2,minmax(0,1fr)); gap:14px; }
+.quick-link-card { display:grid; gap:10px; min-height:160px; border:1px solid var(--line); border-radius:20px; background:#fbfdff; padding:18px; transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
+.quick-link-card:hover { transform:translateY(-2px); border-color:#c8dcff; box-shadow:0 18px 44px rgba(20,35,60,.12); }
+.quick-link-card:active { transform:translateY(0); }
+.quick-link-card span { width:fit-content; border:1px solid #c8dcff; border-radius:999px; background:#edf4ff; color:var(--blue); padding:4px 8px; font-size:12px; font-weight:950; }
+.quick-link-card strong { margin-top:auto; font-size:24px; line-height:1.1; }
+.quick-link-card p { margin:0; color:var(--muted); font-size:14px; line-height:1.5; }
+.primary-link-card { background:linear-gradient(135deg,#101522,#1f3559); color:#fff; border-color:rgba(255,255,255,.14); }
+.primary-link-card span { border-color:rgba(137,183,255,.45); background:rgba(137,183,255,.16); color:#dbe9ff; }
+.primary-link-card p { color:#c9d6ea; }
 .section-heading { max-width:780px; margin-bottom:24px; }
 .section-heading h2 { max-width:11ch; }
 .fixture-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
@@ -205,5 +214,5 @@ input { min-height:46px; border:1px solid var(--line); background:#fff; color:va
 .correction-grid article { border:1px solid var(--line); border-radius:var(--radius-sm); background:#fbfdff; padding:18px; }
 .correction-grid h3 { margin:6px 0 8px; font-size:18px; }
 footer { display:flex; justify-content:space-between; gap:18px; padding:34px 0 46px; color:var(--muted); font-size:14px; }
-@media (max-width: 1040px) { .must-watch-section .advisor-grid, .today-focus-grid, .teams-section .team-profile-grid, .team-profile-grid--full, .group-grid { grid-template-columns:1fr; } }
-@media (max-width: 860px) { .hero, .control-panel, .fixture-grid, .history-row, .review-metrics, .correction-grid, .advisor-grid, .player-row, .team-profile-notes, .match-advisor-body, .advisor-summary-strip, .match-advisor-head, .score-prediction-headline, .score-prediction-meta { grid-template-columns:1fr; } .site-header, footer, .prediction-head, .subscribe-panel, .match-review-head, .today-focus-heading, .advisor-heading, .score-poster-top { align-items:flex-start; flex-direction:column; } .advisor-heading p:last-child, .score-poster-top p:last-child { text-align:left; } .advisor-card-footer { justify-content:flex-start; } .review-scoreline { grid-template-columns:1fr; width:100%; } .review-scoreline b { width:100%; } .button { width:100%; } .section-heading h2 { max-width:none; } .teams { align-items:flex-start; flex-direction:column; } .score-poster-shell::before { width:calc(100% - 28px); transform:translateX(14px); } }
+@media (max-width: 1040px) { .must-watch-section .advisor-grid, .today-focus-grid, .quick-link-list, .teams-section .team-profile-grid, .team-profile-grid--full, .group-grid { grid-template-columns:1fr; } }
+@media (max-width: 860px) { .hero, .control-panel, .fixture-grid, .history-row, .review-metrics, .correction-grid, .advisor-grid, .player-row, .team-profile-notes, .match-advisor-body, .advisor-summary-strip, .match-advisor-head, .score-prediction-headline, .score-prediction-meta { grid-template-columns:1fr; } .site-header, footer, .prediction-head, .subscribe-panel, .match-review-head, .today-focus-heading, .advisor-heading, .quick-links-heading, .score-poster-top { align-items:flex-start; flex-direction:column; } .advisor-heading p:last-child, .quick-links-heading p:last-child, .score-poster-top p:last-child { text-align:left; } .advisor-card-footer { justify-content:flex-start; } .review-scoreline { grid-template-columns:1fr; width:100%; } .review-scoreline b { width:100%; } .button { width:100%; } .section-heading h2 { max-width:none; } .teams { align-items:flex-start; flex-direction:column; } .score-poster-shell::before { width:calc(100% - 28px); transform:translateX(14px); } }
