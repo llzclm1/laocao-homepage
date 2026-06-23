@@ -7,15 +7,26 @@
   let refreshTimer = null;
   let inFlight = null;
   let latestPayload = window.worldCupAdvisorData ?? null;
+  let recentlyCompletedUntil = 0;
 
   function getRefreshIntervalMs(payload) {
     const now = Date.now();
+    const completedMatches = Number.isFinite(payload?.completedMatches) ? payload.completedMatches : null;
+    if (completedMatches !== null && recentlyCompletedUntil > now) return 60 * 1000;
+
     const nextMatch = (payload?.matches ?? [])
       .filter((match) => !Array.isArray(match.score?.ft))
       .map((match) => parseBeijingKickoff(match))
       .filter((time) => time && time > now)
       .sort((a, b) => a - b)[0];
 
+    const liveOrStartedMatch = (payload?.matches ?? []).some((match) => {
+      if (Array.isArray(match.score?.ft)) return false;
+      const kickoff = parseBeijingKickoff(match);
+      return kickoff !== null && kickoff <= now;
+    });
+
+    if (liveOrStartedMatch) return 60 * 1000;
     if (!nextMatch) return 5 * 60 * 1000;
     const minutesToKickoff = (nextMatch - now) / 60000;
     if (minutesToKickoff <= 30) return 60 * 1000;
@@ -72,6 +83,13 @@
             : 0,
           matches: result.data.matches
         };
+
+        if (
+          Number.isFinite(latestPayload?.completedMatches) &&
+          payload.completedMatches > latestPayload.completedMatches
+        ) {
+          recentlyCompletedUntil = Date.now() + 5 * 60 * 1000;
+        }
 
         latestPayload = payload;
         window.worldCupAdvisorData = payload;
