@@ -2197,6 +2197,86 @@ function renderMatchAdvisor() {
   `).join("");
 }
 
+function getMatchPageSlug() {
+  const segments = window.location.pathname.split("/").filter(Boolean);
+  const matchesIndex = segments.lastIndexOf("matches");
+  return matchesIndex >= 0 ? segments[matchesIndex + 1] : null;
+}
+
+function findMatchFixtureBySlug(slug) {
+  if (!slug) return null;
+  return manualUpcomingFixtures.find((fixture) => fixture.href?.replace(/\/$/, "") === `matches/${slug}`) ?? null;
+}
+
+function findLiveMatchByTeams(home, away) {
+  const candidates = liveWorldCupData?.matches ?? [];
+  return candidates.find((match) => getCanonicalTeamName(match.team1) === home && getCanonicalTeamName(match.team2) === away) ?? null;
+}
+
+function renderMatchPage() {
+  const slug = getMatchPageSlug();
+  const template = findMatchFixtureBySlug(slug);
+  if (!template) return;
+  const liveMatch = findLiveMatchByTeams(template.home, template.away);
+  const fixture = liveMatch
+    ? {
+        ...template,
+        status: Array.isArray(liveMatch.score?.ft) ? "done" : template.status,
+        score: Array.isArray(liveMatch.score?.ft) ? `${liveMatch.score.ft[0]}-${liveMatch.score.ft[1]}` : template.score,
+        group: normalizeGroupLabel(liveMatch.group) ?? template.group,
+        city: liveMatch.ground ?? template.city,
+        stadium: liveMatch.ground ?? template.stadium,
+        date: liveMatch.date ? `北京时间 ${liveMatch.date}` : template.date
+      }
+    : template;
+
+  const heroTitle = document.querySelector(".match-hero h1");
+  const lead = document.querySelector(".match-hero .lead");
+  const status = document.querySelector(".match-hero .data-status");
+  const scorePanel = document.querySelector(".match-hero .score-panel");
+  const reviewTitle = document.querySelector("#review-title");
+  const reviewNote = document.querySelector(".review-note");
+  const reviewBoard = document.querySelector(".review-board");
+  const analysisCards = document.querySelectorAll(".advisor-grid article p");
+
+  if (heroTitle) heroTitle.textContent = `${formatTeamName(fixture.home)} vs ${formatTeamName(fixture.away)}`;
+  if (lead) lead.textContent = localizeText(fixture.reason);
+  if (status) {
+    status.textContent = fixture.status === "done"
+      ? `${fixture.timeLabel.replace("北京时间开赛：", "北京时间 ")} · ${fixture.group} · 已完赛 ${fixture.score}`
+      : `${fixture.timeLabel.replace("北京时间开赛：", "北京时间 ")} · ${fixture.group}`;
+  }
+  if (scorePanel) {
+    const values = scorePanel.querySelectorAll("strong");
+    if (values[0]) values[0].textContent = fixture.timeLabel.replace("北京时间开赛：", "北京时间 ");
+    if (values[1]) values[1].textContent = fixture.watchTime.replace("当地时间：", "");
+    if (values[2]) values[2].textContent = fixture.group;
+  }
+  if (reviewTitle) reviewTitle.textContent = fixture.status === "done" ? "赛后复盘" : "赛后复盘";
+  if (reviewBoard) {
+    const spans = reviewBoard.querySelectorAll(".review-metrics div span");
+    const strongs = reviewBoard.querySelectorAll(".review-metrics div strong");
+    const paras = reviewBoard.querySelectorAll(".review-metrics div p");
+    if (fixture.status === "done" && fixture.score !== "未开赛") {
+      const [homeGoals, awayGoals] = fixture.score.split("-").map(Number);
+      if (strongs[0]) strongs[0].textContent = `${fixture.home} ${fixture.score} ${fixture.away}`;
+      if (paras[0]) paras[0].textContent = `${fixture.city} · ${fixture.stadium}`;
+      if (strongs[1]) strongs[1].textContent = getReviewTone(fixture.score);
+      if (paras[1]) paras[1].textContent = `总进球 ${homeGoals + awayGoals}，用于校准比分线和节奏预期。`;
+      if (strongs[2]) strongs[2].textContent = getResultLabel(fixture.home, fixture.away, fixture.score);
+      if (paras[2]) paras[2].textContent = "重点看强弱方向、进球数和比赛开放度是否一致。";
+      if (strongs[3]) strongs[3].textContent = "沉淀到同组比赛";
+      if (paras[3]) paras[3].textContent = "同组球队后续判断优先参考这场的节奏和防线稳定性。";
+      if (reviewNote) reviewNote.textContent = "这场已经完赛，复盘会随着最新结果自动更新。";
+    }
+  }
+  if (analysisCards?.length >= 3) {
+    analysisCards[0].textContent = fixture.prediction ? localizeText(fixture.prediction) : analysisCards[0].textContent;
+    analysisCards[1].textContent = fixture.keyPoint ? localizeText(fixture.keyPoint) : analysisCards[1].textContent;
+    analysisCards[2].textContent = fixture.watchFor ? localizeText(fixture.watchFor) : analysisCards[2].textContent;
+  }
+}
+
 function renderSummary() {
   const completedMatchesCount = getLiveCompletedCount();
   const remainingMatchesCount = getLiveTotalMatches() - completedMatchesCount;
@@ -2366,6 +2446,7 @@ switch (pageId) {
     break;
   case "match":
     initBookmarkButtons();
+    renderMatchPage();
     break;
   default:
     initBookmarkButtons();
@@ -2391,6 +2472,8 @@ window.addEventListener?.("worldcup-advisor-data-ready", () => {
     renderOddsSyncStatus();
     renderScorePredictions();
     renderMatchAdvisor();
+  } else if (pageId === "match") {
+    renderMatchPage();
   } else {
     renderSummary();
     renderTodayFocus();
