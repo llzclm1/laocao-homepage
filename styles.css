@@ -853,6 +853,30 @@ h1 {
   font-weight: 800;
 }
 
+.tool-cover {
+  display: grid;
+  width: min(88%, 360px);
+  gap: 10px;
+}
+
+.tool-cover span {
+  display: block;
+  border: 1px solid rgba(10, 15, 22, 0.08);
+  border-radius: 14px;
+  padding: 12px 14px;
+  color: #17221f;
+  background:
+    linear-gradient(135deg, rgba(185, 255, 216, 0.62), rgba(255, 255, 255, 0.92)),
+    #f7fbf4;
+  box-shadow: 0 12px 34px rgba(4, 120, 87, 0.1);
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.tool-cover span:nth-child(even) {
+  margin-left: 32px;
+}
+
 .project-card.featured {
   background:
     linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(246, 247, 249, 0.9)),
