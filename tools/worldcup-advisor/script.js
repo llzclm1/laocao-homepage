@@ -2543,3 +2543,29 @@ window.addEventListener?.("worldcup-advisor-data-ready", () => {
     renderTodayFocus();
   }
 });
+
+window.WorldCupAdvisorRefresh = () => {
+  liveWorldCupData = window.worldCupAdvisorData;
+  if (pageId === "fixtures") {
+    render();
+    scheduleFixtureRefresh();
+  } else if (pageId === "history") {
+    renderHistory();
+  } else if (pageId === "teams") {
+    renderTeamProfiles();
+  } else if (pageId === "groups") {
+    renderGroups();
+  } else if (pageId === "review") {
+    renderMatchReviews();
+    renderLatestReview();
+  } else if (pageId === "advisor") {
+    renderOddsSyncStatus();
+    renderScorePredictions();
+    renderMatchAdvisor();
+  } else if (pageId === "match") {
+    renderMatchPage();
+  } else {
+    renderSummary();
+    renderTodayFocus();
+  }
+};

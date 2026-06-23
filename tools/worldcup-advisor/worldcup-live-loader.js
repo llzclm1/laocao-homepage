@@ -94,6 +94,7 @@
         latestPayload = payload;
         window.worldCupAdvisorData = payload;
         window.dispatchEvent(new CustomEvent("worldcup-advisor-data-ready", { detail: payload }));
+        window.WorldCupAdvisorRefresh?.(payload);
         return payload;
       })
       .finally(() => {

@@ -227,3 +227,8 @@ window.addEventListener?.("worldcup-advisor-data-ready", () => {
   data = window.worldCupAdvisorData;
   renderMatchReviews();
 });
+
+window.WorldCupAdvisorRefresh = () => {
+  data = window.worldCupAdvisorData;
+  renderMatchReviews();
+};

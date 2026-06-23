@@ -248,4 +248,10 @@
     fixtures = buildFixtures();
     render();
   });
+
+  window.WorldCupAdvisorRefresh = () => {
+    data = window.worldCupAdvisorData ?? {};
+    fixtures = buildFixtures();
+    render();
+  };
 })();
