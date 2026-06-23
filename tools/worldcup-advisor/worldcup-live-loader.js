@@ -4,9 +4,31 @@
     "https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json"
   ];
 
-  const refreshIntervalMs = 5 * 60 * 1000;
   let refreshTimer = null;
   let inFlight = null;
+  let latestPayload = window.worldCupAdvisorData ?? null;
+
+  function getRefreshIntervalMs(payload) {
+    const now = Date.now();
+    const nextMatch = (payload?.matches ?? [])
+      .filter((match) => !Array.isArray(match.score?.ft))
+      .map((match) => parseBeijingKickoff(match))
+      .filter((time) => time && time > now)
+      .sort((a, b) => a - b)[0];
+
+    if (!nextMatch) return 5 * 60 * 1000;
+    const minutesToKickoff = (nextMatch - now) / 60000;
+    if (minutesToKickoff <= 30) return 60 * 1000;
+    if (minutesToKickoff <= 180) return 3 * 60 * 1000;
+    return 5 * 60 * 1000;
+  }
+
+  function parseBeijingKickoff(match) {
+    const timeMatch = /北京时间开赛：(\d{4}-\d{2}-\d{2})\s+(\d{2}):(\d{2})/.exec(match?.timeLabel ?? match?.date ?? "");
+    if (!timeMatch) return null;
+    const [, dateText, hourText, minuteText] = timeMatch;
+    return new Date(`${dateText}T${hourText}:${minuteText}:00+08:00`).getTime();
+  }
 
   async function fetchLiveData() {
     for (const url of sources) {
@@ -43,6 +65,7 @@
             minute: "2-digit",
             hour12: false
           }).format(new Date()).replace(" ", " ") + " Asia/Shanghai",
+          lastRefreshAt: new Date().toISOString(),
           totalMatches: Array.isArray(result.data.matches) ? result.data.matches.length : 0,
           completedMatches: Array.isArray(result.data.matches)
             ? result.data.matches.filter((match) => Array.isArray(match.score?.ft)).length
@@ -50,6 +73,7 @@
           matches: result.data.matches
         };
 
+        latestPayload = payload;
         window.worldCupAdvisorData = payload;
         window.dispatchEvent(new CustomEvent("worldcup-advisor-data-ready", { detail: payload }));
         return payload;
@@ -62,8 +86,11 @@
   }
 
   function scheduleRefresh() {
-    if (refreshTimer) window.clearInterval(refreshTimer);
-    refreshTimer = window.setInterval(refreshWorldCupData, refreshIntervalMs);
+    if (refreshTimer) window.clearTimeout(refreshTimer);
+    const interval = getRefreshIntervalMs(latestPayload);
+    refreshTimer = window.setTimeout(() => {
+      refreshWorldCupData().finally(scheduleRefresh);
+    }, interval);
   }
 
   refreshWorldCupData().finally(scheduleRefresh);
