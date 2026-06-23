@@ -155,6 +155,10 @@ memories 是一个准备上架 App Store 的手机信息收纳 APP，用来把�
 - 门店宣传文案生成器：https://gewuji.dev/tools/seo-content-tools/pages/store-promotion-copy/
 - 豆包生图提示词生成器：https://gewuji.dev/tools/seo-content-tools/pages/doubao-image-prompt/
 - 商品卖点提炼工具：https://gewuji.dev/tools/seo-content-tools/pages/product-selling-points/
+- 餐饮活动宣传文案模板：https://gewuji.dev/tools/seo-content-tools/industries/restaurant-promotion-copy/
+- 美业朋友圈文案模板：https://gewuji.dev/tools/seo-content-tools/industries/beauty-salon-copy/
+- 服装店上新文案模板：https://gewuji.dev/tools/seo-content-tools/industries/clothing-new-arrival-copy/
+- 摄影工作室宣传文案模板：https://gewuji.dev/tools/seo-content-tools/industries/photo-studio-copy/
 
 包含工具：
 

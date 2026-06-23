@@ -305,6 +305,10 @@ function buildSitemap() {
     ["tools/seo-content-tools/pages/store-promotion-copy/", "0.7"],
     ["tools/seo-content-tools/pages/doubao-image-prompt/", "0.7"],
     ["tools/seo-content-tools/pages/product-selling-points/", "0.7"],
+    ["tools/seo-content-tools/industries/restaurant-promotion-copy/", "0.7"],
+    ["tools/seo-content-tools/industries/beauty-salon-copy/", "0.7"],
+    ["tools/seo-content-tools/industries/clothing-new-arrival-copy/", "0.7"],
+    ["tools/seo-content-tools/industries/photo-studio-copy/", "0.7"],
     ["tools/content-assistant/admin/", "0.4"],
     ["llms.txt", "0.6"]
   ];

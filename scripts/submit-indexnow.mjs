@@ -18,6 +18,10 @@ const payload = {
     new URL("tools/seo-content-tools/pages/store-promotion-copy/", normalizedSiteUrl).toString(),
     new URL("tools/seo-content-tools/pages/doubao-image-prompt/", normalizedSiteUrl).toString(),
     new URL("tools/seo-content-tools/pages/product-selling-points/", normalizedSiteUrl).toString(),
+    new URL("tools/seo-content-tools/industries/restaurant-promotion-copy/", normalizedSiteUrl).toString(),
+    new URL("tools/seo-content-tools/industries/beauty-salon-copy/", normalizedSiteUrl).toString(),
+    new URL("tools/seo-content-tools/industries/clothing-new-arrival-copy/", normalizedSiteUrl).toString(),
+    new URL("tools/seo-content-tools/industries/photo-studio-copy/", normalizedSiteUrl).toString(),
   ],
 };
 
