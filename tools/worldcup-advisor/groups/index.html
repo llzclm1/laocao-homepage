@@ -6,9 +6,10 @@
     <title>世界杯参谋站｜小组页</title>
     <meta name="description" content="查看世界杯参谋站小组页，快速浏览全部已录入小组球队结构与参谋观察。" />
     <link rel="canonical" href="https://gewuji.dev/tools/worldcup-advisor/groups/" />
-    <link rel="stylesheet" href="../styles.css?v=20260623-player-numbers" />
+    <link rel="stylesheet" href="../styles.css?v=20260623-groups-fit" />
   </head>
   <body data-page="groups">
+    <a class="skip-link" href="#main-content">跳到主要内容</a>
     <header class="site-header">
       <a class="brand" href="../../../">格物集</a>
       <nav aria-label="页面导航">
@@ -22,7 +23,7 @@
       </nav>
     </header>
 
-    <main>
+    <main id="main-content">
       <section class="hero subpage-hero">
         <div>
           <p class="eyebrow">Groups</p>
@@ -36,7 +37,7 @@
           <p class="eyebrow">Groups & Ranking</p>
           <h2 id="groups-title">小组积分排名</h2>
         </div>
-        <div class="group-grid" id="group-grid"></div>
+        <div class="group-grid" id="group-grid" aria-live="polite"></div>
         <aside class="ranking-note group-page-note">
             <span>参谋口径</span>
             <h3>积分榜只做第一层判断</h3>
@@ -50,6 +51,6 @@
       <a href="../">返回总览</a>
     </footer>
     <script src="../data/worldcup-2026.js?v=20260623-github-live"></script>
-    <script src="../script.js?v=20260623-player-numbers"></script>
+    <script src="../script.js?v=20260623-groups-fit"></script>
   </body>
 </html>

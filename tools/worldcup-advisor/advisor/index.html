@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../styles.css?v=20260623-player-numbers" />
   </head>
   <body data-page="advisor">
+    <a class="skip-link" href="#main-content">跳到主要内容</a>
     <header class="site-header">
       <a class="brand" href="../../../">格物集</a>
       <nav aria-label="页面导航">
@@ -22,7 +23,7 @@
       </nav>
     </header>
 
-    <main>
+    <main id="main-content">
       <section class="hero subpage-hero">
         <div>
           <p class="eyebrow">参谋判断</p>
@@ -44,7 +45,7 @@
             <strong>赛前判断海报化，只留观赛信息</strong>
             <span>用票据式排版快速看比分预测和关键变量</span>
           </div>
-          <div id="score-prediction-grid"></div>
+          <div id="score-prediction-grid" aria-live="polite"></div>
         </div>
       </section>
 
@@ -61,7 +62,7 @@
           <div><span>判断顺序</span><strong>时间 → 对阵 → 变量</strong><p>先确认比赛窗口。</p></div>
           <div><span>风险口径</span><strong>不做投注建议</strong><p>只服务观赛和复盘。</p></div>
         </div>
-        <div class="match-advisor-list" id="match-advisor-list"></div>
+        <div class="match-advisor-list" id="match-advisor-list" aria-live="polite"></div>
       </section>
 
       <section class="risk-section" aria-labelledby="risk-title">

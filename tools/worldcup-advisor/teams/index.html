@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../styles.css?v=20260623-player-numbers" />
   </head>
   <body data-page="teams">
+    <a class="skip-link" href="#main-content">跳到主要内容</a>
     <header class="site-header">
       <a class="brand" href="../../../">格物集</a>
       <nav aria-label="页面导航">
@@ -22,7 +23,7 @@
       </nav>
     </header>
 
-    <main>
+    <main id="main-content">
       <section class="hero subpage-hero">
         <div>
           <p class="eyebrow">Teams & Players</p>
@@ -37,7 +38,7 @@
           <h2 id="teams-title">全部球队资料</h2>
           <p>当前数据覆盖已录入赛程中出现的球队，后续可以在这个页面继续做检索和分组。</p>
         </div>
-        <div class="team-profile-grid team-profile-grid--full" id="team-profile-grid"></div>
+        <div class="team-profile-grid team-profile-grid--full" id="team-profile-grid" aria-live="polite"></div>
       </section>
     </main>
 

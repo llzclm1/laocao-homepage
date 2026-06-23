@@ -672,6 +672,10 @@ function normalizeGroupLabel(group) {
   return match ? `${match[1]}组` : group;
 }
 
+function hasKnownGroup(group) {
+  return Boolean(group) && group !== "undefined";
+}
+
 function buildAutoPrediction(home, away) {
   return {
     prediction: `${formatTeamName(home)} 与 ${formatTeamName(away)} 这场先看双方近况与结构对位，默认按更完整的一侧略占主动来跟进比赛节奏。`,
@@ -1474,6 +1478,8 @@ const doneFilterCount = document.querySelector("#done-filter-count");
 const dataStatus = document.querySelector("#data-status");
 const pageId = document.body.dataset.page ?? "home";
 let activeFilter = "all";
+let hasHydratedFixtureState = false;
+let fixtureRefreshTimer = null;
 
 function getLiveCompletedCount() {
   return liveWorldCupData?.completedMatches ?? completedFixtures.length;
@@ -1489,6 +1495,7 @@ function getDataSourceLabel() {
 
 function initBookmarkButtons() {
   document.querySelectorAll("[data-bookmark-button]").forEach((button) => {
+    button.setAttribute("aria-live", "polite");
     button.addEventListener("click", () => {
       const shortcut = navigator.platform.toLowerCase().includes("mac") ? "⌘+D" : "Ctrl+D";
       button.textContent = `按 ${shortcut} 收藏`;
@@ -1504,6 +1511,43 @@ function formatStatus(status) {
   if (status === "done") return "已完赛";
   if (status === "live") return "进行中";
   return "未开赛";
+}
+
+function syncFixtureUrlState(query) {
+  if (!grid || !hasHydratedFixtureState) return;
+  const params = new URLSearchParams(window.location.search);
+  if (query) {
+    params.set("q", query);
+  } else {
+    params.delete("q");
+  }
+  if (activeFilter === "all") {
+    params.delete("filter");
+  } else {
+    params.set("filter", activeFilter);
+  }
+  const nextQuery = params.toString();
+  const nextUrl = `${window.location.pathname}${nextQuery ? `?${nextQuery}` : ""}${window.location.hash}`;
+  window.history.replaceState(null, "", nextUrl);
+}
+
+function setActiveFilter(nextFilter) {
+  activeFilter = nextFilter;
+  filters.forEach((item) => {
+    const isActive = item.dataset.filter === activeFilter;
+    item.classList.toggle("active", isActive);
+    item.setAttribute("aria-pressed", String(isActive));
+  });
+}
+
+function hydrateFixtureStateFromUrl() {
+  if (!searchInput) return;
+  const params = new URLSearchParams(window.location.search);
+  const urlFilter = params.get("filter");
+  const knownFilter = [...filters].some((button) => button.dataset.filter === urlFilter);
+  setActiveFilter(knownFilter ? urlFilter : "all");
+  searchInput.value = params.get("q") ?? "";
+  hasHydratedFixtureState = true;
 }
 
 function render() {
@@ -1563,6 +1607,7 @@ function render() {
   focusCount.textContent = fixtures.filter((fixture) => fixture.focus).length;
   doneFilterCount.textContent = completedMatchesCount;
   dataStatus.textContent = `已收录 ${completedMatchesCount} 场已完赛结果 · 2026 世界杯官方赛程共 104 场，整个赛程还剩 ${remainingMatchesCount} 场未完赛 · 所有比赛主时间显示北京时间 · 已更新 ${updatedAt}${getDataSourceLabel()}`;
+  syncFixtureUrlState(query);
 }
 
 function renderHistory() {
@@ -1614,6 +1659,8 @@ function renderGroups() {
   if (groupGrid.children.length) return;
 
   const groups = fixtures.reduce((result, fixture) => {
+    if (!hasKnownGroup(fixture.group)) return result;
+
     result[fixture.group] ??= {};
     for (const team of [fixture.home, fixture.away]) {
       result[fixture.group][team] ??= {
@@ -1894,6 +1941,36 @@ function renderSummary() {
   if (dataStatus) dataStatus.textContent = `已收录 ${completedMatchesCount} 场已完赛结果 · 还剩 ${remainingMatchesCount} 场 · 已更新 ${updatedAt}${getDataSourceLabel()}`;
 }
 
+function parseFixtureKickoffTime(timeLabel) {
+  const match = /北京时间开赛：(\d{4}-\d{2}-\d{2})\s+(\d{2}):(\d{2})/.exec(timeLabel ?? "");
+  if (!match) return null;
+
+  const [, dateText, hourText, minuteText] = match;
+  return new Date(`${dateText}T${hourText}:${minuteText}:00+08:00`);
+}
+
+function scheduleFixtureRefresh() {
+  if (fixtureRefreshTimer) {
+    window.clearTimeout(fixtureRefreshTimer);
+    fixtureRefreshTimer = null;
+  }
+
+  const now = Date.now();
+  const nextKickoff = upcomingFixtures
+    .map((fixture) => parseFixtureKickoffTime(fixture.timeLabel))
+    .filter((kickoff) => kickoff && kickoff.getTime() > now)
+    .sort((left, right) => left.getTime() - right.getTime())[0];
+
+  if (!nextKickoff) return;
+
+  const refreshDelay = Math.max(nextKickoff.getTime() - now + 1000, 1000);
+  fixtureRefreshTimer = window.setTimeout(() => {
+    fixtureRefreshTimer = null;
+    render();
+    scheduleFixtureRefresh();
+  }, refreshDelay);
+}
+
 function getBeijingMatchDay(fixture) {
   const match = fixture.timeLabel.match(/(\d{4}-\d{2}-\d{2})/);
   return match ? match[1] : fixture.date;
@@ -1934,10 +2011,10 @@ function initHomePage() {
 }
 
 function initFixturesPage() {
+  hydrateFixtureStateFromUrl();
   filters.forEach((button) => {
     button.addEventListener("click", () => {
-      activeFilter = button.dataset.filter;
-      filters.forEach((item) => item.classList.toggle("active", item === button));
+      setActiveFilter(button.dataset.filter);
       render();
     });
   });
@@ -1947,7 +2024,7 @@ function initFixturesPage() {
   }
 
   render();
-  setInterval(render, 5 * 60 * 1000);
+  scheduleFixtureRefresh();
 }
 
 function initHistoryPage() {
