@@ -7,13 +7,16 @@ const teamNameMap = {
   Austria: "奥地利",
   Belgium: "比利时",
   "Bosnia and Herzegovina": "波黑",
+  "Bosnia & Herzegovina": "波黑",
   Brazil: "巴西",
   Canada: "加拿大",
   "Cabo Verde": "佛得角",
+  "Cape Verde": "佛得角",
   Colombia: "哥伦比亚",
   Croatia: "克罗地亚",
   Curaçao: "库拉索",
   Czechia: "捷克",
+  "Czech Republic": "捷克",
   "DR Congo": "刚果民主共和国",
   Ecuador: "厄瓜多尔",
   Egypt: "埃及",
@@ -46,8 +49,10 @@ const teamNameMap = {
   Switzerland: "瑞士",
   Tunisia: "突尼斯",
   Türkiye: "土耳其",
+  Turkey: "土耳其",
   Uruguay: "乌拉圭",
   "United States": "美国",
+  USA: "美国",
   Uzbekistan: "乌兹别克斯坦"
 };
 
