@@ -126,7 +126,9 @@ input { min-height:46px; border:1px solid var(--line); background:#fff; color:va
 .match-review-card { border:1px solid var(--line); border-radius:var(--radius-sm); background:#fff; padding:16px; }
 .match-review-head { display:flex; justify-content:space-between; gap:18px; align-items:flex-start; margin-bottom:12px; }
 .match-review-head span { color:var(--blue); font-size:12px; font-weight:900; }
-.match-review-head strong { max-width:760px; font-size:20px; line-height:1.25; text-align:right; }
+.review-scoreline { display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); gap:10px; align-items:center; width:min(760px,100%); }
+.review-scoreline strong { min-height:54px; display:flex; align-items:center; justify-content:center; border:1px solid #c8dcff; border-radius:14px; background:#edf4ff; color:#163a7a; padding:10px 12px; font-size:18px; line-height:1.2; text-align:center; }
+.review-scoreline b { min-width:78px; display:flex; align-items:center; justify-content:center; border-radius:16px; background:var(--ink); color:#fff; padding:12px 14px; font-size:24px; line-height:1; font-variant-numeric:tabular-nums; box-shadow:0 14px 32px rgba(16,21,34,.18); }
 .review-hero { display:grid; gap:8px; background:#101b33; color:#fff; padding:18px 20px; }
 .review-hero span { color:#b7c6e6; font-size:13px; font-weight:850; }
 .review-hero strong { font-size:28px; line-height:1.1; }
@@ -149,4 +151,4 @@ input { min-height:46px; border:1px solid var(--line); background:#fff; color:va
 .correction-grid h3 { margin:6px 0 8px; font-size:18px; }
 footer { display:flex; justify-content:space-between; gap:18px; padding:34px 0 46px; color:var(--muted); font-size:14px; }
 @media (max-width: 1040px) { .must-watch-section .advisor-grid, .today-focus-grid, .teams-section .team-profile-grid, .team-profile-grid--full, .group-grid { grid-template-columns:1fr; } }
-@media (max-width: 860px) { .hero, .control-panel, .fixture-grid, .history-row, .review-metrics, .correction-grid, .advisor-grid, .player-row, .team-profile-notes, .match-advisor-body { grid-template-columns:1fr; } .site-header, footer, .prediction-head, .subscribe-panel, .match-review-head, .today-focus-heading { align-items:flex-start; flex-direction:column; } .match-review-head strong { text-align:left; } .button { width:100%; } .section-heading h2 { max-width:none; } .teams { align-items:flex-start; flex-direction:column; } }
+@media (max-width: 860px) { .hero, .control-panel, .fixture-grid, .history-row, .review-metrics, .correction-grid, .advisor-grid, .player-row, .team-profile-notes, .match-advisor-body { grid-template-columns:1fr; } .site-header, footer, .prediction-head, .subscribe-panel, .match-review-head, .today-focus-heading { align-items:flex-start; flex-direction:column; } .review-scoreline { grid-template-columns:1fr; width:100%; } .review-scoreline b { width:100%; } .button { width:100%; } .section-heading h2 { max-width:none; } .teams { align-items:flex-start; flex-direction:column; } }

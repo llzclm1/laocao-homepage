@@ -1156,7 +1156,11 @@ function renderMatchReviews() {
     <article class="match-review-card">
       <div class="match-review-head">
         <span>${fixture.timeLabel} · ${fixture.group}</span>
-        <strong>${formatTeamName(fixture.home)} ${fixture.score} ${formatTeamName(fixture.away)}</strong>
+        <div class="review-scoreline" aria-label="${formatTeamName(fixture.home)} ${fixture.score} ${formatTeamName(fixture.away)}">
+          <strong>${formatTeamName(fixture.home)}</strong>
+          <b>${fixture.score}</b>
+          <strong>${formatTeamName(fixture.away)}</strong>
+        </div>
       </div>
       <div class="review-metrics compact-review-metrics" aria-label="${formatTeamName(fixture.home)} 对 ${formatTeamName(fixture.away)} 复盘">
         <div><span>实际赛果</span><strong>${fixture.result}</strong><p>${fixture.city} · ${fixture.stadium}</p></div>
