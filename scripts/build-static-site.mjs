@@ -299,6 +299,7 @@ function buildSitemap() {
     ["films/", "0.8"],
     ["game/worldcup/", "0.8"],
     ["tools/content-assistant/", "0.8"],
+    ["tools/seo-content-tools/", "0.8"],
     ["tools/content-assistant/admin/", "0.4"],
     ["llms.txt", "0.6"]
   ];

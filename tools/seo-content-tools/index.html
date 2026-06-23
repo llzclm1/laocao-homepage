@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>经营小工具｜朋友圈文案生成器、小红书文案生成器、活动宣传文案生成</title>
+    <meta
+      name="description"
+      content="经营小工具提供朋友圈文案生成器、小红书文案生成器、活动宣传文案生成器、豆包生图提示词生成器和商品卖点提炼工具，帮助经营者快速整理日常宣传内容。"
+    />
+    <meta
+      name="keywords"
+      content="朋友圈文案生成器, 小红书文案生成器, 活动宣传文案生成器, 豆包生图提示词生成器, 商品卖点提炼工具, 经营小工具, AI 宣传文案工具"
+    />
+    <meta name="theme-color" content="#f5f3ee" />
+    <meta property="og:title" content="经营小工具｜5 个单用途内容工具" />
+    <meta property="og:description" content="快速生成朋友圈、小红书、活动宣传、豆包生图提示词和商品卖点。" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://gewuji.dev/tools/seo-content-tools/" />
+    <link rel="canonical" href="https://gewuji.dev/tools/seo-content-tools/" />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "经营小工具",
+        "url": "https://gewuji.dev/tools/seo-content-tools/",
+        "applicationCategory": "BusinessApplication",
+        "description": "5 个单用途内容工具：朋友圈文案生成器、小红书文案生成器、活动宣传文案生成器、豆包生图提示词生成器和商品卖点提炼工具。",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "CNY"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../">格物集</a>
+      <nav aria-label="页面导航">
+        <a href="#tools">工具</a>
+        <a href="../content-assistant/">知铺</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="page-title">
+        <div class="hero-copy">
+          <p class="eyebrow">经营内容助手 · 单用途工具集</p>
+          <h1 id="page-title">经营小工具</h1>
+          <p class="hero-text">5 个常用内容工具，先把朋友圈、小红书、活动宣传、商品卖点和豆包生图提示词打好底稿。</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#tools">开始使用</a>
+            <a class="button ghost" href="../content-assistant/">打开知铺完整生成</a>
+          </div>
+        </div>
+        <aside class="hero-panel" aria-label="包含的工具">
+          <span>朋友圈文案生成器</span>
+          <span>小红书文案生成器</span>
+          <span>活动宣传文案生成器</span>
+          <span>豆包生图提示词生成器</span>
+          <span>商品卖点提炼工具</span>
+        </aside>
+      </section>
+
+      <section class="workspace" id="tools" aria-labelledby="tools-title">
+        <div class="section-heading">
+          <p class="eyebrow">5 个单用途入口</p>
+          <h2 id="tools-title">选择一个工具，填入今天要宣传的内容</h2>
+          <p>这里生成的是可复制的初稿。如果要同时生成多平台版本、图片和视频提示词，可以继续使用知铺。</p>
+        </div>
+
+        <div class="tool-layout">
+          <div class="tool-tabs" role="tablist" aria-label="工具类型">
+            <button class="tool-tab active" type="button" data-tool="xiaohongshu" role="tab" aria-selected="true">小红书文案</button>
+            <button class="tool-tab" type="button" data-tool="moments" role="tab" aria-selected="false">朋友圈文案</button>
+            <button class="tool-tab" type="button" data-tool="campaign" role="tab" aria-selected="false">活动宣传</button>
+            <button class="tool-tab" type="button" data-tool="doubao" role="tab" aria-selected="false">豆包生图提示词</button>
+            <button class="tool-tab" type="button" data-tool="sellingPoints" role="tab" aria-selected="false">商品卖点提炼</button>
+          </div>
+
+          <form class="tool-form" id="generator-form">
+            <div class="form-grid">
+              <label>
+                <span>行业或品类</span>
+                <input name="category" type="text" value="咖啡店" />
+              </label>
+              <label>
+                <span>产品、服务或活动</span>
+                <input name="topic" type="text" value="夏日冰拿铁第二杯半价" />
+              </label>
+              <label class="wide">
+                <span>亮点、卖点或优惠</span>
+                <textarea name="highlights" rows="4">现萃咖啡豆，低糖更清爽；工作日下午 2 点到 5 点到店可用；适合朋友同行。</textarea>
+              </label>
+              <label>
+                <span>语气</span>
+                <select name="tone">
+                  <option value="自然亲切">自然亲切</option>
+                  <option value="专业可信">专业可信</option>
+                  <option value="热情有活力">热情有活力</option>
+                  <option value="克制高级">克制高级</option>
+                </select>
+              </label>
+              <label>
+                <span>行动引导</span>
+                <input name="cta" type="text" value="到店出示这条即可参与" />
+              </label>
+            </div>
+            <button class="button primary generate-button" type="submit">生成内容</button>
+          </form>
+
+          <article class="output-card" aria-live="polite">
+            <div class="output-head">
+              <div>
+                <p class="eyebrow" id="current-tool-label">小红书文案生成器</p>
+                <h2 id="output-title">生成结果</h2>
+              </div>
+              <button class="copy-button" type="button" id="copy-output">复制</button>
+            </div>
+            <pre id="tool-output">填好左侧内容后，点击生成内容。</pre>
+          </article>
+        </div>
+      </section>
+
+      <section class="seo-notes" aria-labelledby="notes-title">
+        <p class="eyebrow">适合搜索和日常使用</p>
+        <h2 id="notes-title">这些工具分别解决什么问题</h2>
+        <div class="note-grid">
+          <article>
+            <h3>朋友圈文案生成器</h3>
+            <p>适合把新品、活动、老客提醒整理成自然的朋友圈内容，让用户看得懂，也知道下一步怎么做。</p>
+          </article>
+          <article>
+            <h3>小红书文案生成器</h3>
+            <p>适合生成标题、正文结构和话题标签，用于种草笔记、体验分享、活动预告和商品介绍。</p>
+          </article>
+          <article>
+            <h3>活动宣传文案生成器</h3>
+            <p>适合快速写清楚活动主题、优惠方式、参与时间、适合人群和行动引导。</p>
+          </article>
+          <article>
+            <h3>豆包生图提示词生成器</h3>
+            <p>适合把商品、场景、风格、光线和构图整理成更明确的生图提示词。</p>
+          </article>
+          <article>
+            <h3>商品卖点提炼工具</h3>
+            <p>适合把零散描述提炼成用户利益、核心卖点、购买理由和一句话总结。</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>© 2026 格物集 · 经营小工具</span>
+      <a href="../../">回到格物集</a>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
