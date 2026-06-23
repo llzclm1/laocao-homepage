@@ -323,6 +323,13 @@ function buildSitemap() {
     ["tools/seo-content-tools/guides/doubao-prompt-tips/", "0.7"],
     ["tools/seo-content-tools/guides/selling-point-method/", "0.7"],
     ["tools/seo-content-tools/guides/short-video-hook-tips/", "0.7"],
+    ["tools/seo-content-tools/examples/", "0.8"],
+    ["tools/seo-content-tools/examples/coffee-shop-campaign/", "0.7"],
+    ["tools/seo-content-tools/examples/beauty-salon-promotion/", "0.7"],
+    ["tools/seo-content-tools/examples/clothing-new-arrival/", "0.7"],
+    ["tools/seo-content-tools/examples/photo-studio-booking/", "0.7"],
+    ["tools/seo-content-tools/examples/opening-day/", "0.7"],
+    ["tools/seo-content-tools/examples/member-day/", "0.7"],
     ["tools/content-assistant/admin/", "0.4"],
     ["llms.txt", "0.6"]
   ];

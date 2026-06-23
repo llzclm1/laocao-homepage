@@ -36,6 +36,13 @@ const payload = {
     new URL("tools/seo-content-tools/guides/doubao-prompt-tips/", normalizedSiteUrl).toString(),
     new URL("tools/seo-content-tools/guides/selling-point-method/", normalizedSiteUrl).toString(),
     new URL("tools/seo-content-tools/guides/short-video-hook-tips/", normalizedSiteUrl).toString(),
+    new URL("tools/seo-content-tools/examples/", normalizedSiteUrl).toString(),
+    new URL("tools/seo-content-tools/examples/coffee-shop-campaign/", normalizedSiteUrl).toString(),
+    new URL("tools/seo-content-tools/examples/beauty-salon-promotion/", normalizedSiteUrl).toString(),
+    new URL("tools/seo-content-tools/examples/clothing-new-arrival/", normalizedSiteUrl).toString(),
+    new URL("tools/seo-content-tools/examples/photo-studio-booking/", normalizedSiteUrl).toString(),
+    new URL("tools/seo-content-tools/examples/opening-day/", normalizedSiteUrl).toString(),
+    new URL("tools/seo-content-tools/examples/member-day/", normalizedSiteUrl).toString(),
   ],
 };
 

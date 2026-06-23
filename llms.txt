@@ -173,6 +173,13 @@ memories 是一个准备上架 App Store 的手机信息收纳 APP，用来把�
 - 豆包生图提示词怎么写：https://gewuji.dev/tools/seo-content-tools/guides/doubao-prompt-tips/
 - 商品卖点怎么提炼：https://gewuji.dev/tools/seo-content-tools/guides/selling-point-method/
 - 短视频开头怎么写：https://gewuji.dev/tools/seo-content-tools/guides/short-video-hook-tips/
+- 经营文案案例库：https://gewuji.dev/tools/seo-content-tools/examples/
+- 咖啡店活动文案案例：https://gewuji.dev/tools/seo-content-tools/examples/coffee-shop-campaign/
+- 美业护理活动文案案例：https://gewuji.dev/tools/seo-content-tools/examples/beauty-salon-promotion/
+- 服装店上新文案案例：https://gewuji.dev/tools/seo-content-tools/examples/clothing-new-arrival/
+- 摄影工作室预约文案案例：https://gewuji.dev/tools/seo-content-tools/examples/photo-studio-booking/
+- 新店开业宣传文案案例：https://gewuji.dev/tools/seo-content-tools/examples/opening-day/
+- 会员日活动文案案例：https://gewuji.dev/tools/seo-content-tools/examples/member-day/
 
 包含工具：
 
