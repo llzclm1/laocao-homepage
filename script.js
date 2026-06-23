@@ -152,8 +152,10 @@ function openProjectDetail(detailKey) {
 
   if (detailQr && detailQrImage) {
     const hasQr = Boolean(detail.qrImage);
-    detailQr.hidden = !hasQr;
     if (hasQr) {
+      detailQr.hidden = false;
+      detailQr.removeAttribute("hidden");
+      detailQr.style.display = "";
       detailQrImage.src = detail.qrImage;
       detailQrImage.alt = `${detail.title} 小程序二维码`;
       const qrTitle = detailQr.querySelector(".project-detail-qr-title");
@@ -163,6 +165,8 @@ function openProjectDetail(detailKey) {
       if (qrCopy) qrCopy.textContent = detail.qrCopy ?? "用微信扫一扫，打开对应小程序。";
       if (qrNote) qrNote.textContent = detail.qrNote ?? "";
     } else {
+      detailQr.hidden = true;
+      detailQr.style.display = "none";
       detailQrImage.removeAttribute("src");
       detailQrImage.alt = "";
     }
