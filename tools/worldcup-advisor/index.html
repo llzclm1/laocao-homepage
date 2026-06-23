@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>世界杯参谋站｜赛程、比分判断和观赛参谋</title>
+    <meta name="description" content="世界杯参谋站是一个轻量观赛参谋工具，用来整理赛程、比赛状态、比分倾向、重点看点和观赛优先级。" />
+    <meta name="keywords" content="世界杯参谋站, 世界杯赛程, 世界杯比分预测, 世界杯观赛指南, 足球比赛分析, 世界杯看球工具" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <link rel="canonical" href="https://gewuji.dev/tools/worldcup-advisor/" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../../">格物集</a>
+      <nav aria-label="页面导航">
+        <a href="#fixtures">赛程</a>
+        <a href="#advisor">参谋</a>
+        <a href="../../game/worldcup/">摸鱼版</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <p class="eyebrow">World Cup Advisor</p>
+          <h1>世界杯参谋站</h1>
+          <p class="lead">把赛程、强弱关系、比分倾向和观赛优先级放在一张桌面上，方便快速判断今天看哪场。</p>
+          <div class="actions">
+            <a class="button primary" href="#fixtures">看赛程</a>
+            <a class="button" href="#advisor">看参谋建议</a>
+          </div>
+        </div>
+        <aside class="score-panel" aria-label="今日概览">
+          <div><span>已完场</span><strong id="done-count">0</strong></div>
+          <div><span>未开赛</span><strong id="upcoming-count">0</strong></div>
+          <div><span>重点场</span><strong>4</strong></div>
+        </aside>
+      </section>
+
+      <section class="control-panel" aria-label="筛选赛程">
+        <label>
+          <span>搜索球队 / 小组 / 城市</span>
+          <input id="search-input" type="search" placeholder="例如：巴西、G组、洛杉矶" />
+        </label>
+        <div class="filters" role="group" aria-label="状态筛选">
+          <button class="filter active" type="button" data-filter="all">全部</button>
+          <button class="filter" type="button" data-filter="upcoming">未开赛</button>
+          <button class="filter" type="button" data-filter="done">已完场</button>
+          <button class="filter" type="button" data-filter="focus">重点看</button>
+        </div>
+      </section>
+
+      <section class="fixtures-section" id="fixtures" aria-labelledby="fixtures-title">
+        <div class="section-heading">
+          <p class="eyebrow">Fixtures</p>
+          <h2 id="fixtures-title">参谋赛程表</h2>
+          <p>示例数据用于产品试跑，不代表真实赛果。后续可以接入真实赛程数据。</p>
+        </div>
+        <div class="fixture-grid" id="fixture-grid"></div>
+      </section>
+
+      <section class="advisor-section" id="advisor" aria-labelledby="advisor-title">
+        <div class="section-heading">
+          <p class="eyebrow">Advisor Notes</p>
+          <h2 id="advisor-title">今日参谋判断</h2>
+        </div>
+        <div class="advisor-grid">
+          <article>
+            <span>优先看</span>
+            <h3>强强对话优先</h3>
+            <p>优先选择小组排名接近、出线压力大的比赛，通常更有战术强度和情绪波动。</p>
+          </article>
+          <article>
+            <span>比分倾向</span>
+            <h3>低比分更稳</h3>
+            <p>淘汰边缘球队更容易谨慎开局，大小球判断先看阵容、赛程密度和天气。</p>
+          </article>
+          <article>
+            <span>避坑</span>
+            <h3>别只看名气</h3>
+            <p>热门队伍如果已经提前出线，轮换概率会上升，赛前阵容比历史名气更重要。</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>© 2026 格物集 · 世界杯参谋站</span>
+      <a href="../../">回到格物集</a>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

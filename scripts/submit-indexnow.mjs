@@ -12,6 +12,7 @@ const payload = {
   keyLocation,
   urlList: [
     normalizedSiteUrl,
+    new URL("tools/worldcup-advisor/", normalizedSiteUrl).toString(),
     new URL("tools/seo-content-tools/", normalizedSiteUrl).toString(),
     new URL("tools/seo-content-tools/pages/moments-campaign-copy/", normalizedSiteUrl).toString(),
     new URL("tools/seo-content-tools/pages/xiaohongshu-seeding-copy/", normalizedSiteUrl).toString(),

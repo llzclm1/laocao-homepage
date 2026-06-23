@@ -298,6 +298,7 @@ function buildSitemap() {
     ["", "1.0"],
     ["films/", "0.8"],
     ["game/worldcup/", "0.8"],
+    ["tools/worldcup-advisor/", "0.8"],
     ["tools/content-assistant/", "0.8"],
     ["tools/seo-content-tools/", "0.8"],
     ["tools/seo-content-tools/pages/moments-campaign-copy/", "0.7"],

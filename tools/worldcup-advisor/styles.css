@@ -1,0 +1,47 @@
+:root { --bg:#eef3f7; --panel:#ffffff; --ink:#101522; --muted:#697386; --line:#d8e0ea; --blue:#155eef; --red:#e3362d; --green:#0f8a5f; --shadow:0 24px 70px rgba(20,35,60,.12); }
+* { box-sizing: border-box; }
+body { margin:0; min-width:320px; background:linear-gradient(135deg,#e8f0ff,transparent 34rem),var(--bg); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif; line-height:1.65; }
+a { color:inherit; text-decoration:none; }
+.site-header, main, footer { width:min(1180px,calc(100% - 36px)); margin:0 auto; }
+.site-header { display:flex; justify-content:space-between; align-items:center; padding:24px 0 12px; }
+.brand { font-weight:900; letter-spacing:.08em; }
+nav { display:flex; gap:18px; color:var(--muted); font-size:14px; }
+.hero { display:grid; grid-template-columns:minmax(0,1fr) 360px; gap:24px; align-items:stretch; padding:42px 0 24px; }
+.hero > div, .score-panel, .control-panel, .fixtures-section, .advisor-section { border:1px solid var(--line); background:rgba(255,255,255,.86); box-shadow:var(--shadow); }
+.hero > div { padding:clamp(28px,5vw,62px); }
+.eyebrow { margin:0 0 12px; color:var(--blue); font-size:12px; font-weight:900; letter-spacing:.16em; text-transform:uppercase; }
+h1 { margin:0 0 18px; font-size:clamp(50px,9vw,108px); line-height:.92; }
+h2 { margin:0 0 10px; font-size:clamp(30px,5vw,52px); line-height:1; }
+h3, p { margin-top:0; }
+.lead, .section-heading p, .advisor-grid p { color:var(--muted); }
+.lead { max-width:680px; font-size:20px; }
+.actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:26px; }
+.button { display:inline-flex; align-items:center; justify-content:center; min-height:44px; border:1px solid var(--ink); border-radius:999px; padding:0 18px; font-weight:850; }
+.button.primary { background:var(--ink); color:#fff; }
+.score-panel { display:grid; gap:14px; padding:24px; }
+.score-panel div { border:1px solid var(--line); background:#f8fbff; padding:18px; }
+.score-panel span { display:block; color:var(--muted); font-size:13px; font-weight:800; }
+.score-panel strong { font-size:44px; line-height:1; }
+.control-panel { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:16px; align-items:end; padding:18px; margin:0 0 22px; }
+label { display:grid; gap:8px; color:var(--muted); font-size:14px; font-weight:800; }
+input { min-height:46px; border:1px solid var(--line); background:#fff; color:var(--ink); padding:0 14px; font:inherit; }
+.filters { display:flex; flex-wrap:wrap; gap:8px; }
+.filter { min-height:42px; border:1px solid var(--line); border-radius:999px; background:#fff; padding:0 14px; font:inherit; font-weight:800; cursor:pointer; }
+.filter.active { border-color:var(--blue); background:var(--blue); color:#fff; }
+.fixtures-section, .advisor-section { padding:clamp(22px,4vw,36px); margin:22px 0; }
+.section-heading { max-width:780px; margin-bottom:20px; }
+.fixture-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+.fixture-card { border:1px solid var(--line); background:#fbfdff; padding:18px; }
+.fixture-top { display:flex; justify-content:space-between; gap:12px; color:var(--muted); font-size:13px; font-weight:850; }
+.teams { display:flex; align-items:center; justify-content:space-between; gap:14px; margin:18px 0; font-size:22px; font-weight:950; }
+.versus { color:var(--muted); font-size:14px; }
+.badge { display:inline-flex; border:1px solid var(--line); border-radius:999px; padding:5px 9px; font-size:12px; font-weight:900; }
+.badge.done { color:var(--green); background:#eafff5; border-color:#b9ecd7; }
+.badge.upcoming { color:var(--blue); background:#edf4ff; border-color:#c8dcff; }
+.badge.focus { color:var(--red); background:#fff0ef; border-color:#ffd0cc; }
+.reason { color:var(--muted); margin:0; }
+.advisor-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+.advisor-grid article { border:1px solid var(--line); background:#fbfdff; padding:20px; }
+.advisor-grid span { color:var(--red); font-size:12px; font-weight:900; letter-spacing:.12em; text-transform:uppercase; }
+footer { display:flex; justify-content:space-between; gap:18px; padding:34px 0 46px; color:var(--muted); font-size:14px; }
+@media (max-width: 860px) { .hero, .control-panel, .fixture-grid, .advisor-grid { grid-template-columns:1fr; } .site-header, footer { align-items:flex-start; flex-direction:column; } .button { width:100%; } }
