@@ -12,6 +12,7 @@ const detailClose = document.querySelector(".dialog-close");
 const detailImage = document.querySelector(".project-detail-image");
 const detailQr = document.querySelector(".project-detail-qr");
 const detailQrImage = document.querySelector(".project-detail-qr-image");
+const detailDownloads = document.querySelector(".project-detail-downloads");
 
 const projectDetails = {
   pixroom: {
@@ -36,18 +37,22 @@ const projectDetails = {
   "material-box": {
     title: "memories",
     image: "assets/projects/detail-crops/memoris-material-board.webp",
-    intro: "准备上架 App Store 的手机信息收纳 APP，用来把微信、小红书、网页、聊天里看到的有用信息随手放进去，并自动归纳、提取重点。",
+    intro: "面向 Mac 和 Windows 的信息收纳工具，已提供两个免费版下载，用来把微信、小红书、网页、聊天里看到的有用信息随手放进去，并自动归纳、提取重点。",
     meta: [
-      ["定位", "手机信息与灵感的临时收纳箱"],
+      ["定位", "桌面端信息与灵感的临时收纳箱"],
       ["解决", "有用内容分散在聊天、网页和收藏里"],
-      ["合作点", "知识整理、内容创作、效率工具场景"],
+      ["版本", "Mac 免费版 / Windows 免费版"],
     ],
     summary:
-      "memories 当前进入 App Store 上架准备阶段。它不是书签管理器，而是把碎片信息先收进来，再变成可以回看的资料。",
+      "memories 当前已经开放 Mac 和 Windows 免费版下载。它不是书签管理器，而是把碎片信息先收进来，再变成可以回看的资料。",
     points: [
-      "当前重点是完成上架前的产品资料、截图和审核准备。",
+      "当前提供 Mac OS App 单包和 Windows Native 单包。",
       "核心是快速收纳链接、文字、截图和灵感，再提炼重点。",
       "适合做知识整理、选题沉淀、购物决策和项目资料积累。",
+    ],
+    downloads: [
+      ["下载 Mac 免费版", "https://github.com/llzclm1/laocao-homepage/releases/download/memoris-free-20260623/memoris-mac-free.zip"],
+      ["下载 Windows 免费版", "https://github.com/llzclm1/laocao-homepage/releases/download/memoris-free-20260623/memoris-windows-free.zip"],
     ],
   },
   "baodan-workshop": {
@@ -128,6 +133,15 @@ function openProjectDetail(detailKey) {
     .join("");
   detailSummary.textContent = detail.summary;
   detailPoints.innerHTML = detail.points.map((point) => `<li>${point}</li>`).join("");
+
+  if (detailDownloads) {
+    detailDownloads.hidden = !detail.downloads;
+    detailDownloads.innerHTML = detail.downloads
+      ? detail.downloads
+          .map(([label, href]) => `<a class="button primary" href="${href}">${label}</a>`)
+          .join("")
+      : "";
+  }
 
   if (detailQr && detailQrImage) {
     const hasQr = Boolean(detail.qrImage);

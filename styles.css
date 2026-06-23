@@ -1272,6 +1272,17 @@ h1 {
   content: "";
 }
 
+.project-detail-downloads {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.project-detail-downloads[hidden] {
+  display: none;
+}
+
 .project-detail-qr {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 148px;
