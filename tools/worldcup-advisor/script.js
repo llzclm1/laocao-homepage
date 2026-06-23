@@ -1792,7 +1792,8 @@ function renderTeamProfiles() {
 function renderGroups() {
   if (!groupGrid) return;
 
-  const sourceMatches = liveWorldCupData?.matches ?? [];
+  const currentData = window.worldCupAdvisorData ?? liveWorldCupData ?? {};
+  const sourceMatches = currentData.matches ?? [];
   const completedMatches = sourceMatches.filter((match) => Array.isArray(match.score?.ft));
   const sourceFixtures = completedMatches.length
     ? completedMatches.map((match) => ({
