@@ -863,6 +863,33 @@ input {
 }
 .score-prediction-details { display: grid; gap: 10px; padding-top: 12px; border-top: 1px solid #eef0f5; }
 .score-prediction-details strong { display: block; margin-bottom: 4px; color: #2b2735; font-size: 13px; }
+.market-reference-card {
+  border: 1px solid rgba(108, 49, 244, .16);
+  border-radius: 16px;
+  background: linear-gradient(135deg, #fbf8ff, #fff);
+  padding: 14px;
+}
+.market-reference-card span,
+.market-reference-card strong {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--purple);
+  font-size: 12px;
+  font-weight: 900;
+}
+.market-reference-card p {
+  margin: 4px 0 0;
+  color: #4c4658;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.market-reference-card small {
+  display: block;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.45;
+}
 
 .match-advisor-card {
   display: grid;

@@ -49,6 +49,10 @@ assert.match(contentAssistantAdmin, /src="\.\/script\.js(?:\?[^"]*)?"/, "content
 assert.equal(contentAssistantAdmin.includes('src="/'), false, "content assistant admin should not use root-relative src paths");
 assert.equal(contentAssistantAdmin.includes('href="/'), false, "content assistant admin should not use root-relative href paths");
 
+const worldcupAdvisor = fs.readFileSync(path.join(dist, "tools", "worldcup-advisor", "advisor", "index.html"), "utf8");
+assert.ok(worldcupAdvisor.includes("../data/worldcup-odds.js"), "worldcup advisor should load odds cache");
+assert.ok(fs.existsSync(path.join(dist, "tools", "worldcup-advisor", "data", "worldcup-odds.js")), "worldcup odds cache should be copied");
+
 const worldcup = fs.readFileSync(path.join(dist, "game", "worldcup", "index.html"), "utf8");
 assert.ok(worldcup.includes('assets/worldcup/worldcup_player_idle.png'), "worldcup page should use relative worldcup assets");
 assert.equal(worldcup.includes(githubPagesHostSuffix), false, "worldcup page should not hard-code GitHub Pages");

@@ -1,4 +1,5 @@
 const liveWorldCupData = window.worldCupAdvisorData;
+const liveWorldCupOdds = window.worldCupAdvisorOdds;
 const updatedAt = liveWorldCupData?.syncedAt ?? "2026-06-23 14:33 Asia/Shanghai";
 const totalScheduledMatches = 104;
 const teamNameMap = {
@@ -682,6 +683,50 @@ function buildAutoPrediction(home, away) {
     keyPoint: `${formatTeamName(home)} 的控场质量和 ${formatTeamName(away)} 的转换效率，会决定比赛是否被早早打开。`,
     watchFor: "重点看双方开场 20 分钟的推进速度、压迫强度和禁区前机会质量。",
     reason: `${formatTeamName(home)} 对 ${formatTeamName(away)} 以赛果均值和球队画像生成自动判断，优先观察开场 20 分钟的节奏与机会质量。`
+  };
+}
+
+function normalizeMarketTeamName(team) {
+  return getCanonicalTeamName(String(team ?? "").trim())
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "");
+}
+
+function findOddsEventForFixture(home, away) {
+  if (!liveWorldCupOdds?.available || !Array.isArray(liveWorldCupOdds.events)) return null;
+  const homeKey = normalizeMarketTeamName(home);
+  const awayKey = normalizeMarketTeamName(away);
+  return liveWorldCupOdds.events.find((event) =>
+    normalizeMarketTeamName(event.homeTeam) === homeKey &&
+    normalizeMarketTeamName(event.awayTeam) === awayKey
+  ) ?? null;
+}
+
+function getOutcomePrice(market, name) {
+  const outcome = market?.outcomes?.find((item) =>
+    normalizeMarketTeamName(item.name) === normalizeMarketTeamName(name)
+  );
+  return Number.isFinite(outcome?.averagePrice) ? outcome.averagePrice.toFixed(2) : "暂无";
+}
+
+function formatMarketLine(value) {
+  if (!Number.isFinite(value)) return "暂无";
+  return value > 0 ? `+${value}` : String(value);
+}
+
+function getMarketReference(fixture) {
+  const event = findOddsEventForFixture(fixture.home, fixture.away);
+  if (!event) return null;
+  const h2h = event.markets?.h2h;
+  const spreads = event.markets?.spreads;
+  const totals = event.markets?.totals;
+  return {
+    source: liveWorldCupOdds.source?.name ?? "授权赔率 API",
+    syncedAt: liveWorldCupOdds.syncedAt,
+    disclaimer: liveWorldCupOdds.disclaimer,
+    h2h: `${formatTeamName(fixture.home)} ${getOutcomePrice(h2h, fixture.home)} / 平 ${getOutcomePrice(h2h, "Draw")} / ${formatTeamName(fixture.away)} ${getOutcomePrice(h2h, fixture.away)}`,
+    handicap: `${formatTeamName(fixture.home)} ${formatMarketLine(spreads?.line?.home)} / ${formatTeamName(fixture.away)} ${formatMarketLine(spreads?.line?.away)}`,
+    totals: `大小球 ${formatMarketLine(totals?.line?.over)}`
   };
 }
 
@@ -1441,7 +1486,7 @@ upcomingFixtures = (liveWorldCupData?.matches ?? [])
     const away = getCanonicalTeamName(match.team2);
     const manualFixture = manualUpcomingFixtureMap.get(`${home}__${away}__${beijingDateTime}`);
     const autoPrediction = buildAutoPrediction(home, away);
-    return {
+    const fixture = {
       date: beijingDateTime.replace("北京时间开赛：", "北京时间 "),
       timeLabel: beijingDateTime,
       watchTime: localDateTime,
@@ -1459,6 +1504,8 @@ upcomingFixtures = (liveWorldCupData?.matches ?? [])
       watchFor: manualFixture?.watchFor ?? autoPrediction.watchFor,
       reason: manualFixture?.reason ?? autoPrediction.reason
     };
+    fixture.marketReference = getMarketReference(fixture);
+    return fixture;
   })
   .sort((fixtureA, fixtureB) => fixtureA.timeLabel.localeCompare(fixtureB.timeLabel, "zh-Hans-CN"));
 
@@ -1926,6 +1973,12 @@ function renderScorePredictions() {
             <strong>观赛结合</strong>
             <p>${localizeText(fixture.keyPoint)}</p>
           </div>
+          ${fixture.marketReference ? `
+          <div class="market-reference-card">
+            <strong>市场情绪参考</strong>
+            <p>${fixture.marketReference.h2h} · ${fixture.marketReference.handicap} · ${fixture.marketReference.totals}</p>
+            <small>${fixture.marketReference.source} · ${fixture.marketReference.syncedAt} · ${fixture.marketReference.disclaimer}</small>
+          </div>` : ""}
         </div>
       </article>
     `;
@@ -1960,6 +2013,13 @@ function renderMatchAdvisor() {
           <p>${localizeText(fixture.watchFor)}</p>
         </div>
       </div>
+      ${fixture.marketReference ? `
+      <div class="market-reference-card">
+        <span>市场情绪参考</span>
+        <p>${fixture.marketReference.h2h}</p>
+        <p>${fixture.marketReference.handicap} · ${fixture.marketReference.totals}</p>
+        <small>${fixture.marketReference.source} · ${fixture.marketReference.syncedAt} · ${fixture.marketReference.disclaimer}</small>
+      </div>` : ""}
       <div class="advisor-card-footer">
         ${fixture.href ? `<a class="text-link fixture-link" href="../${fixture.href}">查看单场详情</a>` : ""}
       </div>
