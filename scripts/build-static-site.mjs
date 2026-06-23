@@ -12,6 +12,7 @@ const basePath = normalizeBasePath(process.env.PUBLIC_BASE_PATH || "/");
 const publicBaseUrl = new URL(basePath, `${siteUrl}/`).toString().replace(/\/$/, "");
 const lastmod = "2026-06-15";
 const googleAnalyticsId = "G-NCZSC59MVC";
+const googleAdsId = "AW-986301049";
 
 const copyEntries = [
   "8221b5ee5eb23147b8f2422b2cb6096e.txt",
@@ -243,6 +244,7 @@ function buildAnalyticsTags() {
       gtag('js', new Date());
 
       gtag('config', '${googleAnalyticsId}');
+      gtag('config', '${googleAdsId}');
     </script>`);
 
   if (googleVerification) {
