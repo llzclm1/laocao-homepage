@@ -1925,6 +1925,40 @@ function getMarketForecastAdjustment(fixture) {
   };
 }
 
+function formatScorePair(score) {
+  return `${score.home}-${score.away}`;
+}
+
+function getScenarioScores(homeGoals, awayGoals, homeEdge) {
+  const favorite = homeGoals === awayGoals ? (homeEdge >= 0 ? "home" : "away") : homeGoals > awayGoals ? "home" : "away";
+  const conservative = {
+    home: normalizeGoals(homeGoals - (favorite === "home" ? 1 : 0), 0, 5),
+    away: normalizeGoals(awayGoals - (favorite === "away" ? 1 : 0), 0, 5)
+  };
+  const open = {
+    home: homeGoals,
+    away: awayGoals
+  };
+
+  if (favorite === "home") {
+    open.home = normalizeGoals(open.home + 1, 0, 5);
+    open.away = normalizeGoals(open.away + (homeGoals + awayGoals <= 3 ? 1 : 0), 0, 5);
+  } else {
+    open.home = normalizeGoals(open.home + (homeGoals + awayGoals <= 3 ? 1 : 0), 0, 5);
+    open.away = normalizeGoals(open.away + 1, 0, 5);
+  }
+
+  if (formatScorePair(open) === `${homeGoals}-${awayGoals}`) {
+    open[favorite] = normalizeGoals(open[favorite] + 1, 0, 5);
+  }
+
+  if (formatScorePair(conservative) === `${homeGoals}-${awayGoals}`) {
+    conservative[favorite] = normalizeGoals(conservative[favorite] - 1, 0, 5);
+  }
+
+  return { conservative, open };
+}
+
 function getScoreForecast(fixture, teamFormMap) {
   const homeForm = teamFormMap[fixture.home] ?? { played: 0, goalsFor: 0, goalsAgainst: 0 };
   const awayForm = teamFormMap[fixture.away] ?? { played: 0, goalsFor: 0, goalsAgainst: 0 };
@@ -1963,6 +1997,7 @@ function getScoreForecast(fixture, teamFormMap) {
   const winner = homeGoals === awayGoals ? "平局倾向" : homeGoals > awayGoals ? `${formatTeamName(fixture.home)} 略优` : `${formatTeamName(fixture.away)} 略优`;
   const tempo = homeGoals + awayGoals >= 4 ? "开放比赛" : homeGoals + awayGoals <= 2 ? "偏谨慎" : "中等节奏";
   const homeEdge = homeExpected - awayExpected;
+  const scenarioScores = getScenarioScores(homeGoals, awayGoals, homeEdge);
   const scenarios = [
     {
       label: "主推",
@@ -1971,12 +2006,12 @@ function getScoreForecast(fixture, teamFormMap) {
     },
     {
       label: "保守",
-      score: `${normalizeGoals(homeExpected - 0.45)}-${normalizeGoals(awayExpected - 0.25)}`,
+      score: formatScorePair(scenarioScores.conservative),
       note: "若开局节奏偏慢、机会质量不足，比分会向低进球靠拢。"
     },
     {
       label: "开放",
-      score: `${normalizeGoals(homeExpected + (homeEdge >= 0 ? 0.55 : 0.25))}-${normalizeGoals(awayExpected + (homeEdge < 0 ? 0.55 : 0.35))}`,
+      score: formatScorePair(scenarioScores.open),
       note: "若早段进球或转换空间放大，比赛更可能进入开放回合。"
     }
   ];
