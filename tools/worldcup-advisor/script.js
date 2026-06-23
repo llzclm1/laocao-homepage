@@ -1792,7 +1792,23 @@ function renderTeamProfiles() {
 function renderGroups() {
   if (!groupGrid) return;
 
-  const groups = fixtures.reduce((result, fixture) => {
+  const sourceMatches = liveWorldCupData?.matches ?? [];
+  const completedMatches = sourceMatches.filter((match) => Array.isArray(match.score?.ft));
+  const sourceFixtures = completedMatches.length
+    ? completedMatches.map((match) => ({
+        group: normalizeGroupLabel(match.group),
+        home: getCanonicalTeamName(match.team1),
+        away: getCanonicalTeamName(match.team2),
+        score: `${match.score.ft[0]}-${match.score.ft[1]}`
+      }))
+    : completedFixtures.map(([date, group, city, stadium, home, away, score]) => ({
+        group,
+        home,
+        away,
+        score
+      }));
+
+  const groups = sourceFixtures.reduce((result, fixture) => {
     if (!hasKnownGroup(fixture.group)) return result;
 
     result[fixture.group] ??= {};
@@ -1808,8 +1824,6 @@ function renderGroups() {
         points: 0
       };
     }
-
-    if (fixture.status !== "done") return result;
 
     const [homeGoals, awayGoals] = fixture.score.split("-").map(Number);
     if (!Number.isFinite(homeGoals) || !Number.isFinite(awayGoals)) return result;
