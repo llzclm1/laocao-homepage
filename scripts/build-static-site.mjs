@@ -11,6 +11,7 @@ const siteUrl = normalizeSiteUrl(process.env.SITE_URL || "https://gewuji.dev");
 const basePath = normalizeBasePath(process.env.PUBLIC_BASE_PATH || "/");
 const publicBaseUrl = new URL(basePath, `${siteUrl}/`).toString().replace(/\/$/, "");
 const lastmod = "2026-06-15";
+const googleAnalyticsId = "G-NCZSC59MVC";
 
 const copyEntries = [
   "8221b5ee5eb23147b8f2422b2cb6096e.txt",
@@ -128,8 +129,10 @@ function injectAnalyticsTags() {
 
   for (const file of listHtmlFiles(outDir)) {
     const html = fs.readFileSync(file, "utf8");
-    if (!html.includes("</head>")) continue;
-    fs.writeFileSync(file, html.replace("</head>", `${tags}\n  </head>`), "utf8");
+    const headMatch = html.match(/<head[^>]*>/i);
+    if (!headMatch) continue;
+    const cleanHtml = removeGoogleAnalyticsTag(html);
+    fs.writeFileSync(file, cleanHtml.replace(headMatch[0], `${headMatch[0]}\n${tags}`), "utf8");
   }
 }
 
@@ -232,6 +235,16 @@ function buildAnalyticsTags() {
   const cloudflareToken = process.env.NEXT_PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN;
   const clarityId = process.env.NEXT_PUBLIC_CLARITY_ID;
 
+  tags.push(`    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', '${googleAnalyticsId}');
+    </script>`);
+
   if (googleVerification) {
     tags.push(`    <meta name="google-site-verification" content="${escapeHtmlAttribute(googleVerification)}" />`);
   }
@@ -254,6 +267,18 @@ function buildAnalyticsTags() {
   }
 
   return tags.join("\n");
+}
+
+function removeGoogleAnalyticsTag(html) {
+  return html
+    .replace(
+      /\s*<!-- Google tag \(gtag\.js\) -->\s*<script async src="https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=G-NCZSC59MVC"><\/script>\s*<script>\s*window\.dataLayer = window\.dataLayer \|\| \[\];\s*function gtag\(\)\{dataLayer\.push\(arguments\);\}\s*gtag\('js', new Date\(\)\);\s*gtag\('config', 'G-NCZSC59MVC'\);\s*<\/script>/g,
+      ""
+    )
+    .replace(
+      /\s*<script async src="https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=G-NCZSC59MVC"><\/script>\s*<script>\s*window\.dataLayer = window\.dataLayer \|\| \[\];\s*function gtag\(\)\{dataLayer\.push\(arguments\);\}\s*gtag\('js', new Date\(\)\);\s*gtag\('config', 'G-NCZSC59MVC'\);\s*<\/script>/g,
+      ""
+    );
 }
 
 function listHtmlFiles(directory) {
