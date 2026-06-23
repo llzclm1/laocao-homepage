@@ -13,6 +13,12 @@ const payload = {
   urlList: [
     normalizedSiteUrl,
     new URL("tools/worldcup-advisor/", normalizedSiteUrl).toString(),
+    new URL("tools/worldcup-advisor/fixtures/", normalizedSiteUrl).toString(),
+    new URL("tools/worldcup-advisor/advisor/", normalizedSiteUrl).toString(),
+    new URL("tools/worldcup-advisor/groups/", normalizedSiteUrl).toString(),
+    new URL("tools/worldcup-advisor/history/", normalizedSiteUrl).toString(),
+    new URL("tools/worldcup-advisor/review/", normalizedSiteUrl).toString(),
+    new URL("tools/worldcup-advisor/teams/", normalizedSiteUrl).toString(),
     new URL("tools/worldcup-advisor/matches/portugal-uzbekistan/", normalizedSiteUrl).toString(),
     new URL("tools/worldcup-advisor/matches/england-ghana/", normalizedSiteUrl).toString(),
     new URL("tools/worldcup-advisor/matches/panama-croatia/", normalizedSiteUrl).toString(),
