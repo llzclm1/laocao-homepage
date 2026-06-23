@@ -402,6 +402,47 @@ function addDays(dateText, days) {
   return date.toISOString().slice(0, 10);
 }
 
+function convertMatchTimeToBeijing(dateText, timeText) {
+  const match = /(\d{2}):(\d{2})\s+UTC([+-]\d+)/.exec(timeText ?? "");
+  if (!match) {
+    return {
+      beijingDateTime: `北京时间开赛：${dateText} 00:00`,
+      localDateTime: `当地时间：${dateText} ${timeText ?? "待确认"}`
+    };
+  }
+
+  const [, hourText, minuteText, offsetText] = match;
+  const utcHour = Number(hourText) - Number(offsetText);
+  const utcMinute = Number(minuteText);
+  const utcDate = new Date(Date.UTC(
+    Number(dateText.slice(0, 4)),
+    Number(dateText.slice(5, 7)) - 1,
+    Number(dateText.slice(8, 10)),
+    utcHour,
+    utcMinute
+  ));
+  const beijingDate = new Date(utcDate.getTime() + 8 * 60 * 60 * 1000);
+  const beijingText = `${beijingDate.getUTCFullYear()}-${String(beijingDate.getUTCMonth() + 1).padStart(2, "0")}-${String(beijingDate.getUTCDate()).padStart(2, "0")} ${String(beijingDate.getUTCHours()).padStart(2, "0")}:${String(beijingDate.getUTCMinutes()).padStart(2, "0")}`;
+  return {
+    beijingDateTime: `北京时间开赛：${beijingText}`,
+    localDateTime: `当地时间：${dateText} ${hourText}:${minuteText} (UTC${offsetText})`
+  };
+}
+
+function normalizeGroupLabel(group) {
+  const match = /Group\s+([A-Z])/.exec(group ?? "");
+  return match ? `${match[1]}组` : group;
+}
+
+function buildAutoPrediction(home, away) {
+  return {
+    prediction: `${formatTeamName(home)} 与 ${formatTeamName(away)} 这场先看双方近况与结构对位，默认按更完整的一侧略占主动来跟进比赛节奏。`,
+    keyPoint: `${formatTeamName(home)} 的控场质量和 ${formatTeamName(away)} 的转换效率，会决定比赛是否被早早打开。`,
+    watchFor: "重点看双方开场 20 分钟的推进速度、压迫强度和禁区前机会质量。",
+    reason: `${formatTeamName(home)} 对 ${formatTeamName(away)} 以赛果均值和球队画像生成自动判断，优先观察开场 20 分钟的节奏与机会质量。`
+  };
+}
+
 function getResultLabel(home, away, score) {
   const [homeGoals, awayGoals] = score.split("-").map(Number);
   if (homeGoals > awayGoals) return `${formatTeamName(home)} 胜`;
@@ -490,7 +531,7 @@ const completedFixtures = [
   };
 });
 
-const upcomingFixtures = [
+const manualUpcomingFixtures = [
   {
     date: "北京时间 2026-06-24 01:00",
     timeLabel: "北京时间开赛：2026-06-24 01:00",
@@ -564,6 +605,12 @@ const upcomingFixtures = [
     reason: "Colombia 进攻层次更丰富，DR Congo 的身体冲击会让比赛更开放。"
   }
 ];
+
+const manualUpcomingFixtureMap = new Map(
+  manualUpcomingFixtures.map((fixture) => [`${fixture.home}__${fixture.away}__${fixture.timeLabel}`, fixture])
+);
+
+let upcomingFixtures = [];
 
 const teamProfiles = [
   {
@@ -1143,6 +1190,35 @@ const teamProfiles = [
     "watch": "看 Khusanov 能否顶住强队前锋冲击。"
   }
 ];
+
+upcomingFixtures = (liveWorldCupData?.matches ?? [])
+  .filter((match) => !Array.isArray(match.score?.ft))
+  .map((match) => {
+    const { beijingDateTime, localDateTime } = convertMatchTimeToBeijing(match.date, match.time);
+    const home = getCanonicalTeamName(match.team1);
+    const away = getCanonicalTeamName(match.team2);
+    const manualFixture = manualUpcomingFixtureMap.get(`${home}__${away}__${beijingDateTime}`);
+    const autoPrediction = buildAutoPrediction(home, away);
+    return {
+      date: beijingDateTime.replace("北京时间开赛：", "北京时间 "),
+      timeLabel: beijingDateTime,
+      watchTime: localDateTime,
+      group: normalizeGroupLabel(match.group),
+      city: match.city ?? match.ground ?? manualFixture?.city ?? "赛地待更新",
+      stadium: match.stadium ?? match.ground ?? manualFixture?.stadium ?? "球场待更新",
+      home,
+      away,
+      score: "未开赛",
+      status: "upcoming",
+      focus: manualFixture?.focus ?? false,
+      href: manualFixture?.href,
+      prediction: manualFixture?.prediction ?? autoPrediction.prediction,
+      keyPoint: manualFixture?.keyPoint ?? autoPrediction.keyPoint,
+      watchFor: manualFixture?.watchFor ?? autoPrediction.watchFor,
+      reason: manualFixture?.reason ?? autoPrediction.reason
+    };
+  })
+  .sort((fixtureA, fixtureB) => fixtureA.timeLabel.localeCompare(fixtureB.timeLabel, "zh-Hans-CN"));
 
 const fixtures = [...upcomingFixtures, ...completedFixtures.slice().reverse()];
 
