@@ -1,6 +1,5 @@
 (() => {
   let data = window.worldCupAdvisorData ?? {};
-  const matches = Array.isArray(data.matches) ? data.matches : [];
   const teamNameMap = {
     "Argentina": "阿根廷",
     "Australia": "澳大利亚",
@@ -110,6 +109,7 @@
   }
 
   function buildFixtures() {
+    const matches = Array.isArray(data.matches) ? data.matches : [];
     return matches.map((match, index) => {
       const isDone = Array.isArray(match.score?.ft);
       const focusKey = `${match.team1}|${match.team2}`;
