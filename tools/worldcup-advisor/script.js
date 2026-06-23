@@ -97,6 +97,7 @@ const upcomingFixtures = [
     score: "未开赛",
     status: "upcoming",
     focus: true,
+    href: "matches/portugal-uzbekistan/",
     prediction: "Portugal 控球和前场个人能力占优，赛前倾向 Portugal 不败，小胜可能性更高。",
     keyPoint: "Uzbekistan 的防线站位和由守转攻速度，会决定比赛是否被早早打开。",
     watchFor: "先看 Portugal 前 20 分钟压迫强度，以及 Uzbekistan 能不能稳住第一波冲击。",
@@ -113,6 +114,7 @@ const upcomingFixtures = [
     score: "未开赛",
     status: "upcoming",
     focus: true,
+    href: "matches/england-ghana/",
     prediction: "England 阵容深度更好，赛前倾向 England 占优，但 Ghana 具备反击制造波动的能力。",
     keyPoint: "Ghana 的边路速度和身体对抗，是 England 能否稳定控场的主要变量。",
     watchFor: "观察 England 是否早早取得领先；如果久攻不下，比赛会更依赖定位球和替补冲击。",
@@ -129,6 +131,7 @@ const upcomingFixtures = [
     score: "未开赛",
     status: "upcoming",
     focus: false,
+    href: "matches/panama-croatia/",
     prediction: "Croatia 控场经验更好，赛前倾向 Croatia 占优，Panama 需要把比赛拖进低节奏。",
     keyPoint: "Panama 如果长期低位防守，Croatia 的中场耐心和远射质量会成为突破口。",
     watchFor: "重点看 Croatia 能不能在上半场打穿中路；若迟迟不开局，比分可能偏谨慎。",
@@ -145,6 +148,7 @@ const upcomingFixtures = [
     score: "未开赛",
     status: "upcoming",
     focus: true,
+    href: "matches/colombia-dr-congo/",
     prediction: "Colombia 进攻层次更丰富，赛前倾向 Colombia 主动，DR Congo 更依赖身体冲击和转换。",
     keyPoint: "如果 DR Congo 能把比赛变成往返冲刺，Colombia 后场空间会被持续测试。",
     watchFor: "看 Colombia 边路推进和禁区前二点球控制；这场更容易出现开放回合。",
@@ -204,6 +208,7 @@ function render() {
         <span class="badge ${fixture.status}">${formatStatus(fixture.status)}</span>
         ${fixture.focus ? '<span class="badge focus">重点看</span>' : '<span class="badge">普通场</span>'}
       </div>
+      ${fixture.href ? `<a class="text-link fixture-link" href="${fixture.href}">查看单场详情</a>` : ""}
     </article>
   `).join("");
 
