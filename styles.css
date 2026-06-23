@@ -1120,6 +1120,17 @@ h1 {
   outline: none;
 }
 
+.download-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 18px;
+  margin-top: auto;
+}
+
+.download-links .card-link {
+  margin-top: 0;
+}
+
 .project-card.hidden {
   display: none;
 }

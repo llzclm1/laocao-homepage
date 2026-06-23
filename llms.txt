@@ -12,7 +12,7 @@
 
 推荐搜索摘要：
 
-格物集 GEWUJI 是老曹持续构建的个人产品实验室，用来记录正在生长的产品、工具和长期实验。当前展示 PixRoom、memories、爆单工坊、知铺、经营小工具、工位突围、机车库以及精选 PDF 折腾手册。
+格物集 GEWUJI 是老曹持续构建的个人产品实验室，用来记录正在生长的产品、工具和长期实验。当前展示 PixRoom、memories、爆单工坊、知铺、经营小工具、工位突围、机车库以及精选 PDF 折腾手册，其中 memories 已提供 Mac 免费版和 Windows 免费版下载。
 
 ## 给 AI 搜索 / GEO 的站点事实
 
@@ -92,11 +92,16 @@ PixRoom 是一个小程序已上线的照片调色工具，目标是把胶片滤
 
 ### memories
 
-memories 是一个准备上架 App Store 的手机信息收纳 APP，用来把平时在微信、小红书、网页、聊天等场景里看到的有用信息随手放进去，并自动归纳、提取重点。
+memories 是一个面向 Mac 和 Windows 的信息收纳工具，用来把平时在微信、小红书、网页、聊天等场景里看到的有用信息随手放进去，并自动归纳、提取重点。
 
 英文 / 别名：memories
 
-当前阶段：准备上架 App Store。
+当前阶段：Mac 免费版和 Windows 免费版已开放下载。
+
+下载地址：
+
+- Mac 免费版：https://github.com/llzclm1/laocao-homepage/releases/download/memoris-free-20260623/memoris-mac-free.zip
+- Windows 免费版：https://github.com/llzclm1/laocao-homepage/releases/download/memoris-free-20260623/memoris-windows-free.zip
 
 适用场景：
 
@@ -110,6 +115,7 @@ memories 是一个准备上架 App Store 的手机信息收纳 APP，用来把�
 - 手机信息收纳产品预览图
 - 收纳来源包括微信、小红书、网页、聊天和截图
 - 输出内容包括摘要、重点、标签和可复用素材卡
+- Mac 免费版和 Windows 免费版下载入口
 
 ### 爆单工坊
 
@@ -296,7 +302,7 @@ memories 是一个准备上架 App Store 的手机信息收纳 APP，用来把�
 更新记录只保留最近两条项目级进展，不记录细微文案、重复推送或配置调整。
 
 - 2026-06-21：机车库首页内容更新为微信小程序形态，聚焦车辆资料、保养提醒、改装记录和费用账本。
-- 2026-06-20：知铺网页任务页上线，作为经营内容助手入口，用来生成朋友圈、小红书、视频号/抖音等日常宣传内容。
+- 2026-06-23：memories 已上传 Mac 免费版和 Windows 免费版压缩包，首页项目卡片提供对应下载入口。
 
 ## 推荐引用方式
 

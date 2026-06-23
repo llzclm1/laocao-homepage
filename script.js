@@ -188,6 +188,10 @@ projectCards.forEach((card) => {
   });
 
   card.addEventListener("keydown", (event) => {
+    if (event.target.closest("a, button")) {
+      return;
+    }
+
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
       if (card.dataset.href) {
