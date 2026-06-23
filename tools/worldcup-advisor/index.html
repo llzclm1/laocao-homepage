@@ -27,7 +27,7 @@
         <div>
           <p class="eyebrow">World Cup Advisor</p>
           <h1>世界杯参谋站</h1>
-          <p class="lead">项目页只保留入口。具体内容已经拆到独立页面，先从赛程、复盘或球队资料进入。</p>
+          <p class="lead">先看今天有没有值得盯的比赛，再进赛程、复盘或球队资料。首页只放最该看的内容。</p>
           <p class="data-status" id="data-status">已收录 44 场已完赛结果 · 还剩 60 场 · 已更新 2026-06-23 14:33 Asia/Shanghai</p>
           <div class="actions">
             <a class="button primary" href="./fixtures/">赛程</a>
@@ -40,6 +40,51 @@
           <div><span>剩余</span><strong id="upcoming-count">60</strong></div>
           <div><span>重点</span><strong id="focus-count">3</strong></div>
         </aside>
+      </section>
+
+      <section class="today-focus-section" aria-labelledby="today-focus-title">
+        <div class="section-heading today-focus-heading">
+          <div>
+            <p class="eyebrow">Today</p>
+            <h2 id="today-focus-title">今日重点比赛</h2>
+          </div>
+          <p>按最近一个北京时间比赛日自动拎出重点场。判断只用于观赛参考，不构成任何投注建议。</p>
+        </div>
+        <div class="today-focus-grid" id="today-focus-grid">
+          <article class="today-focus-card primary-focus">
+            <div class="fixture-top">
+              <span>K组 · Houston</span>
+              <span class="badge focus">重点看</span>
+            </div>
+            <strong>Portugal（葡萄牙） vs Uzbekistan（乌兹别克斯坦）</strong>
+            <span class="fixture-time">北京时间开赛：2026-06-24 01:00</span>
+            <p>Portugal 控球和前场个人能力占优，赛前倾向 Portugal 不败，小胜可能性更高。</p>
+            <small>关键变量：Uzbekistan 的防线站位和由守转攻速度。</small>
+            <a class="text-link fixture-link" href="matches/portugal-uzbekistan/">查看单场详情</a>
+          </article>
+          <article class="today-focus-card">
+            <div class="fixture-top">
+              <span>L组 · Boston</span>
+              <span class="badge focus">重点看</span>
+            </div>
+            <strong>England（英格兰） vs Ghana（加纳）</strong>
+            <span class="fixture-time">北京时间开赛：2026-06-24 04:00</span>
+            <p>England 阵容深度更好，但 Ghana 具备反击制造波动的能力。</p>
+            <small>关键变量：Ghana 的边路速度和身体对抗。</small>
+            <a class="text-link fixture-link" href="matches/england-ghana/">查看单场详情</a>
+          </article>
+          <article class="today-focus-card">
+            <div class="fixture-top">
+              <span>K组 · Guadalajara</span>
+              <span class="badge focus">重点看</span>
+            </div>
+            <strong>Colombia（哥伦比亚） vs DR Congo（刚果民主共和国）</strong>
+            <span class="fixture-time">北京时间开赛：2026-06-24 10:00</span>
+            <p>Colombia 进攻层次更丰富，DR Congo 的身体冲击会让比赛更开放。</p>
+            <small>关键变量：DR Congo 能否把比赛变成往返冲刺。</small>
+            <a class="text-link fixture-link" href="matches/colombia-dr-congo/">查看单场详情</a>
+          </article>
+        </div>
       </section>
 
       <section class="quick-links-section" aria-labelledby="quick-links-title">

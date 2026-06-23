@@ -1210,8 +1210,43 @@ function renderSummary() {
   if (dataStatus) dataStatus.textContent = `已收录 ${completedMatchesCount} 场已完赛结果 · 还剩 ${remainingMatchesCount} 场 · 已更新 ${updatedAt}${getDataSourceLabel()}`;
 }
 
+function getBeijingMatchDay(fixture) {
+  const match = fixture.timeLabel.match(/(\d{4}-\d{2}-\d{2})/);
+  return match ? match[1] : fixture.date;
+}
+
+function renderTodayFocus() {
+  const todayFocusGrid = document.querySelector("#today-focus-grid");
+  if (!todayFocusGrid) return;
+
+  const nextMatchDay = upcomingFixtures
+    .map(getBeijingMatchDay)
+    .sort()[0];
+  const todayFocusFixtures = upcomingFixtures.filter((fixture) => getBeijingMatchDay(fixture) === nextMatchDay && fixture.focus);
+
+  if (!todayFocusFixtures.length) {
+    todayFocusGrid.innerHTML = '<p class="empty-state">最近一个比赛日暂无重点场，先去赛程页看完整列表。</p>';
+    return;
+  }
+
+  todayFocusGrid.innerHTML = todayFocusFixtures.map((fixture, index) => `
+    <article class="today-focus-card ${index === 0 ? "primary-focus" : ""}">
+      <div class="fixture-top">
+        <span>${fixture.group} · ${fixture.city}</span>
+        <span class="badge focus">重点看</span>
+      </div>
+      <strong>${formatTeamName(fixture.home)} vs ${formatTeamName(fixture.away)}</strong>
+      <span class="fixture-time">${fixture.timeLabel}</span>
+      <p>${fixture.prediction}</p>
+      <small>关键变量：${fixture.keyPoint}</small>
+      ${fixture.href ? `<a class="text-link fixture-link" href="${fixture.href}">查看单场详情</a>` : ""}
+    </article>
+  `).join("");
+}
+
 function initHomePage() {
   renderSummary();
+  renderTodayFocus();
 }
 
 function initFixturesPage() {

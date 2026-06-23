@@ -8,7 +8,7 @@ a { color:inherit; text-decoration:none; }
 nav { display:flex; gap:18px; color:var(--muted); font-size:14px; }
 .hero { display:grid; grid-template-columns:minmax(0,1fr) 360px; gap:24px; align-items:stretch; padding:42px 0 24px; }
 .subpage-hero { grid-template-columns:minmax(0,1fr); }
-.hero > div, .score-panel, .control-panel, .must-watch-section, .fixtures-section, .history-section, .groups-section, .teams-section, .review-section, .advisor-section, .subscribe-section, .risk-section { border:1px solid var(--line); border-radius:var(--radius); background:rgba(255,255,255,.9); box-shadow:var(--shadow); }
+.hero > div, .score-panel, .control-panel, .must-watch-section, .today-focus-section, .fixtures-section, .history-section, .groups-section, .teams-section, .review-section, .advisor-section, .subscribe-section, .risk-section { border:1px solid var(--line); border-radius:var(--radius); background:rgba(255,255,255,.9); box-shadow:var(--shadow); }
 .hero > div { padding:clamp(28px,5vw,62px); border-radius:40px; }
 .eyebrow { margin:0 0 12px; color:var(--blue); font-size:12px; font-weight:900; letter-spacing:.16em; text-transform:uppercase; }
 h1 { margin:0 0 18px; font-size:clamp(50px,9vw,108px); line-height:.92; }
@@ -31,8 +31,22 @@ input { min-height:46px; border:1px solid var(--line); background:#fff; color:va
 .filters { display:flex; flex-wrap:wrap; gap:8px; }
 .filter { min-height:42px; border:1px solid var(--line); border-radius:999px; background:#fff; padding:0 14px; font:inherit; font-weight:800; cursor:pointer; }
 .filter.active { border-color:var(--blue); background:var(--blue); color:#fff; }
-.must-watch-section, .fixtures-section, .history-section, .groups-section, .teams-section, .review-section, .advisor-section, .subscribe-section, .risk-section { padding:clamp(22px,4vw,36px); margin:22px 0; }
-.project-home-hero { min-height:calc(100vh - 150px); align-items:center; }
+.must-watch-section, .today-focus-section, .fixtures-section, .history-section, .groups-section, .teams-section, .review-section, .advisor-section, .subscribe-section, .risk-section { padding:clamp(22px,4vw,36px); margin:22px 0; }
+.project-home-hero { min-height:calc(72vh - 110px); align-items:center; }
+.today-focus-section { background:linear-gradient(135deg,rgba(16,21,34,.96),rgba(31,53,89,.94)); color:#fff; border-color:rgba(255,255,255,.14); }
+.today-focus-heading { display:flex; justify-content:space-between; gap:24px; align-items:end; max-width:none; }
+.today-focus-heading p:last-child { max-width:470px; margin:0; color:#c9d6ea; font-weight:750; }
+.today-focus-section .eyebrow { color:#89b7ff; }
+.today-focus-section h2 { max-width:none; }
+.today-focus-grid { display:grid; grid-template-columns:1.18fr repeat(2,minmax(0,.91fr)); gap:14px; }
+.today-focus-card { display:flex; flex-direction:column; min-height:280px; border:1px solid rgba(255,255,255,.14); border-radius:var(--radius-sm); background:rgba(255,255,255,.08); padding:20px; box-shadow:inset 0 1px 0 rgba(255,255,255,.12); }
+.today-focus-card.primary-focus { background:linear-gradient(160deg,rgba(255,255,255,.18),rgba(255,255,255,.07)); }
+.today-focus-card .fixture-top { color:#c9d6ea; }
+.today-focus-card strong { display:block; margin:18px 0 10px; font-size:clamp(24px,3.2vw,38px); line-height:1.06; }
+.today-focus-card .fixture-time { border-color:rgba(137,183,255,.45); background:rgba(137,183,255,.16); color:#dbe9ff; }
+.today-focus-card p { margin:18px 0 10px; color:#edf4ff; font-size:16px; font-weight:750; }
+.today-focus-card small { display:block; margin-top:auto; color:#c9d6ea; font-size:13px; line-height:1.55; }
+.today-focus-card .text-link { color:#9ec4ff; }
 .quick-links-section { padding:0 0 18px; margin:0; }
 .quick-links-section .section-heading { margin-bottom:10px; }
 .quick-links-section h2 { font-size:20px; line-height:1.2; }
@@ -134,5 +148,5 @@ input { min-height:46px; border:1px solid var(--line); background:#fff; color:va
 .correction-grid article { border:1px solid var(--line); border-radius:var(--radius-sm); background:#fbfdff; padding:18px; }
 .correction-grid h3 { margin:6px 0 8px; font-size:18px; }
 footer { display:flex; justify-content:space-between; gap:18px; padding:34px 0 46px; color:var(--muted); font-size:14px; }
-@media (max-width: 1040px) { .must-watch-section .advisor-grid, .teams-section .team-profile-grid, .team-profile-grid--full, .group-grid { grid-template-columns:1fr; } }
-@media (max-width: 860px) { .hero, .control-panel, .fixture-grid, .history-row, .review-metrics, .correction-grid, .advisor-grid, .player-row, .team-profile-notes, .match-advisor-body { grid-template-columns:1fr; } .site-header, footer, .prediction-head, .subscribe-panel, .match-review-head { align-items:flex-start; flex-direction:column; } .match-review-head strong { text-align:left; } .button { width:100%; } .section-heading h2 { max-width:none; } .teams { align-items:flex-start; flex-direction:column; } }
+@media (max-width: 1040px) { .must-watch-section .advisor-grid, .today-focus-grid, .teams-section .team-profile-grid, .team-profile-grid--full, .group-grid { grid-template-columns:1fr; } }
+@media (max-width: 860px) { .hero, .control-panel, .fixture-grid, .history-row, .review-metrics, .correction-grid, .advisor-grid, .player-row, .team-profile-notes, .match-advisor-body { grid-template-columns:1fr; } .site-header, footer, .prediction-head, .subscribe-panel, .match-review-head, .today-focus-heading { align-items:flex-start; flex-direction:column; } .match-review-head strong { text-align:left; } .button { width:100%; } .section-heading h2 { max-width:none; } .teams { align-items:flex-start; flex-direction:column; } }
