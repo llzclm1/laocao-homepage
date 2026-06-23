@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>世界杯参谋站｜赛程页</title>
+    <meta name="description" content="查看世界杯参谋站赛程页，按北京时间浏览未开赛、已完赛和重点场比赛。" />
+    <link rel="canonical" href="https://gewuji.dev/tools/worldcup-advisor/fixtures/" />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body data-page="fixtures">
+    <header class="site-header">
+      <a class="brand" href="../../../">格物集</a>
+      <nav aria-label="页面导航">
+        <a href="../">总览</a>
+        <a href="./">赛程</a>
+        <a href="../history/">历史</a>
+        <a href="../groups/">小组</a>
+        <a href="../teams/">球队</a>
+        <a href="../review/">复盘</a>
+        <a href="../advisor/">参谋</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero subpage-hero">
+        <div>
+          <p class="eyebrow">Fixtures</p>
+          <h1>赛程页</h1>
+          <p class="lead">单独看全部比赛列表。这里保留搜索、状态筛选和重点场判断，不和其他板块混在一起。</p>
+          <p class="data-status" id="data-status">赛程数据加载中。</p>
+        </div>
+        <aside class="score-panel" aria-label="赛程概览">
+          <div><span>已完赛</span><strong id="done-count">0</strong></div>
+          <div><span>剩余比赛</span><strong id="upcoming-count">0</strong></div>
+          <div><span>重点场</span><strong id="focus-count">0</strong></div>
+        </aside>
+      </section>
+
+      <section class="control-panel" aria-label="筛选赛程">
+        <label>
+          <span>搜索球队 / 小组 / 城市</span>
+          <input id="search-input" type="search" placeholder="例如：葡萄牙、K组、Houston" />
+        </label>
+        <div class="filters" role="group" aria-label="状态筛选">
+          <button class="filter active" type="button" data-filter="all">全部</button>
+          <button class="filter" type="button" data-filter="upcoming">未开赛</button>
+          <button class="filter" type="button" data-filter="done">已完赛 <span id="done-filter-count">0</span></button>
+          <button class="filter" type="button" data-filter="focus">重点看</button>
+        </div>
+      </section>
+
+      <section class="fixtures-section" aria-labelledby="fixtures-title">
+        <div class="section-heading">
+          <p class="eyebrow">All Fixtures</p>
+          <h2 id="fixtures-title">全部赛程</h2>
+          <p>这个页面只负责赛程本身，避免首页同时承担筛选、历史、小组和复盘带来的阅读压力。</p>
+        </div>
+        <div class="fixture-grid" id="fixture-grid"></div>
+      </section>
+    </main>
+
+    <footer>
+      <span>© 2026 格物集 · 世界杯参谋站</span>
+      <a href="../">返回总览</a>
+    </footer>
+
+    <script src="../script.js?v=20260623-team-profiles"></script>
+  </body>
+</html>
