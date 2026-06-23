@@ -1904,12 +1904,15 @@ function getMarketForecastAdjustment(fixture) {
     : 0;
 
   const homeSpread = event.markets?.spreads?.line?.home;
-  const spreadEdge = Number.isFinite(homeSpread) ? clamp(-homeSpread * 0.34, -1.25, 1.25) : 0;
+  const spreadEdge = Number.isFinite(homeSpread) ? clamp(-homeSpread, -2.8, 2.8) : 0;
   const totalLine = event.markets?.totals?.line?.over;
+  const marketTotal = Number.isFinite(totalLine)
+    ? Math.max(totalLine, Math.abs(spreadEdge) + 1.25)
+    : null;
 
   return {
-    edge: clamp((probabilityEdge * 1.05 + spreadEdge) / 2, -1.15, 1.15),
-    total: Number.isFinite(totalLine) ? clamp(totalLine, 1.6, 4.2) : null,
+    edge: clamp(probabilityEdge * 0.7 + spreadEdge * 0.8, -2.6, 2.6),
+    total: Number.isFinite(marketTotal) ? clamp(marketTotal, 1.6, 4.6) : null,
     note: [
       Number.isFinite(homePrice) && Number.isFinite(awayPrice)
         ? `胜平负均价：${formatTeamName(fixture.home)} ${homePrice.toFixed(2)} / 平 ${Number.isFinite(drawPrice) ? drawPrice.toFixed(2) : "暂无"} / ${formatTeamName(fixture.away)} ${awayPrice.toFixed(2)}`
@@ -1937,15 +1940,26 @@ function getScoreForecast(fixture, teamFormMap) {
   const baseTotal = baseHomeExpected + baseAwayExpected;
   const baseEdge = baseHomeExpected - baseAwayExpected;
   const expectedTotal = marketAdjustment?.total
-    ? baseTotal * 0.65 + marketAdjustment.total * 0.35
+    ? baseTotal * 0.38 + marketAdjustment.total * 0.62
     : baseTotal;
   const expectedEdge = marketAdjustment
-    ? baseEdge * 0.55 + marketAdjustment.edge * 0.45
+    ? baseEdge * 0.3 + marketAdjustment.edge * 0.7
     : baseEdge;
   const homeExpected = clamp((expectedTotal + expectedEdge) / 2, 0.4, 3.8);
   const awayExpected = clamp((expectedTotal - expectedEdge) / 2, 0.2, 3.2);
-  const homeGoals = normalizeGoals(homeExpected);
-  const awayGoals = normalizeGoals(awayExpected);
+  let homeGoals = normalizeGoals(homeExpected);
+  let awayGoals = normalizeGoals(awayExpected);
+  if (marketAdjustment && Math.abs(marketAdjustment.edge) >= 1.55) {
+    if (marketAdjustment.edge > 0) {
+      homeGoals = Math.max(homeGoals, awayGoals + 2);
+      awayGoals = Math.min(awayGoals, 1);
+    } else {
+      awayGoals = Math.max(awayGoals, homeGoals + 2);
+      homeGoals = Math.min(homeGoals, 1);
+    }
+  }
+  homeGoals = normalizeGoals(homeGoals);
+  awayGoals = normalizeGoals(awayGoals);
   const winner = homeGoals === awayGoals ? "平局倾向" : homeGoals > awayGoals ? `${formatTeamName(fixture.home)} 略优` : `${formatTeamName(fixture.away)} 略优`;
   const tempo = homeGoals + awayGoals >= 4 ? "开放比赛" : homeGoals + awayGoals <= 2 ? "偏谨慎" : "中等节奏";
   const homeEdge = homeExpected - awayExpected;
