@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>世界杯参谋站｜总览</title>
-    <meta name="description" content="世界杯参谋站总览页，按板块进入赛程、历史、小组、球队、复盘和参谋独立页面。" />
+    <meta name="description" content="世界杯参谋站总览页，快速进入赛程、复盘和球队资料等独立页面。" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <link rel="canonical" href="https://gewuji.dev/tools/worldcup-advisor/" />
     <link rel="stylesheet" href="styles.css" />
@@ -19,83 +19,40 @@
         <a href="./teams/">球队</a>
         <a href="./review/">复盘</a>
         <a href="./advisor/">参谋</a>
-        <a href="../../game/worldcup/">摸鱼版</a>
       </nav>
     </header>
 
     <main>
-      <section class="hero">
+      <section class="hero project-home-hero">
         <div>
           <p class="eyebrow">World Cup Advisor</p>
           <h1>世界杯参谋站</h1>
-          <p class="lead">现在把赛程、历史、小组、球队、复盘和参谋拆成了独立页面。首页只保留总览和分流入口，阅读压力更小。</p>
-          <p class="data-status" id="data-status">总览数据加载中。</p>
+          <p class="lead">项目页只保留入口。具体内容已经拆到独立页面，先从赛程、复盘或球队资料进入。</p>
+          <p class="data-status" id="data-status">已收录 43 场已完赛结果 · 还剩 61 场 · 已更新 2026-06-23 13:05 Asia/Shanghai</p>
           <div class="actions">
-            <a class="button primary" href="./fixtures/">进入赛程页</a>
-            <a class="button" href="./review/">进入复盘页</a>
-            <a class="button" href="./teams/">进入球队页</a>
+            <a class="button primary" href="./fixtures/">赛程</a>
+            <a class="button" href="./review/">复盘</a>
+            <a class="button" href="./teams/">球队</a>
           </div>
         </div>
-        <aside class="score-panel" aria-label="今日概览">
-          <div><span>已完赛</span><strong id="done-count">0</strong></div>
-          <div><span>剩余比赛</span><strong id="upcoming-count">0</strong></div>
-          <div><span>重点场</span><strong id="focus-count">0</strong></div>
+        <aside class="score-panel compact-score-panel" aria-label="赛事概览">
+          <div><span>已完赛</span><strong id="done-count">43</strong></div>
+          <div><span>剩余</span><strong id="upcoming-count">61</strong></div>
+          <div><span>重点</span><strong id="focus-count">3</strong></div>
         </aside>
       </section>
 
-      <section class="must-watch-section" aria-labelledby="must-watch-title">
+      <section class="quick-links-section" aria-labelledby="quick-links-title">
         <div class="section-heading">
-          <p class="eyebrow">Entry Points</p>
-          <h2 id="must-watch-title">按板块进入</h2>
-          <p>首页不再承载所有内容，改成 6 个独立页面入口。每个页面只负责一类信息。</p>
+          <p class="eyebrow">More</p>
+          <h2 id="quick-links-title">其他页面</h2>
         </div>
-        <div class="advisor-grid">
-          <article>
-            <span>Fixtures</span>
-            <h3>赛程页</h3>
-            <p>搜索、筛选未开赛 / 已完赛 / 重点场，专门看全部比赛列表。</p>
-            <a class="text-link" href="./fixtures/">打开赛程页</a>
-          </article>
-          <article>
-            <span>History</span>
-            <h3>历史结果页</h3>
-            <p>只看已完赛结果、北京时间日期和复盘标签，不和赛前信息混排。</p>
-            <a class="text-link" href="./history/">打开历史页</a>
-          </article>
-          <article>
-            <span>Groups</span>
-            <h3>小组页</h3>
-            <p>只看小组结构与球队层级，方便赛前快速判断强弱关系。</p>
-            <a class="text-link" href="./groups/">打开小组页</a>
-          </article>
-          <article>
-            <span>Teams</span>
-            <h3>球队资料页</h3>
-            <p>单独浏览球队、核心球员、优势、风险和参谋观察。</p>
-            <a class="text-link" href="./teams/">打开球队页</a>
-          </article>
-          <article>
-            <span>Review</span>
-            <h3>复盘页</h3>
-            <p>把赛后结论集中在一个页面，避免首页信息层级继续堆叠。</p>
-            <a class="text-link" href="./review/">打开复盘页</a>
-          </article>
-          <article>
-            <span>Advisor</span>
-            <h3>参谋页</h3>
-            <p>观赛判断、数据口径和风险声明独立出来，和事实数据分离。</p>
-            <a class="text-link" href="./advisor/">打开参谋页</a>
-          </article>
+        <div class="quick-link-list">
+          <a href="./history/">历史结果</a>
+          <a href="./groups/">小组排名</a>
+          <a href="./advisor/">参谋判断</a>
+          <a href="../../game/worldcup/">摸鱼版</a>
         </div>
-      </section>
-
-      <section class="review-section" aria-labelledby="latest-review-title">
-        <div class="section-heading">
-          <p class="eyebrow">Latest Review</p>
-          <h2 id="latest-review-title">最新赛后结果摘要</h2>
-          <p>总览页只保留最近三场结果摘要，详细复盘请进入独立复盘页。</p>
-        </div>
-        <div class="advisor-grid" id="latest-review-grid"></div>
       </section>
     </main>
 
@@ -104,6 +61,6 @@
       <a href="../../">回到格物集</a>
     </footer>
 
-    <script src="script.js?v=20260623-team-profiles"></script>
+    <script src="script.js?v=20260623-summary-stats-fix"></script>
   </body>
 </html>

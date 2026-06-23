@@ -55,6 +55,157 @@ function formatTeamName(team) {
   return teamNameMap[team] ? `${team}（${teamNameMap[team]}）` : team;
 }
 
+function getPlayerRole(player) {
+  const roleMap = {
+    "Riyad Mahrez": ["边锋 / 前场组织", "左脚内切和传中是 Algeria（阿尔及利亚）的主要创造来源。"],
+    "Ismael Bennacer": ["中场", "负责推进和二点控制，决定球队能否把反击变成持续控球。"],
+    "Amine Gouiri": ["前锋", "在禁区前串联和终结之间切换，是前场变化点。"],
+    "Lionel Messi": ["前锋 / 前腰", "回撤组织和最后一传仍是 Argentina（阿根廷）的节奏开关。"],
+    "Julian Alvarez": ["前锋", "无球跑动和压迫强，能给核心创造前场空间。"],
+    "Emiliano Martinez": ["门将", "扑救稳定性和大赛心理是球队后场托底。"],
+    "Mathew Ryan": ["门将", "后场指挥和出球质量影响 Australia（澳大利亚）的抗压。"],
+    "Jackson Irvine": ["中场", "覆盖和对抗强，是中路防守强度来源。"],
+    "Craig Goodwin": ["边路", "定位球和边路传中是现实进攻出口。"],
+    "David Alaba": ["后卫 / 中场", "组织和防线指挥兼具，是 Austria（奥地利）的结构核心。"],
+    "Marcel Sabitzer": ["中场", "前插和远射能提升中前场直接威胁。"],
+    "Christoph Baumgartner": ["攻击中场", "擅长肋部接应和禁区前冲击。"],
+    "Kevin De Bruyne": ["中场", "传球视野和节奏控制决定 Belgium（比利时）进攻上限。"],
+    "Romelu Lukaku": ["中锋", "支点和禁区终结是对手防线的主要压力。"],
+    "Jeremy Doku": ["边锋", "一对一突破能直接改变比赛宽度。"],
+    "Edin Dzeko": ["中锋", "背身支点和禁区经验是 Bosnia and Herzegovina（波黑）的进攻基础。"],
+    "Miralem Pjanic": ["中场", "长传和定位球决定球队推进质量。"],
+    "Rade Krunic": ["中场", "负责中场衔接和防守覆盖。"],
+    "Vinicius Junior": ["边锋", "高速突破和身后冲刺是 Brazil（巴西）的第一爆点。"],
+    "Rodrygo": ["前锋", "能在边路和中路切换，增加禁区前变化。"],
+    "Bruno Guimaraes": ["中场", "连接攻守和控制二点球，是中场平衡点。"],
+    "Ryan Mendes": ["前锋", "速度和经验是 Cabo Verde（佛得角）的反击出口。"],
+    "Garry Rodrigues": ["边锋", "边路冲刺能制造纵深和定位球。"],
+    "Logan Costa": ["后卫", "防空和禁区保护是后场关键。"],
+    "Alphonso Davies": ["边卫 / 边锋", "左路推进能把防守回合直接带成进攻。"],
+    "Jonathan David": ["前锋", "跑位和终结决定 Canada（加拿大）的机会兑现。"],
+    "Stephen Eustaquio": ["中场", "负责节奏分配和中路保护。"],
+    "Luis Diaz": ["边锋", "一对一和连续冲刺是 Colombia（哥伦比亚）的主要进攻入口。"],
+    "James Rodriguez": ["前腰", "最后一传和定位球质量决定阵地战效率。"],
+    "Jhon Duran": ["前锋", "禁区冲击和身体对抗提供直接终结点。"],
+    "Luka Modric": ["中场", "控节奏和二点处理仍是 Croatia（克罗地亚）的核心。"],
+    "Mateo Kovacic": ["中场", "带球推进能帮助球队穿过第一道压迫。"],
+    "Josko Gvardiol": ["后卫", "左侧出球和回追速度提升防线弹性。"],
+    "Leandro Bacuna": ["中场", "经验和出球能力支撑 Curaçao（库拉索）的中后场。"],
+    "Juninho Bacuna": ["中场", "推进和远射是中场向前的变化点。"],
+    "Vurnon Anita": ["后卫 / 中场", "位置感和防守覆盖帮助球队保持结构。"],
+    "Patrik Schick": ["前锋", "高点和终结能力是 Czechia（捷克）的主要威胁。"],
+    "Tomas Soucek": ["中场", "后插上和定位球争顶很关键。"],
+    "Antonin Barak": ["中场", "禁区前处理球和远射提供第二层进攻。"],
+    "Yoane Wissa": ["前锋", "冲刺和边中结合是 DR Congo（刚果民主共和国）的反击入口。"],
+    "Cedric Bakambu": ["前锋", "经验和禁区跑位是终结点。"],
+    "Chancel Mbemba": ["后卫", "对抗和防线领导力是后场基础。"],
+    "Moises Caicedo": ["中场", "拦截和向前输送决定 Ecuador（厄瓜多尔）的转换质量。"],
+    "Piero Hincapie": ["后卫", "左脚出球和横移能力支撑后场。"],
+    "Enner Valencia": ["前锋", "经验和门前嗅觉仍是关键得分点。"],
+    "Mohamed Salah": ["边锋", "右路内切和终结是 Egypt（埃及）的最高威胁。"],
+    "Omar Marmoush": ["前锋", "速度和跑动能分担核心压力。"],
+    "Mostafa Mohamed": ["中锋", "禁区支点和头球是直接进攻选择。"],
+    "Harry Kane": ["中锋", "回撤做球和禁区终结让 England（英格兰）进攻更立体。"],
+    "Jude Bellingham": ["中场", "前插和对抗能改变中前场节奏。"],
+    "Bukayo Saka": ["边锋", "右路突破和内切是稳定进攻来源。"],
+    "Kylian Mbappe": ["前锋", "身后速度和单点爆破是 France（法国）的最大优势。"],
+    "Antoine Griezmann": ["前腰", "连接中前场，负责节奏和最后一传。"],
+    "Aurelien Tchouameni": ["中场", "防守覆盖和长传转移帮助球队保持平衡。"],
+    "Jamal Musiala": ["攻击中场", "肋部盘带能撕开 Germany（德国）的密集防守难题。"],
+    "Florian Wirtz": ["攻击中场", "接应和最后一传提升阵地战创造力。"],
+    "Joshua Kimmich": ["中场 / 后卫", "位置选择和传球节奏影响球队结构。"],
+    "Mohammed Kudus": ["攻击中场", "持球推进是 Ghana（加纳）制造开放回合的关键。"],
+    "Thomas Partey": ["中场", "中路保护和长传转移稳定攻守。"],
+    "Inaki Williams": ["前锋", "速度和纵深跑动是反击出口。"],
+    "Duckens Nazon": ["前锋", "终结和身体冲击是 Haiti（海地）的主要得分路径。"],
+    "Frantzdy Pierrot": ["前锋", "高点和禁区对抗提供支点。"],
+    "Wilde-Donald Guerrier": ["边路", "边路推进和回防覆盖是重要工作。"],
+    "Mehdi Taremi": ["前锋", "背身接球和造犯规是 Iran（伊朗）的前场支点。"],
+    "Sardar Azmoun": ["前锋", "禁区跑位和终结经验丰富。"],
+    "Alireza Jahanbakhsh": ["边锋", "边路传中和远射提供变化。"],
+    "Aymen Hussein": ["中锋", "支点和终结是 Iraq（伊拉克）的进攻核心。"],
+    "Ali Jasim": ["边锋", "转换中的持球推进很关键。"],
+    "Zidane Iqbal": ["中场", "脚下技术和向前传球帮助中场连接。"],
+    "Sebastien Haller": ["中锋", "禁区支点和头球是 Ivory Coast（科特迪瓦）的直接威胁。"],
+    "Franck Kessie": ["中场", "对抗和后插上增强中路硬度。"],
+    "Simon Adingra": ["边锋", "一对一突破能制造传中和二点机会。"],
+    "Takefusa Kubo": ["边锋 / 前腰", "小范围处理球和内切是 Japan（日本）的创造点。"],
+    "Kaoru Mitoma": ["边锋", "左路突破能持续改变防线站位。"],
+    "Wataru Endo": ["中场", "抢断和节奏保护是攻守转换关键。"],
+    "Mousa Al-Tamari": ["边锋", "速度和突破是 Jordan（约旦）的主要反击出口。"],
+    "Yazan Al-Naimat": ["前锋", "跑位和终结承担前场效率。"],
+    "Nizar Al-Rashdan": ["中场", "中场覆盖和出球影响球队稳定性。"],
+    "Hirving Lozano": ["边锋", "速度和内切是 Mexico（墨西哥）的边路爆点。"],
+    "Santiago Gimenez": ["中锋", "禁区终结和无球跑动是主要得分点。"],
+    "Edson Alvarez": ["中场", "防守屏障和中路保护非常关键。"],
+    "Achraf Hakimi": ["边卫", "右路推进和传中是 Morocco（摩洛哥）的进攻入口。"],
+    "Sofyan Amrabat": ["中场", "拦截和身体对抗支撑防守结构。"],
+    "Hakim Ziyech": ["边锋", "左脚传射和定位球提供创造力。"],
+    "Virgil van Dijk": ["中卫", "防线指挥和高空对抗是 Netherlands（荷兰）的后场核心。"],
+    "Frenkie de Jong": ["中场", "带球推进和摆脱压迫决定中场质量。"],
+    "Cody Gakpo": ["前锋", "前场多位置切换提供终结和连接。"],
+    "Chris Wood": ["中锋", "高点和背身支点是 New Zealand（新西兰）的主要出口。"],
+    "Liberato Cacace": ["边卫", "边路推进能减轻防守压力。"],
+    "Joe Bell": ["中场", "传球和覆盖负责中场连接。"],
+    "Erling Haaland": ["中锋", "禁区终结和身后冲刺是 Norway（挪威）的最高威胁。"],
+    "Martin Odegaard": ["中场", "最后一传和节奏控制负责创造机会。"],
+    "Alexander Sorloth": ["前锋", "支点和冲击能分担终结压力。"],
+    "Adalberto Carrasquilla": ["中场", "持球摆脱是 Panama（巴拿马）缓解压力的关键。"],
+    "Michael Murillo": ["边卫", "边路攻防覆盖和前插很重要。"],
+    "Anibal Godoy": ["中场", "经验和拦截帮助球队维持中路强度。"],
+    "Miguel Almiron": ["前场", "推进速度和反击冲刺是 Paraguay（巴拉圭）的爆点。"],
+    "Julio Enciso": ["前锋", "远射和禁区前处理球提供变化。"],
+    "Gustavo Gomez": ["中卫", "防线指挥和定位球争顶是后场核心。"],
+    "Cristiano Ronaldo": ["中锋", "门前终结和禁区存在感仍是 Portugal（葡萄牙）的关键。"],
+    "Bruno Fernandes": ["中场", "传球、远射和定位球决定进攻效率。"],
+    "Bernardo Silva": ["中场 / 边路", "持球控制和小范围配合稳定节奏。"],
+    "Akram Afif": ["前锋", "左肋部创造力是 Qatar（卡塔尔）的主要进攻来源。"],
+    "Almoez Ali": ["前锋", "跑位和终结负责机会兑现。"],
+    "Hassan Al-Haydos": ["中场", "经验和传球帮助球队保持前场连接。"],
+    "Salem Al-Dawsari": ["边锋", "个人突破和关键球能力是 Saudi Arabia（沙特阿拉伯）的核心。"],
+    "Firas Al-Buraikan": ["前锋", "支点和跑位负责禁区连接。"],
+    "Mohamed Kanno": ["中场", "身体和覆盖增强中场对抗。"],
+    "Scott McTominay": ["中场", "后插上和禁区冲击是 Scotland（苏格兰）的重要得分点。"],
+    "Andy Robertson": ["边卫", "左路传中和覆盖是边路质量来源。"],
+    "John McGinn": ["中场", "对抗和推进支撑中场强度。"],
+    "Sadio Mane": ["前锋", "经验、速度和终结是 Senegal（塞内加尔）的核心威胁。"],
+    "Kalidou Koulibaly": ["中卫", "对抗和防线领导力是后场基础。"],
+    "Nicolas Jackson": ["前锋", "冲刺和禁区跑位提供纵深。"],
+    "Percy Tau": ["前锋", "灵活跑动和反击处理是 South Africa（南非）的前场出口。"],
+    "Teboho Mokoena": ["中场", "远射和定位球有直接威胁。"],
+    "Ronwen Williams": ["门将", "扑救和出球稳定后场。"],
+    "Son Heung-min": ["前锋", "速度和终结是 South Korea（韩国）的最大威胁。"],
+    "Kim Min-jae": ["中卫", "对抗和回追能力保护防线。"],
+    "Lee Kang-in": ["中场", "传球和边路内切提供创造力。"],
+    "Rodri": ["中场", "节奏控制和中路保护是 Spain（西班牙）的体系核心。"],
+    "Pedri": ["中场", "接球转身和肋部配合提升阵地战质量。"],
+    "Lamine Yamal": ["边锋", "一对一和内切创造边路变化。"],
+    "Alexander Isak": ["前锋", "脚下和终结兼具，是 Sweden（瑞典）的高级终结点。"],
+    "Dejan Kulusevski": ["边锋 / 前腰", "右肋部做球和推进能连接锋线。"],
+    "Viktor Gyokeres": ["前锋", "身体冲击和跑动提供直接威胁。"],
+    "Granit Xhaka": ["中场", "控节奏和长传是 Switzerland（瑞士）的中场核心。"],
+    "Manuel Akanji": ["后卫", "防守覆盖和后场出球都很关键。"],
+    "Breel Embolo": ["前锋", "支点和冲刺能提供禁区压力。"],
+    "Ellyes Skhiri": ["中场", "中路拦截支撑 Tunisia（突尼斯）的防守。"],
+    "Wahbi Khazri": ["前锋", "经验和定位球是关键球来源。"],
+    "Hannibal Mejbri": ["中场", "推进和对抗能打破中场僵局。"],
+    "Hakan Calhanoglu": ["中场", "长传和定位球是 Türkiye（土耳其）的进攻开关。"],
+    "Arda Guler": ["攻击中场", "前腰区域创造力和左脚处理球是上限来源。"],
+    "Kenan Yildiz": ["前锋", "冲击和年轻活力提供前场变化。"],
+    "Christian Pulisic": ["边锋", "内切和传射是 United States（美国）的核心威胁。"],
+    "Weston McKennie": ["中场", "后插上和身体对抗带来中场冲击。"],
+    "Tyler Adams": ["中场", "拦截和中路保护决定防守稳定。"],
+    "Federico Valverde": ["中场", "覆盖、远射和推进是 Uruguay（乌拉圭）的动力源。"],
+    "Darwin Nunez": ["前锋", "身后冲刺和禁区冲击制造高频威胁。"],
+    "Ronald Araujo": ["后卫", "速度和对抗能压住核心前锋。"],
+    "Eldor Shomurodov": ["前锋", "支点和经验是 Uzbekistan（乌兹别克斯坦）的前场出口。"],
+    "Abbosbek Fayzullaev": ["攻击中场", "突破和前场连接负责创造机会。"],
+    "Abdukodir Khusanov": ["后卫", "身体和回追是防线抗压关键。"]
+  };
+
+  return roleMap[player] ?? ["核心球员", "当前只记录基础名单，详细角色待后续补充。"];
+}
+
 function addDays(dateText, days) {
   const date = new Date(`${dateText}T00:00:00Z`);
   date.setUTCDate(date.getUTCDate() + days);
@@ -807,6 +958,7 @@ const fixtures = [...upcomingFixtures, ...completedFixtures.slice().reverse()];
 const grid = document.querySelector("#fixture-grid");
 const historyList = document.querySelector("#history-list");
 const teamProfileGrid = document.querySelector("#team-profile-grid");
+const groupGrid = document.querySelector("#group-grid");
 const searchInput = document.querySelector("#search-input");
 const filters = document.querySelectorAll(".filter");
 const doneCount = document.querySelector("#done-count");
@@ -816,6 +968,19 @@ const doneFilterCount = document.querySelector("#done-filter-count");
 const dataStatus = document.querySelector("#data-status");
 const pageId = document.body.dataset.page ?? "home";
 let activeFilter = "all";
+
+function initBookmarkButtons() {
+  document.querySelectorAll("[data-bookmark-button]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const shortcut = navigator.platform.toLowerCase().includes("mac") ? "⌘+D" : "Ctrl+D";
+      button.textContent = `按 ${shortcut} 收藏`;
+      button.setAttribute("aria-label", `按 ${shortcut} 将当前页面收藏到浏览器`);
+      window.setTimeout(() => {
+        button.textContent = "收藏到浏览器";
+      }, 2600);
+    });
+  });
+}
 
 function formatStatus(status) {
   if (status === "done") return "已完赛";
@@ -898,20 +1063,61 @@ function renderTeamProfiles() {
   teamProfileGrid.innerHTML = teamProfiles.map((profile) => `
     <article class="team-profile-card">
       <div class="team-profile-head">
-        <span>Team</span>
+        <span>${formatTeamName(profile.team)}</span>
         <h3>${formatTeamName(profile.team)}</h3>
       </div>
-      <div class="player-list">
-        ${profile.players.map((player) => `<span>${player}</span>`).join("")}
+      <p class="team-style">${profile.style}</p>
+      <div class="player-list" aria-label="${formatTeamName(profile.team)} 核心球员">
+        ${profile.players.map((player) => {
+          const [role, note] = getPlayerRole(player);
+          return `
+            <div class="player-row">
+              <strong>${player}</strong>
+              <span>${role}</span>
+              <p>${note}</p>
+            </div>
+          `;
+        }).join("")}
       </div>
-      <p>${profile.style}</p>
-      <dl>
-        <div><dt>优势</dt><dd>${profile.strength}</dd></div>
-        <div><dt>风险</dt><dd>${profile.risk}</dd></div>
-        <div><dt>参谋观察</dt><dd>${profile.watch}</dd></div>
-      </dl>
+      <div class="team-profile-notes">
+        <div><span>优势</span><p>${profile.strength}</p></div>
+        <div><span>风险</span><p>${profile.risk}</p></div>
+        <div><span>参谋观察</span><p>${profile.watch}</p></div>
+      </div>
     </article>
   `).join("");
+}
+
+function renderGroups() {
+  if (!groupGrid) return;
+  if (groupGrid.children.length) return;
+
+  const groups = fixtures.reduce((result, fixture) => {
+    result[fixture.group] ??= new Set();
+    result[fixture.group].add(fixture.home);
+    result[fixture.group].add(fixture.away);
+    return result;
+  }, {});
+
+  groupGrid.innerHTML = Object.entries(groups)
+    .sort(([groupA], [groupB]) => groupA.localeCompare(groupB, "zh-Hans-CN"))
+    .map(([group, teams]) => {
+      const teamList = [...teams].sort((teamA, teamB) => teamA.localeCompare(teamB));
+      const status = teamList.length >= 4 ? "完整四队" : `${teamList.length} 队已录入`;
+      return `
+        <article class="group-card">
+          <div class="group-head">
+            <span>${group}</span>
+            <strong>${status}</strong>
+          </div>
+          <ol class="team-rank-list">
+            ${teamList.map((team) => `<li><span>${formatTeamName(team)}</span><strong>${teamProfiles.some((profile) => profile.team === team) ? "有资料" : "待补"}</strong></li>`).join("")}
+          </ol>
+          <p>本组按当前已录入赛程自动汇总。赛前判断仍需结合首发、轮换、天气和积分压力。</p>
+        </article>
+      `;
+    })
+    .join("");
 }
 
 function renderLatestReview() {
@@ -927,24 +1133,69 @@ function renderLatestReview() {
   `).join("");
 }
 
+function renderMatchReviews() {
+  const matchReviewList = document.querySelector("#match-review-list");
+  if (!matchReviewList) return;
+
+  matchReviewList.innerHTML = completedFixtures.slice().reverse().map((fixture) => `
+    <article class="match-review-card">
+      <div class="match-review-head">
+        <span>${fixture.timeLabel} · ${fixture.group}</span>
+        <strong>${formatTeamName(fixture.home)} ${fixture.score} ${formatTeamName(fixture.away)}</strong>
+      </div>
+      <div class="review-metrics compact-review-metrics" aria-label="${formatTeamName(fixture.home)} 对 ${formatTeamName(fixture.away)} 复盘">
+        <div><span>实际赛果</span><strong>${fixture.result}</strong><p>${fixture.city} · ${fixture.stadium}</p></div>
+        <div><span>节奏标签</span><strong>${fixture.tone}</strong><p>总进球 ${fixture.totalGoals}，用于校准比分线和节奏预期。</p></div>
+        <div><span>偏差检查</span><strong>按赛前判断复核</strong><p>重点看强弱方向、进球数和比赛开放度是否一致。</p></div>
+        <div><span>下一步修正</span><strong>沉淀到同组比赛</strong><p>同组球队后续判断优先参考这场的节奏和防线稳定性。</p></div>
+      </div>
+    </article>
+  `).join("");
+}
+
+function renderMatchAdvisor() {
+  const matchAdvisorList = document.querySelector("#match-advisor-list");
+  if (!matchAdvisorList) return;
+
+  matchAdvisorList.innerHTML = upcomingFixtures.map((fixture, index) => `
+    <article class="match-advisor-card">
+      <div class="match-advisor-head">
+        <span>${fixture.timeLabel} · ${fixture.group} · ${fixture.city}</span>
+        <strong>${formatTeamName(fixture.home)} vs ${formatTeamName(fixture.away)}</strong>
+      </div>
+      <div class="match-advisor-body">
+        <div>
+          <span>赛前方向</span>
+          <p>${fixture.prediction}</p>
+        </div>
+        <div>
+          <span>关键变量</span>
+          <p>${fixture.keyPoint}</p>
+        </div>
+        <div>
+          <span>观赛重点</span>
+          <p>${fixture.watchFor}</p>
+        </div>
+      </div>
+      <div class="fixture-top">
+        <span class="badge ${fixture.focus ? "focus" : ""}">${fixture.focus ? `重点场 ${index + 1}` : "普通场"}</span>
+        ${fixture.href ? `<a class="text-link fixture-link" href="../${fixture.href}">查看单场详情</a>` : ""}
+      </div>
+    </article>
+  `).join("");
+}
+
+function renderSummary() {
+  const remainingMatchesCount = totalScheduledMatches - completedFixtures.length;
+  if (doneCount) doneCount.textContent = fixtures.filter((fixture) => fixture.status === "done").length;
+  if (upcomingCount) upcomingCount.textContent = remainingMatchesCount;
+  if (focusCount) focusCount.textContent = fixtures.filter((fixture) => fixture.focus).length;
+  if (doneFilterCount) doneFilterCount.textContent = completedFixtures.length;
+  if (dataStatus) dataStatus.textContent = `已收录 ${completedFixtures.length} 场已完赛结果 · 还剩 ${remainingMatchesCount} 场 · 已更新 ${updatedAt}`;
+}
+
 function initHomePage() {
-  filters.forEach((button) => {
-    button.addEventListener("click", () => {
-      activeFilter = button.dataset.filter;
-      filters.forEach((item) => item.classList.toggle("active", item === button));
-      render();
-    });
-  });
-
-  if (searchInput) {
-    searchInput.addEventListener("input", render);
-  }
-
-  renderHistory();
-  renderTeamProfiles();
-  renderLatestReview();
-  render();
-  setInterval(render, 5 * 60 * 1000);
+  renderSummary();
 }
 
 function initFixturesPage() {
@@ -972,17 +1223,49 @@ function initTeamsPage() {
   renderTeamProfiles();
 }
 
+function initGroupsPage() {
+  renderGroups();
+}
+
+function initReviewPage() {
+  renderMatchReviews();
+  renderLatestReview();
+}
+
+function initAdvisorPage() {
+  renderMatchAdvisor();
+}
+
 switch (pageId) {
   case "fixtures":
+    initBookmarkButtons();
     initFixturesPage();
     break;
   case "history":
+    initBookmarkButtons();
     initHistoryPage();
     break;
   case "teams":
+    initBookmarkButtons();
     initTeamsPage();
     break;
+  case "groups":
+    initBookmarkButtons();
+    initGroupsPage();
+    break;
+  case "review":
+    initBookmarkButtons();
+    initReviewPage();
+    break;
+  case "advisor":
+    initBookmarkButtons();
+    initAdvisorPage();
+    break;
+  case "match":
+    initBookmarkButtons();
+    break;
   default:
+    initBookmarkButtons();
     initHomePage();
     break;
 }

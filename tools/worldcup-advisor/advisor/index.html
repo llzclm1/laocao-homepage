@@ -27,32 +27,17 @@
         <div>
           <p class="eyebrow">Advisor Notes</p>
           <h1>参谋页</h1>
-          <p class="lead">把策略性判断独立出来，和赛程事实、历史结果分开阅读。</p>
+          <p class="lead">把今天几场比赛的赛前判断、关键变量和观赛重点集中放在这里，和赛程事实、历史结果分开阅读。</p>
         </div>
       </section>
 
       <section class="advisor-section" aria-labelledby="advisor-title">
         <div class="section-heading">
-          <p class="eyebrow">Advisor Notes</p>
-          <h2 id="advisor-title">今日参谋判断</h2>
+          <p class="eyebrow">Match Advisor</p>
+          <h2 id="advisor-title">今日比赛分析</h2>
+          <p>按今日未开赛比赛生成逐场参谋卡，只做观赛分析，不构成投注建议。</p>
         </div>
-        <div class="advisor-grid">
-          <article>
-            <span>优先看</span>
-            <h3>强强对话优先</h3>
-            <p>优先选择小组排名接近、出线压力大的比赛，通常更有战术强度和情绪波动。</p>
-          </article>
-          <article>
-            <span>比分倾向</span>
-            <h3>低比分更稳</h3>
-            <p>淘汰边缘球队更容易谨慎开局，大小球判断先看阵容、赛程密度和天气。</p>
-          </article>
-          <article>
-            <span>避坑</span>
-            <h3>别只看名气</h3>
-            <p>热门队伍如果已经提前出线，轮换概率会上升，赛前阵容比历史名气更重要。</p>
-          </article>
-        </div>
+        <div class="match-advisor-list" id="match-advisor-list"></div>
       </section>
 
       <section class="risk-section" aria-labelledby="risk-title">
@@ -68,5 +53,6 @@
       <span>© 2026 格物集 · 世界杯参谋站</span>
       <a href="../">返回总览</a>
     </footer>
+    <script src="../script.js?v=20260623-summary-stats-fix"></script>
   </body>
 </html>
