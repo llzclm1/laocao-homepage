@@ -25,6 +25,7 @@ const copyEntries = [
   "google985cfee1847b0d86.html",
   "index.html",
   "llms.txt",
+  "nav",
   "robots.txt",
   "script.js",
   "SEARCH_ENGINE_SUBMISSION.md",
@@ -323,6 +324,7 @@ function buildRobots() {
 function buildSitemap() {
   const entries = [
     ["", "1.0"],
+    ["nav/", "0.9"],
     ["films/", "0.8"],
     ["game/worldcup/", "0.8"],
     ["tools/worldcup-advisor/", "0.8"],
