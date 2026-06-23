@@ -1,4 +1,5 @@
-const updatedAt = "2026-06-23 13:05 Asia/Shanghai";
+const liveWorldCupData = window.worldCupAdvisorData;
+const updatedAt = liveWorldCupData?.syncedAt ?? "2026-06-23 14:33 Asia/Shanghai";
 const totalScheduledMatches = 104;
 const teamNameMap = {
   Algeria: "阿尔及利亚",
@@ -273,7 +274,8 @@ const completedFixtures = [
   ["2026-06-21", "G组", "Toronto", "Toronto Stadium", "Egypt", "New Zealand", "3-1"],
   ["2026-06-22", "J组", "San Francisco Bay Area", "San Francisco Bay Area Stadium", "Argentina", "Austria", "2-0"],
   ["2026-06-22", "I组", "Philadelphia", "Philadelphia Stadium", "France", "Iraq", "3-0"],
-  ["2026-06-22", "I组", "Seattle", "Seattle Stadium", "Norway", "Senegal", "3-2"]
+  ["2026-06-22", "I组", "Seattle", "Seattle Stadium", "Norway", "Senegal", "3-2"],
+  ["2026-06-22", "J组", "San Francisco Bay Area", "San Francisco Bay Area Stadium", "Jordan", "Algeria", "1-2"]
 ].map(([date, group, city, stadium, home, away, score]) => {
   const result = getResultLabel(home, away, score);
   const totalGoals = getTotalGoals(score);
@@ -969,6 +971,18 @@ const dataStatus = document.querySelector("#data-status");
 const pageId = document.body.dataset.page ?? "home";
 let activeFilter = "all";
 
+function getLiveCompletedCount() {
+  return liveWorldCupData?.completedMatches ?? completedFixtures.length;
+}
+
+function getLiveTotalMatches() {
+  return liveWorldCupData?.totalMatches ?? totalScheduledMatches;
+}
+
+function getDataSourceLabel() {
+  return liveWorldCupData?.source?.name ? ` · 数据源 ${liveWorldCupData.source.name}` : "";
+}
+
 function initBookmarkButtons() {
   document.querySelectorAll("[data-bookmark-button]").forEach((button) => {
     button.addEventListener("click", () => {
@@ -990,7 +1004,8 @@ function formatStatus(status) {
 
 function render() {
   const query = searchInput.value.trim().toLowerCase();
-  const remainingMatchesCount = totalScheduledMatches - completedFixtures.length;
+  const completedMatchesCount = getLiveCompletedCount();
+  const remainingMatchesCount = getLiveTotalMatches() - completedMatchesCount;
   const filtered = fixtures.filter((fixture) => {
     const haystack = [
       fixture.date,
@@ -1038,11 +1053,11 @@ function render() {
   `).join("");
   }
 
-  doneCount.textContent = fixtures.filter((fixture) => fixture.status === "done").length;
+  doneCount.textContent = completedMatchesCount;
   upcomingCount.textContent = remainingMatchesCount;
   focusCount.textContent = fixtures.filter((fixture) => fixture.focus).length;
-  doneFilterCount.textContent = completedFixtures.length;
-  dataStatus.textContent = `已收录 ${completedFixtures.length} 场已完赛结果 · 2026 世界杯官方赛程共 104 场，整个赛程还剩 ${remainingMatchesCount} 场未完赛 · 所有比赛主时间显示北京时间 · 已更新 ${updatedAt}`;
+  doneFilterCount.textContent = completedMatchesCount;
+  dataStatus.textContent = `已收录 ${completedMatchesCount} 场已完赛结果 · 2026 世界杯官方赛程共 104 场，整个赛程还剩 ${remainingMatchesCount} 场未完赛 · 所有比赛主时间显示北京时间 · 已更新 ${updatedAt}${getDataSourceLabel()}`;
 }
 
 function renderHistory() {
@@ -1186,12 +1201,13 @@ function renderMatchAdvisor() {
 }
 
 function renderSummary() {
-  const remainingMatchesCount = totalScheduledMatches - completedFixtures.length;
-  if (doneCount) doneCount.textContent = fixtures.filter((fixture) => fixture.status === "done").length;
+  const completedMatchesCount = getLiveCompletedCount();
+  const remainingMatchesCount = getLiveTotalMatches() - completedMatchesCount;
+  if (doneCount) doneCount.textContent = completedMatchesCount;
   if (upcomingCount) upcomingCount.textContent = remainingMatchesCount;
   if (focusCount) focusCount.textContent = fixtures.filter((fixture) => fixture.focus).length;
-  if (doneFilterCount) doneFilterCount.textContent = completedFixtures.length;
-  if (dataStatus) dataStatus.textContent = `已收录 ${completedFixtures.length} 场已完赛结果 · 还剩 ${remainingMatchesCount} 场 · 已更新 ${updatedAt}`;
+  if (doneFilterCount) doneFilterCount.textContent = completedMatchesCount;
+  if (dataStatus) dataStatus.textContent = `已收录 ${completedMatchesCount} 场已完赛结果 · 还剩 ${remainingMatchesCount} 场 · 已更新 ${updatedAt}${getDataSourceLabel()}`;
 }
 
 function initHomePage() {

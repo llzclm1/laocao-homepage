@@ -28,12 +28,12 @@
           <p class="eyebrow">Fixtures</p>
           <h1>赛程页</h1>
           <p class="lead">单独看全部比赛列表。这里保留搜索、状态筛选和重点场判断，不和其他板块混在一起。</p>
-          <p class="data-status" id="data-status">赛程数据加载中。</p>
+          <p class="data-status" id="data-status">已收录 44 场已完赛结果 · 2026 世界杯官方赛程共 104 场，整个赛程还剩 60 场未完赛 · 所有比赛主时间显示北京时间 · 已更新 2026-06-23 14:33 Asia/Shanghai</p>
         </div>
         <aside class="score-panel" aria-label="赛程概览">
-          <div><span>已完赛</span><strong id="done-count">0</strong></div>
-          <div><span>剩余比赛</span><strong id="upcoming-count">0</strong></div>
-          <div><span>重点场</span><strong id="focus-count">0</strong></div>
+          <div><span>已完赛</span><strong id="done-count">44</strong></div>
+          <div><span>剩余比赛</span><strong id="upcoming-count">60</strong></div>
+          <div><span>重点场</span><strong id="focus-count">3</strong></div>
         </aside>
       </section>
 
@@ -45,7 +45,7 @@
         <div class="filters" role="group" aria-label="状态筛选">
           <button class="filter active" type="button" data-filter="all">全部</button>
           <button class="filter" type="button" data-filter="upcoming">未开赛</button>
-          <button class="filter" type="button" data-filter="done">已完赛 <span id="done-filter-count">0</span></button>
+          <button class="filter" type="button" data-filter="done">已完赛 <span id="done-filter-count">44</span></button>
           <button class="filter" type="button" data-filter="focus">重点看</button>
         </div>
       </section>
@@ -65,6 +65,7 @@
       <a href="../">返回总览</a>
     </footer>
 
-    <script src="../script.js?v=20260623-summary-stats-fix"></script>
+    <script src="../data/worldcup-2026.js?v=20260623-github-live"></script>
+    <script src="../script.js?v=20260623-github-live"></script>
   </body>
 </html>
