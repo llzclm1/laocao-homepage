@@ -118,7 +118,8 @@
 
     return {
       beijingDateTime: `北京时间开赛：${beijingText}`,
-      localDateTime: `当地时间：${dateText} ${hourText}:${minuteText} (UTC${offsetText})`
+      localDateTime: `当地时间：${dateText} ${hourText}:${minuteText} (UTC${offsetText})`,
+      sortKey: beijingDate.getTime()
     };
   }
 
@@ -152,11 +153,14 @@
         timeLabel: time.beijingDateTime,
         watchTime: time.localDateTime,
         reason: fixtureReason(match, isDone, focusPairs.has(focusKey)),
-        sortIndex: index
+        sortIndex: index,
+        sortKey: time.sortKey
       };
     }).sort((a, b) => {
       if (a.status !== b.status) return a.status === "upcoming" ? -1 : 1;
-      return a.status === "upcoming" ? a.sortIndex - b.sortIndex : b.sortIndex - a.sortIndex;
+      return a.status === "upcoming"
+        ? (a.sortKey ?? a.sortIndex) - (b.sortKey ?? b.sortIndex)
+        : (b.sortKey ?? b.sortIndex) - (a.sortKey ?? a.sortIndex);
     });
   }
 
