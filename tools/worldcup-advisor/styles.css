@@ -41,6 +41,8 @@ input { min-height:46px; border:1px solid var(--line); background:#fff; color:va
 .badge.upcoming { color:var(--blue); background:#edf4ff; border-color:#c8dcff; }
 .badge.focus { color:var(--red); background:#fff0ef; border-color:#ffd0cc; }
 .reason { color:var(--muted); margin:0; }
+.fixture-details { display:grid; gap:7px; margin:14px 0; }
+.fixture-details span { border:1px solid rgba(216,224,234,.72); background:#fff; padding:8px 10px; color:#354155; font-size:13px; font-weight:750; }
 .source-note { margin:18px 0 0; color:var(--muted); font-size:13px; }
 .group-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)) 300px; gap:14px; }
 .group-card, .ranking-note { border:1px solid var(--line); background:#fbfdff; padding:18px; }

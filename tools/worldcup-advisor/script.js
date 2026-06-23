@@ -1,5 +1,23 @@
 const updatedAt = "2026-06-23 13:05 Asia/Shanghai";
 
+function getResultLabel(home, away, score) {
+  const [homeGoals, awayGoals] = score.split("-").map(Number);
+  if (homeGoals > awayGoals) return `${home} 胜`;
+  if (homeGoals < awayGoals) return `${away} 胜`;
+  return "平局";
+}
+
+function getTotalGoals(score) {
+  return score.split("-").map(Number).reduce((sum, goals) => sum + goals, 0);
+}
+
+function getReviewTone(score) {
+  const totalGoals = getTotalGoals(score);
+  if (totalGoals >= 5) return "大比分";
+  if (totalGoals <= 1) return "低比分";
+  return "常规比分";
+}
+
 const completedFixtures = [
   ["2026-06-11", "A组", "Mexico City", "Mexico City Stadium", "Mexico", "South Africa", "2-0"],
   ["2026-06-11", "A组", "Guadalajara", "Guadalajara Stadium", "South Korea", "Czechia", "2-1"],
@@ -44,19 +62,28 @@ const completedFixtures = [
   ["2026-06-22", "J组", "San Francisco Bay Area", "San Francisco Bay Area Stadium", "Argentina", "Austria", "2-0"],
   ["2026-06-22", "I组", "Philadelphia", "Philadelphia Stadium", "France", "Iraq", "3-0"],
   ["2026-06-22", "I组", "Seattle", "Seattle Stadium", "Norway", "Senegal", "3-2"]
-].map(([date, group, city, stadium, home, away, score]) => ({
-  date: `${date} 已完赛`,
-  watchTime: "已完赛",
-  group,
-  city,
-  stadium,
-  home,
-  away,
-  score,
-  status: "done",
-  focus: false,
-  reason: "已完赛结果，进入赛果复盘池。"
-}));
+].map(([date, group, city, stadium, home, away, score]) => {
+  const result = getResultLabel(home, away, score);
+  const totalGoals = getTotalGoals(score);
+  const tone = getReviewTone(score);
+  return {
+    date: `${date} 已完赛`,
+    watchTime: "已完赛",
+    group,
+    city,
+    stadium,
+    home,
+    away,
+    score,
+    status: "done",
+    focus: false,
+    result,
+    totalGoals,
+    tone,
+    reason: `${result} · 总进球 ${totalGoals} · ${tone}，可用于复盘强弱判断、节奏和比分线偏差。`,
+    facts: [`赛果：${result}`, `总进球：${totalGoals}`, `复盘标签：${tone}`]
+  };
+});
 
 const upcomingFixtures = [
   {
@@ -70,6 +97,9 @@ const upcomingFixtures = [
     score: "未开赛",
     status: "upcoming",
     focus: true,
+    prediction: "Portugal 控球和前场个人能力占优，赛前倾向 Portugal 不败，小胜可能性更高。",
+    keyPoint: "Uzbekistan 的防线站位和由守转攻速度，会决定比赛是否被早早打开。",
+    watchFor: "先看 Portugal 前 20 分钟压迫强度，以及 Uzbekistan 能不能稳住第一波冲击。",
     reason: "Portugal 控球和前场个人能力占优，Uzbekistan 的防守纪律决定比赛会不会早早被打开。"
   },
   {
@@ -83,6 +113,9 @@ const upcomingFixtures = [
     score: "未开赛",
     status: "upcoming",
     focus: true,
+    prediction: "England 阵容深度更好，赛前倾向 England 占优，但 Ghana 具备反击制造波动的能力。",
+    keyPoint: "Ghana 的边路速度和身体对抗，是 England 能否稳定控场的主要变量。",
+    watchFor: "观察 England 是否早早取得领先；如果久攻不下，比赛会更依赖定位球和替补冲击。",
     reason: "England 纸面实力更强，Ghana 的反击速度和身体对抗会影响大小球判断。"
   },
   {
@@ -96,6 +129,9 @@ const upcomingFixtures = [
     score: "未开赛",
     status: "upcoming",
     focus: false,
+    prediction: "Croatia 控场经验更好，赛前倾向 Croatia 占优，Panama 需要把比赛拖进低节奏。",
+    keyPoint: "Panama 如果长期低位防守，Croatia 的中场耐心和远射质量会成为突破口。",
+    watchFor: "重点看 Croatia 能不能在上半场打穿中路；若迟迟不开局，比分可能偏谨慎。",
     reason: "Croatia 控场经验更好，Panama 如果低位防守，比赛节奏可能偏慢。"
   },
   {
@@ -109,6 +145,9 @@ const upcomingFixtures = [
     score: "未开赛",
     status: "upcoming",
     focus: true,
+    prediction: "Colombia 进攻层次更丰富，赛前倾向 Colombia 主动，DR Congo 更依赖身体冲击和转换。",
+    keyPoint: "如果 DR Congo 能把比赛变成往返冲刺，Colombia 后场空间会被持续测试。",
+    watchFor: "看 Colombia 边路推进和禁区前二点球控制；这场更容易出现开放回合。",
     reason: "Colombia 进攻层次更丰富，DR Congo 的身体冲击会让比赛更开放。"
   }
 ];
@@ -156,6 +195,11 @@ function render() {
       </div>
       <div class="teams"><span>${fixture.home}</span><span class="versus">${fixture.score}</span><span>${fixture.away}</span></div>
       <p class="reason">${fixture.stadium} · ${fixture.watchTime} · ${fixture.reason}</p>
+      <div class="fixture-details">
+        ${(fixture.facts ?? [`赛前判断：${fixture.prediction}`, `关键变量：${fixture.keyPoint}`, `观赛重点：${fixture.watchFor}`])
+          .map((item) => `<span>${item}</span>`)
+          .join("")}
+      </div>
       <div class="fixture-top">
         <span class="badge ${fixture.status}">${formatStatus(fixture.status)}</span>
         ${fixture.focus ? '<span class="badge focus">重点看</span>' : '<span class="badge">普通场</span>'}
