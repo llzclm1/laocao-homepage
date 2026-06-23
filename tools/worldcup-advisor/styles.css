@@ -106,15 +106,44 @@ input { min-height:46px; border:1px solid var(--line); background:#fff; color:va
 .advisor-summary-strip span { display:block; color:var(--muted); font-size:12px; font-weight:900; }
 .advisor-summary-strip strong { display:block; margin:4px 0; font-size:18px; line-height:1.2; }
 .advisor-summary-strip p { margin:0; color:var(--muted); font-size:13px; }
-.score-prediction-card { display:grid; gap:14px; border:1px solid var(--line); border-radius:18px; background:#fbfdff; padding:18px; }
-.score-prediction-card h3 { margin:0; font-size:24px; line-height:1.15; text-wrap:balance; }
-.score-prediction-score { display:flex; align-items:flex-end; gap:12px; border:1px solid #c8dcff; border-radius:16px; background:#edf4ff; padding:14px; }
-.score-prediction-score strong { color:#163a7a; font-size:34px; line-height:1; font-variant-numeric:tabular-nums; }
-.score-prediction-score span { color:#315786; font-size:13px; font-weight:850; letter-spacing:0; text-transform:none; }
-.score-prediction-details { display:grid; gap:9px; }
-.score-prediction-details div { border:1px solid rgba(216,224,234,.72); border-radius:14px; background:#fff; padding:12px; }
-.score-prediction-details strong { display:block; margin-bottom:4px; font-size:14px; }
-.score-prediction-details p { margin:0; color:#354155; font-size:13px; line-height:1.55; }
+.score-poster-section { margin:22px 0; }
+.score-poster-shell { position:relative; overflow:hidden; border-radius:36px; padding:28px 22px 26px; background:
+  radial-gradient(circle at top left, #ff3426 0 18%, transparent 18%),
+  radial-gradient(circle at top right, #ff3426 0 18%, transparent 18%),
+  radial-gradient(circle at 56% -4%, #31d64f 0 14%, transparent 14%),
+  linear-gradient(180deg,#1732d7 0%,#2843ff 24%,#2540ef 100%);
+  box-shadow:0 26px 60px rgba(19,34,118,.28);
+}
+.score-poster-shell::before { content:""; position:absolute; inset:88px 0 auto; height:138px; background:linear-gradient(180deg,rgba(77,116,255,.65),rgba(35,63,238,.55)); border-radius:42px; transform:translateX(22px); width:calc(100% - 44px); }
+.score-poster-top { position:relative; z-index:1; display:flex; justify-content:space-between; gap:18px; align-items:flex-start; margin-bottom:18px; color:#fff; }
+.score-poster-top .eyebrow { color:#d7e1ff; }
+.score-poster-top h2 { color:#fff; font-size:clamp(28px,4vw,42px); }
+.score-poster-top p:last-child { max-width:340px; margin:0; color:rgba(255,255,255,.82); text-align:right; font-size:14px; line-height:1.5; }
+.score-poster-banner { position:relative; z-index:1; display:grid; gap:4px; margin:0 0 20px; border:1px solid rgba(255,255,255,.18); border-radius:26px; background:linear-gradient(180deg,rgba(80,117,255,.62),rgba(42,73,235,.78)); padding:22px 24px; color:#fff; box-shadow:inset 0 1px 0 rgba(255,255,255,.14); }
+.score-poster-banner strong { font-size:18px; line-height:1.2; }
+.score-poster-banner span { color:rgba(255,255,255,.74); font-size:14px; font-weight:700; }
+#score-prediction-grid { position:relative; z-index:1; display:grid; gap:18px; }
+.score-prediction-card { position:relative; display:grid; gap:18px; border-radius:30px; background:#fff; padding:22px 18px 18px; box-shadow:0 18px 42px rgba(14,24,70,.16); }
+.score-prediction-card::before, .score-prediction-card::after { content:""; position:absolute; top:50%; width:18px; height:18px; margin-top:-9px; border-radius:999px; background:#2540ef; }
+.score-prediction-card::before { left:-9px; }
+.score-prediction-card::after { right:-9px; }
+.score-prediction-meta { display:grid; grid-template-columns:auto 1fr auto; gap:10px; align-items:center; padding-bottom:12px; border-bottom:1px dashed #dde5f6; color:#8b95ab; font-size:12px; font-weight:800; }
+.score-prediction-meta strong { color:#2b3a56; font-size:13px; }
+.score-prediction-head { display:grid; gap:10px; }
+.score-prediction-headline { display:grid; grid-template-columns:1fr auto 1fr; gap:10px; align-items:center; }
+.score-prediction-team { display:grid; gap:6px; justify-items:center; text-align:center; }
+.score-prediction-team b { color:#202939; font-size:24px; line-height:1.15; }
+.score-prediction-team span { color:#8a95a8; font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
+.score-prediction-result { min-width:108px; display:grid; gap:6px; justify-items:center; }
+.score-prediction-result strong { color:#171d29; font-size:42px; line-height:1; font-variant-numeric:tabular-nums; }
+.score-prediction-result span { border-radius:999px; background:#ff2c22; color:#fff; padding:6px 12px; font-size:12px; font-weight:900; letter-spacing:.04em; text-transform:none; }
+.score-prediction-chips { display:flex; flex-wrap:wrap; gap:10px; }
+.score-prediction-chips span { border-radius:12px; background:#f0f3f9; color:#5a667e; padding:10px 12px; font-size:13px; font-weight:850; letter-spacing:0; text-transform:none; }
+.score-prediction-chips .is-primary { background:#ff2c22; color:#fff; }
+.score-prediction-details { display:grid; gap:10px; padding-top:12px; border-top:1px solid #eef2fa; }
+.score-prediction-details div { border-radius:14px; background:#f8faff; padding:12px 14px; }
+.score-prediction-details strong { display:block; margin-bottom:4px; color:#24304c; font-size:13px; }
+.score-prediction-details p { margin:0; color:#5a667e; font-size:13px; line-height:1.55; }
 .match-advisor-list { display:grid; gap:16px; }
 .match-advisor-card { display:grid; gap:16px; border:1px solid var(--line); border-radius:calc(var(--radius-sm) + 4px); background:#fbfdff; padding:18px; }
 .match-advisor-card.priority-advisor-card { border-color:#ffd0cc; background:linear-gradient(135deg,#fff7f6,#fbfdff 58%); }
@@ -177,4 +206,4 @@ input { min-height:46px; border:1px solid var(--line); background:#fff; color:va
 .correction-grid h3 { margin:6px 0 8px; font-size:18px; }
 footer { display:flex; justify-content:space-between; gap:18px; padding:34px 0 46px; color:var(--muted); font-size:14px; }
 @media (max-width: 1040px) { .must-watch-section .advisor-grid, .today-focus-grid, .teams-section .team-profile-grid, .team-profile-grid--full, .group-grid { grid-template-columns:1fr; } }
-@media (max-width: 860px) { .hero, .control-panel, .fixture-grid, .history-row, .review-metrics, .correction-grid, .advisor-grid, .player-row, .team-profile-notes, .match-advisor-body, .advisor-summary-strip, .match-advisor-head { grid-template-columns:1fr; } .site-header, footer, .prediction-head, .subscribe-panel, .match-review-head, .today-focus-heading, .advisor-heading { align-items:flex-start; flex-direction:column; } .advisor-heading p:last-child { text-align:left; } .advisor-card-footer { justify-content:flex-start; } .review-scoreline { grid-template-columns:1fr; width:100%; } .review-scoreline b { width:100%; } .button { width:100%; } .section-heading h2 { max-width:none; } .teams { align-items:flex-start; flex-direction:column; } }
+@media (max-width: 860px) { .hero, .control-panel, .fixture-grid, .history-row, .review-metrics, .correction-grid, .advisor-grid, .player-row, .team-profile-notes, .match-advisor-body, .advisor-summary-strip, .match-advisor-head, .score-prediction-headline, .score-prediction-meta { grid-template-columns:1fr; } .site-header, footer, .prediction-head, .subscribe-panel, .match-review-head, .today-focus-heading, .advisor-heading, .score-poster-top { align-items:flex-start; flex-direction:column; } .advisor-heading p:last-child, .score-poster-top p:last-child { text-align:left; } .advisor-card-footer { justify-content:flex-start; } .review-scoreline { grid-template-columns:1fr; width:100%; } .review-scoreline b { width:100%; } .button { width:100%; } .section-heading h2 { max-width:none; } .teams { align-items:flex-start; flex-direction:column; } .score-poster-shell::before { width:calc(100% - 28px); transform:translateX(14px); } }
