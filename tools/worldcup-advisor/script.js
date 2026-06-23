@@ -1572,10 +1572,6 @@ function getUpdatedAt() {
   return liveWorldCupData?.syncedAt ?? "2026-06-23 14:33 Asia/Shanghai";
 }
 
-function getDataSourceLabel() {
-  return liveWorldCupData?.source?.name ? ` · 数据源 ${liveWorldCupData.source.name}` : "";
-}
-
 function initBookmarkButtons() {
   document.querySelectorAll("[data-bookmark-button]").forEach((button) => {
     button.setAttribute("aria-live", "polite");
@@ -1695,7 +1691,15 @@ function render() {
   upcomingCount.textContent = remainingMatchesCount;
   focusCount.textContent = fixtures.filter((fixture) => fixture.focus).length;
   doneFilterCount.textContent = completedMatchesCount;
-  dataStatus.textContent = `已收录 ${completedMatchesCount} 场已完赛结果 · 2026 世界杯官方赛程共 104 场，整个赛程还剩 ${remainingMatchesCount} 场未完赛 · 所有比赛主时间显示北京时间 · 已更新 ${getUpdatedAt()}${getDataSourceLabel()}`;
+  dataStatus.textContent = window.WorldCupStatus
+    ? window.WorldCupStatus.buildWorldCupStatusText({
+        completedMatches: completedMatchesCount,
+        totalMatches: completedMatchesCount + remainingMatchesCount,
+        syncedAt: getUpdatedAt(),
+        lastRefreshAt: liveWorldCupData?.lastRefreshAt,
+        extra: "所有比赛主时间显示北京时间"
+      })
+    : `已收录 ${completedMatchesCount} 场已完赛结果 · 2026 世界杯官方赛程共 104 场，整个赛程还剩 ${remainingMatchesCount} 场未完赛 · 所有比赛主时间显示北京时间 · 已更新 ${getUpdatedAt()}`;
   if (fixtureLoadMoreRow && fixtureLoadMore) {
     const remainingHiddenFixtures = filtered.length - visibleFixtures.length;
     fixtureLoadMoreRow.hidden = remainingHiddenFixtures <= 0;
@@ -2285,15 +2289,14 @@ function renderSummary() {
   if (focusCount) focusCount.textContent = fixtures.filter((fixture) => fixture.focus).length;
   if (doneFilterCount) doneFilterCount.textContent = completedMatchesCount;
   if (dataStatus) {
-    dataStatus.textContent = window.WorldCupStatus
+        dataStatus.textContent = window.WorldCupStatus
       ? window.WorldCupStatus.buildWorldCupStatusText({
           completedMatches: completedMatchesCount,
           totalMatches: completedMatchesCount + remainingMatchesCount,
           syncedAt: getUpdatedAt(),
-          lastRefreshAt: liveWorldCupData?.lastRefreshAt,
-          extra: getDataSourceLabel().replace(/^ · /, "")
+          lastRefreshAt: liveWorldCupData?.lastRefreshAt
         })
-      : `已收录 ${completedMatchesCount} 场已完赛结果 · 还剩 ${remainingMatchesCount} 场 · 已更新 ${getUpdatedAt()}${getDataSourceLabel()}`;
+      : `已收录 ${completedMatchesCount} 场已完赛结果 · 还剩 ${remainingMatchesCount} 场 · 已更新 ${getUpdatedAt()}`;
   }
 }
 
