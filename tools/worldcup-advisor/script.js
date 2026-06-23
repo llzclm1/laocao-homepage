@@ -1,5 +1,11 @@
 const updatedAt = "2026-06-23 13:05 Asia/Shanghai";
 
+function addDays(dateText, days) {
+  const date = new Date(`${dateText}T00:00:00Z`);
+  date.setUTCDate(date.getUTCDate() + days);
+  return date.toISOString().slice(0, 10);
+}
+
 function getResultLabel(home, away, score) {
   const [homeGoals, awayGoals] = score.split("-").map(Number);
   if (homeGoals > awayGoals) return `${home} 胜`;
@@ -66,9 +72,10 @@ const completedFixtures = [
   const result = getResultLabel(home, away, score);
   const totalGoals = getTotalGoals(score);
   const tone = getReviewTone(score);
+  const beijingDate = addDays(date, 1);
   return {
-    date: `${date} 已完赛`,
-    watchTime: "已完赛",
+    date: `北京时间 ${beijingDate} 已完赛`,
+    watchTime: `赛事当地日期：${date}`,
     group,
     city,
     stadium,
@@ -81,7 +88,7 @@ const completedFixtures = [
     totalGoals,
     tone,
     reason: `${result} · 总进球 ${totalGoals} · ${tone}，可用于复盘强弱判断、节奏和比分线偏差。`,
-    facts: [`赛果：${result}`, `总进球：${totalGoals}`, `复盘标签：${tone}`]
+    facts: [`赛果：${result}`, `北京时间日期：${beijingDate}`, `总进球：${totalGoals}`, `复盘标签：${tone}`]
   };
 });
 
@@ -156,7 +163,7 @@ const upcomingFixtures = [
   }
 ];
 
-const fixtures = [...upcomingFixtures, ...completedFixtures];
+const fixtures = [...upcomingFixtures, ...completedFixtures.slice().reverse()];
 
 const grid = document.querySelector("#fixture-grid");
 const searchInput = document.querySelector("#search-input");
@@ -191,7 +198,10 @@ function render() {
     return matchesSearch && matchesFilter;
   });
 
-  grid.innerHTML = filtered.map((fixture) => `
+  if (!filtered.length) {
+    grid.innerHTML = '<p class="empty-state">没有匹配的比赛。清空搜索词或切换筛选后再看。</p>';
+  } else {
+    grid.innerHTML = filtered.map((fixture) => `
     <article class="fixture-card">
       <div class="fixture-top">
         <span>${fixture.date} · ${fixture.city}</span>
@@ -211,11 +221,12 @@ function render() {
       ${fixture.href ? `<a class="text-link fixture-link" href="${fixture.href}">查看单场详情</a>` : ""}
     </article>
   `).join("");
+  }
 
   doneCount.textContent = fixtures.filter((fixture) => fixture.status === "done").length;
   upcomingCount.textContent = fixtures.filter((fixture) => fixture.status === "upcoming").length;
   focusCount.textContent = fixtures.filter((fixture) => fixture.focus).length;
-  dataStatus.textContent = `已收录 ${completedFixtures.length} 场已完赛结果 · 未开赛时间显示为北京时间 · 已更新 ${updatedAt}`;
+  dataStatus.textContent = `已收录 ${completedFixtures.length} 场已完赛结果 · 所有比赛主时间显示北京时间 · 已更新 ${updatedAt}`;
 }
 
 filters.forEach((button) => {
