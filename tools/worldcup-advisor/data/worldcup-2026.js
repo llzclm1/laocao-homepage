@@ -10,9 +10,9 @@ window.worldCupAdvisorData = {
       "url": "https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json"
     }
   ],
-  "syncedAt": "2026-06-23 15:26 Asia/Shanghai",
+  "syncedAt": "2026-06-24 06:16 Asia/Shanghai",
   "totalMatches": 104,
-  "completedMatches": 44,
+  "completedMatches": 46,
   "matches": [
     {
       "round": "Matchday 1",
@@ -1685,6 +1685,40 @@ window.worldCupAdvisorData = {
       "time": "12:00 UTC-5",
       "team1": "Portugal",
       "team2": "Uzbekistan",
+      "score": {
+        "ft": [
+          5,
+          0
+        ],
+        "ht": [
+          3,
+          0
+        ]
+      },
+      "goals1": [
+        {
+          "name": "Cristiano Ronaldo",
+          "minute": 6
+        },
+        {
+          "name": "Nuno Mendes",
+          "minute": 17
+        },
+        {
+          "name": "Cristiano Ronaldo",
+          "minute": 39
+        },
+        {
+          "name": "Abduvohid Nematov",
+          "minute": 60,
+          "owngoal": true
+        },
+        {
+          "name": "Rafael Leão",
+          "minute": 87
+        }
+      ],
+      "goals2": [],
       "group": "Group K",
       "ground": "Houston"
     },
@@ -1797,6 +1831,18 @@ window.worldCupAdvisorData = {
       "time": "16:00 UTC-4",
       "team1": "England",
       "team2": "Ghana",
+      "score": {
+        "ft": [
+          0,
+          0
+        ],
+        "ht": [
+          0,
+          0
+        ]
+      },
+      "goals1": [],
+      "goals2": [],
       "group": "Group L",
       "ground": "Boston (Foxborough)"
     },

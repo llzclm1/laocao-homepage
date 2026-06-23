@@ -86,6 +86,20 @@ function getReviewTone(score) {
   return "常规比分";
 }
 
+function getMatchTimestamp(match) {
+  const timeMatch = /(\d{2}):(\d{2})\s+UTC([+-]\d+)/.exec(match.time ?? "");
+  if (!timeMatch) return new Date(`${match.date}T00:00:00Z`).getTime();
+
+  const [, hourText, minuteText, offsetText] = timeMatch;
+  return Date.UTC(
+    Number(match.date.slice(0, 4)),
+    Number(match.date.slice(5, 7)) - 1,
+    Number(match.date.slice(8, 10)),
+    Number(hourText) - Number(offsetText),
+    Number(minuteText)
+  );
+}
+
 function renderMatchReviews() {
   const list = document.querySelector("#match-review-list");
   if (!list) return;
@@ -93,7 +107,7 @@ function renderMatchReviews() {
   const completedMatches = (data?.matches ?? [])
     .filter((match) => Array.isArray(match.score?.ft))
     .slice()
-    .reverse();
+    .sort((a, b) => getMatchTimestamp(b) - getMatchTimestamp(a));
 
   if (!completedMatches.length) {
     list.innerHTML = '<p class="empty-state">暂无已完赛结果，比赛结束后会自动补充复盘。</p>';
