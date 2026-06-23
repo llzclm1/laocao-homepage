@@ -1754,7 +1754,6 @@ function renderTeamProfiles() {
 
 function renderGroups() {
   if (!groupGrid) return;
-  if (groupGrid.children.length) return;
 
   const groups = fixtures.reduce((result, fixture) => {
     if (!hasKnownGroup(fixture.group)) return result;
