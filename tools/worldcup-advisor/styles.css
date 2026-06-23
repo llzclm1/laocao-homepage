@@ -231,6 +231,19 @@ h3, p { margin-top: 0; }
   max-width: 620px;
   font-size: 19px;
 }
+.update-callout {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  margin: 18px 0 0;
+  border-radius: 999px;
+  background: var(--pink);
+  color: #fff;
+  padding: 12px 18px;
+  font-size: 15px;
+  font-weight: 950;
+  box-shadow: 0 16px 34px rgba(242, 57, 93, .22);
+}
 .data-status {
   position: relative;
   z-index: 1;
