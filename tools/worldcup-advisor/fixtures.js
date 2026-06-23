@@ -199,7 +199,18 @@
     upcomingCount.textContent = fixtures.length - completedCount;
     focusCount.textContent = focusTotal;
     doneFilterCount.textContent = completedCount;
-    dataStatus.textContent = `已收录 ${completedCount} 场已完赛结果 · 2026 世界杯官方赛程共 ${fixtures.length} 场，整个赛程还剩 ${fixtures.length - completedCount} 场未完赛 · 所有比赛主时间显示北京时间 · 已更新 ${data.syncedAt ?? "待同步"}`;
+    const refreshLabel = data.lastRefreshAt
+      ? ` · 本页最新刷新 ${new Intl.DateTimeFormat("sv-SE", {
+          timeZone: "Asia/Shanghai",
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false
+        }).format(new Date(data.lastRefreshAt)).replace(" ", " ")} Asia/Shanghai`
+      : "";
+    dataStatus.textContent = `已收录 ${completedCount} 场已完赛结果 · 2026 世界杯官方赛程共 ${fixtures.length} 场，整个赛程还剩 ${fixtures.length - completedCount} 场未完赛 · 所有比赛主时间显示北京时间 · 已更新 ${data.syncedAt ?? "待同步"}${refreshLabel}`;
 
     const hiddenCount = filtered.length - visibleFixtures.length;
     loadMoreRow.hidden = hiddenCount <= 0;
