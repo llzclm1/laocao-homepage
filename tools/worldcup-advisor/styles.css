@@ -106,6 +106,16 @@ input { min-height:46px; border:1px solid var(--line); background:#fff; color:va
 .advisor-summary-strip span { display:block; color:var(--muted); font-size:12px; font-weight:900; }
 .advisor-summary-strip strong { display:block; margin:4px 0; font-size:18px; line-height:1.2; }
 .advisor-summary-strip p { margin:0; color:var(--muted); font-size:13px; }
+.score-prediction-card { display:grid; gap:14px; border:1px solid var(--line); border-radius:16px; background:#fbfdff; padding:20px; }
+.score-prediction-card .fixture-top { margin-bottom:0; }
+.score-prediction-card h3 { margin:0; font-size:24px; line-height:1.15; text-wrap:balance; }
+.score-prediction-score { display:flex; align-items:flex-end; gap:12px; }
+.score-prediction-score strong { font-size:34px; line-height:1; }
+.score-prediction-score span { color:var(--muted); font-size:13px; font-weight:800; letter-spacing:normal; text-transform:none; }
+.score-prediction-details { display:grid; gap:10px; }
+.score-prediction-details div { border:1px solid rgba(216,224,234,.72); border-radius:14px; background:#fff; padding:14px; }
+.score-prediction-details strong { display:block; margin-bottom:4px; font-size:14px; }
+.score-prediction-details p { margin:0; color:#354155; font-size:13px; line-height:1.55; }
 .match-advisor-list { display:grid; gap:16px; }
 .match-advisor-card { display:grid; gap:16px; border:1px solid var(--line); border-radius:calc(var(--radius-sm) + 4px); background:#fbfdff; padding:18px; }
 .match-advisor-card.priority-advisor-card { border-color:#ffd0cc; background:linear-gradient(135deg,#fff7f6,#fbfdff 58%); }
