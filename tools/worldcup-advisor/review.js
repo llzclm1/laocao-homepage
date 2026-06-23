@@ -38,7 +38,7 @@ const teamNameMap = {
   Paraguay: "巴拉圭",
   Portugal: "葡萄牙",
   Qatar: "卡塔尔",
-  "Saudi Arabia": "沙特",
+  "Saudi Arabia": "沙特阿拉伯",
   Scotland: "苏格兰",
   Senegal: "塞内加尔",
   "South Africa": "南非",
