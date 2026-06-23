@@ -23,7 +23,7 @@
     <meta name="twitter:description" content="按北京时间查看 2026 世界杯赛程、未开赛比赛、已完赛比分和重点场。" />
     <meta name="twitter:image" content="https://gewuji.dev/tools/worldcup-advisor/assets/social/fixtures.png" />
     <meta name="twitter:image:alt" content="2026 世界杯赛程页预览图" />
-    <link rel="stylesheet" href="../styles.css?v=20260623-pm-advisor" />
+    <link rel="stylesheet" href="../styles.css?v=20260623-fixture-paging" />
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"2026 世界杯赛程","url":"https://gewuji.dev/tools/worldcup-advisor/fixtures/","description":"按北京时间浏览 2026 世界杯未开赛、已完赛比分、重点场、小组、城市和球队搜索结果。","inLanguage":"zh-CN","isPartOf":{"@type":"WebApplication","name":"世界杯参谋站","url":"https://gewuji.dev/tools/worldcup-advisor/"},"about":[{"@type":"Thing","name":"2026 世界杯赛程"},{"@type":"Thing","name":"世界杯北京时间"},{"@type":"Thing","name":"世界杯已完赛比分"}]}</script>
   </head>
   <body data-page="fixtures">
@@ -76,6 +76,9 @@
           <p>这个页面只负责赛程本身，避免首页同时承担筛选、历史、小组和复盘带来的阅读压力。</p>
         </div>
         <div class="fixture-grid" id="fixture-grid" aria-live="polite"></div>
+        <div class="load-more-row" id="fixture-load-more-row" hidden>
+          <button class="button" id="fixture-load-more" type="button">加载更多比赛</button>
+        </div>
       </section>
     </main>
 
@@ -85,6 +88,6 @@
     </footer>
 
     <script src="../data/worldcup-2026.js?v=20260623-github-live"></script>
-    <script src="../script.js?v=20260623-pm-advisor"></script>
+    <script src="../script.js?v=20260623-fixture-paging"></script>
   </body>
 </html>

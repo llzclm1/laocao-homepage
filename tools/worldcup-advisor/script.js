@@ -1545,6 +1545,8 @@ const teamProfileGrid = document.querySelector("#team-profile-grid");
 const groupGrid = document.querySelector("#group-grid");
 const scorePredictionGrid = document.querySelector("#score-prediction-grid");
 const oddsSyncStatus = document.querySelector("#odds-sync-status");
+const fixtureLoadMoreRow = document.querySelector("#fixture-load-more-row");
+const fixtureLoadMore = document.querySelector("#fixture-load-more");
 const searchInput = document.querySelector("#search-input");
 const filters = document.querySelectorAll(".filter");
 const doneCount = document.querySelector("#done-count");
@@ -1556,6 +1558,8 @@ const pageId = document.body.dataset.page ?? "home";
 let activeFilter = "all";
 let hasHydratedFixtureState = false;
 let fixtureRefreshTimer = null;
+let visibleFixtureCount = 30;
+let fixtureSearchTimer = null;
 
 function getLiveCompletedCount() {
   return liveWorldCupData?.completedMatches ?? completedFixtures.length;
@@ -1616,6 +1620,10 @@ function setActiveFilter(nextFilter) {
   });
 }
 
+function resetFixturePageSize() {
+  visibleFixtureCount = 30;
+}
+
 function hydrateFixtureStateFromUrl() {
   if (!searchInput) return;
   const params = new URLSearchParams(window.location.search);
@@ -1651,10 +1659,12 @@ function render() {
     return matchesSearch && matchesFilter;
   });
 
+  const visibleFixtures = filtered.slice(0, visibleFixtureCount);
+
   if (!filtered.length) {
     grid.innerHTML = '<p class="empty-state">没有匹配的比赛。清空搜索词或切换筛选后再看。</p>';
   } else {
-    grid.innerHTML = filtered.map((fixture) => `
+    grid.innerHTML = visibleFixtures.map((fixture) => `
     <article class="fixture-card">
       <div class="fixture-top">
         <span>${fixture.city}</span>
@@ -1683,6 +1693,11 @@ function render() {
   focusCount.textContent = fixtures.filter((fixture) => fixture.focus).length;
   doneFilterCount.textContent = completedMatchesCount;
   dataStatus.textContent = `已收录 ${completedMatchesCount} 场已完赛结果 · 2026 世界杯官方赛程共 104 场，整个赛程还剩 ${remainingMatchesCount} 场未完赛 · 所有比赛主时间显示北京时间 · 已更新 ${updatedAt}${getDataSourceLabel()}`;
+  if (fixtureLoadMoreRow && fixtureLoadMore) {
+    const remainingHiddenFixtures = filtered.length - visibleFixtures.length;
+    fixtureLoadMoreRow.hidden = remainingHiddenFixtures <= 0;
+    fixtureLoadMore.textContent = `加载更多比赛（剩余 ${Math.max(remainingHiddenFixtures, 0)} 场）`;
+  }
   syncFixtureUrlState(query);
 }
 
@@ -2263,12 +2278,24 @@ function initFixturesPage() {
   filters.forEach((button) => {
     button.addEventListener("click", () => {
       setActiveFilter(button.dataset.filter);
+      resetFixturePageSize();
       render();
     });
   });
 
   if (searchInput) {
-    searchInput.addEventListener("input", render);
+    searchInput.addEventListener("input", () => {
+      resetFixturePageSize();
+      window.clearTimeout(fixtureSearchTimer);
+      fixtureSearchTimer = window.setTimeout(render, 120);
+    });
+  }
+
+  if (fixtureLoadMore) {
+    fixtureLoadMore.addEventListener("click", () => {
+      visibleFixtureCount += 30;
+      render();
+    });
   }
 
   render();
