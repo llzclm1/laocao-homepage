@@ -1810,6 +1810,10 @@ function clamp(value, min, max) {
   return Math.min(max, Math.max(min, value));
 }
 
+function normalizeGoals(value, min = 0, max = 5) {
+  return Math.round(clamp(value, min, max));
+}
+
 function getForecastBias(text) {
   const normalizedText = localizeText(text);
   if (normalizedText.includes("不败") || normalizedText.includes("占优") || normalizedText.includes("主动")) return 0.28;
@@ -1830,17 +1834,37 @@ function getScoreForecast(fixture, teamFormMap) {
   const focusBias = fixture.focus ? 0.08 : 0;
   const homeExpected = clamp(((homeAttack + awayDefense) / 2) + textBias + focusBias, 0.4, 3.4);
   const awayExpected = clamp(((awayAttack + homeDefense) / 2) - textBias / 2, 0.2, 2.8);
-  const homeGoals = Math.round(homeExpected);
-  const awayGoals = Math.round(awayExpected);
+  const homeGoals = normalizeGoals(homeExpected);
+  const awayGoals = normalizeGoals(awayExpected);
   const winner = homeGoals === awayGoals ? "平局倾向" : homeGoals > awayGoals ? `${formatTeamName(fixture.home)} 略优` : `${formatTeamName(fixture.away)} 略优`;
   const tempo = homeGoals + awayGoals >= 4 ? "开放比赛" : homeGoals + awayGoals <= 2 ? "偏谨慎" : "中等节奏";
+  const homeEdge = homeExpected - awayExpected;
+  const scenarios = [
+    {
+      label: "主推",
+      score: `${homeGoals}-${awayGoals}`,
+      note: "按当前赛果均值、攻防画像和赛前文字判断合成。"
+    },
+    {
+      label: "保守",
+      score: `${normalizeGoals(homeExpected - 0.45)}-${normalizeGoals(awayExpected - 0.25)}`,
+      note: "若开局节奏偏慢、机会质量不足，比分会向低进球靠拢。"
+    },
+    {
+      label: "开放",
+      score: `${normalizeGoals(homeExpected + (homeEdge >= 0 ? 0.55 : 0.25))}-${normalizeGoals(awayExpected + (homeEdge < 0 ? 0.55 : 0.35))}`,
+      note: "若早段进球或转换空间放大，比赛更可能进入开放回合。"
+    }
+  ];
 
   return {
     score: `${homeGoals}-${awayGoals}`,
     winner,
     tempo,
+    scenarios,
+    judgement: `${winner}，${tempo}。优先按 ${scenarios[0].score} 跟进，同时保留 ${scenarios[1].score} 和 ${scenarios[2].score} 两种节奏分支。`,
     summary: `${formatTeamName(fixture.home)} 场均进球 ${homeAttack.toFixed(1)}、${formatTeamName(fixture.away)} 场均失球 ${awayDefense.toFixed(1)}，合成主队预期 ${homeExpected.toFixed(1)}。`,
-    risk: `${formatTeamName(fixture.away)} 场均进球 ${awayAttack.toFixed(1)}、${formatTeamName(fixture.home)} 场均失球 ${homeDefense.toFixed(1)}，客队仍有 ${awayExpected.toFixed(1)} 球上下的反击窗口。`
+    risk: `${formatTeamName(fixture.away)} 场均进球 ${awayAttack.toFixed(1)}、${formatTeamName(fixture.home)} 场均失球 ${homeDefense.toFixed(1)}，客队仍有 ${awayExpected.toFixed(1)} 球上下的反击窗口。本栏只做观赛参考，不构成投注建议，也不承诺命中。`
   };
 }
 
@@ -1872,18 +1896,30 @@ function renderScorePredictions() {
             </div>
           </div>
           <div class="score-prediction-chips">
-            <span class="is-primary">${forecast.score}</span>
-            <span>${forecast.tempo}</span>
+            ${forecast.scenarios.map((scenario, scenarioIndex) => `<span class="${scenarioIndex === 0 ? "is-primary" : ""}">${scenario.label} ${scenario.score}</span>`).join("")}
             <span>北京时间观赛</span>
           </div>
         </div>
+        <div class="score-prediction-scenarios" aria-label="${formatTeamName(fixture.home)} 对 ${formatTeamName(fixture.away)} 三个比分预测">
+          ${forecast.scenarios.map((scenario) => `
+            <div>
+              <span>${scenario.label}</span>
+              <strong>${scenario.score}</strong>
+              <p>${scenario.note}</p>
+            </div>
+          `).join("")}
+        </div>
         <div class="score-prediction-details">
+          <div>
+            <strong>判断</strong>
+            <p>${forecast.judgement}</p>
+          </div>
           <div>
             <strong>预测依据</strong>
             <p>${forecast.summary}</p>
           </div>
           <div>
-            <strong>风险提醒</strong>
+            <strong>警示</strong>
             <p>${forecast.risk}</p>
           </div>
           <div>
