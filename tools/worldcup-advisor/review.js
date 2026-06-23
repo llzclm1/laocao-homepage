@@ -105,6 +105,71 @@ function formatBeijingMatchTime(match) {
   return `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, "0")}-${String(date.getUTCDate()).padStart(2, "0")} ${String(date.getUTCHours()).padStart(2, "0")}:${String(date.getUTCMinutes()).padStart(2, "0")}`;
 }
 
+function getGoalMinutes(goals) {
+  return (goals ?? [])
+    .map((goal) => goal.minute)
+    .filter((minute) => Number.isFinite(minute));
+}
+
+function getFirstGoalSummary(match) {
+  const goals = [
+    ...(match.goals1 ?? []).map((goal) => ({ ...goal, team: formatTeamName(match.team1) })),
+    ...(match.goals2 ?? []).map((goal) => ({ ...goal, team: formatTeamName(match.team2) }))
+  ].filter((goal) => Number.isFinite(goal.minute))
+    .sort((a, b) => a.minute - b.minute);
+
+  if (!goals.length) return "全场没有进球，复盘重点转向控球消耗、防线站位和机会质量。";
+  const firstGoal = goals[0];
+  return `${firstGoal.team} 在第 ${firstGoal.minute} 分钟先打开局面，${firstGoal.name ?? "进球球员"} 是这场走势的第一个拐点。`;
+}
+
+function getScoreStory(match, score) {
+  const [homeGoals, awayGoals] = score;
+  const home = formatTeamName(match.team1);
+  const away = formatTeamName(match.team2);
+  if (homeGoals === awayGoals) return `${home} 和 ${away} 没有分出胜负，复盘重点是双方谁更接近打破平衡。`;
+  const winner = homeGoals > awayGoals ? home : away;
+  const loser = homeGoals > awayGoals ? away : home;
+  const margin = Math.abs(homeGoals - awayGoals);
+  if (margin >= 3) return `${winner} 拉开 ${margin} 球差距，这不是普通小胜，更像是强弱关系被直接打穿。`;
+  if (margin === 1) return `${winner} 只赢 1 球，${loser} 仍然把比赛悬念留到了最后阶段。`;
+  return `${winner} 用 2 球优势收下比赛，胜负方向清楚，但还要看进球是否集中在关键时段。`;
+}
+
+function getRhythmReview(match, score) {
+  const totalGoals = score[0] + score[1];
+  const allMinutes = [...getGoalMinutes(match.goals1), ...getGoalMinutes(match.goals2)];
+  const lateGoals = allMinutes.filter((minute) => minute >= 75).length;
+  const earlyGoals = allMinutes.filter((minute) => minute <= 20).length;
+  if (totalGoals === 0) return "0-0 说明比赛更像耐心消耗，进攻端缺少能把局面撕开的最后一脚。";
+  if (earlyGoals) return `前 20 分钟就有进球，比赛很早进入开放状态，后续判断要提高开局强度权重。`;
+  if (lateGoals) return `第 75 分钟后出现 ${lateGoals} 个进球，体能、换人和尾段防守稳定性要单独复核。`;
+  if (totalGoals >= 5) return `全场 ${totalGoals} 球，进攻效率明显高于常规预期，大小比分判断需要上调。`;
+  if (totalGoals <= 1) return "低比分收场，说明双方至少一端的防守结构比赛前预期更硬。";
+  return `全场 ${totalGoals} 球，节奏没有失控，适合作为同组后续比赛的基准样本。`;
+}
+
+function getHalftimeReview(match, score) {
+  const halfTime = match.score?.ht;
+  if (!Array.isArray(halfTime)) return "半场数据缺失，先按全场比分复核强弱方向。";
+  const [homeHalf, awayHalf] = halfTime;
+  const [homeFull, awayFull] = score;
+  const secondHalfGoals = (homeFull + awayFull) - (homeHalf + awayHalf);
+  if (homeHalf === awayHalf && homeFull !== awayFull) return `半场 ${homeHalf}-${awayHalf}，下半场才分出胜负，临场调整比开局判断更关键。`;
+  if (secondHalfGoals === 0) return `半场 ${homeHalf}-${awayHalf} 后没有再进球，领先方的控局能力值得加分。`;
+  if (secondHalfGoals >= 3) return `下半场新增 ${secondHalfGoals} 球，比赛后段明显提速，替补和体能影响很大。`;
+  return `半场 ${homeHalf}-${awayHalf}，下半场新增 ${secondHalfGoals} 球，整体走势比较连续。`;
+}
+
+function getNextAdjustment(match, score) {
+  const [homeGoals, awayGoals] = score;
+  const totalGoals = homeGoals + awayGoals;
+  if (homeGoals === 0 || awayGoals === 0) return "出现零封，下一轮要优先检查被零封球队的前场连接和射门质量。";
+  if (totalGoals >= 5) return "大比分样本要影响同组预估：防线压迫、转换回追和门前效率都要重新加权。";
+  if (homeGoals === awayGoals) return "平局样本要重点沉淀双方的抗压能力，不能只按纸面实力继续外推。";
+  return "把这场的胜负方向、半场走势和进球时段沉淀到同组后续判断里。";
+}
+
 function renderMatchReviews() {
   const list = document.querySelector("#match-review-list");
   if (!list) return;
@@ -125,7 +190,12 @@ function renderMatchReviews() {
     const home = formatTeamName(match.team1);
     const away = formatTeamName(match.team2);
     const group = formatGroup(match.group);
-    const totalGoals = score[0] + score[1];
+    const metrics = [
+      ["实际赛果", getResultLabel(match.team1, match.team2, score), `${match.ground ?? "赛地待更新"} · ${getScoreStory(match, score)}`],
+      ["进球拐点", getReviewTone(score), getFirstGoalSummary(match)],
+      ["节奏复核", "按进球时段复盘", getRhythmReview(match, score)],
+      ["下轮修正", getHalftimeReview(match, score), getNextAdjustment(match, score)]
+    ];
 
     return `
       <article class="match-review-card">
@@ -138,10 +208,7 @@ function renderMatchReviews() {
           </div>
         </div>
         <div class="review-metrics compact-review-metrics" aria-label="${home} 对 ${away} 复盘">
-          <div><span>实际赛果</span><strong>${getResultLabel(match.team1, match.team2, score)}</strong><p>${match.ground ?? "赛地待更新"}</p></div>
-          <div><span>节奏标签</span><strong>${getReviewTone(score)}</strong><p>总进球 ${totalGoals}，用于校准比分线和节奏预期。</p></div>
-          <div><span>偏差检查</span><strong>按赛前判断复核</strong><p>重点看强弱方向、进球数和比赛开放度是否一致。</p></div>
-          <div><span>下一步修正</span><strong>沉淀到同组比赛</strong><p>同组球队后续判断优先参考这场的节奏和防线稳定性。</p></div>
+          ${metrics.map(([label, value, copy]) => `<div><span>${label}</span><strong>${value}</strong><p>${copy}</p></div>`).join("")}
         </div>
       </article>
     `;
