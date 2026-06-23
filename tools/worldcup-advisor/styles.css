@@ -99,15 +99,26 @@ input { min-height:46px; border:1px solid var(--line); background:#fff; color:va
 .advisor-grid article { border:1px solid var(--line); border-radius:var(--radius-sm); background:#fbfdff; padding:20px; }
 .advisor-grid span { color:var(--red); font-size:12px; font-weight:900; letter-spacing:.12em; text-transform:uppercase; }
 .must-watch-section .advisor-grid { grid-template-columns:1.1fr .95fr .95fr; }
-.match-advisor-list { display:grid; gap:14px; }
-.match-advisor-card { border:1px solid var(--line); border-radius:var(--radius-sm); background:#fbfdff; padding:18px; }
-.match-advisor-head { display:grid; gap:6px; margin-bottom:14px; }
-.match-advisor-head span { color:var(--blue); font-size:12px; font-weight:900; }
-.match-advisor-head strong { font-size:24px; line-height:1.2; }
-.match-advisor-body { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin-bottom:12px; }
-.match-advisor-body div { border:1px solid rgba(216,224,234,.72); border-radius:12px; background:#fff; padding:12px; }
+.advisor-heading { display:flex; justify-content:space-between; gap:24px; align-items:end; max-width:none; }
+.advisor-heading p:last-child { max-width:440px; margin:0; text-align:right; }
+.advisor-summary-strip { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin:0 0 18px; }
+.advisor-summary-strip div { border:1px solid rgba(216,224,234,.72); border-radius:16px; background:#fbfdff; padding:14px 16px; }
+.advisor-summary-strip span { display:block; color:var(--muted); font-size:12px; font-weight:900; }
+.advisor-summary-strip strong { display:block; margin:4px 0; font-size:18px; line-height:1.2; }
+.advisor-summary-strip p { margin:0; color:var(--muted); font-size:13px; }
+.match-advisor-list { display:grid; gap:16px; }
+.match-advisor-card { display:grid; gap:16px; border:1px solid var(--line); border-radius:calc(var(--radius-sm) + 4px); background:#fbfdff; padding:18px; }
+.match-advisor-card.priority-advisor-card { border-color:#ffd0cc; background:linear-gradient(135deg,#fff7f6,#fbfdff 58%); }
+.match-advisor-head { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:16px; align-items:start; margin-bottom:0; }
+.match-advisor-head div { display:grid; gap:7px; }
+.match-advisor-head span:not(.badge) { color:var(--blue); font-size:12px; font-weight:900; }
+.match-advisor-head strong { font-size:clamp(24px,3vw,34px); line-height:1.08; text-wrap:balance; }
+.match-advisor-head small { color:var(--muted); font-size:13px; font-weight:800; }
+.match-advisor-body { display:grid; grid-template-columns:1.12fr repeat(2,minmax(0,1fr)); gap:10px; margin-bottom:0; }
+.match-advisor-body div { border:1px solid rgba(216,224,234,.72); border-radius:14px; background:#fff; padding:14px; }
 .match-advisor-body span { display:block; color:var(--muted); font-size:12px; font-weight:900; }
-.match-advisor-body p { margin:5px 0 0; color:#354155; font-size:14px; }
+.match-advisor-body p { margin:6px 0 0; color:#354155; font-size:14px; line-height:1.55; }
+.advisor-card-footer { display:flex; justify-content:flex-end; border-top:1px solid var(--line); padding-top:12px; }
 .teams-section .team-profile-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
 .team-profile-grid--full { grid-template-columns:repeat(2,minmax(0,1fr)); }
 .team-profile-card { display:grid; gap:16px; align-content:start; border:1px solid var(--line); border-radius:var(--radius-sm); background:#fbfdff; padding:20px; }
@@ -157,4 +168,4 @@ input { min-height:46px; border:1px solid var(--line); background:#fff; color:va
 .correction-grid h3 { margin:6px 0 8px; font-size:18px; }
 footer { display:flex; justify-content:space-between; gap:18px; padding:34px 0 46px; color:var(--muted); font-size:14px; }
 @media (max-width: 1040px) { .must-watch-section .advisor-grid, .today-focus-grid, .teams-section .team-profile-grid, .team-profile-grid--full, .group-grid { grid-template-columns:1fr; } }
-@media (max-width: 860px) { .hero, .control-panel, .fixture-grid, .history-row, .review-metrics, .correction-grid, .advisor-grid, .player-row, .team-profile-notes, .match-advisor-body { grid-template-columns:1fr; } .site-header, footer, .prediction-head, .subscribe-panel, .match-review-head, .today-focus-heading { align-items:flex-start; flex-direction:column; } .review-scoreline { grid-template-columns:1fr; width:100%; } .review-scoreline b { width:100%; } .button { width:100%; } .section-heading h2 { max-width:none; } .teams { align-items:flex-start; flex-direction:column; } }
+@media (max-width: 860px) { .hero, .control-panel, .fixture-grid, .history-row, .review-metrics, .correction-grid, .advisor-grid, .player-row, .team-profile-notes, .match-advisor-body, .advisor-summary-strip, .match-advisor-head { grid-template-columns:1fr; } .site-header, footer, .prediction-head, .subscribe-panel, .match-review-head, .today-focus-heading, .advisor-heading { align-items:flex-start; flex-direction:column; } .advisor-heading p:last-child { text-align:left; } .advisor-card-footer { justify-content:flex-start; } .review-scoreline { grid-template-columns:1fr; width:100%; } .review-scoreline b { width:100%; } .button { width:100%; } .section-heading h2 { max-width:none; } .teams { align-items:flex-start; flex-direction:column; } }

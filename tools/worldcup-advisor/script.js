@@ -1433,10 +1433,14 @@ function renderMatchAdvisor() {
   if (!matchAdvisorList) return;
 
   matchAdvisorList.innerHTML = upcomingFixtures.map((fixture, index) => `
-    <article class="match-advisor-card">
+    <article class="match-advisor-card ${fixture.focus ? "priority-advisor-card" : ""}">
       <div class="match-advisor-head">
-        <span>${fixture.timeLabel} · ${fixture.group} · ${fixture.city}</span>
-        <strong>${formatTeamName(fixture.home)} vs ${formatTeamName(fixture.away)}</strong>
+        <div>
+          <span>${fixture.timeLabel}</span>
+          <strong>${formatTeamName(fixture.home)} vs ${formatTeamName(fixture.away)}</strong>
+          <small>${fixture.group} · ${fixture.city} · ${fixture.stadium}</small>
+        </div>
+        <span class="badge ${fixture.focus ? "focus" : ""}">${fixture.focus ? `重点场 ${index + 1}` : "普通场"}</span>
       </div>
       <div class="match-advisor-body">
         <div>
@@ -1452,8 +1456,7 @@ function renderMatchAdvisor() {
           <p>${localizeText(fixture.watchFor)}</p>
         </div>
       </div>
-      <div class="fixture-top">
-        <span class="badge ${fixture.focus ? "focus" : ""}">${fixture.focus ? `重点场 ${index + 1}` : "普通场"}</span>
+      <div class="advisor-card-footer">
         ${fixture.href ? `<a class="text-link fixture-link" href="../${fixture.href}">查看单场详情</a>` : ""}
       </div>
     </article>
