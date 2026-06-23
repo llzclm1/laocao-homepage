@@ -380,6 +380,24 @@ input {
 }
 .section-heading { max-width: 760px; margin-bottom: 24px; }
 .section-heading h2 { max-width: 12ch; }
+.geo-facts {
+  border: 1px solid rgba(230, 232, 239, .94);
+  border-radius: 18px;
+  background: #fff;
+  padding: 18px;
+}
+.geo-facts h3 {
+  margin: 0 0 10px;
+  color: var(--ink);
+  font-size: 18px;
+}
+.geo-facts ul {
+  margin: 0;
+  padding-left: 20px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.75;
+}
 
 .today-focus-section {
   overflow: hidden;

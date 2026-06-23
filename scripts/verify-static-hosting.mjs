@@ -51,6 +51,8 @@ assert.equal(contentAssistantAdmin.includes('href="/'), false, "content assistan
 
 const worldcupAdvisor = fs.readFileSync(path.join(dist, "tools", "worldcup-advisor", "advisor", "index.html"), "utf8");
 assert.ok(worldcupAdvisor.includes("../data/worldcup-odds.js"), "worldcup advisor should load odds cache");
+assert.ok(worldcupAdvisor.includes("AI 摘要口径"), "worldcup advisor should expose GEO summary facts");
+assert.ok(worldcupAdvisor.includes("世界杯最近比赛预测"), "worldcup advisor should use updated SEO schema");
 assert.ok(fs.existsSync(path.join(dist, "tools", "worldcup-advisor", "data", "worldcup-odds.js")), "worldcup odds cache should be copied");
 
 const worldcup = fs.readFileSync(path.join(dist, "game", "worldcup", "index.html"), "utf8");
@@ -90,5 +92,9 @@ const sitemap = fs.readFileSync(path.join(dist, "sitemap.xml"), "utf8");
 assert.ok(sitemap.includes("/game/worldcup/"), "sitemap should include /game/worldcup/");
 assert.ok(sitemap.includes("/tools/content-assistant/"), "sitemap should include /tools/content-assistant/");
 assert.ok(sitemap.includes("/tools/content-assistant/admin/"), "sitemap should include /tools/content-assistant/admin/");
+
+const llms = fs.readFileSync(path.join(dist, "llms.txt"), "utf8");
+assert.ok(llms.includes("世界杯盘口情绪"), "llms.txt should include worldcup market sentiment keywords");
+assert.ok(llms.includes("基准、保守、开放三种比分情景"), "llms.txt should explain worldcup score scenarios");
 
 console.log("static hosting audit ok");
