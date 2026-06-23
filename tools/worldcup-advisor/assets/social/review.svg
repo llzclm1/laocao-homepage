@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="世界杯赛后复盘">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#eef2f7"/>
+      <stop offset="58%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#e5e9f0"/>
+    </linearGradient>
+    <linearGradient id="hero" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6f32ff"/>
+      <stop offset="100%" stop-color="#351adf"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="28" stdDeviation="24" flood-color="#667085" flood-opacity=".22"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <path d="M-40 94 C130 24 245 72 330 160" fill="none" stroke="#ffffff" stroke-width="2" opacity=".72"/>
+  <path d="M102 0 C220 78 318 138 446 160" fill="none" stroke="#ffffff" stroke-width="2" opacity=".55"/>
+
+  <g transform="translate(144 52) rotate(11 456 266)" filter="url(#shadow)">
+    <rect width="912" height="532" rx="30" fill="#ffffff"/>
+    <rect x="0" y="0" width="912" height="92" rx="30" fill="#ffffff"/>
+    <rect x="0" y="68" width="912" height="1" fill="#eeeef4"/>
+    <circle cx="70" cy="44" r="13" fill="#f23f5f"/>
+    <circle cx="70" cy="44" r="7" fill="#ffffff" opacity=".9"/>
+    <text x="96" y="54" font-size="31" font-family="Arial, 'PingFang SC', sans-serif" font-weight="900" fill="#24212b">GoalScore</text>
+    <text x="560" y="54" font-size="23" font-family="Arial, 'PingFang SC', sans-serif" font-weight="900" fill="#4d22f2">Live Scores</text>
+    <rect x="588" y="76" width="68" height="5" rx="3" fill="#6f32ff"/>
+    <text x="708" y="54" font-size="22" font-family="Arial, 'PingFang SC', sans-serif" fill="#9a96a4">All Match</text>
+
+    <g transform="translate(52 116)">
+      <rect width="350" height="270" rx="24" fill="#ffffff" stroke="#e8e8ef"/>
+      <text x="28" y="46" font-size="23" font-family="Arial, 'PingFang SC', sans-serif" font-weight="900" fill="#24212b">Review</text>
+      <text x="28" y="78" font-size="18" font-family="Arial, 'PingFang SC', sans-serif" fill="#aaa6b3">集中看比分偏差、节奏标签和下一轮修正</text>
+      <g transform="translate(38 116)">
+        <circle cx="46" cy="44" r="38" fill="#f0f5ff" stroke="#2f16df" stroke-width="5"/>
+        <text x="46" y="54" text-anchor="middle" font-size="28" font-family="Arial, sans-serif" font-weight="900" fill="#2f16df">WC</text>
+        <text x="232" y="54" text-anchor="middle" font-size="43" font-family="Arial, sans-serif" font-weight="900" fill="#24212b">44</text>
+      </g>
+      <text x="270" y="194" text-anchor="middle" font-size="19" font-family="Arial, 'PingFang SC', sans-serif" font-weight="700" fill="#6b6676">样本</text>
+      <rect x="86" y="214" width="178" height="55" rx="10" fill="#5b25ec"/>
+      <text x="175" y="249" text-anchor="middle" font-size="19" font-family="Arial, 'PingFang SC', sans-serif" font-weight="800" fill="#ffffff">复盘</text>
+    </g>
+
+    <g transform="translate(452 116)">
+      <rect width="408" height="160" rx="24" fill="url(#hero)"/>
+      <circle cx="336" cy="46" r="96" fill="#ffffff" opacity=".08"/>
+      <circle cx="382" cy="128" r="112" fill="#120a78" opacity=".12"/>
+      <text x="34" y="58" font-size="32" font-family="Arial, 'PingFang SC', sans-serif" font-weight="900" fill="#ffffff">世界杯赛后复盘</text>
+      <text x="34" y="94" font-size="19" font-family="Arial, 'PingFang SC', sans-serif" fill="#efeaff">集中看比分偏差、节奏标签和下一轮修正</text>
+      <rect x="34" y="114" width="138" height="38" rx="8" fill="#ffffff"/>
+      <text x="103" y="139" text-anchor="middle" font-size="15" font-family="Arial, 'PingFang SC', sans-serif" font-weight="800" fill="#351adf">Open Advisor</text>
+    </g>
+
+    <g transform="translate(452 310)">
+      <rect width="408" height="54" rx="14" fill="#f7f7fa"/>
+      <text x="26" y="35" font-size="18" font-family="Arial, 'PingFang SC', sans-serif" font-weight="900" fill="#24212b">Match board</text>
+      <text x="380" y="35" text-anchor="end" font-size="16" font-family="Arial, 'PingFang SC', sans-serif" font-weight="800" fill="#f23f5f">Live</text>
+    </g>
+    
+      <g transform="translate(550 370)">
+        <rect width="490" height="42" rx="12" fill="#f8f5ff" stroke="#eceaf2"/>
+        <text x="26" y="27" font-size="18" font-family="Arial, 'PingFang SC', sans-serif" font-weight="700" fill="#24212b">低比分</text>
+        <text x="245" y="27" text-anchor="middle" font-size="20" font-family="Arial, 'PingFang SC', sans-serif" font-weight="800" fill="#2f16df">1 : 0</text>
+        <text x="464" y="27" text-anchor="end" font-size="18" font-family="Arial, 'PingFang SC', sans-serif" font-weight="700" fill="#6b6676">节奏偏慢</text>
+      </g>
+      <g transform="translate(550 428)">
+        <rect width="490" height="42" rx="12" fill="#ffffff" stroke="#eceaf2"/>
+        <text x="26" y="27" font-size="18" font-family="Arial, 'PingFang SC', sans-serif" font-weight="700" fill="#24212b">常规比分</text>
+        <text x="245" y="27" text-anchor="middle" font-size="20" font-family="Arial, 'PingFang SC', sans-serif" font-weight="800" fill="#2f16df">2 : 1</text>
+        <text x="464" y="27" text-anchor="end" font-size="18" font-family="Arial, 'PingFang SC', sans-serif" font-weight="700" fill="#6b6676">判断兑现</text>
+      </g>
+      <g transform="translate(550 486)">
+        <rect width="490" height="42" rx="12" fill="#ffffff" stroke="#eceaf2"/>
+        <text x="26" y="27" font-size="18" font-family="Arial, 'PingFang SC', sans-serif" font-weight="700" fill="#24212b">大比分</text>
+        <text x="245" y="27" text-anchor="middle" font-size="20" font-family="Arial, 'PingFang SC', sans-serif" font-weight="800" fill="#2f16df">4 : 1</text>
+        <text x="464" y="27" text-anchor="end" font-size="18" font-family="Arial, 'PingFang SC', sans-serif" font-weight="700" fill="#6b6676">防线失衡</text>
+      </g>
+  </g>
+
+  <g transform="translate(72 476)">
+    <text x="0" y="0" font-size="52" font-family="Arial, 'PingFang SC', sans-serif" font-weight="900" fill="#24212b">世界杯赛后复盘</text>
+    <text x="2" y="42" font-size="24" font-family="Arial, 'PingFang SC', sans-serif" fill="#6b6676">集中看比分偏差、节奏标签和下一轮修正</text>
+  </g>
+</svg>
