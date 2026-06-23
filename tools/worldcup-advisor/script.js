@@ -1108,27 +1108,93 @@ function renderGroups() {
   if (groupGrid.children.length) return;
 
   const groups = fixtures.reduce((result, fixture) => {
-    result[fixture.group] ??= new Set();
-    result[fixture.group].add(fixture.home);
-    result[fixture.group].add(fixture.away);
+    result[fixture.group] ??= {};
+    for (const team of [fixture.home, fixture.away]) {
+      result[fixture.group][team] ??= {
+        team,
+        played: 0,
+        won: 0,
+        drawn: 0,
+        lost: 0,
+        goalsFor: 0,
+        goalsAgainst: 0,
+        points: 0
+      };
+    }
+
+    if (fixture.status !== "done") return result;
+
+    const [homeGoals, awayGoals] = fixture.score.split("-").map(Number);
+    if (!Number.isFinite(homeGoals) || !Number.isFinite(awayGoals)) return result;
+
+    const home = result[fixture.group][fixture.home];
+    const away = result[fixture.group][fixture.away];
+
+    home.played += 1;
+    away.played += 1;
+    home.goalsFor += homeGoals;
+    home.goalsAgainst += awayGoals;
+    away.goalsFor += awayGoals;
+    away.goalsAgainst += homeGoals;
+
+    if (homeGoals > awayGoals) {
+      home.won += 1;
+      home.points += 3;
+      away.lost += 1;
+    } else if (homeGoals < awayGoals) {
+      away.won += 1;
+      away.points += 3;
+      home.lost += 1;
+    } else {
+      home.drawn += 1;
+      away.drawn += 1;
+      home.points += 1;
+      away.points += 1;
+    }
+
     return result;
   }, {});
 
   groupGrid.innerHTML = Object.entries(groups)
     .sort(([groupA], [groupB]) => groupA.localeCompare(groupB, "zh-Hans-CN"))
-    .map(([group, teams]) => {
-      const teamList = [...teams].sort((teamA, teamB) => teamA.localeCompare(teamB));
-      const status = teamList.length >= 4 ? "完整四队" : `${teamList.length} 队已录入`;
+    .map(([group, standings]) => {
+      const table = Object.values(standings)
+        .map((row) => ({
+          ...row,
+          goalDifference: row.goalsFor - row.goalsAgainst
+        }))
+        .sort((teamA, teamB) =>
+          teamB.points - teamA.points ||
+          teamB.goalDifference - teamA.goalDifference ||
+          teamB.goalsFor - teamA.goalsFor ||
+          teamA.team.localeCompare(teamB.team)
+        );
+      const completedMatches = table.reduce((sum, team) => sum + team.played, 0) / 2;
+      const status = `${completedMatches} 场已完赛`;
       return `
         <article class="group-card">
           <div class="group-head">
             <span>${group}</span>
             <strong>${status}</strong>
           </div>
-          <ol class="team-rank-list">
-            ${teamList.map((team) => `<li><span>${formatTeamName(team)}</span><strong>${teamProfiles.some((profile) => profile.team === team) ? "有资料" : "待补"}</strong></li>`).join("")}
-          </ol>
-          <p>本组按当前已录入赛程自动汇总。赛前判断仍需结合首发、轮换、天气和积分压力。</p>
+          <div class="standings-table" role="table" aria-label="${group} 积分排名">
+            <div class="standings-row standings-head" role="row">
+              <span>队伍</span><span>赛</span><span>胜</span><span>平</span><span>负</span><span>进/失</span><span>净</span><span>分</span>
+            </div>
+            ${table.map((team, index) => `
+              <div class="standings-row" role="row">
+                <span><b>${index + 1}</b>${formatTeamName(team.team)}</span>
+                <span>${team.played}</span>
+                <span>${team.won}</span>
+                <span>${team.drawn}</span>
+                <span>${team.lost}</span>
+                <span>${team.goalsFor}/${team.goalsAgainst}</span>
+                <span>${team.goalDifference > 0 ? `+${team.goalDifference}` : team.goalDifference}</span>
+                <strong>${team.points}</strong>
+              </div>
+            `).join("")}
+          </div>
+          <p>按已完赛结果计算。未开赛比赛不会进入积分，后续自动更新。</p>
         </article>
       `;
     })
