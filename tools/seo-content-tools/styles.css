@@ -73,7 +73,9 @@ nav {
 .hero-copy,
 .hero-panel,
 .workspace,
-.seo-notes {
+.seo-notes,
+.keyword-section,
+.faq-section {
   border: 1px solid var(--line);
   background: rgba(255, 253, 248, 0.82);
   box-shadow: var(--shadow);
@@ -170,7 +172,9 @@ h1 {
 }
 
 .workspace,
-.seo-notes {
+.seo-notes,
+.keyword-section,
+.faq-section {
   margin: 22px 0;
   padding: clamp(22px, 4vw, 36px);
 }
@@ -181,14 +185,17 @@ h1 {
 }
 
 .section-heading h2,
-.seo-notes h2 {
+.seo-notes h2,
+.keyword-section h2,
+.faq-section h2 {
   margin-bottom: 10px;
   font-size: clamp(28px, 4vw, 44px);
   line-height: 1.08;
 }
 
 .section-heading p,
-.seo-notes > p {
+.seo-notes > p,
+.keyword-section > p {
   color: var(--muted);
 }
 
@@ -310,22 +317,53 @@ pre {
   gap: 12px;
 }
 
-.note-grid article {
+.keyword-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.note-grid article,
+.keyword-grid article {
   min-height: 210px;
   padding: 18px;
   border: 1px solid var(--line);
   background: #faf7ef;
 }
 
-.note-grid h3 {
+.note-grid h3,
+.keyword-grid h3 {
   margin-bottom: 10px;
   font-size: 18px;
   line-height: 1.25;
 }
 
-.note-grid p {
+.note-grid p,
+.keyword-grid p,
+.faq-section p {
   color: var(--muted);
   font-size: 14px;
+}
+
+.faq-section details {
+  border-top: 1px solid var(--line);
+  padding: 18px 0;
+}
+
+.faq-section details:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.faq-section summary {
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 850;
+}
+
+.faq-section details p {
+  max-width: 760px;
+  margin: 12px 0 0;
 }
 
 footer {
@@ -360,7 +398,8 @@ footer a {
     grid-column: auto;
   }
 
-  .note-grid {
+  .note-grid,
+  .keyword-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -384,7 +423,8 @@ footer a {
 
   .form-grid,
   .tool-tabs,
-  .note-grid {
+  .note-grid,
+  .keyword-grid {
     grid-template-columns: 1fr;
   }
 
