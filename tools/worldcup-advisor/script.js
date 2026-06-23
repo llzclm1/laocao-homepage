@@ -735,6 +735,29 @@ function getMarketReference(fixture) {
   };
 }
 
+function getOddsSyncedAtLabel() {
+  const syncedAt = getLiveWorldCupOdds()?.syncedAt;
+  return syncedAt ? `上次盘口同步：${syncedAt.replace(" Asia/Shanghai", "")}` : "上次盘口同步：暂无";
+}
+
+function getAdvisorFixtures() {
+  const nextFixture = upcomingFixtures.find((fixture) => parseFixtureKickoffTime(fixture.timeLabel));
+  const nextMatchDay = nextFixture ? getBeijingMatchDay(nextFixture) : null;
+  const nextDayFixtures = upcomingFixtures.filter((fixture) => getBeijingMatchDay(fixture) === nextMatchDay);
+  return (nextDayFixtures.length ? nextDayFixtures : upcomingFixtures).slice(0, 8);
+}
+
+function getMarketCoverageLabel(fixture) {
+  return fixture.marketReference ? "已融合盘口" : "暂无盘口，使用基础模型";
+}
+
+function getMarketImpactLabel(fixture, forecast) {
+  if (!forecast.marketAdjusted || !fixture.marketReference) {
+    return "盘口影响：暂无盘口数据，当前比分按赛果均值、球队画像和赛前变量生成。";
+  }
+  return `盘口影响：${fixture.marketReference.handicap} 修正强弱差，${fixture.marketReference.totals} 修正总进球。`;
+}
+
 function getResultLabel(home, away, score) {
   const [homeGoals, awayGoals] = score.split("-").map(Number);
   if (homeGoals > awayGoals) return `${formatTeamName(home)} 胜`;
@@ -1521,6 +1544,7 @@ const historyList = document.querySelector("#history-list");
 const teamProfileGrid = document.querySelector("#team-profile-grid");
 const groupGrid = document.querySelector("#group-grid");
 const scorePredictionGrid = document.querySelector("#score-prediction-grid");
+const oddsSyncStatus = document.querySelector("#odds-sync-status");
 const searchInput = document.querySelector("#search-input");
 const filters = document.querySelectorAll(".filter");
 const doneCount = document.querySelector("#done-count");
@@ -2000,7 +2024,7 @@ function getScoreForecast(fixture, teamFormMap) {
   const scenarioScores = getScenarioScores(homeGoals, awayGoals, homeEdge);
   const scenarios = [
     {
-      label: "主推",
+      label: "基准情景",
       score: `${homeGoals}-${awayGoals}`,
       note: marketAdjustment ? "按赛果均值、攻防画像和授权盘口情绪综合生成。" : "按当前赛果均值、攻防画像和赛前文字判断合成。"
     },
@@ -2035,7 +2059,8 @@ function getScoreForecast(fixture, teamFormMap) {
 function renderScorePredictions() {
   if (!scorePredictionGrid) return;
   const teamFormMap = buildTeamFormMap();
-  scorePredictionGrid.innerHTML = upcomingFixtures.map((fixture) => {
+  const advisorFixtures = getAdvisorFixtures();
+  scorePredictionGrid.innerHTML = advisorFixtures.map((fixture) => {
     const forecast = getScoreForecast(fixture, teamFormMap);
     return `
       <article class="score-prediction-card">
@@ -2061,7 +2086,7 @@ function renderScorePredictions() {
           </div>
           <div class="score-prediction-chips">
             ${forecast.scenarios.map((scenario, scenarioIndex) => `<span class="${scenarioIndex === 0 ? "is-primary" : ""}">${scenario.label} ${scenario.score}</span>`).join("")}
-            ${forecast.marketAdjusted ? '<span class="is-market">已融合市场情绪</span>' : ""}
+            <span class="${forecast.marketAdjusted ? "is-market" : ""}">${getMarketCoverageLabel(fixture)}</span>
             <span>北京时间观赛</span>
           </div>
         </div>
@@ -2091,6 +2116,10 @@ function renderScorePredictions() {
             <strong>观赛结合</strong>
             <p>${localizeText(fixture.keyPoint)}</p>
           </div>
+          <div>
+            <strong>盘口影响</strong>
+            <p>${getMarketImpactLabel(fixture, forecast)}</p>
+          </div>
           ${fixture.marketReference ? `
           <div class="market-reference-card">
             <strong>市场情绪参考</strong>
@@ -2100,14 +2129,18 @@ function renderScorePredictions() {
         </div>
       </article>
     `;
-  }).join("");
+  }).join("") + '<a class="text-link advisor-more-link" href="../fixtures/">查看全部未来赛程</a>';
+}
+
+function renderOddsSyncStatus() {
+  if (oddsSyncStatus) oddsSyncStatus.textContent = getOddsSyncedAtLabel();
 }
 
 function renderMatchAdvisor() {
   const matchAdvisorList = document.querySelector("#match-advisor-list");
   if (!matchAdvisorList) return;
 
-  matchAdvisorList.innerHTML = upcomingFixtures.map((fixture, index) => `
+  matchAdvisorList.innerHTML = getAdvisorFixtures().map((fixture, index) => `
     <article class="match-advisor-card ${fixture.focus ? "priority-advisor-card" : ""}">
       <div class="match-advisor-head">
         <div>
@@ -2116,6 +2149,7 @@ function renderMatchAdvisor() {
           <small>${fixture.group} · ${fixture.city} · ${fixture.stadium}</small>
         </div>
         <span class="badge ${fixture.focus ? "focus" : ""}">${fixture.focus ? `重点场 ${index + 1}` : "普通场"}</span>
+        <span class="badge ${fixture.marketReference ? "focus" : ""}">${getMarketCoverageLabel(fixture)}</span>
       </div>
       <div class="match-advisor-body">
         <div>
@@ -2259,6 +2293,7 @@ function initReviewPage() {
 }
 
 function initAdvisorPage() {
+  renderOddsSyncStatus();
   renderScorePredictions();
   renderMatchAdvisor();
 }
@@ -2268,6 +2303,7 @@ window.addEventListener?.("worldcup-advisor-odds-ready", () => {
     fixture.marketReference = getMarketReference(fixture);
   });
   if (pageId === "advisor") {
+    renderOddsSyncStatus();
     renderScorePredictions();
     renderMatchAdvisor();
   }

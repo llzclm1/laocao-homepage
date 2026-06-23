@@ -244,6 +244,14 @@ h3, p { margin-top: 0; }
   font-weight: 950;
   box-shadow: 0 16px 34px rgba(242, 57, 93, .22);
 }
+.update-sync {
+  position: relative;
+  z-index: 1;
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 850;
+}
 .data-status {
   position: relative;
   z-index: 1;
@@ -777,6 +785,14 @@ input {
   z-index: 1;
   display: grid;
   gap: 18px;
+}
+.advisor-more-link {
+  justify-self: center;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .14);
+  color: #fff;
+  padding: 10px 16px;
+  font-weight: 900;
 }
 .score-prediction-card {
   position: relative;

@@ -23,7 +23,7 @@
     <meta name="twitter:description" content="自动生成 2026 世界杯每场比赛比分预测、赛前判断和观赛重点。" />
     <meta name="twitter:image" content="https://gewuji.dev/tools/worldcup-advisor/assets/social/advisor.png" />
     <meta name="twitter:image:alt" content="世界杯比分预测页预览图" />
-    <link rel="stylesheet" href="../styles.css?v=20260623-goalscore-ui" />
+    <link rel="stylesheet" href="../styles.css?v=20260623-pm-advisor" />
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"世界杯比分预测","url":"https://gewuji.dev/tools/worldcup-advisor/advisor/","description":"集中展示 2026 世界杯每场比赛的自动比分预测、赛前判断、关键变量和观赛重点。所有判断只做观赛参考，不构成投注建议。","inLanguage":"zh-CN","isPartOf":{"@type":"WebApplication","name":"世界杯参谋站","url":"https://gewuji.dev/tools/worldcup-advisor/"},"about":[{"@type":"Thing","name":"世界杯比分预测"},{"@type":"Thing","name":"世界杯赛前分析"},{"@type":"Thing","name":"观赛参考"}]}</script>
   </head>
   <body data-page="advisor">
@@ -46,8 +46,9 @@
         <div>
           <p class="eyebrow">参谋判断</p>
           <h1>参谋页</h1>
-          <p class="lead">只放接下来比赛的判断重点。先看时间和对阵，再看方向、变量、比分预测和观赛点。</p>
+          <p class="lead">默认展示最近一个比赛日的判断重点。先看时间和对阵，再看方向、变量、比分预测和观赛点。</p>
           <p class="update-callout">北京时间 19:00 更新盘口与赛后数据</p>
+          <p class="update-sync" id="odds-sync-status">上次盘口同步：加载中</p>
         </div>
       </section>
 
@@ -56,13 +57,13 @@
           <div class="score-poster-top">
             <div>
               <p class="eyebrow">World Cup Forecast</p>
-              <h2 id="score-prediction-title">比分预测海报</h2>
+              <h2 id="score-prediction-title">最近比赛预测</h2>
             </div>
-            <p>参考本站赛果与球队画像生成，只服务观赛，不构成投注建议。</p>
+            <p>默认展示最近一个比赛日，预测只服务观赛，不构成投注建议。</p>
           </div>
           <div class="score-poster-banner">
-            <strong>赛前判断海报化，只留观赛信息</strong>
-            <span>用票据式排版快速看比分预测和关键变量</span>
+            <strong>只看最近比赛，降低信息噪音</strong>
+            <span>基准、保守、开放三个情景用于观赛参考</span>
           </div>
           <div id="score-prediction-grid" aria-live="polite">
             <p class="empty-state">正在加载比赛和盘口参考，请稍候。</p>
@@ -74,9 +75,9 @@
         <div class="section-heading advisor-heading">
           <div>
             <p class="eyebrow">Match Advisor</p>
-            <h2 id="advisor-title">今日比赛分析</h2>
+            <h2 id="advisor-title">最近比赛分析</h2>
           </div>
-          <p>按北京时间排序，只做观赛分析，不构成投注建议。</p>
+          <p>按北京时间排序，默认展示最近比赛日，不构成投注建议。</p>
         </div>
         <div class="advisor-summary-strip" aria-label="参谋口径">
           <div><span>优先看</span><strong>重点场</strong><p>红色标记优先处理。</p></div>
@@ -84,7 +85,7 @@
           <div><span>风险口径</span><strong>不做投注建议</strong><p>只服务观赛和复盘。</p></div>
         </div>
         <div class="match-advisor-list" id="match-advisor-list" aria-live="polite">
-          <p class="empty-state">正在加载今日比赛分析，请稍候。</p>
+          <p class="empty-state">正在加载最近比赛分析，请稍候。</p>
         </div>
       </section>
 
@@ -102,7 +103,7 @@
       <a href="../">返回总览</a>
     </footer>
     <script src="../data/worldcup-2026.js?v=20260623-github-live"></script>
-    <script src="../script.js?v=20260623-score-branches"></script>
+    <script src="../script.js?v=20260623-pm-advisor"></script>
     <script async src="../data/worldcup-odds.js?v=20260623-async-odds"></script>
   </body>
 </html>
