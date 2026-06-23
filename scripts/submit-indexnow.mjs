@@ -22,6 +22,13 @@ const payload = {
     new URL("tools/seo-content-tools/industries/beauty-salon-copy/", normalizedSiteUrl).toString(),
     new URL("tools/seo-content-tools/industries/clothing-new-arrival-copy/", normalizedSiteUrl).toString(),
     new URL("tools/seo-content-tools/industries/photo-studio-copy/", normalizedSiteUrl).toString(),
+    new URL("tools/seo-content-tools/templates/", normalizedSiteUrl).toString(),
+    new URL("tools/seo-content-tools/templates/holiday-promotion-copy/", normalizedSiteUrl).toString(),
+    new URL("tools/seo-content-tools/templates/opening-announcement-copy/", normalizedSiteUrl).toString(),
+    new URL("tools/seo-content-tools/templates/returning-customer-copy/", normalizedSiteUrl).toString(),
+    new URL("tools/seo-content-tools/templates/community-notice-copy/", normalizedSiteUrl).toString(),
+    new URL("tools/seo-content-tools/templates/wechat-channel-copy/", normalizedSiteUrl).toString(),
+    new URL("tools/seo-content-tools/templates/short-video-script/", normalizedSiteUrl).toString(),
   ],
 };
 

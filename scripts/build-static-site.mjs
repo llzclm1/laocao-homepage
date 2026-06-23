@@ -309,6 +309,13 @@ function buildSitemap() {
     ["tools/seo-content-tools/industries/beauty-salon-copy/", "0.7"],
     ["tools/seo-content-tools/industries/clothing-new-arrival-copy/", "0.7"],
     ["tools/seo-content-tools/industries/photo-studio-copy/", "0.7"],
+    ["tools/seo-content-tools/templates/", "0.8"],
+    ["tools/seo-content-tools/templates/holiday-promotion-copy/", "0.7"],
+    ["tools/seo-content-tools/templates/opening-announcement-copy/", "0.7"],
+    ["tools/seo-content-tools/templates/returning-customer-copy/", "0.7"],
+    ["tools/seo-content-tools/templates/community-notice-copy/", "0.7"],
+    ["tools/seo-content-tools/templates/wechat-channel-copy/", "0.7"],
+    ["tools/seo-content-tools/templates/short-video-script/", "0.7"],
     ["tools/content-assistant/admin/", "0.4"],
     ["llms.txt", "0.6"]
   ];
