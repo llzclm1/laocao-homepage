@@ -1,5 +1,4 @@
-const liveWorldCupData = window.worldCupAdvisorData;
-const updatedAt = liveWorldCupData?.syncedAt ?? "2026-06-23 14:33 Asia/Shanghai";
+let liveWorldCupData = window.worldCupAdvisorData;
 const totalScheduledMatches = 104;
 const teamNameMap = {
   Algeria: "阿尔及利亚",
@@ -1569,6 +1568,10 @@ function getLiveTotalMatches() {
   return liveWorldCupData?.totalMatches ?? totalScheduledMatches;
 }
 
+function getUpdatedAt() {
+  return liveWorldCupData?.syncedAt ?? "2026-06-23 14:33 Asia/Shanghai";
+}
+
 function getDataSourceLabel() {
   return liveWorldCupData?.source?.name ? ` · 数据源 ${liveWorldCupData.source.name}` : "";
 }
@@ -1692,7 +1695,7 @@ function render() {
   upcomingCount.textContent = remainingMatchesCount;
   focusCount.textContent = fixtures.filter((fixture) => fixture.focus).length;
   doneFilterCount.textContent = completedMatchesCount;
-  dataStatus.textContent = `已收录 ${completedMatchesCount} 场已完赛结果 · 2026 世界杯官方赛程共 104 场，整个赛程还剩 ${remainingMatchesCount} 场未完赛 · 所有比赛主时间显示北京时间 · 已更新 ${updatedAt}${getDataSourceLabel()}`;
+  dataStatus.textContent = `已收录 ${completedMatchesCount} 场已完赛结果 · 2026 世界杯官方赛程共 104 场，整个赛程还剩 ${remainingMatchesCount} 场未完赛 · 所有比赛主时间显示北京时间 · 已更新 ${getUpdatedAt()}${getDataSourceLabel()}`;
   if (fixtureLoadMoreRow && fixtureLoadMore) {
     const remainingHiddenFixtures = filtered.length - visibleFixtures.length;
     fixtureLoadMoreRow.hidden = remainingHiddenFixtures <= 0;
@@ -2201,7 +2204,7 @@ function renderSummary() {
   if (upcomingCount) upcomingCount.textContent = remainingMatchesCount;
   if (focusCount) focusCount.textContent = fixtures.filter((fixture) => fixture.focus).length;
   if (doneFilterCount) doneFilterCount.textContent = completedMatchesCount;
-  if (dataStatus) dataStatus.textContent = `已收录 ${completedMatchesCount} 场已完赛结果 · 还剩 ${remainingMatchesCount} 场 · 已更新 ${updatedAt}${getDataSourceLabel()}`;
+  if (dataStatus) dataStatus.textContent = `已收录 ${completedMatchesCount} 场已完赛结果 · 还剩 ${remainingMatchesCount} 场 · 已更新 ${getUpdatedAt()}${getDataSourceLabel()}`;
 }
 
 function parseFixtureKickoffTime(timeLabel) {
@@ -2369,3 +2372,27 @@ switch (pageId) {
     initHomePage();
     break;
 }
+
+window.addEventListener?.("worldcup-advisor-data-ready", () => {
+  liveWorldCupData = window.worldCupAdvisorData;
+  if (pageId === "fixtures") {
+    render();
+    scheduleFixtureRefresh();
+  } else if (pageId === "history") {
+    renderHistory();
+  } else if (pageId === "teams") {
+    renderTeamProfiles();
+  } else if (pageId === "groups") {
+    renderGroups();
+  } else if (pageId === "review") {
+    renderMatchReviews();
+    renderLatestReview();
+  } else if (pageId === "advisor") {
+    renderOddsSyncStatus();
+    renderScorePredictions();
+    renderMatchAdvisor();
+  } else {
+    renderSummary();
+    renderTodayFocus();
+  }
+});

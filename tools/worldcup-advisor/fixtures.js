@@ -1,5 +1,5 @@
 (() => {
-  const data = window.worldCupAdvisorData ?? {};
+  let data = window.worldCupAdvisorData ?? {};
   const matches = Array.isArray(data.matches) ? data.matches : [];
   const teamNameMap = {
     "Argentina": "阿根廷",
@@ -232,6 +232,11 @@
   });
   loadMoreButton.addEventListener("click", () => {
     state.visible += 30;
+    render();
+  });
+
+  window.addEventListener?.("worldcup-advisor-data-ready", () => {
+    data = window.worldCupAdvisorData ?? {};
     render();
   });
 })();
