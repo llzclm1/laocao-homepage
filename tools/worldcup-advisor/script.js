@@ -1,5 +1,4 @@
 const liveWorldCupData = window.worldCupAdvisorData;
-const liveWorldCupOdds = window.worldCupAdvisorOdds;
 const updatedAt = liveWorldCupData?.syncedAt ?? "2026-06-23 14:33 Asia/Shanghai";
 const totalScheduledMatches = 104;
 const teamNameMap = {
@@ -692,7 +691,12 @@ function normalizeMarketTeamName(team) {
     .replace(/[^a-z0-9]+/g, "");
 }
 
+function getLiveWorldCupOdds() {
+  return window.worldCupAdvisorOdds;
+}
+
 function findOddsEventForFixture(home, away) {
+  const liveWorldCupOdds = getLiveWorldCupOdds();
   if (!liveWorldCupOdds?.available || !Array.isArray(liveWorldCupOdds.events)) return null;
   const homeKey = normalizeMarketTeamName(home);
   const awayKey = normalizeMarketTeamName(away);
@@ -717,6 +721,7 @@ function formatMarketLine(value) {
 function getMarketReference(fixture) {
   const event = findOddsEventForFixture(fixture.home, fixture.away);
   if (!event) return null;
+  const liveWorldCupOdds = getLiveWorldCupOdds();
   const h2h = event.markets?.h2h;
   const spreads = event.markets?.spreads;
   const totals = event.markets?.totals;
@@ -2208,6 +2213,16 @@ function initAdvisorPage() {
   renderScorePredictions();
   renderMatchAdvisor();
 }
+
+window.addEventListener?.("worldcup-advisor-odds-ready", () => {
+  upcomingFixtures.forEach((fixture) => {
+    fixture.marketReference = getMarketReference(fixture);
+  });
+  if (pageId === "advisor") {
+    renderScorePredictions();
+    renderMatchAdvisor();
+  }
+});
 
 switch (pageId) {
   case "fixtures":

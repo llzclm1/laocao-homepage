@@ -59,7 +59,7 @@ if (!apiKey) {
 await fs.mkdir(path.dirname(outputPath), { recursive: true });
 await fs.writeFile(
   outputPath,
-  `window.worldCupAdvisorOdds = ${JSON.stringify(payload, null, 2)};\n`,
+  `window.worldCupAdvisorOdds = ${JSON.stringify(payload, null, 2)};\nwindow.dispatchEvent?.(new Event("worldcup-advisor-odds-ready"));\n`,
   "utf8"
 );
 

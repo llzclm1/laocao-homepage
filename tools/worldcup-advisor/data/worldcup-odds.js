@@ -5241,3 +5241,4 @@ window.worldCupAdvisorOdds = {
     "eu"
   ]
 };
+window.dispatchEvent?.(new Event("worldcup-advisor-odds-ready"));

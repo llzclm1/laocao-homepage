@@ -64,7 +64,9 @@
             <strong>赛前判断海报化，只留观赛信息</strong>
             <span>用票据式排版快速看比分预测和关键变量</span>
           </div>
-          <div id="score-prediction-grid" aria-live="polite"></div>
+          <div id="score-prediction-grid" aria-live="polite">
+            <p class="empty-state">正在加载比赛和盘口参考，请稍候。</p>
+          </div>
         </div>
       </section>
 
@@ -81,7 +83,9 @@
           <div><span>判断顺序</span><strong>时间 → 对阵 → 变量</strong><p>先确认比赛窗口。</p></div>
           <div><span>风险口径</span><strong>不做投注建议</strong><p>只服务观赛和复盘。</p></div>
         </div>
-        <div class="match-advisor-list" id="match-advisor-list" aria-live="polite"></div>
+        <div class="match-advisor-list" id="match-advisor-list" aria-live="polite">
+          <p class="empty-state">正在加载今日比赛分析，请稍候。</p>
+        </div>
       </section>
 
       <section class="risk-section" aria-labelledby="risk-title">
@@ -98,7 +102,7 @@
       <a href="../">返回总览</a>
     </footer>
     <script src="../data/worldcup-2026.js?v=20260623-github-live"></script>
-    <script src="../data/worldcup-odds.js?v=20260623-odds-api"></script>
-    <script src="../script.js?v=20260623-market-forecast"></script>
+    <script src="../script.js?v=20260623-async-odds"></script>
+    <script async src="../data/worldcup-odds.js?v=20260623-async-odds"></script>
   </body>
 </html>
