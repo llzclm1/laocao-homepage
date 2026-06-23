@@ -35,6 +35,7 @@ input { min-height:46px; border:1px solid var(--line); background:#fff; color:va
 .fixture-card { border:1px solid var(--line); background:#fbfdff; padding:18px; }
 .empty-state { grid-column:1 / -1; margin:0; border:1px solid var(--line); background:#fbfdff; padding:18px; color:var(--muted); font-weight:850; }
 .fixture-top { display:flex; justify-content:space-between; gap:12px; color:var(--muted); font-size:13px; font-weight:850; }
+.fixture-time { display:inline-flex; width:fit-content; margin-top:12px; border:1px solid #c8dcff; background:#edf4ff; color:#1d4ed8; padding:6px 10px; font-size:14px; font-weight:950; }
 .teams { display:flex; align-items:center; justify-content:space-between; gap:14px; margin:18px 0; font-size:22px; font-weight:950; }
 .versus { color:var(--muted); font-size:14px; }
 .badge { display:inline-flex; border:1px solid var(--line); border-radius:999px; padding:5px 9px; font-size:12px; font-weight:900; }

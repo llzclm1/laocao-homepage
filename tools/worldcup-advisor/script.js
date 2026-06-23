@@ -75,6 +75,7 @@ const completedFixtures = [
   const beijingDate = addDays(date, 1);
   return {
     date: `北京时间 ${beijingDate} 已完赛`,
+    timeLabel: `北京时间日期：${beijingDate}`,
     watchTime: `赛事当地日期：${date}`,
     group,
     city,
@@ -95,6 +96,7 @@ const completedFixtures = [
 const upcomingFixtures = [
   {
     date: "北京时间 2026-06-24 01:00",
+    timeLabel: "北京时间开赛：2026-06-24 01:00",
     watchTime: "当地时间：2026-06-23 12:00",
     group: "K组",
     city: "Houston",
@@ -112,6 +114,7 @@ const upcomingFixtures = [
   },
   {
     date: "北京时间 2026-06-24 04:00",
+    timeLabel: "北京时间开赛：2026-06-24 04:00",
     watchTime: "当地时间：2026-06-23 15:00",
     group: "L组",
     city: "Boston",
@@ -129,6 +132,7 @@ const upcomingFixtures = [
   },
   {
     date: "北京时间 2026-06-24 07:00",
+    timeLabel: "北京时间开赛：2026-06-24 07:00",
     watchTime: "当地时间：2026-06-23 18:00",
     group: "L组",
     city: "Toronto",
@@ -146,6 +150,7 @@ const upcomingFixtures = [
   },
   {
     date: "北京时间 2026-06-24 10:00",
+    timeLabel: "北京时间开赛：2026-06-24 10:00",
     watchTime: "当地时间：2026-06-23 22:00",
     group: "K组",
     city: "Guadalajara",
@@ -187,6 +192,7 @@ function render() {
   const filtered = fixtures.filter((fixture) => {
     const haystack = [
       fixture.date,
+      fixture.timeLabel,
       fixture.group,
       fixture.city,
       fixture.stadium,
@@ -206,9 +212,10 @@ function render() {
     grid.innerHTML = filtered.map((fixture) => `
     <article class="fixture-card">
       <div class="fixture-top">
-        <span>${fixture.date} · ${fixture.city}</span>
+        <span>${fixture.city}</span>
         <span>${fixture.group}</span>
       </div>
+      <div class="fixture-time">${fixture.timeLabel}</div>
       <div class="teams"><span>${fixture.home}</span><span class="versus">${fixture.score}</span><span>${fixture.away}</span></div>
       <p class="reason">${fixture.stadium} · ${fixture.watchTime} · ${fixture.reason}</p>
       <div class="fixture-details">
@@ -236,7 +243,7 @@ function renderHistory() {
   historyList.innerHTML = completedFixtures.slice().reverse().map((fixture) => `
     <article class="history-row">
       <div>
-        <span>${fixture.date}</span>
+        <span>${fixture.timeLabel}</span>
         <strong>${fixture.home} ${fixture.score} ${fixture.away}</strong>
       </div>
       <p>${fixture.group} · ${fixture.city} · ${fixture.stadium} · ${fixture.watchTime}</p>
