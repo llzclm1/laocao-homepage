@@ -13,6 +13,8 @@ const detailImage = document.querySelector(".project-detail-image");
 const detailQr = document.querySelector(".project-detail-qr");
 const detailQrImage = document.querySelector(".project-detail-qr-image");
 const detailDownloads = document.querySelector(".project-detail-downloads");
+const worldcupHomeSummary = document.querySelector("#worldcup-home-summary");
+const worldcupHomeStatus = document.querySelector("#worldcup-home-status");
 
 const projectDetails = {
   pixroom: {
@@ -204,6 +206,24 @@ filterButtons.forEach((button) => {
     }
   });
 });
+
+function updateWorldCupHome() {
+  const data = window.worldCupAdvisorData;
+  if (!data) return;
+
+  const completed = Number.isFinite(data.completedMatches) ? data.completedMatches : null;
+  const remaining = Number.isFinite(data.totalMatches) && completed !== null ? data.totalMatches - completed : null;
+  const updatedAt = data.syncedAt ?? "待同步";
+  if (worldcupHomeSummary && completed !== null) {
+    worldcupHomeSummary.textContent = `按当天赛程整理比赛、重点场、赛前判断和赛后复盘，当前已同步 ${completed} 场完赛数据，页面会继续跟进最新赛果。`;
+  }
+  if (worldcupHomeStatus && completed !== null && remaining !== null) {
+    worldcupHomeStatus.textContent = `已收录 ${completed} 场已完赛结果 · 还剩 ${remaining} 场 · 已更新 ${updatedAt}`;
+  }
+}
+
+window.addEventListener?.("worldcup-advisor-data-ready", updateWorldCupHome);
+updateWorldCupHome();
 
 projectCards.forEach((card) => {
   card.addEventListener("click", (event) => {
