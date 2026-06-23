@@ -1,4 +1,4 @@
-const data = window.worldCupAdvisorData;
+let data = window.worldCupAdvisorData;
 
 const teamNameMap = {
   Argentina: "阿根廷",
@@ -100,6 +100,11 @@ function getMatchTimestamp(match) {
   );
 }
 
+function formatBeijingMatchTime(match) {
+  const date = new Date(getMatchTimestamp(match) + 8 * 60 * 60 * 1000);
+  return `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, "0")}-${String(date.getUTCDate()).padStart(2, "0")} ${String(date.getUTCHours()).padStart(2, "0")}:${String(date.getUTCMinutes()).padStart(2, "0")}`;
+}
+
 function renderMatchReviews() {
   const list = document.querySelector("#match-review-list");
   if (!list) return;
@@ -125,7 +130,7 @@ function renderMatchReviews() {
     return `
       <article class="match-review-card">
         <div class="match-review-head">
-          <span>北京时间 ${match.date} 已完赛 · ${group}</span>
+          <span>北京时间 ${formatBeijingMatchTime(match)} 已完赛 · ${group}</span>
           <div class="review-scoreline" aria-label="${home} ${scoreText} ${away}">
             <strong>${home}</strong>
             <b>${scoreText}</b>
@@ -144,3 +149,8 @@ function renderMatchReviews() {
 }
 
 renderMatchReviews();
+
+window.addEventListener?.("worldcup-advisor-data-ready", () => {
+  data = window.worldCupAdvisorData;
+  renderMatchReviews();
+});
