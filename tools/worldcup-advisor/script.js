@@ -166,11 +166,13 @@ const upcomingFixtures = [
 const fixtures = [...upcomingFixtures, ...completedFixtures.slice().reverse()];
 
 const grid = document.querySelector("#fixture-grid");
+const historyList = document.querySelector("#history-list");
 const searchInput = document.querySelector("#search-input");
 const filters = document.querySelectorAll(".filter");
 const doneCount = document.querySelector("#done-count");
 const upcomingCount = document.querySelector("#upcoming-count");
 const focusCount = document.querySelector("#focus-count");
+const doneFilterCount = document.querySelector("#done-filter-count");
 const dataStatus = document.querySelector("#data-status");
 let activeFilter = "all";
 
@@ -226,7 +228,21 @@ function render() {
   doneCount.textContent = fixtures.filter((fixture) => fixture.status === "done").length;
   upcomingCount.textContent = fixtures.filter((fixture) => fixture.status === "upcoming").length;
   focusCount.textContent = fixtures.filter((fixture) => fixture.focus).length;
+  doneFilterCount.textContent = completedFixtures.length;
   dataStatus.textContent = `已收录 ${completedFixtures.length} 场已完赛结果 · 所有比赛主时间显示北京时间 · 已更新 ${updatedAt}`;
+}
+
+function renderHistory() {
+  historyList.innerHTML = completedFixtures.slice().reverse().map((fixture) => `
+    <article class="history-row">
+      <div>
+        <span>${fixture.date}</span>
+        <strong>${fixture.home} ${fixture.score} ${fixture.away}</strong>
+      </div>
+      <p>${fixture.group} · ${fixture.city} · ${fixture.stadium} · ${fixture.watchTime}</p>
+      <small>${fixture.reason}</small>
+    </article>
+  `).join("");
 }
 
 filters.forEach((button) => {
@@ -238,5 +254,6 @@ filters.forEach((button) => {
 });
 
 searchInput.addEventListener("input", render);
+renderHistory();
 render();
 setInterval(render, 5 * 60 * 1000);

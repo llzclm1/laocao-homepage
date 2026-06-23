@@ -15,6 +15,7 @@
       <a class="brand" href="../../">格物集</a>
       <nav aria-label="页面导航">
         <a href="#fixtures">赛程</a>
+        <a href="#history">历史</a>
         <a href="#groups">小组</a>
         <a href="#review">复盘</a>
         <a href="#advisor">参谋</a>
@@ -50,7 +51,7 @@
         <div class="filters" role="group" aria-label="状态筛选">
           <button class="filter active" type="button" data-filter="all">全部</button>
           <button class="filter" type="button" data-filter="upcoming">未开赛</button>
-          <button class="filter" type="button" data-filter="done">已完赛</button>
+          <button class="filter" type="button" data-filter="done">已完赛 <span id="done-filter-count">0</span></button>
           <button class="filter" type="button" data-filter="focus">重点看</button>
         </div>
       </section>
@@ -91,6 +92,15 @@
         </div>
         <div class="fixture-grid" id="fixture-grid"></div>
         <p class="source-note">赛程来源：FIFA / On Location 官方 hospitality 赛程；赛果来源参考 ESPN、CBS Sports、SB Nation、FOX Sports 等公开赛程结果；实时比分以上游赛事数据和转播方为准。</p>
+      </section>
+
+      <section class="history-section" id="history" aria-labelledby="history-title">
+        <div class="section-heading">
+          <p class="eyebrow">History Results</p>
+          <h2 id="history-title">历史比赛结果</h2>
+          <p>这里单独列出 6 月 11 日到 6 月 22 日已经完赛的全部比赛，主日期按北京时间显示。</p>
+        </div>
+        <div class="history-list" id="history-list"></div>
       </section>
 
       <section class="groups-section" id="groups" aria-labelledby="groups-title">
@@ -283,6 +293,6 @@
       <a href="../../">回到格物集</a>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=20260623-history"></script>
   </body>
 </html>
