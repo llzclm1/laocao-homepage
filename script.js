@@ -19,6 +19,9 @@ const projectDetails = {
     title: "PixRoom",
     image: "assets/projects/detail-crops/pixroom-color-grading.webp",
     qrImage: "assets/projects/pixroom-miniapp-qrcode.png",
+    qrTitle: "微信扫码打开 PixRoom 小程序",
+    qrCopy: "用微信扫一扫，直接进入 PixRoom 照片调色小程序。",
+    qrNote: "AppID：wx293c2105e032354d",
     intro: "小程序已上线的照片调色工具，目标是把胶片滤镜、色调预设、图片美化和轻量编辑做成手机里随手可用的小工具。",
     meta: [
       ["定位", "手机里的轻量照片调色入口"],
@@ -92,6 +95,10 @@ const projectDetails = {
   "motorcycle-garage": {
     title: "机车库",
     image: "assets/projects/detail-crops/motorcycle-garage-material-board.webp",
+    qrImage: "assets/projects/motorcycle-garage-miniapp-qrcode.png",
+    qrTitle: "微信扫码打开机车库小程序",
+    qrCopy: "用微信扫一扫，进入机车库小程序记录车辆、保养、改装和费用。",
+    qrNote: "微信小程序 / 机车库",
     intro: "已迁移为微信小程序的摩托车数字车库，用来记录车辆信息、保养提醒、改装档案和费用账本。",
     meta: [
       ["定位", "微信里的摩托车数字车库"],
@@ -149,6 +156,12 @@ function openProjectDetail(detailKey) {
     if (hasQr) {
       detailQrImage.src = detail.qrImage;
       detailQrImage.alt = `${detail.title} 小程序二维码`;
+      const qrTitle = detailQr.querySelector(".project-detail-qr-title");
+      const qrCopy = detailQr.querySelector(".project-detail-qr-copy");
+      const qrNote = detailQr.querySelector(".project-detail-qr-note");
+      if (qrTitle) qrTitle.textContent = detail.qrTitle ?? `微信扫码打开${detail.title}`;
+      if (qrCopy) qrCopy.textContent = detail.qrCopy ?? "用微信扫一扫，打开对应小程序。";
+      if (qrNote) qrNote.textContent = detail.qrNote ?? "";
     } else {
       detailQrImage.removeAttribute("src");
       detailQrImage.alt = "";
