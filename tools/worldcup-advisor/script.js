@@ -1150,6 +1150,7 @@ const grid = document.querySelector("#fixture-grid");
 const historyList = document.querySelector("#history-list");
 const teamProfileGrid = document.querySelector("#team-profile-grid");
 const groupGrid = document.querySelector("#group-grid");
+const scorePredictionGrid = document.querySelector("#score-prediction-grid");
 const searchInput = document.querySelector("#search-input");
 const filters = document.querySelectorAll(".filter");
 const doneCount = document.querySelector("#done-count");
@@ -1428,6 +1429,94 @@ function renderMatchReviews() {
   `).join("");
 }
 
+function buildTeamFormMap() {
+  const formMap = {};
+  for (const fixture of completedFixtures) {
+    const [homeGoals, awayGoals] = fixture.score.split("-").map(Number);
+    if (!Number.isFinite(homeGoals) || !Number.isFinite(awayGoals)) continue;
+    for (const [team, goalsFor, goalsAgainst] of [[fixture.home, homeGoals, awayGoals], [fixture.away, awayGoals, homeGoals]]) {
+      formMap[team] ??= { played: 0, goalsFor: 0, goalsAgainst: 0 };
+      formMap[team].played += 1;
+      formMap[team].goalsFor += goalsFor;
+      formMap[team].goalsAgainst += goalsAgainst;
+    }
+  }
+  return formMap;
+}
+
+function clamp(value, min, max) {
+  return Math.min(max, Math.max(min, value));
+}
+
+function getForecastBias(text) {
+  const normalizedText = localizeText(text);
+  if (normalizedText.includes("不败") || normalizedText.includes("占优") || normalizedText.includes("主动")) return 0.28;
+  if (normalizedText.includes("小胜")) return 0.18;
+  if (normalizedText.includes("低节奏") || normalizedText.includes("谨慎")) return -0.12;
+  if (normalizedText.includes("开放") || normalizedText.includes("往返")) return 0.16;
+  return 0;
+}
+
+function getScoreForecast(fixture, teamFormMap) {
+  const homeForm = teamFormMap[fixture.home] ?? { played: 0, goalsFor: 0, goalsAgainst: 0 };
+  const awayForm = teamFormMap[fixture.away] ?? { played: 0, goalsFor: 0, goalsAgainst: 0 };
+  const homeAttack = homeForm.played ? homeForm.goalsFor / homeForm.played : 1.2;
+  const homeDefense = homeForm.played ? homeForm.goalsAgainst / homeForm.played : 1.2;
+  const awayAttack = awayForm.played ? awayForm.goalsFor / awayForm.played : 1.1;
+  const awayDefense = awayForm.played ? awayForm.goalsAgainst / awayForm.played : 1.2;
+  const textBias = getForecastBias(`${fixture.prediction} ${fixture.reason}`);
+  const focusBias = fixture.focus ? 0.08 : 0;
+  const homeExpected = clamp(((homeAttack + awayDefense) / 2) + textBias + focusBias, 0.4, 3.4);
+  const awayExpected = clamp(((awayAttack + homeDefense) / 2) - textBias / 2, 0.2, 2.8);
+  const homeGoals = Math.round(homeExpected);
+  const awayGoals = Math.round(awayExpected);
+  const winner = homeGoals === awayGoals ? "平局倾向" : homeGoals > awayGoals ? `${formatTeamName(fixture.home)} 略优` : `${formatTeamName(fixture.away)} 略优`;
+  const tempo = homeGoals + awayGoals >= 4 ? "开放比赛" : homeGoals + awayGoals <= 2 ? "偏谨慎" : "中等节奏";
+
+  return {
+    score: `${homeGoals}-${awayGoals}`,
+    winner,
+    tempo,
+    summary: `${formatTeamName(fixture.home)} 场均进球 ${homeAttack.toFixed(1)}、${formatTeamName(fixture.away)} 场均失球 ${awayDefense.toFixed(1)}，合成主队预期 ${homeExpected.toFixed(1)}。`,
+    risk: `${formatTeamName(fixture.away)} 场均进球 ${awayAttack.toFixed(1)}、${formatTeamName(fixture.home)} 场均失球 ${homeDefense.toFixed(1)}，客队仍有 ${awayExpected.toFixed(1)} 球上下的反击窗口。`
+  };
+}
+
+function renderScorePredictions() {
+  if (!scorePredictionGrid) return;
+  const teamFormMap = buildTeamFormMap();
+  scorePredictionGrid.innerHTML = upcomingFixtures.map((fixture) => {
+    const forecast = getScoreForecast(fixture, teamFormMap);
+    return `
+      <article class="score-prediction-card">
+        <div class="fixture-top">
+          <span>${fixture.timeLabel}</span>
+          <span>${fixture.group} · ${fixture.city}</span>
+        </div>
+        <h3>${formatTeamName(fixture.home)} vs ${formatTeamName(fixture.away)}</h3>
+        <div class="score-prediction-score" aria-label="${formatTeamName(fixture.home)} 对 ${formatTeamName(fixture.away)} 比分预测">
+          <strong>${forecast.score}</strong>
+          <span>${forecast.winner} · ${forecast.tempo}</span>
+        </div>
+        <div class="score-prediction-details">
+          <div>
+            <strong>预测依据</strong>
+            <p>${forecast.summary}</p>
+          </div>
+          <div>
+            <strong>风险提醒</strong>
+            <p>${forecast.risk}</p>
+          </div>
+          <div>
+            <strong>观赛结合</strong>
+            <p>${localizeText(fixture.keyPoint)}</p>
+          </div>
+        </div>
+      </article>
+    `;
+  }).join("");
+}
+
 function renderMatchAdvisor() {
   const matchAdvisorList = document.querySelector("#match-advisor-list");
   if (!matchAdvisorList) return;
@@ -1547,6 +1636,7 @@ function initReviewPage() {
 }
 
 function initAdvisorPage() {
+  renderScorePredictions();
   renderMatchAdvisor();
 }
 
