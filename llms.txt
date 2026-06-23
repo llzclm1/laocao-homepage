@@ -148,6 +148,14 @@ memories 是一个准备上架 App Store 的手机信息收纳 APP，用来把�
 
 页面地址：https://gewuji.dev/tools/seo-content-tools/
 
+专题页面：
+
+- 朋友圈活动宣传文案生成器：https://gewuji.dev/tools/seo-content-tools/pages/moments-campaign-copy/
+- 小红书种草文案生成器：https://gewuji.dev/tools/seo-content-tools/pages/xiaohongshu-seeding-copy/
+- 门店宣传文案生成器：https://gewuji.dev/tools/seo-content-tools/pages/store-promotion-copy/
+- 豆包生图提示词生成器：https://gewuji.dev/tools/seo-content-tools/pages/doubao-image-prompt/
+- 商品卖点提炼工具：https://gewuji.dev/tools/seo-content-tools/pages/product-selling-points/
+
 包含工具：
 
 - 朋友圈文案生成器

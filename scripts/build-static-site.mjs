@@ -300,6 +300,11 @@ function buildSitemap() {
     ["game/worldcup/", "0.8"],
     ["tools/content-assistant/", "0.8"],
     ["tools/seo-content-tools/", "0.8"],
+    ["tools/seo-content-tools/pages/moments-campaign-copy/", "0.7"],
+    ["tools/seo-content-tools/pages/xiaohongshu-seeding-copy/", "0.7"],
+    ["tools/seo-content-tools/pages/store-promotion-copy/", "0.7"],
+    ["tools/seo-content-tools/pages/doubao-image-prompt/", "0.7"],
+    ["tools/seo-content-tools/pages/product-selling-points/", "0.7"],
     ["tools/content-assistant/admin/", "0.4"],
     ["llms.txt", "0.6"]
   ];

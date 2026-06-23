@@ -10,7 +10,15 @@ const payload = {
   host: site.host,
   key,
   keyLocation,
-  urlList: [normalizedSiteUrl],
+  urlList: [
+    normalizedSiteUrl,
+    new URL("tools/seo-content-tools/", normalizedSiteUrl).toString(),
+    new URL("tools/seo-content-tools/pages/moments-campaign-copy/", normalizedSiteUrl).toString(),
+    new URL("tools/seo-content-tools/pages/xiaohongshu-seeding-copy/", normalizedSiteUrl).toString(),
+    new URL("tools/seo-content-tools/pages/store-promotion-copy/", normalizedSiteUrl).toString(),
+    new URL("tools/seo-content-tools/pages/doubao-image-prompt/", normalizedSiteUrl).toString(),
+    new URL("tools/seo-content-tools/pages/product-selling-points/", normalizedSiteUrl).toString(),
+  ],
 };
 
 const response = await fetch(endpoint, {
@@ -26,4 +34,4 @@ if (!response.ok && response.status !== 202) {
   throw new Error(`IndexNow submission failed: ${response.status} ${text}`);
 }
 
-console.log(`IndexNow accepted ${normalizedSiteUrl} with status ${response.status}.`);
+console.log(`IndexNow accepted ${payload.urlList.length} URLs with status ${response.status}.`);
