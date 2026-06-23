@@ -1923,7 +1923,7 @@ function renderTodayFocus() {
       <span class="fixture-time">${fixture.timeLabel}</span>
       <p>${localizeText(fixture.prediction)}</p>
       <small>关键变量：${localizeText(fixture.keyPoint)}</small>
-      ${fixture.href ? `<a class="text-link fixture-link" href="${fixture.href}">查看单场详情</a>` : ""}
+      <a class="text-link fixture-link" href="advisor/">查看单场详情</a>
     </article>
   `).join("");
 }
