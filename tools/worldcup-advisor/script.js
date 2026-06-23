@@ -60,8 +60,8 @@ const completedFixtures = [
 
 const upcomingFixtures = [
   {
-    date: "2026-06-23 12:00 当地时间",
-    watchTime: "中国观看：06-24 01:00",
+    date: "北京时间 2026-06-24 01:00",
+    watchTime: "当地时间：2026-06-23 12:00",
     group: "K组",
     city: "Houston",
     stadium: "Houston Stadium",
@@ -73,8 +73,8 @@ const upcomingFixtures = [
     reason: "Portugal 控球和前场个人能力占优，Uzbekistan 的防守纪律决定比赛会不会早早被打开。"
   },
   {
-    date: "2026-06-23 15:00 当地时间",
-    watchTime: "中国观看：06-24 04:00",
+    date: "北京时间 2026-06-24 04:00",
+    watchTime: "当地时间：2026-06-23 15:00",
     group: "L组",
     city: "Boston",
     stadium: "Boston Stadium",
@@ -86,8 +86,8 @@ const upcomingFixtures = [
     reason: "England 纸面实力更强，Ghana 的反击速度和身体对抗会影响大小球判断。"
   },
   {
-    date: "2026-06-23 18:00 当地时间",
-    watchTime: "中国观看：06-24 07:00",
+    date: "北京时间 2026-06-24 07:00",
+    watchTime: "当地时间：2026-06-23 18:00",
     group: "L组",
     city: "Toronto",
     stadium: "Toronto Stadium",
@@ -99,8 +99,8 @@ const upcomingFixtures = [
     reason: "Croatia 控场经验更好，Panama 如果低位防守，比赛节奏可能偏慢。"
   },
   {
-    date: "2026-06-23 22:00 当地时间",
-    watchTime: "中国观看：06-24 10:00",
+    date: "北京时间 2026-06-24 10:00",
+    watchTime: "当地时间：2026-06-23 22:00",
     group: "K组",
     city: "Guadalajara",
     stadium: "Guadalajara Stadium",
@@ -166,7 +166,7 @@ function render() {
   doneCount.textContent = fixtures.filter((fixture) => fixture.status === "done").length;
   upcomingCount.textContent = fixtures.filter((fixture) => fixture.status === "upcoming").length;
   focusCount.textContent = fixtures.filter((fixture) => fixture.focus).length;
-  dataStatus.textContent = `已收录 ${completedFixtures.length} 场已完赛结果 · 今日赛程：2026-06-23 当地时间 · 已更新 ${updatedAt}`;
+  dataStatus.textContent = `已收录 ${completedFixtures.length} 场已完赛结果 · 未开赛时间显示为北京时间 · 已更新 ${updatedAt}`;
 }
 
 filters.forEach((button) => {
