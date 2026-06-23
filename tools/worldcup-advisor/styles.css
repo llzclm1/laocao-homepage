@@ -15,6 +15,7 @@ h2 { margin:0 0 10px; font-size:clamp(30px,5vw,52px); line-height:1; }
 h3, p { margin-top:0; }
 .lead, .section-heading p, .advisor-grid p { color:var(--muted); }
 .lead { max-width:680px; font-size:20px; }
+.data-status { display:inline-flex; margin:0; border:1px solid #c8dcff; background:#edf4ff; color:#1d4ed8; padding:8px 12px; font-size:14px; font-weight:850; }
 .actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:26px; }
 .button { display:inline-flex; align-items:center; justify-content:center; min-height:44px; border:1px solid var(--ink); border-radius:999px; padding:0 18px; font-weight:850; }
 .button.primary { background:var(--ink); color:#fff; }
@@ -40,6 +41,7 @@ input { min-height:46px; border:1px solid var(--line); background:#fff; color:va
 .badge.upcoming { color:var(--blue); background:#edf4ff; border-color:#c8dcff; }
 .badge.focus { color:var(--red); background:#fff0ef; border-color:#ffd0cc; }
 .reason { color:var(--muted); margin:0; }
+.source-note { margin:18px 0 0; color:var(--muted); font-size:13px; }
 .advisor-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
 .advisor-grid article { border:1px solid var(--line); background:#fbfdff; padding:20px; }
 .advisor-grid span { color:var(--red); font-size:12px; font-weight:900; letter-spacing:.12em; text-transform:uppercase; }

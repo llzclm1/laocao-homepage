@@ -27,6 +27,7 @@
           <p class="eyebrow">World Cup Advisor</p>
           <h1>世界杯参谋站</h1>
           <p class="lead">把赛程、强弱关系、比分倾向和观赛优先级放在一张桌面上，方便快速判断今天看哪场。</p>
+          <p class="data-status" id="data-status">今日赛程：2026-06-23，按赛事当地时间整理。</p>
           <div class="actions">
             <a class="button primary" href="#fixtures">看赛程</a>
             <a class="button" href="#advisor">看参谋建议</a>
@@ -35,7 +36,7 @@
         <aside class="score-panel" aria-label="今日概览">
           <div><span>已完场</span><strong id="done-count">0</strong></div>
           <div><span>未开赛</span><strong id="upcoming-count">0</strong></div>
-          <div><span>重点场</span><strong>4</strong></div>
+          <div><span>重点场</span><strong id="focus-count">0</strong></div>
         </aside>
       </section>
 
@@ -55,65 +56,66 @@
       <section class="fixtures-section" id="fixtures" aria-labelledby="fixtures-title">
         <div class="section-heading">
           <p class="eyebrow">Fixtures</p>
-          <h2 id="fixtures-title">参谋赛程表</h2>
-          <p>示例数据用于产品试跑，不代表真实赛果。后续可以接入真实赛程数据。</p>
+          <h2 id="fixtures-title">6 月 23 日参谋赛程表</h2>
+          <p>按今天的世界杯公开赛程整理，页面会自动刷新状态；赛事时间为当地时间，中国观看时间会跨到 6 月 24 日。</p>
         </div>
         <div class="fixture-grid" id="fixture-grid"></div>
+        <p class="source-note">赛程来源：FIFA / On Location 官方 hospitality 赛程；实时比分以上游赛事数据和转播方为准。</p>
       </section>
 
       <section class="review-section" id="review" aria-labelledby="review-title">
         <div class="section-heading">
           <p class="eyebrow">Match Review</p>
           <h2 id="review-title">比赛结果复盘</h2>
-          <p>把真实赛果、赛前判断、偏差原因和下一场修正放在同一屏，方便连续优化世界杯赛程分析和比分判断。</p>
+          <p>今天比赛结束后，把真实赛果、赛前判断、偏差原因和下一场修正放在同一屏，方便连续优化世界杯赛程分析和比分判断。</p>
         </div>
 
         <article class="review-board">
           <div class="review-hero">
-            <span>复盘样本 · 法国 vs 塞内加尔</span>
-            <strong>实际赛果：3-1</strong>
+            <span>今日待复盘 · Portugal vs Uzbekistan</span>
+            <strong>赛后自动进入复盘</strong>
           </div>
 
           <div class="review-metrics" aria-label="比赛结果复盘卡片">
             <div>
               <span>实际赛果</span>
-              <strong>3-1</strong>
+              <strong>待更新</strong>
             </div>
             <div>
               <span>赛前预测</span>
-              <strong>2-1 / 1-1</strong>
-              <p>塞内加尔受让或双平更稳</p>
+              <strong>Portugal 小胜倾向</strong>
+              <p>先看首发强度和 Uzbekistan 防线站位。</p>
             </div>
             <div>
               <span>错误类型</span>
-              <strong>胜负方向对，比分线偏保守</strong>
-              <p>法国后段拉开比分，受让思路失效。</p>
+              <strong>赛后判断</strong>
+              <p>比赛结束后记录方向、比分和节奏偏差。</p>
             </div>
             <div>
               <span>下一步修正</span>
-              <strong>已记录</strong>
-              <p>强队边路爆点占优时，不轻易压低大球。</p>
+              <strong>待记录</strong>
+              <p>根据实际比分和比赛进程修正下一轮判断。</p>
             </div>
           </div>
 
-          <p class="review-note">强队边路爆点 + 对手追分开放时，比分不能只压在一球差。</p>
+          <p class="review-note">今日先记录赛前观点，赛后再对照真实结果复盘，不把样例旧比分当成实时比分。</p>
 
           <div class="prediction-card">
             <div class="prediction-head">
               <div>
                 <span>赛前预测原文</span>
-                <h3>法国 vs 塞内加尔</h3>
+                <h3>Portugal vs Uzbekistan</h3>
               </div>
-              <strong>主让 0.5/1 · 参考 2-1</strong>
+              <strong>Group K · Houston Stadium</strong>
             </div>
             <div class="prediction-tags">
-              <span>法国强势</span>
-              <span>小胜倾向</span>
-              <span>不追深盘</span>
+              <span>葡萄牙控球</span>
+              <span>乌兹别克斯坦首秀韧性</span>
+              <span>重点看</span>
             </div>
             <div class="prediction-body">
-              <p>法国阵容结构更完整，控球和推进质量占优，但塞内加尔身体对抗和反击速度不弱，初始判断是法国小胜。</p>
-              <p>如果法国先入球后节奏放缓，比赛可能停在 2-1；如果塞内加尔过早压上，后场空间会被法国边路连续利用。</p>
+              <p>Portugal 纸面实力和控球推进更占优，但 Uzbekistan 的防守纪律和转换速度会影响比赛节奏。</p>
+              <p>赛前先不写死比分，重点观察 Portugal 是否能早早打开局面，以及 Uzbekistan 是否被迫提前压上。</p>
             </div>
           </div>
 
