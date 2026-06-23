@@ -214,22 +214,18 @@ function updateWorldCupHome() {
   const completed = Number.isFinite(data.completedMatches) ? data.completedMatches : null;
   const remaining = Number.isFinite(data.totalMatches) && completed !== null ? data.totalMatches - completed : null;
   const updatedAt = data.syncedAt ?? "待同步";
-  const refreshedAt = data.lastRefreshAt
-    ? new Intl.DateTimeFormat("sv-SE", {
-        timeZone: "Asia/Shanghai",
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false
-      }).format(new Date(data.lastRefreshAt)).replace(" ", " ") + " Asia/Shanghai"
-    : null;
   if (worldcupHomeSummary && completed !== null) {
     worldcupHomeSummary.textContent = `按当天赛程整理比赛、重点场、赛前判断和赛后复盘，当前已同步 ${completed} 场完赛数据，页面会继续跟进最新赛果。`;
   }
   if (worldcupHomeStatus && completed !== null && remaining !== null) {
-    worldcupHomeStatus.textContent = `已收录 ${completed} 场已完赛结果 · 还剩 ${remaining} 场 · 已更新 ${updatedAt}${refreshedAt ? ` · 本页最新刷新 ${refreshedAt}` : ""}`;
+    worldcupHomeStatus.textContent = window.WorldCupStatus
+      ? window.WorldCupStatus.buildWorldCupStatusText({
+          completedMatches: completed,
+          totalMatches: completed + remaining,
+          syncedAt: updatedAt,
+          lastRefreshAt: data.lastRefreshAt
+        })
+      : `已收录 ${completed} 场已完赛结果 · 还剩 ${remaining} 场 · 已更新 ${updatedAt}`;
   }
 }
 

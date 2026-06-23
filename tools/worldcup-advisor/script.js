@@ -1576,22 +1576,6 @@ function getDataSourceLabel() {
   return liveWorldCupData?.source?.name ? ` · 数据源 ${liveWorldCupData.source.name}` : "";
 }
 
-function getRefreshLabel() {
-  if (!liveWorldCupData?.lastRefreshAt) return "";
-  const refreshedAt = new Date(liveWorldCupData.lastRefreshAt);
-  if (Number.isNaN(refreshedAt.getTime())) return "";
-  const beijing = new Intl.DateTimeFormat("sv-SE", {
-    timeZone: "Asia/Shanghai",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false
-  }).format(refreshedAt).replace(" ", " ");
-  return ` · 本页最新刷新 ${beijing} Asia/Shanghai`;
-}
-
 function initBookmarkButtons() {
   document.querySelectorAll("[data-bookmark-button]").forEach((button) => {
     button.setAttribute("aria-live", "polite");
@@ -2300,7 +2284,17 @@ function renderSummary() {
   if (upcomingCount) upcomingCount.textContent = remainingMatchesCount;
   if (focusCount) focusCount.textContent = fixtures.filter((fixture) => fixture.focus).length;
   if (doneFilterCount) doneFilterCount.textContent = completedMatchesCount;
-  if (dataStatus) dataStatus.textContent = `已收录 ${completedMatchesCount} 场已完赛结果 · 还剩 ${remainingMatchesCount} 场 · 已更新 ${getUpdatedAt()}${getRefreshLabel()}${getDataSourceLabel()}`;
+  if (dataStatus) {
+    dataStatus.textContent = window.WorldCupStatus
+      ? window.WorldCupStatus.buildWorldCupStatusText({
+          completedMatches: completedMatchesCount,
+          totalMatches: completedMatchesCount + remainingMatchesCount,
+          syncedAt: getUpdatedAt(),
+          lastRefreshAt: liveWorldCupData?.lastRefreshAt,
+          extra: getDataSourceLabel().replace(/^ · /, "")
+        })
+      : `已收录 ${completedMatchesCount} 场已完赛结果 · 还剩 ${remainingMatchesCount} 场 · 已更新 ${getUpdatedAt()}${getDataSourceLabel()}`;
+  }
 }
 
 function parseFixtureKickoffTime(timeLabel) {
