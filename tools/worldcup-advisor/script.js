@@ -1489,14 +1489,31 @@ function renderScorePredictions() {
     const forecast = getScoreForecast(fixture, teamFormMap);
     return `
       <article class="score-prediction-card">
-        <div class="fixture-top">
-          <span>${fixture.timeLabel}</span>
-          <span>${fixture.group} · ${fixture.city}</span>
+        <div class="score-prediction-meta">
+          <span>${fixture.group}</span>
+          <strong>${fixture.timeLabel}</strong>
+          <span>${fixture.city}</span>
         </div>
-        <h3>${formatTeamName(fixture.home)} vs ${formatTeamName(fixture.away)}</h3>
-        <div class="score-prediction-score" aria-label="${formatTeamName(fixture.home)} 对 ${formatTeamName(fixture.away)} 比分预测">
-          <strong>${forecast.score}</strong>
-          <span>${forecast.winner} · ${forecast.tempo}</span>
+        <div class="score-prediction-head">
+          <div class="score-prediction-headline" aria-label="${formatTeamName(fixture.home)} 对 ${formatTeamName(fixture.away)} 比分预测">
+            <div class="score-prediction-team">
+              <span>主队</span>
+              <b>${formatTeamName(fixture.home)}</b>
+            </div>
+            <div class="score-prediction-result">
+              <strong>${forecast.score}</strong>
+              <span>${forecast.winner}</span>
+            </div>
+            <div class="score-prediction-team">
+              <span>客队</span>
+              <b>${formatTeamName(fixture.away)}</b>
+            </div>
+          </div>
+          <div class="score-prediction-chips">
+            <span class="is-primary">${forecast.score}</span>
+            <span>${forecast.tempo}</span>
+            <span>北京时间观赛</span>
+          </div>
         </div>
         <div class="score-prediction-details">
           <div>
