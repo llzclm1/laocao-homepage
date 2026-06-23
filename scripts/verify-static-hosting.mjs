@@ -29,6 +29,9 @@ for (const file of textFiles) {
 
 const home = fs.readFileSync(path.join(dist, "index.html"), "utf8");
 assert.ok(home.includes('href="game/worldcup/index.html"'), "homepage should link to the worldcup index with a relative URL");
+assert.ok(home.includes('id="guide"'), "homepage should include the navigation guide section");
+assert.ok(home.includes('href="https://squoosh.app/"'), "homepage guide should link to external utility tools");
+assert.ok(home.includes('target="_blank" rel="noopener noreferrer"'), "homepage guide external links should open safely");
 assert.ok(home.includes("工位突围：世界杯摸鱼版"), "homepage should include the world cup event banner");
 assert.ok(home.includes('src="assets/projects/worldcup-game-preview.webp"'), "homepage should use the optimized world cup preview image");
 assert.equal(home.includes('src="assets/projects/worldcup-game-preview.png"'), false, "homepage should not use the old world cup PNG preview image");
