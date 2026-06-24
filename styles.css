@@ -2164,8 +2164,11 @@ body::before {
 
 .hero-showcase {
   right: max(26px, calc((100vw - 1120px) / 2));
-  bottom: 116px;
-  gap: 14px;
+  top: 50%;
+  bottom: auto;
+  width: min(500px, 38vw);
+  height: 420px;
+  transform: translateY(-50%);
 }
 
 .showcase-card,
@@ -2381,14 +2384,34 @@ h2 {
 }
 
 @media (max-width: 1120px) {
+  .hero {
+    display: block;
+    min-height: auto;
+  }
+
+  .hero-content {
+    width: min(760px, calc(100% - 44px));
+    margin: 0 auto;
+  }
+
   .hero-showcase {
     position: relative;
+    top: auto;
     right: auto;
     bottom: auto;
     z-index: 1;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    width: min(920px, calc(100% - 44px));
-    margin: -42px auto 44px;
+    width: min(760px, calc(100% - 44px));
+    height: 260px;
+    margin: 24px auto 18px;
+    transform: none;
+  }
+
+  .hero-metrics {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    width: min(760px, calc(100% - 44px));
+    margin: 0 auto 34px;
   }
 }
 
@@ -2400,13 +2423,26 @@ h2 {
 
   .hero {
     min-height: auto;
+    padding-left: 0;
+    padding-right: 0;
     padding-top: 112px;
     padding-bottom: 34px;
   }
 
   .hero-content {
+    width: calc(100% - 44px);
     padding: 34px 24px;
     border-radius: 28px;
+  }
+
+  .hero-showcase,
+  .hero-metrics {
+    width: calc(100% - 44px);
+  }
+
+  .hero-showcase {
+    height: 190px;
+    margin-top: 24px;
   }
 
   h1 {
