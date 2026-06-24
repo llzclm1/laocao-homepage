@@ -496,6 +496,7 @@ input {
   gap: 14px;
 }
 .quick-link-card {
+  position: relative;
   display: grid;
   gap: 10px;
   min-height: 158px;
@@ -531,6 +532,21 @@ input {
   line-height: 1.12;
 }
 .quick-link-card p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+.hot-link-card::after {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  border: 1px solid rgba(255, 255, 255, .68);
+  border-radius: 999px;
+  padding: 6px 9px;
+  background: linear-gradient(135deg, #ff7a18, #ff2f6d);
+  color: #fff;
+  box-shadow: 0 12px 26px rgba(255, 47, 109, .24);
+  content: "🔥 HOT";
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: .02em;
+}
 .primary-link-card {
   border-color: var(--purple);
   background: linear-gradient(135deg, #6c31f4, #3b18cb);
