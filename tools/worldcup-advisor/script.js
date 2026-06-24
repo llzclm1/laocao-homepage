@@ -839,6 +839,20 @@ function formatBeijingCompletedTime(match) {
   return `北京时间 ${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, "0")}-${String(date.getUTCDate()).padStart(2, "0")} ${String(date.getUTCHours()).padStart(2, "0")}:${String(date.getUTCMinutes()).padStart(2, "0")} 已完赛`;
 }
 
+function formatGoalHighlights(match) {
+  const goals = [
+    ...(match.goals1 ?? []).map((goal) => ({ ...goal, team: formatTeamName(match.team1 ?? match.home) })),
+    ...(match.goals2 ?? []).map((goal) => ({ ...goal, team: formatTeamName(match.team2 ?? match.away) }))
+  ].filter((goal) => goal.name || Number.isFinite(goal.minute))
+    .sort((a, b) => (a.minute ?? 999) - (b.minute ?? 999));
+
+  if (!goals.length) return "比赛重点：全场无进球，重点看双方防守站位和机会质量。";
+  return `比赛重点：${goals.map((goal) => {
+    const minute = Number.isFinite(goal.minute) ? `${goal.minute}'` : "时间待补";
+    return `${goal.name ?? "进球球员待补"} ${minute}（${goal.team}）`;
+  }).join("；")}`;
+}
+
 const completedFixtures = [
   ["2026-06-11", "A组", "Mexico City", "Mexico City Stadium", "Mexico", "South Africa", "2-0"],
   ["2026-06-11", "A组", "Guadalajara", "Guadalajara Stadium", "South Korea", "Czechia", "2-1"],
@@ -1806,7 +1820,8 @@ function renderHistory() {
         home: getCanonicalTeamName(match.team1 ?? match.home),
         away: getCanonicalTeamName(match.team2 ?? match.away),
         score,
-        reason: `${formatTeamName(match.team1 ?? match.home)} ${score} ${formatTeamName(match.team2 ?? match.away)}，已记录全场赛果。`
+        reason: `${formatTeamName(match.team1 ?? match.home)} ${score} ${formatTeamName(match.team2 ?? match.away)}，已记录全场赛果。`,
+        highlights: formatGoalHighlights(match)
       };
     })
     .sort((a, b) => b.sortKey - a.sortKey);
@@ -1818,7 +1833,7 @@ function renderHistory() {
         <strong>${formatTeamName(fixture.home)} ${fixture.score} ${formatTeamName(fixture.away)}</strong>
       </div>
       <p>${fixture.group} · ${fixture.city} · ${fixture.stadium} · ${fixture.watchTime}</p>
-      <small>${localizeText(fixture.reason)}</small>
+      <small>${localizeText(fixture.reason)}<br>${localizeText(fixture.highlights)}</small>
     </article>
   `).join("");
 }
