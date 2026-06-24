@@ -687,7 +687,7 @@ function convertMatchTimeToBeijing(dateText, timeText) {
   return {
     beijingDateTime: `北京时间开赛：${beijingText}`,
     localDateTime: `当地时间：${dateText} ${hourText}:${minuteText} (UTC${offsetText})`,
-    sortKey: beijingDate.getTime()
+    sortKey: utcDate.getTime()
   };
 }
 
