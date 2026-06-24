@@ -97,7 +97,8 @@
     if (!match) {
       return {
         beijingDateTime: `北京时间开赛：${dateText} 00:00`,
-        localDateTime: `当地时间：${dateText} ${timeText ?? "待确认"}`
+        localDateTime: `当地时间：${dateText} ${timeText ?? "待确认"}`,
+        sortKey: new Date(`${dateText}T00:00:00+08:00`).getTime()
       };
     }
 
@@ -125,13 +126,27 @@
 
   function scoreText(match) {
     const fullTime = match.score?.ft;
+    const current = match.score?.current ?? match.score?.live ?? match.score?.running;
+    if (Array.isArray(current)) return `${current[0]}-${current[1]}`;
+    if (Number.isFinite(match.score1) && Number.isFinite(match.score2)) return `${match.score1}-${match.score2}`;
     return Array.isArray(fullTime) ? `${fullTime[0]}-${fullTime[1]}` : "VS";
+  }
+
+  function matchHasStarted(sortKey) {
+    return Number.isFinite(sortKey) && sortKey <= Date.now();
+  }
+
+  function getFixtureStatus(match, sortKey) {
+    if (Array.isArray(match.score?.ft)) return "done";
+    if (matchHasStarted(sortKey)) return "live";
+    return "upcoming";
   }
 
   function fixtureReason(match, isDone, isFocus) {
     const key = `${match.team1}|${match.team2}`;
     if (isFocus && focusReasons.has(key)) return focusReasons.get(key);
     if (isDone) return `${formatTeamName(match.team1)} ${scoreText(match)} ${formatTeamName(match.team2)}，已记录全场赛果。`;
+    if (matchHasStarted(convertMatchTimeToBeijing(match.date, match.time).sortKey)) return "比赛已经开始，实时比分会随 live 数据同步更新。";
     return "赛前信息待更新，先确认北京时间、对阵和小组形势。";
   }
 
@@ -141,14 +156,15 @@
       const isDone = Array.isArray(match.score?.ft);
       const focusKey = `${match.team1}|${match.team2}`;
       const time = convertMatchTimeToBeijing(match.date, match.time);
+      const status = getFixtureStatus(match, time.sortKey);
       return {
         city: match.ground ?? "城市待定",
         date: match.date,
         group: formatGroup(match.group),
         home: match.team1,
         away: match.team2,
-        score: scoreText(match),
-        status: isDone ? "done" : "upcoming",
+        score: status === "live" && scoreText(match) === "VS" ? "比分待同步" : scoreText(match),
+        status,
         focus: focusPairs.has(focusKey),
         timeLabel: time.beijingDateTime,
         watchTime: time.localDateTime,
@@ -167,6 +183,7 @@
   let fixtures = buildFixtures();
 
   function formatStatus(status) {
+    if (status === "live") return "进行中";
     return status === "done" ? "已完赛" : "未开赛";
   }
 

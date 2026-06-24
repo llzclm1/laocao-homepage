@@ -36,9 +36,21 @@
 
   function parseBeijingKickoff(match) {
     const timeMatch = /北京时间开赛：(\d{4}-\d{2}-\d{2})\s+(\d{2}):(\d{2})/.exec(match?.timeLabel ?? match?.date ?? "");
-    if (!timeMatch) return null;
-    const [, dateText, hourText, minuteText] = timeMatch;
-    return new Date(`${dateText}T${hourText}:${minuteText}:00+08:00`).getTime();
+    if (timeMatch) {
+      const [, dateText, hourText, minuteText] = timeMatch;
+      return new Date(`${dateText}T${hourText}:${minuteText}:00+08:00`).getTime();
+    }
+
+    const utcMatch = /(\d{2}):(\d{2})\s+UTC([+-]\d+)/.exec(match?.time ?? "");
+    if (!utcMatch || !match?.date) return null;
+    const [, hourText, minuteText, offsetText] = utcMatch;
+    return Date.UTC(
+      Number(match.date.slice(0, 4)),
+      Number(match.date.slice(5, 7)) - 1,
+      Number(match.date.slice(8, 10)),
+      Number(hourText) - Number(offsetText),
+      Number(minuteText)
+    );
   }
 
   async function fetchLiveData() {
