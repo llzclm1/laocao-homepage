@@ -1621,9 +1621,44 @@ function buildUpcomingFixtures(matches) {
     .sort((fixtureA, fixtureB) => (fixtureA.sortKey ?? 0) - (fixtureB.sortKey ?? 0));
 }
 
+function buildCompletedFixturesFromMatches(matches) {
+  return (matches ?? [])
+    .filter((match) => Array.isArray(match.score?.ft))
+    .map((match) => {
+      const { beijingDateTime, localDateTime, sortKey } = convertMatchTimeToBeijing(match.date, match.time);
+      const home = getCanonicalTeamName(match.team1);
+      const away = getCanonicalTeamName(match.team2);
+      const score = getLiveScoreText(match);
+      return {
+        date: beijingDateTime.replace("北京时间开赛：", "北京时间 "),
+        timeLabel: beijingDateTime.replace("北京时间开赛：", "北京时间完赛："),
+        watchTime: localDateTime,
+        group: normalizeGroupLabel(match.group),
+        city: match.city ?? match.ground ?? "赛地待更新",
+        stadium: match.stadium ?? match.ground ?? "球场待更新",
+        home,
+        away,
+        score,
+        status: "done",
+        focus: false,
+        prediction: `${formatTeamName(home)} ${score} ${formatTeamName(away)}，已记录全场赛果。`,
+        keyPoint: formatGoalHighlights(match),
+        watchFor: "可进入历史结果或复盘页查看赛后样本。",
+        reason: `${formatTeamName(home)} ${score} ${formatTeamName(away)}，已记录全场赛果。`,
+        sortKey
+      };
+    })
+    .sort((fixtureA, fixtureB) => (fixtureB.sortKey ?? 0) - (fixtureA.sortKey ?? 0));
+}
+
 upcomingFixtures = buildUpcomingFixtures(liveWorldCupData?.matches ?? []);
 
-let fixtures = [...upcomingFixtures, ...completedFixtures.slice().reverse()];
+let fixtures = [
+  ...upcomingFixtures,
+  ...(liveWorldCupData?.matches?.length
+    ? buildCompletedFixturesFromMatches(liveWorldCupData.matches)
+    : completedFixtures.slice().reverse())
+];
 
 const grid = document.querySelector("#fixture-grid");
 const historyList = document.querySelector("#history-list");
@@ -2601,7 +2636,12 @@ switch (pageId) {
 function refreshWorldCupPage() {
   liveWorldCupData = window.worldCupAdvisorData;
   upcomingFixtures = buildUpcomingFixtures(liveWorldCupData?.matches ?? []);
-  fixtures = [...upcomingFixtures, ...completedFixtures.slice().reverse()];
+  fixtures = [
+    ...upcomingFixtures,
+    ...(liveWorldCupData?.matches?.length
+      ? buildCompletedFixturesFromMatches(liveWorldCupData.matches)
+      : completedFixtures.slice().reverse())
+  ];
   if (pageId === "fixtures") {
     render();
     scheduleFixtureRefresh();
