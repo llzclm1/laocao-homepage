@@ -399,7 +399,6 @@ h1 {
 }
 
 .projects-section,
-.manuals-section,
 .updates-section,
 .about-section,
 .faq-section,
@@ -411,11 +410,6 @@ h1 {
 
 .projects-section {
   padding: 92px 0 76px;
-}
-
-.manuals-section {
-  border-top: 1px solid var(--line);
-  padding: 76px 0;
 }
 
 .updates-section {
@@ -626,12 +620,6 @@ h1 {
   gap: 16px;
 }
 
-.manual-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
-}
-
 .update-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -677,8 +665,7 @@ h1 {
   line-height: 1.72;
 }
 
-.project-card,
-.manual-card {
+.project-card {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -700,15 +687,7 @@ h1 {
   min-height: 430px;
 }
 
-.manual-card {
-  min-height: 640px;
-  background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(247, 248, 250, 0.84)),
-    var(--panel-strong);
-}
-
-.project-card::before,
-.manual-card::before {
+.project-card::before {
   position: absolute;
   inset: 0 0 auto;
   height: 1px;
@@ -716,8 +695,7 @@ h1 {
   content: "";
 }
 
-.project-card:hover,
-.manual-card:hover {
+.project-card:hover {
   border-color: rgba(10, 15, 22, 0.14);
   box-shadow: 0 28px 86px rgba(15, 23, 42, 0.12);
   transform: translateY(-4px);
@@ -793,58 +771,6 @@ h1 {
 .worldcup-advisor-cover div {
   border-color: rgba(21, 94, 239, 0.18);
   background: rgba(255, 255, 255, 0.78);
-}
-
-.manual-shot {
-  position: relative;
-  display: grid;
-  height: 330px;
-  margin: 0 0 24px;
-  overflow: hidden;
-  place-items: center;
-  border: 1px solid rgba(10, 15, 22, 0.08);
-  border-radius: 14px;
-  background:
-    linear-gradient(145deg, rgba(244, 245, 247, 0.88), rgba(255, 255, 255, 0.96)),
-    #f7f8fa;
-}
-
-.manual-shot::after {
-  position: absolute;
-  right: 14px;
-  bottom: 14px;
-  border: 1px solid rgba(10, 15, 22, 0.08);
-  border-radius: 14px;
-  padding: 7px 10px;
-  color: #26313d;
-  background: rgba(255, 255, 255, 0.84);
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
-  content: "PDF 预览";
-  font-size: 12px;
-  font-weight: 800;
-}
-
-.manual-shot img {
-  display: block;
-  width: min(86%, 292px);
-  height: auto;
-  max-height: 306px;
-  border-radius: 14px;
-  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.14);
-  transform: rotate(-2deg);
-  transition: transform 260ms ease;
-}
-
-.manual-card:nth-child(2) .manual-shot img {
-  transform: rotate(1.5deg);
-}
-
-.manual-card:nth-child(3) .manual-shot img {
-  transform: rotate(-1deg);
-}
-
-.manual-card:hover .manual-shot img {
-  transform: rotate(0deg) translateY(-4px);
 }
 
 .project-shot figcaption {
@@ -1064,15 +990,13 @@ h1 {
   line-height: 1;
 }
 
-.project-card h3,
-.manual-card h3 {
+.project-card h3 {
   margin: 0 0 10px;
   font-size: clamp(21px, 2vw, 27px);
   line-height: 1.12;
 }
 
-.project-card p,
-.manual-card p {
+.project-card p {
   margin: 0;
   color: #526070;
   font-size: 14px;
@@ -1851,14 +1775,12 @@ h1 {
   .films-hero,
   .worldcup-event-banner,
   .project-grid,
-  .manual-grid,
   .update-grid,
   .film-note-grid {
     grid-template-columns: 1fr;
   }
 
   .projects-section,
-  .manuals-section,
   .updates-section,
   .about-section,
   .faq-section,
@@ -1884,10 +1806,6 @@ h1 {
   .worldcup-event-banner {
     gap: 22px;
     padding: 22px;
-  }
-
-  .manuals-section {
-    padding: 64px 0;
   }
 
   .updates-section {
@@ -1988,17 +1906,8 @@ h1 {
     padding: 16px;
   }
 
-  .manual-card {
-    min-height: auto;
-    padding: 16px;
-  }
-
   .project-shot {
     height: 230px;
-  }
-
-  .manual-shot {
-    height: 280px;
   }
 
   .button {
@@ -2136,7 +2045,6 @@ body::before {
 .showcase-card,
 .hero-metrics,
 .project-card,
-.manual-card,
 .update-card,
 .worldcup-event-banner,
 .about-section,
@@ -2194,8 +2102,7 @@ h2 {
 
 .hero-subtitle,
 .hero-statement,
-.project-card h3,
-.manual-card h3 {
+.project-card h3 {
   letter-spacing: -.025em;
 }
 
@@ -2223,7 +2130,6 @@ h2 {
 }
 
 .projects-section,
-.manuals-section,
 .updates-section {
   padding-top: clamp(72px, 9vw, 130px);
 }
@@ -2265,28 +2171,24 @@ h2 {
   gap: 18px;
 }
 
-.project-card,
-.manual-card {
+.project-card {
   border-radius: 32px;
   background: rgba(255, 255, 255, .74);
   transition: transform .85s var(--ease), box-shadow .85s var(--ease), border-color .85s var(--ease);
 }
 
-.project-card:hover,
-.manual-card:hover {
+.project-card:hover {
   transform: translateY(-5px);
   border-color: rgba(23, 21, 31, .10);
   box-shadow: 0 34px 100px rgba(30, 35, 48, .14), inset 0 1px 0 rgba(255, 255, 255, .9);
 }
 
-.project-shot,
-.manual-shot {
+.project-shot {
   border-radius: 26px;
   background: rgba(23, 21, 31, .04);
 }
 
 .project-shot img,
-.manual-shot img,
 .tool-cover {
   border-radius: 22px;
 }
@@ -2331,7 +2233,6 @@ h2 {
 .hero-metrics,
 .worldcup-event-banner,
 .project-card,
-.manual-card,
 .update-card,
 .about-section,
 .faq-section,
@@ -2418,7 +2319,6 @@ h2 {
 
   .worldcup-event-banner,
   .project-card,
-  .manual-card,
   .about-section,
   .faq-section,
   .contact-section {
@@ -2429,7 +2329,6 @@ h2 {
 /* Desktop rhythm correction after the premium refresh. */
 @media (min-width: 821px) {
   .projects-section,
-  .manuals-section,
   .updates-section,
   .about-section,
   .faq-section,
