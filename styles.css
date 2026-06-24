@@ -2284,15 +2284,15 @@ h2 {
 .worldcup-event-banner {
   border-radius: 34px;
   background:
-    radial-gradient(circle at 86% 16%, rgba(18, 168, 107, .16), transparent 18rem),
-    linear-gradient(135deg, rgba(23, 21, 31, .96), rgba(43, 39, 62, .94));
-  color: #fff;
+    radial-gradient(circle at 88% 12%, rgba(255, 255, 255, .98), transparent 18rem),
+    linear-gradient(135deg, rgba(255, 250, 246, .94), rgba(247, 250, 252, .86));
+  color: var(--ink);
 }
 
 .worldcup-event-preview {
   border-radius: 28px;
-  background: rgba(255, 255, 255, .10);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .18);
+  background: rgba(255, 255, 255, .72);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .86), 0 18px 54px rgba(30, 35, 48, .10);
 }
 
 .worldcup-event-preview img {
