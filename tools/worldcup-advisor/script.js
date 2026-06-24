@@ -686,8 +686,27 @@ function convertMatchTimeToBeijing(dateText, timeText) {
   const beijingText = `${beijingDate.getUTCFullYear()}-${String(beijingDate.getUTCMonth() + 1).padStart(2, "0")}-${String(beijingDate.getUTCDate()).padStart(2, "0")} ${String(beijingDate.getUTCHours()).padStart(2, "0")}:${String(beijingDate.getUTCMinutes()).padStart(2, "0")}`;
   return {
     beijingDateTime: `北京时间开赛：${beijingText}`,
-    localDateTime: `当地时间：${dateText} ${hourText}:${minuteText} (UTC${offsetText})`
+    localDateTime: `当地时间：${dateText} ${hourText}:${minuteText} (UTC${offsetText})`,
+    sortKey: beijingDate.getTime()
   };
+}
+
+function getLiveScoreText(match) {
+  const current = match?.score?.current ?? match?.score?.live ?? match?.score?.running;
+  if (Array.isArray(current)) return `${current[0]}-${current[1]}`;
+  if (Number.isFinite(match?.score1) && Number.isFinite(match?.score2)) return `${match.score1}-${match.score2}`;
+  if (Array.isArray(match?.score?.ft)) return `${match.score.ft[0]}-${match.score.ft[1]}`;
+  return "VS";
+}
+
+function hasMatchStarted(sortKey) {
+  return Number.isFinite(sortKey) && sortKey <= Date.now();
+}
+
+function getLiveFixtureStatus(match, sortKey) {
+  if (Array.isArray(match?.score?.ft)) return "done";
+  if (hasMatchStarted(sortKey)) return "live";
+  return "upcoming";
 }
 
 function normalizeGroupLabel(group) {
@@ -1533,11 +1552,13 @@ function buildUpcomingFixtures(matches) {
   return (matches ?? [])
     .filter((match) => !Array.isArray(match.score?.ft))
     .map((match) => {
-      const { beijingDateTime, localDateTime } = convertMatchTimeToBeijing(match.date, match.time);
+      const { beijingDateTime, localDateTime, sortKey } = convertMatchTimeToBeijing(match.date, match.time);
       const home = getCanonicalTeamName(match.team1);
       const away = getCanonicalTeamName(match.team2);
       const manualFixture = manualUpcomingFixtureMap.get(`${home}__${away}__${beijingDateTime}`);
       const autoPrediction = buildAutoPrediction(home, away);
+      const status = getLiveFixtureStatus(match, sortKey);
+      const score = getLiveScoreText(match);
       const fixture = {
         date: beijingDateTime.replace("北京时间开赛：", "北京时间 "),
         timeLabel: beijingDateTime,
@@ -1547,22 +1568,25 @@ function buildUpcomingFixtures(matches) {
         stadium: match.stadium ?? match.ground ?? manualFixture?.stadium ?? "球场待更新",
         home,
         away,
-        score: "未开赛",
-        status: "upcoming",
+        score: status === "live" && score === "VS" ? "比分待同步" : score,
+        status,
         focus: manualFixture?.focus ?? false,
         href: manualFixture?.href,
         prediction: manualFixture?.prediction ?? autoPrediction.prediction,
         keyPoint: manualFixture?.keyPoint ?? autoPrediction.keyPoint,
         watchFor: manualFixture?.watchFor ?? autoPrediction.watchFor,
-        reason: manualFixture?.reason ?? autoPrediction.reason
+        reason: status === "live"
+          ? "比赛已经开始，实时比分会随 live 数据同步更新。"
+          : manualFixture?.reason ?? autoPrediction.reason,
+        sortKey
       };
       fixture.marketReference = getMarketReference(fixture);
       return fixture;
     })
-    .sort((fixtureA, fixtureB) => fixtureA.timeLabel.localeCompare(fixtureB.timeLabel, "zh-Hans-CN"));
+    .sort((fixtureA, fixtureB) => (fixtureA.sortKey ?? 0) - (fixtureB.sortKey ?? 0));
 }
 
-let upcomingFixtures = buildUpcomingFixtures(liveWorldCupData?.matches ?? []);
+upcomingFixtures = buildUpcomingFixtures(liveWorldCupData?.matches ?? []);
 
 let fixtures = [...upcomingFixtures, ...completedFixtures.slice().reverse()];
 
@@ -2427,9 +2451,9 @@ function renderTodayFocus() {
     <article class="today-focus-card ${index === 0 ? "primary-focus" : ""}">
       <div class="fixture-top">
         <span>${fixture.group} · ${fixture.city}</span>
-        <span class="badge">今日比赛</span>
+        <span class="badge ${fixture.status}">${formatStatus(fixture.status)}</span>
       </div>
-      <strong>${formatTeamName(fixture.home)} vs ${formatTeamName(fixture.away)}</strong>
+      <strong>${formatTeamName(fixture.home)} ${fixture.score} ${formatTeamName(fixture.away)}</strong>
       <span class="fixture-time">${fixture.timeLabel}</span>
       <p>${localizeText(fixture.prediction)}</p>
       <small>关键变量：${localizeText(fixture.keyPoint)}</small>
