@@ -1603,7 +1603,7 @@ function buildUpcomingFixtures(matches) {
         stadium: match.stadium ?? match.ground ?? manualFixture?.stadium ?? "球场待更新",
         home,
         away,
-        score: status === "live" && score === "VS" ? "比分待同步" : score,
+        score: status === "live" && score === "VS" ? "赛果待同步" : score,
         status,
         focus: manualFixture?.focus ?? false,
         href: manualFixture?.href,
@@ -1611,7 +1611,7 @@ function buildUpcomingFixtures(matches) {
         keyPoint: manualFixture?.keyPoint ?? autoPrediction.keyPoint,
         watchFor: manualFixture?.watchFor ?? autoPrediction.watchFor,
         reason: status === "live"
-          ? "比赛已经开始，实时比分会随 live 数据同步更新。"
+          ? "比赛已经开始；当前上游暂无滚动比分，完赛后会同步最终结果。"
           : manualFixture?.reason ?? autoPrediction.reason,
         sortKey
       };
@@ -1710,7 +1710,7 @@ function initBookmarkButtons() {
 
 function formatStatus(status) {
   if (status === "done") return "已完赛";
-  if (status === "live") return "进行中";
+  if (status === "live") return "比赛中";
   return "未开赛";
 }
 

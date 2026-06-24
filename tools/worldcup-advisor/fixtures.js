@@ -146,7 +146,7 @@
     const key = `${match.team1}|${match.team2}`;
     if (isFocus && focusReasons.has(key)) return focusReasons.get(key);
     if (isDone) return `${formatTeamName(match.team1)} ${scoreText(match)} ${formatTeamName(match.team2)}，已记录全场赛果。`;
-    if (matchHasStarted(convertMatchTimeToBeijing(match.date, match.time).sortKey)) return "比赛已经开始，实时比分会随 live 数据同步更新。";
+    if (matchHasStarted(convertMatchTimeToBeijing(match.date, match.time).sortKey)) return "比赛已经开始；当前上游暂无滚动比分，完赛后会同步最终结果。";
     return "赛前信息待更新，先确认北京时间、对阵和小组形势。";
   }
 
@@ -163,7 +163,7 @@
         group: formatGroup(match.group),
         home: match.team1,
         away: match.team2,
-        score: status === "live" && scoreText(match) === "VS" ? "比分待同步" : scoreText(match),
+        score: status === "live" && scoreText(match) === "VS" ? "赛果待同步" : scoreText(match),
         status,
         focus: focusPairs.has(focusKey),
         timeLabel: time.beijingDateTime,
@@ -183,7 +183,7 @@
   let fixtures = buildFixtures();
 
   function formatStatus(status) {
-    if (status === "live") return "进行中";
+    if (status === "live") return "比赛中";
     return status === "done" ? "已完赛" : "未开赛";
   }
 
