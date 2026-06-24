@@ -818,6 +818,27 @@ function getReviewTone(score) {
   return "常规比分";
 }
 
+function getMatchTimestamp(match) {
+  const timeMatch = /(\d{2}):(\d{2})\s+UTC([+-]\d+)/.exec(match?.time ?? "");
+  if (!timeMatch || !match?.date) return new Date(`${match?.date ?? ""}T00:00:00Z`).getTime();
+
+  const [, hourText, minuteText, offsetText] = timeMatch;
+  return Date.UTC(
+    Number(match.date.slice(0, 4)),
+    Number(match.date.slice(5, 7)) - 1,
+    Number(match.date.slice(8, 10)),
+    Number(hourText) - Number(offsetText),
+    Number(minuteText)
+  );
+}
+
+function formatBeijingCompletedTime(match) {
+  const timestamp = getMatchTimestamp(match);
+  if (!Number.isFinite(timestamp)) return `北京时间 ${match?.date ?? "待更新"} 已完赛`;
+  const date = new Date(timestamp + 8 * 60 * 60 * 1000);
+  return `北京时间 ${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, "0")}-${String(date.getUTCDate()).padStart(2, "0")} ${String(date.getUTCHours()).padStart(2, "0")}:${String(date.getUTCMinutes()).padStart(2, "0")} 已完赛`;
+}
+
 const completedFixtures = [
   ["2026-06-11", "A组", "Mexico City", "Mexico City Stadium", "Mexico", "South Africa", "2-0"],
   ["2026-06-11", "A组", "Guadalajara", "Guadalajara Stadium", "South Korea", "Czechia", "2-1"],
@@ -1774,13 +1795,10 @@ function renderHistory() {
     .filter((match) => Array.isArray(match.score?.ft))
     .map((match) => {
       const score = `${match.score.ft[0]}-${match.score.ft[1]}`;
-      const beijingDate = new Date(`${match.date}T00:00:00+08:00`);
-      const timeLabel = Number.isFinite(beijingDate.getTime())
-        ? `北京时间 ${beijingDate.getFullYear()}-${String(beijingDate.getMonth() + 1).padStart(2, "0")}-${String(beijingDate.getDate()).padStart(2, "0")} 已完赛`
-        : `北京时间 ${match.date} 已完赛`;
+      const sortKey = getMatchTimestamp(match);
       return {
-        timeLabel,
-        sortKey: Number.isFinite(beijingDate.getTime()) ? beijingDate.getTime() : 0,
+        timeLabel: formatBeijingCompletedTime(match),
+        sortKey: Number.isFinite(sortKey) ? sortKey : 0,
         group: normalizeGroupLabel(match.group),
         city: match.city ?? match.ground ?? "赛地待更新",
         stadium: match.stadium ?? match.ground ?? "球场待更新",
