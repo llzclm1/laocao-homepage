@@ -1998,6 +1998,7 @@ body::before {
 
 .hero {
   min-height: min(840px, 100dvh);
+  min-height: min(840px, 100svh);
   grid-template-columns: minmax(0, 0.92fr) minmax(380px, 0.78fr);
   column-gap: clamp(34px, 5vw, 76px);
   align-items: center;
@@ -2040,6 +2041,7 @@ body::before {
   width: min(520px, 100%);
   height: clamp(330px, 34vw, 460px);
   transform: none;
+  contain: layout paint;
 }
 
 .showcase-card,
@@ -2061,6 +2063,7 @@ body::before {
 }
 
 .showcase-card img {
+  aspect-ratio: inherit;
   border-radius: 22px;
 }
 
@@ -2077,6 +2080,16 @@ body::before {
   margin-top: -92px;
   border-radius: 28px;
   background: rgba(255, 255, 255, .72);
+  contain: layout paint;
+}
+
+.projects-section,
+.updates-section,
+.about-section,
+.faq-section,
+.contact-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 760px;
 }
 
 .eyebrow {
