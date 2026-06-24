@@ -60,23 +60,6 @@ const projectDetails = {
       ["下载 Windows 免费版", "https://github.com/llzclm1/laocao-homepage/releases/download/memoris-free-20260623/memoris-windows-free.zip"],
     ],
   },
-  "baodan-workshop": {
-    title: "爆单工坊",
-    image: "assets/projects/baodan-workshop-cover.webp",
-    intro: "爆单工坊是一套 AI 营销内容生成工具。",
-    meta: [
-      ["英文名", "AI Marketing Studio"],
-      ["定位", "一句需求，生成全平台营销内容"],
-      ["标签", "AI / Marketing / Content / Automation / Growth"],
-    ],
-    summary:
-      "用户输入用户需求后，自动生成适用于小红书、抖音、视频号、公众号等平台的营销内容，同时输出图片提示词与短视频脚本，实现从需求到发布的一站式内容生产流程。",
-    points: [
-      "输入产品、活动或用户需求，即可生成多平台营销文案。",
-      "覆盖小红书文案、抖音文案、视频号文案和公众号文章。",
-      "同步输出 AI 配图提示词和 AI 视频脚本，帮助商家、自媒体和企业快速制作营销素材。",
-    ],
-  },
   "office-survivor": {
     title: "工位突围",
     image: "assets/projects/office-survivor-cover.webp",

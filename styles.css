@@ -1214,11 +1214,6 @@ h1 {
   object-fit: cover;
 }
 
-.project-detail-image[src*="baodan-workshop-cover"] {
-  object-fit: contain;
-  background: #05080d;
-}
-
 .dialog-close {
   position: absolute;
   top: 16px;
