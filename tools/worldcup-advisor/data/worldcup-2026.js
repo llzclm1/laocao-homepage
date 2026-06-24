@@ -10,9 +10,9 @@ window.worldCupAdvisorData = {
       "url": "https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json"
     }
   ],
-  "syncedAt": "2026-06-24 06:59 Asia/Shanghai",
+  "syncedAt": "2026-06-25 03:01 Asia/Shanghai",
   "totalMatches": 104,
-  "completedMatches": 46,
+  "completedMatches": 48,
   "matches": [
     {
       "round": "Matchday 1",
@@ -1728,6 +1728,23 @@ window.worldCupAdvisorData = {
       "time": "20:00 UTC-6",
       "team1": "Colombia",
       "team2": "DR Congo",
+      "score": {
+        "ft": [
+          1,
+          0
+        ],
+        "ht": [
+          0,
+          0
+        ]
+      },
+      "goals1": [
+        {
+          "name": "Daniel Muñoz",
+          "minute": 76
+        }
+      ],
+      "goals2": [],
       "group": "Group K",
       "ground": "Guadalajara (Zapopan)"
     },
@@ -1852,6 +1869,23 @@ window.worldCupAdvisorData = {
       "time": "19:00 UTC-4",
       "team1": "Panama",
       "team2": "Croatia",
+      "score": {
+        "ft": [
+          0,
+          1
+        ],
+        "ht": [
+          0,
+          0
+        ]
+      },
+      "goals1": [],
+      "goals2": [
+        {
+          "name": "Ante Budimir",
+          "minute": 54
+        }
+      ],
       "group": "Group L",
       "ground": "Toronto"
     },

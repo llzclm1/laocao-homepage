@@ -55,9 +55,9 @@
     "Uzbekistan": "乌兹别克斯坦"
   };
   const focusReasons = new Map([
-    ["Portugal|Uzbekistan", "葡萄牙的控球质量对乌兹别克斯坦的防线抗压，是小组赛后段最值得观察的强弱对位。"],
-    ["England|Ghana", "英格兰阵地战稳定性和加纳转换速度直接碰撞，比赛节奏可能很快被打开。"],
-    ["Colombia|DR Congo", "哥伦比亚前场创造力对刚果（金）的身体对抗，决定这场能不能成为黑马观察样本。"]
+    ["Switzerland|Canada", "瑞士整体结构对加拿大边路冲击，是 B 组这个比赛日最值得看的对位之一。"],
+    ["Scotland|Brazil", "巴西边路爆点对苏格兰防守密度，是 C 组比赛日最直接的强弱测试。"],
+    ["Czech Republic|Mexico", "墨西哥主场推进对捷克后场出球，是 A 组出线走势的重要样本。"]
   ]);
   const focusPairs = new Set(focusReasons.keys());
   const state = { filter: "all", visible: 30, hydrated: false };

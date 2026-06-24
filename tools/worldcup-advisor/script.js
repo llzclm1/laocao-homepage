@@ -898,7 +898,11 @@ const completedFixtures = [
   ["2026-06-22", "J组", "San Francisco Bay Area", "San Francisco Bay Area Stadium", "Argentina", "Austria", "2-0"],
   ["2026-06-22", "I组", "Philadelphia", "Philadelphia Stadium", "France", "Iraq", "3-0"],
   ["2026-06-22", "I组", "Seattle", "Seattle Stadium", "Norway", "Senegal", "3-2"],
-  ["2026-06-22", "J组", "San Francisco Bay Area", "San Francisco Bay Area Stadium", "Jordan", "Algeria", "1-2"]
+  ["2026-06-22", "J组", "San Francisco Bay Area", "San Francisco Bay Area Stadium", "Jordan", "Algeria", "1-2"],
+  ["2026-06-23", "K组", "Houston", "Houston Stadium", "Portugal", "Uzbekistan", "5-0"],
+  ["2026-06-23", "K组", "Guadalajara", "Guadalajara Stadium", "Colombia", "DR Congo", "1-0"],
+  ["2026-06-23", "L组", "Boston", "Boston Stadium", "England", "Ghana", "0-0"],
+  ["2026-06-23", "L组", "Toronto", "Toronto Stadium", "Panama", "Croatia", "0-1"]
 ].map(([date, group, city, stadium, home, away, score]) => {
   const result = getResultLabel(home, away, score);
   const totalGoals = getTotalGoals(score);
@@ -934,8 +938,8 @@ const manualUpcomingFixtures = [
     stadium: "Houston Stadium",
     home: "Portugal",
     away: "Uzbekistan",
-    score: "未开赛",
-    status: "upcoming",
+    score: "5-0",
+    status: "done",
     focus: true,
     href: "matches/portugal-uzbekistan/",
     prediction: "葡萄牙控球和前场个人能力占优，赛前倾向葡萄牙不败，小胜可能性更高。",
@@ -952,8 +956,8 @@ const manualUpcomingFixtures = [
     stadium: "Boston Stadium",
     home: "England",
     away: "Ghana",
-    score: "未开赛",
-    status: "upcoming",
+    score: "0-0",
+    status: "done",
     focus: true,
     href: "matches/england-ghana/",
     prediction: "英格兰阵容深度更好，赛前倾向英格兰占优，但加纳具备反击制造波动的能力。",
@@ -970,8 +974,8 @@ const manualUpcomingFixtures = [
     stadium: "Toronto Stadium",
     home: "Panama",
     away: "Croatia",
-    score: "未开赛",
-    status: "upcoming",
+    score: "0-1",
+    status: "done",
     focus: false,
     href: "matches/panama-croatia/",
     prediction: "克罗地亚控场经验更好，赛前倾向克罗地亚占优，巴拿马需要把比赛拖进低节奏。",
@@ -988,14 +992,116 @@ const manualUpcomingFixtures = [
     stadium: "Guadalajara Stadium",
     home: "Colombia",
     away: "DR Congo",
-    score: "未开赛",
-    status: "upcoming",
+    score: "1-0",
+    status: "done",
     focus: true,
     href: "matches/colombia-dr-congo/",
     prediction: "哥伦比亚进攻层次更丰富，赛前倾向哥伦比亚主动，刚果民主共和国更依赖身体冲击和转换。",
     keyPoint: "如果刚果民主共和国能把比赛变成往返冲刺，哥伦比亚后场空间会被持续测试。",
     watchFor: "看哥伦比亚边路推进和禁区前二点球控制；这场更容易出现开放回合。",
     reason: "哥伦比亚进攻层次更丰富，刚果民主共和国的身体冲击会让比赛更开放。"
+  },
+  {
+    date: "北京时间 2026-06-25 03:00",
+    timeLabel: "北京时间开赛：2026-06-25 03:00",
+    watchTime: "当地时间：2026-06-24 12:00",
+    group: "B组",
+    city: "Vancouver",
+    stadium: "Vancouver Stadium",
+    home: "Switzerland",
+    away: "Canada",
+    score: "未开赛",
+    status: "upcoming",
+    focus: true,
+    prediction: "瑞士整体结构更稳，但加拿大边路冲击和主场体能会把比赛拉快，赛前倾向分胜负。",
+    keyPoint: "加拿大能否把 Davies 这一侧打成持续推进，是瑞士防线最大的测试。",
+    watchFor: "先看瑞士中场能否稳住二点和节奏；若被加拿大连续冲起来，比赛会更开放。",
+    reason: "瑞士整体结构更稳，但加拿大边路推进和主场节奏会持续制造波动。"
+  },
+  {
+    date: "北京时间 2026-06-25 03:00",
+    timeLabel: "北京时间开赛：2026-06-25 03:00",
+    watchTime: "当地时间：2026-06-24 12:00",
+    group: "B组",
+    city: "Seattle",
+    stadium: "Seattle Stadium",
+    home: "Bosnia and Herzegovina",
+    away: "Qatar",
+    score: "未开赛",
+    status: "upcoming",
+    focus: false,
+    prediction: "波黑经验和支点打法更成熟，卡塔尔需要把比赛拖进低节奏和定位球回合。",
+    keyPoint: "Dzeko 的支点是否舒服，会直接决定波黑能否持续把球送进危险区域。",
+    watchFor: "先看卡塔尔能否压缩禁区前空间；如果早丢球，比赛会更难收。",
+    reason: "波黑经验和支点打法更成熟，卡塔尔更需要守住低比分窗口。"
+  },
+  {
+    date: "北京时间 2026-06-25 06:00",
+    timeLabel: "北京时间开赛：2026-06-25 06:00",
+    watchTime: "当地时间：2026-06-24 18:00",
+    group: "C组",
+    city: "Miami",
+    stadium: "Miami Stadium",
+    home: "Scotland",
+    away: "Brazil",
+    score: "未开赛",
+    status: "upcoming",
+    focus: true,
+    prediction: "巴西个人能力和边路爆点更强，苏格兰要靠防守密度和转换效率把比赛拖住。",
+    keyPoint: "苏格兰能否限制巴西边锋单点爆破，以及二防一后的中路保护。",
+    watchFor: "前 20 分钟重点看巴西边路推进高度和苏格兰禁区前的第二落点保护。",
+    reason: "巴西边路爆点更强，苏格兰的防守密度会决定比赛能否拖进拉锯战。"
+  },
+  {
+    date: "北京时间 2026-06-25 06:00",
+    timeLabel: "北京时间开赛：2026-06-25 06:00",
+    watchTime: "当地时间：2026-06-24 18:00",
+    group: "C组",
+    city: "Atlanta",
+    stadium: "Atlanta Stadium",
+    home: "Morocco",
+    away: "Haiti",
+    score: "未开赛",
+    status: "upcoming",
+    focus: false,
+    prediction: "摩洛哥整体成熟度和反击效率更高，海地需要先守住阵型再等转换机会。",
+    keyPoint: "摩洛哥的边中结合能否持续压到海地禁区前，是比赛能否早开局的关键。",
+    watchFor: "若海地前场反击第一脚能连上，比赛不会一边倒。",
+    reason: "摩洛哥整体成熟度更高，海地能否守住转换第一脚会决定比赛张力。"
+  },
+  {
+    date: "北京时间 2026-06-25 09:00",
+    timeLabel: "北京时间开赛：2026-06-25 09:00",
+    watchTime: "当地时间：2026-06-24 19:00",
+    group: "A组",
+    city: "Mexico City",
+    stadium: "Mexico City Stadium",
+    home: "Czech Republic",
+    away: "Mexico",
+    score: "未开赛",
+    status: "upcoming",
+    focus: true,
+    prediction: "墨西哥主场氛围和整体推进更占优，捷克需要把比赛带进更直接的对抗节奏。",
+    keyPoint: "墨西哥前场压迫是否能持续制造捷克后场失误，是比赛走势的第一变量。",
+    watchFor: "先看墨西哥能否在上半场建立射门和控球优势。",
+    reason: "墨西哥主场氛围和整体推进更占优，捷克的对抗质量会决定比赛波动。"
+  },
+  {
+    date: "北京时间 2026-06-25 09:00",
+    timeLabel: "北京时间开赛：2026-06-25 09:00",
+    watchTime: "当地时间：2026-06-24 19:00",
+    group: "A组",
+    city: "Monterrey",
+    stadium: "Monterrey Stadium",
+    home: "South Africa",
+    away: "South Korea",
+    score: "未开赛",
+    status: "upcoming",
+    focus: false,
+    prediction: "韩国整体速度和前场穿插更有威胁，南非更需要依赖防守纪律和反击质量。",
+    keyPoint: "韩国是否能用中前场换位把南非中路拉开，是比赛能否提速的核心。",
+    watchFor: "若南非能把比赛拖进僵持，后段体能和定位球会更关键。",
+    reason: "韩国前场速度更有威胁，南非能否把比赛拖进僵持决定悬念大小。"
   }
 ];
 
@@ -1692,7 +1798,7 @@ function getLiveTotalMatches() {
 }
 
 function getUpdatedAt() {
-  return liveWorldCupData?.syncedAt ?? "2026-06-23 14:33 Asia/Shanghai";
+  return liveWorldCupData?.syncedAt ?? "2026-06-25 03:01 Asia/Shanghai";
 }
 
 function initBookmarkButtons() {
