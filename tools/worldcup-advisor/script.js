@@ -2565,33 +2565,7 @@ switch (pageId) {
     break;
 }
 
-window.addEventListener?.("worldcup-advisor-data-ready", () => {
-  liveWorldCupData = window.worldCupAdvisorData;
-  if (pageId === "fixtures") {
-    render();
-    scheduleFixtureRefresh();
-  } else if (pageId === "history") {
-    renderHistory();
-  } else if (pageId === "teams") {
-    renderTeamProfiles();
-  } else if (pageId === "groups") {
-    renderGroups();
-  } else if (pageId === "review") {
-    renderMatchReviews();
-    renderLatestReview();
-  } else if (pageId === "advisor") {
-    renderOddsSyncStatus();
-    renderScorePredictions();
-    renderMatchAdvisor();
-  } else if (pageId === "match") {
-    renderMatchPage();
-  } else {
-    renderSummary();
-    renderTodayFocus();
-  }
-});
-
-window.WorldCupAdvisorRefresh = () => {
+function refreshWorldCupPage() {
   liveWorldCupData = window.worldCupAdvisorData;
   upcomingFixtures = buildUpcomingFixtures(liveWorldCupData?.matches ?? []);
   fixtures = [...upcomingFixtures, ...completedFixtures.slice().reverse()];
@@ -2617,4 +2591,8 @@ window.WorldCupAdvisorRefresh = () => {
     renderSummary();
     renderTodayFocus();
   }
-};
+}
+
+window.addEventListener?.("worldcup-advisor-data-ready", refreshWorldCupPage);
+
+window.WorldCupAdvisorRefresh = refreshWorldCupPage;
