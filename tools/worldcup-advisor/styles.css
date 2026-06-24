@@ -453,6 +453,7 @@ input {
   box-shadow: 0 10px 28px rgba(68, 78, 96, .07);
 }
 .today-focus-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   min-height: 268px;
@@ -489,6 +490,12 @@ input {
   line-height: 1.55;
 }
 .today-focus-card .text-link { color: #fff; }
+.today-focus-card .fixture-link::after {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  content: "";
+}
 
 .quick-link-list {
   display: grid;
