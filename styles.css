@@ -2070,3 +2070,356 @@ h1 {
     justify-content: center;
   }
 }
+
+/* Premium home refresh: Soft Structuralism + asymmetrical product lab. */
+:root {
+  --ink: #17151f;
+  --muted: #74717d;
+  --line: rgba(30, 35, 48, .08);
+  --panel: rgba(255, 255, 255, .66);
+  --panel-strong: rgba(255, 255, 255, .9);
+  --graphite: #17151f;
+  --soft: #f4f6f8;
+  --shadow: 0 34px 110px rgba(30, 35, 48, .12);
+  --shadow-tight: 0 20px 66px rgba(30, 35, 48, .10);
+  --ease: cubic-bezier(.32,.72,0,1);
+}
+
+body {
+  background:
+    radial-gradient(circle at 18% 8%, rgba(255, 255, 255, .96), transparent 30rem),
+    radial-gradient(circle at 78% 0%, rgba(77, 53, 215, .10), transparent 25rem),
+    linear-gradient(145deg, #eef2f5 0%, #fbfaf7 46%, #e9edf2 100%);
+  font-family: "Plus Jakarta Sans", "Avenir Next", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+body::before {
+  opacity: .52;
+  background-image:
+    linear-gradient(rgba(23, 21, 31, .015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(23, 21, 31, .014) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+.site-header {
+  width: min(1040px, calc(100% - 40px));
+  min-height: auto;
+  top: 22px;
+  padding: 8px 10px 8px 14px;
+  border: 1px solid rgba(255, 255, 255, .72);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .76);
+  box-shadow: 0 18px 60px rgba(30, 35, 48, .10), inset 0 1px 0 rgba(255, 255, 255, .82);
+}
+
+.brand {
+  font-size: 18px;
+  letter-spacing: -.02em;
+}
+
+.brand-mark {
+  width: 30px;
+  height: 30px;
+  flex-basis: 30px;
+  border-width: 2px;
+  border-radius: 9px;
+}
+
+.nav a {
+  border-radius: 999px;
+  transition: color .65s var(--ease), background-color .65s var(--ease), transform .65s var(--ease);
+}
+
+.nav a:hover,
+.nav a:focus-visible {
+  transform: translateY(-1px);
+}
+
+.hero {
+  min-height: min(840px, 100dvh);
+  align-items: center;
+  padding-top: 134px;
+  padding-bottom: 72px;
+}
+
+.hero-visual {
+  filter: grayscale(.95) saturate(.25) contrast(.92) brightness(1.08);
+  opacity: .12;
+}
+
+.hero-scrim {
+  background:
+    radial-gradient(circle at 72% 28%, rgba(255, 255, 255, .62), transparent 24rem),
+    linear-gradient(90deg, rgba(248, 250, 252, .96) 0%, rgba(248, 250, 252, .84) 46%, rgba(248, 250, 252, .62) 100%);
+}
+
+.hero-content {
+  width: min(660px, 100%);
+  padding: 44px;
+  border: 1px solid rgba(255, 255, 255, .76);
+  border-radius: 34px;
+  background: rgba(255, 255, 255, .58);
+  box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, .88);
+}
+
+.hero-showcase {
+  right: max(26px, calc((100vw - 1120px) / 2));
+  bottom: 116px;
+  gap: 14px;
+}
+
+.showcase-card,
+.hero-metrics,
+.project-card,
+.manual-card,
+.update-card,
+.worldcup-event-banner,
+.audience-section,
+.about-section,
+.faq-section,
+.contact-section {
+  border: 1px solid rgba(255, 255, 255, .74);
+  background: rgba(255, 255, 255, .62);
+  box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, .86);
+}
+
+.showcase-card {
+  border-radius: 30px;
+  padding: 8px;
+}
+
+.showcase-card img {
+  border-radius: 22px;
+}
+
+.hero-metrics {
+  border-radius: 28px;
+  background: rgba(255, 255, 255, .72);
+}
+
+.eyebrow {
+  width: fit-content;
+  border: 1px solid rgba(77, 53, 215, .10);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .72);
+  padding: 6px 10px;
+  color: #2618a8;
+  font-size: 10px;
+  letter-spacing: .18em;
+}
+
+h1 {
+  margin-top: 18px;
+  font-size: clamp(60px, 9vw, 120px);
+  letter-spacing: -.055em;
+}
+
+h2 {
+  letter-spacing: -.045em;
+}
+
+.hero-subtitle,
+.hero-statement,
+.project-card h3,
+.manual-card h3 {
+  letter-spacing: -.025em;
+}
+
+.button,
+.filter-button,
+.card-link,
+.event-link,
+.project-detail-trigger {
+  border-radius: 999px;
+  transition: transform .7s var(--ease), box-shadow .7s var(--ease), background-color .7s var(--ease), border-color .7s var(--ease), color .7s var(--ease);
+}
+
+.button:hover,
+.filter-button:hover,
+.card-link:hover,
+.event-link:hover,
+.project-detail-trigger:hover {
+  transform: translateY(-2px);
+}
+
+.button:active,
+.filter-button:active,
+.card-link:active {
+  transform: scale(.985);
+}
+
+.projects-section,
+.manuals-section,
+.updates-section {
+  padding-top: clamp(72px, 9vw, 130px);
+}
+
+.section-heading {
+  margin-bottom: 30px;
+}
+
+.worldcup-event-banner {
+  border-radius: 34px;
+  background:
+    radial-gradient(circle at 86% 16%, rgba(18, 168, 107, .16), transparent 18rem),
+    linear-gradient(135deg, rgba(23, 21, 31, .96), rgba(43, 39, 62, .94));
+  color: #fff;
+}
+
+.worldcup-event-preview {
+  border-radius: 28px;
+  background: rgba(255, 255, 255, .10);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .18);
+}
+
+.worldcup-event-preview img {
+  border-radius: 22px;
+}
+
+.filter-bar {
+  border: 1px solid rgba(255, 255, 255, .72);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .68);
+  box-shadow: 0 20px 66px rgba(30, 35, 48, .08), inset 0 1px 0 rgba(255, 255, 255, .84);
+}
+
+.filter-button {
+  border-radius: 999px;
+}
+
+.project-grid {
+  gap: 18px;
+}
+
+.project-card,
+.manual-card {
+  border-radius: 32px;
+  background: rgba(255, 255, 255, .74);
+  transition: transform .85s var(--ease), box-shadow .85s var(--ease), border-color .85s var(--ease);
+}
+
+.project-card:hover,
+.manual-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(23, 21, 31, .10);
+  box-shadow: 0 34px 100px rgba(30, 35, 48, .14), inset 0 1px 0 rgba(255, 255, 255, .9);
+}
+
+.project-shot,
+.manual-shot {
+  border-radius: 26px;
+  background: rgba(23, 21, 31, .04);
+}
+
+.project-shot img,
+.manual-shot img,
+.tool-cover {
+  border-radius: 22px;
+}
+
+.project-card:first-child {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, .88), rgba(246, 248, 251, .78)) padding-box,
+    linear-gradient(135deg, rgba(255, 255, 255, .86), rgba(77, 53, 215, .10)) border-box;
+}
+
+.status,
+.type,
+.event-label,
+.project-live-meta {
+  border-radius: 999px;
+}
+
+.project-live-meta {
+  border: 1px solid rgba(77, 53, 215, .10);
+  background: rgba(255, 255, 255, .68);
+  color: #3c3370;
+  padding: 8px 10px;
+  font-weight: 800;
+}
+
+.audience-section,
+.about-section,
+.faq-section,
+.contact-section {
+  border-radius: 34px;
+}
+
+.faq-list details,
+.contact-panel,
+.about-portrait-card,
+.audience-grid article {
+  border: 1px solid rgba(23, 21, 31, .06);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, .78);
+  box-shadow: 0 18px 58px rgba(30, 35, 48, .08), inset 0 1px 0 rgba(255, 255, 255, .86);
+}
+
+.hero-content,
+.hero-showcase,
+.hero-metrics,
+.worldcup-event-banner,
+.project-card,
+.manual-card,
+.update-card,
+.audience-section,
+.about-section,
+.faq-section,
+.contact-section {
+  animation: pageRise .9s var(--ease) both;
+}
+
+@keyframes pageRise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 1120px) {
+  .hero-showcase {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    z-index: 1;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: min(920px, calc(100% - 44px));
+    margin: -42px auto 44px;
+  }
+}
+
+@media (max-width: 820px) {
+  .site-header {
+    width: min(100% - 28px, 560px);
+    border-radius: 26px;
+  }
+
+  .hero {
+    min-height: auto;
+    padding-top: 112px;
+    padding-bottom: 34px;
+  }
+
+  .hero-content {
+    padding: 34px 24px;
+    border-radius: 28px;
+  }
+
+  h1 {
+    font-size: clamp(48px, 16vw, 76px);
+  }
+
+  .worldcup-event-banner,
+  .project-card,
+  .manual-card,
+  .audience-section,
+  .about-section,
+  .faq-section,
+  .contact-section {
+    border-radius: 28px;
+  }
+}
