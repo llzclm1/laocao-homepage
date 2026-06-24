@@ -1,3 +1,4 @@
+(() => {
 let liveWorldCupData = window.worldCupAdvisorData;
 const totalScheduledMatches = 104;
 const teamNameMap = {
@@ -2666,6 +2667,11 @@ function refreshWorldCupPage() {
   }
 }
 
-window.addEventListener?.("worldcup-advisor-data-ready", refreshWorldCupPage);
+if (window.WorldCupAdvisorRefreshHandler) {
+  window.removeEventListener?.("worldcup-advisor-data-ready", window.WorldCupAdvisorRefreshHandler);
+}
+window.WorldCupAdvisorRefreshHandler = refreshWorldCupPage;
+window.addEventListener?.("worldcup-advisor-data-ready", window.WorldCupAdvisorRefreshHandler);
 
 window.WorldCupAdvisorRefresh = refreshWorldCupPage;
+})();
