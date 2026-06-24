@@ -4,6 +4,12 @@
 
 站点地址：https://gewuji.dev/
 
+机器可读索引：
+
+- XML Sitemap：https://gewuji.dev/sitemap.xml
+- AI Sitemap：https://gewuji.dev/ai-sitemap.json
+- Robots：https://gewuji.dev/robots.txt
+
 英文名 / 别名：
 
 - GEWUJI

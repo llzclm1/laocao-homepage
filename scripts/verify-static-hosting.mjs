@@ -20,7 +20,8 @@ const textFiles = [
   "stats.html",
   "sitemap.xml",
   "robots.txt",
-  "llms.txt"
+  "llms.txt",
+  "ai-sitemap.json"
 ];
 
 for (const file of textFiles) {
@@ -31,6 +32,7 @@ for (const file of textFiles) {
 const home = fs.readFileSync(path.join(dist, "index.html"), "utf8");
 assert.ok(home.includes('href="game/worldcup/index.html"'), "homepage should link to the worldcup index with a relative URL");
 assert.ok(home.includes('href="nav/"'), "homepage should link to the utility navigation page");
+assert.ok(home.includes('href="ai-sitemap.json"'), "homepage should expose the AI sitemap");
 assert.equal(home.includes('id="guide"'), false, "homepage should not embed the utility navigation section");
 assert.ok(home.includes("工位突围：世界杯摸鱼版"), "homepage should include the world cup event banner");
 assert.ok(home.includes('src="assets/projects/worldcup-game-preview.webp"'), "homepage should use the optimized world cup preview image");
@@ -101,11 +103,22 @@ for (const file of requiredAssets) {
 const sitemap = fs.readFileSync(path.join(dist, "sitemap.xml"), "utf8");
 assert.ok(sitemap.includes("/game/worldcup/"), "sitemap should include /game/worldcup/");
 assert.ok(sitemap.includes("/nav/"), "sitemap should include /nav/");
+assert.ok(sitemap.includes("/ai-sitemap.json"), "sitemap should include /ai-sitemap.json");
 assert.ok(sitemap.includes("/tools/content-assistant/"), "sitemap should include /tools/content-assistant/");
 assert.ok(sitemap.includes("/tools/content-assistant/admin/"), "sitemap should include /tools/content-assistant/admin/");
 
 const llms = fs.readFileSync(path.join(dist, "llms.txt"), "utf8");
+assert.ok(llms.includes("https://gewuji.dev/ai-sitemap.json"), "llms.txt should link to the AI sitemap");
 assert.ok(llms.includes("世界杯盘口情绪"), "llms.txt should include worldcup market sentiment keywords");
 assert.ok(llms.includes("基准、保守、开放三种比分情景"), "llms.txt should explain worldcup score scenarios");
+
+const robots = fs.readFileSync(path.join(dist, "robots.txt"), "utf8");
+assert.ok(robots.includes("AI-Sitemap: https://gewuji.dev/ai-sitemap.json"), "robots should expose the AI sitemap");
+assert.ok(robots.includes("LLMs: https://gewuji.dev/llms.txt"), "robots should expose llms.txt");
+
+const aiSitemap = JSON.parse(fs.readFileSync(path.join(dist, "ai-sitemap.json"), "utf8"));
+assert.equal(aiSitemap.site.name, "格物集", "AI sitemap should describe the site");
+assert.ok(aiSitemap.pages.some((page) => page.url === "https://gewuji.dev/tools/worldcup-advisor/advisor/"), "AI sitemap should include the worldcup advisor page");
+assert.ok(JSON.stringify(aiSitemap).includes("不构成投注建议"), "AI sitemap should include the worldcup safety boundary");
 
 console.log("static hosting audit ok");
