@@ -1199,7 +1199,344 @@ footer {
   font-size: 14px;
 }
 
+body[data-page="home"] {
+  --bg: #f4f6f8;
+  --panel: #fffefd;
+  --ink: #17151f;
+  --muted: #77737f;
+  --line: rgba(30, 35, 48, .08);
+  --purple: #4d35d7;
+  --purple-deep: #2618a8;
+  --green: #12a86b;
+  --shadow: 0 36px 120px rgba(33, 39, 56, .13);
+  --soft-shadow: 0 22px 72px rgba(33, 39, 56, .10);
+  background:
+    radial-gradient(circle at 18% 8%, rgba(255, 255, 255, .95), transparent 28rem),
+    radial-gradient(circle at 76% 0%, rgba(77, 53, 215, .11), transparent 24rem),
+    linear-gradient(145deg, #eef2f5 0%, #fbfaf7 45%, #e9edf2 100%);
+  font-family: "Plus Jakarta Sans", "Avenir Next", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+body[data-page="home"]::before {
+  z-index: 0;
+  opacity: .58;
+  background:
+    linear-gradient(120deg, transparent 0 11%, rgba(255, 255, 255, .84) 11.15% 11.3%, transparent 11.5%),
+    linear-gradient(58deg, transparent 0 72%, rgba(255, 255, 255, .66) 72.1% 72.25%, transparent 72.45%);
+}
+
+body[data-page="home"]::after {
+  display: none;
+}
+
+body[data-page="home"] .site-header,
+body[data-page="home"] main,
+body[data-page="home"] footer {
+  position: relative;
+  z-index: 1;
+}
+
+body[data-page="home"] .site-header {
+  width: min(980px, calc(100% - 40px));
+  min-height: auto;
+  margin-top: 22px;
+  padding: 8px 10px 8px 14px;
+  border: 1px solid rgba(255, 255, 255, .72);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .76);
+  box-shadow: 0 18px 60px rgba(30, 35, 48, .10), inset 0 1px 0 rgba(255, 255, 255, .8);
+}
+
+body[data-page="home"] .brand {
+  font-size: 18px;
+  letter-spacing: -.02em;
+}
+
+body[data-page="home"] nav a {
+  padding: 9px 13px;
+  transition: transform .6s cubic-bezier(.32,.72,0,1), background-color .6s cubic-bezier(.32,.72,0,1), color .6s cubic-bezier(.32,.72,0,1);
+}
+
+body[data-page="home"] nav a:hover {
+  transform: translateY(-1px);
+  color: var(--ink);
+  background: rgba(23, 21, 31, .06);
+}
+
+body[data-page="home"] .project-home-hero {
+  min-height: min(760px, calc(100dvh - 120px));
+  grid-template-columns: minmax(0, 1.25fr) minmax(260px, .48fr);
+  gap: 18px;
+  padding: 54px 0 44px;
+}
+
+body[data-page="home"] .hero > div,
+body[data-page="home"] .score-panel,
+body[data-page="home"] .today-focus-section,
+body[data-page="home"] .quick-links-section {
+  border: 1px solid rgba(255, 255, 255, .76);
+  border-radius: 34px;
+  background: rgba(255, 255, 255, .54);
+  box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, .85);
+}
+
+body[data-page="home"] .hero > div {
+  min-height: 520px;
+  padding: clamp(38px, 6vw, 72px);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, .96), rgba(255, 255, 255, .72)) padding-box,
+    linear-gradient(135deg, rgba(255, 255, 255, .88), rgba(35, 41, 58, .06)) border-box;
+}
+
+body[data-page="home"] .hero > div::before {
+  right: -78px;
+  bottom: -112px;
+  width: 420px;
+  height: 270px;
+  border-radius: 42px;
+  background:
+    radial-gradient(circle at 26% 22%, rgba(255, 255, 255, .72), transparent 34%),
+    linear-gradient(135deg, rgba(23, 21, 31, .94), rgba(77, 53, 215, .86));
+  box-shadow: 0 28px 88px rgba(38, 24, 168, .22);
+}
+
+body[data-page="home"] .hero > div::after {
+  right: 64px;
+  bottom: 66px;
+  width: 210px;
+  height: 86px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, .86);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), 0 20px 52px rgba(23, 21, 31, .12);
+}
+
+body[data-page="home"] .eyebrow {
+  width: fit-content;
+  border: 1px solid rgba(77, 53, 215, .10);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .72);
+  padding: 6px 10px;
+  color: var(--purple-deep);
+  font-size: 10px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+body[data-page="home"] h1 {
+  max-width: 8.5ch;
+  margin-top: 18px;
+  font-size: clamp(58px, 9vw, 118px);
+  letter-spacing: -.055em;
+}
+
+body[data-page="home"] .lead {
+  max-width: 620px;
+  color: #615d6b;
+  font-size: clamp(17px, 2vw, 21px);
+}
+
+body[data-page="home"] .data-status {
+  margin-top: 12px;
+  border-color: rgba(77, 53, 215, .10);
+  background: rgba(255, 255, 255, .68);
+  color: #3c3370;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .85);
+}
+
+body[data-page="home"] .actions {
+  gap: 10px;
+  margin-top: 30px;
+}
+
+body[data-page="home"] .button {
+  min-height: 48px;
+  border: 1px solid rgba(23, 21, 31, .08);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .72);
+  padding: 0 22px;
+  box-shadow: 0 14px 42px rgba(30, 35, 48, .09), inset 0 1px 0 rgba(255, 255, 255, .8);
+  transition: transform .7s cubic-bezier(.32,.72,0,1), box-shadow .7s cubic-bezier(.32,.72,0,1), background-color .7s cubic-bezier(.32,.72,0,1);
+}
+
+body[data-page="home"] .button:hover {
+  transform: translateY(-3px);
+  border-color: rgba(23, 21, 31, .10);
+  box-shadow: 0 22px 64px rgba(30, 35, 48, .14);
+}
+
+body[data-page="home"] .button:active {
+  transform: scale(.985);
+}
+
+body[data-page="home"] .button.primary {
+  background: #17151f;
+  border-color: #17151f;
+}
+
+body[data-page="home"] .score-panel {
+  align-self: center;
+  padding: 10px;
+  background: rgba(255, 255, 255, .42);
+}
+
+body[data-page="home"] .score-panel div {
+  border: 1px solid rgba(23, 21, 31, .06);
+  border-radius: 25px;
+  background: rgba(255, 255, 255, .82);
+  padding: 24px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9);
+}
+
+body[data-page="home"] .score-panel strong {
+  font-size: clamp(38px, 4vw, 58px);
+  letter-spacing: -.06em;
+}
+
+body[data-page="home"] .today-focus-section,
+body[data-page="home"] .quick-links-section {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(30px, 5vw, 54px);
+  margin: 30px 0;
+  color: var(--ink);
+}
+
+body[data-page="home"] .today-focus-section {
+  background:
+    radial-gradient(circle at 84% 8%, rgba(18, 168, 107, .13), transparent 18rem),
+    linear-gradient(135deg, rgba(255, 255, 255, .82), rgba(246, 248, 251, .72));
+}
+
+body[data-page="home"] .today-focus-section h2,
+body[data-page="home"] .today-focus-section .eyebrow {
+  color: var(--ink);
+}
+
+body[data-page="home"] .today-focus-heading p:last-child,
+body[data-page="home"] .quick-links-heading p:last-child {
+  color: #696573;
+  opacity: 1;
+}
+
+body[data-page="home"] .today-focus-grid {
+  grid-template-columns: minmax(0, 1.35fr) minmax(220px, .82fr);
+  gap: 16px;
+}
+
+body[data-page="home"] .today-focus-card {
+  min-height: 278px;
+  border: 1px solid rgba(23, 21, 31, .06);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, .86);
+  color: var(--ink);
+  padding: 24px;
+  box-shadow: 0 22px 72px rgba(30, 35, 48, .10), inset 0 1px 0 rgba(255, 255, 255, .92);
+  transition: transform .8s cubic-bezier(.32,.72,0,1), box-shadow .8s cubic-bezier(.32,.72,0,1);
+}
+
+body[data-page="home"] .today-focus-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 30px 92px rgba(30, 35, 48, .14), inset 0 1px 0 rgba(255, 255, 255, .92);
+}
+
+body[data-page="home"] .today-focus-card.primary-focus {
+  min-height: 320px;
+  background:
+    linear-gradient(135deg, rgba(23, 21, 31, .96), rgba(43, 39, 62, .94)) padding-box,
+    linear-gradient(135deg, rgba(255, 255, 255, .20), rgba(255, 255, 255, .04)) border-box;
+  color: #fff;
+}
+
+body[data-page="home"] .today-focus-card .fixture-top {
+  color: inherit;
+}
+
+body[data-page="home"] .today-focus-card strong {
+  margin: 24px 0 12px;
+  font-size: clamp(28px, 4vw, 48px);
+  letter-spacing: -.045em;
+}
+
+body[data-page="home"] .today-focus-card:not(.primary-focus) strong {
+  font-size: clamp(24px, 3vw, 34px);
+}
+
+body[data-page="home"] .today-focus-card .fixture-time {
+  border: 1px solid rgba(23, 21, 31, .08);
+  background: rgba(23, 21, 31, .04);
+  color: inherit;
+}
+
+body[data-page="home"] .today-focus-card.primary-focus .fixture-time {
+  border-color: rgba(255, 255, 255, .18);
+  background: rgba(255, 255, 255, .08);
+  color: #fff;
+}
+
+body[data-page="home"] .today-focus-card p,
+body[data-page="home"] .today-focus-card small {
+  color: inherit;
+  opacity: .74;
+}
+
+body[data-page="home"] .today-focus-card .text-link {
+  color: inherit;
+}
+
+body[data-page="home"] .quick-link-list {
+  grid-template-columns: repeat(6, minmax(130px, 1fr));
+  gap: 12px;
+}
+
+body[data-page="home"] .quick-link-card {
+  min-height: 182px;
+  border-color: rgba(23, 21, 31, .06);
+  border-radius: 26px;
+  background: rgba(255, 255, 255, .78);
+  padding: 20px;
+  box-shadow: 0 18px 58px rgba(30, 35, 48, .08), inset 0 1px 0 rgba(255, 255, 255, .86);
+  transition: transform .8s cubic-bezier(.32,.72,0,1), box-shadow .8s cubic-bezier(.32,.72,0,1), border-color .8s cubic-bezier(.32,.72,0,1);
+}
+
+body[data-page="home"] .quick-link-card:hover,
+body[data-page="home"] .quick-link-card:focus-visible {
+  transform: translateY(-4px);
+  border-color: rgba(23, 21, 31, .10);
+  box-shadow: 0 28px 80px rgba(30, 35, 48, .12);
+}
+
+body[data-page="home"] .quick-link-card span {
+  border-color: rgba(77, 53, 215, .11);
+  background: rgba(255, 255, 255, .72);
+}
+
+body[data-page="home"] .quick-link-card strong {
+  font-size: 21px;
+  letter-spacing: -.025em;
+}
+
+body[data-page="home"] .hero > div,
+body[data-page="home"] .score-panel,
+body[data-page="home"] .today-focus-section,
+body[data-page="home"] .quick-links-section {
+  animation: homeRise .9s cubic-bezier(.32,.72,0,1) both;
+}
+
+@keyframes homeRise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (max-width: 1040px) {
+  body[data-page="home"] .quick-link-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  body[data-page="home"] .today-focus-grid { grid-template-columns: 1fr; }
+
   .must-watch-section .advisor-grid,
   .today-focus-grid,
   .quick-link-list,
@@ -1209,6 +1546,29 @@ footer {
 }
 
 @media (max-width: 860px) {
+  body[data-page="home"] .site-header {
+    width: min(100% - 28px, 560px);
+    border-radius: 26px;
+  }
+  body[data-page="home"] .project-home-hero {
+    min-height: auto;
+    padding: 36px 0 28px;
+  }
+  body[data-page="home"] .hero > div,
+  body[data-page="home"] .score-panel,
+  body[data-page="home"] .today-focus-section,
+  body[data-page="home"] .quick-links-section {
+    border-radius: 26px;
+  }
+  body[data-page="home"] .hero > div {
+    min-height: auto;
+    padding: 34px 24px;
+  }
+  body[data-page="home"] h1 {
+    font-size: clamp(46px, 15vw, 72px);
+  }
+  body[data-page="home"] .quick-link-list { grid-template-columns: 1fr; }
+
   body::after { display: none; }
   .site-header { align-items: flex-start; flex-direction: column; }
   .hero,
