@@ -2137,6 +2137,8 @@ body::before {
 
 .hero {
   min-height: min(840px, 100dvh);
+  grid-template-columns: minmax(0, 0.92fr) minmax(380px, 0.78fr);
+  column-gap: clamp(34px, 5vw, 76px);
   align-items: center;
   padding-top: 134px;
   padding-bottom: 72px;
@@ -2154,6 +2156,9 @@ body::before {
 }
 
 .hero-content {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: center;
   width: min(660px, 100%);
   padding: 44px;
   border: 1px solid rgba(255, 255, 255, .76);
@@ -2163,12 +2168,17 @@ body::before {
 }
 
 .hero-showcase {
-  right: max(26px, calc((100vw - 1120px) / 2));
-  top: 50%;
+  grid-column: 2;
+  grid-row: 1;
+  position: relative;
+  top: auto;
+  right: auto;
   bottom: auto;
-  width: min(500px, 38vw);
-  height: 420px;
-  transform: translateY(-50%);
+  align-self: center;
+  justify-self: end;
+  width: min(520px, 100%);
+  height: clamp(330px, 34vw, 460px);
+  transform: none;
 }
 
 .showcase-card,
@@ -2196,6 +2206,16 @@ body::before {
 }
 
 .hero-metrics {
+  grid-column: 2;
+  grid-row: 1;
+  position: relative;
+  z-index: 2;
+  right: auto;
+  bottom: auto;
+  align-self: end;
+  justify-self: end;
+  width: min(440px, 100%);
+  margin-top: -92px;
   border-radius: 28px;
   background: rgba(255, 255, 255, .72);
 }
