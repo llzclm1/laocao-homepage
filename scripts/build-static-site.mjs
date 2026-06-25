@@ -327,6 +327,8 @@ function buildSitemap() {
   const entries = [
     ["", "1.0"],
     ["en/", "0.9"],
+    ["en/tools/photo-booth/", "0.8"],
+    ["en/game/worldcup/", "0.8"],
     ["nav/", "0.9"],
     ["films/", "0.8"],
     ["game/worldcup/", "0.8"],
@@ -437,6 +439,22 @@ function buildAiSitemap() {
         summary: "English homepage for GEWUJI, Laocao's personal product lab collecting apps, tools, games and long-running experiments.",
         answers: ["What is GEWUJI", "What projects is Laocao building", "GEWUJI English"],
         keywords: ["GEWUJI", "personal product lab", "Laocao", "indie products"]
+      },
+      {
+        url: publicUrl("en/tools/photo-booth/"),
+        title: "Sticker Booth Lab｜Online Photo Booth",
+        type: "WebApplication",
+        summary: "English landing page for Sticker Booth Lab, an online photo booth that lets users choose a template, open the camera and download a photo strip.",
+        answers: ["online photo booth", "Sticker Booth Lab", "browser photo booth"],
+        keywords: ["online photo booth", "photo strip", "browser camera", "Sticker Booth Lab"]
+      },
+      {
+        url: publicUrl("en/game/worldcup/"),
+        title: "Office Survivor: World Cup Edition",
+        type: "VideoGame",
+        summary: "English landing page for Office Survivor: World Cup Edition, a small web game about watching football at work and surviving the boss.",
+        answers: ["Office Survivor World Cup Edition", "GEWUJI web game", "play office survivor"],
+        keywords: ["Office Survivor", "World Cup web game", "GEWUJI game"]
       },
       {
         url: publicUrl("tools/photo-booth/"),
