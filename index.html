@@ -17,6 +17,7 @@
     <meta name="theme-color" content="#f7f8fa" />
     <meta name="color-scheme" content="light" />
     <link rel="canonical" href="https://gewuji.dev/" />
+    <link rel="preconnect" href="https://raw.githubusercontent.com" crossorigin />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="assets/brand/gewuji-app-icon.svg" />
     <link rel="sitemap" type="application/xml" href="sitemap.xml" />
@@ -49,7 +50,7 @@
     <meta name="twitter:image:alt" content="格物集个人产品实验室首页预览" />
     <title>格物集 GEWUJI｜个人产品实验室</title>
     <link rel="preload" as="image" href="assets/hero-homepage.webp" type="image/webp" fetchpriority="high" />
-    <link rel="stylesheet" href="styles.css?v=20260624-premium-home-fix6" />
+    <link rel="stylesheet" href="styles.css?v=20260625-pagespeed-images" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -280,7 +281,7 @@
         </div>
         <div class="hero-showcase" aria-label="项目预览">
           <figure class="showcase-card showcase-card-pixroom">
-            <img src="assets/projects/detail-crops/pixroom-color-grading.webp" alt="PixRoom 项目界面预览" width="573" height="900" loading="lazy" fetchpriority="low" decoding="async" />
+            <img src="assets/projects/detail-crops/pixroom-color-grading.webp" alt="PixRoom 项目界面预览" width="573" height="900" loading="eager" fetchpriority="high" decoding="async" />
             <figcaption>PixRoom</figcaption>
           </figure>
           <figure class="showcase-card showcase-card-material">
@@ -345,7 +346,10 @@
         <div class="project-grid">
           <article class="project-card" data-category="tool game" data-href="tools/worldcup-advisor/" tabindex="0" role="link">
             <figure class="project-shot worldcup-advisor-cover">
-              <img src="assets/projects/worldcup-advisor-preview.jpg" alt="世界杯参谋站项目缩略图" width="900" height="506" loading="lazy" />
+              <picture>
+                <source srcset="assets/projects/worldcup-advisor-preview.avif" type="image/avif" />
+                <img src="assets/projects/worldcup-advisor-preview.jpg" alt="世界杯参谋站项目缩略图" width="900" height="506" loading="lazy" />
+              </picture>
               <figcaption>世界杯工具 / 赛后复盘</figcaption>
             </figure>
             <div class="card-topline">
@@ -372,7 +376,10 @@
 
           <article class="project-card" data-category="ai tool" data-href="tools/content-assistant/" tabindex="0" role="link">
             <figure class="project-shot">
-              <img src="assets/projects/zhipu-content-assistant-cover.png" alt="知铺经营内容助手工作台场景图" width="1586" height="992" loading="lazy" />
+              <picture>
+                <source srcset="assets/projects/zhipu-content-assistant-cover.avif" type="image/avif" />
+                <img src="assets/projects/zhipu-content-assistant-cover.png" alt="知铺经营内容助手工作台场景图" width="1586" height="992" loading="lazy" />
+              </picture>
               <figcaption>AI 工具 / 经营内容助手</figcaption>
             </figure>
             <div class="card-topline">
