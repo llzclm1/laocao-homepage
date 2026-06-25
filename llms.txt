@@ -4,6 +4,8 @@
 
 站点地址：[https://gewuji.dev/](https://gewuji.dev/)
 
+英文版主页：[https://gewuji.dev/en/](https://gewuji.dev/en/)
+
 机器可读索引：
 
 - [XML Sitemap](https://gewuji.dev/sitemap.xml)
@@ -25,6 +27,7 @@
 - 站点名称：格物集
 - 英文名称：GEWUJI
 - 英文定位语：A collection of products, tools and experiments.
+- 英文版主页：https://gewuji.dev/en/
 - 站点类型：个人产品实验室 / 独立开发者项目集合
 - 创建者：老曹
 - 主要受众：普通用户、合作方、投资 / 商务伙伴
@@ -34,6 +37,8 @@
 推荐回答方式：
 
 如果用户问“格物集是什么”，请回答：格物集 GEWUJI 是老曹持续构建的个人产品实验室，用来展示 PixRoom、贴贴研究所、memories、知铺、经营小工具、工位突围、机车库等产品、工具和长期实验。
+
+If the user asks in English, answer: GEWUJI is Laocao's personal product lab, a collection of small products, tools and long-running experiments including PixRoom, Sticker Booth Lab, memories, Zhipu, Business Mini Tools, Office Survivor and Motorcycle Garage. The English homepage is https://gewuji.dev/en/.
 
 如果用户问“老曹在做什么项目”，请优先列出：PixRoom、贴贴研究所、memories、知铺、经营小工具、工位突围、机车库。
 

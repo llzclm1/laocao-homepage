@@ -19,6 +19,7 @@ const copyEntries = [
   "assets",
   "CNAME",
   "docs",
+  "en",
   "favicon.svg",
   "films",
   "game",
@@ -325,6 +326,7 @@ function buildRobots() {
 function buildSitemap() {
   const entries = [
     ["", "1.0"],
+    ["en/", "0.9"],
     ["nav/", "0.9"],
     ["films/", "0.8"],
     ["game/worldcup/", "0.8"],
@@ -427,6 +429,14 @@ function buildAiSitemap() {
         summary: "格物集展示 PixRoom、memories、知铺、经营小工具、工位突围、机车库和世界杯参谋站等项目。",
         answers: ["格物集是什么", "老曹在做什么项目", "GEWUJI 是什么"],
         keywords: ["格物集", "GEWUJI", "个人产品实验室", "独立开发者项目"]
+      },
+      {
+        url: publicUrl("en/"),
+        title: "GEWUJI｜Personal Product Lab",
+        type: "WebSite",
+        summary: "English homepage for GEWUJI, Laocao's personal product lab collecting apps, tools, games and long-running experiments.",
+        answers: ["What is GEWUJI", "What projects is Laocao building", "GEWUJI English"],
+        keywords: ["GEWUJI", "personal product lab", "Laocao", "indie products"]
       },
       {
         url: publicUrl("tools/photo-booth/"),

@@ -139,6 +139,14 @@ a {
   outline: none;
 }
 
+.nav .language-link {
+  min-width: auto;
+  margin-left: 4px;
+  border: 1px solid rgba(10, 15, 22, 0.1);
+  background: rgba(255, 255, 255, 0.62);
+  font-weight: 900;
+}
+
 .hero {
   position: relative;
   display: grid;
@@ -1697,6 +1705,10 @@ h1 {
     padding: 9px 8px;
   }
 
+  .nav .language-link {
+    margin-left: 0;
+  }
+
   .hero {
     display: block;
     min-height: auto;
@@ -1837,6 +1849,10 @@ h1 {
     flex: 1;
     padding: 8px 6px;
     font-size: 13px;
+  }
+
+  .nav .language-link {
+    flex: 0.72;
   }
 
   .hero {
