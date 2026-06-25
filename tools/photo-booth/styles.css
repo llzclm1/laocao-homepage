@@ -509,27 +509,6 @@ button {
   line-height: 1.6;
 }
 
-.sample-asset {
-  position: absolute;
-  z-index: 2;
-  width: min(164px, 15vw);
-  filter: drop-shadow(0 20px 30px rgba(85, 50, 118, 0.14));
-}
-
-.sample-left {
-  left: clamp(18px, 11vw, 168px);
-  bottom: clamp(76px, 13vw, 170px);
-  transform: rotate(-8deg);
-  object-position: left center;
-}
-
-.sample-right {
-  right: clamp(18px, 11vw, 168px);
-  bottom: clamp(70px, 12vw, 160px);
-  transform: rotate(8deg) scaleX(-1);
-  object-position: right center;
-}
-
 .workspace {
   display: grid;
   grid-template-columns: minmax(520px, 0.95fr) minmax(460px, 1fr);
@@ -1041,23 +1020,23 @@ button {
   right: 6px;
   bottom: 8px;
   z-index: 1;
-  width: 24px;
-  height: 24px;
-  background: url("assets/stickers/heart.svg") center / contain no-repeat;
+  width: 18px;
+  height: 18px;
+  background: url("assets/stickers/heart.png") center / contain no-repeat;
   filter: drop-shadow(0 3px 4px rgba(151, 63, 112, 0.18));
   transition: background-image 180ms var(--soft-ease);
 }
 
 .preview-sticker[data-sticker="star"] {
-  background-image: url("assets/stickers/star.svg");
+  background-image: url("assets/stickers/star.png");
 }
 
 .preview-sticker[data-sticker="dog"] {
-  background-image: url("assets/stickers/dog.svg");
+  background-image: url("assets/stickers/dog.png");
 }
 
 .preview-sticker[data-sticker="christmas"] {
-  background-image: url("assets/stickers/christmas.svg");
+  background-image: url("assets/stickers/christmas.png");
 }
 
 .preview-date,
@@ -1136,27 +1115,27 @@ button {
 }
 
 .sticker-choice span {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   flex: 0 0 auto;
   background: center / contain no-repeat;
   filter: drop-shadow(0 2px 3px rgba(151, 63, 112, 0.14));
 }
 
 .sticker-choice.heart span {
-  background-image: url("assets/stickers/heart.svg");
+  background-image: url("assets/stickers/heart.png");
 }
 
 .sticker-choice.star span {
-  background-image: url("assets/stickers/star.svg");
+  background-image: url("assets/stickers/star.png");
 }
 
 .sticker-choice.dog span {
-  background-image: url("assets/stickers/dog.svg");
+  background-image: url("assets/stickers/dog.png");
 }
 
 .sticker-choice.christmas span {
-  background-image: url("assets/stickers/christmas.svg");
+  background-image: url("assets/stickers/christmas.png");
 }
 
 .segmented .active,
@@ -1795,10 +1774,6 @@ button {
   .hero-landscape {
     width: 100%;
     max-height: none;
-  }
-
-  .sample-asset {
-    display: none;
   }
 
   .workspace {
