@@ -254,7 +254,7 @@
             <a class="card-link" href="../tools/seo-content-tools/index.html">Open toolkit</a>
           </article>
 
-          <article class="project-card featured">
+          <article class="project-card featured" data-href="../#projects">
             <figure class="project-shot">
               <img src="../assets/projects/detail-crops/pixroom-color-grading.webp" alt="PixRoom mini program preview" width="573" height="900" loading="lazy" />
               <figcaption>Mini program / PixRoom</figcaption>
@@ -270,9 +270,10 @@
               <div><dt>Solves</dt><dd>Color grading is too hard for casual photos</dd></div>
               <div><dt>Next</dt><dd>More reusable film, clean and retro presets</dd></div>
             </dl>
+            <a class="card-link" href="../#projects">View mini program details</a>
           </article>
 
-          <article class="project-card">
+          <article class="project-card" data-href="../#projects">
             <figure class="project-shot">
               <img src="../assets/projects/detail-crops/motorcycle-garage-material-board.webp" alt="Motorcycle Garage WeChat mini program preview" width="576" height="900" loading="lazy" />
               <figcaption>WeChat mini program / Garage</figcaption>
@@ -288,9 +289,10 @@
               <div><dt>Solves</dt><dd>Bike, maintenance, modification and spending records are scattered</dd></div>
               <div><dt>Focus</dt><dd>Reliable local records first, sync later</dd></div>
             </dl>
+            <a class="card-link" href="../#projects">View mini program details</a>
           </article>
 
-          <article class="project-card" data-category="tool">
+          <article class="project-card" data-category="tool" data-href="https://github.com/llzclm1/laocao-homepage/releases/download/memoris-free-20260623/memoris-mac-free.zip">
             <figure class="project-shot">
               <img src="../assets/projects/detail-crops/memoris-material-board.webp" alt="memories desktop information capture app preview" width="720" height="900" loading="lazy" />
               <figcaption>Desktop app / information capture</figcaption>
@@ -312,7 +314,7 @@
             </div>
           </article>
 
-          <article class="project-card" data-category="game">
+          <article class="project-card" data-category="game" data-href="../game/worldcup/index.html">
             <figure class="project-shot">
               <img src="../assets/projects/office-survivor-cover.webp" alt="Office Survivor WeChat mini game cover" width="405" height="720" loading="lazy" />
               <figcaption>Mini game / Office Survivor</figcaption>
@@ -422,5 +424,21 @@
       <span>© 2026 GEWUJI · Building · Testing · Recording · Sharing</span>
       <a href="#top">Back to top</a>
     </footer>
+    <script>
+      document.querySelectorAll(".project-card[data-href]").forEach((card) => {
+        card.tabIndex = card.tabIndex || 0;
+        card.setAttribute("role", "link");
+        card.addEventListener("click", (event) => {
+          if (event.target.closest("a, button")) return;
+          window.location.href = card.dataset.href;
+        });
+        card.addEventListener("keydown", (event) => {
+          if (event.target.closest("a, button")) return;
+          if (event.key !== "Enter" && event.key !== " ") return;
+          event.preventDefault();
+          window.location.href = card.dataset.href;
+        });
+      });
+    </script>
   </body>
 </html>
