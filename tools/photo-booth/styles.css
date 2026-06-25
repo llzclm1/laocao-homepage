@@ -296,7 +296,7 @@ button {
   text-align: center;
   position: relative;
   z-index: 2;
-  width: min(760px, 100%);
+  width: min(1180px, 100%);
   margin-top: -28px;
 }
 
@@ -345,11 +345,11 @@ button {
 }
 
 .hero h1 {
-  display: flex;
+  display: grid;
+  grid-template-columns: max-content minmax(0, max-content) max-content;
   align-items: center;
   justify-content: center;
-  gap: clamp(10px, 1.4vw, 18px);
-  flex-wrap: wrap;
+  gap: clamp(12px, 1.8vw, 24px);
   margin: 0;
   font-family: var(--font-display);
   font-size: clamp(56px, 8.4vw, 118px);
@@ -405,7 +405,7 @@ button {
 .hero h1 .est,
 .hero h1 .year {
   color: var(--pink-dark);
-  font-size: clamp(24px, 3vw, 40px);
+  font-size: clamp(28px, 3.5vw, 54px);
   font-family: var(--font-display);
   font-weight: 400;
   letter-spacing: 0.02em;
@@ -1859,14 +1859,15 @@ button {
   }
 
   .hero h1 {
-    font-size: 43px;
-    gap: 8px;
+    grid-template-columns: max-content minmax(0, max-content) max-content;
+    font-size: clamp(35px, 10vw, 54px);
+    gap: 6px;
     letter-spacing: 0;
   }
 
   .hero h1 .est,
   .hero h1 .year {
-    font-size: 23px;
+    font-size: clamp(18px, 5.4vw, 25px);
   }
 
   .hero h1 .word {
