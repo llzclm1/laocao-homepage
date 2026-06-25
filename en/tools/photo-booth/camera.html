@@ -34,7 +34,7 @@
       <section class="page-shell">
         <section class="panel camera-panel" id="camera">
           <div class="camera-stage-head">
-            <h1>Open camera, take photo, download</h1>
+            <h1>Open camera, take 4 photos, download</h1>
             <p>Camera access is only used for the current capture. Photos and video are not uploaded by default.</p>
             <p id="selectedTemplateNotice">Template: Birthday</p>
           </div>
@@ -45,10 +45,11 @@
             <img id="photo" alt="Captured photo" hidden />
             <span class="status-dot"></span>
             <span class="status-text" id="cameraStatus">Waiting for camera</span>
-            <span class="camera-counter">0/1</span>
+            <span class="camera-counter">0/4</span>
             <div class="countdown" id="countdown">Go</div>
-            <p id="cameraHint">Open the camera first, then take and download your photo.</p>
+            <p id="cameraHint">Open the camera first, then take 4 photos before downloading the strip.</p>
           </div>
+          <div class="capture-strip" id="captureStrip" aria-label="Captured photo previews"></div>
 
           <div class="camera-actions">
             <button class="primary-button" type="button" id="openCameraButton">Open camera</button>

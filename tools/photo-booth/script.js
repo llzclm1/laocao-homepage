@@ -23,6 +23,7 @@ const cameraStatus = document.querySelector("#cameraStatus");
 const cameraHint = document.querySelector("#cameraHint");
 const cameraPreview = document.querySelector(".camera-preview");
 const selectedTemplateNotice = document.querySelector("#selectedTemplateNotice");
+const captureStrip = document.querySelector("#captureStrip");
 const messageForm = document.querySelector("#messageForm");
 const messages = document.querySelector("#messages");
 const revealTargets = document.querySelectorAll(
@@ -32,6 +33,7 @@ const revealTargets = document.querySelectorAll(
 let stream;
 const templateStorageKey = "photoBoothTemplate";
 let composedPhotoUrl = "";
+let capturedPhotos = [];
 
 closeAnnouncement?.addEventListener("click", () => {
   announcement.hidden = true;
@@ -203,8 +205,11 @@ async function openCamera() {
     cameraPreview?.classList.remove("has-photo", "has-error");
     takePhotoButton.disabled = false;
     downloadButton.disabled = true;
+    composedPhotoUrl = "";
+    capturedPhotos = [];
+    renderCaptureStrip();
     cameraStatus.textContent = "相机已打开";
-    cameraHint.textContent = "视频只在本地预览，不会上传。看向镜头，点一下拍照。";
+    cameraHint.textContent = "视频只在本地预览，不会上传。请连续拍满 4 张后下载照片条。";
     countdown.textContent = "拍";
   } catch {
     cameraPreview?.classList.add("has-error");
@@ -235,17 +240,28 @@ function takePhoto() {
   context.scale(-1, 1);
   context.drawImage(video, 0, 0, width, height);
 
-  composedPhotoUrl = composePhotoStrip(canvas, getSavedTemplateSelection());
-  photo.src = composedPhotoUrl;
-  photo.hidden = false;
-  video.hidden = true;
-  cameraPreview?.classList.add("has-photo");
-  cameraPreview?.classList.remove("is-live", "has-error");
-  downloadButton.disabled = false;
-  followCard.hidden = false;
-  cameraStatus.textContent = "拍好了";
-  cameraHint.textContent = "满意的话就下载；想上墙就带 #贴贴研究所 发到小红书。";
-  countdown.textContent = "✓";
+  capturedPhotos.push({
+    canvas: cloneCanvas(canvas),
+    url: canvas.toDataURL("image/png")
+  });
+  renderCaptureStrip();
+  cameraStatus.textContent = `已拍 ${capturedPhotos.length}/4`;
+  if (capturedPhotos.length >= 4) {
+    composedPhotoUrl = composePhotoStrip(capturedPhotos, getSavedTemplateSelection());
+    photo.src = composedPhotoUrl;
+    photo.hidden = false;
+    video.hidden = true;
+    cameraPreview?.classList.add("has-photo");
+    cameraPreview?.classList.remove("is-live", "has-error");
+    takePhotoButton.disabled = true;
+    downloadButton.disabled = false;
+    followCard.hidden = false;
+    cameraHint.textContent = "4 张已拍完，照片条已生成。满意的话就下载。";
+    countdown.textContent = "✓";
+    return;
+  }
+  cameraHint.textContent = `已保存第 ${capturedPhotos.length} 张，请继续拍第 ${capturedPhotos.length + 1} 张。`;
+  countdown.textContent = `${capturedPhotos.length}/4`;
 }
 
 function downloadPhoto() {
@@ -310,7 +326,24 @@ function getSavedTemplateSelection() {
   }
 }
 
-function composePhotoStrip(sourceCanvas, selection) {
+function renderCaptureStrip() {
+  if (!captureStrip) return;
+  captureStrip.innerHTML = "";
+  for (let index = 0; index < 4; index += 1) {
+    if (capturedPhotos[index]) {
+      const image = document.createElement("img");
+      image.src = capturedPhotos[index].url;
+      image.alt = `第 ${index + 1} 张已拍照片`;
+      captureStrip.append(image);
+    } else {
+      const placeholder = document.createElement("span");
+      placeholder.setAttribute("aria-label", `第 ${index + 1} 张待拍`);
+      captureStrip.append(placeholder);
+    }
+  }
+}
+
+function composePhotoStrip(photoSources, selection) {
   const layoutMap = {
     narrow: { width: 720, height: 1800, columns: 1, rows: 4 },
     classic: { width: 1080, height: 1620, columns: 2, rows: 2 },
@@ -345,7 +378,7 @@ function composePhotoStrip(sourceCanvas, selection) {
     const row = Math.floor(index / config.columns);
     const x = padding + column * (cellWidth + gap);
     const y = topSpace + row * (cellHeight + gap);
-    drawCroppedImage(context, sourceCanvas, x, y, cellWidth, cellHeight, selection.shape === "round" ? 36 : 6);
+    drawCroppedImage(context, photoSources[index]?.canvas || photoSources[0]?.canvas, x, y, cellWidth, cellHeight, selection.shape === "round" ? 36 : 6);
   }
 
   context.fillStyle = colors.accent;
@@ -365,7 +398,16 @@ function composePhotoStrip(sourceCanvas, selection) {
   return output.toDataURL("image/png");
 }
 
+function cloneCanvas(sourceCanvas) {
+  const copy = document.createElement("canvas");
+  copy.width = sourceCanvas.width;
+  copy.height = sourceCanvas.height;
+  copy.getContext("2d").drawImage(sourceCanvas, 0, 0);
+  return copy;
+}
+
 function drawCroppedImage(context, image, x, y, width, height, radius) {
+  if (!image) return;
   const sourceRatio = image.width / image.height;
   const targetRatio = width / height;
   const cropWidth = sourceRatio > targetRatio ? image.height * targetRatio : image.width;

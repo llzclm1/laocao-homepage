@@ -23,10 +23,12 @@ const cameraStatus = document.querySelector("#cameraStatus");
 const cameraHint = document.querySelector("#cameraHint");
 const cameraPreview = document.querySelector(".camera-preview");
 const selectedTemplateNotice = document.querySelector("#selectedTemplateNotice");
+const captureStrip = document.querySelector("#captureStrip");
 
 let stream;
 const templateStorageKey = "photoBoothTemplateEn";
 let composedPhotoUrl = "";
+let capturedPhotos = [];
 
 closeAnnouncement?.addEventListener("click", () => {
   announcement.hidden = true;
@@ -158,8 +160,11 @@ async function openCamera() {
     cameraPreview?.classList.remove("has-photo", "has-error");
     takePhotoButton.disabled = false;
     downloadButton.disabled = true;
+    composedPhotoUrl = "";
+    capturedPhotos = [];
+    renderCaptureStrip();
     cameraStatus.textContent = "Camera is on";
-    cameraHint.textContent = "The video preview stays local. Look at the camera, then take a photo.";
+    cameraHint.textContent = "The video preview stays local. Take 4 photos before downloading the final strip.";
     countdown.textContent = "Go";
   } catch {
     cameraPreview?.classList.add("has-error");
@@ -186,17 +191,28 @@ function takePhoto() {
   context.scale(-1, 1);
   context.drawImage(video, 0, 0, width, height);
 
-  composedPhotoUrl = composePhotoStrip(canvas, getSavedTemplateSelection());
-  photo.src = composedPhotoUrl;
-  photo.hidden = false;
-  video.hidden = true;
-  cameraPreview?.classList.add("has-photo");
-  cameraPreview?.classList.remove("is-live", "has-error");
-  downloadButton.disabled = false;
-  if (followCard) followCard.hidden = false;
-  cameraStatus.textContent = "Photo captured";
-  cameraHint.textContent = "Download it if you like the result, or retake by opening the camera again.";
-  countdown.textContent = "OK";
+  capturedPhotos.push({
+    canvas: cloneCanvas(canvas),
+    url: canvas.toDataURL("image/png")
+  });
+  renderCaptureStrip();
+  cameraStatus.textContent = `Captured ${capturedPhotos.length}/4`;
+  if (capturedPhotos.length >= 4) {
+    composedPhotoUrl = composePhotoStrip(capturedPhotos, getSavedTemplateSelection());
+    photo.src = composedPhotoUrl;
+    photo.hidden = false;
+    video.hidden = true;
+    cameraPreview?.classList.add("has-photo");
+    cameraPreview?.classList.remove("is-live", "has-error");
+    takePhotoButton.disabled = true;
+    downloadButton.disabled = false;
+    if (followCard) followCard.hidden = false;
+    cameraHint.textContent = "All 4 photos are captured. The photo strip is ready to download.";
+    countdown.textContent = "OK";
+    return;
+  }
+  cameraHint.textContent = `Saved photo ${capturedPhotos.length}. Take photo ${capturedPhotos.length + 1} next.`;
+  countdown.textContent = `${capturedPhotos.length}/4`;
 }
 
 function downloadPhoto() {
@@ -261,7 +277,24 @@ function getSavedTemplateSelection() {
   }
 }
 
-function composePhotoStrip(sourceCanvas, selection) {
+function renderCaptureStrip() {
+  if (!captureStrip) return;
+  captureStrip.innerHTML = "";
+  for (let index = 0; index < 4; index += 1) {
+    if (capturedPhotos[index]) {
+      const image = document.createElement("img");
+      image.src = capturedPhotos[index].url;
+      image.alt = `Captured photo ${index + 1}`;
+      captureStrip.append(image);
+    } else {
+      const placeholder = document.createElement("span");
+      placeholder.setAttribute("aria-label", `Photo ${index + 1} pending`);
+      captureStrip.append(placeholder);
+    }
+  }
+}
+
+function composePhotoStrip(photoSources, selection) {
   const layoutMap = {
     narrow: { width: 720, height: 1800, columns: 1, rows: 4 },
     classic: { width: 1080, height: 1620, columns: 2, rows: 2 },
@@ -296,7 +329,7 @@ function composePhotoStrip(sourceCanvas, selection) {
     const row = Math.floor(index / config.columns);
     const x = padding + column * (cellWidth + gap);
     const y = topSpace + row * (cellHeight + gap);
-    drawCroppedImage(context, sourceCanvas, x, y, cellWidth, cellHeight, selection.shape === "round" ? 36 : 6);
+    drawCroppedImage(context, photoSources[index]?.canvas || photoSources[0]?.canvas, x, y, cellWidth, cellHeight, selection.shape === "round" ? 36 : 6);
   }
 
   context.fillStyle = colors.accent;
@@ -316,7 +349,16 @@ function composePhotoStrip(sourceCanvas, selection) {
   return output.toDataURL("image/png");
 }
 
+function cloneCanvas(sourceCanvas) {
+  const copy = document.createElement("canvas");
+  copy.width = sourceCanvas.width;
+  copy.height = sourceCanvas.height;
+  copy.getContext("2d").drawImage(sourceCanvas, 0, 0);
+  return copy;
+}
+
 function drawCroppedImage(context, image, x, y, width, height, radius) {
+  if (!image) return;
   const sourceRatio = image.width / image.height;
   const targetRatio = width / height;
   const cropWidth = sourceRatio > targetRatio ? image.height * targetRatio : image.width;
