@@ -29,6 +29,18 @@ let stream;
 const templateStorageKey = "photoBoothTemplateEn";
 let composedPhotoUrl = "";
 let capturedPhotos = [];
+const templatePresets = {
+  Birthday: { layout: "narrow", color: "pink", shape: "square", sticker: "heart", showLogo: true, showDate: false, showTime: false, logoStyle: "party" },
+  Graduation: { layout: "classic", color: "blue", shape: "square", sticker: "star", showLogo: true, showDate: true, showTime: false, logoStyle: "clean" },
+  Couple: { layout: "narrow", color: "pink", shape: "round", sticker: "heart", showLogo: true, showDate: true, showTime: false, logoStyle: "soft" },
+  Besties: { layout: "narrow", color: "cream", shape: "round", sticker: "star", showLogo: true, showDate: true, showTime: false, logoStyle: "party" },
+  "K-pop": { layout: "large", color: "black", shape: "square", sticker: "star", showLogo: true, showDate: false, showTime: true, logoStyle: "stage" },
+  Y2K: { layout: "narrow", color: "blue", shape: "square", sticker: "star", showLogo: true, showDate: false, showTime: true, logoStyle: "stage" },
+  "Retro Film": { layout: "classic", color: "black", shape: "square", sticker: "heart", showLogo: true, showDate: true, showTime: false, logoStyle: "film" },
+  Christmas: { layout: "classic", color: "cream", shape: "round", sticker: "christmas", showLogo: true, showDate: true, showTime: false, logoStyle: "soft" },
+  Halloween: { layout: "classic", color: "black", shape: "round", sticker: "christmas", showLogo: true, showDate: true, showTime: true, logoStyle: "stage" },
+  Wedding: { layout: "large", color: "cream", shape: "round", sticker: "heart", showLogo: true, showDate: true, showTime: false, logoStyle: "soft" }
+};
 
 closeAnnouncement?.addEventListener("click", () => {
   announcement.hidden = true;
@@ -60,6 +72,7 @@ templateCards.forEach((card) => {
     if (selectedTemplateName) {
       selectedTemplateName.textContent = card.dataset.template || "Selected template";
     }
+    applyTemplatePreset(card.dataset.template);
     saveTemplateSelection();
   });
 });
@@ -133,6 +146,51 @@ function updateSettingsPreview() {
   settingsPreviewTitle.textContent = layout;
   settingsPreviewMeta.textContent = `${colorName} frame · ${shape} · ${sticker} sticker`;
   saveTemplateSelection();
+}
+
+function applyTemplatePreset(template) {
+  const preset = templatePresets[template];
+  if (!preset || !optionPanel) return;
+
+  setActiveOption(0, getLayoutLabel(preset.layout));
+  setActiveSwatch(preset.color);
+  setActiveOption(2, preset.shape === "round" ? "Rounded photos" : "Square photos");
+  setActiveSticker(preset.sticker);
+  setToggle(0, preset.showLogo);
+  setToggle(1, preset.showDate);
+  setToggle(2, preset.showTime);
+  updateSettingsPreview();
+}
+
+function setActiveOption(groupIndex, label) {
+  const group = optionPanel?.querySelectorAll(".option-group")[groupIndex];
+  if (!group) return;
+  group.querySelectorAll("button").forEach((button) => {
+    button.classList.toggle("active", button.textContent.trim() === label);
+  });
+}
+
+function setActiveSwatch(color) {
+  optionPanel?.querySelectorAll(".swatches button").forEach((button) => {
+    button.classList.toggle("active", button.classList.contains(color));
+  });
+}
+
+function setActiveSticker(sticker) {
+  optionPanel?.querySelectorAll(".sticker-row button").forEach((button) => {
+    button.classList.toggle("active", button.classList.contains(sticker));
+  });
+}
+
+function setToggle(index, checked) {
+  const input = optionPanel?.querySelectorAll(".toggle-grid input")[index];
+  if (input) input.checked = Boolean(checked);
+}
+
+function getLayoutLabel(layout) {
+  if (layout === "large") return "Large 8 x 5";
+  if (layout === "classic") return "Classic 6 x 4";
+  return "Narrow 6 x 2";
 }
 
 function getStickerKey(sticker) {
@@ -256,16 +314,18 @@ getSavedTemplateSelection();
 
 function saveTemplateSelection() {
   const selectedCard = document.querySelector(".template-card.selected") || templateCards[0];
+  const preset = templatePresets[selectedCard?.dataset.template] || templatePresets.Birthday;
   const selection = {
     template: selectedCard?.dataset.template || "Birthday",
-    layout: inferLayoutFromTemplate(selectedCard) || settingsPreviewStrip?.dataset.layout || "narrow",
-    color: settingsPreviewStrip?.dataset.color || "pink",
-    shape: settingsPreviewStrip?.dataset.shape || "square",
-    sticker: settingsPreviewSticker?.dataset.sticker || "heart",
+    layout: settingsPreviewStrip?.dataset.layout || preset.layout,
+    color: settingsPreviewStrip?.dataset.color || preset.color,
+    shape: settingsPreviewStrip?.dataset.shape || preset.shape,
+    sticker: settingsPreviewSticker?.dataset.sticker || preset.sticker,
     showLogo: !settingsPreviewLogo?.hidden,
     showDate: !settingsPreviewDate?.hidden,
     showTime: !settingsPreviewTime?.hidden,
     logo: "Sticker Booth",
+    logoStyle: preset.logoStyle,
     locale: "en"
   };
   try {
@@ -273,32 +333,27 @@ function saveTemplateSelection() {
   } catch {}
 }
 
-function inferLayoutFromTemplate(card) {
-  const text = card?.querySelector("small")?.textContent || "";
-  if (text.includes("8 x 5")) return "large";
-  if (text.includes("6 x 4")) return "classic";
-  return "narrow";
-}
-
 function getSavedTemplateSelection() {
   try {
     const saved = JSON.parse(localStorage.getItem(templateStorageKey) || "{}");
+    const preset = templatePresets[saved.template] || templatePresets.Birthday;
     const selection = {
       template: saved.template || "Birthday",
-      layout: saved.layout || "narrow",
-      color: saved.color || "pink",
-      shape: saved.shape || "square",
-      sticker: saved.sticker || "heart",
+      layout: saved.layout || preset.layout,
+      color: saved.color || preset.color,
+      shape: saved.shape || preset.shape,
+      sticker: saved.sticker || preset.sticker,
       showLogo: saved.showLogo !== false,
       showDate: Boolean(saved.showDate),
       showTime: Boolean(saved.showTime),
       logo: saved.logo || "Sticker Booth",
+      logoStyle: saved.logoStyle || preset.logoStyle,
       locale: saved.locale || "en"
     };
     if (selectedTemplateNotice) selectedTemplateNotice.textContent = `Template: ${selection.template}`;
     return selection;
   } catch {
-    return { template: "Birthday", layout: "narrow", color: "pink", shape: "square", sticker: "heart", showLogo: true, showDate: false, showTime: false, logo: "Sticker Booth", locale: "en" };
+    return { template: "Birthday", ...templatePresets.Birthday, logo: "Sticker Booth", locale: "en" };
   }
 }
 
@@ -321,15 +376,15 @@ function renderCaptureStrip() {
 
 function composePhotoStrip(photoSources, selection) {
   const layoutMap = {
-    narrow: { width: 720, height: 1800, columns: 1, rows: 4 },
-    classic: { width: 1080, height: 1620, columns: 2, rows: 2 },
-    large: { width: 1200, height: 1500, columns: 2, rows: 2 }
+    narrow: { width: 720, height: 2160, columns: 1, rows: 4 },
+    classic: { width: 1200, height: 1800, columns: 2, rows: 2 },
+    large: { width: 1500, height: 2400, columns: 2, rows: 2 }
   };
   const palette = {
-    pink: { border: "#df8faf", background: "#fff4f9", accent: "#d74796" },
-    cream: { border: "#fff4df", background: "#fffaf0", accent: "#b7791f" },
-    black: { border: "#29262b", background: "#f7f4f1", accent: "#29262b" },
-    blue: { border: "#9acbff", background: "#f0f7ff", accent: "#2563eb" }
+    pink: { border: "#df8faf", background: "#fff4f9", accent: "#d74796", photoBorder: "rgba(201, 137, 183, 0.42)" },
+    cream: { border: "#fff4df", background: "#fffaf0", accent: "#b7791f", photoBorder: "rgba(183, 121, 31, 0.32)" },
+    black: { border: "#29262b", background: "#f7f4f1", accent: "#29262b", photoBorder: "rgba(41, 38, 43, 0.34)" },
+    blue: { border: "#9acbff", background: "#f0f7ff", accent: "#2563eb", photoBorder: "rgba(37, 99, 235, 0.3)" }
   };
   const config = layoutMap[selection.layout] || layoutMap.narrow;
   const colors = palette[selection.color] || palette.pink;
@@ -339,6 +394,7 @@ function composePhotoStrip(photoSources, selection) {
   const context = output.getContext("2d");
   context.fillStyle = colors.background;
   context.fillRect(0, 0, output.width, output.height);
+  drawTemplatePattern(context, output, selection, colors);
   context.lineWidth = Math.max(18, Math.round(output.width * 0.035));
   context.strokeStyle = colors.border;
   context.strokeRect(context.lineWidth / 2, context.lineWidth / 2, output.width - context.lineWidth, output.height - context.lineWidth);
@@ -354,13 +410,18 @@ function composePhotoStrip(photoSources, selection) {
     const row = Math.floor(index / config.columns);
     const x = padding + column * (cellWidth + gap);
     const y = topSpace + row * (cellHeight + gap);
-    drawCroppedImage(context, photoSources[index]?.canvas || photoSources[0]?.canvas, x, y, cellWidth, cellHeight, selection.shape === "round" ? 36 : 6);
+    const radius = selection.shape === "round" ? Math.round(Math.min(cellWidth, cellHeight) * 0.12) : 6;
+    drawCroppedImage(context, photoSources[index]?.canvas || photoSources[0]?.canvas, x, y, cellWidth, cellHeight, radius);
+    context.lineWidth = Math.max(4, Math.round(output.width * 0.006));
+    context.strokeStyle = colors.photoBorder;
+    roundedRect(context, x, y, cellWidth, cellHeight, radius);
+    context.stroke();
   }
 
   context.fillStyle = colors.accent;
   context.textAlign = "left";
   if (selection.showLogo) {
-    context.font = "700 42px sans-serif";
+    context.font = getLogoFont(selection.logoStyle, output.width);
     context.fillText(selection.logo, padding, 64);
   }
   context.font = "600 26px sans-serif";
@@ -370,8 +431,33 @@ function composePhotoStrip(photoSources, selection) {
     selection.showTime ? formatPreviewTime(now) : ""
   ].filter(Boolean).join(" ");
   if (stamp) context.fillText(stamp, padding, output.height - 48);
-  drawSticker(context, selection.sticker, output.width - padding - 82, output.height - 116, 72, colors.accent);
+  drawSticker(context, selection.sticker, output.width - padding - 92, output.height - 126, 82, colors.accent);
   return output.toDataURL("image/png");
+}
+
+function drawTemplatePattern(context, output, selection, colors) {
+  context.save();
+  context.globalAlpha = 0.22;
+  context.fillStyle = colors.accent;
+  const step = selection.layout === "narrow" ? 42 : 58;
+  for (let x = -output.height; x < output.width; x += step) {
+    context.fillRect(x, 0, 8, output.height);
+  }
+  context.globalAlpha = selection.logoStyle === "stage" ? 0.18 : 0.1;
+  for (let index = 0; index < 18; index += 1) {
+    const x = (index * 137) % output.width;
+    const y = (index * 211) % output.height;
+    drawSticker(context, selection.sticker, x, y, 34, colors.accent);
+  }
+  context.restore();
+}
+
+function getLogoFont(style, width) {
+  const size = Math.round(width * 0.058);
+  if (style === "stage") return `900 ${size}px "Bagel Fat One", "DynaPuff", sans-serif`;
+  if (style === "film") return `700 ${size}px "Avenir Next", "SF Pro Text", sans-serif`;
+  if (style === "soft") return `800 ${size}px "DynaPuff", "Bagel Fat One", sans-serif`;
+  return `900 ${size}px "Bagel Fat One", "DynaPuff", sans-serif`;
 }
 
 function cloneCanvas(sourceCanvas) {
