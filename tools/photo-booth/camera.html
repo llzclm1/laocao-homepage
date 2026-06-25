@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="打开相机，拍照，下载大头贴照片。" />
+    <title>拍照 | 贴贴研究所</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="announcement" id="announcement">
+      <span>摄像头授权只用于本次拍摄，默认不上传照片和视频</span>
+      <button type="button" id="closeAnnouncement" aria-label="关闭公告">×</button>
+    </div>
+
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="格物-贴贴研究所首页">
+        <span class="brand-mark">研</span>
+        <span>格物-贴贴研究所</span>
+      </a>
+      <nav class="nav-links" aria-label="主导航">
+        <a href="index.html">首页</a>
+        <a href="layout.html">模板</a>
+        <a class="active" href="camera.html">拍照</a>
+        <a href="spotlight.html">闪耀明星</a>
+        <a href="privacy.html">隐私</a>
+      </nav>
+      <a class="ghost-button" href="layout.html">换模板</a>
+    </header>
+
+    <main>
+      <section class="page-shell">
+        <section class="panel camera-panel" id="camera">
+          <div class="camera-stage-head">
+            <h1>打开相机，拍照，下载</h1>
+            <p>摄像头权限只用于本次拍摄，照片和视频默认不上传。</p>
+          </div>
+
+          <div class="camera-preview">
+            <video id="video" autoplay playsinline muted hidden></video>
+            <canvas id="canvas" hidden></canvas>
+            <img id="photo" alt="拍好的照片" hidden />
+            <span class="status-dot"></span>
+            <span class="status-text" id="cameraStatus">等待打开相机</span>
+            <span class="camera-counter">0/1</span>
+            <div class="countdown" id="countdown">拍</div>
+            <p id="cameraHint">先打开相机，然后拍照下载。</p>
+          </div>
+
+          <div class="camera-actions">
+            <button class="primary-button" type="button" id="openCameraButton">打开相机</button>
+            <button class="download-button" type="button" id="takePhotoButton" disabled>拍照</button>
+            <button class="download-button" type="button" id="downloadButton" disabled>下载</button>
+          </div>
+
+          <div class="follow-card" id="followCard" hidden>
+            <div>
+              <strong>喜欢这张照片？</strong>
+              <p>保存后关注小红书 @贴贴研究所，带 #贴贴研究所 投稿，有机会登上每周闪耀明星。</p>
+            </div>
+            <a href="https://www.xiaohongshu.com/" target="_blank" rel="noreferrer">关注小红书</a>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

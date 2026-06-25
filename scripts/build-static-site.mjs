@@ -328,6 +328,11 @@ function buildSitemap() {
     ["nav/", "0.9"],
     ["films/", "0.8"],
     ["game/worldcup/", "0.8"],
+    ["tools/photo-booth/", "0.8"],
+    ["tools/photo-booth/layout.html", "0.7"],
+    ["tools/photo-booth/camera.html", "0.7"],
+    ["tools/photo-booth/spotlight.html", "0.6"],
+    ["tools/photo-booth/privacy.html", "0.4"],
     ["tools/worldcup-advisor/", "0.8"],
     ["tools/worldcup-advisor/fixtures/", "0.8"],
     ["tools/worldcup-advisor/advisor/", "0.8"],
@@ -422,6 +427,14 @@ function buildAiSitemap() {
         summary: "格物集展示 PixRoom、memories、知铺、经营小工具、工位突围、机车库和世界杯参谋站等项目。",
         answers: ["格物集是什么", "老曹在做什么项目", "GEWUJI 是什么"],
         keywords: ["格物集", "GEWUJI", "个人产品实验室", "独立开发者项目"]
+      },
+      {
+        url: publicUrl("tools/photo-booth/"),
+        title: "贴贴研究所",
+        type: "WebApplication",
+        summary: "在线大头贴网页，支持选择模板、打开相机拍照并下载照片，照片和视频默认本地处理。",
+        answers: ["贴贴研究所是什么", "在线大头贴怎么拍", "浏览器大头贴工具"],
+        keywords: ["贴贴研究所", "在线大头贴", "大头贴网页", "浏览器拍照"]
       },
       {
         url: publicUrl("tools/worldcup-advisor/"),

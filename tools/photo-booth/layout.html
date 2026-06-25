@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="选择大头贴照片条布局、模板、滤镜和照片条设置。" />
+    <title>选择模板 | 贴贴研究所</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="announcement" id="announcement">
+      <span>选好模板后去拍照，保存作品再带 #贴贴研究所 投稿</span>
+      <button type="button" id="closeAnnouncement" aria-label="关闭公告">×</button>
+    </div>
+
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="格物-贴贴研究所首页">
+        <span class="brand-mark">研</span>
+        <span>格物-贴贴研究所</span>
+      </a>
+      <nav class="nav-links" aria-label="主导航">
+        <a href="index.html">首页</a>
+        <a class="active" href="layout.html">模板</a>
+        <a href="camera.html">拍照</a>
+        <a href="spotlight.html">闪耀明星</a>
+        <a href="privacy.html">隐私</a>
+      </nav>
+      <a class="ghost-button" href="camera.html">开始拍照</a>
+    </header>
+
+    <main>
+      <section class="page-shell">
+        <section class="panel template-panel" id="templates">
+          <div class="section-heading">
+            <div>
+              <h1>选一张贴贴皮肤</h1>
+              <p>先选尺寸和模板，其他细节可以之后再调。</p>
+            </div>
+          </div>
+
+          <div class="template-tabs" aria-label="模板分类">
+            <button class="active" type="button" data-filter="all">热门</button>
+            <button type="button" data-filter="season">节日</button>
+            <button type="button" data-filter="relationship">关系</button>
+            <button type="button" data-filter="style">风格</button>
+          </div>
+
+          <div class="template-grid">
+            <button class="template-card selected" type="button" data-template="生日模板" data-count="4" data-category="all">
+              <span class="check">✓</span>
+              <span class="recommend-label">本周热门</span>
+              <span class="template-badge">生日</span>
+              <div class="mini-strip birthday" aria-hidden="true"></div>
+              <strong>生日模板</strong>
+              <small>窄版 6 × 2 / 4 张</small>
+              <em>蛋糕、蜡烛、派对感</em>
+            </button>
+
+            <button class="template-card" type="button" data-template="毕业模板" data-count="4" data-category="all">
+              <span class="template-badge">毕业</span>
+              <div class="mini-strip graduation" aria-hidden="true"></div>
+              <strong>毕业模板</strong>
+              <small>经典 6 × 4 / 4 张</small>
+              <em>学士帽、蓝白纪念</em>
+            </button>
+
+            <button class="template-card" type="button" data-template="情侣模板" data-count="4" data-category="relationship">
+              <span class="template-badge">情侣</span>
+              <div class="mini-strip couple" aria-hidden="true"></div>
+              <strong>情侣模板</strong>
+              <small>窄版 6 × 2 / 4 张</small>
+              <em>爱心、双人约会感</em>
+            </button>
+
+            <button class="template-card" type="button" data-template="闺蜜模板" data-count="4" data-category="relationship">
+              <span class="template-badge">闺蜜</span>
+              <div class="mini-strip bestie" aria-hidden="true"></div>
+              <strong>闺蜜模板</strong>
+              <small>窄版 6 × 2 / 4 张</small>
+              <em>贴纸、甜酷合照</em>
+            </button>
+
+            <button class="template-card" type="button" data-template="K-pop 模板" data-count="4" data-category="style">
+              <span class="template-badge">韩流</span>
+              <div class="mini-strip kpop" aria-hidden="true"></div>
+              <strong>K-pop 模板</strong>
+              <small>大尺寸 8 × 5 / 4 张</small>
+              <em>舞台光、应援氛围</em>
+            </button>
+
+            <button class="template-card" type="button" data-template="Y2K 模板" data-count="4" data-category="style">
+              <span class="template-badge">千禧</span>
+              <div class="mini-strip y2k" aria-hidden="true"></div>
+              <strong>Y2K 模板</strong>
+              <small>窄版 6 × 2 / 4 张</small>
+              <em>金属感、闪粉未来</em>
+            </button>
+
+            <button class="template-card" type="button" data-template="复古胶片模板" data-count="4" data-category="style">
+              <span class="template-badge">胶片</span>
+              <div class="mini-strip film" aria-hidden="true"></div>
+              <strong>复古胶片模板</strong>
+              <small>经典 6 × 4 / 4 张</small>
+              <em>暗角、颗粒、胶片边</em>
+            </button>
+
+            <button class="template-card" type="button" data-template="圣诞模板" data-count="4" data-category="season">
+              <span class="template-badge">圣诞</span>
+              <div class="mini-strip christmas" aria-hidden="true"></div>
+              <strong>圣诞模板</strong>
+              <small>经典 6 × 4 / 4 张</small>
+              <em>红绿、雪点、节日卡</em>
+            </button>
+
+            <button class="template-card" type="button" data-template="万圣节模板" data-count="4" data-category="season">
+              <span class="template-badge">万圣节</span>
+              <div class="mini-strip halloween" aria-hidden="true"></div>
+              <strong>万圣节模板</strong>
+              <small>经典 6 × 4 / 4 张</small>
+              <em>南瓜橙、暗紫鬼马</em>
+            </button>
+
+            <button class="template-card" type="button" data-template="婚礼模板" data-count="4" data-category="relationship">
+              <span class="template-badge">婚礼</span>
+              <div class="mini-strip wedding" aria-hidden="true"></div>
+              <strong>婚礼模板</strong>
+              <small>大尺寸 8 × 5 / 4 张</small>
+              <em>珍珠白、花束誓言</em>
+            </button>
+          </div>
+
+          <details class="option-drawer">
+            <summary>更多设置</summary>
+            <div class="option-panel" aria-label="照片条设置">
+              <div class="settings-preview" aria-label="实时预览">
+                <div class="settings-preview-card">
+                  <div class="preview-strip" id="settingsPreviewStrip" data-layout="narrow" data-color="pink" data-shape="square">
+                    <span class="preview-logo" id="settingsPreviewLogo">贴贴研究所</span>
+                    <span class="preview-photo"></span>
+                    <span class="preview-photo"></span>
+                    <span class="preview-photo"></span>
+                    <span class="preview-photo"></span>
+                    <span class="preview-sticker" id="settingsPreviewSticker" aria-label="爱心贴纸"></span>
+                    <span class="preview-date" id="settingsPreviewDate" hidden></span>
+                    <span class="preview-time" id="settingsPreviewTime" hidden></span>
+                  </div>
+                </div>
+                <div>
+                  <strong id="settingsPreviewTitle">窄版 6 × 2</strong>
+                  <span id="settingsPreviewMeta">粉色边框 · 直角照片 · 爱心贴纸</span>
+                </div>
+              </div>
+
+              <div class="option-group">
+                <h3>照片条尺寸</h3>
+                <div class="segmented">
+                  <button class="active" type="button">窄版 6 × 2</button>
+                  <button type="button">经典 6 × 4</button>
+                  <button type="button">大尺寸 8 × 5</button>
+                </div>
+              </div>
+
+              <div class="option-group">
+                <h3>边框颜色</h3>
+                <div class="swatches">
+                  <button class="swatch pink active" type="button" aria-label="粉色"></button>
+                  <button class="swatch cream" type="button" aria-label="奶油色"></button>
+                  <button class="swatch black" type="button" aria-label="黑色"></button>
+                  <button class="swatch blue" type="button" aria-label="蓝色"></button>
+                </div>
+              </div>
+
+              <div class="option-group">
+                <h3>照片形状</h3>
+                <div class="segmented">
+                  <button class="active" type="button">直角照片</button>
+                  <button type="button">圆角照片</button>
+                </div>
+              </div>
+
+              <div class="option-group">
+                <h3>贴纸装饰</h3>
+                <div class="sticker-row">
+                  <button class="sticker-choice heart active" type="button"><span aria-hidden="true"></span>爱心</button>
+                  <button class="sticker-choice star" type="button"><span aria-hidden="true"></span>星星</button>
+                  <button class="sticker-choice dog" type="button"><span aria-hidden="true"></span>小狗</button>
+                  <button class="sticker-choice christmas" type="button"><span aria-hidden="true"></span>圣诞</button>
+                </div>
+              </div>
+
+              <div class="toggle-grid">
+                <label><input type="checkbox" checked /> 中文 Logo</label>
+                <label><input type="checkbox" /> 添加日期</label>
+                <label><input type="checkbox" /> 添加时间</label>
+              </div>
+
+              <div class="export-actions">
+                <button type="button">打印</button>
+                <button type="button">分享</button>
+                <button type="button">下载动图</button>
+              </div>
+            </div>
+          </details>
+
+          <div class="page-actions">
+            <a class="primary-button" href="camera.html">去拍照</a>
+          </div>
+        </section>
+      </section>
+
+      <div class="sticky-template-cta" aria-label="已选模板">
+        <span>已选：<strong id="selectedTemplateName">生日模板</strong></span>
+        <a href="camera.html">去拍照</a>
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -115,7 +115,7 @@
           "@id": "https://gewuji.dev/#person",
           "name": "老曹",
           "email": "25132283@qq.com",
-          "description": "关注 AI 工具、个人效率工作流、小游戏和垂直产品的独立创造者，持续构建 PixRoom、memories、知铺、工位突围和机车库。",
+          "description": "关注 AI 工具、个人效率工作流、小游戏和垂直产品的独立创造者，持续构建 PixRoom、贴贴研究所、memories、知铺、工位突围和机车库。",
           "knowsAbout": [
             "AI 工具",
             "个人效率工作流",
@@ -146,7 +146,7 @@
             "name": "现在有哪些可以直接打开的项目？",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "当前可以直接打开世界杯参谋站、知铺、经营小工具、PixRoom 小程序、机车库小程序和 memories 免费版下载入口；部分项目仍处于测试或持续迭代阶段。"
+              "text": "当前可以直接打开世界杯参谋站、贴贴研究所、知铺、经营小工具、PixRoom 小程序、机车库小程序和 memories 免费版下载入口；部分项目仍处于测试或持续迭代阶段。"
             }
           },
           {
@@ -200,30 +200,36 @@
           {
             "@type": "ListItem",
             "position": 2,
+            "name": "贴贴研究所",
+            "url": "https://gewuji.dev/tools/photo-booth/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
             "name": "PixRoom",
             "url": "https://gewuji.dev/#projects"
           },
           {
             "@type": "ListItem",
-            "position": 3,
+            "position": 4,
             "name": "机车库",
             "url": "https://gewuji.dev/#projects"
           },
           {
             "@type": "ListItem",
-            "position": 4,
+            "position": 5,
             "name": "memories",
             "url": "https://gewuji.dev/#projects"
           },
           {
             "@type": "ListItem",
-            "position": 5,
+            "position": 6,
             "name": "经营小工具",
             "url": "https://gewuji.dev/tools/seo-content-tools/"
           },
           {
             "@type": "ListItem",
-            "position": 6,
+            "position": 7,
             "name": "工位突围",
             "url": "https://gewuji.dev/#projects"
           }
@@ -295,7 +301,7 @@
         </div>
         <div class="hero-metrics" aria-label="项目概览">
           <div>
-            <strong>6</strong>
+            <strong>8</strong>
             <span>个项目</span>
           </div>
           <div>
@@ -340,10 +346,36 @@
           <button class="filter-button" type="button" data-filter="game" aria-pressed="false">游戏</button>
           <button class="filter-button" type="button" data-filter="app" aria-pressed="false">App</button>
           <button class="filter-button" type="button" data-filter="personal" aria-pressed="false">个人</button>
-          <span class="filter-result" aria-live="polite">显示 7 个项目</span>
+          <span class="filter-result" aria-live="polite">显示 8 个项目</span>
         </div>
 
         <div class="project-grid">
+          <article class="project-card" data-category="tool" data-href="tools/photo-booth/">
+            <figure class="project-shot">
+              <img src="tools/photo-booth/assets/template-preview-sheet.png" alt="贴贴研究所在线大头贴模板预览" width="2400" height="1800" loading="lazy" />
+              <figcaption>在线大头贴 / 拍照下载</figcaption>
+            </figure>
+            <div class="card-topline">
+              <span class="status status-live">网页已上线</span>
+              <span class="type">工具 / 拍照 / 大头贴</span>
+            </div>
+            <h3>贴贴研究所</h3>
+            <p>
+              在线大头贴网页，支持选择模板、打开相机拍照并下载照片，默认本地处理，不上传照片和视频。
+            </p>
+            <dl class="project-case">
+              <div><dt>定位</dt><dd>浏览器里的轻量大头贴工具</dd></div>
+              <div><dt>解决</dt><dd>想快速拍一组可分享的大头贴</dd></div>
+              <div><dt>入口</dt><dd>模板、拍照、下载和作品展示</dd></div>
+            </dl>
+            <ul class="project-points">
+              <li>提供模板页、相机页、闪耀明星和隐私说明。</li>
+              <li>摄像头权限只用于本次拍摄，照片默认留在本地。</li>
+              <li>适合活动页、社交分享和轻量拍照体验。</li>
+            </ul>
+            <a class="card-link" href="tools/photo-booth/">打开大头贴</a>
+          </article>
+
           <article class="project-card" data-category="tool game" data-href="tools/worldcup-advisor/">
             <figure class="project-shot worldcup-advisor-cover">
               <picture>
@@ -551,14 +583,14 @@
 
         <div class="update-grid">
           <article class="update-card highlighted">
+            <span>06.25</span>
+            <h3>贴贴研究所上线主页</h3>
+            <p>在线大头贴网页已接入格物集，提供模板选择、相机拍照、照片下载和隐私说明。</p>
+          </article>
+          <article class="update-card">
             <span>06.23</span>
             <h3>memories 免费版开放下载</h3>
             <p>memories 已上传 Mac 免费版和 Windows 免费版压缩包，首页项目卡片提供对应下载入口。</p>
-          </article>
-          <article class="update-card">
-            <span>06.21</span>
-            <h3>机车库改为小程序方向</h3>
-            <p>机车库首页内容更新为微信小程序形态，聚焦车辆资料、保养提醒、改装记录和费用账本。</p>
           </article>
         </div>
       </section>
@@ -604,7 +636,7 @@
           </details>
           <details>
             <summary>现在有哪些可以直接打开的项目？</summary>
-            <p>当前可以直接打开世界杯参谋站、知铺、经营小工具、PixRoom 小程序、机车库小程序和 memories 免费版下载入口；部分项目仍处于测试或持续迭代阶段。</p>
+            <p>当前可以直接打开世界杯参谋站、贴贴研究所、知铺、经营小工具、PixRoom 小程序、机车库小程序和 memories 免费版下载入口；部分项目仍处于测试或持续迭代阶段。</p>
           </details>
           <details>
             <summary>世界杯参谋站提供什么？</summary>

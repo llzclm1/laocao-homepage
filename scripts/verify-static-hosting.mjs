@@ -10,6 +10,8 @@ const githubPagesHostSuffix = ["github", "io"].join(".");
 assert.ok(fs.existsSync(path.join(dist, "index.html")), "dist/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "nav", "index.html")), "dist/nav/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "game", "worldcup", "index.html")), "dist/game/worldcup/index.html is missing");
+assert.ok(fs.existsSync(path.join(dist, "tools", "photo-booth", "index.html")), "dist/tools/photo-booth/index.html is missing");
+assert.ok(fs.existsSync(path.join(dist, "tools", "photo-booth", "camera.html")), "dist/tools/photo-booth/camera.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "tools", "content-assistant", "index.html")), "dist/tools/content-assistant/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "tools", "content-assistant", "admin", "index.html")), "dist/tools/content-assistant/admin/index.html is missing");
 assert.equal(fs.readFileSync(path.join(dist, "CNAME"), "utf8").trim(), "gewuji.dev", "dist/CNAME should keep the custom domain");
@@ -32,6 +34,7 @@ for (const file of textFiles) {
 const home = fs.readFileSync(path.join(dist, "index.html"), "utf8");
 assert.ok(home.includes('href="game/worldcup/index.html"'), "homepage should link to the worldcup index with a relative URL");
 assert.ok(home.includes('href="nav/"'), "homepage should link to the utility navigation page");
+assert.ok(home.includes('href="tools/photo-booth/"'), "homepage should link to the photo booth page");
 assert.ok(home.includes('href="ai-sitemap.json"'), "homepage should expose the AI sitemap");
 assert.equal(home.includes('id="guide"'), false, "homepage should not embed the utility navigation section");
 assert.ok(home.includes("工位突围：世界杯摸鱼版"), "homepage should include the world cup event banner");
@@ -102,6 +105,7 @@ for (const file of requiredAssets) {
 
 const sitemap = fs.readFileSync(path.join(dist, "sitemap.xml"), "utf8");
 assert.ok(sitemap.includes("/game/worldcup/"), "sitemap should include /game/worldcup/");
+assert.ok(sitemap.includes("/tools/photo-booth/"), "sitemap should include /tools/photo-booth/");
 assert.ok(sitemap.includes("/nav/"), "sitemap should include /nav/");
 assert.ok(sitemap.includes("/ai-sitemap.json"), "sitemap should include /ai-sitemap.json");
 assert.ok(sitemap.includes("/tools/content-assistant/"), "sitemap should include /tools/content-assistant/");
@@ -109,6 +113,7 @@ assert.ok(sitemap.includes("/tools/content-assistant/admin/"), "sitemap should i
 
 const llms = fs.readFileSync(path.join(dist, "llms.txt"), "utf8");
 assert.ok(llms.includes("https://gewuji.dev/ai-sitemap.json"), "llms.txt should link to the AI sitemap");
+assert.ok(llms.includes("贴贴研究所"), "llms.txt should include the photo booth project");
 assert.ok(llms.includes("世界杯盘口情绪"), "llms.txt should include worldcup market sentiment keywords");
 assert.ok(llms.includes("基准、保守、开放三种比分情景"), "llms.txt should explain worldcup score scenarios");
 
@@ -118,6 +123,7 @@ assert.equal(robots.includes("LLMs:"), false, "robots should not include non-sta
 
 const aiSitemap = JSON.parse(fs.readFileSync(path.join(dist, "ai-sitemap.json"), "utf8"));
 assert.equal(aiSitemap.site.name, "格物集", "AI sitemap should describe the site");
+assert.ok(aiSitemap.pages.some((page) => page.url === "https://gewuji.dev/tools/photo-booth/"), "AI sitemap should include the photo booth page");
 assert.ok(aiSitemap.pages.some((page) => page.url === "https://gewuji.dev/tools/worldcup-advisor/advisor/"), "AI sitemap should include the worldcup advisor page");
 assert.ok(JSON.stringify(aiSitemap).includes("不构成投注建议"), "AI sitemap should include the worldcup safety boundary");
 

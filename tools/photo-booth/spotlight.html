@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="留言上墙、小红书投稿和每周闪耀明星。" />
+    <title>闪耀明星 | 贴贴研究所</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="announcement" id="announcement">
+      <span>带 #贴贴研究所 发布作品，留言写下照片故事</span>
+      <button type="button" id="closeAnnouncement" aria-label="关闭公告">×</button>
+    </div>
+
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="格物-贴贴研究所首页">
+        <span class="brand-mark">研</span>
+        <span>格物-贴贴研究所</span>
+      </a>
+      <nav class="nav-links" aria-label="主导航">
+        <a href="index.html">首页</a>
+        <a href="layout.html">模板</a>
+        <a href="camera.html">拍照</a>
+        <a class="active" href="spotlight.html">闪耀明星</a>
+        <a href="privacy.html">隐私</a>
+      </nav>
+      <a class="ghost-button" href="camera.html">先拍一张</a>
+    </header>
+
+    <main>
+      <section class="community page-section" id="spotlight">
+        <div class="section-heading community-heading">
+          <div>
+            <h1>留言上墙 / 社媒投稿 / 每周闪耀明星</h1>
+            <p>拍完不只是下载，留下今天的心情，也把作品发到社媒参与每周精选。</p>
+          </div>
+          <a class="small-button" href="#messageForm">我要留言</a>
+        </div>
+
+        <div class="community-grid">
+          <article class="spotlight-card">
+            <span class="label">本周闪耀明星</span>
+            <div class="spotlight-gallery" aria-label="本周精选照片">
+              <figure>
+                <img src="assets/spotlight/friends.png" alt="三位朋友的粉色大头贴投稿示例" />
+                <figcaption>@小夏同学</figcaption>
+              </figure>
+              <figure>
+                <img src="assets/spotlight/couple.png" alt="情侣粉色大头贴投稿示例" />
+                <figcaption>@桃桃汽水</figcaption>
+              </figure>
+            </div>
+            <h3>@小夏同学</h3>
+            <p>“和朋友下课后拍的，像把这周的小确幸存进相册。”</p>
+            <strong>获得 2,486 次喜欢</strong>
+          </article>
+
+          <article class="social-card">
+            <h3>小红书投稿</h3>
+            <ol>
+              <li>打开相机，拍照并下载。</li>
+              <li>发布到小红书并带上 #贴贴研究所。</li>
+              <li>关注 @贴贴研究所，留言区写下你的照片故事。</li>
+            </ol>
+            <div class="social-tags" aria-label="社媒话题">
+              <span>小红书 @贴贴研究所</span>
+              <span>#贴贴研究所</span>
+              <span>#本周闪耀明星</span>
+            </div>
+          </article>
+
+          <article class="message-wall">
+            <h3>留言墙</h3>
+            <div class="messages" id="messages">
+              <p><strong>阿宁：</strong>今天的四连拍太适合发朋友圈了！</p>
+              <p><strong>Momo：</strong>想要更多毕业季模板～</p>
+              <p><strong>橘子汽水：</strong>小狗滤镜请永久保留。</p>
+            </div>
+            <form class="message-form" id="messageForm">
+              <label for="nickname">昵称</label>
+              <input id="nickname" name="nickname" maxlength="12" placeholder="你的昵称" required />
+              <label for="message">留言</label>
+              <textarea id="message" name="message" maxlength="48" placeholder="留一句想上墙的话" required></textarea>
+              <button class="primary-button" type="submit">发布留言</button>
+            </form>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

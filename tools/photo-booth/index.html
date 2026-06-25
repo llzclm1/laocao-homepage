@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="在线拍大头贴，打开相机，拍照，下载照片。" />
+    <title>贴贴研究所 | 在线大头贴</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="announcement" id="announcement">
+      <span>本周闪耀明星征集中，带话题发布作品就有机会登上首页</span>
+      <button type="button" id="closeAnnouncement" aria-label="关闭公告">×</button>
+    </div>
+
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="格物-贴贴研究所首页">
+        <span class="brand-mark">研</span>
+        <span>格物-贴贴研究所</span>
+      </a>
+      <nav class="nav-links" aria-label="主导航">
+        <a class="active" href="index.html">首页</a>
+        <a href="layout.html">模板</a>
+        <a href="camera.html">拍照</a>
+        <a href="spotlight.html">闪耀明星</a>
+        <a href="privacy.html">隐私</a>
+      </nav>
+      <a class="ghost-button" href="layout.html">START</a>
+    </header>
+
+    <main id="home">
+      <section class="hero home-hero">
+        <img class="hero-landscape" src="assets/fairy-landscape.png" alt="" aria-hidden="true" />
+
+        <div class="hero-copy">
+          <img class="hero-stickers" src="assets/hero-heart-wings.png" alt="" aria-hidden="true" />
+          <h1>
+            <span class="sr-only">贴贴研究所</span>
+            <span class="est" aria-hidden="true">EST</span>
+            <span class="word" aria-hidden="true">
+              <span class="word-stroke word-stroke-outer" aria-hidden="true">贴贴研究所</span>
+              <span class="word-stroke word-stroke-inner" aria-hidden="true">贴贴研究所</span>
+              <span class="word-fill" aria-hidden="true">贴贴研究所</span>
+            </span>
+            <span class="year" aria-hidden="true">2026</span>
+          </h1>
+          <p>来拍一组甜甜发光的贴贴吧</p>
+          <a class="primary-button" href="layout.html">START</a>
+          <small>打开相机，拍照，下载照片。默认本地处理，不上传照片和视频。</small>
+        </div>
+
+        <img class="sample-asset sample-left" src="assets/photobooth-samples.png" alt="" />
+        <img class="sample-asset sample-right" src="assets/photobooth-samples.png" alt="" />
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
