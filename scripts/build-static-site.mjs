@@ -328,6 +328,8 @@ function buildSitemap() {
     ["", "1.0"],
     ["en/", "0.9"],
     ["en/tools/photo-booth/", "0.8"],
+    ["en/tools/photo-booth/layout.html", "0.7"],
+    ["en/tools/photo-booth/camera.html", "0.7"],
     ["en/game/worldcup/", "0.8"],
     ["nav/", "0.9"],
     ["films/", "0.8"],
@@ -447,6 +449,22 @@ function buildAiSitemap() {
         summary: "English landing page for Sticker Booth Lab, an online photo booth that lets users choose a template, open the camera and download a photo strip.",
         answers: ["online photo booth", "Sticker Booth Lab", "browser photo booth"],
         keywords: ["online photo booth", "photo strip", "browser camera", "Sticker Booth Lab"]
+      },
+      {
+        url: publicUrl("en/tools/photo-booth/layout.html"),
+        title: "Choose template｜Sticker Booth Lab",
+        type: "WebPage",
+        summary: "English template selection page for Sticker Booth Lab, covering photo strip size, frame color, sticker and preview settings.",
+        answers: ["photo booth template", "choose photo strip template", "Sticker Booth Lab templates"],
+        keywords: ["photo booth template", "photo strip template", "Sticker Booth Lab"]
+      },
+      {
+        url: publicUrl("en/tools/photo-booth/camera.html"),
+        title: "Camera｜Sticker Booth Lab",
+        type: "WebPage",
+        summary: "English camera page for Sticker Booth Lab. Users can open the camera, capture a photo and download it locally.",
+        answers: ["browser camera photo booth", "take photo online", "download photo strip"],
+        keywords: ["browser camera", "online photo booth", "download photo"]
       },
       {
         url: publicUrl("en/game/worldcup/"),

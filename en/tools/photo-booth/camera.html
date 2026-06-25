@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Open the camera, take a photo and download it in Sticker Booth Lab. Camera access is only used for this capture." />
+    <link rel="canonical" href="https://gewuji.dev/en/tools/photo-booth/camera.html" />
+    <link rel="alternate" hreflang="zh-CN" href="https://gewuji.dev/tools/photo-booth/camera.html" />
+    <link rel="alternate" hreflang="en" href="https://gewuji.dev/en/tools/photo-booth/camera.html" />
+    <title>Camera｜Sticker Booth Lab</title>
+    <link rel="stylesheet" href="../../../tools/photo-booth/styles.css" />
+  </head>
+  <body>
+    <div class="announcement" id="announcement">
+      <span>Camera permission is only used for this capture. Photos and video stay local by default.</span>
+      <button type="button" id="closeAnnouncement" aria-label="Close announcement">x</button>
+    </div>
+
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Sticker Booth Lab home">
+        <span class="brand-mark">S</span>
+        <span>Sticker Booth Lab</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="layout.html">Templates</a>
+        <a class="active" href="camera.html">Camera</a>
+        <a href="../../../tools/photo-booth/camera.html" hreflang="zh-CN" lang="zh-CN">中文</a>
+      </nav>
+      <a class="ghost-button" href="layout.html">Change template</a>
+    </header>
+
+    <main>
+      <section class="page-shell">
+        <section class="panel camera-panel" id="camera">
+          <div class="camera-stage-head">
+            <h1>Open camera, take photo, download</h1>
+            <p>Camera access is only used for the current capture. Photos and video are not uploaded by default.</p>
+          </div>
+
+          <div class="camera-preview">
+            <video id="video" autoplay playsinline muted hidden></video>
+            <canvas id="canvas" hidden></canvas>
+            <img id="photo" alt="Captured photo" hidden />
+            <span class="status-dot"></span>
+            <span class="status-text" id="cameraStatus">Waiting for camera</span>
+            <span class="camera-counter">0/1</span>
+            <div class="countdown" id="countdown">Go</div>
+            <p id="cameraHint">Open the camera first, then take and download your photo.</p>
+          </div>
+
+          <div class="camera-actions">
+            <button class="primary-button" type="button" id="openCameraButton">Open camera</button>
+            <button class="download-button" type="button" id="takePhotoButton" disabled>Take photo</button>
+            <button class="download-button" type="button" id="downloadButton" disabled>Download</button>
+          </div>
+
+          <div class="follow-card" id="followCard" hidden>
+            <div>
+              <strong>Like this photo?</strong>
+              <p>Download it to your device. The photo stays local unless you decide to share it yourself.</p>
+            </div>
+            <a href="layout.html">Choose another template</a>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="photo-booth-en.js"></script>
+  </body>
+</html>

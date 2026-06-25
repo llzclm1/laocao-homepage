@@ -9,6 +9,8 @@
 英文子页面：
 
 - Sticker Booth Lab / Online Photo Booth: https://gewuji.dev/en/tools/photo-booth/
+- Sticker Booth Lab templates: https://gewuji.dev/en/tools/photo-booth/layout.html
+- Sticker Booth Lab camera: https://gewuji.dev/en/tools/photo-booth/camera.html
 - Office Survivor: World Cup Edition: https://gewuji.dev/en/game/worldcup/
 
 机器可读索引：
@@ -131,6 +133,11 @@ PixRoom 是一个小程序已上线的照片调色工具，目标是把胶片滤
 页面地址：https://gewuji.dev/tools/photo-booth/
 
 英文页面：https://gewuji.dev/en/tools/photo-booth/
+
+英文操作页：
+
+- 选择模板：https://gewuji.dev/en/tools/photo-booth/layout.html
+- 打开相机：https://gewuji.dev/en/tools/photo-booth/camera.html
 
 专题页面：
 

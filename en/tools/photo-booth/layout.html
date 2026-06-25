@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Choose a photo strip layout, template, sticker and frame before taking photos in Sticker Booth Lab." />
+    <link rel="canonical" href="https://gewuji.dev/en/tools/photo-booth/layout.html" />
+    <link rel="alternate" hreflang="zh-CN" href="https://gewuji.dev/tools/photo-booth/layout.html" />
+    <link rel="alternate" hreflang="en" href="https://gewuji.dev/en/tools/photo-booth/layout.html" />
+    <title>Choose template｜Sticker Booth Lab</title>
+    <link rel="stylesheet" href="../../../tools/photo-booth/styles.css" />
+  </head>
+  <body>
+    <div class="announcement" id="announcement">
+      <span>Choose a template first. You can adjust the details before taking photos.</span>
+      <button type="button" id="closeAnnouncement" aria-label="Close announcement">x</button>
+    </div>
+
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Sticker Booth Lab home">
+        <span class="brand-mark">S</span>
+        <span>Sticker Booth Lab</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a class="active" href="layout.html">Templates</a>
+        <a href="camera.html">Camera</a>
+        <a href="../../../tools/photo-booth/layout.html" hreflang="zh-CN" lang="zh-CN">中文</a>
+      </nav>
+      <a class="ghost-button" href="camera.html">Start camera</a>
+    </header>
+
+    <main>
+      <section class="page-shell">
+        <section class="panel template-panel" id="templates">
+          <div class="section-heading">
+            <div>
+              <h1>Choose a booth skin</h1>
+              <p>Pick a size and a template first. Details can still be changed later.</p>
+            </div>
+          </div>
+
+          <div class="template-tabs" aria-label="Template categories">
+            <button class="active" type="button" data-filter="all">Popular</button>
+            <button type="button" data-filter="season">Seasonal</button>
+            <button type="button" data-filter="relationship">People</button>
+            <button type="button" data-filter="style">Style</button>
+          </div>
+
+          <div class="template-grid">
+            <button class="template-card selected" type="button" data-template="Birthday" data-count="4" data-category="all">
+              <span class="check">✓</span>
+              <span class="recommend-label">Popular this week</span>
+              <span class="template-badge">Birthday</span>
+              <div class="mini-strip birthday" aria-hidden="true"></div>
+              <strong>Birthday</strong>
+              <small>Narrow 6 x 2 / 4 shots</small>
+              <em>Cake, candles and party mood</em>
+            </button>
+            <button class="template-card" type="button" data-template="Graduation" data-count="4" data-category="all">
+              <span class="template-badge">Graduation</span>
+              <div class="mini-strip graduation" aria-hidden="true"></div>
+              <strong>Graduation</strong>
+              <small>Classic 6 x 4 / 4 shots</small>
+              <em>Blue-white memory strip</em>
+            </button>
+            <button class="template-card" type="button" data-template="Couple" data-count="4" data-category="relationship">
+              <span class="template-badge">Couple</span>
+              <div class="mini-strip couple" aria-hidden="true"></div>
+              <strong>Couple</strong>
+              <small>Narrow 6 x 2 / 4 shots</small>
+              <em>Hearts and date-night softness</em>
+            </button>
+            <button class="template-card" type="button" data-template="Besties" data-count="4" data-category="relationship">
+              <span class="template-badge">Besties</span>
+              <div class="mini-strip bestie" aria-hidden="true"></div>
+              <strong>Besties</strong>
+              <small>Narrow 6 x 2 / 4 shots</small>
+              <em>Stickers, sparkle and group energy</em>
+            </button>
+            <button class="template-card" type="button" data-template="K-pop" data-count="4" data-category="style">
+              <span class="template-badge">K-pop</span>
+              <div class="mini-strip kpop" aria-hidden="true"></div>
+              <strong>K-pop</strong>
+              <small>Large 8 x 5 / 4 shots</small>
+              <em>Stage light and fan-card mood</em>
+            </button>
+            <button class="template-card" type="button" data-template="Y2K" data-count="4" data-category="style">
+              <span class="template-badge">Y2K</span>
+              <div class="mini-strip y2k" aria-hidden="true"></div>
+              <strong>Y2K</strong>
+              <small>Narrow 6 x 2 / 4 shots</small>
+              <em>Chrome shine and glitter future</em>
+            </button>
+            <button class="template-card" type="button" data-template="Retro Film" data-count="4" data-category="style">
+              <span class="template-badge">Film</span>
+              <div class="mini-strip film" aria-hidden="true"></div>
+              <strong>Retro Film</strong>
+              <small>Classic 6 x 4 / 4 shots</small>
+              <em>Grain, vignette and film border</em>
+            </button>
+            <button class="template-card" type="button" data-template="Christmas" data-count="4" data-category="season">
+              <span class="template-badge">Christmas</span>
+              <div class="mini-strip christmas" aria-hidden="true"></div>
+              <strong>Christmas</strong>
+              <small>Classic 6 x 4 / 4 shots</small>
+              <em>Red, green and snow-card energy</em>
+            </button>
+          </div>
+
+          <details class="option-drawer">
+            <summary>More settings</summary>
+            <div class="option-panel" aria-label="Photo strip settings">
+              <div class="settings-preview" aria-label="Live preview">
+                <div class="settings-preview-card">
+                  <div class="preview-strip" id="settingsPreviewStrip" data-layout="narrow" data-color="pink" data-shape="square">
+                    <span class="preview-logo" id="settingsPreviewLogo">Sticker Booth</span>
+                    <span class="preview-photo"></span>
+                    <span class="preview-photo"></span>
+                    <span class="preview-photo"></span>
+                    <span class="preview-photo"></span>
+                    <span class="preview-sticker" id="settingsPreviewSticker" aria-label="Heart sticker"></span>
+                    <span class="preview-date" id="settingsPreviewDate" hidden></span>
+                    <span class="preview-time" id="settingsPreviewTime" hidden></span>
+                  </div>
+                </div>
+                <div>
+                  <strong id="settingsPreviewTitle">Narrow 6 x 2</strong>
+                  <span id="settingsPreviewMeta">Pink frame · Square photos · Heart sticker</span>
+                </div>
+              </div>
+
+              <div class="option-group">
+                <h3>Strip size</h3>
+                <div class="segmented">
+                  <button class="active" type="button">Narrow 6 x 2</button>
+                  <button type="button">Classic 6 x 4</button>
+                  <button type="button">Large 8 x 5</button>
+                </div>
+              </div>
+              <div class="option-group">
+                <h3>Frame color</h3>
+                <div class="swatches">
+                  <button class="swatch pink active" type="button" aria-label="Pink"></button>
+                  <button class="swatch cream" type="button" aria-label="Cream"></button>
+                  <button class="swatch black" type="button" aria-label="Black"></button>
+                  <button class="swatch blue" type="button" aria-label="Blue"></button>
+                </div>
+              </div>
+              <div class="option-group">
+                <h3>Photo shape</h3>
+                <div class="segmented">
+                  <button class="active" type="button">Square photos</button>
+                  <button type="button">Rounded photos</button>
+                </div>
+              </div>
+              <div class="option-group">
+                <h3>Sticker</h3>
+                <div class="sticker-row">
+                  <button class="sticker-choice heart active" type="button"><span aria-hidden="true"></span>Heart</button>
+                  <button class="sticker-choice star" type="button"><span aria-hidden="true"></span>Star</button>
+                  <button class="sticker-choice dog" type="button"><span aria-hidden="true"></span>Dog</button>
+                  <button class="sticker-choice christmas" type="button"><span aria-hidden="true"></span>Christmas</button>
+                </div>
+              </div>
+              <div class="toggle-grid">
+                <label><input type="checkbox" checked /> Show logo</label>
+                <label><input type="checkbox" /> Add date</label>
+                <label><input type="checkbox" /> Add time</label>
+              </div>
+              <div class="export-actions">
+                <button type="button">Print</button>
+                <button type="button">Share</button>
+                <button type="button">Download GIF</button>
+              </div>
+            </div>
+          </details>
+
+          <div class="page-actions">
+            <a class="primary-button" href="camera.html">Take photos</a>
+          </div>
+        </section>
+      </section>
+
+      <div class="sticky-template-cta" aria-label="Selected template">
+        <span>Selected: <strong id="selectedTemplateName">Birthday</strong></span>
+        <a href="camera.html">Take photos</a>
+      </div>
+    </main>
+
+    <script src="photo-booth-en.js"></script>
+  </body>
+</html>
