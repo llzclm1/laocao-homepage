@@ -318,8 +318,6 @@ function buildRobots() {
     "Allow: /",
     "",
     `Sitemap: ${publicUrl("sitemap.xml")}`,
-    `LLMs: ${publicUrl("llms.txt")}`,
-    `AI-Sitemap: ${publicUrl("ai-sitemap.json")}`,
     ""
   ].join("\n");
 }

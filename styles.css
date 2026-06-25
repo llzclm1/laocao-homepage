@@ -2318,6 +2318,8 @@ h2 {
     width: calc(100% - 44px);
     padding: 34px 24px;
     border-radius: 28px;
+    animation: none;
+    box-shadow: 0 18px 56px rgba(30, 35, 48, .08), inset 0 1px 0 rgba(255, 255, 255, .88);
   }
 
   .hero-showcase,
@@ -2328,6 +2330,12 @@ h2 {
   .hero-showcase {
     height: 190px;
     margin-top: 24px;
+  }
+
+  .showcase-card,
+  .hero-metrics {
+    animation: none;
+    box-shadow: 0 16px 48px rgba(30, 35, 48, .08), inset 0 1px 0 rgba(255, 255, 255, .86);
   }
 
   h1 {

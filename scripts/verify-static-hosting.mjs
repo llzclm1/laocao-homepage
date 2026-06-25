@@ -113,8 +113,8 @@ assert.ok(llms.includes("世界杯盘口情绪"), "llms.txt should include world
 assert.ok(llms.includes("基准、保守、开放三种比分情景"), "llms.txt should explain worldcup score scenarios");
 
 const robots = fs.readFileSync(path.join(dist, "robots.txt"), "utf8");
-assert.ok(robots.includes("AI-Sitemap: https://gewuji.dev/ai-sitemap.json"), "robots should expose the AI sitemap");
-assert.ok(robots.includes("LLMs: https://gewuji.dev/llms.txt"), "robots should expose llms.txt");
+assert.equal(robots.includes("AI-Sitemap:"), false, "robots should not include non-standard AI-Sitemap directives");
+assert.equal(robots.includes("LLMs:"), false, "robots should not include non-standard LLMs directives");
 
 const aiSitemap = JSON.parse(fs.readFileSync(path.join(dist, "ai-sitemap.json"), "utf8"));
 assert.equal(aiSitemap.site.name, "格物集", "AI sitemap should describe the site");
