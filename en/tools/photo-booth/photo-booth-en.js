@@ -30,17 +30,18 @@ const templateStorageKey = "photoBoothTemplateEn";
 let composedPhotoUrl = "";
 let capturedPhotos = [];
 const templatePresets = {
-  Birthday: { layout: "narrow", color: "pink", shape: "square", sticker: "heart", showLogo: true, showDate: false, showTime: false, logoStyle: "party" },
-  Graduation: { layout: "classic", color: "blue", shape: "square", sticker: "star", showLogo: true, showDate: true, showTime: false, logoStyle: "clean" },
-  Couple: { layout: "narrow", color: "pink", shape: "round", sticker: "heart", showLogo: true, showDate: true, showTime: false, logoStyle: "soft" },
-  Besties: { layout: "narrow", color: "cream", shape: "round", sticker: "star", showLogo: true, showDate: true, showTime: false, logoStyle: "party" },
-  "K-pop": { layout: "large", color: "black", shape: "square", sticker: "star", showLogo: true, showDate: false, showTime: true, logoStyle: "stage" },
-  Y2K: { layout: "narrow", color: "blue", shape: "square", sticker: "star", showLogo: true, showDate: false, showTime: true, logoStyle: "stage" },
-  "Retro Film": { layout: "classic", color: "black", shape: "square", sticker: "heart", showLogo: true, showDate: true, showTime: false, logoStyle: "film" },
-  Christmas: { layout: "classic", color: "cream", shape: "round", sticker: "christmas", showLogo: true, showDate: true, showTime: false, logoStyle: "soft" },
-  Halloween: { layout: "classic", color: "black", shape: "round", sticker: "christmas", showLogo: true, showDate: true, showTime: true, logoStyle: "stage" },
-  Wedding: { layout: "large", color: "cream", shape: "round", sticker: "heart", showLogo: true, showDate: true, showTime: false, logoStyle: "soft" }
+  Birthday: { layout: "narrow", color: "pink", shape: "square", sticker: "heart", showLogo: true, showDate: false, showTime: false, logoStyle: "party", templateImage: "birthday.png" },
+  Graduation: { layout: "classic", color: "blue", shape: "square", sticker: "star", showLogo: true, showDate: true, showTime: false, logoStyle: "clean", templateImage: "graduation.png" },
+  Couple: { layout: "narrow", color: "pink", shape: "round", sticker: "heart", showLogo: true, showDate: true, showTime: false, logoStyle: "soft", templateImage: "couple.png" },
+  Besties: { layout: "narrow", color: "cream", shape: "round", sticker: "star", showLogo: true, showDate: true, showTime: false, logoStyle: "party", templateImage: "bestie.png" },
+  "K-pop": { layout: "large", color: "black", shape: "square", sticker: "star", showLogo: true, showDate: false, showTime: true, logoStyle: "stage", templateImage: "kpop.png" },
+  Y2K: { layout: "narrow", color: "blue", shape: "square", sticker: "star", showLogo: true, showDate: false, showTime: true, logoStyle: "stage", templateImage: "y2k.png" },
+  "Retro Film": { layout: "classic", color: "black", shape: "square", sticker: "heart", showLogo: true, showDate: true, showTime: false, logoStyle: "film", templateImage: "film.png" },
+  Christmas: { layout: "classic", color: "cream", shape: "round", sticker: "christmas", showLogo: true, showDate: true, showTime: false, logoStyle: "soft", templateImage: "christmas.png" },
+  Halloween: { layout: "classic", color: "black", shape: "round", sticker: "christmas", showLogo: true, showDate: true, showTime: true, logoStyle: "stage", templateImage: "halloween.png" },
+  Wedding: { layout: "large", color: "cream", shape: "round", sticker: "heart", showLogo: true, showDate: true, showTime: false, logoStyle: "soft", templateImage: "wedding.png" }
 };
+const templateImageCache = preloadTemplateImages(templatePresets);
 
 closeAnnouncement?.addEventListener("click", () => {
   announcement.hidden = true;
@@ -326,6 +327,7 @@ function saveTemplateSelection() {
     showTime: !settingsPreviewTime?.hidden,
     logo: "Sticker Booth",
     logoStyle: preset.logoStyle,
+    templateImage: preset.templateImage,
     locale: "en"
   };
   try {
@@ -348,6 +350,7 @@ function getSavedTemplateSelection() {
       showTime: Boolean(saved.showTime),
       logo: saved.logo || "Sticker Booth",
       logoStyle: saved.logoStyle || preset.logoStyle,
+      templateImage: saved.templateImage || preset.templateImage,
       locale: saved.locale || "en"
     };
     if (selectedTemplateNotice) selectedTemplateNotice.textContent = `Template: ${selection.template}`;
@@ -375,6 +378,11 @@ function renderCaptureStrip() {
 }
 
 function composePhotoStrip(photoSources, selection) {
+  const templateImage = getLoadedTemplateImage(selection.templateImage);
+  if (templateImage) {
+    return composeTemplateImageStrip(photoSources, selection, templateImage);
+  }
+
   const layoutMap = {
     narrow: { width: 720, height: 2160, columns: 1, rows: 4 },
     classic: { width: 1200, height: 1800, columns: 2, rows: 2 },
@@ -433,6 +441,79 @@ function composePhotoStrip(photoSources, selection) {
   if (stamp) context.fillText(stamp, padding, output.height - 48);
   drawSticker(context, selection.sticker, output.width - padding - 92, output.height - 126, 82, colors.accent);
   return output.toDataURL("image/png");
+}
+
+function preloadTemplateImages(presets) {
+  const cache = {};
+  Object.values(presets).forEach((preset) => {
+    if (!preset.templateImage || cache[preset.templateImage]) return;
+    const image = new Image();
+    image.src = "../../../tools/photo-booth/assets/templates/" + preset.templateImage;
+    cache[preset.templateImage] = image;
+  });
+  return cache;
+}
+
+function getLoadedTemplateImage(fileName) {
+  const image = templateImageCache[fileName];
+  return image?.complete && image.naturalWidth ? image : null;
+}
+
+function composeTemplateImageStrip(photoSources, selection, templateImage) {
+  const scale = 4;
+  const output = document.createElement("canvas");
+  output.width = templateImage.naturalWidth * scale;
+  output.height = templateImage.naturalHeight * scale;
+  const context = output.getContext("2d");
+  context.imageSmoothingQuality = "high";
+  context.drawImage(templateImage, 0, 0, output.width, output.height);
+
+  getTemplateSlots(templateImage.naturalWidth, templateImage.naturalHeight).forEach((slot, index) => {
+    const x = slot.x * scale;
+    const y = slot.y * scale;
+    const width = slot.width * scale;
+    const height = slot.height * scale;
+    const radius = selection.shape === "round" ? Math.round(Math.min(width, height) * 0.12) : 8 * scale;
+    drawCroppedImage(context, photoSources[index]?.canvas || photoSources[0]?.canvas, x, y, width, height, radius);
+  });
+
+  drawTemplateText(context, output, selection, scale);
+  return output.toDataURL("image/png");
+}
+
+function getTemplateSlots(width, height) {
+  const side = Math.round(width * 0.16);
+  const top = Math.round(height * 0.14);
+  const bottom = Math.round(height * 0.14);
+  const gap = Math.round(height * 0.028);
+  const slotWidth = width - side * 2;
+  const slotHeight = Math.floor((height - top - bottom - gap * 3) / 4);
+  return Array.from({ length: 4 }, (_, index) => ({
+    x: side,
+    y: top + index * (slotHeight + gap),
+    width: slotWidth,
+    height: slotHeight
+  }));
+}
+
+function drawTemplateText(context, output, selection, scale) {
+  const padding = Math.round(output.width * 0.1);
+  context.save();
+  context.fillStyle = selection.color === "black" ? "#29262b" : selection.color === "blue" ? "#2563eb" : selection.color === "cream" ? "#b7791f" : "#d74796";
+  context.textAlign = "left";
+  if (selection.showLogo) {
+    context.font = getLogoFont(selection.logoStyle, output.width);
+    context.fillText(selection.logo, padding, 44 * scale);
+  }
+  const stamp = [
+    selection.showDate ? formatPreviewDate(new Date()) : "",
+    selection.showTime ? formatPreviewTime(new Date()) : ""
+  ].filter(Boolean).join(" ");
+  if (stamp) {
+    context.font = `600 ${18 * scale}px "Avenir Next", "SF Pro Text", sans-serif`;
+    context.fillText(stamp, padding, output.height - 24 * scale);
+  }
+  context.restore();
 }
 
 function drawTemplatePattern(context, output, selection, colors) {
