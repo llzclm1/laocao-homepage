@@ -78,6 +78,13 @@ templateTabs.forEach((tab) => {
 
 openCameraButton?.addEventListener("click", openCamera);
 takePhotoButton?.addEventListener("click", takePhoto);
+countdown?.addEventListener("click", triggerShutter);
+countdown?.addEventListener("keydown", (event) => {
+  if (event.key !== "Enter" && event.key !== " ") return;
+
+  event.preventDefault();
+  triggerShutter();
+});
 downloadButton?.addEventListener("click", downloadPhoto);
 
 function updateSettingsPreview() {
@@ -172,6 +179,24 @@ async function openCamera() {
     cameraStatus.textContent = "Camera blocked";
     cameraHint.textContent = "Allow camera access in the browser and try again. Permission is only used for this capture.";
   }
+}
+
+function triggerShutter() {
+  if (capturedPhotos.length >= 4) {
+    if (cameraHint) {
+      cameraHint.textContent = "All 4 photos are captured. The photo strip is ready to download.";
+    }
+    return;
+  }
+
+  if (!takePhotoButton || takePhotoButton.disabled) {
+    if (cameraHint) {
+      cameraHint.textContent = "Open the camera first. The shutter stops after all 4 photos are captured.";
+    }
+    return;
+  }
+
+  takePhoto();
 }
 
 function takePhoto() {

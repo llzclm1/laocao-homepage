@@ -166,6 +166,15 @@ templateTabs.forEach((tab) => {
 
 openCameraButton?.addEventListener("click", openCamera);
 takePhotoButton?.addEventListener("click", takePhoto);
+countdown?.addEventListener("click", triggerShutter);
+countdown?.addEventListener("keydown", (event) => {
+  if (event.key !== "Enter" && event.key !== " ") {
+    return;
+  }
+
+  event.preventDefault();
+  triggerShutter();
+});
 downloadButton?.addEventListener("click", downloadPhoto);
 
 messageForm?.addEventListener("submit", (event) => {
@@ -217,6 +226,24 @@ async function openCamera() {
     cameraStatus.textContent = "无法打开相机";
     cameraHint.textContent = "请允许浏览器使用摄像头后再试；授权仅用于本次拍摄。";
   }
+}
+
+function triggerShutter() {
+  if (capturedPhotos.length >= 4) {
+    if (cameraHint) {
+      cameraHint.textContent = "4 张已拍完，照片条已生成。满意的话就下载。";
+    }
+    return;
+  }
+
+  if (!takePhotoButton || takePhotoButton.disabled) {
+    if (cameraHint) {
+      cameraHint.textContent = "请先打开相机，拍满 4 张后快门会自动停止。";
+    }
+    return;
+  }
+
+  takePhoto();
 }
 
 function takePhoto() {
