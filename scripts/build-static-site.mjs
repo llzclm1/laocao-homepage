@@ -10,7 +10,7 @@ const outDir = path.resolve(root, process.env.STATIC_OUT_DIR || "dist");
 const siteUrl = normalizeSiteUrl(process.env.SITE_URL || "https://gewuji.dev");
 const basePath = normalizeBasePath(process.env.PUBLIC_BASE_PATH || "/");
 const publicBaseUrl = new URL(basePath, `${siteUrl}/`).toString().replace(/\/$/, "");
-const lastmod = "2026-06-15";
+const lastmod = "2026-06-27";
 const googleAnalyticsId = "G-NCZSC59MVC";
 const googleAdsId = "AW-986301049";
 
@@ -430,7 +430,7 @@ function buildAiSitemap() {
         url: publicUrl(),
         title: "格物集 GEWUJI｜个人产品实验室",
         type: "WebSite",
-        summary: "格物集展示 PixRoom、memories、知铺、经营小工具、工位突围、机车库和世界杯参谋站等项目。",
+        summary: "格物集展示 PixRoom、贴贴研究所、memories、知铺、经营小工具、工位突围、机车库和世界杯参谋站等项目，已接入 Bing 验证、sitemap 和 URL 提交。",
         answers: ["格物集是什么", "老曹在做什么项目", "GEWUJI 是什么"],
         keywords: ["格物集", "GEWUJI", "个人产品实验室", "独立开发者项目"]
       },
@@ -481,6 +481,22 @@ function buildAiSitemap() {
         summary: "在线大头贴网页，支持选择模板、打开相机拍照并下载照片，照片和视频默认本地处理。",
         answers: ["贴贴研究所是什么", "在线大头贴怎么拍", "浏览器大头贴工具"],
         keywords: ["贴贴研究所", "在线大头贴", "大头贴网页", "浏览器拍照"]
+      },
+      {
+        url: publicUrl("tools/photo-booth/layout.html"),
+        title: "贴贴研究所模板选择",
+        type: "WebPage",
+        summary: "贴贴研究所的模板选择页，支持选择大头贴模板、边框、贴纸和拍摄样式。",
+        answers: ["大头贴模板怎么选", "贴贴研究所有哪些模板"],
+        keywords: ["大头贴模板", "贴贴研究所模板", "在线拍照模板"]
+      },
+      {
+        url: publicUrl("tools/photo-booth/camera.html"),
+        title: "贴贴研究所拍照页",
+        type: "WebPage",
+        summary: "贴贴研究所的浏览器拍照页，支持打开相机、拍摄大头贴并本地下载。",
+        answers: ["在线大头贴怎么拍照", "浏览器拍照下载"],
+        keywords: ["浏览器拍照", "在线大头贴拍照", "大头贴下载"]
       },
       {
         url: publicUrl("tools/worldcup-advisor/"),
