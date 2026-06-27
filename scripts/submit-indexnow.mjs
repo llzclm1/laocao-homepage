@@ -23,6 +23,8 @@ const payload = {
     new URL("tools/worldcup-advisor/matches/england-ghana/", normalizedSiteUrl).toString(),
     new URL("tools/worldcup-advisor/matches/panama-croatia/", normalizedSiteUrl).toString(),
     new URL("tools/worldcup-advisor/matches/colombia-dr-congo/", normalizedSiteUrl).toString(),
+    new URL("tools/photo-booth/", normalizedSiteUrl).toString(),
+    new URL("en/tools/photo-booth/", normalizedSiteUrl).toString(),
     new URL("tools/seo-content-tools/", normalizedSiteUrl).toString(),
     new URL("tools/seo-content-tools/pages/moments-campaign-copy/", normalizedSiteUrl).toString(),
     new URL("tools/seo-content-tools/pages/xiaohongshu-seeding-copy/", normalizedSiteUrl).toString(),
