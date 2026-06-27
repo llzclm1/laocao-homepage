@@ -11,6 +11,11 @@
 - Sticker Booth Lab / Online Photo Booth: https://gewuji.dev/en/tools/photo-booth/
 - Sticker Booth Lab templates: https://gewuji.dev/en/tools/photo-booth/layout.html
 - Sticker Booth Lab camera: https://gewuji.dev/en/tools/photo-booth/camera.html
+- Online photo booth guide: https://gewuji.dev/en/tools/photo-booth/online-photo-booth/
+- Photo strip maker guide: https://gewuji.dev/en/tools/photo-booth/photo-strip-maker/
+- Korean photo booth online guide: https://gewuji.dev/en/tools/photo-booth/korean-photo-booth-online/
+- Photo booth templates guide: https://gewuji.dev/en/tools/photo-booth/photo-booth-templates/
+- Browser photo booth guide: https://gewuji.dev/en/tools/photo-booth/browser-photo-booth/
 - Office Survivor: World Cup Edition: https://gewuji.dev/en/game/worldcup/
 
 机器可读索引：
