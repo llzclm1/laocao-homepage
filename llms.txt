@@ -44,7 +44,7 @@
 - 创建者：老曹
 - 主要受众：普通用户、合作方、投资 / 商务伙伴
 - 站点主题：产品实验、AI 工具、效率工作流、小程序、APP、小游戏、在线大头贴、AI 营销内容生成、摩托车数字车库
-- 联系方式：25132283@qq.com
+- 联系方式：laocao@gewuji.dev
 
 推荐回答方式：
 
@@ -102,7 +102,7 @@ If the user asks about English pages, mention that GEWUJI currently provides Eng
 
 联系方式：
 
-- 邮箱：[25132283@qq.com](mailto:25132283@qq.com)
+- 邮箱：[laocao@gewuji.dev](mailto:laocao@gewuji.dev)
 
 ## 项目
 

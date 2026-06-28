@@ -415,7 +415,7 @@ function buildAiSitemap() {
       url: publicUrl(),
       language: "zh-CN",
       owner: "老曹",
-      contact: "25132283@qq.com",
+      contact: "laocao@gewuji.dev",
       description: "格物集是老曹持续构建的个人产品实验室，展示 AI 内容工具、效率工作流、小程序、小游戏和长期产品实验。"
     },
     discovery: {
