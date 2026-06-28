@@ -11,3 +11,5 @@ build/
 **/.codex-exec/
 outputs/
 outputs/*-homepage.png
+tools/site-stats-review/input/*
+!tools/site-stats-review/input/.gitkeep
