@@ -113,13 +113,13 @@ assert.ok(sitemap.includes("/nav/"), "sitemap should include /nav/");
 assert.ok(sitemap.includes("/ai-sitemap.json"), "sitemap should include /ai-sitemap.json");
 assert.ok(sitemap.includes("/tools/content-assistant/"), "sitemap should include /tools/content-assistant/");
 assert.ok(sitemap.includes("/tools/content-assistant/admin/"), "sitemap should include /tools/content-assistant/admin/");
-assert.ok(sitemap.includes("/m/"), "sitemap should include /m/");
-assert.ok(sitemap.includes("/b/"), "sitemap should include /b/");
+assert.equal(sitemap.includes("/m/"), false, "sitemap should not include standalone trade manufacturer page");
+assert.equal(sitemap.includes("/b/"), false, "sitemap should not include standalone trade buyer page");
 
 const llms = fs.readFileSync(path.join(dist, "llms.txt"), "utf8");
 assert.ok(llms.includes("https://gewuji.dev/ai-sitemap.json"), "llms.txt should link to the AI sitemap");
-assert.ok(llms.includes("https://gewuji.dev/m/"), "llms.txt should link manufacturer page");
-assert.ok(llms.includes("https://gewuji.dev/b/"), "llms.txt should link buyer page");
+assert.equal(llms.includes("https://gewuji.dev/m/"), false, "llms should not link standalone trade manufacturer page");
+assert.equal(llms.includes("https://gewuji.dev/b/"), false, "llms should not link standalone trade buyer page");
 assert.ok(llms.includes("贴贴研究所"), "llms.txt should include the photo booth project");
 assert.ok(llms.includes("世界杯盘口情绪"), "llms.txt should include worldcup market sentiment keywords");
 assert.ok(llms.includes("基准、保守、开放三种比分情景"), "llms.txt should explain worldcup score scenarios");
@@ -130,8 +130,8 @@ assert.equal(robots.includes("LLMs:"), false, "robots should not include non-sta
 
 const aiSitemap = JSON.parse(fs.readFileSync(path.join(dist, "ai-sitemap.json"), "utf8"));
 assert.equal(aiSitemap.site.name, "格物集", "AI sitemap should describe the site");
-assert.ok(aiSitemap.pages.some((page) => page.url === "https://gewuji.dev/m/"), "AI sitemap should include manufacturer page");
-assert.ok(aiSitemap.pages.some((page) => page.url === "https://gewuji.dev/b/"), "AI sitemap should include buyer page");
+assert.equal(aiSitemap.pages.some((page) => page.url === "https://gewuji.dev/m/"), false, "AI sitemap should not include standalone trade manufacturer page");
+assert.equal(aiSitemap.pages.some((page) => page.url === "https://gewuji.dev/b/"), false, "AI sitemap should not include standalone trade buyer page");
 assert.ok(aiSitemap.pages.some((page) => page.url === "https://gewuji.dev/tools/photo-booth/"), "AI sitemap should include the photo booth page");
 assert.ok(aiSitemap.pages.some((page) => page.url === "https://gewuji.dev/tools/worldcup-advisor/advisor/"), "AI sitemap should include the worldcup advisor page");
 assert.ok(JSON.stringify(aiSitemap).includes("不构成投注建议"), "AI sitemap should include the worldcup safety boundary");
