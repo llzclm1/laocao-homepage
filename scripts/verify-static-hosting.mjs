@@ -8,6 +8,8 @@ const dist = path.join(root, "dist");
 const githubPagesHostSuffix = ["github", "io"].join(".");
 
 assert.ok(fs.existsSync(path.join(dist, "index.html")), "dist/index.html is missing");
+assert.ok(fs.existsSync(path.join(dist, "diagnosis", "index.html")), "dist/diagnosis/index.html is missing");
+assert.ok(fs.existsSync(path.join(dist, "diagnosis", "script.js")), "dist/diagnosis/script.js is missing");
 assert.ok(fs.existsSync(path.join(dist, "nav", "index.html")), "dist/nav/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "game", "worldcup", "index.html")), "dist/game/worldcup/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "tools", "photo-booth", "index.html")), "dist/tools/photo-booth/index.html is missing");
@@ -110,9 +112,11 @@ assert.ok(sitemap.includes("/nav/"), "sitemap should include /nav/");
 assert.ok(sitemap.includes("/ai-sitemap.json"), "sitemap should include /ai-sitemap.json");
 assert.ok(sitemap.includes("/tools/content-assistant/"), "sitemap should include /tools/content-assistant/");
 assert.ok(sitemap.includes("/tools/content-assistant/admin/"), "sitemap should include /tools/content-assistant/admin/");
+assert.ok(sitemap.includes("/diagnosis/"), "sitemap should include /diagnosis/");
 
 const llms = fs.readFileSync(path.join(dist, "llms.txt"), "utf8");
 assert.ok(llms.includes("https://gewuji.dev/ai-sitemap.json"), "llms.txt should link to the AI sitemap");
+assert.ok(llms.includes("https://gewuji.dev/diagnosis/"), "llms.txt should link to the diagnosis page");
 assert.ok(llms.includes("贴贴研究所"), "llms.txt should include the photo booth project");
 assert.ok(llms.includes("世界杯盘口情绪"), "llms.txt should include worldcup market sentiment keywords");
 assert.ok(llms.includes("基准、保守、开放三种比分情景"), "llms.txt should explain worldcup score scenarios");

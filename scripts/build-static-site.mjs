@@ -10,7 +10,7 @@ const outDir = path.resolve(root, process.env.STATIC_OUT_DIR || "dist");
 const siteUrl = normalizeSiteUrl(process.env.SITE_URL || "https://gewuji.dev");
 const basePath = normalizeBasePath(process.env.PUBLIC_BASE_PATH || "/");
 const publicBaseUrl = new URL(basePath, `${siteUrl}/`).toString().replace(/\/$/, "");
-const lastmod = "2026-06-27";
+const lastmod = "2026-06-28";
 const googleAnalyticsId = "G-NCZSC59MVC";
 const googleAdsId = "AW-986301049";
 
@@ -18,6 +18,7 @@ const copyEntries = [
   "8221b5ee5eb23147b8f2422b2cb6096e.txt",
   "assets",
   "CNAME",
+  "diagnosis",
   "docs",
   "en",
   "favicon.svg",
@@ -55,6 +56,7 @@ rewriteTextFile("SEARCH_ENGINE_SUBMISSION.md", (text) =>
   text.replaceAll("https://gewuji.dev", publicBaseUrl)
 );
 injectAnalyticsTags();
+injectDiagnosisConfig();
 injectContentAssistantSeo();
 injectContentAssistantConfig();
 
@@ -156,6 +158,21 @@ function injectContentAssistantConfig() {
   const html = fs.readFileSync(file, "utf8");
   if (!html.includes("</head>")) return;
   const cleanHtml = html.replace(/\s*<script>window\.__PROMOTION_ASSISTANT_CONFIG__=.*?<\/script>/g, "");
+  fs.writeFileSync(file, cleanHtml.replace("</head>", `${script}\n  </head>`), "utf8");
+}
+
+function injectDiagnosisConfig() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
+  if (!supabaseUrl || !supabaseAnonKey) return;
+
+  const file = path.join(outDir, "diagnosis", "index.html");
+  if (!fs.existsSync(file)) return;
+
+  const config = { supabaseUrl, supabaseAnonKey };
+  const script = `    <script>window.__DIAGNOSIS_CONFIG__=${JSON.stringify(config).replaceAll("</script", "<\\/script")};</script>`;
+  const html = fs.readFileSync(file, "utf8");
+  const cleanHtml = html.replace(/\s*<script>window\.__DIAGNOSIS_CONFIG__=.*?<\/script>/g, "");
   fs.writeFileSync(file, cleanHtml.replace("</head>", `${script}\n  </head>`), "utf8");
 }
 
@@ -326,6 +343,7 @@ function buildRobots() {
 function buildSitemap() {
   const entries = [
     ["", "1.0"],
+    ["diagnosis/", "0.9"],
     ["en/", "0.9"],
     ["en/tools/photo-booth/", "0.8"],
     ["en/tools/photo-booth/layout.html", "0.7"],
@@ -433,6 +451,14 @@ function buildAiSitemap() {
         summary: "格物集展示 PixRoom、贴贴研究所、memories、知铺、经营小工具、工位突围、机车库和世界杯参谋站等项目，已接入 Bing 验证、sitemap 和 URL 提交。",
         answers: ["格物集是什么", "老曹在做什么项目", "GEWUJI 是什么"],
         keywords: ["格物集", "GEWUJI", "个人产品实验室", "独立开发者项目"]
+      },
+      {
+        url: publicUrl("diagnosis/"),
+        title: "免费诊断｜格物集老曹",
+        type: "ContactPage",
+        summary: "外贸工厂可以提交产品介绍、开发信、报价说明或询盘回复样例，获取海外客户开发资料和销售沟通的小范围诊断。",
+        answers: ["外贸工厂资料诊断", "海外客户开发资料怎么优化", "询盘报价跟进怎么推进"],
+        keywords: ["外贸工厂诊断", "海外客户开发资料", "销售沟通诊断", "询盘回复"]
       },
       {
         url: publicUrl("en/"),
