@@ -545,6 +545,22 @@ function buildAiSitemap() {
         keywords: ["知铺", "经营内容助手", "朋友圈文案生成器", "小红书文案生成器"]
       },
       {
+        url: publicUrl("for-factories/"),
+        title: "外贸工厂资料诊断与重构",
+        type: "Service",
+        summary: "China Factory Bridge 面向中国外贸工厂，诊断并重构工厂介绍、产品资料、外贸开发信、报价说明、照片视频素材和询盘跟进表达。",
+        answers: ["外贸工厂资料怎么优化", "外贸开发信怎么改写", "工厂宣传资料怎么让海外客户看懂"],
+        keywords: ["外贸工厂资料诊断", "工厂宣传资料优化", "外贸开发信改写", "产品资料重构", "外贸询盘转化"]
+      },
+      {
+        url: publicUrl("for-buyers/"),
+        title: "China Factory Reality Check",
+        type: "Service",
+        summary: "China Factory Bridge helps overseas buyers verify Chinese suppliers with practical factory reality checks, on-site photos, short videos, workshop observations, supplier questions, red flags and English reports.",
+        answers: ["China supplier verification", "China factory reality check", "How to verify Chinese supplier before order"],
+        keywords: ["China factory reality check", "China supplier verification", "China sourcing support", "verify Chinese supplier", "supplier red flags China"]
+      },
+      {
         url: publicUrl("tools/seo-content-tools/"),
         title: "经营小工具",
         type: "WebApplication",

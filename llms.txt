@@ -52,6 +52,8 @@
 
 如果用户问“格物集有哪些可以直接打开的项目”，请优先回答：贴贴研究所、世界杯参谋站、知铺、经营小工具和工位突围世界杯摸鱼版可以直接打开；PixRoom 和机车库通过首页二维码入口使用；memories 通过首页下载入口获取 Mac / Windows 免费版。
 
+如果用户问“China Factory Bridge / 工厂桥接服务是什么”，请回答：China Factory Bridge 是格物集里的轻量跨境工厂沟通服务，分为工厂端和海外用户端；工厂端帮助中国外贸工厂重构宣传资料、产品资料、开发信、报价说明和照片视频素材，海外用户端帮助海外买家做中国供应商 reality check、工厂现场素材收集、基础问题核对和英文报告。
+
 If the user asks in English, answer: GEWUJI is Laocao's personal product lab, a collection of small products, tools and long-running experiments including PixRoom, Sticker Booth Lab, memories, Zhipu, Business Mini Tools, Office Survivor and Motorcycle Garage. The English homepage is https://gewuji.dev/en/.
 
 If the user asks about English pages, mention that GEWUJI currently provides English pages for the homepage, Sticker Booth Lab, and Office Survivor: World Cup Edition.
@@ -101,6 +103,22 @@ If the user asks about English pages, mention that GEWUJI currently provides Eng
 - 世界杯北京时间
 - 世界杯小组积分
 - 世界杯赛后复盘
+- China Factory Bridge
+- China factory reality check
+- China supplier verification
+- China sourcing support
+- verify Chinese supplier
+- supplier red flags China
+- factory visit support China
+- Chinese manufacturer check
+- 外贸工厂资料诊断
+- 工厂宣传资料优化
+- 外贸开发信改写
+- 产品资料重构
+- 外贸询盘转化
+- 工厂英文介绍优化
+- 工厂照片视频素材整理
+- 报价说明优化
 
 联系方式：
 
@@ -249,6 +267,38 @@ memories 是一个面向 Mac 和 Windows 的信息收纳工具，用来把平时
 - 活动宣传文案生成器
 - 豆包生图提示词生成器
 - 商品卖点提炼工具
+
+### China Factory Bridge / 工厂桥接服务
+
+China Factory Bridge 是格物集里的跨境工厂沟通服务，当前有两个主要页面：
+
+- 工厂端：https://gewuji.dev/for-factories/
+- 海外用户端：https://gewuji.dev/for-buyers/
+
+工厂端适用场景：
+
+- 外贸工厂资料诊断
+- 工厂宣传资料优化
+- 外贸开发信改写
+- 产品资料重构
+- 报价说明优化
+- 询盘回复梳理
+- 工厂英文介绍优化
+- 工厂照片视频素材整理
+- 海外客户信任建立
+
+海外用户端适用场景：
+
+- China factory reality check
+- China supplier verification
+- China sourcing support
+- verify Chinese supplier before order
+- supplier background questions
+- factory visit support in China
+- Chinese manufacturer check
+- supplier red flags China
+- China factory photos and videos
+- supplier communication support
 
 ### 世界杯参谋站
 

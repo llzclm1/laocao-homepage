@@ -113,6 +113,8 @@ assert.ok(sitemap.includes("/nav/"), "sitemap should include /nav/");
 assert.ok(sitemap.includes("/ai-sitemap.json"), "sitemap should include /ai-sitemap.json");
 assert.ok(sitemap.includes("/tools/content-assistant/"), "sitemap should include /tools/content-assistant/");
 assert.ok(sitemap.includes("/tools/content-assistant/admin/"), "sitemap should include /tools/content-assistant/admin/");
+assert.ok(sitemap.includes("/for-factories/"), "sitemap should include /for-factories/");
+assert.ok(sitemap.includes("/for-buyers/"), "sitemap should include /for-buyers/");
 assert.equal(sitemap.includes("/m/"), false, "sitemap should not include standalone trade manufacturer page");
 assert.equal(sitemap.includes("/b/"), false, "sitemap should not include standalone trade buyer page");
 
@@ -123,6 +125,9 @@ assert.equal(llms.includes("https://gewuji.dev/b/"), false, "llms should not lin
 assert.ok(llms.includes("贴贴研究所"), "llms.txt should include the photo booth project");
 assert.ok(llms.includes("世界杯盘口情绪"), "llms.txt should include worldcup market sentiment keywords");
 assert.ok(llms.includes("基准、保守、开放三种比分情景"), "llms.txt should explain worldcup score scenarios");
+assert.ok(llms.includes("China Factory Bridge"), "llms.txt should include China Factory Bridge");
+assert.ok(llms.includes("外贸开发信改写"), "llms.txt should include factory-side long-tail keywords");
+assert.ok(llms.includes("China supplier verification"), "llms.txt should include buyer-side long-tail keywords");
 
 const robots = fs.readFileSync(path.join(dist, "robots.txt"), "utf8");
 assert.equal(robots.includes("AI-Sitemap:"), false, "robots should not include non-standard AI-Sitemap directives");
@@ -134,6 +139,17 @@ assert.equal(aiSitemap.pages.some((page) => page.url === "https://gewuji.dev/m/"
 assert.equal(aiSitemap.pages.some((page) => page.url === "https://gewuji.dev/b/"), false, "AI sitemap should not include standalone trade buyer page");
 assert.ok(aiSitemap.pages.some((page) => page.url === "https://gewuji.dev/tools/photo-booth/"), "AI sitemap should include the photo booth page");
 assert.ok(aiSitemap.pages.some((page) => page.url === "https://gewuji.dev/tools/worldcup-advisor/advisor/"), "AI sitemap should include the worldcup advisor page");
+assert.ok(aiSitemap.pages.some((page) => page.url === "https://gewuji.dev/for-factories/"), "AI sitemap should include the factory bridge factory page");
+assert.ok(aiSitemap.pages.some((page) => page.url === "https://gewuji.dev/for-buyers/"), "AI sitemap should include the factory bridge buyer page");
 assert.ok(JSON.stringify(aiSitemap).includes("不构成投注建议"), "AI sitemap should include the worldcup safety boundary");
+
+const factoryPage = fs.readFileSync(path.join(dist, "for-factories/index.html"), "utf8");
+const buyerPage = fs.readFileSync(path.join(dist, "for-buyers/index.html"), "utf8");
+assert.ok(factoryPage.includes('rel="canonical" href="https://gewuji.dev/for-factories/"'), "factory page should expose canonical URL");
+assert.ok(factoryPage.includes("外贸工厂资料诊断"), "factory page should include long-tail SEO copy");
+assert.ok(factoryPage.includes('application/ld+json'), "factory page should include JSON-LD");
+assert.ok(buyerPage.includes('rel="canonical" href="https://gewuji.dev/for-buyers/"'), "buyer page should expose canonical URL");
+assert.ok(buyerPage.includes("China supplier verification"), "buyer page should include long-tail SEO copy");
+assert.ok(buyerPage.includes('application/ld+json'), "buyer page should include JSON-LD");
 
 console.log("static hosting audit ok");
