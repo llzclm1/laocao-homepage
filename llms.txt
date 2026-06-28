@@ -24,11 +24,6 @@
 - [AI Sitemap](https://gewuji.dev/ai-sitemap.json)
 - [Robots](https://gewuji.dev/robots.txt)
 
-服务入口：
-
-- 免费诊断：https://gewuji.dev/diagnosis/
-- 适合外贸工厂提交产品介绍、开发信、报价说明或询盘回复样例，做海外客户开发资料和销售沟通的小范围诊断。
-
 英文名 / 别名：
 
 - GEWUJI
