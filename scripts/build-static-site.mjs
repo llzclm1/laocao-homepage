@@ -17,6 +17,7 @@ const googleAdsId = "AW-986301049";
 const copyEntries = [
   "8221b5ee5eb23147b8f2422b2cb6096e.txt",
   "assets",
+  "b",
   "CNAME",
   "docs",
   "en",
@@ -26,6 +27,7 @@ const copyEntries = [
   "google985cfee1847b0d86.html",
   "index.html",
   "llms.txt",
+  "m",
   "nav",
   "robots.txt",
   "script.js",
@@ -33,6 +35,7 @@ const copyEntries = [
   "sitemap.xml",
   "stats.html",
   "styles.css",
+  "trade.css",
   "tools"
 ];
 
@@ -326,6 +329,8 @@ function buildRobots() {
 function buildSitemap() {
   const entries = [
     ["", "1.0"],
+    ["m/", "0.9"],
+    ["b/", "0.9"],
     ["en/", "0.9"],
     ["en/tools/photo-booth/", "0.8"],
     ["en/tools/photo-booth/layout.html", "0.7"],
@@ -432,10 +437,26 @@ function buildAiSitemap() {
         type: "WebSite",
         summary: "格物集展示 PixRoom、贴贴研究所、memories、知铺、经营小工具、工位突围、机车库和世界杯参谋站等项目，已接入 Bing 验证、sitemap 和 URL 提交。",
         answers: ["格物集是什么", "老曹在做什么项目", "GEWUJI 是什么"],
-        keywords: ["格物集", "GEWUJI", "个人产品实验室", "独立开发者项目"]
-      },
-      {
-        url: publicUrl("en/"),
+      keywords: ["格物集", "GEWUJI", "个人产品实验室", "独立开发者项目"]
+    },
+    {
+      url: publicUrl("m/"),
+      title: "生产商出口沟通页｜格物集老曹",
+      type: "Service",
+      summary: "面向外贸生产商，梳理产品资料、开发信、报价说明和询盘回复，让海外客户更快理解优势并继续询价、报价、打样沟通。",
+      answers: ["生产商海外客户开发资料怎么做", "外贸工厂销售沟通怎么优化"],
+      keywords: ["生产商", "外贸工厂", "海外客户开发", "询盘回复", "报价跟进"]
+    },
+    {
+      url: publicUrl("b/"),
+      title: "China Supplier Communication Support｜GEWUJI",
+      type: "Service",
+      summary: "A short page for overseas buyers who need clearer supplier information, product comparison and communication support when working with Chinese manufacturers.",
+      answers: ["China supplier communication support", "find Chinese manufacturers", "compare factory information"],
+      keywords: ["China supplier", "manufacturer sourcing", "supplier communication", "factory comparison"]
+    },
+    {
+      url: publicUrl("en/"),
         title: "GEWUJI｜Personal Product Lab",
         type: "WebSite",
         summary: "English homepage for GEWUJI, Laocao's personal product lab collecting apps, tools, games and long-running experiments.",

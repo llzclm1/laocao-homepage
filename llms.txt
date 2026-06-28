@@ -24,6 +24,11 @@
 - [AI Sitemap](https://gewuji.dev/ai-sitemap.json)
 - [Robots](https://gewuji.dev/robots.txt)
 
+短入口：
+
+- 生产商页面：https://gewuji.dev/m/
+- 海外客户页面：https://gewuji.dev/b/
+
 英文名 / 别名：
 
 - GEWUJI

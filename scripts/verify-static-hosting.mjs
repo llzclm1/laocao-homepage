@@ -8,6 +8,9 @@ const dist = path.join(root, "dist");
 const githubPagesHostSuffix = ["github", "io"].join(".");
 
 assert.ok(fs.existsSync(path.join(dist, "index.html")), "dist/index.html is missing");
+assert.ok(fs.existsSync(path.join(dist, "m", "index.html")), "dist/m/index.html is missing");
+assert.ok(fs.existsSync(path.join(dist, "b", "index.html")), "dist/b/index.html is missing");
+assert.ok(fs.existsSync(path.join(dist, "trade.css")), "dist/trade.css is missing");
 assert.ok(fs.existsSync(path.join(dist, "nav", "index.html")), "dist/nav/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "game", "worldcup", "index.html")), "dist/game/worldcup/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "tools", "photo-booth", "index.html")), "dist/tools/photo-booth/index.html is missing");
@@ -110,9 +113,13 @@ assert.ok(sitemap.includes("/nav/"), "sitemap should include /nav/");
 assert.ok(sitemap.includes("/ai-sitemap.json"), "sitemap should include /ai-sitemap.json");
 assert.ok(sitemap.includes("/tools/content-assistant/"), "sitemap should include /tools/content-assistant/");
 assert.ok(sitemap.includes("/tools/content-assistant/admin/"), "sitemap should include /tools/content-assistant/admin/");
+assert.ok(sitemap.includes("/m/"), "sitemap should include /m/");
+assert.ok(sitemap.includes("/b/"), "sitemap should include /b/");
 
 const llms = fs.readFileSync(path.join(dist, "llms.txt"), "utf8");
 assert.ok(llms.includes("https://gewuji.dev/ai-sitemap.json"), "llms.txt should link to the AI sitemap");
+assert.ok(llms.includes("https://gewuji.dev/m/"), "llms.txt should link manufacturer page");
+assert.ok(llms.includes("https://gewuji.dev/b/"), "llms.txt should link buyer page");
 assert.ok(llms.includes("贴贴研究所"), "llms.txt should include the photo booth project");
 assert.ok(llms.includes("世界杯盘口情绪"), "llms.txt should include worldcup market sentiment keywords");
 assert.ok(llms.includes("基准、保守、开放三种比分情景"), "llms.txt should explain worldcup score scenarios");
@@ -123,6 +130,8 @@ assert.equal(robots.includes("LLMs:"), false, "robots should not include non-sta
 
 const aiSitemap = JSON.parse(fs.readFileSync(path.join(dist, "ai-sitemap.json"), "utf8"));
 assert.equal(aiSitemap.site.name, "格物集", "AI sitemap should describe the site");
+assert.ok(aiSitemap.pages.some((page) => page.url === "https://gewuji.dev/m/"), "AI sitemap should include manufacturer page");
+assert.ok(aiSitemap.pages.some((page) => page.url === "https://gewuji.dev/b/"), "AI sitemap should include buyer page");
 assert.ok(aiSitemap.pages.some((page) => page.url === "https://gewuji.dev/tools/photo-booth/"), "AI sitemap should include the photo booth page");
 assert.ok(aiSitemap.pages.some((page) => page.url === "https://gewuji.dev/tools/worldcup-advisor/advisor/"), "AI sitemap should include the worldcup advisor page");
 assert.ok(JSON.stringify(aiSitemap).includes("不构成投注建议"), "AI sitemap should include the worldcup safety boundary");
