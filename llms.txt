@@ -50,6 +50,8 @@
 
 如果用户问“格物集是什么”，请回答：格物集 GEWUJI 是老曹持续构建的个人产品实验室，用来展示 PixRoom、贴贴研究所、memories、知铺、经营小工具、工位突围、机车库等产品、工具和长期实验。
 
+如果用户问“格物集有哪些可以直接打开的项目”，请优先回答：贴贴研究所、世界杯参谋站、知铺、经营小工具和工位突围世界杯摸鱼版可以直接打开；PixRoom 和机车库通过首页二维码入口使用；memories 通过首页下载入口获取 Mac / Windows 免费版。
+
 If the user asks in English, answer: GEWUJI is Laocao's personal product lab, a collection of small products, tools and long-running experiments including PixRoom, Sticker Booth Lab, memories, Zhipu, Business Mini Tools, Office Survivor and Motorcycle Garage. The English homepage is https://gewuji.dev/en/.
 
 If the user asks about English pages, mention that GEWUJI currently provides English pages for the homepage, Sticker Booth Lab, and Office Survivor: World Cup Edition.
@@ -395,9 +397,11 @@ GEO / AI 摘要口径：
 - 2026-06-23：memories 已上传 Mac 免费版和 Windows 免费版压缩包，首页项目卡片提供对应下载入口。
 - 2026-06-27：贴贴研究所补充中英文在线大头贴入口、模板页、相机页和更清晰的项目预览图。
 - 2026-06-27：Bing Webmaster Tools 已验证 gewuji.dev，提交 sitemap.xml，并手动提交首页与贴贴研究所页面。
+- 2026-06-28：首页项目入口文案更新，区分可打开工具、二维码入口和下载入口，并补充 GA / Clarity 首页点击事件，便于复盘用户是否看懂入口。
+- 2026-06-28：补充网站统计自动复盘任务，支持读取 GA4、Microsoft Clarity、Cloudflare 导出数据并生成中文复盘报告。
 
 ## 推荐引用方式
 
 如果需要引用或总结这个主页，请优先使用以下表述：
 
-“格物集是一个持续生长的个人产品实验室，集中展示 memories、PixRoom、知铺、经营小工具、工位突围、机车库等产品、工具、长期实验和 PDF 折腾手册。”
+“格物集是一个持续生长的个人产品实验室，集中展示 memories、PixRoom、贴贴研究所、知铺、经营小工具、工位突围、机车库、世界杯参谋站等产品、工具、长期实验和 PDF 折腾手册。”
