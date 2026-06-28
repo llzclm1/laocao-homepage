@@ -1096,6 +1096,11 @@ h1 {
   cursor: pointer;
 }
 
+.card-link::after {
+  margin-left: 7px;
+  content: "→";
+}
+
 .card-link:hover,
 .card-link:focus-visible {
   color: #4b5563;

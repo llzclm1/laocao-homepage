@@ -16,6 +16,14 @@ const detailDownloads = document.querySelector(".project-detail-downloads");
 const worldcupHomeSummary = document.querySelector("#worldcup-home-summary");
 const worldcupHomeStatus = document.querySelector("#worldcup-home-status");
 
+function trackHomeAction(action, label) {
+  window.gtag?.("event", action, {
+    event_category: "homepage",
+    event_label: label,
+  });
+  window.clarity?.("event", `${action}:${label}`);
+}
+
 const projectDetails = {
   pixroom: {
     title: "PixRoom",
@@ -218,12 +226,14 @@ updateWorldCupHome();
 projectCards.forEach((card) => {
   card.addEventListener("click", (event) => {
     if (card.dataset.href && !event.target.closest("a, button")) {
+      trackHomeAction("project_card_open", card.querySelector("h3")?.textContent?.trim() ?? card.dataset.href);
       window.location.href = card.dataset.href;
       return;
     }
 
     const trigger = event.target.closest(".project-detail-trigger");
     if (trigger || event.target === card || !event.target.closest(".card-link")) {
+      trackHomeAction("project_detail_open", card.querySelector("h3")?.textContent?.trim() ?? card.dataset.projectDetail);
       openProjectDetail(trigger?.dataset.projectDetail ?? card.dataset.projectDetail);
     }
   });
@@ -236,12 +246,20 @@ projectCards.forEach((card) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
       if (card.dataset.href) {
+        trackHomeAction("project_card_open", card.querySelector("h3")?.textContent?.trim() ?? card.dataset.href);
         window.location.href = card.dataset.href;
         return;
       }
 
+      trackHomeAction("project_detail_open", card.querySelector("h3")?.textContent?.trim() ?? card.dataset.projectDetail);
       openProjectDetail(card.dataset.projectDetail);
     }
+  });
+});
+
+document.querySelectorAll(".hero-actions a, .contact-actions a, .card-link").forEach((link) => {
+  link.addEventListener("click", () => {
+    trackHomeAction("homepage_cta_click", link.textContent.trim());
   });
 });
 
