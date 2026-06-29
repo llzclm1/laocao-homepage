@@ -8,6 +8,7 @@
 
 | 日期 | Subreddit | 帖子 | 链接 | 状态 | 备注 |
 | --- | --- | --- | --- | --- | --- |
+| 2026-06-29 | r/Alibaba | My business grew too fast and my current supplier cannot keep up | https://www.reddit.com/r/Alibaba/comments/1uhllqc/my_business_grew_too_fast_and_my_current_supplier/ | 草稿已写，未提交 | 供应商产能升级话题；建议晚点或明天再发，避免短时间过多跟帖 |
 | 2026-06-28 | r/smallbusiness | Has anyone compared Made-in-China.com with Alibaba for suppliers? | https://www.reddit.com/r/smallbusiness/comments/1ueekb8/has_anyone_compared_madeinchinacom_with_alibaba/ | 已回复 | 无链接，回答 Alibaba / Made-in-China 选择和供应商验证要点 |
 | 2026-06-28 | r/ClothingStartups | Looking for a manufacturer that is startup friendly | https://www.reddit.com/r/ClothingStartups/comments/1twhpkp/looking_for_a_manufacturer_that_is_startup/ | 已回复 | 无链接，回答 startup-friendly manufacturer 筛选 |
 | 2026-06-29 | r/dropshipping | looking for Chinese suppliers of "legit" products | https://www.reddit.com/r/dropshipping/comments/1uazbo5/looking_for_chinese_suppliers_of_legit_products/ | 已回复 | 无链接，提醒正版 IP 商品和假货风险 |
