@@ -9,6 +9,7 @@
 - Reddit 搜索存档：`docs/promotion/reddit-search-archive.md`。
 - 海外发帖台账：`docs/promotion/overseas-posting-log.md`。
 - 自动任务：每天 09:30 检查已发过的海外站点回复和私信。
+- Quora 已发布 1 条回答，后续每日回访需检查新评论、赞同和私信。
 
 ## 注意
 

@@ -2,6 +2,7 @@
 
 ## 2026-06-29
 
+- 发布 Quora 回答并补入海外发帖台账：`https://www.quora.com/How-do-I-verify-a-Chinese-suppliers-certifications-CE-UL-RoHS/answer/%E9%9B%B7%E9%B8%A3-%E6%9B%B9`。
 - 新增对外发帖/回复流程规则：需要写内容时先停下，把大致内容交给用户/ChatGPT 编辑；最终发布前再次确认。
 - 拆分 Reddit 台账：`reddit-followup-tracker.md` 仅保留已回复记录，新增 `reddit-search-archive.md` 存放候选帖和未提交草稿。
 - 新增 Reddit 跟帖记录文件，区分已发评论和待确认草稿。
