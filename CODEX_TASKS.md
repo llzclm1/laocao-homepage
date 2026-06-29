@@ -9,4 +9,5 @@
 ## 记录
 
 - Reddit 跟帖台账：`docs/promotion/reddit-followup-tracker.md`
+- Reddit 搜索存档：`docs/promotion/reddit-search-archive.md`
 - 海外发帖台账：`docs/promotion/overseas-posting-log.md`
