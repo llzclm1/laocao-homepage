@@ -7,7 +7,6 @@
 | 日期 | Subreddit | 帖子 | 链接 | 状态 | 备注 |
 | --- | --- | --- | --- | --- | --- |
 | 2026-06-29 | r/Alibaba | My business grew too fast and my current supplier cannot keep up | https://www.reddit.com/r/Alibaba/comments/1uhllqc/my_business_grew_too_fast_and_my_current_supplier/ | 草稿已写，未提交 | 供应商产能升级话题；建议晚点或明天再发，避免短时间过多跟帖 |
-| 2026-06-29 | r/Business_China | Has anyone here used Made-in-China.com to find manufacturers for private label products? | https://www.reddit.com/r/Business_China/comments/1udijk9/has_anyone_here_used_madeinchinacom_to_find/ | 候选，未回复 | 适合回答平台选择、验厂、打样和供应商真实性 |
 | 2026-06-29 | r/wholesale_suppliers | Looking for Reliable Sports Products Manufacturers & Sourcing Agents in China | https://www.reddit.com/r/wholesale_suppliers/comments/1ufgh2e/looking_for_reliable_sports_products/ | 候选，未回复 | 具体到运动用品，但可用泛制造业筛选逻辑 |
 | 2026-06-29 | r/internationalbusiness | Sourcing in China | https://www.reddit.com/r/internationalbusiness/comments/1ucc3z8/sourcing_in_china/ | 候选，未回复 | 国际商务语境，适合高质量长回复 |
 | 2026-06-29 | r/Entrepreneurs | How do businesses actually vet suppliers on Made-in-China.com before placing their first order? | https://www.reddit.com/r/Entrepreneurs/comments/1ueff34/how_do_businesses_actually_vet_suppliers_on/ | 候选，未回复 | 和买家端服务最贴近，优先级高 |
@@ -21,29 +20,6 @@
 | 2026-06-29 | r/Entrepreneurs | Has anyone here actually had success sourcing products through platforms like Alibaba or Made-in-China? | https://www.reddit.com/r/Entrepreneurs/comments/1tiggk6/has_anyone_here_actually_had_success_sourcing/ | 候选，未回复 | 泛 sourcing 成功率问题，适合讲样品、对比和验证流程 |
 | 2026-06-29 | r/smallbusiness | Looking for reliable clothing manufacturers in China | https://www.reddit.com/r/smallbusiness/comments/1mbkixm/looking_for_reliable_clothing_manufacturers_in/ | 候选，未回复 | 服装制造场景，核心痛点是图片不可信，适合讲生产证据和样品验证 |
 | 2026-06-29 | r/smallbusiness | How difficult is it to supply directly from China? Local companies don’t even compare | https://www.reddit.com/r/smallbusiness/comments/1o3lgi1/how_difficult_is_it_to_supply_directly_from_china/ | 候选，未回复 | 直接供货可行性问题，适合讲 MOQ、沟通效率和首次试单边界 |
-
-## 2026-06-29 优先回复草稿
-
-### r/Business_China - Made-in-China.com private label manufacturers
-
-Link: https://www.reddit.com/r/Business_China/comments/1udijk9/has_anyone_here_used_madeinchinacom_to_find/
-
-Status: draft only, not submitted. Safari showed a Google sign-in popup on Reddit, so no reply was posted.
-
-```text
-Made-in-China can be useful, but I would treat it as a supplier discovery tool, not proof that a factory is safe to order from.
-
-Before a larger order, I would check four things:
-
-1. Company match: business license, payment account, invoice name, address, and contact person should all line up.
-2. Product match: ask whether they actually make your exact product or only trade similar items.
-3. Factory reality: request a short live video showing the workshop, sample room, labels, packaging, and the product you want.
-4. Order risk: start with samples or a small trial order, with clear specs, defect standards, packaging requirements, and inspection timing.
-
-Red flags: only showroom photos, certificates that do not match the company/model, pressure to pay fast, vague answers on MOQ/materials/lead time, or refusing video/third-party inspection.
-
-For first-time importers, I would not rely only on platform badges or polished profiles. Specific evidence beats smooth replies.
-```
 
 ## 使用规则
 

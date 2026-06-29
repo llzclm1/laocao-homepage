@@ -14,7 +14,7 @@
 - Quora 已发布 1 条回答，后续每日回访需检查新评论、赞同和私信。
 - X 已发布 1 条短帖，后续每日回访需检查回复、引用、转帖和私信。
 - X 今日搜索到 1 条中等匹配候选，已归档草稿，未自动回复。
-- Reddit 今日优先候选：`r/Business_China` 的 Made-in-China.com private label manufacturers 帖，已补英文草稿，未提交。
+- Reddit 今日已发布 `r/Business_China` 的 Made-in-China.com private label manufacturers 回复：`https://www.reddit.com/r/Business_China/comments/1udijk9/comment/oufl1mj/`，后续每日回访需检查新回复。
 - Quora 另有 6 条相近候选问题已归档，未回答。
 
 ## 注意
