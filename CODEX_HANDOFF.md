@@ -12,6 +12,7 @@
 - 海外发帖台账：`docs/promotion/overseas-posting-log.md`。
 - 自动任务：每天 09:30 检查已发过的海外站点回复和私信。
 - Quora 已发布 1 条回答，后续每日回访需检查新评论、赞同和私信。
+- Quora 今日新增 1 条回答：`https://www.quora.com/How-do-I-know-which-suppliers-manufacturers-are-legit-and-trustworthy-when-sourcing-on-AliBaba/answer/%E9%9B%B7%E9%B8%A3-%E6%9B%B9`，后续每日回访需检查评论、赞同和私信。
 - X 已发布 1 条短帖，后续每日回访需检查回复、引用、转帖和私信。
 - X 今日搜索到 1 条中等匹配候选，已归档草稿，未自动回复。
 - 已新增海外回复执行规划：`docs/promotion/overseas-reply-execution-plan-2026-06-29.md`，把 50 条候选分成今日优先、观察、暂不建议碰，并准备 10 条可交给 ChatGPT 编辑的草稿。
