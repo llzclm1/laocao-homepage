@@ -22,6 +22,29 @@
 | 2026-06-29 | r/smallbusiness | Looking for reliable clothing manufacturers in China | https://www.reddit.com/r/smallbusiness/comments/1mbkixm/looking_for_reliable_clothing_manufacturers_in/ | 候选，未回复 | 服装制造场景，核心痛点是图片不可信，适合讲生产证据和样品验证 |
 | 2026-06-29 | r/smallbusiness | How difficult is it to supply directly from China? Local companies don’t even compare | https://www.reddit.com/r/smallbusiness/comments/1o3lgi1/how_difficult_is_it_to_supply_directly_from_china/ | 候选，未回复 | 直接供货可行性问题，适合讲 MOQ、沟通效率和首次试单边界 |
 
+## 2026-06-29 优先回复草稿
+
+### r/Business_China - Made-in-China.com private label manufacturers
+
+Link: https://www.reddit.com/r/Business_China/comments/1udijk9/has_anyone_here_used_madeinchinacom_to_find/
+
+Status: draft only, not submitted. Safari showed a Google sign-in popup on Reddit, so no reply was posted.
+
+```text
+Made-in-China can be useful, but I would treat it as a supplier discovery tool, not proof that a factory is safe to order from.
+
+Before a larger order, I would check four things:
+
+1. Company match: business license, payment account, invoice name, address, and contact person should all line up.
+2. Product match: ask whether they actually make your exact product or only trade similar items.
+3. Factory reality: request a short live video showing the workshop, sample room, labels, packaging, and the product you want.
+4. Order risk: start with samples or a small trial order, with clear specs, defect standards, packaging requirements, and inspection timing.
+
+Red flags: only showroom photos, certificates that do not match the company/model, pressure to pay fast, vague answers on MOQ/materials/lead time, or refusing video/third-party inspection.
+
+For first-time importers, I would not rely only on platform badges or polished profiles. Specific evidence beats smooth replies.
+```
+
 ## 使用规则
 
 - 搜到新帖先记这里，避免和已回复台账混在一起。

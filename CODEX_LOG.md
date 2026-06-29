@@ -16,3 +16,4 @@
 - 发布 LinkedIn 买家向英文动态并记录链接：`https://www.linkedin.com/feed/update/urn:li:share:7477170111196413953/`。
 - 发布 X 短帖并补入海外发帖台账：`https://x.com/llzclm_ray/status/2071422809251975472`。
 - 新增 X 搜索存档，记录 5 组搜索词、1 条中等匹配候选和未提交回复草稿。
+- 切换到 Reddit 候选，补充 `r/Business_China` Made-in-China.com 供应商验证帖英文回复草稿，未提交。
