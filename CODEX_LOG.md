@@ -2,6 +2,7 @@
 
 ## 2026-06-29
 
+- 新增对外发帖/回复流程规则：需要写内容时先停下，把大致内容交给用户/ChatGPT 编辑；最终发布前再次确认。
 - 拆分 Reddit 台账：`reddit-followup-tracker.md` 仅保留已回复记录，新增 `reddit-search-archive.md` 存放候选帖和未提交草稿。
 - 新增 Reddit 跟帖记录文件，区分已发评论和待确认草稿。
 - 记录 Reddit 账号 `PenFine4776` 和当前已跟帖的 3 个讨论链接。
