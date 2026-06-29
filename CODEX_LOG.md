@@ -7,3 +7,4 @@
 - 已发布 `r/smallbusiness` 泛制造业找中国供应商回复，并补充评论直达链接。
 - 新增 `r/Alibaba` 供应商产能升级候选帖，草稿已写但暂不提交。
 - 继续归档 Reddit 制造业/中国供应商候选帖 4 条，并修正台账分组。
+- 继续搜索并归档 Reddit 泛制造业/供应商验证候选帖 6 条，覆盖 `r/logistics`、`r/procurement`、`r/ecommerce`。
