@@ -2,6 +2,7 @@
 
 ## 2026-06-29
 
+- 新增海外社媒执行频率规则：每个平台每天发 1-2 条、最多回复 5 条，仍需遵守草稿和发布前确认流程。
 - 新增 Quora 搜索存档，归档 6 条供应商验证、进口合规、认证核验相关候选问题。
 - 发布 Quora 回答并补入海外发帖台账：`https://www.quora.com/How-do-I-verify-a-Chinese-suppliers-certifications-CE-UL-RoHS/answer/%E9%9B%B7%E9%B8%A3-%E6%9B%B9`。
 - 新增对外发帖/回复流程规则：需要写内容时先停下，把大致内容交给用户/ChatGPT 编辑；最终发布前再次确认。
