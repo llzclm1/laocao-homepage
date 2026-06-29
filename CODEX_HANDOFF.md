@@ -8,10 +8,12 @@
 - Reddit 跟帖台账：`docs/promotion/reddit-followup-tracker.md`。
 - Reddit 搜索存档：`docs/promotion/reddit-search-archive.md`。
 - Quora 搜索存档：`docs/promotion/quora-search-archive.md`。
+- X 搜索存档：`docs/promotion/x-search-archive.md`。
 - 海外发帖台账：`docs/promotion/overseas-posting-log.md`。
 - 自动任务：每天 09:30 检查已发过的海外站点回复和私信。
 - Quora 已发布 1 条回答，后续每日回访需检查新评论、赞同和私信。
 - X 已发布 1 条短帖，后续每日回访需检查回复、引用、转帖和私信。
+- X 今日搜索到 1 条中等匹配候选，已归档草稿，未自动回复。
 - Quora 另有 6 条相近候选问题已归档，未回答。
 
 ## 注意
