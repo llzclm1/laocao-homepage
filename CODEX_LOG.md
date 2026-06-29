@@ -2,6 +2,7 @@
 
 ## 2026-06-29
 
+- 新增海外回复执行规划：`docs/promotion/overseas-reply-execution-plan-2026-06-29.md`，明确 50 条候选的今日优先、观察、暂不建议碰分层，并准备 10 条低销售感草稿供 ChatGPT/人工编辑。
 - 新增批量候选池文档：`docs/promotion/social-reply-batch-2026-06-29.md`，先集中收集 50 条海外社媒/问答回复候选，用户填写最终回复后再批量发布。
 - 新增海外账号包装方案：`docs/promotion/account-packaging-plan.md`，覆盖 Reddit、Quora、X、LinkedIn 的简介、视觉、置顶和发言边界。
 - 调整海外社媒回复文风规则：像正常人分享经验，不像销售员找客户；不主动推服务、引导私信或留联系方式。

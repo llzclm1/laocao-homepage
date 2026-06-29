@@ -14,6 +14,7 @@
 - Quora 已发布 1 条回答，后续每日回访需检查新评论、赞同和私信。
 - X 已发布 1 条短帖，后续每日回访需检查回复、引用、转帖和私信。
 - X 今日搜索到 1 条中等匹配候选，已归档草稿，未自动回复。
+- 已新增海外回复执行规划：`docs/promotion/overseas-reply-execution-plan-2026-06-29.md`，把 50 条候选分成今日优先、观察、暂不建议碰，并准备 10 条可交给 ChatGPT 编辑的草稿。
 - Reddit 今日已发布 `r/Business_China` 的 Made-in-China.com private label manufacturers 回复：`https://www.reddit.com/r/Business_China/comments/1udijk9/comment/oufl1mj/`，后续每日回访需检查新回复。
 - Reddit 今日已发布 `r/Entrepreneurs` 的 Made-in-China supplier vetting 回复：`https://www.reddit.com/r/Entrepreneurs/comments/1udbvfs/comment/oufqcer/`，后续每日回访需检查新回复。
 - 已按用户要求改为批量候选池流程：先收集 50 条可回复位置到 `docs/promotion/social-reply-batch-2026-06-29.md`，用户在“最终回复”列填写后，再批量打开对应平台发布。
