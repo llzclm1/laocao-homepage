@@ -15,13 +15,14 @@
 - X 已发布 1 条短帖，后续每日回访需检查回复、引用、转帖和私信。
 - X 今日搜索到 1 条中等匹配候选，已归档草稿，未自动回复。
 - Reddit 今日已发布 `r/Business_China` 的 Made-in-China.com private label manufacturers 回复：`https://www.reddit.com/r/Business_China/comments/1udijk9/comment/oufl1mj/`，后续每日回访需检查新回复。
+- Reddit 今日已发布 `r/Entrepreneurs` 的 Made-in-China supplier vetting 回复：`https://www.reddit.com/r/Entrepreneurs/comments/1udbvfs/comment/oufqcer/`，后续每日回访需检查新回复。
 - Quora 另有 6 条相近候选问题已归档，未回答。
 
 ## 注意
 
 - Reddit 回复以实用建议为主，不硬广、不主动拉私信。
 - 发评论属于对外发言，提交前需要用户确认。
-- 当前 Reddit 已跟帖 4 条，另有 11 条候选帖转入搜索存档。
+- 当前 Reddit 已跟帖 5 条，另有 10 条候选帖转入搜索存档。
 - `r/Alibaba` 有一条供应商产能升级草稿曾写入页面，但因规则较严、当天发帖较多，暂不提交。
 - LinkedIn 继续发英文买家向内容，发布前需要用户确认。
 - 每日回访规则：只检查已发布/已跟帖的平台互动，不自动回复、不自动点赞、不自动私信，先给中文简报和回复草稿。
