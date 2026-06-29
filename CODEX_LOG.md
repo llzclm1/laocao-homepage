@@ -14,3 +14,4 @@
 - 继续归档 Reddit 制造业/中国供应商候选帖 4 条，并修正台账分组。
 - 继续搜索并归档 Reddit 泛制造业/供应商验证候选帖 6 条，覆盖 `r/logistics`、`r/procurement`、`r/ecommerce`。
 - 发布 LinkedIn 买家向英文动态并记录链接：`https://www.linkedin.com/feed/update/urn:li:share:7477170111196413953/`。
+- 发布 X 短帖并补入海外发帖台账：`https://x.com/llzclm_ray/status/2071422809251975472`。
