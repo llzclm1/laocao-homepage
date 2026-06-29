@@ -69,6 +69,7 @@ injectContentAssistantConfig();
 fs.writeFileSync(path.join(outDir, "robots.txt"), buildRobots(), "utf8");
 fs.writeFileSync(path.join(outDir, "sitemap.xml"), buildSitemap(), "utf8");
 fs.writeFileSync(path.join(outDir, "ai-sitemap.json"), buildAiSitemap(), "utf8");
+fs.writeFileSync(path.join(outDir, "ads.txt"), "google.com, pub-8632220983091472, DIRECT, f08c47fec0942fa0\n", "utf8");
 
 console.log(`Static site built at ${path.relative(root, outDir)}`);
 console.log(`SITE_URL=${siteUrl}`);
