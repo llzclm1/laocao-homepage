@@ -39,3 +39,9 @@
 - 对外内容流程：选题后先停在草稿阶段，把大致内容交给用户/ChatGPT 编辑；用户给回最终文本后再填入平台，最终发布前再次确认。
 - 浏览器规则：海外社媒网页、账号、表单和发布/回复操作统一使用 Safari；工具无法操作 Safari 时先说明并停下。
 - 海外社媒频率：每个已纳入平台每天目标发 1-2 条；回复不限次数，看到合适的真人问题或讨论就准备回复，文风去 AI 味、简单直接。
+## 2026-06-29 互动检查与账号包装
+
+- 本轮新增简报：`docs/promotion/interaction-account-packaging-2026-06-29.md`。
+- Quora / X 暂无需要当天回复的真人线索；X 私信页要求加密 passcode，仍不进入。
+- LinkedIn 通知需要后续在 Safari 中继续只读检查；当前工具尝试打开时实际前台显示 Edge，按项目规则已停止。
+- 账号包装建议已准备：优先 X bio，其次 Quora credential/bio，再 LinkedIn headline/about；Reddit 低频保守，不放链接。

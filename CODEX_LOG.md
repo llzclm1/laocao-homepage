@@ -30,3 +30,8 @@
 - 发布 X 短帖并补入海外发帖台账：`https://x.com/llzclm_ray/status/2071422809251975472`。
 - 新增 X 搜索存档，记录 5 组搜索词、1 条中等匹配候选和未提交回复草稿。
 - 切换到 Reddit 候选，补充 `r/Business_China` Made-in-China.com 供应商验证帖英文回复草稿，未提交。
+## 2026-06-29
+
+- 新增互动检查与账号包装简报：`docs/promotion/interaction-account-packaging-2026-06-29.md`。
+- 已整理 X、LinkedIn、Quora、Reddit 的低营销账号简介草稿；未写入任何平台资料页。
+- 互动检查仅确认 Quora / X 暂无必须当天回复线索；LinkedIn 因 Safari 工具焦点异常未继续在 Edge 内操作。
