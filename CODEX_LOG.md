@@ -60,3 +60,7 @@
 - 已准备 LinkedIn / X 通用低频原创短帖 `O001`，写入看板“待发布确认”；未打开平台，未发布。
 - 用户确认后，已在 Safari 发布 LinkedIn 低频原创短帖 `O001`：`https://www.linkedin.com/feed/update/urn:li:share:7477633458249449472/`；无推广链接，后续纳入每日回访。
 - 已为 Facebook 候选 `B054`、`B055` 写入短评版英文草稿，并转入看板“待发布确认”；未打开平台，未发布。
+
+## 2026-07-01
+
+- 主站 footer 新增 `https://factory.gewuji.dev/` 的自然入口链接，用于连接格物集主站与工厂桥梁子项目；已通过 `npm run build:prod` 和 `npm run verify:static`。
