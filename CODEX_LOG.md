@@ -53,3 +53,4 @@
 - 已新增 `docs/promotion/7-day-account-warmup-plan.md`，把账号包装、评论型起号、低频原创和回访节奏拆成 7 天动作表。
 - 已确认 Facebook 个人主页简介公开可见：`Practical notes on Chinese suppliers, samples, factory visibility, and sourcing communication.`；下一步进入 LinkedIn headline / about 包装，保存前仍需用户确认。
 - 已在 Safari 中确认 LinkedIn headline 保存为：`China sourcing notes | Supplier visibility, samples, factory materials, buyer-side checks`；现有 About 已符合低销售感个人经验定位，暂不改。
+- 已确认 X bio 已符合低销售感定位，未改；已在 Safari 中保存 Quora bio，Credential 暂不改。

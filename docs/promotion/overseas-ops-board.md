@@ -23,6 +23,8 @@
 | --- | --- | --- |
 | Facebook | 个人简介已更新并确认公开可见：`Practical notes on Chinese suppliers, samples, factory visibility, and sourcing communication.` | 暂不继续加复杂资料，先观察评论回访 |
 | LinkedIn | Headline 已更新并确认保存：`China sourcing notes | Supplier visibility, samples, factory materials, buyer-side checks`；About 现有文案低销售感，暂不改 | 先进入回访和低频互动，不继续堆资料 |
+| X | Bio 已确认合格：`Practical notes on China sourcing, supplier checks, samples, packing, and factory visibility. Specific evidence beats smooth replies.` | 不改，继续低频短帖 |
+| Quora | Bio 已更新并确认显示：`I write practical answers about supplier checks, product samples, packaging details, and factory visibility when sourcing from China.` | Credential 暂不改，避免多余表单 |
 
 ## 待起草
 

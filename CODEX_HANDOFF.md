@@ -103,3 +103,9 @@
 - 已在 Safari 中确认 LinkedIn headline 保存为：`China sourcing notes | Supplier visibility, samples, factory materials, buyer-side checks`
 - 现有 About 内容是个人经验记录口吻，没有链接、私信引导或服务承诺，暂不改。
 - 下一步回到 Day 1/Day 2 节奏：只读回访已发位置，优先处理真人回复；需要新互动时先起草、确认后再发。
+
+## 2026-06-30 X / Quora 账号包装
+
+- X bio 已确认合格，未改：`Practical notes on China sourcing, supplier checks, samples, packing, and factory visibility. Specific evidence beats smooth replies.`
+- Quora bio 已保存并显示：`I write practical answers about supplier checks, product samples, packaging details, and factory visibility when sourcing from China.`
+- Quora credential 入口是单独表单，当前已有 `Knows Mandarin Chinese`，暂不改。
