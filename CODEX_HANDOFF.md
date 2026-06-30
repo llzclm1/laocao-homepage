@@ -137,3 +137,9 @@
 - 已准备 LinkedIn / X 通用短帖 `O001`，存放在 `docs/promotion/overseas-ops-board.md` 的“待发布确认”。
 - 草稿不含链接、不引导私信：`A fast supplier reply feels good, but it is not proof. Before trusting the quote, check who you are paying, what product they actually control, and whether the sample, packing, and company details match.`
 - 本轮未打开平台，未发布；如用户要发，仍需进入 Safari 填入并在提交前确认。
+
+## 2026-06-30 LinkedIn O001 已发布
+
+- 用户确认后，已在 Safari 发布 LinkedIn 低频原创短帖 `O001`。
+- 链接：`https://www.linkedin.com/feed/update/urn:li:share:7477633458249449472/`
+- 本帖无链接、无私信引导、无服务承诺；后续每日回访需检查评论、连接请求和私信。
