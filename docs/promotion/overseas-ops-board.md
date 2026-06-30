@@ -3,19 +3,19 @@
 用途：把“今天先看什么、哪些能起草、哪些等确认、哪些已发待回访”收拢到一个地方。  
 规则：这里只做看板，不替代原始台账；明细仍回写到各平台存档和总表。
 
-最后更新：2026-06-30
+最后更新：2026-06-30 12:50 CST
 
 ## 今日回访
 
 | 平台 | 位置 | 链接 | 当前重点 | 状态 |
 | --- | --- | --- | --- | --- |
-| Facebook | Alibaba 供应商大货前检查 | https://www.facebook.com/groups/2077712005780089/posts/4275424352675499/ | 已发评论；页面曾显示“待审核”，优先看是否过审、是否有回复 | 待回访 |
-| Facebook | sourcing business getting-started | https://www.facebook.com/groups/159637701339726/posts/1943349676301844/ | 已发评论；看是否有人继续追问 | 待回访 |
-| Facebook | long-term China supplier search | https://www.facebook.com/groups/730430404254904/posts/1973570576607541/ | 已发评论；看是否有真人继续讨论 | 待回访 |
-| LinkedIn | 已发帖与已评论位置 | `docs/promotion/overseas-posting-log.md` | 继续按规则在 Safari 里只读检查通知、评论、连接请求 | 待回访 |
-| Reddit | 已回复线程 | `docs/promotion/reddit-followup-tracker.md` | 检查楼中新增回复 | 待回访 |
-| Quora | 已回答问题 | `docs/promotion/overseas-posting-log.md` | 检查评论、赞同、私信 | 待回访 |
-| X | 已发布短帖 | `docs/promotion/overseas-posting-log.md` | 检查回复、引用、转帖、私信 | 待回访 |
+| Facebook | Alibaba 供应商大货前检查 | https://www.facebook.com/groups/2077712005780089/posts/4275424352675499/ | 已发评论；页面曾显示“待审核”，优先看是否过审、是否有回复 | 已回访：评论可见，无回复 |
+| Facebook | sourcing business getting-started | https://www.facebook.com/groups/159637701339726/posts/1943349676301844/ | 已发评论；看是否有人继续追问 | 已回访：当前排序未见我方评论，无线索 |
+| Facebook | long-term China supplier search | https://www.facebook.com/groups/730430404254904/posts/1973570576607541/ | 已发评论；看是否有真人继续讨论 | 已回访：可见内容多为供应商广告，无真人线索 |
+| LinkedIn | 已发帖与已评论位置 | `docs/promotion/overseas-posting-log.md` | 继续按规则在 Safari 里只读检查通知、评论、连接请求 | 已回访：仅系统/浏览量通知，无评论或连接请求 |
+| Reddit | 已回复线程 | `docs/promotion/reddit-followup-tracker.md` | 检查楼中新增回复 | 已回访：通知页无新增互动，未发现可执行线索 |
+| Quora | 已回答问题 | `docs/promotion/overseas-posting-log.md` | 检查评论、赞同、私信 | 已回访：通知页无新增 |
+| X | 已发布短帖 | `docs/promotion/overseas-posting-log.md` | 检查回复、引用、转帖、私信 | 已回访：仅 X Premium 促销，提及为空 |
 
 ## 账号包装
 

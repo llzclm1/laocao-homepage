@@ -109,3 +109,13 @@
 - X bio 已确认合格，未改：`Practical notes on China sourcing, supplier checks, samples, packing, and factory visibility. Specific evidence beats smooth replies.`
 - Quora bio 已保存并显示：`I write practical answers about supplier checks, product samples, packaging details, and factory visibility when sourcing from China.`
 - Quora credential 入口是单独表单，当前已有 `Knows Mandarin Chinese`，暂不改。
+
+## 2026-06-30 回访结果
+
+- 已按看板在 Safari 中只读检查 Facebook / LinkedIn / Reddit / Quora / X，未发现需要当天回复的真人线索。
+- Facebook：`B051` 评论可见但无回复；`B052` 当前排序未见我方评论；`B053` 可见讨论多为供应商广告，无有效线索。
+- LinkedIn：仅浏览量、首帖祝贺等系统通知，无评论、提及或连接请求。
+- Reddit：通知页只显示邮件摘要提示，无新增回复/提及；本轮不逐帖翻楼。
+- Quora：通知页显示无新通知。
+- X：通知页仅 X Premium 促销，提及页为空，私信入口未见未读标记。
+- 下一步建议：不追旧互动，优先起草 Facebook `B056`、`B057`、`B060`，继续保持短评、低销售感，发布前仍需用户确认。
