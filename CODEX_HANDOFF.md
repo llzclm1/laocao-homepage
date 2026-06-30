@@ -73,3 +73,9 @@
 - 已在 Safari 中实际发布 Facebook 评论 3 条：`B051`、`B052`、`B053`。
 - `B051` 发布后页面显示“待审核”；`B052`、`B053` 已正常提交，未见额外拦截提示。
 - Facebook 已从候选阶段转为已纳入平台，已补进 `docs/promotion/overseas-posting-log.md`，后续每日回访需检查回复、评论和私信。
+
+## 2026-06-30 Facebook 第二批候选
+
+- 已继续补 Facebook 公开候选 5 条，新增到 `docs/promotion/facebook-search-archive.md`。
+- 已把 `B056`-`B060` 补进 `docs/promotion/social-reply-batch-2026-06-29.md`，本轮仍只做候选整理，不发布。
+- 当前更值得下一轮优先看的条目是 `B056`、`B057`、`B060`，问题更具体，也更像真实买家后续问题。
