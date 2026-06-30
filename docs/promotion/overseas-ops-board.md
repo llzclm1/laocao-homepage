@@ -22,7 +22,7 @@
 | 平台 | 当前状态 | 下一步 |
 | --- | --- | --- |
 | Facebook | 个人简介已更新并确认公开可见：`Practical notes on Chinese suppliers, samples, factory visibility, and sourcing communication.` | 暂不继续加复杂资料，先观察评论回访 |
-| LinkedIn | 待更新 headline / about | 用户确认文案后再填写并保存 |
+| LinkedIn | Headline 已更新并确认保存：`China sourcing notes | Supplier visibility, samples, factory materials, buyer-side checks`；About 现有文案低销售感，暂不改 | 先进入回访和低频互动，不继续堆资料 |
 
 ## 待起草
 

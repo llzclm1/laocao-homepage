@@ -97,3 +97,9 @@
 - 已在 Safari 中确认 Facebook 个人主页简介公开可见：`Practical notes on Chinese suppliers, samples, factory visibility, and sourcing communication.`
 - Facebook Day 1 最小包装按“已完成”处理；暂不假设已填写城市、工作经历或其他详细资料。
 - 下一步建议进入 LinkedIn profile，准备更新 headline / about；填写和保存前仍需用户确认。
+
+## 2026-06-30 LinkedIn 账号包装
+
+- 已在 Safari 中确认 LinkedIn headline 保存为：`China sourcing notes | Supplier visibility, samples, factory materials, buyer-side checks`
+- 现有 About 内容是个人经验记录口吻，没有链接、私信引导或服务承诺，暂不改。
+- 下一步回到 Day 1/Day 2 节奏：只读回访已发位置，优先处理真人回复；需要新互动时先起草、确认后再发。
