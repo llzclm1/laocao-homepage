@@ -46,3 +46,5 @@
 - 已把 5 条 Facebook 候选补入 `docs/promotion/social-reply-batch-2026-06-29.md`（`B051`-`B055`），继续维持“只整理、不发布”。
 - 已为 Facebook 候选 `B051`、`B052`、`B053` 写好英文回复草稿，并填入批量候选表“最终回复”列；未执行任何发布动作。
 - 已按用户要求把 `B051`、`B052`、`B053` 压成更短、更像真人短评的版本；仍未发布。
+- 已在 Safari 中发布 Facebook 评论 3 条：`B051`、`B052`、`B053`；其中 `B051` 页面显示“待审核”。
+- 已将 Facebook 首次实际对外动作补入 `docs/promotion/overseas-posting-log.md`，Facebook 后续纳入每日互动回访范围。

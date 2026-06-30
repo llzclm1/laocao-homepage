@@ -11,3 +11,6 @@
 | 2026-06-29 | Quora | https://www.quora.com/How-do-I-know-which-suppliers-manufacturers-are-legit-and-trustworthy-when-sourcing-on-AliBaba/answer/%E9%9B%B7%E9%B8%A3-%E6%9B%B9 | Answered Alibaba supplier trustworthiness question; no promotional link; add to daily follow-up |
 | 2026-06-29 | LinkedIn | https://www.linkedin.com/posts/cengizgunduz_chinasourcing-procurement-supplychain-share-7474821897986170880-mW2q/ | Commented on sourcing risk post; no promotional link; add to daily follow-up |
 | 2026-06-29 | X | https://x.com/llzclm_ray/status/2071503026687516804 | Posted short supplier evidence checklist; no promotional link; add to daily follow-up |
+| 2026-06-30 | Facebook | https://www.facebook.com/groups/2077712005780089/posts/4275424352675499/ | Commented on Alibaba supplier pre-order checks post; first Facebook action; add to daily follow-up |
+| 2026-06-30 | Facebook | https://www.facebook.com/groups/159637701339726/posts/1943349676301844/ | Commented on sourcing business getting-started post; no promotional link; add to daily follow-up |
+| 2026-06-30 | Facebook | https://www.facebook.com/groups/730430404254904/posts/1973570576607541/ | Commented on long-term China supplier search post; no promotional link; add to daily follow-up |
