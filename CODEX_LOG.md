@@ -50,3 +50,4 @@
 - 已将 Facebook 首次实际对外动作补入 `docs/promotion/overseas-posting-log.md`，Facebook 后续纳入每日互动回访范围。
 - 已新增 Facebook 第二批候选 5 条，并补入批量候选表 `B056`-`B060`；继续保持“只整理、不发布”。
 - 已新增轻量看板 `docs/promotion/overseas-ops-board.md`，汇总今日回访、待起草、待发布确认和已发布待回访。
+- 已新增 `docs/promotion/7-day-account-warmup-plan.md`，把账号包装、评论型起号、低频原创和回访节奏拆成 7 天动作表。
