@@ -55,3 +55,4 @@
 - 已在 Safari 中确认 LinkedIn headline 保存为：`China sourcing notes | Supplier visibility, samples, factory materials, buyer-side checks`；现有 About 已符合低销售感个人经验定位，暂不改。
 - 已确认 X bio 已符合低销售感定位，未改；已在 Safari 中保存 Quora bio，Credential 暂不改。
 - 已在 Safari 只读完成本轮 Facebook / LinkedIn / Reddit / Quora / X 回访：未发现需要当天回复的真人线索；Facebook `B051` 评论可见但无回复，`B052` 当前排序未见我方评论，`B053` 可见讨论多为供应商广告；LinkedIn 仅系统/浏览量通知；Reddit 通知页无新增；Quora 无新通知；X 仅促销通知且提及为空。
+- 已为 Facebook 候选 `B056`、`B057`、`B060` 写入短评版英文草稿；未打开平台，未发布。
