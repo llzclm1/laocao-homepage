@@ -60,3 +60,9 @@
 - 已新增 `docs/promotion/facebook-search-archive.md`，先收集 5 条公开可见的 Facebook 候选帖子，只做搜索存档和草稿方向，不做进群、评论或私信。
 - 已把 5 条 Facebook 候选补进 `docs/promotion/social-reply-batch-2026-06-29.md`（`B051`-`B055`）。
 - 当前 Facebook 还未发生实际对外动作，因此暂不补进 `docs/promotion/overseas-posting-log.md`，也暂不纳入每日互动回访范围。
+
+## 2026-06-30 Facebook 草稿
+
+- 用户确认继续推进后，已为 `B051`、`B052`、`B053` 写好英文回复草稿。
+- 草稿已直接填入 `docs/promotion/social-reply-batch-2026-06-29.md` 的“最终回复”列，但仍未发布。
+- 当前优先顺序：`B051` > `B052` > `B053`；如果要实际发送，仍需先做最终确认，再按平台规则操作。
