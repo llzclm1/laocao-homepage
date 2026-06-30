@@ -3,7 +3,7 @@
 用途：把“今天先看什么、哪些能起草、哪些等确认、哪些已发待回访”收拢到一个地方。  
 规则：这里只做看板，不替代原始台账；明细仍回写到各平台存档和总表。
 
-最后更新：2026-06-30 12:50 CST
+最后更新：2026-06-30 14:01 CST
 
 ## 今日回访
 
@@ -30,9 +30,6 @@
 
 | ID | 平台 | 问题 | 链接 | 优先级 | 建议角度 |
 | --- | --- | --- | --- | --- | --- |
-| B056 | Facebook | 1688 多供应商付款后，下一步怎么走 | https://www.facebook.com/groups/importhq/posts/35317735227840806/ | 高 | 集货仓、验货、合单、补货差异和转运流程 |
-| B057 | Facebook | 多个 1688 供应商如何合单采购 | https://www.facebook.com/groups/importhq/posts/35569439316003728/ | 中高 | 采购代理、账号限制、仓库整合和统一发运 |
-| B060 | Facebook | 低 MOQ 定制产品怎么找中国代理 | https://www.facebook.com/groups/importhq/posts/31452677687679932/ | 中高 | 打样、包材、工艺确认和返工边界 |
 | B054 | Facebook | 新手想做中国采购 / 代理 | https://www.facebook.com/groups/672155363342806/posts/hello-is-there-anyone-that/2153094611915533/ | 中 | 小单、报价透明、仓库照片、追踪和赔付 |
 | B055 | Facebook | 供应商欺诈后如何举报 / 追讨 | https://www.facebook.com/groups/importhq/posts/30240906138857099/ | 中 | 证据保留、付款路径、平台申诉 |
 
@@ -48,6 +45,9 @@
 | B051 | Facebook | Alibaba 供应商大货前检查 | https://www.facebook.com/groups/2077712005780089/posts/4275424352675499/ | 已发；页面显示过“待审核” |
 | B052 | Facebook | sourcing business getting-started | https://www.facebook.com/groups/159637701339726/posts/1943349676301844/ | 已发 |
 | B053 | Facebook | long-term China supplier search | https://www.facebook.com/groups/730430404254904/posts/1973570576607541/ | 已发 |
+| B056 | Facebook | 1688 多供应商付款后，下一步怎么走 | https://www.facebook.com/groups/importhq/posts/35317735227840806/ | 已发；页面显示“待审核” |
+| B057 | Facebook | 多个 1688 供应商如何合单采购 | https://www.facebook.com/groups/importhq/posts/35569439316003728/ | 已发；页面显示“待审核” |
+| B060 | Facebook | 低 MOQ 定制产品怎么找中国代理 | https://www.facebook.com/groups/importhq/posts/31452677687679932/ | 已发；页面显示“待审核” |
 
 ## 原始台账入口
 

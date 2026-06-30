@@ -125,3 +125,9 @@
 - 已在 `docs/promotion/social-reply-batch-2026-06-29.md` 为 `B056`、`B057`、`B060` 写入短评版英文草稿。
 - 本轮未打开 Facebook，未发布、点赞、私信或关注。
 - 如用户要发，仍需先确认最终文本，再逐条到 Safari 填入，点击提交前再次确认。
+
+## 2026-06-30 Facebook 第二批已发布
+
+- 已在 Safari 发布 Facebook 评论 `B056`、`B057`、`B060`。
+- 三条发布后页面均显示“待审核”；未点赞、关注、私信或执行其他互动。
+- 已补入 `docs/promotion/overseas-posting-log.md` 和 `docs/promotion/overseas-ops-board.md`，后续每日回访需优先看是否过审、是否有真人回复。
