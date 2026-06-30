@@ -49,3 +49,4 @@
 - 已在 Safari 中发布 Facebook 评论 3 条：`B051`、`B052`、`B053`；其中 `B051` 页面显示“待审核”。
 - 已将 Facebook 首次实际对外动作补入 `docs/promotion/overseas-posting-log.md`，Facebook 后续纳入每日互动回访范围。
 - 已新增 Facebook 第二批候选 5 条，并补入批量候选表 `B056`-`B060`；继续保持“只整理、不发布”。
+- 已新增轻量看板 `docs/promotion/overseas-ops-board.md`，汇总今日回访、待起草、待发布确认和已发布待回访。
