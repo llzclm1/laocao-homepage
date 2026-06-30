@@ -17,6 +17,13 @@
 | Quora | 已回答问题 | `docs/promotion/overseas-posting-log.md` | 检查评论、赞同、私信 | 待回访 |
 | X | 已发布短帖 | `docs/promotion/overseas-posting-log.md` | 检查回复、引用、转帖、私信 | 待回访 |
 
+## 账号包装
+
+| 平台 | 当前状态 | 下一步 |
+| --- | --- | --- |
+| Facebook | 个人简介已更新并确认公开可见：`Practical notes on Chinese suppliers, samples, factory visibility, and sourcing communication.` | 暂不继续加复杂资料，先观察评论回访 |
+| LinkedIn | 待更新 headline / about | 用户确认文案后再填写并保存 |
+
 ## 待起草
 
 | ID | 平台 | 问题 | 链接 | 优先级 | 建议角度 |

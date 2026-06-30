@@ -91,3 +91,9 @@
 - 已新增 `docs/promotion/7-day-account-warmup-plan.md`。
 - 这份表只定义 7 天的轻量动作节奏，不引入新工具，不替代现有看板和台账。
 - 当前建议主顺序：Facebook 评论型起号 > LinkedIn 短评论/短原创 > Quora 沉淀回答 > X 低频存在感。
+
+## 2026-06-30 Facebook 账号包装
+
+- 已在 Safari 中确认 Facebook 个人主页简介公开可见：`Practical notes on Chinese suppliers, samples, factory visibility, and sourcing communication.`
+- Facebook Day 1 最小包装按“已完成”处理；暂不假设已填写城市、工作经历或其他详细资料。
+- 下一步建议进入 LinkedIn profile，准备更新 headline / about；填写和保存前仍需用户确认。
