@@ -35,3 +35,10 @@
 - 新增互动检查与账号包装简报：`docs/promotion/interaction-account-packaging-2026-06-29.md`。
 - 已整理 X、LinkedIn、Quora、Reddit 的低营销账号简介草稿；未写入任何平台资料页。
 - 互动检查仅确认 Quora / X 暂无必须当天回复线索；LinkedIn 因 Safari 工具焦点异常未继续在 Edge 内操作。
+
+## 2026-06-30
+
+- 复核 `docs/promotion/overseas-posting-log.md` 与 `docs/promotion/reddit-followup-tracker.md`，确认当前每日回访范围仍为 LinkedIn、Reddit、Quora、X。
+- 尝试只读检查 Reddit 跟帖互动时，公开 JSON 与 old.reddit 页面均返回 403，未获得稳定可用的公开互动数据。
+- 按项目规则未改用其他浏览器替代 Safari 检查 LinkedIn；当前环境无 Safari 自动化能力，因此停止站内通知/评论/私信检查。
+- 本轮未执行任何对外动作，也未生成新的对外回复内容；待 Safari 可用后补做只读回访。

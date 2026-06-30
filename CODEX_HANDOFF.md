@@ -45,3 +45,11 @@
 - Quora / X 暂无需要当天回复的真人线索；X 私信页要求加密 passcode，仍不进入。
 - LinkedIn 通知需要后续在 Safari 中继续只读检查；当前工具尝试打开时实际前台显示 Edge，按项目规则已停止。
 - 账号包装建议已准备：优先 X bio，其次 Quora credential/bio，再 LinkedIn headline/about；Reddit 低频保守，不放链接。
+
+## 2026-06-30 每日互动检查
+
+- 已复核 `docs/promotion/overseas-posting-log.md` 与 `docs/promotion/reddit-followup-tracker.md`，当前纳入每日检查的平台仍为 LinkedIn、Reddit、Quora、X。
+- 本轮未新增已记录平台，也未发现台账缺口。
+- Reddit 公开接口与旧版页面请求均被 403 拦截，无法在当前环境稳定确认新增楼中回复。
+- LinkedIn 需按项目规则使用 Safari 只读检查；当前会话无 Safari 自动化能力，因此未进入站内通知、评论区或私信页。
+- 结论：本轮无法可靠确认新的真人回复、评论、私信或连接请求；需在可用 Safari 工具下补做只读回访，再决定是否准备回复草稿。
