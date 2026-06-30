@@ -3,7 +3,7 @@
 用途：把“今天先看什么、哪些能起草、哪些等确认、哪些已发待回访”收拢到一个地方。  
 规则：这里只做看板，不替代原始台账；明细仍回写到各平台存档和总表。
 
-最后更新：2026-06-30 14:01 CST
+最后更新：2026-06-30 15:47 CST
 
 ## 今日回访
 
@@ -35,8 +35,11 @@
 
 ## 待发布确认
 
-当前为空。  
-规则：只有草稿写完、且用户明确说“发”之后，条目才从“待起草”移到这里。
+| ID | 平台 | 用途 | 草稿 | 状态 |
+| --- | --- | --- | --- | --- |
+| O001 | LinkedIn / X | 低频原创短帖 | A fast supplier reply feels good, but it is not proof. Before trusting the quote, check who you are paying, what product they actually control, and whether the sample, packing, and company details match. | 待用户确认发布 |
+
+规则：只有草稿写完、且用户明确说“发”之后，才进入平台填写；点击提交前仍需再次确认。
 
 ## 已发布待回访
 

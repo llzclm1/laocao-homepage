@@ -131,3 +131,9 @@
 - 已在 Safari 发布 Facebook 评论 `B056`、`B057`、`B060`。
 - 三条发布后页面均显示“待审核”；未点赞、关注、私信或执行其他互动。
 - 已补入 `docs/promotion/overseas-posting-log.md` 和 `docs/promotion/overseas-ops-board.md`，后续每日回访需优先看是否过审、是否有真人回复。
+
+## 2026-06-30 低频原创草稿
+
+- 已准备 LinkedIn / X 通用短帖 `O001`，存放在 `docs/promotion/overseas-ops-board.md` 的“待发布确认”。
+- 草稿不含链接、不引导私信：`A fast supplier reply feels good, but it is not proof. Before trusting the quote, check who you are paying, what product they actually control, and whether the sample, packing, and company details match.`
+- 本轮未打开平台，未发布；如用户要发，仍需进入 Safari 填入并在提交前确认。
