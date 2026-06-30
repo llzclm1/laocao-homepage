@@ -42,3 +42,5 @@
 - 尝试只读检查 Reddit 跟帖互动时，公开 JSON 与 old.reddit 页面均返回 403，未获得稳定可用的公开互动数据。
 - 按项目规则未改用其他浏览器替代 Safari 检查 LinkedIn；当前环境无 Safari 自动化能力，因此停止站内通知/评论/私信检查。
 - 本轮未执行任何对外动作，也未生成新的对外回复内容；待 Safari 可用后补做只读回访。
+- 新增 `docs/promotion/facebook-search-archive.md`，整理 5 条 Facebook 公开候选帖子和 3 条暂不建议碰的位置。
+- 已把 5 条 Facebook 候选补入 `docs/promotion/social-reply-batch-2026-06-29.md`（`B051`-`B055`），继续维持“只整理、不发布”。

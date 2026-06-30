@@ -53,3 +53,10 @@
 - Reddit 公开接口与旧版页面请求均被 403 拦截，无法在当前环境稳定确认新增楼中回复。
 - LinkedIn 需按项目规则使用 Safari 只读检查；当前会话无 Safari 自动化能力，因此未进入站内通知、评论区或私信页。
 - 结论：本轮无法可靠确认新的真人回复、评论、私信或连接请求；需在可用 Safari 工具下补做只读回访，再决定是否准备回复草稿。
+
+## 2026-06-30 候选扩搜
+
+- 用户要求继续搜各个平台，并新增 Facebook。
+- 已新增 `docs/promotion/facebook-search-archive.md`，先收集 5 条公开可见的 Facebook 候选帖子，只做搜索存档和草稿方向，不做进群、评论或私信。
+- 已把 5 条 Facebook 候选补进 `docs/promotion/social-reply-batch-2026-06-29.md`（`B051`-`B055`）。
+- 当前 Facebook 还未发生实际对外动作，因此暂不补进 `docs/promotion/overseas-posting-log.md`，也暂不纳入每日互动回访范围。

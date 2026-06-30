@@ -60,4 +60,8 @@
 | B048 | Quora | Search topic | https://www.quora.com/search?q=China%20sourcing%20agent%20reliable | Quora 中国 sourcing agent 搜索 | 待筛选 | 代理透明度、报价、验货和赔付 | 待筛选 |  |
 | B049 | Quora | Search topic | https://www.quora.com/search?q=import%20from%20China%20supplier%20check | Quora 从中国进口前检查项 | 待筛选 | 合规、单证、付款、验货和物流 | 待筛选 |  |
 | B050 | X | Search topic | https://x.com/search?q=%22sourcing%20from%20China%22%20%22supplier%22&src=typed_query&f=live | X 上 sourcing from China 讨论 | 待筛选 | 只回真人求助；一句话短回复，不写长清单 | 待筛选 |  |
-
+| B051 | Facebook | Public group post | https://www.facebook.com/groups/2077712005780089/posts/4275424352675499/ | 新 Alibaba 供应商在大货前该做哪些检查 | 高 | 付款前先确认付款主体、样品一致性、视频/包装/地址是否对得上 | 待筛选 |  |
+| B052 | Facebook | Public group post | https://www.facebook.com/groups/159637701339726/posts/1943349676301844/ | private label 场景下，Alibaba 是否是最佳 sourcing 入口 | 中高 | 平台只是入口，重点看谁收款、谁打样、谁处理问题 | 待筛选 |  |
+| B053 | Facebook | Public group post | https://www.facebook.com/groups/730430404254904/posts/1973570576607541/ | 找长期中国供应商并要求发货快 | 中高 | 先定义产品、MOQ、样品、交期，再谈“可靠” | 待筛选 |  |
+| B054 | Facebook | Public group post | https://www.facebook.com/groups/672155363342806/posts/hello-is-there-anyone-that/2153094611915533/ | 新手想做中国采购/代理 | 中 | 先小单，要求报价透明、仓库照片、追踪和赔付规则 | 待筛选 |  |
+| B055 | Facebook | Public group post | https://www.facebook.com/groups/importhq/posts/30240906138857099/ | 遇到中国供应商欺诈后如何举报/追讨 | 中 | 只适合谨慎短回复：保留证据、核对付款路径、优先平台申诉 | 待筛选 |  |
