@@ -45,3 +45,4 @@
 - 新增 `docs/promotion/facebook-search-archive.md`，整理 5 条 Facebook 公开候选帖子和 3 条暂不建议碰的位置。
 - 已把 5 条 Facebook 候选补入 `docs/promotion/social-reply-batch-2026-06-29.md`（`B051`-`B055`），继续维持“只整理、不发布”。
 - 已为 Facebook 候选 `B051`、`B052`、`B053` 写好英文回复草稿，并填入批量候选表“最终回复”列；未执行任何发布动作。
+- 已按用户要求把 `B051`、`B052`、`B053` 压成更短、更像真人短评的版本；仍未发布。
