@@ -9,6 +9,7 @@
 - 账号包装：Facebook / LinkedIn / X / Quora 最小包装已完成。
 - 下一步低频互动：Facebook `B056`、`B057`、`B060` 已发布且均显示待审核；LinkedIn `O001` 已发布；下一轮可看 `B054`、`B055` 或回访审核状态。
 - LinkedIn 回访：`O001` 新帖需检查评论、连接请求和私信。
+- 待发布确认：Facebook `B054`、`B055` 短评草稿已写好，是否发布等用户确认。
 - 每日回访：2026-06-30 12:50 CST 已检查 Facebook / LinkedIn / Reddit / Quora / X，本轮无需要当天回复的真人线索。
 
 ## 记录

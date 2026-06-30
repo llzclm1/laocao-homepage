@@ -3,7 +3,7 @@
 用途：把“今天先看什么、哪些能起草、哪些等确认、哪些已发待回访”收拢到一个地方。  
 规则：这里只做看板，不替代原始台账；明细仍回写到各平台存档和总表。
 
-最后更新：2026-06-30 16:06 CST
+最后更新：2026-06-30 16:17 CST
 
 ## 今日回访
 
@@ -30,14 +30,15 @@
 
 | ID | 平台 | 问题 | 链接 | 优先级 | 建议角度 |
 | --- | --- | --- | --- | --- | --- |
-| B054 | Facebook | 新手想做中国采购 / 代理 | https://www.facebook.com/groups/672155363342806/posts/hello-is-there-anyone-that/2153094611915533/ | 中 | 小单、报价透明、仓库照片、追踪和赔付 |
-| B055 | Facebook | 供应商欺诈后如何举报 / 追讨 | https://www.facebook.com/groups/importhq/posts/30240906138857099/ | 中 | 证据保留、付款路径、平台申诉 |
+| 暂无 | - | - | - | - | - |
 
 ## 待发布确认
 
 | ID | 平台 | 用途 | 草稿 | 状态 |
 | --- | --- | --- | --- | --- |
 | O001 | LinkedIn | 低频原创短帖 | A fast supplier reply feels good, but it is not enough to trust the quote. Before moving forward, check who you are paying, whether the company details match, what product they actually control, and whether the sample and packaging are consistent. Speed is helpful, but matching details matter more. | 已发布，转入回访 |
+| B054 | Facebook | 新手采购/代理问题短评 | If you’re just starting, keep the first order small and simple. Ask for clear fees, real warehouse/product photos, tracking details, and what happens if items are missing or wrong. Cheap service can get expensive fast if those parts are vague. | 待用户确认发布 |
+| B055 | Facebook | 供应商欺诈追讨问题短评 | First collect everything: chat history, invoice, payment record, company name, bank details, tracking, and product photos. Then report through the platform/payment channel first. Recovery is usually hard, but clean evidence gives you the best chance. | 待用户确认发布 |
 
 规则：只有草稿写完、且用户明确说“发”之后，才进入平台填写；点击提交前仍需再次确认。
 

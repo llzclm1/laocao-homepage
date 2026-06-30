@@ -143,3 +143,9 @@
 - 用户确认后，已在 Safari 发布 LinkedIn 低频原创短帖 `O001`。
 - 链接：`https://www.linkedin.com/feed/update/urn:li:share:7477633458249449472/`
 - 本帖无链接、无私信引导、无服务承诺；后续每日回访需检查评论、连接请求和私信。
+
+## 2026-06-30 Facebook B054/B055 草稿
+
+- 已为 Facebook 候选 `B054`、`B055` 写入短评版英文草稿。
+- 两条已从“待起草”转入 `docs/promotion/overseas-ops-board.md` 的“待发布确认”。
+- 本轮未打开 Facebook，未发布、点赞、关注或私信；如要发，仍需用户确认最终文本和提交动作。
