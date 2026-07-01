@@ -153,5 +153,6 @@
 ## 2026-07-02 主站入口修复
 
 - 已将首页 footer 的工厂桥梁入口从 `https://factory.gewuji.dev/` 改为站内 `for-factories/` 和 `for-buyers/`。
+- 已将首页“最近项目进展”和 `llms.txt` 最近项目进展同步到 Factory Bridge 站内入口变化。
 - 本地顺序执行 `npm run build && npm run verify:static` 通过。
 - 线上 `gewuji.dev/for-factories/` 和 `gewuji.dev/for-buyers/` 当前可访问；如首页仍显示旧链接，优先等待 GitHub Pages / Cloudflare 缓存刷新或手动清缓存。

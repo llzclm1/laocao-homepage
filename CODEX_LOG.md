@@ -68,3 +68,4 @@
 ## 2026-07-02
 
 - 修复主站 footer 的工厂桥梁入口：从外部 `factory.gewuji.dev` 改为站内 `for-factories/` 和 `for-buyers/`，避免入口指向未确认子域名；已通过 `npm run build && npm run verify:static`。
+- 每日更新记录同步：`index.html` 最近项目进展新增 Factory Bridge 站内入口说明，`llms.txt` 同步保留最近两条项目级进展；已顺序执行 `npm run build && npm run verify:static`。
