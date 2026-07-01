@@ -149,3 +149,9 @@
 - 已为 Facebook 候选 `B054`、`B055` 写入短评版英文草稿。
 - 两条已从“待起草”转入 `docs/promotion/overseas-ops-board.md` 的“待发布确认”。
 - 本轮未打开 Facebook，未发布、点赞、关注或私信；如要发，仍需用户确认最终文本和提交动作。
+
+## 2026-07-02 主站入口修复
+
+- 已将首页 footer 的工厂桥梁入口从 `https://factory.gewuji.dev/` 改为站内 `for-factories/` 和 `for-buyers/`。
+- 本地顺序执行 `npm run build && npm run verify:static` 通过。
+- 线上 `gewuji.dev/for-factories/` 和 `gewuji.dev/for-buyers/` 当前可访问；如首页仍显示旧链接，优先等待 GitHub Pages / Cloudflare 缓存刷新或手动清缓存。

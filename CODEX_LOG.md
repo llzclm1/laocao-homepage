@@ -64,3 +64,7 @@
 ## 2026-07-01
 
 - 主站 footer 新增 `https://factory.gewuji.dev/` 的自然入口链接，用于连接格物集主站与工厂桥梁子项目；已通过 `npm run build:prod` 和 `npm run verify:static`。
+
+## 2026-07-02
+
+- 修复主站 footer 的工厂桥梁入口：从外部 `factory.gewuji.dev` 改为站内 `for-factories/` 和 `for-buyers/`，避免入口指向未确认子域名；已通过 `npm run build && npm run verify:static`。
