@@ -173,6 +173,7 @@ function openProjectDetail(detailKey) {
   detailDialog.showModal();
 }
 
+if (filterButtons.length && projectCards.length) {
 filterButtons.forEach((button) => {
   button.addEventListener("click", () => {
     const filter = button.dataset.filter;
@@ -197,6 +198,7 @@ filterButtons.forEach((button) => {
     }
   });
 });
+}
 
 function updateWorldCupHome() {
   const data = window.worldCupAdvisorData;
@@ -223,6 +225,7 @@ function updateWorldCupHome() {
 window.addEventListener?.("worldcup-advisor-data-ready", updateWorldCupHome);
 updateWorldCupHome();
 
+if (projectCards.length) {
 projectCards.forEach((card) => {
   card.addEventListener("click", (event) => {
     if (card.dataset.href && !event.target.closest("a, button")) {
@@ -256,6 +259,7 @@ projectCards.forEach((card) => {
     }
   });
 });
+}
 
 document.querySelectorAll(".hero-actions a, .contact-actions a, .card-link").forEach((link) => {
   link.addEventListener("click", () => {

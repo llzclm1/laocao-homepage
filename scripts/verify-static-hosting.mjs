@@ -35,13 +35,14 @@ for (const file of textFiles) {
 }
 
 const home = fs.readFileSync(path.join(dist, "index.html"), "utf8");
-assert.ok(home.includes('href="game/worldcup/index.html"'), "homepage should link to the worldcup index with a relative URL");
-assert.ok(home.includes('href="nav/"'), "homepage should link to the utility navigation page");
-assert.ok(home.includes('href="tools/photo-booth/"'), "homepage should link to the photo booth page");
+assert.ok(home.includes('href="for-buyers/"'), "homepage should link to the buyers page");
+assert.ok(home.includes('href="for-factories/"'), "homepage should link to the factories page");
+assert.ok(home.includes('href="field-materials/"'), "homepage should link to field materials");
+assert.ok(home.includes('href="tools/"'), "homepage should keep a low-priority lab link");
 assert.ok(home.includes('href="ai-sitemap.json"'), "homepage should expose the AI sitemap");
 assert.equal(home.includes('id="guide"'), false, "homepage should not embed the utility navigation section");
-assert.ok(home.includes("工位突围：世界杯摸鱼版"), "homepage should include the world cup event banner");
-assert.ok(home.includes('src="assets/projects/worldcup-game-preview.webp"'), "homepage should use the optimized world cup preview image");
+assert.equal(home.includes("工位突围：世界杯摸鱼版"), false, "homepage should not feature the world cup event banner");
+assert.equal(home.includes('href="tools/worldcup-advisor/"'), false, "homepage should not directly feature World Cup Advisor");
 assert.equal(home.includes('src="assets/projects/worldcup-game-preview.png"'), false, "homepage should not use the old world cup PNG preview image");
 assert.equal(home.includes('href="/'), false, "homepage should not use root-relative href paths");
 assert.equal(home.includes('src="/'), false, "homepage should not use root-relative src paths");

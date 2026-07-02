@@ -76,3 +76,4 @@
 - 已恢复真实 Godot 预览页：改用 Godot 4.6 Web no-threads runtime 重新生成 `index.js/wasm/pck`，并把 POC 逻辑改成单场景单脚本实体管理，避开 Web 运行时 `function signature mismatch`；本地 12 秒和 20 秒 Playwright 截图验证通过。
 - 根据 Clarity 过去 7 天访问结构，新增 `/tools/` 工具总入口，首页明确格物集主站 / Tools / Factory Bridge 分流，并给 World Cup Advisor 7 个页面底部增加轻量 “More from Gewuji” 内链模块；已通过 `npm run build:prod && npm run verify:static`。
 - Godot 版世界杯摸鱼 H5 POC 增加球场线、办公室贴纸/标识、桌面高光、射击尾迹、命中特效、出生/击退环形粒子，并限制动态特效数量；已重新导出 `game/worldcup-godot/index.pck`，通过 `npm run build:prod && npm run verify:static`。
+- 主站信息架构清理：首页和主导航聚焦 Factory Bridge / Field Materials，旧工具统一降级收纳到 `/tools/`，首页移除工具项目网格和世界杯状态脚本；sitemap 提升业务页权重、降低旧工具权重；已通过 `npm run build:prod`、`node --check script.js`、`npm run verify:static`。

@@ -167,3 +167,9 @@
 - 冻结原因定位为多 PackedScene/多脚本导出后 Web 运行时报 `function signature mismatch`；当前改为单场景单脚本实体管理，并使用 Godot 4.6 Web no-threads runtime/package，Playwright 12-20 秒验证可持续运行。
 - 已为 Godot POC 增加轻量背景和特效：球场线、办公室贴纸/标识、桌面高光、足球尾迹、命中火花、敌人出现/击退粒子环；特效数量上限为 60，避免重新引入卡死问题。
 - 最近一次导出使用 `/tmp/godot46/Godot.app/Contents/MacOS/Godot --headless --path godot/worldcup-poc --export-pack Web game/worldcup-godot/index.pck`，并通过 `npm run build:prod && npm run verify:static`。
+
+## 2026-07-02 主站信息架构清理
+
+- 首页已从工具/项目展示改为 Factory Bridge、Field Materials、Lab 低优先级入口。
+- 旧工具 URL 未删除，统一收纳到 `/tools/`；主导航不再直接展示 World Cup Advisor、Photo Booth、Content Assistant 等临时工具。
+- sitemap 已提高 `/for-buyers/`、`/for-factories/`、`/field-materials/` 权重，降低旧工具权重；noindex / 移除 sitemap 候选仍待用户确认。
