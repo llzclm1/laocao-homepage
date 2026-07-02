@@ -12,6 +12,7 @@
 | 2026-06-29 | r/smallbusiness | How do you find suppliers from China? | https://www.reddit.com/r/smallbusiness/comments/1ug73ru/comment/ouf07iw/ | 已回复 | 无链接，泛制造业版，讲如何识别真正接近生产的供应商 |
 | 2026-06-29 | r/Business_China | Has anyone here used Made-in-China.com to find manufacturers for private label products? | https://www.reddit.com/r/Business_China/comments/1udijk9/comment/oufl1mj/ | 已回复 | 无链接，回答平台只能做供应商发现，需核验公司、产品、工厂现场和小单风险 |
 | 2026-06-29 | r/Entrepreneurs | Anyone here use Made-in-China when looking for suppliers? | https://www.reddit.com/r/Entrepreneurs/comments/1udbvfs/comment/oufqcer/ | 已回复 | 无链接，回答平台不是核心筛选，重点核验供应商、付款主体、现场视频和小单试单 |
+| 2026-07-02 | r/Alibaba | My business grew too fast and my current supplier cannot keep up | https://www.reddit.com/r/Alibaba/comments/1uhllqc/comment/ov1brft/ | 已回复 | 无链接，回答产能切换风险：保留原供应商基线产能，用单 SKU/小批量验证第二供应商 |
 
 ## 使用规则
 
