@@ -19,3 +19,5 @@
 | 2026-06-30 | Facebook | https://www.facebook.com/groups/importhq/posts/31452677687679932/ | Commented on low MOQ custom product sourcing question; pending review; no promotional link; add to daily follow-up |
 | 2026-06-30 | LinkedIn | https://www.linkedin.com/feed/update/urn:li:share:7477633458249449472/ | Posted short supplier reply/trust checklist; no promotional link; add to daily follow-up |
 | 2026-07-02 | Reddit | https://www.reddit.com/r/Alibaba/comments/1uhllqc/comment/ov1brft/ | Replied to supplier capacity scale-up question; no promotional link; add to daily follow-up |
+| 2026-07-02 | LinkedIn | https://www.linkedin.com/feed/update/urn:li:share:7478273852406444032/ | Posted supplier photo vs production proof checklist; no promotional link; add to daily follow-up |
+| 2026-07-02 | Quora | https://www.quora.com/How-do-I-check-if-the-supplier-on-Alibaba-is-legit/answer/%E9%9B%B7%E9%B8%A3-%E6%9B%B9 | Answered Alibaba supplier legitimacy check question; no promotional link; add to daily follow-up |
