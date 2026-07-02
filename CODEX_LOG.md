@@ -69,3 +69,5 @@
 
 - 修复主站 footer 的工厂桥梁入口：从外部 `factory.gewuji.dev` 改为站内 `for-factories/` 和 `for-buyers/`，避免入口指向未确认子域名；已通过 `npm run build && npm run verify:static`。
 - 每日更新记录同步：`index.html` 最近项目进展新增 Factory Bridge 站内入口说明，`llms.txt` 同步保留最近两条项目级进展；已顺序执行 `npm run build && npm run verify:static`。
+- 导出 Godot 版世界杯摸鱼 H5 POC 到 `game/worldcup-godot/`，新增 `index.html/js/wasm/pck` 与音频 worklet 文件；Godot 源码 HUD 改为 ASCII 文案以避免 Web 默认字体缺中文。
+- 补充 Godot POC 静态托管校验，忽略 `.godot/` 本地缓存，并保留 `.gd.uid` 资源 UID 文件；已通过 `npm run build:prod && npm run verify:static`，本地 Playwright smoke test 截图确认页面可显示。

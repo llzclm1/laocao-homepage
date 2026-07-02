@@ -156,3 +156,10 @@
 - 已将首页“最近项目进展”和 `llms.txt` 最近项目进展同步到 Factory Bridge 站内入口变化。
 - 本地顺序执行 `npm run build && npm run verify:static` 通过。
 - 线上 `gewuji.dev/for-factories/` 和 `gewuji.dev/for-buyers/` 当前可访问；如首页仍显示旧链接，优先等待 GitHub Pages / Cloudflare 缓存刷新或手动清缓存。
+
+## 2026-07-02 Godot H5 POC
+
+- 已新增 Godot 版世界杯摸鱼 H5 POC，源码在 `godot/worldcup-poc/`，静态预览产物在 `game/worldcup-godot/`。
+- 当前正式游戏入口仍是 Canvas 版 `game/worldcup/`，Godot 版只作为独立预览页，不替换线上主入口。
+- Godot 4.7 完整 Web 导出 CLI 仍报 preset configuration error；当前采用 `--export-pack` 生成 `index.pck`，并用官方 Web no-threads 模板文件手工封装 `index.html/js/wasm`。
+- 本地已验证 `http://127.0.0.1:8766/game/worldcup-godot/` 能显示画面；控制台仍有一个 Godot Web 音频相关 `function signature mismatch`，不影响当前 POC 画面预览。

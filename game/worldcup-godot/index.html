@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0" />
+    <title>工位突围：世界杯摸鱼版 Godot POC</title>
+    <style>
+      html,
+      body,
+      #canvas {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      body {
+        color: #fff7ed;
+        background: #0f172a;
+        overflow: hidden;
+        touch-action: none;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      #canvas {
+        display: block;
+        background: #111827;
+      }
+
+      #canvas:focus {
+        outline: none;
+      }
+
+      #status {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        background: radial-gradient(circle at 50% 35%, #1f2937, #020617 70%);
+      }
+
+      #status-title {
+        margin: 0;
+        font-size: 22px;
+        font-weight: 800;
+      }
+
+      #status-subtitle {
+        margin: 0;
+        color: #fed7aa;
+        font-size: 14px;
+      }
+
+      #status-progress {
+        width: min(240px, 70vw);
+        height: 8px;
+        accent-color: #f97316;
+      }
+
+      #status-notice {
+        display: none;
+        max-width: 320px;
+        margin: 0 24px;
+        padding: 14px 16px;
+        border: 1px solid rgba(248, 113, 113, 0.5);
+        border-radius: 10px;
+        background: rgba(127, 29, 29, 0.72);
+        color: #fee2e2;
+        line-height: 1.5;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas">你的浏览器不支持 Canvas。</canvas>
+    <div id="status">
+      <h1 id="status-title">工位突围：世界杯摸鱼版</h1>
+      <p id="status-subtitle">Godot H5 POC 加载中</p>
+      <progress id="status-progress"></progress>
+      <div id="status-notice"></div>
+    </div>
+    <script src="./index.js"></script>
+    <script>
+      const config = {
+        canvas: document.getElementById("canvas"),
+        executable: "index",
+        mainPack: "index.pck",
+        canvasResizePolicy: 2,
+        focusCanvas: true,
+      };
+      const engine = new Engine(config);
+
+      (function () {
+        const status = document.getElementById("status");
+        const progress = document.getElementById("status-progress");
+        const notice = document.getElementById("status-notice");
+        let done = false;
+
+        function fail(error) {
+          console.error(error);
+          progress.style.display = "none";
+          notice.style.display = "block";
+          notice.textContent = error instanceof Error ? error.message : String(error);
+          done = true;
+        }
+
+        const missing = Engine.getMissingFeatures({ threads: false });
+        if (missing.length > 0) {
+          fail("当前浏览器缺少运行 Godot H5 所需能力：" + missing.join("、"));
+          return;
+        }
+
+        engine
+          .startGame({
+            onProgress(current, total) {
+              if (done) return;
+              if (current > 0 && total > 0) {
+                progress.value = current;
+                progress.max = total;
+              } else {
+                progress.removeAttribute("value");
+                progress.removeAttribute("max");
+              }
+            },
+          })
+          .then(
+            () => {
+              done = true;
+              status.remove();
+            },
+            fail
+          );
+      })();
+    </script>
+  </body>
+</html>

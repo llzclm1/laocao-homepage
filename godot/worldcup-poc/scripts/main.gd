@@ -43,7 +43,7 @@ func _process(delta: float) -> void:
 	update_shooting(delta)
 	update_projectiles()
 	update_enemy_contact(delta)
-	hud.text = "摸鱼 %.0f 秒  击退 %d  HP %d" % [elapsed, kills, player.hp]
+	hud.text = "Time %.0fs  Kicks %d  HP %d" % [elapsed, kills, player.hp]
 	if player.hp <= 0 or elapsed >= RUN_SECONDS:
 		show_result()
 
@@ -95,7 +95,7 @@ func update_projectiles() -> void:
 			if not is_instance_valid(enemy):
 				enemies.erase(enemy)
 				continue
-			var radius := projectile.hit_radius + enemy.radius
+			var radius: float = projectile.hit_radius + enemy.radius
 			if projectile.global_position.distance_squared_to(enemy.global_position) <= radius * radius:
 				enemy.take_damage(projectile.damage)
 				projectile.queue_free()
@@ -108,7 +108,7 @@ func update_enemy_contact(delta: float) -> void:
 		if not is_instance_valid(enemy):
 			enemies.erase(enemy)
 			continue
-		var radius := enemy.radius + 22.0
+		var radius: float = enemy.radius + 22.0
 		if player.global_position.distance_squared_to(enemy.global_position) <= radius * radius:
 			player.hp -= int(ceil(enemy.damage * delta))
 
@@ -181,9 +181,9 @@ func _on_enemy_died(enemy: Node) -> void:
 
 func show_result() -> void:
 	ended = true
-	var rating := "实习摸鱼员"
+	var rating := "Rookie Slacker"
 	if elapsed >= 120.0:
-		rating = "工位球王"
+		rating = "Office Striker"
 	elif elapsed >= 60.0:
-		rating = "工位替补"
-	hud.text = "本次摸鱼 %.0f 秒，击退 %d 个干扰\n摸鱼评级：%s" % [elapsed, kills, rating]
+		rating = "Bench Hero"
+	hud.text = "Run %.0fs  Kicks %d\nRating: %s" % [elapsed, kills, rating]

@@ -9,6 +9,7 @@ build/
 .DS_Store
 .codex-exec/
 **/.codex-exec/
+**/.godot/
 outputs/
 outputs/*-homepage.png
 tools/site-stats-review/input/*

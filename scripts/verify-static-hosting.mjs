@@ -87,6 +87,17 @@ assert.ok(worldcup.includes('return lowMemory ? "auto" : "high";'), "browser H5 
 assert.ok(worldcup.includes("@media (max-width: 820px), (pointer: coarse)"), "mobile browser should fill the viewport height");
 assert.ok(worldcup.includes("premiumName && premiumSources[premiumName]"), "worldcup characters should not fall back to old atlas sprites");
 
+const godotWorldcup = path.join(dist, "game", "worldcup-godot", "index.html");
+if (fs.existsSync(godotWorldcup)) {
+  const godot = fs.readFileSync(godotWorldcup, "utf8");
+  assert.equal(godot.includes(githubPagesHostSuffix), false, "godot worldcup page should not hard-code GitHub Pages");
+  assert.equal(godot.includes('src="/'), false, "godot worldcup page should not use root-relative src paths");
+  assert.equal(godot.includes('href="/'), false, "godot worldcup page should not use root-relative href paths");
+  assert.ok(fs.existsSync(path.join(dist, "game", "worldcup-godot", "index.js")), "godot worldcup JS is missing");
+  assert.ok(fs.existsSync(path.join(dist, "game", "worldcup-godot", "index.wasm")), "godot worldcup WASM is missing");
+  assert.ok(fs.existsSync(path.join(dist, "game", "worldcup-godot", "index.pck")), "godot worldcup pack is missing");
+}
+
 const requiredAssets = [
   "game/worldcup/assets/office_survivor_atlas.png",
   "game/worldcup/assets/worldcup/worldcup_player_idle.png",
