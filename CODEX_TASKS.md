@@ -5,6 +5,7 @@
 - AI bot 观察：每周按 `docs/ai-bot-visibility-checklist.md` 记录三个站点 AI bot 请求、核心页抓取、404/5xx 和 sitemap/robots 状态。
 - 主站 IA：旧工具和游戏实验已统一降级到 `/tools/`；如要进一步处理低质量工具页，需用户确认 noindex / sitemap 移除候选。
 - 外链观察：定期把 Ahrefs / GSC 发现的外链补入 `data/backlinks/backlink-audit-log.csv`；无手动处罚前不提交 disavow。
+- 干净外链第一批：按 `docs/clean-backlink-first-batch.md` 手动执行 LinkedIn profile、GitHub profile、GitHub README resource repository、About.me、Notion public checklist；提交成功后再补入 `data/backlinks/backlink-audit-log.csv`。
 - Godot H5 POC：`game/worldcup-godot/` 已可预览，已套入角色 PNG 并补充轻量背景/特效；下一步如继续推进，应优先做移动端手感、性能和玩法节奏验证，再决定是否替换 `/game/worldcup/`。
 - Reddit 海外推广：继续找制造业、找中国供应商、找工厂相关真实问题跟帖。
 - 批量回复：等待用户填写 `docs/promotion/social-reply-batch-2026-06-29.md` 的“最终回复”列，再按条目发布。

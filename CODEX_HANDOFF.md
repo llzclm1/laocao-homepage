@@ -178,6 +178,7 @@
 ## 2026-07-02 外链健康观察
 
 - 已新增外链健康检查、风险策略、干净外链计划和数据表，路径见 `docs/backlink-*.md` 与 `data/backlinks/`。
+- 已新增第二阶段第一批干净外链执行材料：`docs/clean-backlink-first-batch.md`、`docs/profile-link-copy.md`、`docs/github-readme-backlink-template.md`、`docs/notion-checklist-template.md`、`data/backlinks/first-batch-backlink-plan.csv`。本轮只生成文案和清单，未注册账号、未提交外链、未 push。
 - 当前策略是记录、分类、观察；不自动购买外链，不自动 disavow，不自动提交 Google Search Console。
 
 ## 2026-07-02 AI Bot 可见性优化
