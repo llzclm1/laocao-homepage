@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://worldcup_main_poc"]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/Player.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/Enemy.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://scenes/Projectile.tscn" id="4"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1")
+player_scene = ExtResource("2")
+enemy_scene = ExtResource("3")
+projectile_scene = ExtResource("4")
+
+[node name="World" type="Node2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(800, 1200)
+enabled = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Hud" type="Label" parent="CanvasLayer"]
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 700.0
+offset_bottom = 120.0
+theme_override_font_sizes/font_size = 32
+text = "工位突围：世界杯摸鱼版"
