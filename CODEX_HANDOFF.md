@@ -163,4 +163,5 @@
 - 当前正式游戏入口仍是 Canvas 版 `game/worldcup/`，Godot 版只作为独立预览页，不替换线上主入口。
 - 已把 Canvas 版世界杯角色 PNG 复用到 Godot POC：蓝色主角、巡逻同事、HR、老板、发消息主管、会议通知均已接入 `Sprite2D`。
 - Godot 4.7 完整 Web 导出 CLI 仍报 preset configuration error；当前采用 `--export-pack` 生成 `index.pck`，并用官方 Web no-threads 模板文件手工封装 `index.html/js/wasm`。
-- Godot Web 运行约 1 秒后会因 `function signature mismatch` 停止主循环；线上 `game/worldcup-godot/` 已临时改为自动跳转到稳定 Canvas 版 `game/worldcup/`，避免用户进入卡死页。
+- Godot Web 预览已恢复为真实 Godot 页面 `game/worldcup-godot/`，不再跳转 Canvas H5。
+- 冻结原因定位为多 PackedScene/多脚本导出后 Web 运行时报 `function signature mismatch`；当前改为单场景单脚本实体管理，并使用 Godot 4.6 Web no-threads runtime/package，Playwright 12-20 秒验证可持续运行。

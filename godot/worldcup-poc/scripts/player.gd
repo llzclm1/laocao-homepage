@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends Node2D
 
 @export var speed: float = 330.0
 @export var idle_texture: Texture2D
@@ -14,9 +14,8 @@ func set_move_vector(value: Vector2) -> void:
 	move_vector = value.limit_length(1.0)
 
 
-func _physics_process(_delta: float) -> void:
-	velocity = move_vector * speed
+func _process(delta: float) -> void:
+	global_position += move_vector * speed * delta
 	body.texture = run_texture if move_vector.length_squared() > 0.01 else idle_texture
 	if abs(move_vector.x) > 0.01:
 		body.flip_h = move_vector.x < 0.0
-	move_and_slide()

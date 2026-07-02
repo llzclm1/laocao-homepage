@@ -73,4 +73,5 @@
 - 补充 Godot POC 静态托管校验，忽略 `.godot/` 本地缓存，并保留 `.gd.uid` 资源 UID 文件；已通过 `npm run build:prod && npm run verify:static`，本地 Playwright smoke test 截图确认页面可显示。
 - 已将世界杯角色 PNG 套入 Godot POC 的 Player/Enemy 场景，主角使用蓝色 idle/run 图，敌人按巡逻同事、HR、老板、发消息主管、会议通知切换贴图；重新打包 `game/worldcup-godot/index.pck` 并通过静态校验。
 - 发现 Godot Web POC 几秒无响应实为主循环停在约 1 秒，控制台报 `function signature mismatch`；已将 `game/worldcup-godot/index.html` 临时改为跳转到稳定 Canvas H5，Godot 源码和素材保留继续排查。
+- 已恢复真实 Godot 预览页：改用 Godot 4.6 Web no-threads runtime 重新生成 `index.js/wasm/pck`，并把 POC 逻辑改成单场景单脚本实体管理，避开 Web 运行时 `function signature mismatch`；本地 12 秒和 20 秒 Playwright 截图验证通过。
 - 根据 Clarity 过去 7 天访问结构，新增 `/tools/` 工具总入口，首页明确格物集主站 / Tools / Factory Bridge 分流，并给 World Cup Advisor 7 个页面底部增加轻量 “More from Gewuji” 内链模块；已通过 `npm run build:prod && npm run verify:static`。
