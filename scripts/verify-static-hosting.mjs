@@ -119,14 +119,16 @@ for (const file of requiredAssets) {
 }
 
 const sitemap = fs.readFileSync(path.join(dist, "sitemap.xml"), "utf8");
-assert.ok(sitemap.includes("/game/worldcup/"), "sitemap should include /game/worldcup/");
-assert.ok(sitemap.includes("/tools/photo-booth/"), "sitemap should include /tools/photo-booth/");
-assert.ok(sitemap.includes("/nav/"), "sitemap should include /nav/");
+assert.ok(sitemap.includes("/tools/"), "sitemap should include /tools/");
 assert.ok(sitemap.includes("/ai-sitemap.json"), "sitemap should include /ai-sitemap.json");
-assert.ok(sitemap.includes("/tools/content-assistant/"), "sitemap should include /tools/content-assistant/");
-assert.ok(sitemap.includes("/tools/content-assistant/admin/"), "sitemap should include /tools/content-assistant/admin/");
 assert.ok(sitemap.includes("/for-factories/"), "sitemap should include /for-factories/");
 assert.ok(sitemap.includes("/for-buyers/"), "sitemap should include /for-buyers/");
+assert.ok(sitemap.includes("/field-materials/"), "sitemap should include /field-materials/");
+assert.equal(sitemap.includes("/game/worldcup/"), false, "sitemap should not include old game pages");
+assert.equal(sitemap.includes("/tools/photo-booth/"), false, "sitemap should not include old tool pages");
+assert.equal(sitemap.includes("/tools/content-assistant/"), false, "sitemap should not include temporary tool pages");
+assert.equal(sitemap.includes("/tools/content-assistant/admin/"), false, "sitemap should not include admin tool pages");
+assert.equal(sitemap.includes("/nav/"), false, "sitemap should not include old navigation helper pages");
 assert.equal(sitemap.includes("/m/"), false, "sitemap should not include standalone trade manufacturer page");
 assert.equal(sitemap.includes("/b/"), false, "sitemap should not include standalone trade buyer page");
 
@@ -150,11 +152,13 @@ const aiSitemapPaths = aiSitemap.pages.map((page) => new URL(page.url).pathname.
 assert.equal(aiSitemap.site.name, "格物集", "AI sitemap should describe the site");
 assert.equal(aiSitemapPaths.includes("/m/"), false, "AI sitemap should not include standalone trade manufacturer page");
 assert.equal(aiSitemapPaths.includes("/b/"), false, "AI sitemap should not include standalone trade buyer page");
-assert.ok(aiSitemapPaths.includes("/tools/photo-booth/"), "AI sitemap should include the photo booth page");
-assert.ok(aiSitemapPaths.includes("/tools/worldcup-advisor/advisor/"), "AI sitemap should include the worldcup advisor page");
+assert.ok(aiSitemapPaths.includes("/tools/"), "AI sitemap should include the Lab / Tools index");
+assert.equal(aiSitemapPaths.includes("/tools/photo-booth/"), false, "AI sitemap should not elevate old photo booth pages");
+assert.equal(aiSitemapPaths.includes("/tools/worldcup-advisor/advisor/"), false, "AI sitemap should not elevate World Cup Advisor pages");
 assert.ok(aiSitemapPaths.includes("/for-factories/"), "AI sitemap should include the factory bridge factory page");
 assert.ok(aiSitemapPaths.includes("/for-buyers/"), "AI sitemap should include the factory bridge buyer page");
-assert.ok(JSON.stringify(aiSitemap).includes("不构成投注建议"), "AI sitemap should include the worldcup safety boundary");
+assert.ok(aiSitemapPaths.includes("/field-materials/"), "AI sitemap should include field materials");
+assert.ok(JSON.stringify(aiSitemap).includes("不是正式审厂"), "AI sitemap should include factory bridge service boundaries");
 
 const factoryPage = fs.readFileSync(path.join(dist, "for-factories/index.html"), "utf8");
 const buyerPage = fs.readFileSync(path.join(dist, "for-buyers/index.html"), "utf8");

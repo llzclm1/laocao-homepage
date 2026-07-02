@@ -179,3 +179,11 @@
 
 - 已新增外链健康检查、风险策略、干净外链计划和数据表，路径见 `docs/backlink-*.md` 与 `data/backlinks/`。
 - 当前策略是记录、分类、观察；不自动购买外链，不自动 disavow，不自动提交 Google Search Console。
+
+## 2026-07-02 AI Bot 可见性优化
+
+- 新增 `docs/ai-bot-visibility-checklist.md`，用于每周检查 `gewuji.dev`、`games.gewuji.dev`、`factory.gewuji.dev` 的 AI bot 抓取路径、核心页覆盖、错误码和重定向。
+- 主站 `sitemap.xml` 生成已收紧为：`/`、`/tools/`、`/for-buyers/`、`/for-factories/`、`/field-materials/`、`/llms.txt`、`/ai-sitemap.json`。
+- 主站 `ai-sitemap.json` 口径已调整：格物集是主站 / 品牌母站，工厂桥梁是主业务项目，Lab / Tools 只收纳实验；不再把 World Cup Advisor、Photo Booth、Content Assistant 抬到 AI sitemap 核心页。
+- 已通过 `npm run build:prod && npm run verify:static`。
+- 未屏蔽 AI bot，未 noindex，未删除页面，未 push。

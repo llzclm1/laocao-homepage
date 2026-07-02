@@ -79,3 +79,4 @@
 - 主站信息架构清理：首页和主导航聚焦 Factory Bridge / Field Materials，旧工具统一降级收纳到 `/tools/`，首页移除工具项目网格和世界杯状态脚本；sitemap 提升业务页权重、降低旧工具权重；已通过 `npm run build:prod`、`node --check script.js`、`npm run verify:static`。
 - 游戏和临时工具 IA 清理：`/tools/` 增加游戏实验归档卡片和迁移标记，`/game/worldcup/` sitemap 降权，新增 `docs/game-content-migration-plan.md` 独立游戏站迁移建议；已通过 `npm run build:prod`、`npm run verify:static`。
 - 新增外链健康检查和干净外链建设观察系统：`docs/backlink-health-check.md`、`docs/backlink-risk-policy.md`、`docs/clean-backlink-plan.md`、`data/backlinks/backlink-audit-log.csv`、`data/backlinks/clean-backlink-targets.json`；未执行 disavow、外链提交或购买外链。
+- AI bot 可见性优化：新增 `docs/ai-bot-visibility-checklist.md`，收紧主站 sitemap 为首页、`/tools/`、工厂桥梁核心页、`llms.txt`、`ai-sitemap.json`，并重写 AI sitemap 口径为格物集主站 / 工厂桥梁 / Lab 边界；已通过 `npm run build:prod && npm run verify:static`，未 push。
