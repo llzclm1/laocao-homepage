@@ -183,7 +183,7 @@
 - 第一批干净外链已完成 2 条：LinkedIn Featured link 已指向 `https://gewuji.dev/for-buyers/`，已记录到 `data/backlinks/backlink-audit-log.csv`。
 - 第一批干净外链已完成 3 条：GitHub resource README `https://github.com/llzclm1/supplier-communication-notes`，已记录到 `data/backlinks/backlink-audit-log.csv`。
 - 第一批干净外链已完成 4 条：Notion public checklist `https://dazzling-shade-a49.notion.site/Supplier-Communication-Checklist-Before-a-Sample-Order-391592c3c41380bba0f4e8f77a4e1289`，链接到 `https://gewuji.dev/for-buyers/`，已记录到 `data/backlinks/backlink-audit-log.csv`。
-- About.me 当前未登录；按规则未注册新账号，first-batch 表仍标记为 `blocked_login`。
+- 第一批干净外链已完成 5 条：About.me profile `https://about.me/ray_vision` 新增 `Gewuji` 链接按钮，指向 `https://gewuji.dev/`，已记录到 `data/backlinks/backlink-audit-log.csv`。
 - 当前策略是记录、分类、观察；不自动购买外链，不自动 disavow，不自动提交 Google Search Console。
 
 ## 2026-07-02 AI Bot 可见性优化

@@ -85,3 +85,4 @@
 - 第一批干净外链执行：已在 LinkedIn profile 的 Featured 区添加 `Gewuji Factory Bridge`，链接到 `https://gewuji.dev/for-buyers/`，并更新外链 audit log 与 first-batch 执行表。
 - 第一批干净外链执行：已创建并发布 GitHub resource README `https://github.com/llzclm1/supplier-communication-notes`，链接到 `https://gewuji.dev/field-materials/`，并更新外链 audit log 与 first-batch 执行表。
 - 第一批干净外链执行：已发布 Notion public checklist `https://dazzling-shade-a49.notion.site/Supplier-Communication-Checklist-Before-a-Sample-Order-391592c3c41380bba0f4e8f77a4e1289`，链接到 `https://gewuji.dev/for-buyers/`，并更新外链 audit log 与 first-batch 执行表；About.me 仍待登录。
+- 第一批干净外链执行：已在 About.me profile `https://about.me/ray_vision` 添加 `Gewuji` 链接按钮，指向 `https://gewuji.dev/`，并更新外链 audit log 与 first-batch 执行表。
