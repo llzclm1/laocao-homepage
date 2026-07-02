@@ -1,6 +1,4 @@
-extends CharacterBody2D
-
-signal died(enemy: Node)
+extends Node2D
 
 @export var patrol_texture: Texture2D
 @export var hr_texture: Texture2D
@@ -61,15 +59,12 @@ func configure(type_name: String, target_node: Node2D) -> void:
 
 func take_damage(amount: int) -> void:
 	hp -= amount
-	if hp <= 0:
-		died.emit(self)
-		queue_free()
 
 
-func _physics_process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	if not is_instance_valid(target):
 		return
-	velocity = (target.global_position - global_position).normalized() * speed
+	var velocity := (target.global_position - global_position).normalized() * speed
+	global_position += velocity * delta
 	if abs(velocity.x) > 0.01:
 		body.flip_h = velocity.x < 0.0
-	move_and_slide()

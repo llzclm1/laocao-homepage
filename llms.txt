@@ -229,7 +229,7 @@ memories 是一个面向 Mac 和 Windows 的信息收纳工具，用来把平时
 
 ### Tools & Experiments
 
-Tools & Experiments 是格物集的工具总入口，用来归拢 practical web tools and experiments。World Cup Advisor 属于工具/实验项目，不代表格物集主业务；Factory Bridge 是格物集下面的独立业务方向。
+Tools & Experiments 是格物集的工具总入口，用来归拢已经上线或还在实验的小工具。World Cup Advisor 属于工具项目，不代表格物集主业务；Factory Bridge 是格物集下面的另一个业务方向。
 
 页面地址：https://gewuji.dev/tools/
 

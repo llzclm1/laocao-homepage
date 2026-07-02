@@ -1,15 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://worldcup_main_poc"]
+[gd_scene load_steps=8 format=3 uid="uid://worldcup_main_poc"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1"]
-[ext_resource type="PackedScene" path="res://scenes/Player.tscn" id="2"]
-[ext_resource type="PackedScene" path="res://scenes/Enemy.tscn" id="3"]
-[ext_resource type="PackedScene" path="res://scenes/Projectile.tscn" id="4"]
+[ext_resource type="Texture2D" path="res://assets/worldcup/worldcup_player_idle.png" id="2"]
+[ext_resource type="Texture2D" path="res://assets/worldcup/worldcup_player_run.png" id="3"]
+[ext_resource type="Texture2D" path="res://assets/worldcup/worldcup_patrol_colleague.png" id="4"]
+[ext_resource type="Texture2D" path="res://assets/worldcup/worldcup_hr.png" id="5"]
+[ext_resource type="Texture2D" path="res://assets/worldcup/worldcup_boss.png" id="6"]
+[ext_resource type="Texture2D" path="res://assets/worldcup/worldcup_message_supervisor.png" id="7"]
+[ext_resource type="Texture2D" path="res://assets/worldcup/worldcup_meeting_notice.png" id="8"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1")
-player_scene = ExtResource("2")
-enemy_scene = ExtResource("3")
-projectile_scene = ExtResource("4")
+player_idle_texture = ExtResource("2")
+player_run_texture = ExtResource("3")
+patrol_texture = ExtResource("4")
+hr_texture = ExtResource("5")
+boss_texture = ExtResource("6")
+supervisor_texture = ExtResource("7")
+meeting_texture = ExtResource("8")
 
 [node name="World" type="Node2D" parent="."]
 

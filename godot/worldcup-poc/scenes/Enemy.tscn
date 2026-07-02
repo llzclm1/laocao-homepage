@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" path="res://assets/worldcup/worldcup_message_supervisor.png" id="5"]
 [ext_resource type="Texture2D" path="res://assets/worldcup/worldcup_meeting_notice.png" id="6"]
 
-[node name="Enemy" type="CharacterBody2D"]
+[node name="Enemy" type="Node2D"]
 script = ExtResource("1")
 patrol_texture = ExtResource("2")
 hr_texture = ExtResource("3")
