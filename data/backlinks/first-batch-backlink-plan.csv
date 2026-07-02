@@ -1,5 +1,5 @@
 platform,targetPage,suggestedAnchor,copyFile,status,priority,notes,nextAction
-LinkedIn profile,https://gewuji.dev/for-buyers/,Gewuji Factory Bridge,docs/profile-link-copy.md,planned,high,Use profile About or Featured link; keep it factual and low-sales.,Manually update LinkedIn profile and record public source URL in backlink-audit-log.csv.
+LinkedIn profile,https://gewuji.dev/for-buyers/,Gewuji Factory Bridge,docs/profile-link-copy.md,submitted,high,Published as a LinkedIn Featured link on the profile.,Recheck index status later and update backlink-audit-log.csv if indexed.
 GitHub profile,https://gewuji.dev/,Gewuji,docs/github-readme-backlink-template.md,submitted,high,Published at https://github.com/llzclm1/llzclm1.,Recheck index status later and update backlink-audit-log.csv if indexed.
 GitHub README resource repository,https://gewuji.dev/field-materials/,field materials for buyer trust,docs/github-readme-backlink-template.md,planned,medium,Create or update a lightweight public resource README if there is a suitable repo.,Manually publish README and record repository URL after it is public.
 About.me profile,https://gewuji.dev/,Gewuji,docs/profile-link-copy.md,planned,medium,Use About.me as a simple personal profile link to the main site.,Manually update About.me profile and record public profile URL.
