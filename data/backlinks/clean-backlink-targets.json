@@ -1,0 +1,112 @@
+[
+  {
+    "sourceName": "LinkedIn profile",
+    "sourceUrl": "https://www.linkedin.com/",
+    "category": "profile",
+    "targetPage": "https://gewuji.dev/for-buyers/",
+    "suggestedAnchor": "Gewuji Factory Bridge",
+    "contentNeeded": "Profile link or featured project link",
+    "difficulty": "low",
+    "priority": "high",
+    "notes": "Use natural profile positioning. No exaggerated sourcing promises."
+  },
+  {
+    "sourceName": "GitHub profile",
+    "sourceUrl": "https://github.com/",
+    "category": "profile",
+    "targetPage": "https://gewuji.dev/",
+    "suggestedAnchor": "Gewuji",
+    "contentNeeded": "Profile website link",
+    "difficulty": "low",
+    "priority": "high",
+    "notes": "Clean branded link."
+  },
+  {
+    "sourceName": "GitHub README",
+    "sourceUrl": "https://github.com/",
+    "category": "project-readme",
+    "targetPage": "https://gewuji.dev/tools/",
+    "suggestedAnchor": "Gewuji Lab",
+    "contentNeeded": "Short project README section",
+    "difficulty": "low",
+    "priority": "medium",
+    "notes": "Use for tools/lab context only, not Factory Bridge claims."
+  },
+  {
+    "sourceName": "About.me",
+    "sourceUrl": "https://about.me/",
+    "category": "profile",
+    "targetPage": "https://gewuji.dev/",
+    "suggestedAnchor": "Gewuji",
+    "contentNeeded": "Simple personal profile",
+    "difficulty": "low",
+    "priority": "medium",
+    "notes": "Keep copy factual and low-sales."
+  },
+  {
+    "sourceName": "Medium article",
+    "sourceUrl": "https://medium.com/",
+    "category": "article",
+    "targetPage": "https://gewuji.dev/field-materials/",
+    "suggestedAnchor": "field materials for buyer trust",
+    "contentNeeded": "Practical article about why factory photos and product materials matter before supplier conversations",
+    "difficulty": "medium",
+    "priority": "high",
+    "notes": "No service overclaiming."
+  },
+  {
+    "sourceName": "Quora answer",
+    "sourceUrl": "https://www.quora.com/",
+    "category": "answer",
+    "targetPage": "https://gewuji.dev/for-buyers/",
+    "suggestedAnchor": "practical sourcing communication guide",
+    "contentNeeded": "Natural answer to supplier checking or sourcing communication question",
+    "difficulty": "medium",
+    "priority": "high",
+    "notes": "Only link when useful. No repetitive linking."
+  },
+  {
+    "sourceName": "Reddit natural answer",
+    "sourceUrl": "https://www.reddit.com/",
+    "category": "community-answer",
+    "targetPage": "https://gewuji.dev/field-materials/",
+    "suggestedAnchor": "field materials for buyer trust",
+    "contentNeeded": "Helpful reply in relevant sourcing/manufacturing thread",
+    "difficulty": "medium",
+    "priority": "medium",
+    "notes": "Avoid self-promo. Link only when context clearly fits."
+  },
+  {
+    "sourceName": "Notion public checklist",
+    "sourceUrl": "https://www.notion.so/",
+    "category": "public-resource",
+    "targetPage": "https://gewuji.dev/for-buyers/",
+    "suggestedAnchor": "China supplier checklist",
+    "contentNeeded": "Public checklist for buyer-side supplier communication",
+    "difficulty": "low",
+    "priority": "medium",
+    "notes": "Useful after checklist page exists."
+  },
+  {
+    "sourceName": "Relevant sourcing/importing resource pages",
+    "sourceUrl": "",
+    "category": "resource-page",
+    "targetPage": "https://gewuji.dev/for-buyers/",
+    "suggestedAnchor": "supplier communication support",
+    "contentNeeded": "Short resource description",
+    "difficulty": "high",
+    "priority": "medium",
+    "notes": "Only pursue genuinely relevant pages."
+  },
+  {
+    "sourceName": "B2B service directories",
+    "sourceUrl": "",
+    "category": "directory",
+    "targetPage": "https://gewuji.dev/for-factories/",
+    "suggestedAnchor": "Factory Bridge by Gewuji",
+    "contentNeeded": "Accurate service profile",
+    "difficulty": "medium",
+    "priority": "low",
+    "notes": "Avoid low-quality directories and paid link packages."
+  }
+]

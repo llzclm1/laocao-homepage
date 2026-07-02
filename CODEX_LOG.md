@@ -78,3 +78,4 @@
 - Godot 版世界杯摸鱼 H5 POC 增加球场线、办公室贴纸/标识、桌面高光、射击尾迹、命中特效、出生/击退环形粒子，并限制动态特效数量；已重新导出 `game/worldcup-godot/index.pck`，通过 `npm run build:prod && npm run verify:static`。
 - 主站信息架构清理：首页和主导航聚焦 Factory Bridge / Field Materials，旧工具统一降级收纳到 `/tools/`，首页移除工具项目网格和世界杯状态脚本；sitemap 提升业务页权重、降低旧工具权重；已通过 `npm run build:prod`、`node --check script.js`、`npm run verify:static`。
 - 游戏和临时工具 IA 清理：`/tools/` 增加游戏实验归档卡片和迁移标记，`/game/worldcup/` sitemap 降权，新增 `docs/game-content-migration-plan.md` 独立游戏站迁移建议；已通过 `npm run build:prod`、`npm run verify:static`。
+- 新增外链健康检查和干净外链建设观察系统：`docs/backlink-health-check.md`、`docs/backlink-risk-policy.md`、`docs/clean-backlink-plan.md`、`data/backlinks/backlink-audit-log.csv`、`data/backlinks/clean-backlink-targets.json`；未执行 disavow、外链提交或购买外链。
