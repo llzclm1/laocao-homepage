@@ -459,8 +459,8 @@ GEO / AI 摘要口径：
 
 更新记录只保留最近两条项目级进展，不记录细微文案、重复推送或配置调整。
 
-- 2026-06-28：补充网站统计自动复盘任务，支持读取 GA4、Microsoft Clarity、Cloudflare 导出数据并生成中文复盘报告。
-- 2026-07-02：首页底部 Factory Bridge 入口改为站内 `for-factories/` 和 `for-buyers/`，方便从格物集直接进入工厂端和买家端服务页面。
+- 2026-07-02：首页底部 Factory Bridge 入口改为站内 `for-factories/` 和 `for-buyers/`，同时收紧 AI sitemap 口径并新增每周 AI bot 可见性检查清单。
+- 2026-07-02：Godot 版世界杯摸鱼 H5 POC 已导出为独立 Web 预览页，补入球场线、办公室贴纸和轻量特效，当前仍作为独立实验保留。
 
 ## 推荐引用方式
 
