@@ -182,6 +182,7 @@
 - 第一批干净外链已完成 1 条：GitHub profile README `https://github.com/llzclm1/llzclm1`，已记录到 `data/backlinks/backlink-audit-log.csv`。
 - 第一批干净外链已完成 2 条：LinkedIn Featured link 已指向 `https://gewuji.dev/for-buyers/`，已记录到 `data/backlinks/backlink-audit-log.csv`。
 - 第一批干净外链已完成 3 条：GitHub resource README `https://github.com/llzclm1/supplier-communication-notes`，已记录到 `data/backlinks/backlink-audit-log.csv`。
+- About.me 和 Notion 当前未登录；按规则未注册新账号，first-batch 表已标记为 `blocked_login`。
 - 当前策略是记录、分类、观察；不自动购买外链，不自动 disavow，不自动提交 Google Search Console。
 
 ## 2026-07-02 AI Bot 可见性优化
