@@ -173,3 +173,4 @@
 - 首页已从工具/项目展示改为 Factory Bridge、Field Materials、Lab 低优先级入口。
 - 旧工具 URL 未删除，统一收纳到 `/tools/`；主导航不再直接展示 World Cup Advisor、Photo Booth、Content Assistant 等临时工具。
 - sitemap 已提高 `/for-buyers/`、`/for-factories/`、`/field-materials/` 权重，降低旧工具权重；noindex / 移除 sitemap 候选仍待用户确认。
+- 游戏实验已标记为迁移候选，迁移建议写入 `docs/game-content-migration-plan.md`；当前未做 noindex、301 或独立游戏站页面创建。

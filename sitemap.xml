@@ -147,7 +147,7 @@
   <url>
     <loc>https://gewuji.dev/game/worldcup/</loc>
     <lastmod>2026-06-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.2</priority>
   </url>
 </urlset>
