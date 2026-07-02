@@ -2,7 +2,7 @@
 
 ## 进行中
 
-- Godot H5 POC：`game/worldcup-godot/` 已可预览；下一步如继续推进，应优先把方块原型替换成正式角色/地图资产，再决定是否替换 `/game/worldcup/`。
+- Godot H5 POC：`game/worldcup-godot/` 已可预览，已套入角色 PNG 并补充轻量背景/特效；下一步如继续推进，应优先做移动端手感、性能和玩法节奏验证，再决定是否替换 `/game/worldcup/`。
 - Reddit 海外推广：继续找制造业、找中国供应商、找工厂相关真实问题跟帖。
 - 批量回复：等待用户填写 `docs/promotion/social-reply-batch-2026-06-29.md` 的“最终回复”列，再按条目发布。
 - 每日跟进：检查已发过的海外站点是否有回复、评论、私信或连接请求，及时整理潜在线索。

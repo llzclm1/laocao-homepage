@@ -12,6 +12,7 @@ const WORLD_SIZE := Vector2(1600, 2400)
 const RUN_SECONDS := 150.0
 const MAX_ENEMIES := 36
 const MAX_PROJECTILES := 24
+const MAX_EFFECTS := 60
 
 var player: Sprite2D
 var player_hp := 100
@@ -23,6 +24,7 @@ var ended := false
 var kills := 0
 var enemies: Array[Dictionary] = []
 var projectiles: Array[Dictionary] = []
+var effects: Array[Dictionary] = []
 
 @onready var world := $World
 @onready var camera := $Camera2D
@@ -51,6 +53,7 @@ func _process(delta: float) -> void:
 	update_shooting(delta)
 	update_projectiles(delta)
 	update_enemies(delta)
+	update_effects(delta)
 	hud.text = "Time %.0fs  Kicks %d  HP %d" % [elapsed, kills, player_hp]
 	if player_hp <= 0 or elapsed >= RUN_SECONDS:
 		show_result()
@@ -79,9 +82,11 @@ func update_camera() -> void:
 
 func build_office() -> void:
 	var floor := ColorRect.new()
-	floor.color = Color(0.82, 0.79, 0.70, 1)
+	floor.color = Color(0.78, 0.76, 0.66, 1)
 	floor.size = WORLD_SIZE
 	world.add_child(floor)
+	add_pitch_lines()
+	add_office_details()
 	var templates := [
 		[Vector4(160, 260, 280, 90), Vector4(720, 420, 240, 100), Vector4(1180, 680, 260, 120), Vector4(280, 1480, 320, 110), Vector4(980, 1720, 260, 120)],
 		[Vector4(260, 520, 330, 120), Vector4(980, 300, 240, 110), Vector4(1120, 1040, 320, 110), Vector4(160, 1700, 260, 120), Vector4(900, 1980, 360, 120)],
@@ -94,6 +99,55 @@ func build_office() -> void:
 		rect.size = Vector2(item.z, item.w)
 		rect.color = Color(0.44, 0.32, 0.22, 1)
 		world.add_child(rect)
+		add_desk_highlight(rect.position, rect.size)
+
+
+func add_pitch_lines() -> void:
+	add_line(Vector2(120, WORLD_SIZE.y * 0.5), Vector2(WORLD_SIZE.x - 120, WORLD_SIZE.y * 0.5), Color(0.87, 0.91, 0.80, 0.45), 5.0)
+	add_line(Vector2(WORLD_SIZE.x * 0.5, 120), Vector2(WORLD_SIZE.x * 0.5, WORLD_SIZE.y - 120), Color(0.87, 0.91, 0.80, 0.28), 4.0)
+	for angle_index in 24:
+		var a := TAU * float(angle_index) / 24.0
+		var b := TAU * float(angle_index + 1) / 24.0
+		add_line(
+			WORLD_SIZE * 0.5 + Vector2(cos(a), sin(a)) * 230.0,
+			WORLD_SIZE * 0.5 + Vector2(cos(b), sin(b)) * 230.0,
+			Color(0.87, 0.91, 0.80, 0.38),
+			4.0
+		)
+	for y in range(260, int(WORLD_SIZE.y), 360):
+		add_line(Vector2(80, y), Vector2(WORLD_SIZE.x - 80, y), Color(0.95, 0.92, 0.82, 0.16), 2.0)
+
+
+func add_office_details() -> void:
+	for i in 18:
+		var note := ColorRect.new()
+		note.size = Vector2(randf_range(28, 44), randf_range(18, 30))
+		note.position = Vector2(randf_range(80, WORLD_SIZE.x - 120), randf_range(120, WORLD_SIZE.y - 160))
+		note.color = [Color(0.98, 0.85, 0.36, 0.55), Color(0.38, 0.74, 0.94, 0.42), Color(0.97, 0.55, 0.38, 0.38)].pick_random()
+		world.add_child(note)
+	for i in 9:
+		var label := Label.new()
+		label.text = ["VAR", "OFF", "GOAL", "MEET?"].pick_random()
+		label.position = Vector2(randf_range(110, WORLD_SIZE.x - 180), randf_range(160, WORLD_SIZE.y - 200))
+		label.modulate = Color(0.18, 0.22, 0.28, 0.16)
+		label.add_theme_font_size_override("font_size", 38)
+		world.add_child(label)
+
+
+func add_line(from: Vector2, to: Vector2, color: Color, width: float) -> void:
+	var line := Line2D.new()
+	line.points = PackedVector2Array([from, to])
+	line.default_color = color
+	line.width = width
+	world.add_child(line)
+
+
+func add_desk_highlight(position: Vector2, size: Vector2) -> void:
+	var top := ColorRect.new()
+	top.position = position + Vector2(0, -6)
+	top.size = Vector2(size.x, 6)
+	top.color = Color(0.68, 0.50, 0.34, 0.8)
+	world.add_child(top)
 
 
 func update_spawning(delta: float) -> void:
@@ -156,6 +210,7 @@ func spawn_enemy(type_name: String) -> void:
 	sprite.global_position = random_spawn_point()
 	world.add_child(sprite)
 	enemies.append({"node": sprite, "hp": hp, "speed": speed, "damage": damage, "radius": radius})
+	spawn_ring(sprite.global_position, Color(0.96, 0.48, 0.16, 0.72))
 
 
 func random_spawn_point() -> Vector2:
@@ -190,6 +245,7 @@ func update_shooting(delta: float) -> void:
 	world.add_child(ball)
 	var direction: Vector2 = (nearest.node.global_position - player.global_position).normalized()
 	projectiles.append({"node": ball, "velocity": direction * 620.0, "life": 1.4, "damage": 22, "radius": 18.0})
+	spawn_trail(player.global_position, Color(1.0, 0.92, 0.28, 0.56))
 	shoot_timer = 0.42
 
 
@@ -210,11 +266,13 @@ func update_projectiles(delta: float) -> void:
 			var radius: float = projectile.radius + enemy.radius
 			if node.global_position.distance_squared_to(enemy_node.global_position) <= radius * radius:
 				enemy.hp -= projectile.damage
+				spawn_hit(enemy_node.global_position)
 				projectiles.erase(projectile)
 				node.queue_free()
 				if enemy.hp <= 0:
 					enemies.erase(enemy)
 					kills += 1
+					spawn_ring(enemy_node.global_position, Color(0.18, 0.72, 0.38, 0.8))
 					enemy_node.queue_free()
 				break
 
@@ -232,6 +290,63 @@ func update_enemies(delta: float) -> void:
 		var radius: float = float(enemy.radius) + 22.0
 		if player.global_position.distance_squared_to(node.global_position) <= radius * radius:
 			player_hp -= int(ceil(float(enemy.damage) * delta))
+			if int(elapsed * 10.0) % 6 == 0:
+				spawn_trail(player.global_position + Vector2(randf_range(-18, 18), randf_range(-18, 18)), Color(0.95, 0.18, 0.14, 0.42))
+
+
+func spawn_hit(position: Vector2) -> void:
+	for i in 5:
+		var spark := ColorRect.new()
+		spark.size = Vector2(8, 8)
+		spark.position = position + Vector2(randf_range(-16, 16), randf_range(-22, 12))
+		spark.color = [Color(1.0, 0.85, 0.12, 0.9), Color(1.0, 0.25, 0.12, 0.75), Color(1.0, 1.0, 1.0, 0.85)].pick_random()
+		world.add_child(spark)
+		effects.append({"node": spark, "life": 0.28, "velocity": Vector2(randf_range(-90, 90), randf_range(-120, 30)), "fade": true})
+	trim_effects()
+
+
+func spawn_trail(position: Vector2, color: Color) -> void:
+	var puff := ColorRect.new()
+	puff.size = Vector2(randf_range(14, 24), randf_range(14, 24))
+	puff.position = position - puff.size * 0.5
+	puff.color = color
+	world.add_child(puff)
+	effects.append({"node": puff, "life": 0.38, "velocity": Vector2(randf_range(-12, 12), randf_range(-12, 12)), "fade": true})
+	trim_effects()
+
+
+func spawn_ring(position: Vector2, color: Color) -> void:
+	for i in 12:
+		var a := TAU * float(i) / 12.0
+		var dot := ColorRect.new()
+		dot.size = Vector2(7, 7)
+		dot.position = position + Vector2(cos(a), sin(a)) * 34.0
+		dot.color = color
+		world.add_child(dot)
+		effects.append({"node": dot, "life": 0.45, "velocity": Vector2(cos(a), sin(a)) * 80.0, "fade": true})
+	trim_effects()
+
+
+func update_effects(delta: float) -> void:
+	for effect in effects.duplicate():
+		var node: ColorRect = effect.node
+		if not is_instance_valid(node):
+			effects.erase(effect)
+			continue
+		node.position += effect.velocity * delta
+		effect.life -= delta
+		if effect.fade:
+			node.modulate.a = max(0.0, effect.life / 0.45)
+		if effect.life <= 0.0:
+			effects.erase(effect)
+			node.queue_free()
+
+
+func trim_effects() -> void:
+	while effects.size() > MAX_EFFECTS:
+		var effect: Dictionary = effects.pop_front()
+		if is_instance_valid(effect.node):
+			effect.node.queue_free()
 
 
 func show_result() -> void:

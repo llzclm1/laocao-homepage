@@ -165,3 +165,5 @@
 - Godot 4.7 完整 Web 导出 CLI 仍报 preset configuration error；当前采用 `--export-pack` 生成 `index.pck`，并用官方 Web no-threads 模板文件手工封装 `index.html/js/wasm`。
 - Godot Web 预览已恢复为真实 Godot 页面 `game/worldcup-godot/`，不再跳转 Canvas H5。
 - 冻结原因定位为多 PackedScene/多脚本导出后 Web 运行时报 `function signature mismatch`；当前改为单场景单脚本实体管理，并使用 Godot 4.6 Web no-threads runtime/package，Playwright 12-20 秒验证可持续运行。
+- 已为 Godot POC 增加轻量背景和特效：球场线、办公室贴纸/标识、桌面高光、足球尾迹、命中火花、敌人出现/击退粒子环；特效数量上限为 60，避免重新引入卡死问题。
+- 最近一次导出使用 `/tmp/godot46/Godot.app/Contents/MacOS/Godot --headless --path godot/worldcup-poc --export-pack Web game/worldcup-godot/index.pck`，并通过 `npm run build:prod && npm run verify:static`。
