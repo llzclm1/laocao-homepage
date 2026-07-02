@@ -72,3 +72,4 @@
 - 导出 Godot 版世界杯摸鱼 H5 POC 到 `game/worldcup-godot/`，新增 `index.html/js/wasm/pck` 与音频 worklet 文件；Godot 源码 HUD 改为 ASCII 文案以避免 Web 默认字体缺中文。
 - 补充 Godot POC 静态托管校验，忽略 `.godot/` 本地缓存，并保留 `.gd.uid` 资源 UID 文件；已通过 `npm run build:prod && npm run verify:static`，本地 Playwright smoke test 截图确认页面可显示。
 - 已将世界杯角色 PNG 套入 Godot POC 的 Player/Enemy 场景，主角使用蓝色 idle/run 图，敌人按巡逻同事、HR、老板、发消息主管、会议通知切换贴图；重新打包 `game/worldcup-godot/index.pck` 并通过静态校验。
+- 发现 Godot Web POC 几秒无响应实为主循环停在约 1 秒，控制台报 `function signature mismatch`；已将 `game/worldcup-godot/index.html` 临时改为跳转到稳定 Canvas H5，Godot 源码和素材保留继续排查。

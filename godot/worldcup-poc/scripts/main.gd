@@ -7,6 +7,8 @@ extends Node2D
 const WORLD_SIZE := Vector2(1600, 2400)
 const RUN_SECONDS := 150.0
 const PLAYER_SAFE_RADIUS := 260.0
+const MAX_ENEMIES := 42
+const MAX_PROJECTILES := 24
 
 var player: CharacterBody2D
 var elapsed := 0.0
@@ -31,7 +33,6 @@ func _ready() -> void:
 	world.add_child(player)
 	player.global_position = WORLD_SIZE * 0.5
 	camera.global_position = player.global_position
-	spawn_enemy_at("hr", player.global_position + Vector2(260, -190))
 
 
 func _process(delta: float) -> void:
@@ -67,6 +68,8 @@ func update_camera() -> void:
 
 
 func update_spawning(delta: float) -> void:
+	if enemies.size() >= MAX_ENEMIES:
+		return
 	spawn_timer -= delta
 	if spawn_timer <= 0.0:
 		var type_name := "patrol"
@@ -77,7 +80,7 @@ func update_spawning(delta: float) -> void:
 		elif elapsed > 18.0 and randf() < 0.14:
 			type_name = "meeting"
 		spawn_enemy(type_name)
-		spawn_timer = max(0.25, 0.88 - elapsed / 240.0)
+		spawn_timer = max(0.42, 1.05 - elapsed / 260.0)
 	if not boss_spawned and elapsed >= 95.0:
 		boss_spawned = true
 		spawn_enemy("boss")
@@ -86,6 +89,9 @@ func update_spawning(delta: float) -> void:
 func update_shooting(delta: float) -> void:
 	shoot_timer -= delta
 	if shoot_timer > 0.0:
+		return
+	if projectiles.size() >= MAX_PROJECTILES:
+		shoot_timer = 0.12
 		return
 	shoot_nearest_enemy()
 	shoot_timer = 0.42
@@ -106,6 +112,9 @@ func update_projectiles() -> void:
 				projectile.queue_free()
 				projectiles.erase(projectile)
 				break
+		if is_instance_valid(projectile) and projectile.global_position.distance_squared_to(player.global_position) > 900000.0:
+			projectile.queue_free()
+			projectiles.erase(projectile)
 
 
 func update_enemy_contact(delta: float) -> void:

@@ -45,7 +45,7 @@ func configure(type_name: String, target_node: Node2D) -> void:
 	elif enemy_type == "meeting":
 		hp = 54
 		speed = 138.0
-		damage = 16
+		damage = 12
 		radius = 20.0
 		body.texture = meeting_texture
 		body.scale = Vector2(0.2, 0.2)
@@ -53,7 +53,7 @@ func configure(type_name: String, target_node: Node2D) -> void:
 	else:
 		hp = 38
 		speed = 120.0
-		damage = 10
+		damage = 7
 		radius = 18.0
 		body.texture = patrol_texture
 		body.scale = Vector2(0.16, 0.16)
