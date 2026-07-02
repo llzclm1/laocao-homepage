@@ -41,3 +41,8 @@
 - Facebook 只先做公开搜索和候选整理，不自动进群、不点赞、不评论、不私信。
 - 第一次实际评论发出后，再补进 `docs/promotion/overseas-posting-log.md`，并纳入每日回访范围。
 - 如果公开页面开始频繁触发临时封锁，停止 Facebook 搜索，避免账号和工具风险。
+
+## 2026-07-02 检查备注
+
+- 本轮未继续深挖 Facebook；上一轮已出现临时封锁提示，继续搜索/翻页的账号风险高于新增线索价值。
+- 已发布过的 Facebook 帖子仍按 `docs/promotion/overseas-posting-log.md` 每日回访；新增发布前继续按“先草稿、再确认、发布前二次确认”执行。

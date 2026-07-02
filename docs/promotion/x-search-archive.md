@@ -32,3 +32,15 @@ If the supplier goes quiet, ask for a short live production/video update before 
 - Competitor/service ads: low value to reply and may look promotional.
 - Old generic posts from 2025 or earlier: low current relevance.
 - Meme/scam posts without actionable sourcing context: low lead value.
+
+## 2026-07-02
+
+### Checks
+
+- Notifications: only X Premium promotion, no human replies, mentions, likes, reposts, or DMs surfaced in Safari.
+- Search: `"Alibaba supplier" "scam"` latest returned only an old 2021 ASIC-related reply.
+
+### Skipped
+
+- 2021 Alibaba supplier scam tweet: too old and not a current buyer question.
+- No X reply/post was prepared this round.

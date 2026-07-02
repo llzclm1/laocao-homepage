@@ -12,6 +12,8 @@
 | 2026-06-29 | 最佳中国供应商 | How do I find the best supplier from China? | https://www.quora.com/How-do-I-find-the-best-supplier-from-China | 候选，未回答 | 可复用供应商筛选框架；已有回答和互动，优先级中等 |
 | 2026-06-29 | 合法供应商 / 平台选择 | Where can I find legit vendors? | https://www.quora.com/Where-can-I-find-legit-vendors | 候选，未回答 | 问题较泛，容易变成平台清单；如回答应聚焦验证逻辑 |
 | 2026-06-29 | 行业认证 / 沙特项目 | Which Chinese manufacturers can provide SABER/SASO certification for insulation fasteners used in Saudi Arabia marine projects? | https://www.quora.com/profile/Mpsinsulationpin/Question-Which-Chinese-manufacturers-can-provide-SABER-SASO-certification-for-insulation-fasteners-used-in-Saudi-Arabia | 候选，未回答 | 垂直品类和地区认证问题；适合讲认证适用范围和项目文件核验 |
+| 2026-07-02 | Alibaba 供应商真实性 | Can anyone recommend Alibaba Suppliers that are legit? | https://www.quora.com/unanswered/Can-anyone-reccomend-Alibaba-Suppliers-that-are-legit | 候选，未回答 | 无回答、2 年前关注；可以答“不要要名单，先用验证流程筛”，但时效一般 |
+| 2026-07-02 | Alibaba 供应商真实性 | How do I check if the supplier on Alibaba is legit? | https://www.quora.com/How-do-I-check-if-the-supplier-on-Alibaba-is-legit | 候选，未回答 | 1 年前关注且已有 1 个回答；可补充付款主体、公司名、样品、视频和验货清单 |
 
 ## 使用规则
 
