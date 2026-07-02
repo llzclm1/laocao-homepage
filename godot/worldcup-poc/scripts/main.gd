@@ -31,6 +31,7 @@ func _ready() -> void:
 	world.add_child(player)
 	player.global_position = WORLD_SIZE * 0.5
 	camera.global_position = player.global_position
+	spawn_enemy_at("hr", player.global_position + Vector2(260, -190))
 
 
 func _process(delta: float) -> void:
@@ -71,6 +72,10 @@ func update_spawning(delta: float) -> void:
 		var type_name := "patrol"
 		if elapsed > 70.0 and randf() < 0.18:
 			type_name = "hr"
+		elif elapsed > 35.0 and randf() < 0.16:
+			type_name = "supervisor"
+		elif elapsed > 18.0 and randf() < 0.14:
+			type_name = "meeting"
 		spawn_enemy(type_name)
 		spawn_timer = max(0.25, 0.88 - elapsed / 240.0)
 	if not boss_spawned and elapsed >= 95.0:
@@ -136,9 +141,13 @@ func build_office() -> void:
 
 
 func spawn_enemy(type_name: String) -> void:
+	spawn_enemy_at(type_name, random_spawn_point())
+
+
+func spawn_enemy_at(type_name: String, position: Vector2) -> void:
 	var enemy = enemy_scene.instantiate()
 	world.add_child(enemy)
-	enemy.global_position = random_spawn_point()
+	enemy.global_position = position
 	enemy.configure(type_name, player)
 	enemy.died.connect(_on_enemy_died)
 	enemies.append(enemy)

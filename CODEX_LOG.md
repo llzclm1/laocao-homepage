@@ -71,3 +71,4 @@
 - 每日更新记录同步：`index.html` 最近项目进展新增 Factory Bridge 站内入口说明，`llms.txt` 同步保留最近两条项目级进展；已顺序执行 `npm run build && npm run verify:static`。
 - 导出 Godot 版世界杯摸鱼 H5 POC 到 `game/worldcup-godot/`，新增 `index.html/js/wasm/pck` 与音频 worklet 文件；Godot 源码 HUD 改为 ASCII 文案以避免 Web 默认字体缺中文。
 - 补充 Godot POC 静态托管校验，忽略 `.godot/` 本地缓存，并保留 `.gd.uid` 资源 UID 文件；已通过 `npm run build:prod && npm run verify:static`，本地 Playwright smoke test 截图确认页面可显示。
+- 已将世界杯角色 PNG 套入 Godot POC 的 Player/Enemy 场景，主角使用蓝色 idle/run 图，敌人按巡逻同事、HR、老板、发消息主管、会议通知切换贴图；重新打包 `game/worldcup-godot/index.pck` 并通过静态校验。

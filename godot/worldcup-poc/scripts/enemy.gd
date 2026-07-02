@@ -2,12 +2,20 @@ extends CharacterBody2D
 
 signal died(enemy: Node)
 
+@export var patrol_texture: Texture2D
+@export var hr_texture: Texture2D
+@export var boss_texture: Texture2D
+@export var supervisor_texture: Texture2D
+@export var meeting_texture: Texture2D
+
 var hp: int = 24
 var speed: float = 105.0
 var damage: int = 10
 var enemy_type: String = "patrol"
 var target: Node2D
 var radius: float = 18.0
+
+@onready var body: Sprite2D = $Body
 
 
 func configure(type_name: String, target_node: Node2D) -> void:
@@ -18,23 +26,37 @@ func configure(type_name: String, target_node: Node2D) -> void:
 		speed = 92.0
 		damage = 18
 		radius = 24.0
-		$Body.color = Color(0.03, 0.04, 0.06, 1)
+		body.texture = hr_texture
+		body.scale = Vector2(0.18, 0.18)
 	elif enemy_type == "boss":
 		hp = 1200
 		speed = 70.0
 		damage = 24
 		radius = 42.0
-		$Body.color = Color(0.35, 0.39, 0.45, 1)
-		$Body.offset_left = -34.0
-		$Body.offset_top = -40.0
-		$Body.offset_right = 34.0
-		$Body.offset_bottom = 40.0
+		body.texture = boss_texture
+		body.scale = Vector2(0.26, 0.26)
+	elif enemy_type == "supervisor":
+		hp = 72
+		speed = 104.0
+		damage = 14
+		radius = 22.0
+		body.texture = supervisor_texture
+		body.scale = Vector2(0.17, 0.17)
+	elif enemy_type == "meeting":
+		hp = 54
+		speed = 138.0
+		damage = 16
+		radius = 20.0
+		body.texture = meeting_texture
+		body.scale = Vector2(0.2, 0.2)
+		body.offset = Vector2(0, -56)
 	else:
 		hp = 38
 		speed = 120.0
 		damage = 10
 		radius = 18.0
-		$Body.color = Color(0.18, 0.27, 0.43, 1)
+		body.texture = patrol_texture
+		body.scale = Vector2(0.16, 0.16)
 
 
 func take_damage(amount: int) -> void:
@@ -48,4 +70,6 @@ func _physics_process(_delta: float) -> void:
 	if not is_instance_valid(target):
 		return
 	velocity = (target.global_position - global_position).normalized() * speed
+	if abs(velocity.x) > 0.01:
+		body.flip_h = velocity.x < 0.0
 	move_and_slide()
