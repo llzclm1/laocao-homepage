@@ -81,3 +81,4 @@
 - 新增外链健康检查和干净外链建设观察系统：`docs/backlink-health-check.md`、`docs/backlink-risk-policy.md`、`docs/clean-backlink-plan.md`、`data/backlinks/backlink-audit-log.csv`、`data/backlinks/clean-backlink-targets.json`；未执行 disavow、外链提交或购买外链。
 - AI bot 可见性优化：新增 `docs/ai-bot-visibility-checklist.md`，收紧主站 sitemap 为首页、`/tools/`、工厂桥梁核心页、`llms.txt`、`ai-sitemap.json`，并重写 AI sitemap 口径为格物集主站 / 工厂桥梁 / Lab 边界；已通过 `npm run build:prod && npm run verify:static`，未 push。
 - 外链健康系统第二阶段：新增第一批干净外链执行计划、Profile 文案、GitHub README 模板、Notion checklist 模板和 CSV 执行表；本轮只生成文案和清单，未注册账号、未提交外链、未 disavow、未 push。
+- 第一批干净外链执行：已创建并发布 GitHub profile README `https://github.com/llzclm1/llzclm1`，链接到 `https://gewuji.dev/`，并更新外链 audit log 与 first-batch 执行表。

@@ -1,2 +1,3 @@
 checkedAt,sourceDomain,sourceUrl,targetUrl,anchorText,sourceDR,isRelevant,isIndexed,spamSignals,category,action,notes
 2026-07-02,epic-syndicate-link-baron-keyword.store,,https://gewuji.dev/,"High DR / Casino / Crypto / SEO Backlinks",unknown,false,unknown,"casino; crypto; high DR backlinks; SEO backlinks package; keyword stuffed anchor; unrelated domain; random .store domain",spam,monitor,"Ahrefs screenshot example. Do not treat as SEO asset. Do not disavow unless risk policy threshold is met."
+2026-07-02,github.com,https://github.com/llzclm1/llzclm1,https://gewuji.dev/,Gewuji,unknown,true,unknown,,clean,keep,"First-batch GitHub profile README branded link. Recheck index status later."
