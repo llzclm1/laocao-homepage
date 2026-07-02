@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="格物集 GEWUJI 是老曹持续构建的个人产品实验室，展示 PixRoom、memories、知铺、工位突围、机车库等产品、工具与长期实验。"
+      content="格物集 GEWUJI 是老曹的主网站，承载 practical web tools、Factory Bridge 内容、field-based trust assets 和长期产品实验。"
     />
     <meta
       name="keywords"
@@ -51,7 +51,7 @@
       content="https://gewuji.dev/assets/hero-homepage.png"
     />
     <meta name="twitter:image:alt" content="格物集个人产品实验室首页预览" />
-    <title>格物集 GEWUJI｜个人产品实验室</title>
+    <title>格物集 GEWUJI｜Tools, Factory Bridge and Field Materials</title>
     <link rel="preload" as="image" href="assets/projects/detail-crops/pixroom-color-grading.webp" type="image/webp" fetchpriority="high" />
     <link rel="stylesheet" href="styles.css?v=20260628-ux-clicks" />
     <script type="application/ld+json">
@@ -62,7 +62,7 @@
         "name": "格物集",
         "alternateName": "GEWUJI",
         "url": "https://gewuji.dev/",
-        "description": "格物集 GEWUJI 是老曹持续构建的个人产品实验室，记录 PixRoom、memories、知铺、工位突围、机车库等产品、工具与长期实验。",
+        "description": "格物集 GEWUJI 是老曹的主网站，承载 practical web tools、Factory Bridge 内容、field-based trust assets 和长期产品实验。",
         "inLanguage": "zh-CN",
         "publisher": {
           "@type": "Person",
@@ -104,7 +104,7 @@
         "@id": "https://gewuji.dev/#profile",
         "url": "https://gewuji.dev/",
         "name": "格物集 GEWUJI｜老曹的个人产品实验室",
-        "description": "格物集是老曹持续构建的个人产品实验室，展示已经上线、准备上架和正在制作中的产品、工具与长期实验。",
+        "description": "格物集是老曹的主网站，展示 practical web tools、Factory Bridge 内容、field-based trust assets 和长期产品实验。",
         "inLanguage": "zh-CN",
         "isPartOf": {
           "@id": "https://gewuji.dev/#website"
@@ -235,6 +235,18 @@
             "position": 7,
             "name": "工位突围",
             "url": "https://gewuji.dev/#projects"
+          },
+          {
+            "@type": "ListItem",
+            "position": 8,
+            "name": "Tools & Experiments",
+            "url": "https://gewuji.dev/tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 9,
+            "name": "Factory Bridge",
+            "url": "https://gewuji.dev/for-buyers/"
           }
         ]
       }
@@ -248,6 +260,8 @@
       </a>
       <nav class="nav" aria-label="主导航">
         <a href="nav/">导航</a>
+        <a href="tools/">工具</a>
+        <a href="#factory-bridge">Factory Bridge</a>
         <a href="#projects">项目</a>
         <a href="#updates">更新</a>
         <a href="#about">关于</a>
@@ -276,15 +290,15 @@
         <div class="hero-content">
           <p class="eyebrow">PRODUCTS · TOOLS · EXPERIMENTS</p>
           <h1 id="hero-title">格物集</h1>
-          <p class="hero-subtitle">A collection of products, tools and experiments.</p>
-          <p class="hero-statement">记录正在生长的产品与实验。</p>
+          <p class="hero-subtitle">Practical web tools, factory bridge content, and field-based trust assets.</p>
+          <p class="hero-statement">格物集是主网站，承载工具、项目和真实现场材料。</p>
           <p class="hero-copy">
-            一些正在长出来的产品、工具和长期实验。<br />
-            这里放我正在做和已经跑起来的项目。
+            World Cup Advisor 属于 Tools / Experiments。<br />
+            Factory Bridge 是格物集下面面向海外买家和中国工厂的项目方向。
           </p>
           <div class="hero-actions" aria-label="主要操作">
-            <a class="button primary" href="#projects">看可打开的工具</a>
-            <a class="button ghost" href="nav/">实用导航</a>
+            <a class="button primary" href="tools/">Tools & Experiments</a>
+            <a class="button ghost" href="#factory-bridge">Factory Bridge</a>
           </div>
           <a class="hero-email" href="mailto:laocao@gewuji.dev">邮件联系 laocao@gewuji.dev</a>
         </div>
@@ -318,11 +332,60 @@
         </div>
       </section>
 
+      <section class="home-split-section tools-split-section" id="tools-experiments" aria-labelledby="tools-experiments-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Tools & Experiments</p>
+            <h2 id="tools-experiments-title">可直接打开的工具</h2>
+          </div>
+          <p>这些是格物集里的 web tools and experiments。它们可以带来搜索流量，但不代表格物集主业务。</p>
+        </div>
+        <div class="split-link-grid">
+          <a class="split-link-card primary-split-card" href="tools/worldcup-advisor/">
+            <span>Live Tool</span>
+            <strong>World Cup Advisor</strong>
+            <p>世界杯赛程、北京时间、比分预测、球队资料和赛后复盘。</p>
+          </a>
+          <a class="split-link-card" href="tools/">
+            <span>Index</span>
+            <strong>Tools index</strong>
+            <p>进入所有工具和后续实验入口。</p>
+          </a>
+        </div>
+      </section>
+
+      <section class="home-split-section factory-split-section" id="factory-bridge" aria-labelledby="factory-bridge-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Factory Bridge</p>
+            <h2 id="factory-bridge-title">格物集下面的工厂桥梁项目</h2>
+          </div>
+          <p>Factory Bridge 不是审厂、法律尽调或质量验货服务，而是基于真实企业拍摄经验，帮助海外买家和中国工厂先把沟通资料讲清楚。</p>
+        </div>
+        <div class="split-link-grid three-links">
+          <a class="split-link-card" href="for-buyers/">
+            <span>Buyers</span>
+            <strong>For Overseas Buyers</strong>
+            <p>给海外买家做轻量的中国工厂 reality check 和沟通前准备。</p>
+          </a>
+          <a class="split-link-card" href="for-factories/">
+            <span>Factories</span>
+            <strong>For Chinese Factories</strong>
+            <p>帮助工厂改善对外宣传资料，让海外客户更容易理解能力边界。</p>
+          </a>
+          <a class="split-link-card" href="field-materials/">
+            <span>Field</span>
+            <strong>Field Materials</strong>
+            <p>真实工厂、车间、实验室和企业现场素材入口。</p>
+          </a>
+        </div>
+      </section>
+
       <section class="projects-section" id="projects" aria-labelledby="projects-title">
         <div class="section-heading">
           <p class="eyebrow">Selected Work</p>
-          <h2 id="projects-title">正在推进的项目</h2>
-          <p>面向真实用户的图片产品、信息收纳工具、经营内容工具、微信小游戏和垂直 App。</p>
+          <h2 id="projects-title">Latest / Featured Pages</h2>
+          <p>近期重要页面和工具，包含主站产品、工具实验和项目入口。</p>
         </div>
 
         <article class="worldcup-event-banner" aria-labelledby="worldcup-event-title">
@@ -716,8 +779,10 @@
 
     <footer class="site-footer">
       <span>© 2026 格物集 · 持续构建 · 不断实验 · 记录过程 · 分享成果</span>
+      <a href="tools/">工具总入口</a>
       <a href="for-factories/">工厂端 Factory Bridge</a>
       <a href="for-buyers/">买家端 For Buyers</a>
+      <a href="field-materials/">Field Materials</a>
       <a href="#top">回到顶部</a>
     </footer>
 

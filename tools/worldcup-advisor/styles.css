@@ -151,6 +151,7 @@ nav a:hover { color: var(--purple); background: rgba(91, 37, 236, .08); }
 .teams-section,
 .review-section,
 .advisor-section,
+.gewuji-more-section,
 .subscribe-section,
 .risk-section,
 .quick-links-section {
@@ -501,6 +502,18 @@ input {
   display: grid;
   grid-template-columns: 1.15fr repeat(2, minmax(0, 1fr));
   gap: 14px;
+}
+.gewuji-more-section {
+  padding: clamp(22px, 4vw, 34px);
+  margin: 22px 0;
+}
+.gewuji-more-links {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+.gewuji-more-section .quick-link-card {
+  min-height: 150px;
 }
 .quick-link-card {
   position: relative;
@@ -1610,6 +1623,7 @@ body:not([data-page="home"]) .groups-section,
 body:not([data-page="home"]) .teams-section,
 body:not([data-page="home"]) .review-section,
 body:not([data-page="home"]) .advisor-section,
+body:not([data-page="home"]) .gewuji-more-section,
 body:not([data-page="home"]) .quick-links-section,
 body:not([data-page="home"]) .subscribe-section,
 body:not([data-page="home"]) .risk-section {
@@ -1768,6 +1782,7 @@ body:not([data-page="home"]) .groups-section,
 body:not([data-page="home"]) .teams-section,
 body:not([data-page="home"]) .review-section,
 body:not([data-page="home"]) .advisor-section,
+body:not([data-page="home"]) .gewuji-more-section,
 body:not([data-page="home"]) .quick-links-section,
 body:not([data-page="home"]) .control-panel,
 body:not([data-page="home"]) .score-panel,
@@ -1793,6 +1808,7 @@ body:not([data-page="home"]) .hero > div {
   .must-watch-section .advisor-grid,
   .today-focus-grid,
   .quick-link-list,
+  .gewuji-more-links,
   .teams-section .team-profile-grid,
   .team-profile-grid--full,
   .group-grid { grid-template-columns: 1fr; }

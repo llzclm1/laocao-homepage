@@ -407,6 +407,7 @@ h1 {
 }
 
 .projects-section,
+.home-split-section,
 .updates-section,
 .about-section,
 .faq-section,
@@ -418,6 +419,10 @@ h1 {
 
 .projects-section {
   padding: 92px 0 76px;
+}
+
+.home-split-section {
+  padding: 76px 0 0;
 }
 
 .updates-section {
@@ -627,6 +632,81 @@ h1 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
 }
+
+.split-link-grid {
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 16px;
+}
+
+.split-link-grid.three-links {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.split-link-card {
+  display: grid;
+  gap: 12px;
+  min-height: 220px;
+  border: 1px solid rgba(10, 15, 22, 0.08);
+  border-radius: 14px;
+  padding: 22px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(247, 248, 250, 0.82)),
+    var(--panel-strong);
+  box-shadow: var(--shadow-tight);
+  transition:
+    transform 220ms var(--ease),
+    box-shadow 220ms var(--ease),
+    border-color 220ms ease;
+}
+
+.split-link-card:hover,
+.split-link-card:focus-visible {
+  border-color: rgba(10, 15, 22, 0.14);
+  box-shadow: 0 28px 86px rgba(15, 23, 42, 0.12);
+  outline: none;
+  transform: translateY(-4px);
+}
+
+.split-link-card span {
+  width: fit-content;
+  border: 1px solid rgba(10, 15, 22, 0.09);
+  border-radius: 999px;
+  padding: 7px 10px;
+  color: #526070;
+  background: rgba(255, 255, 255, 0.72);
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.split-link-card strong {
+  margin-top: auto;
+  font-size: clamp(24px, 3vw, 36px);
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+.split-link-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.72;
+}
+
+.primary-split-card {
+  color: #fff;
+  background:
+    linear-gradient(135deg, rgba(23, 21, 31, .96), rgba(43, 39, 62, .94)) padding-box,
+    linear-gradient(135deg, rgba(255, 255, 255, .20), rgba(255, 255, 255, .04)) border-box;
+}
+
+.primary-split-card span {
+  border-color: rgba(255, 255, 255, .18);
+  color: #fff;
+  background: rgba(255, 255, 255, .12);
+}
+
+.primary-split-card p { color: rgba(255, 255, 255, .76); }
 
 .update-grid {
   display: grid;
@@ -1795,6 +1875,8 @@ h1 {
   .contact-section,
   .films-hero,
   .worldcup-event-banner,
+  .split-link-grid,
+  .split-link-grid.three-links,
   .project-grid,
   .update-grid,
   .film-note-grid {
@@ -1802,6 +1884,7 @@ h1 {
   }
 
   .projects-section,
+  .home-split-section,
   .updates-section,
   .about-section,
   .faq-section,
@@ -2364,6 +2447,7 @@ h2 {
   }
 
   .worldcup-event-banner,
+  .split-link-card,
   .project-card,
   .about-section,
   .faq-section,
@@ -2375,6 +2459,7 @@ h2 {
 /* Desktop rhythm correction after the premium refresh. */
 @media (min-width: 821px) {
   .projects-section,
+  .home-split-section,
   .updates-section,
   .about-section,
   .faq-section,

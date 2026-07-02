@@ -227,6 +227,22 @@ memories 是一个面向 Mac 和 Windows 的信息收纳工具，用来把平时
 
 页面地址：https://gewuji.dev/tools/seo-content-tools/
 
+### Tools & Experiments
+
+Tools & Experiments 是格物集的工具总入口，用来归拢 practical web tools and experiments。World Cup Advisor 属于工具/实验项目，不代表格物集主业务；Factory Bridge 是格物集下面的独立业务方向。
+
+页面地址：https://gewuji.dev/tools/
+
+主要入口：
+
+- World Cup Advisor：https://gewuji.dev/tools/worldcup-advisor/
+- SEO Content Assistant：https://gewuji.dev/tools/seo-content-tools/
+- Photo Booth：https://gewuji.dev/tools/photo-booth/
+- Content Assistant：https://gewuji.dev/tools/content-assistant/
+- Factory Bridge for Buyers：https://gewuji.dev/for-buyers/
+- Factory Bridge for Factories：https://gewuji.dev/for-factories/
+- Field Materials：https://gewuji.dev/field-materials/
+
 专题页面：
 
 - 朋友圈活动宣传文案生成器：https://gewuji.dev/tools/seo-content-tools/pages/moments-campaign-copy/
@@ -302,7 +318,7 @@ China Factory Bridge 是格物集里的跨境工厂沟通服务，当前有两�
 
 ### 世界杯参谋站
 
-世界杯参谋站是格物集里的 2026 世界杯观赛信息工具，整理赛程、北京时间开赛信息、已完赛比分、比分预测、小组积分、球队资料、核心球员和赛后复盘。参谋页默认展示最近一个比赛日，比分预测包含基准情景、保守情景、开放情景，并标注“已融合盘口”或“暂无盘口，使用基础模型”。所有赛前判断、比分预测、盘口情绪和市场情绪相关内容只作为观赛参考，不构成投注建议，不承诺结果。
+世界杯参谋站是格物集 Tools / Experiments 里的 2026 世界杯观赛信息工具，整理赛程、北京时间开赛信息、已完赛比分、比分预测、小组积分、球队资料、核心球员和赛后复盘。它不代表格物集主业务。参谋页默认展示最近一个比赛日，比分预测包含基准情景、保守情景、开放情景，并标注“已融合盘口”或“暂无盘口，使用基础模型”。所有赛前判断、比分预测、盘口情绪和市场情绪相关内容只作为观赛参考，不构成投注建议，不承诺结果。
 
 页面地址：https://gewuji.dev/tools/worldcup-advisor/
 
