@@ -83,3 +83,4 @@
 - 外链健康系统第二阶段：新增第一批干净外链执行计划、Profile 文案、GitHub README 模板、Notion checklist 模板和 CSV 执行表；本轮只生成文案和清单，未注册账号、未提交外链、未 disavow、未 push。
 - 第一批干净外链执行：已创建并发布 GitHub profile README `https://github.com/llzclm1/llzclm1`，链接到 `https://gewuji.dev/`，并更新外链 audit log 与 first-batch 执行表。
 - 第一批干净外链执行：已在 LinkedIn profile 的 Featured 区添加 `Gewuji Factory Bridge`，链接到 `https://gewuji.dev/for-buyers/`，并更新外链 audit log 与 first-batch 执行表。
+- 第一批干净外链执行：已创建并发布 GitHub resource README `https://github.com/llzclm1/supplier-communication-notes`，链接到 `https://gewuji.dev/field-materials/`，并更新外链 audit log 与 first-batch 执行表。
