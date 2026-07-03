@@ -193,3 +193,9 @@
 - 主站 `ai-sitemap.json` 口径已调整：格物集是主站 / 品牌母站，工厂桥梁是主业务项目，Lab / Tools 只收纳实验；不再把 World Cup Advisor、Photo Booth、Content Assistant 抬到 AI sitemap 核心页。
 - 已通过 `npm run build:prod && npm run verify:static`。
 - 未屏蔽 AI bot，未 noindex，未删除页面，未 push。
+
+## 2026-07-03 GSC 早期曝光观察
+
+- 已新增 GSC 早期曝光观察系统：`docs/gsc-early-signal-review.md`、`docs/gsc-query-page-analysis.md`、`docs/gsc-optimization-rules.md`、`data/gsc/gsc-early-signals.csv`。
+- 当前基线：过去 3 个月点击 0、曝光 10、CTR 0%、平均排名 53；已记录示例 query `role playing game key performance indicators`。
+- 当前策略是记录 query/page 对应关系并小幅优化相关页面；不因 0 点击删除页面，不自动 noindex，不改 sitemap，不 push。
