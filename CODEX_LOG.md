@@ -110,3 +110,4 @@
 ## 2026-07-04
 
 - 中英文首页字体、色彩和短文案调整为更克制的工业杂志感：中文标题改用宋体/思源宋体 fallback，英文标题改用 Archivo / Space Grotesk fallback，暖黑背景和暗金点缀压低饱和度；已通过 `npm run build:prod`、`npm run verify:static`、`git diff --check`，按用户要求不自动 push。
+- 中英文首页继续压缩视觉优先级：首屏控制在一屏内完成判断，三入口后先 Contact、再 Lab 小入口，Lab 降级为 footer 前弱链接条；已通过 `npm run build:prod`、`npm run verify:static`、`git diff --check`，按用户要求不自动 push。

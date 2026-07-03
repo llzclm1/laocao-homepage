@@ -238,7 +238,8 @@
 
 - 按用户新规格仅调整主站中文首页 `/`、英文首页 `/en/` 和首页作用域 CSS；未改 `/for-buyers/`、`/for-factories/`、`/field-materials/`、`/tools/` 或世界杯相关文件。
 - 中文首页 Hero：`真实工厂 / 值得被正确理解`；英文首页 Hero：`Real Factories. / Clearly Understood.`。
-- 首页结构收敛为 Hero、三入口、Lab 细条、Contact、Footer；独立 About、三入口大标题和卡片主次差异已移除，Lab 不在顶部导航，不作为第四主入口。
+- 首页结构收敛为 Hero、三入口、Contact、Lab 细条、Footer；独立 About、FAQ、服务流程和卡片主次差异已移除，Lab 不在顶部导航，不作为第四主入口。
+- 当前视觉优先级为 Hero > 三入口 > Contact > Lab > Footer；桌面首屏保留主标题、副标题、三个入口按钮和真实工厂背景图。
 - 字体和色彩已调整为工业杂志感：中文标题走宋体/思源宋体 fallback，英文标题走 Archivo / Space Grotesk fallback，背景为暖黑，暗金只做点缀。
 - Hero 背景使用本地真实工厂图 `field-materials/nonwoven-line-02.jpg`，已人工检查未见客户名、工厂名、图纸、订单号或人员正脸；页面用暖黑遮罩弱化水印和背景干扰。
 - 已通过 `npm run build:prod`、`npm run verify:static`、`git diff --check`；本轮未重新生成预览图。
