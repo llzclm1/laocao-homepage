@@ -112,3 +112,4 @@
 - 中英文首页字体、色彩和短文案调整为更克制的工业杂志感：中文标题改用宋体/思源宋体 fallback，英文标题改用 Archivo / Space Grotesk fallback，暖黑背景和暗金点缀压低饱和度；已通过 `npm run build:prod`、`npm run verify:static`、`git diff --check`，按用户要求不自动 push。
 - 中英文首页继续压缩视觉优先级：首屏控制在一屏内完成判断，三入口后先 Contact、再 Lab 小入口，Lab 降级为 footer 前弱链接条；已通过 `npm run build:prod`、`npm run verify:static`、`git diff --check`，按用户要求不自动 push。
 - 中英文首页亮度和色彩层级微调：仅调整 `.warm-home` 背景、文字、线条、按钮和 Hero 遮罩，保持首页结构与文案不变；已通过 `npm run build:prod`、`npm run verify:static`、`git diff --check`，按用户要求不自动 push。
+- 中英文首页字体方案和 Contact 文案微调：标题改为首页作用域 serif fallback，正文按中英文分别使用清晰 sans fallback，Contact 改为发送现有材料的正式审阅口径；已通过 `npm run build:prod`、`npm run verify:static`、`git diff --check`，按用户要求不自动 push。

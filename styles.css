@@ -3692,8 +3692,16 @@ h2 {
   background:
     radial-gradient(circle at 16% 0%, rgba(184, 137, 59, .12), transparent 32%),
     linear-gradient(180deg, #241e15 0%, #1c1811 50%, #17130d 100%);
-  font-family: "IBM Plex Sans", "Inter", "Noto Sans SC", "Source Han Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: Inter, "IBM Plex Sans", "Noto Sans SC", "Source Han Sans SC", "PingFang SC", system-ui, sans-serif;
   letter-spacing: 0;
+}
+
+.warm-home:lang(zh-CN) {
+  font-family: "Noto Sans SC", "Source Han Sans SC", "PingFang SC", system-ui, sans-serif;
+}
+
+.warm-home:lang(en) {
+  font-family: Inter, "IBM Plex Sans", system-ui, sans-serif;
 }
 
 .warm-home::before {
@@ -3859,13 +3867,13 @@ h2 {
 .warm-home h1,
 .warm-home h2,
 .warm-home h3 {
-  font-family: "Archivo", "Space Grotesk", "Inter Tight", "IBM Plex Sans", sans-serif;
+  font-family: "Libre Baskerville", "Cormorant Garamond", "Playfair Display", Georgia, serif;
 }
 
 .warm-home:lang(zh-CN) h1,
 .warm-home:lang(zh-CN) h2,
 .warm-home:lang(zh-CN) h3 {
-  font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "STSong", serif;
+  font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
 }
 
 .warm-home h1,
