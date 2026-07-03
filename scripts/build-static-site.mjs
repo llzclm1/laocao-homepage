@@ -20,10 +20,12 @@ const copyEntries = [
   "assets",
   "b",
   "CNAME",
+  "contact",
   "docs",
   "en",
   "factory-assets",
   "field-materials",
+  "favicon.ico",
   "favicon.svg",
   "films",
   "for-buyers",
@@ -31,6 +33,7 @@ const copyEntries = [
   "game",
   "google985cfee1847b0d86.html",
   "index.html",
+  "lab",
   "llms.txt",
   "m",
   "nav",
@@ -339,6 +342,7 @@ function buildSitemap() {
     ["for-buyers/", "0.9"],
     ["for-factories/", "0.9"],
     ["field-materials/", "0.8"],
+    ["contact/", "0.5"],
     ["llms.txt", "0.6"],
     ["ai-sitemap.json", "0.6"]
   ];

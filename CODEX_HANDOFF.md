@@ -199,3 +199,9 @@
 - 已新增 GSC 早期曝光观察系统：`docs/gsc-early-signal-review.md`、`docs/gsc-query-page-analysis.md`、`docs/gsc-optimization-rules.md`、`data/gsc/gsc-early-signals.csv`。
 - 当前基线：过去 3 个月点击 0、曝光 10、CTR 0%、平均排名 53；已记录示例 query `role playing game key performance indicators`。
 - 当前策略是记录 query/page 对应关系并小幅优化相关页面；不因 0 点击删除页面，不自动 noindex，不改 sitemap，不 push。
+
+## 2026-07-03 技术 SEO 小修
+
+- 已补主站 `/favicon.ico`、轻量 `/contact/` 页面和 `/lab/` 到 `/tools/` 的兼容跳转页。
+- `/contact/` 已加入主站 sitemap；首页联系入口改为真实 `contact/` 链接。
+- 已通过 `npm run build:prod && npm run verify:static`。HTTP 到 HTTPS 仍需要在 Cloudflare 后台开启 Always Use HTTPS / Redirect Rule。

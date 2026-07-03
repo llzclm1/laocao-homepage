@@ -10,6 +10,9 @@ const githubPagesHostSuffix = ["github", "io"].join(".");
 assert.ok(fs.existsSync(path.join(dist, "index.html")), "dist/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "m", "index.html")), "dist/m/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "b", "index.html")), "dist/b/index.html is missing");
+assert.ok(fs.existsSync(path.join(dist, "contact", "index.html")), "dist/contact/index.html is missing");
+assert.ok(fs.existsSync(path.join(dist, "favicon.ico")), "dist/favicon.ico is missing");
+assert.ok(fs.existsSync(path.join(dist, "lab", "index.html")), "dist/lab/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "trade.css")), "dist/trade.css is missing");
 assert.ok(fs.existsSync(path.join(dist, "nav", "index.html")), "dist/nav/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "game", "worldcup", "index.html")), "dist/game/worldcup/index.html is missing");
@@ -124,6 +127,7 @@ assert.ok(sitemap.includes("/ai-sitemap.json"), "sitemap should include /ai-site
 assert.ok(sitemap.includes("/for-factories/"), "sitemap should include /for-factories/");
 assert.ok(sitemap.includes("/for-buyers/"), "sitemap should include /for-buyers/");
 assert.ok(sitemap.includes("/field-materials/"), "sitemap should include /field-materials/");
+assert.ok(sitemap.includes("/contact/"), "sitemap should include /contact/");
 assert.equal(sitemap.includes("/game/worldcup/"), false, "sitemap should not include old game pages");
 assert.equal(sitemap.includes("/tools/photo-booth/"), false, "sitemap should not include old tool pages");
 assert.equal(sitemap.includes("/tools/content-assistant/"), false, "sitemap should not include temporary tool pages");
