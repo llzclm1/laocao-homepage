@@ -56,6 +56,53 @@ assert.ok(englishHome.includes("Field Materials"), "English homepage should link
 assert.equal(englishHome.includes("Personal Product Lab"), false, "English homepage should not use the old product lab positioning");
 assert.equal(englishHome.includes("Selected Work"), false, "English homepage should not feature the old project grid");
 
+function extractMatches(text, pattern) {
+  return [...text.matchAll(pattern)].map((match) => match[1]);
+}
+
+function extractBlocks(text, pattern) {
+  return [...text.matchAll(pattern)].map((match) => match[0]);
+}
+
+function normalizeEnglishHomeHref(href) {
+  return href.replace(/^\.\.\//, "").replace(/^#top$/, "#top");
+}
+
+function isCoreHomeLink(href) {
+  return href !== "" && href !== "en/";
+}
+
+function assertSameItems(actual, expected, message) {
+  assert.deepEqual([...new Set(actual)].sort(), [...new Set(expected)].sort(), message);
+}
+
+const homeSections = extractMatches(home, /<section\b[^>]*\bid="([^"]+)"/g);
+const englishHomeSections = extractMatches(englishHome, /<section\b[^>]*\bid="([^"]+)"/g);
+assertSameItems(englishHomeSections, homeSections, "English homepage sections should match Chinese homepage sections");
+
+const homeNavLinks = extractBlocks(home, /<nav\b[\s\S]*?<\/nav>/g)
+  .flatMap((nav) => extractMatches(nav, /href="([^"]+)"/g))
+  .filter(isCoreHomeLink);
+const englishHomeNavLinks = extractBlocks(englishHome, /<nav\b[\s\S]*?<\/nav>/g)
+  .flatMap((nav) => extractMatches(nav, /href="([^"]+)"/g))
+  .map(normalizeEnglishHomeHref)
+  .filter(isCoreHomeLink);
+assertSameItems(englishHomeNavLinks, homeNavLinks, "English homepage nav links should match Chinese homepage nav links");
+
+const homeHeroLinks = extractBlocks(home, /<div class="hero-actions"[\s\S]*?<\/div>/g)
+  .flatMap((block) => extractMatches(block, /href="([^"]+)"/g));
+const englishHomeHeroLinks = extractBlocks(englishHome, /<div class="hero-actions"[\s\S]*?<\/div>/g)
+  .flatMap((block) => extractMatches(block, /href="([^"]+)"/g))
+  .map(normalizeEnglishHomeHref);
+assertSameItems(englishHomeHeroLinks, homeHeroLinks, "English homepage hero CTAs should match Chinese homepage hero CTAs");
+
+const homeFooterLinks = extractBlocks(home, /<footer\b[\s\S]*?<\/footer>/g)
+  .flatMap((footer) => extractMatches(footer, /href="([^"]+)"/g));
+const englishHomeFooterLinks = extractBlocks(englishHome, /<footer\b[\s\S]*?<\/footer>/g)
+  .flatMap((footer) => extractMatches(footer, /href="([^"]+)"/g))
+  .map(normalizeEnglishHomeHref);
+assertSameItems(englishHomeFooterLinks, homeFooterLinks, "English homepage footer links should match Chinese homepage footer links");
+
 const stats = fs.readFileSync(path.join(dist, "stats.html"), "utf8");
 assert.ok(stats.includes('href="./"'), "stats page should use a relative home link");
 
