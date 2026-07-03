@@ -99,5 +99,6 @@
 - Cloudflare 后台已新增并启用 `www` 到根域名 301 Redirect Rule，验证 `https://www.gewuji.dev/` 返回 301 到 `https://gewuji.dev/`。
 - GSC 已重新提交 `https://gewuji.dev/sitemap.xml`，页面提示提交成功；现有 sitemap 行显示状态 `成功`，发现页面数 `63`。
 - Cloudflare 后台已新增并启用默认文件扩展名 Cache Rule，仅让静态文件扩展名符合缓存条件；验证 CSS、JS、图片和 favicon 第二次请求为 `cf-cache-status: HIT`，首页和 sitemap 仍为 `DYNAMIC`。
+- 首页工业档案馆方向落地：中英文首页首屏改为现场证据板、左侧品牌竖栏和低圆角目录式视觉，OG/Twitter 图切到工厂现场图；已通过 `npm run build:prod && npm run verify:static`，并生成桌面/移动预览图到 `outputs/`。
 - 首页冷静高级方向首屏密度调整：收紧首屏高度和间距、放大右侧现场图片组、将项目数字条放入首屏底部，避免页面过空；已通过 `npm run build:prod && npm run verify:static`。
 - 主站首页中英文 Factory Bridge 买家端和工厂端入口已改为直接指向 `https://factory.gewuji.dev/for-buyers/` 与 `https://factory.gewuji.dev/for-factories/`；Field Materials 仍保留在主站；已通过 `npm run build:prod && npm run verify:static`。

@@ -226,3 +226,10 @@
 - Field Materials 仍保留为主站内部入口 `field-materials/`。
 - 结构化 ItemList 已同步到 factory 子域名入口。
 - 已通过 `npm run build:prod && npm run verify:static`。
+
+## 2026-07-03 首页工业档案馆视觉
+
+- 中英文首页首屏已从冷静高级版本改为工业档案馆 / 现场图录方向：左侧品牌竖栏、真实工厂图片证据板、低圆角目录式按钮和数字条。
+- `styles.css` 新增 `.atlas-home` 作用域样式，旧 `.calm-home` 样式保留未删；当前只应用到 `index.html` 和 `en/index.html`。
+- OG/Twitter 首页预览图已切到 `factory-assets/workshop-wide.jpg`。
+- 已通过 `npm run build:prod && npm run verify:static`，本地预览图在 `outputs/homepage-atlas-desktop.png`、`outputs/homepage-atlas-mobile.png` 和 `outputs/homepage-atlas-en-desktop.png`。
