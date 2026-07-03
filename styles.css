@@ -3677,21 +3677,21 @@ h2 {
 
 /* Warm industrial homepage. Scoped to Chinese / and English /en/ only. */
 .warm-home {
-  --warm-ink: #f4efe6;
-  --warm-muted: #b9aa91;
-  --warm-dim: rgba(185, 170, 145, .68);
-  --warm-line: rgba(244, 239, 230, .16);
-  --warm-line-soft: rgba(244, 239, 230, .1);
+  --warm-ink: #f6f0e6;
+  --warm-muted: #c8b99f;
+  --warm-dim: #9f927d;
+  --warm-line: rgba(246, 240, 230, .18);
+  --warm-line-soft: rgba(246, 240, 230, .14);
   --warm-accent: #b8893b;
-  --warm-accent-strong: #c69a55;
-  --warm-black: #0e0c08;
-  --warm-panel: rgba(20, 18, 14, .76);
-  --warm-panel-strong: rgba(29, 25, 18, .84);
+  --warm-accent-strong: #c0974a;
+  --warm-black: #1c1811;
+  --warm-panel: rgba(33, 28, 20, .78);
+  --warm-panel-strong: rgba(38, 31, 22, .86);
   min-width: 320px;
   color: var(--warm-ink);
   background:
-    radial-gradient(circle at 16% 0%, rgba(184, 137, 59, .1), transparent 32%),
-    linear-gradient(180deg, #15110b 0%, #0e0c08 48%, #0a0906 100%);
+    radial-gradient(circle at 16% 0%, rgba(184, 137, 59, .12), transparent 32%),
+    linear-gradient(180deg, #241e15 0%, #1c1811 50%, #17130d 100%);
   font-family: "IBM Plex Sans", "Inter", "Noto Sans SC", "Source Han Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
   letter-spacing: 0;
 }
@@ -3702,8 +3702,8 @@ h2 {
   inset: 0;
   pointer-events: none;
   background:
-    linear-gradient(rgba(244, 239, 230, .026) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(244, 239, 230, .018) 1px, transparent 1px);
+    linear-gradient(rgba(246, 240, 230, .03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(246, 240, 230, .022) 1px, transparent 1px);
   background-size: 104px 104px;
   mask-image: linear-gradient(180deg, rgba(0, 0, 0, .52), transparent 76%);
   content: "";
@@ -3731,8 +3731,8 @@ h2 {
   border: 1px solid var(--warm-line);
   border-radius: 0;
   padding: 12px 14px 12px 18px;
-  background: rgba(14, 12, 8, .8);
-  box-shadow: 0 18px 52px rgba(6, 5, 4, .32);
+  background: rgba(28, 24, 17, .82);
+  box-shadow: 0 18px 52px rgba(9, 7, 4, .26);
   backdrop-filter: blur(20px) saturate(1.12);
   transform: translateX(-50%);
 }
@@ -3756,13 +3756,13 @@ h2 {
   border-radius: 0;
   background:
     linear-gradient(135deg, rgba(184, 137, 59, .16), transparent 48%),
-    rgba(244, 239, 230, .035);
+    rgba(246, 240, 230, .045);
 }
 
 .warm-home .brand-mark::before {
   position: absolute;
   inset: 8px;
-  border: 1px solid rgba(244, 239, 230, .34);
+  border: 1px solid rgba(246, 240, 230, .36);
   background: transparent;
   content: "";
 }
@@ -3831,16 +3831,16 @@ h2 {
   background-image: var(--hero-image);
   background-size: cover;
   background-position: 64% center;
-  filter: saturate(.68) contrast(1.08) brightness(.68);
+  filter: saturate(.78) contrast(1.06) brightness(.82);
   transform: scale(1.02);
 }
 
 .warm-home .warm-hero::after {
   z-index: -1;
   background:
-    linear-gradient(90deg, rgba(14, 12, 8, .96) 0%, rgba(14, 12, 8, .84) 40%, rgba(14, 12, 8, .58) 68%, rgba(14, 12, 8, .84) 100%),
-    linear-gradient(180deg, rgba(14, 12, 8, .36), rgba(14, 12, 8, .9)),
-    radial-gradient(circle at 18% 74%, rgba(184, 137, 59, .1), transparent 38%);
+    linear-gradient(90deg, rgba(24, 18, 10, .88) 0%, rgba(24, 18, 10, .68) 42%, rgba(24, 18, 10, .42) 70%, rgba(24, 18, 10, .64) 100%),
+    linear-gradient(180deg, rgba(24, 18, 10, .22), rgba(24, 18, 10, .72)),
+    radial-gradient(circle at 18% 74%, rgba(184, 137, 59, .12), transparent 38%);
 }
 
 .warm-home .warm-hero-inner {
@@ -3943,21 +3943,32 @@ h2 {
 }
 
 .warm-home .button.primary {
-  color: #1b1309;
+  color: #16120c;
   border-color: var(--warm-ink);
   background: var(--warm-ink);
+}
+
+.warm-home .button.primary:hover,
+.warm-home .button.primary:focus-visible {
+  border-color: #fff;
+  background: #fff;
 }
 
 .warm-home .button.factory {
   color: var(--warm-accent-strong);
   border-color: var(--warm-accent);
-  background: rgba(184, 137, 59, .08);
+  background: rgba(184, 137, 59, .1);
 }
 
 .warm-home .button.ghost {
   color: var(--warm-ink);
-  border-color: rgba(244, 239, 230, .3);
-  background: rgba(244, 239, 230, .035);
+  border-color: rgba(246, 240, 230, .36);
+  background: rgba(246, 240, 230, .04);
+}
+
+.warm-home .button.ghost:hover,
+.warm-home .button.ghost:focus-visible {
+  background: rgba(246, 240, 230, .08);
 }
 
 .warm-home .entry-section,
@@ -3994,7 +4005,7 @@ h2 {
   border: 1px solid var(--warm-line-soft);
   padding: clamp(24px, 3.2vw, 38px);
   background:
-    linear-gradient(145deg, rgba(244, 239, 230, .032), rgba(244, 239, 230, .012)),
+    linear-gradient(145deg, rgba(246, 240, 230, .04), rgba(246, 240, 230, .018)),
     var(--warm-panel);
   box-shadow: none;
   transition:
@@ -4007,7 +4018,7 @@ h2 {
 .warm-home .entry-card:focus-within {
   border-color: rgba(184, 137, 59, .36);
   background:
-    linear-gradient(145deg, rgba(244, 239, 230, .045), rgba(244, 239, 230, .016)),
+    linear-gradient(145deg, rgba(246, 240, 230, .055), rgba(246, 240, 230, .024)),
     var(--warm-panel-strong);
   transform: translateY(-1px);
 }
@@ -4124,8 +4135,8 @@ h2 {
   border: 1px solid var(--warm-line);
   padding: clamp(24px, 3vw, 36px);
   background:
-    linear-gradient(145deg, rgba(184, 137, 59, .06), rgba(244, 239, 230, .02)),
-    rgba(18, 16, 12, .78);
+    linear-gradient(145deg, rgba(184, 137, 59, .07), rgba(246, 240, 230, .026)),
+    rgba(38, 31, 22, .8);
 }
 
 .warm-home .contact-panel p {

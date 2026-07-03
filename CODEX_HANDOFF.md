@@ -241,6 +241,7 @@
 - 首页结构收敛为 Hero、三入口、Contact、Lab 细条、Footer；独立 About、FAQ、服务流程和卡片主次差异已移除，Lab 不在顶部导航，不作为第四主入口。
 - 当前视觉优先级为 Hero > 三入口 > Contact > Lab > Footer；桌面首屏保留主标题、副标题、三个入口按钮和真实工厂背景图。
 - 字体和色彩已调整为工业杂志感：中文标题走宋体/思源宋体 fallback，英文标题走 Archivo / Space Grotesk fallback，背景为暖黑，暗金只做点缀。
+- 2026-07-04 已继续提亮首页专属 `.warm-home` 色彩层级：主背景从近黑抬到暖深灰，Hero 工厂图减少压暗遮罩，文字、线条、按钮和入口区域更清楚；首页结构和文案未改。
 - Hero 背景使用本地真实工厂图 `field-materials/nonwoven-line-02.jpg`，已人工检查未见客户名、工厂名、图纸、订单号或人员正脸；页面用暖黑遮罩弱化水印和背景干扰。
 - 已通过 `npm run build:prod`、`npm run verify:static`、`git diff --check`；本轮未重新生成预览图。
 - 用户明确要求不要自动 `git push`；本轮只提交本地 commit，等待用户确认后再推送。

@@ -6,7 +6,7 @@
 - GSC 早期曝光观察：每周把 GSC 新 query/page 录入 `data/gsc/gsc-early-signals.csv`，按 `docs/gsc-query-page-analysis.md` 判断项目、意图和下一步动作；低曝光和 0 点击先观察，不自动删除/noindex。
 - 技术 SEO：主站 favicon、`/contact/`、`/lab/` 兼容页已补；Cloudflare `Always Use HTTPS`、`www` 到根域名 301、默认静态扩展名 Cache Rule 已开启；GSC `sitemap.xml` 已重新提交。下一步观察 24 小时 4xx 和静态资源 cache hit rate。
 - 主站 IA：旧工具和游戏实验已统一降级到 `/tools/`；如要进一步处理低质量工具页，需用户确认 noindex / sitemap 移除候选。
-- 主站 Factory Bridge 入口：中英文首页买家端和工厂端链接已指向 `factory.gewuji.dev`；首页已强制简化为 Hero、三入口、Contact、弱 Lab、Footer，并完成工业杂志感字体、色彩和短文案调整；部署后检查线上首页导航、Hero 背景图、三入口和移动端按钮是否生效。
+- 主站 Factory Bridge 入口：中英文首页买家端和工厂端链接已指向 `factory.gewuji.dev`；首页已强制简化为 Hero、三入口、Contact、弱 Lab、Footer，并完成工业杂志感字体、亮度、色彩层级和短文案调整；部署后检查线上首页导航、Hero 背景图、三入口和移动端按钮是否生效。
 - 外链观察：定期把 Ahrefs / GSC 发现的外链补入 `data/backlinks/backlink-audit-log.csv`；无手动处罚前不提交 disavow。
 - 干净外链第一批：LinkedIn profile、GitHub profile、GitHub README resource repository、Notion public checklist、About.me profile 已完成并补入 `data/backlinks/backlink-audit-log.csv`；下一步只做定期索引/可访问性复查。
 - Godot H5 POC：`game/worldcup-godot/` 已可预览，已套入角色 PNG 并补充轻量背景/特效；下一步如继续推进，应优先做移动端手感、性能和玩法节奏验证，再决定是否替换 `/game/worldcup/`。
