@@ -115,3 +115,4 @@
 - 中英文首页字体方案和 Contact 文案微调：标题改为首页作用域 serif fallback，正文按中英文分别使用清晰 sans fallback，Contact 改为发送现有材料的正式审阅口径；已通过 `npm run build:prod`、`npm run verify:static`、`git diff --check`，按用户要求不自动 push。
 - 首页标题字体可见性修正：由于前一版中文 serif 栈与旧版接近，英文外部字体未加载时变化不明显，已把首页标题优先级改为系统可命中的 `Songti SC` / `Georgia` 并降低粗重字重；已通过静态验证后推送。
 - 线上 CSS 缓存修正：首页 HTML 已更新但 `styles.css` 仍被静态缓存返回旧内容，因此把首页字体覆盖内联到 `/` 和 `/en/`，保证标题字体调整立即生效；未改其他页面。
+- Factory Bridge 子页面视觉系统统一：`/for-buyers/`、`/for-factories/`、`/field-materials/` 从旧 CFB / Next 导出模板改为 GEWUJI / Factory Bridge 统一壳，补充暖工业 CSS token、统一 Header / Footer、CTA / 表单文案、Field Materials canonical 和 AI sitemap / llms 口径；已通过 `npm run build:prod`、`npm run verify:static`、本地链接审计和 `git diff --check`，按用户要求未 push。

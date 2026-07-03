@@ -243,8 +243,19 @@
 - 字体和色彩已调整为工业杂志感：中文标题走宋体/思源宋体 fallback，英文标题走 Archivo / Space Grotesk fallback，背景为暖黑，暗金只做点缀。
 - 2026-07-04 已继续提亮首页专属 `.warm-home` 色彩层级：主背景从近黑抬到暖深灰，Hero 工厂图减少压暗遮罩，文字、线条、按钮和入口区域更清楚；首页结构和文案未改。
 - 2026-07-04 已把首页标题字体切到首页作用域 serif fallback，并把 Contact 改为发送现有材料的正式审阅口径；未改首页结构、服务页或 Lab 优先级。
+
 - 2026-07-04 针对“页面没变”的反馈，已把首页标题 serif 改为系统优先的 `Songti SC` / `Georgia`，避免未加载外部字体时视觉变化不明显。
 - 2026-07-04 发现线上 `styles.css` 静态缓存仍返回旧内容，已把首页字体覆盖内联到中文首页和英文首页，保证新字体优先级不依赖 CSS 缓存刷新。
 - Hero 背景使用本地真实工厂图 `field-materials/nonwoven-line-02.jpg`，已人工检查未见客户名、工厂名、图纸、订单号或人员正脸；页面用暖黑遮罩弱化水印和背景干扰。
 - 已通过 `npm run build:prod`、`npm run verify:static`、`git diff --check`；本轮未重新生成预览图。
 - 用户明确要求不要自动 `git push`；本轮只提交本地 commit，等待用户确认后再推送。
+
+## 2026-07-04 Factory Bridge 子页视觉统一
+
+- `styles.css` 已新增 Factory Bridge 作用域 `.bridge-page` 视觉系统，颜色 token 与首页暖工业方向一致，但子页正文使用暖米色，适合长内容阅读。
+- `/for-buyers/`、`/for-factories/`、`/field-materials/` 已从旧 CFB / Next 导出模板改为干净静态 HTML，顶部统一为 `GEWUJI` + 小字 `Factory Bridge`，Footer 统一为 `GEWUJI / Factory Bridge · Field Materials · Supplier Communication`。
+- 子页 CTA / 表单统一为发送现有材料口径，邮箱为 `laocao@gewuji.dev`；不再使用 `hello@chinafactorybridge.com`、`CFB`、旧模板 Header 或高压营销词。
+- `field-materials/` 已补 canonical：`https://gewuji.dev/field-materials/`，保留所有现有真实匿名工厂素材图片。
+- `llms.txt` 和 `ai-sitemap.json` 生成口径已改为 `Factory Bridge by Gewuji`，保留必要长尾词，但不把 `China Factory Bridge` 作为主品牌。
+- 已通过 `npm run build:prod`、`npm run verify:static`、本地链接审计和 `git diff --check`。
+- 注意：本仓库部署域名仍是 `gewuji.dev`。`factory.gewuji.dev/` 根路径线上当前由其他部署源返回内容，后续若要让 factory 根入口页同步，需要先确认对应仓库或部署配置。

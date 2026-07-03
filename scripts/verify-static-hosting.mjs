@@ -196,7 +196,7 @@ assert.equal(llms.includes("https://gewuji.dev/b/"), false, "llms should not lin
 assert.ok(llms.includes("贴贴研究所"), "llms.txt should include the photo booth project");
 assert.ok(llms.includes("世界杯盘口情绪"), "llms.txt should include worldcup market sentiment keywords");
 assert.ok(llms.includes("基准、保守、开放三种比分情景"), "llms.txt should explain worldcup score scenarios");
-assert.ok(llms.includes("China Factory Bridge"), "llms.txt should include China Factory Bridge");
+assert.ok(llms.includes("Factory Bridge by Gewuji"), "llms.txt should include the unified Factory Bridge brand");
 assert.ok(llms.includes("外贸开发信改写"), "llms.txt should include factory-side long-tail keywords");
 assert.ok(llms.includes("China supplier communication support"), "llms.txt should include buyer-side communication-support keywords");
 
@@ -219,11 +219,17 @@ assert.ok(JSON.stringify(aiSitemap).includes("不是正式审厂"), "AI sitemap 
 
 const factoryPage = fs.readFileSync(path.join(dist, "for-factories/index.html"), "utf8");
 const buyerPage = fs.readFileSync(path.join(dist, "for-buyers/index.html"), "utf8");
+const fieldMaterialsPage = fs.readFileSync(path.join(dist, "field-materials/index.html"), "utf8");
 assert.ok(factoryPage.includes('rel="canonical" href="https://gewuji.dev/for-factories/"'), "factory page should expose canonical URL");
 assert.ok(factoryPage.includes("外贸工厂资料诊断"), "factory page should include long-tail SEO copy");
+assert.ok(factoryPage.includes("GEWUJI"), "factory page should use the unified Gewuji brand shell");
 assert.ok(factoryPage.includes('application/ld+json'), "factory page should include JSON-LD");
 assert.ok(buyerPage.includes('rel="canonical" href="https://gewuji.dev/for-buyers/"'), "buyer page should expose canonical URL");
 assert.ok(buyerPage.includes("China supplier communication support"), "buyer page should include communication-support SEO copy");
+assert.ok(buyerPage.includes("GEWUJI"), "buyer page should use the unified Gewuji brand shell");
 assert.ok(buyerPage.includes('application/ld+json'), "buyer page should include JSON-LD");
+assert.ok(fieldMaterialsPage.includes('rel="canonical" href="https://gewuji.dev/field-materials/"'), "field materials page should expose canonical URL");
+assert.ok(fieldMaterialsPage.includes("Factory Bridge / Field Materials"), "field materials page should use the unified hero label");
+assert.ok(fieldMaterialsPage.includes('application/ld+json'), "field materials page should include JSON-LD");
 
 console.log("static hosting audit ok");

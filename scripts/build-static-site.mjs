@@ -405,30 +405,30 @@ function buildAiSitemap() {
       },
       {
         url: publicUrl("for-factories/"),
-        title: "外贸工厂资料诊断与重构",
+        title: "中国工厂 | Factory Bridge by Gewuji",
         type: "Service",
-        summary: "工厂桥梁面向中国外贸工厂，帮助改善对外宣传资料、产品资料、英文表达和客户沟通材料，让海外客户更容易看懂。",
+        summary: "Factory Bridge by Gewuji 面向中国工厂，整理产品页、工厂介绍、开发信和车间素材，让海外客户更快理解产品、能力、订单适配和继续沟通的理由。",
         answers: ["外贸工厂资料怎么优化", "外贸开发信怎么改写", "工厂宣传资料怎么让海外客户看懂"],
-        keywords: ["外贸工厂资料优化", "工厂宣传资料优化", "外贸开发信改写", "产品资料重构"],
+        keywords: ["外贸工厂资料诊断", "工厂宣传资料优化", "外贸开发信改写", "产品资料重构", "报价前沟通清晰度"],
         boundaries: ["不是正式审厂", "不是法律尽调", "不是质量验货", "不保证询盘或成交"]
       },
       {
         url: publicUrl("for-buyers/"),
-        title: "China Factory Reality Check",
+        title: "For Overseas Buyers | Factory Bridge by Gewuji",
         type: "Service",
-        summary: "Factory Bridge helps overseas buyers ask clearer supplier questions before sample orders, review supplier replies from a communication angle, and understand field-material based trust assets.",
-        answers: ["China supplier questions before sample order", "supplier reply review", "field materials for buyer trust"],
-        keywords: ["supplier communication support", "China supplier checklist", "factory materials", "overseas buyers"],
+        summary: "Factory Bridge by Gewuji helps overseas buyers review supplier replies, quotes, sample terms, packaging, MOQ, lead time, and payment details before samples, deposits, or larger orders.",
+        answers: ["China supplier questions before sample order", "supplier reply review", "supplier communication support"],
+        keywords: ["China supplier communication support", "supplier reply review", "sample order communication", "factory materials", "overseas buyers"],
         boundaries: ["not a factory audit", "not legal due diligence", "not quality inspection", "does not guarantee supplier reliability or order safety"]
       },
       {
         url: publicUrl("field-materials/"),
-        title: "Field Materials",
+        title: "Field Materials | Factory Bridge by Gewuji",
         type: "CollectionPage",
-        summary: "Field Materials collects anonymized factory photos and observations that show how workshop, sample, packaging and production context can become clearer trust assets for overseas buyers.",
+        summary: "Field Materials collects anonymized workshop, equipment, packaging and production details that show how real factory materials can become buyer-facing trust assets.",
         answers: ["field materials for buyer trust", "factory photos for overseas buyers", "how to explain factory materials"],
         keywords: ["field materials", "factory photos", "buyer trust assets", "factory communication"],
-        boundaries: ["examples are anonymized", "not a supplier guarantee", "not an inspection report"]
+        boundaries: ["examples are anonymized", "no customer names or factory names are disclosed", "not a supplier guarantee", "not an inspection report"]
       }
     ]
   };
