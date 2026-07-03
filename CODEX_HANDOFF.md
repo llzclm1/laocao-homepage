@@ -204,5 +204,9 @@
 
 - 已补主站 `/favicon.ico`、轻量 `/contact/` 页面和 `/lab/` 到 `/tools/` 的兼容跳转页。
 - `/contact/` 已加入主站 sitemap；首页联系入口改为真实 `contact/` 链接。
-- 已通过 `npm run build:prod && npm run verify:static`。HTTP 到 HTTPS 仍需要在 Cloudflare 后台开启 Always Use HTTPS / Redirect Rule。
+- 已通过 `npm run build:prod && npm run verify:static`。
 - 已在 Cloudflare `gewuji.dev` SSL/TLS 边缘证书页开启 `始终使用 HTTPS`。验证：`http://gewuji.dev/` 现在 301 到 `https://gewuji.dev/`。
+- 已在 Cloudflare 新增并启用 `www` 到根域名的 301 Redirect Rule。验证：`https://www.gewuji.dev/` 现在 301 到 `https://gewuji.dev/`。
+- 已在 GSC 为 `https://gewuji.dev/` 重新提交 `sitemap.xml`，页面提示“已成功提交站点地图”；sitemap 行显示状态 `成功`，发现页面数 `63`。
+- 已在 Cloudflare 新增并启用默认文件扩展名 Cache Rule：仅匹配静态文件扩展名，操作为“符合缓存条件”，未设置缓存 HTML、sitemap 或 robots。验证：`favicon.ico`、`styles.css`、`script.js`、PNG 第二次请求均为 `cf-cache-status: HIT`；首页和 `sitemap.xml` 仍为 `DYNAMIC`。
+- 下一步只需观察 Cloudflare 未来 24 小时 4xx 是否下降；GSC URL Inspection 对 `/contact/` 可人工检查，但不是必须阻塞项。
