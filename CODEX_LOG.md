@@ -103,3 +103,4 @@
 - 首页工业档案馆方向落地：中英文首页首屏改为现场证据板、左侧品牌竖栏和低圆角目录式视觉，OG/Twitter 图切到工厂现场图；已通过 `npm run build:prod && npm run verify:static`，并生成桌面/移动预览图到 `outputs/`。
 - 首页冷静高级方向首屏密度调整：收紧首屏高度和间距、放大右侧现场图片组、将项目数字条放入首屏底部，避免页面过空；已通过 `npm run build:prod && npm run verify:static`。
 - 主站首页中英文 Factory Bridge 买家端和工厂端入口已改为直接指向 `https://factory.gewuji.dev/for-buyers/` 与 `https://factory.gewuji.dev/for-factories/`；Field Materials 仍保留在主站；已通过 `npm run build:prod && npm run verify:static`。
+- 买家端页面从 supplier verification / reality check 口径调整为 supplier communication support，工厂端页面保留更直接的中文转化文案但降低“拿单”承诺感；`llms.txt` 和静态校验同步更新，已通过 `npm run build:prod && npm run verify:static`，未 push。

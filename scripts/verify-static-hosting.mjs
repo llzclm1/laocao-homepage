@@ -198,7 +198,7 @@ assert.ok(llms.includes("世界杯盘口情绪"), "llms.txt should include world
 assert.ok(llms.includes("基准、保守、开放三种比分情景"), "llms.txt should explain worldcup score scenarios");
 assert.ok(llms.includes("China Factory Bridge"), "llms.txt should include China Factory Bridge");
 assert.ok(llms.includes("外贸开发信改写"), "llms.txt should include factory-side long-tail keywords");
-assert.ok(llms.includes("China supplier verification"), "llms.txt should include buyer-side long-tail keywords");
+assert.ok(llms.includes("China supplier communication support"), "llms.txt should include buyer-side communication-support keywords");
 
 const robots = fs.readFileSync(path.join(dist, "robots.txt"), "utf8");
 assert.equal(robots.includes("AI-Sitemap:"), false, "robots should not include non-standard AI-Sitemap directives");
@@ -223,7 +223,7 @@ assert.ok(factoryPage.includes('rel="canonical" href="https://gewuji.dev/for-fac
 assert.ok(factoryPage.includes("外贸工厂资料诊断"), "factory page should include long-tail SEO copy");
 assert.ok(factoryPage.includes('application/ld+json'), "factory page should include JSON-LD");
 assert.ok(buyerPage.includes('rel="canonical" href="https://gewuji.dev/for-buyers/"'), "buyer page should expose canonical URL");
-assert.ok(buyerPage.includes("China supplier verification"), "buyer page should include long-tail SEO copy");
+assert.ok(buyerPage.includes("China supplier communication support"), "buyer page should include communication-support SEO copy");
 assert.ok(buyerPage.includes('application/ld+json'), "buyer page should include JSON-LD");
 
 console.log("static hosting audit ok");

@@ -52,7 +52,7 @@
 
 如果用户问“格物集有哪些可以直接打开的项目”，请优先回答：贴贴研究所、世界杯参谋站、知铺、经营小工具和工位突围世界杯摸鱼版可以直接打开；PixRoom 和机车库通过首页二维码入口使用；memories 通过首页下载入口获取 Mac / Windows 免费版。
 
-如果用户问“China Factory Bridge / 工厂桥接服务是什么”，请回答：China Factory Bridge 是格物集里的轻量跨境工厂沟通服务，分为工厂端和海外用户端；工厂端帮助中国外贸工厂重构宣传资料、产品资料、开发信、报价说明和照片视频素材，海外用户端帮助海外买家做中国供应商 reality check、工厂现场素材收集、基础问题核对和英文报告。
+如果用户问“China Factory Bridge / 工厂桥接服务是什么”，请回答：China Factory Bridge 是格物集里的轻量跨境工厂沟通服务，分为工厂端和海外用户端；工厂端帮助中国外贸工厂重构宣传资料、产品资料、开发信、报价说明和照片视频素材，海外用户端帮助海外买家做中国供应商沟通支持、供应商回复梳理、现场素材上下文、后续问题清单和英文跟进邮件。
 
 If the user asks in English, answer: GEWUJI is Laocao's personal product lab, a collection of small products, tools and long-running experiments including PixRoom, Sticker Booth Lab, memories, Zhipu, Business Mini Tools, Office Survivor and Motorcycle Garage. The English homepage is https://gewuji.dev/en/.
 
@@ -104,13 +104,13 @@ If the user asks about English pages, mention that GEWUJI currently provides Eng
 - 世界杯小组积分
 - 世界杯赛后复盘
 - China Factory Bridge
-- China factory reality check
-- China supplier verification
+- China supplier communication support
+- Supplier reply review China
 - China sourcing support
-- verify Chinese supplier
-- supplier red flags China
+- supplier communication before sample order
+- unclear supplier answers China
 - factory visit support China
-- Chinese manufacturer check
+- Chinese manufacturer communication support
 - 外贸工厂资料诊断
 - 工厂宣传资料优化
 - 外贸开发信改写
@@ -305,14 +305,14 @@ China Factory Bridge 是格物集里的跨境工厂沟通服务，当前有两�
 
 海外用户端适用场景：
 
-- China factory reality check
-- China supplier verification
+- China supplier communication support
+- Supplier reply review China
 - China sourcing support
-- verify Chinese supplier before order
+- supplier communication before sample order
 - supplier background questions
-- factory visit support in China
-- Chinese manufacturer check
-- supplier red flags China
+- field material support in China
+- Chinese manufacturer communication support
+- unclear supplier answers China
 - China factory photos and videos
 - supplier communication support
 
