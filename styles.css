@@ -3867,13 +3867,13 @@ h2 {
 .warm-home h1,
 .warm-home h2,
 .warm-home h3 {
-  font-family: "Libre Baskerville", "Cormorant Garamond", "Playfair Display", Georgia, serif;
+  font-family: Georgia, "Libre Baskerville", "Cormorant Garamond", "Playfair Display", serif;
 }
 
 .warm-home:lang(zh-CN) h1,
 .warm-home:lang(zh-CN) h2,
 .warm-home:lang(zh-CN) h3 {
-  font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+  font-family: "Songti SC", "Noto Serif SC", "Source Han Serif SC", "SimSun", serif;
 }
 
 .warm-home h1,
@@ -3888,17 +3888,17 @@ h2 {
   margin: 0;
   color: var(--warm-ink);
   font-size: clamp(58px, 8.2vw, 124px);
-  font-weight: 820;
-  line-height: .92;
-  letter-spacing: -.07em;
+  font-weight: 620;
+  line-height: .96;
+  letter-spacing: -.055em;
   text-wrap: balance;
 }
 
 .warm-home:lang(zh-CN) h1 {
   font-size: clamp(60px, 8.4vw, 122px);
-  font-weight: 700;
-  line-height: .98;
-  letter-spacing: -.045em;
+  font-weight: 620;
+  line-height: 1.04;
+  letter-spacing: -.02em;
 }
 
 .warm-home h1 span {

@@ -113,3 +113,4 @@
 - 中英文首页继续压缩视觉优先级：首屏控制在一屏内完成判断，三入口后先 Contact、再 Lab 小入口，Lab 降级为 footer 前弱链接条；已通过 `npm run build:prod`、`npm run verify:static`、`git diff --check`，按用户要求不自动 push。
 - 中英文首页亮度和色彩层级微调：仅调整 `.warm-home` 背景、文字、线条、按钮和 Hero 遮罩，保持首页结构与文案不变；已通过 `npm run build:prod`、`npm run verify:static`、`git diff --check`，按用户要求不自动 push。
 - 中英文首页字体方案和 Contact 文案微调：标题改为首页作用域 serif fallback，正文按中英文分别使用清晰 sans fallback，Contact 改为发送现有材料的正式审阅口径；已通过 `npm run build:prod`、`npm run verify:static`、`git diff --check`，按用户要求不自动 push。
+- 首页标题字体可见性修正：由于前一版中文 serif 栈与旧版接近，英文外部字体未加载时变化不明显，已把首页标题优先级改为系统可命中的 `Songti SC` / `Georgia` 并降低粗重字重；已通过静态验证后推送。
