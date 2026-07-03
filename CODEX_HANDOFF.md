@@ -217,3 +217,12 @@
 - 已在 GSC 为 `https://gewuji.dev/` 重新提交 `sitemap.xml`，页面提示“已成功提交站点地图”；sitemap 行显示状态 `成功`，发现页面数 `63`。
 - 已在 Cloudflare 新增并启用默认文件扩展名 Cache Rule：仅匹配静态文件扩展名，操作为“符合缓存条件”，未设置缓存 HTML、sitemap 或 robots。验证：`favicon.ico`、`styles.css`、`script.js`、PNG 第二次请求均为 `cf-cache-status: HIT`；首页和 `sitemap.xml` 仍为 `DYNAMIC`。
 - 下一步只需观察 Cloudflare 未来 24 小时 4xx 是否下降；GSC URL Inspection 对 `/contact/` 可人工检查，但不是必须阻塞项。
+
+## 2026-07-03 Factory Bridge 子域名入口
+
+- 主站中英文首页的 Factory Bridge 买家端和工厂端入口已改为直接指向：
+  - `https://factory.gewuji.dev/for-buyers/`
+  - `https://factory.gewuji.dev/for-factories/`
+- Field Materials 仍保留为主站内部入口 `field-materials/`。
+- 结构化 ItemList 已同步到 factory 子域名入口。
+- 已通过 `npm run build:prod && npm run verify:static`。
