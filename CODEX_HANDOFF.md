@@ -205,3 +205,4 @@
 - 已补主站 `/favicon.ico`、轻量 `/contact/` 页面和 `/lab/` 到 `/tools/` 的兼容跳转页。
 - `/contact/` 已加入主站 sitemap；首页联系入口改为真实 `contact/` 链接。
 - 已通过 `npm run build:prod && npm run verify:static`。HTTP 到 HTTPS 仍需要在 Cloudflare 后台开启 Always Use HTTPS / Redirect Rule。
+- 已在 Cloudflare `gewuji.dev` SSL/TLS 边缘证书页开启 `始终使用 HTTPS`。验证：`http://gewuji.dev/` 现在 301 到 `https://gewuji.dev/`。

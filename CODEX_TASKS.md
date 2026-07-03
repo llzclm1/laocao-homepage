@@ -4,7 +4,7 @@
 
 - AI bot 观察：每周按 `docs/ai-bot-visibility-checklist.md` 记录三个站点 AI bot 请求、核心页抓取、404/5xx 和 sitemap/robots 状态。
 - GSC 早期曝光观察：每周把 GSC 新 query/page 录入 `data/gsc/gsc-early-signals.csv`，按 `docs/gsc-query-page-analysis.md` 判断项目、意图和下一步动作；低曝光和 0 点击先观察，不自动删除/noindex。
-- 技术 SEO：主站 favicon、`/contact/`、`/lab/` 兼容页已补；仍需在 Cloudflare 后台确认 `http://gewuji.dev/` 到 `https://gewuji.dev/` 的强制跳转。
+- 技术 SEO：主站 favicon、`/contact/`、`/lab/` 兼容页已补；Cloudflare `Always Use HTTPS` 已开启，`http://gewuji.dev/` 现在 301 到 HTTPS。
 - 主站 IA：旧工具和游戏实验已统一降级到 `/tools/`；如要进一步处理低质量工具页，需用户确认 noindex / sitemap 移除候选。
 - 外链观察：定期把 Ahrefs / GSC 发现的外链补入 `data/backlinks/backlink-audit-log.csv`；无手动处罚前不提交 disavow。
 - 干净外链第一批：LinkedIn profile、GitHub profile、GitHub README resource repository、Notion public checklist、About.me profile 已完成并补入 `data/backlinks/backlink-audit-log.csv`；下一步只做定期索引/可访问性复查。

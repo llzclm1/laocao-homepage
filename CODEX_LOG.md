@@ -91,3 +91,4 @@
 
 - 新增 GSC 早期曝光观察系统：`docs/gsc-early-signal-review.md`、`docs/gsc-query-page-analysis.md`、`docs/gsc-optimization-rules.md`、`data/gsc/gsc-early-signals.csv`；已写入当前已知 query 示例，未改页面、sitemap、noindex、重定向，未 push。
 - 技术 SEO 小修：新增主站 `/favicon.ico`、`/contact/`、`/lab/` 兼容页，并把 `/contact/` 加入 sitemap；已通过 `npm run build:prod && npm run verify:static`。未改 Cloudflare 设置。
+- Cloudflare 后台已开启 `gewuji.dev` 的 `Always Use HTTPS`，验证 `http://gewuji.dev/` 返回 301 到 `https://gewuji.dev/`。
