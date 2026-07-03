@@ -3947,7 +3947,6 @@ h2 {
 
 .warm-home .entry-section,
 .warm-home .lab-strip,
-.warm-home .about-strip,
 .warm-home .contact-section,
 .warm-home .site-footer {
   width: min(1180px, calc(100% - 44px));
@@ -3955,52 +3954,25 @@ h2 {
 }
 
 .warm-home .entry-section {
-  padding: clamp(82px, 11vw, 142px) 0 0;
-}
-
-.warm-home .section-kicker {
-  display: grid;
-  grid-template-columns: minmax(160px, .24fr) minmax(0, .76fr);
-  gap: clamp(24px, 5vw, 72px);
-  align-items: start;
-  margin-bottom: clamp(32px, 5vw, 58px);
   border-top: 1px solid var(--warm-line);
-  padding-top: 22px;
-}
-
-.warm-home .section-kicker span,
-.warm-home .entry-type {
-  color: var(--warm-accent-strong);
-  font-size: 12px;
-  font-weight: 820;
-  letter-spacing: .1em;
-}
-
-.warm-home .section-kicker h2 {
-  max-width: 780px;
-  margin: 0;
-  color: var(--warm-ink);
-  font-size: clamp(34px, 5vw, 70px);
-  font-weight: 800;
-  line-height: 1.02;
-  letter-spacing: -.055em;
-  text-wrap: balance;
+  padding: clamp(82px, 11vw, 142px) 0 0;
+  margin-top: clamp(20px, 3vw, 42px);
 }
 
 .warm-home .entry-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.14fr) minmax(0, .92fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
   align-items: stretch;
 }
 
 .warm-home .entry-grid-zh {
-  grid-template-columns: minmax(0, .92fr) minmax(0, 1.14fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .warm-home .entry-card {
   display: flex;
-  min-height: 350px;
+  min-height: 390px;
   flex-direction: column;
   justify-content: space-between;
   gap: 26px;
@@ -4025,20 +3997,6 @@ h2 {
   transform: translateY(-2px);
 }
 
-.warm-home .entry-card.is-featured {
-  grid-row: span 2;
-  min-height: 716px;
-  background:
-    linear-gradient(160deg, rgba(214, 163, 76, .2), transparent 48%),
-    linear-gradient(145deg, rgba(247, 239, 226, .08), rgba(247, 239, 226, .025)),
-    rgba(52, 37, 19, .86);
-}
-
-.warm-home .entry-type {
-  margin: 0 0 18px;
-  text-transform: none;
-}
-
 .warm-home .entry-card h3 {
   margin: 0;
   color: var(--warm-ink);
@@ -4054,10 +4012,6 @@ h2 {
   color: var(--warm-muted);
   font-size: 16px;
   line-height: 1.78;
-}
-
-.warm-home .entry-card.is-featured p {
-  font-size: clamp(17px, 1.55vw, 20px);
 }
 
 .warm-home .entry-boundary {
@@ -4122,14 +4076,6 @@ h2 {
   outline: none;
 }
 
-.warm-home .about-strip {
-  display: grid;
-  grid-template-columns: minmax(220px, .32fr) minmax(0, .68fr);
-  gap: clamp(24px, 5vw, 72px);
-  padding: clamp(64px, 8vw, 106px) 0 0;
-}
-
-.warm-home .about-strip h2,
 .warm-home .contact-section h2 {
   margin: 0;
   color: var(--warm-ink);
@@ -4138,14 +4084,6 @@ h2 {
   line-height: 1.04;
   letter-spacing: -.05em;
   text-wrap: balance;
-}
-
-.warm-home .about-strip p {
-  max-width: 740px;
-  margin: 0;
-  color: var(--warm-muted);
-  font-size: clamp(17px, 1.9vw, 22px);
-  line-height: 1.78;
 }
 
 .warm-home .contact-section {
@@ -4175,6 +4113,12 @@ h2 {
   color: var(--warm-muted);
   font-size: clamp(17px, 1.6vw, 20px);
   line-height: 1.76;
+}
+
+.warm-home .contact-panel .contact-note {
+  margin-top: 18px;
+  color: var(--warm-dim);
+  font-size: 15px;
 }
 
 .warm-home .contact-panel .button {
@@ -4240,8 +4184,6 @@ h2 {
       linear-gradient(180deg, rgba(20, 14, 6, .48), rgba(20, 14, 6, .92));
   }
 
-  .warm-home .section-kicker,
-  .warm-home .about-strip,
   .warm-home .contact-section {
     grid-template-columns: 1fr;
   }
@@ -4251,9 +4193,7 @@ h2 {
     grid-template-columns: 1fr;
   }
 
-  .warm-home .entry-card,
-  .warm-home .entry-card.is-featured {
-    grid-row: auto;
+  .warm-home .entry-card {
     min-height: 0;
   }
 }
@@ -4262,7 +4202,6 @@ h2 {
   .warm-home .site-header,
   .warm-home .entry-section,
   .warm-home .lab-strip,
-  .warm-home .about-strip,
   .warm-home .contact-section,
   .warm-home .site-footer {
     width: calc(100% - 28px);
@@ -4332,11 +4271,6 @@ h2 {
     padding-top: 64px;
   }
 
-  .warm-home .section-kicker {
-    gap: 14px;
-    margin-bottom: 24px;
-  }
-
   .warm-home .entry-card {
     padding: 22px;
   }
@@ -4350,7 +4284,6 @@ h2 {
     gap: 12px;
   }
 
-  .warm-home .about-strip,
   .warm-home .contact-section {
     padding-top: 58px;
   }

@@ -234,11 +234,11 @@
 - OG/Twitter 首页预览图已切到 `factory-assets/workshop-wide.jpg`。
 - 已通过 `npm run build:prod && npm run verify:static`，本地预览图在 `outputs/homepage-atlas-desktop.png`、`outputs/homepage-atlas-mobile.png` 和 `outputs/homepage-atlas-en-desktop.png`。
 
-## 2026-07-03 暖工业首页定稿
+## 2026-07-03 暖工业首页强制简化
 
 - 按用户新规格仅调整主站中文首页 `/`、英文首页 `/en/` 和首页作用域 CSS；未改 `/for-buyers/`、`/for-factories/`、`/field-materials/`、`/tools/` 或世界杯相关文件。
 - 中文首页 Hero：`让真实工厂 / 被海外客户正确理解`；英文首页 Hero：`Real Factories. / Clearer Buyer Context.`。
-- 首页结构收敛为 Hero、三入口、Lab 细条、About、Contact、Footer；Lab 不在顶部导航，不作为第四主入口。
+- 首页结构收敛为 Hero、三入口、Lab 细条、Contact、Footer；独立 About、三入口大标题和卡片主次差异已移除，Lab 不在顶部导航，不作为第四主入口。
 - Hero 背景使用本地真实工厂图 `field-materials/nonwoven-line-02.jpg`，已人工检查未见客户名、工厂名、图纸、订单号或人员正脸；页面用暖黑遮罩弱化水印和背景干扰。
-- 已通过 `npm run build:prod`、`npm run verify:static`、`git diff --check`；预览图在 `outputs/warm-home-zh-desktop.png`、`outputs/warm-home-en-desktop.png`、`outputs/warm-home-zh-mobile.png`。
+- 已通过 `npm run build:prod`、`npm run verify:static`、`git diff --check`；本轮未重新生成预览图。
 - 用户明确要求不要自动 `git push`；本轮只提交本地 commit，等待用户确认后再推送。
