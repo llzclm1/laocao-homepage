@@ -104,3 +104,4 @@
 - 首页冷静高级方向首屏密度调整：收紧首屏高度和间距、放大右侧现场图片组、将项目数字条放入首屏底部，避免页面过空；已通过 `npm run build:prod && npm run verify:static`。
 - 主站首页中英文 Factory Bridge 买家端和工厂端入口已改为直接指向 `https://factory.gewuji.dev/for-buyers/` 与 `https://factory.gewuji.dev/for-factories/`；Field Materials 仍保留在主站；已通过 `npm run build:prod && npm run verify:static`。
 - 买家端页面从 supplier verification / reality check 口径调整为 supplier communication support，工厂端页面保留更直接的中文转化文案但降低“拿单”承诺感；`llms.txt` 和静态校验同步更新，已通过 `npm run build:prod && npm run verify:static`，未 push。
+- 中英文首页改为暖工业品牌首页：`/` 和 `/en/` 保留三入口（海外买家 / 中国工厂 / 实拍素材），Hero 使用本地真实工厂图 `field-materials/nonwoven-line-02.jpg` 加暖黑遮罩，Lab 降级为细条入口；已通过 `npm run build:prod && npm run verify:static`，并生成预览图 `outputs/warm-home-zh-desktop.png`、`outputs/warm-home-en-desktop.png`、`outputs/warm-home-zh-mobile.png`。按用户要求未 push。
