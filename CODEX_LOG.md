@@ -83,6 +83,7 @@
 - 英文首页同步中文首页信息架构：`en/index.html` 从旧产品实验室/项目墙改为 Factory Bridge、Field Materials、Lab、联系入口结构，并补充英文页定位校验；已通过 `npm run build:prod && npm run verify:static`。
 - 中英文首页同步保护：`verify:static` 现在会比较中英文首页的核心 section、导航、hero CTA 和 footer 链接；中文首页结构更新但英文首页未跟进时会直接失败。
 - 首页清理：按要求移除中文和英文首页的最近项目进展 / Recent updates 板块；已通过 `npm run build:prod && npm run verify:static`。
+- 首页工厂桥梁去重：Factory Bridge 区只保留买家端和工厂端入口，Field Materials 区只保留素材入口，避免桥梁内容和素材内容互相重复；中英文同步更新并通过静态校验。
 - 外链健康系统第二阶段：新增第一批干净外链执行计划、Profile 文案、GitHub README 模板、Notion checklist 模板和 CSV 执行表；本轮只生成文案和清单，未注册账号、未提交外链、未 disavow、未 push。
 - 第一批干净外链执行：已创建并发布 GitHub profile README `https://github.com/llzclm1/llzclm1`，链接到 `https://gewuji.dev/`，并更新外链 audit log 与 first-batch 执行表。
 - 第一批干净外链执行：已在 LinkedIn profile 的 Featured 区添加 `Gewuji Factory Bridge`，链接到 `https://gewuji.dev/for-buyers/`，并更新外链 audit log 与 first-batch 执行表。
