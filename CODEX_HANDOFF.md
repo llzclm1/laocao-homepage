@@ -194,6 +194,13 @@
 - 已通过 `npm run build:prod && npm run verify:static`。
 - 未屏蔽 AI bot，未 noindex，未删除页面，未 push。
 
+## 2026-07-03 英文首页同步
+
+- `en/index.html` 已跟随中文首页，改为 Factory Bridge、Field Materials、Lab、Contact 的英文结构。
+- 删除英文首页旧的 Personal Product Lab / Selected Work / PixRoom / Office Survivor 项目墙主叙事。
+- `scripts/verify-static-hosting.mjs` 已增加英文首页定位断言，避免回退到旧口径。
+- 已通过 `npm run build:prod && npm run verify:static`。
+
 ## 2026-07-03 GSC 早期曝光观察
 
 - 已新增 GSC 早期曝光观察系统：`docs/gsc-early-signal-review.md`、`docs/gsc-query-page-analysis.md`、`docs/gsc-optimization-rules.md`、`data/gsc/gsc-early-signals.csv`。

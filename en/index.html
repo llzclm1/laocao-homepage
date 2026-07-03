@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="GEWUJI is Laocao's personal product lab, collecting small products, tools and experiments including PixRoom, memories, Zhipu, Office Survivor and Motorcycle Garage."
+      content="GEWUJI is Laocao's main website for Factory Bridge, field materials, and clearer communication between overseas buyers and Chinese factories."
     />
     <meta
       name="keywords"
-      content="GEWUJI, Laocao, personal product lab, indie products, PixRoom, memories, Zhipu, Office Survivor, Motorcycle Garage, AI tools"
+      content="GEWUJI, Laocao, Factory Bridge, overseas buyers, Chinese factories, field materials, supplier communication"
     />
     <meta name="author" content="Laocao" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -23,28 +23,29 @@
     <link rel="apple-touch-icon" href="../assets/brand/gewuji-app-icon.svg" />
     <link rel="sitemap" type="application/xml" href="../sitemap.xml" />
     <link rel="alternate" type="text/plain" href="../llms.txt" title="LLMs.txt" />
+    <link rel="alternate" type="application/json" href="../ai-sitemap.json" title="AI Sitemap" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:title" content="GEWUJI" />
     <meta
       property="og:description"
-      content="A personal product lab by Laocao, collecting tools, apps, games and experiments that are already useful or still growing."
+      content="GEWUJI: Factory Bridge, field materials, and clearer supplier communication."
     />
     <meta property="og:url" content="https://gewuji.dev/en/" />
     <meta property="og:site_name" content="GEWUJI" />
     <meta property="og:image" content="https://gewuji.dev/assets/hero-homepage.png" />
-    <meta property="og:image:alt" content="GEWUJI personal product lab homepage preview" />
+    <meta property="og:image:alt" content="GEWUJI homepage preview" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="GEWUJI" />
     <meta
       name="twitter:description"
-      content="Laocao's collection of products, tools and long-running experiments."
+      content="Factory Bridge, field materials, and clearer supplier communication."
     />
     <meta name="twitter:image" content="https://gewuji.dev/assets/hero-homepage.png" />
-    <meta name="twitter:image:alt" content="GEWUJI personal product lab homepage preview" />
-    <title>GEWUJI｜Personal Product Lab</title>
-    <link rel="preload" as="image" href="../assets/projects/detail-crops/pixroom-color-grading.webp" type="image/webp" fetchpriority="high" />
-    <link rel="stylesheet" href="../styles.css?v=20260625-en" />
+    <meta name="twitter:image:alt" content="GEWUJI homepage preview" />
+    <title>GEWUJI | Factory Bridge and Field Materials</title>
+    <link rel="preload" as="image" href="../field-materials/lab-equipment-01.jpg" type="image/jpeg" fetchpriority="high" />
+    <link rel="stylesheet" href="../styles.css?v=20260628-ux-clicks" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -53,30 +54,76 @@
         "name": "GEWUJI",
         "alternateName": "格物集",
         "url": "https://gewuji.dev/en/",
-        "description": "GEWUJI is Laocao's personal product lab, collecting small products, tools and experiments.",
+        "description": "GEWUJI is Laocao's main website for Factory Bridge, field materials, and clearer communication between overseas buyers and Chinese factories.",
         "inLanguage": "en",
         "publisher": {
           "@type": "Person",
           "@id": "https://gewuji.dev/#person",
           "name": "Laocao",
           "email": "laocao@gewuji.dev"
-        }
+        },
+        "about": [
+          "Factory Bridge",
+          "Chinese factory communication",
+          "field materials",
+          "overseas buyer communication"
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is GEWUJI?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "GEWUJI is Laocao's main website, focused on Factory Bridge, real field materials, and overseas buyer communication."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is Factory Bridge?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Factory Bridge is the main business project under GEWUJI. It helps overseas buyers and Chinese factories make factory context, product information, and basic questions clearer before deeper discussions."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What are Field Materials for?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Field Materials show factory photos, workshop context, lab rooms, and product details that plain text introductions often miss."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are the old tools still available?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. They are collected under Gewuji Lab / Tools, but they are no longer the core focus of the homepage."
+            }
+          }
+        ]
       }
     </script>
   </head>
-  <body>
+  <body class="calm-home">
     <header class="site-header">
       <a class="brand" href="#top" aria-label="Back to top">
         <span class="brand-mark" aria-hidden="true"></span>
         <span>GEWUJI</span>
       </a>
       <nav class="nav" aria-label="Main navigation">
-        <a href="../nav/">Nav</a>
-        <a href="#projects">Projects</a>
-        <a href="#updates">Updates</a>
-        <a href="#about">About</a>
-        <a href="#faq">FAQ</a>
-        <a href="#contact">Contact</a>
+        <a href="#top">Home</a>
+        <a href="../for-buyers/">For Buyers</a>
+        <a href="../for-factories/">For Factories</a>
+        <a href="../field-materials/">Field Materials</a>
+        <a href="../tools/">Lab</a>
+        <a href="../contact/">Contact</a>
         <a class="language-link" href="../" hreflang="zh-CN" lang="zh-CN">中文</a>
       </nav>
     </header>
@@ -88,7 +135,7 @@
           <img
             class="hero-visual"
             src="../assets/hero-homepage.png"
-            alt="GEWUJI personal product lab homepage hero visual"
+            alt="GEWUJI homepage hero visual"
             width="1536"
             height="1024"
             fetchpriority="low"
@@ -98,297 +145,162 @@
         </picture>
         <div class="hero-scrim"></div>
         <div class="hero-content">
-          <p class="eyebrow">Products · Tools · Experiments</p>
+          <p class="eyebrow">FACTORY BRIDGE · FIELD MATERIALS</p>
           <h1 id="hero-title">GEWUJI</h1>
-          <p class="hero-subtitle">A collection of products, tools and experiments.</p>
-          <p class="hero-statement">Small ideas, made visible.</p>
+          <p class="hero-subtitle">Factory Bridge, field materials, and overseas buyer communication.</p>
+          <p class="hero-statement">Make factory context and product information clearer first.</p>
           <p class="hero-copy">
-            This is where I keep the products I am building, the tools already online, and the long-running experiments that still have room to grow.
+            I have photographed more than 1,000 companies across Jiangsu, Zhejiang, and Shanghai.<br />
+            This site organizes factory-side pages, buyer-side pages, and real field materials.
           </p>
           <div class="hero-actions" aria-label="Primary actions">
-            <a class="button primary" href="#projects">View projects</a>
-            <a class="button ghost" href="../nav/">Useful links</a>
+            <a class="button primary" href="../for-buyers/">For Overseas Buyers</a>
+            <a class="button ghost" href="../for-factories/">For Chinese Factories</a>
           </div>
           <a class="hero-email" href="mailto:laocao@gewuji.dev">Email laocao@gewuji.dev</a>
         </div>
         <div class="hero-showcase" aria-label="Project preview">
           <figure class="showcase-card showcase-card-pixroom">
-            <img src="../assets/projects/detail-crops/pixroom-color-grading.webp" alt="PixRoom interface preview" width="573" height="900" loading="eager" fetchpriority="high" decoding="async" />
-            <figcaption>PixRoom</figcaption>
+            <img src="../field-materials/lab-equipment-01.jpg" alt="Lab equipment field record" width="900" height="1200" loading="eager" fetchpriority="high" decoding="async" />
+            <figcaption>Lab</figcaption>
           </figure>
           <figure class="showcase-card showcase-card-material">
-            <img src="../assets/projects/detail-crops/memoris-material-board.webp" alt="memories app interface preview" width="720" height="900" loading="lazy" fetchpriority="low" decoding="async" />
-            <figcaption>memories</figcaption>
+            <img src="../field-materials/machinery-facility-01.jpg" alt="Factory facility field record" width="900" height="1200" loading="lazy" fetchpriority="low" decoding="async" />
+            <figcaption>Factory</figcaption>
           </figure>
           <figure class="showcase-card showcase-card-game">
-            <img src="../assets/projects/office-survivor-cover.webp" alt="Office Survivor game cover preview" width="405" height="720" loading="lazy" fetchpriority="low" decoding="async" />
-            <figcaption>Office Survivor</figcaption>
+            <img src="../field-materials/metal-parts-01.jpg" alt="Metal parts production field record" width="900" height="1200" loading="lazy" fetchpriority="low" decoding="async" />
+            <figcaption>Field</figcaption>
           </figure>
         </div>
-        <div class="hero-metrics" aria-label="Project overview">
+        <div class="hero-metrics" aria-label="Site overview">
           <div>
-            <strong>8</strong>
-            <span>projects</span>
+            <strong>1000+</strong>
+            <span>companies photographed</span>
           </div>
           <div>
-            <strong>3</strong>
-            <span>directions</span>
+            <strong>2</strong>
+            <span>service entrances</span>
           </div>
           <div>
             <strong>1</strong>
-            <span>main hub</span>
+            <span>field material library</span>
           </div>
         </div>
       </section>
 
-      <section class="projects-section" id="projects" aria-labelledby="projects-title">
+      <section class="home-split-section factory-split-section" id="factory-bridge" aria-labelledby="factory-bridge-title">
         <div class="section-heading">
-          <p class="eyebrow">Selected Work</p>
-          <h2 id="projects-title">Active projects</h2>
-          <p>Image tools, information capture, business content tools, WeChat mini programs, games and vertical utilities.</p>
-        </div>
-
-        <article class="worldcup-event-banner" aria-labelledby="worldcup-event-title">
-          <div class="worldcup-event-copy">
-            <span class="event-label">Limited event</span>
-            <h3 id="worldcup-event-title">Office Survivor: World Cup Edition</h3>
-            <p class="event-subtitle">Watching the World Cup at work, until the boss notices.</p>
-            <p class="event-description">Run, dodge and kick the ball. See how long you can survive at your desk.</p>
-            <div class="event-actions">
-              <a class="button event-primary" href="game/worldcup/">Play now</a>
-              <a class="event-link" href="game/worldcup/">Open English game page -></a>
-            </div>
+          <div>
+            <p class="eyebrow">Factory Bridge</p>
+            <h2 id="factory-bridge-title">Factory Bridge</h2>
           </div>
-          <a class="worldcup-event-preview" href="game/worldcup/" aria-label="Open Office Survivor World Cup Edition">
-            <img src="../assets/projects/worldcup-game-preview.webp" alt="Office Survivor World Cup Edition gameplay preview" width="590" height="250" loading="lazy" />
+          <p>Make factory context, product information, and buyer questions clear before deeper conversations.</p>
+        </div>
+        <div class="split-link-grid three-links">
+          <a class="split-link-card" href="../for-buyers/">
+            <span>Buyers</span>
+            <strong>For Overseas Buyers</strong>
+            <p>Use field context and clearer questions to reduce blind guessing before sample orders.</p>
           </a>
-        </article>
-
-        <div class="project-grid english-project-grid">
-          <article class="project-card" data-category="tool" data-href="tools/photo-booth/">
-            <figure class="project-shot">
-              <img src="../tools/photo-booth/assets/photo-booth-hero-preview.png" alt="Photo Booth web app hero preview" width="1200" height="330" loading="lazy" />
-              <figcaption>Photo booth / local camera</figcaption>
-            </figure>
-            <div class="card-topline">
-              <span class="status status-live">Live on web</span>
-              <span class="type">Tool / Camera / Photo booth</span>
-            </div>
-            <h3>Sticker Booth Lab</h3>
-            <p>A browser-based photo booth for choosing a template, taking photos with the camera and downloading the result. Photos stay local by default.</p>
-            <dl class="project-case">
-              <div><dt>Role</dt><dd>A lightweight photo booth in the browser</dd></div>
-              <div><dt>Solves</dt><dd>Quick shareable photo sets without installing an app</dd></div>
-              <div><dt>Includes</dt><dd>Templates, camera, download and privacy notes</dd></div>
-            </dl>
-            <a class="card-link" href="tools/photo-booth/">Open photo booth</a>
-          </article>
-
-          <article class="project-card" data-category="tool game" data-href="../tools/worldcup-advisor/">
-            <figure class="project-shot worldcup-advisor-cover">
-              <picture>
-                <source srcset="../assets/projects/worldcup-advisor-preview.avif" type="image/avif" />
-                <img src="../assets/projects/worldcup-advisor-preview.jpg" alt="World Cup Advisor project preview" width="900" height="506" loading="lazy" />
-              </picture>
-              <figcaption>World Cup / fixtures and review</figcaption>
-            </figure>
-            <div class="card-topline">
-              <span class="status status-live">Live on web</span>
-              <span class="type">Tool / World Cup / Match review</span>
-            </div>
-            <h3>World Cup Advisor</h3>
-            <p>A viewing companion for fixtures, Beijing time, completed scores, match notes, group tables and post-match review. It is for watching, not betting.</p>
-            <dl class="project-case">
-              <div><dt>Role</dt><dd>World Cup schedule and result companion</dd></div>
-              <div><dt>Solves</dt><dd>Which match to watch and what changed after it ended</dd></div>
-              <div><dt>Update</dt><dd>Result data and review notes keep refreshing</dd></div>
-            </dl>
-            <a class="card-link" href="../tools/worldcup-advisor/">Open advisor</a>
-          </article>
-
-          <article class="project-card" data-category="ai tool" data-href="../tools/content-assistant/">
-            <figure class="project-shot">
-              <picture>
-                <source srcset="../assets/projects/zhipu-content-assistant-cover.avif" type="image/avif" />
-                <img src="../assets/projects/zhipu-content-assistant-cover.png" alt="Zhipu business content assistant workspace" width="1586" height="992" loading="lazy" />
-              </picture>
-              <figcaption>AI tool / business content</figcaption>
-            </figure>
-            <div class="card-topline">
-              <span class="status status-live">Live on web</span>
-              <span class="type">AI / Content / Business</span>
-            </div>
-            <h3>Zhipu</h3>
-            <p>Turn a product, campaign or customer reminder into ready-to-post content for WeChat Moments, Xiaohongshu, Channels and Douyin.</p>
-            <dl class="project-case">
-              <div><dt>Role</dt><dd>A content assistant that understands small business work</dd></div>
-              <div><dt>Solves</dt><dd>What to post, how to write it and how to adapt it</dd></div>
-              <div><dt>Output</dt><dd>Copy, image prompts and short-video prompts</dd></div>
-            </dl>
-            <a class="card-link" href="../tools/content-assistant/">Open tool</a>
-          </article>
-
-          <article class="project-card" data-category="tool" data-href="../tools/seo-content-tools/index.html">
-            <figure class="project-shot">
-              <div class="tool-cover" aria-hidden="true">
-                <span>Moments copy</span>
-                <span>Xiaohongshu copy</span>
-                <span>Campaign copy</span>
-                <span>Image prompts</span>
-                <span>Selling points</span>
-              </div>
-              <figcaption>Single-purpose content tools</figcaption>
-            </figure>
-            <div class="card-topline">
-              <span class="status status-live">Live on web</span>
-              <span class="type">Tools / SEO / Business content</span>
-            </div>
-            <h3>Business Mini Tools</h3>
-            <p>Five focused web tools for quickly drafting social copy, campaign copy, image prompts and product selling points.</p>
-            <dl class="project-case">
-              <div><dt>Role</dt><dd>A practical toolbox for everyday content tasks</dd></div>
-              <div><dt>Solves</dt><dd>Writing titles, copy, selling points and prompts too slowly</dd></div>
-              <div><dt>Includes</dt><dd>Five lightweight generators</dd></div>
-            </dl>
-            <a class="card-link" href="../tools/seo-content-tools/index.html">Open toolkit</a>
-          </article>
-
-          <article class="project-card featured" data-href="../#projects">
-            <figure class="project-shot">
-              <img src="../assets/projects/detail-crops/pixroom-color-grading.webp" alt="PixRoom mini program preview" width="573" height="900" loading="lazy" />
-              <figcaption>Mini program / PixRoom</figcaption>
-            </figure>
-            <div class="card-topline">
-              <span class="status status-live">Mini program live</span>
-              <span class="type">Photo color grading</span>
-            </div>
-            <h3>PixRoom</h3>
-            <p>A WeChat mini program for quick photo color grading, film-inspired filters, tone presets and lightweight editing on the phone.</p>
-            <dl class="project-case">
-              <div><dt>Role</dt><dd>A lightweight color tool on mobile</dd></div>
-              <div><dt>Solves</dt><dd>Color grading is too hard for casual photos</dd></div>
-              <div><dt>Next</dt><dd>More reusable film, clean and retro presets</dd></div>
-            </dl>
-            <a class="card-link" href="../#projects">View mini program details</a>
-          </article>
-
-          <article class="project-card" data-href="../#projects">
-            <figure class="project-shot">
-              <img src="../assets/projects/detail-crops/motorcycle-garage-material-board.webp" alt="Motorcycle Garage WeChat mini program preview" width="576" height="900" loading="lazy" />
-              <figcaption>WeChat mini program / Garage</figcaption>
-            </figure>
-            <div class="card-topline">
-              <span class="status status-live">Mini program live</span>
-              <span class="type">Motorcycle garage</span>
-            </div>
-            <h3>Motorcycle Garage</h3>
-            <p>A digital garage for motorcycle owners to record bike profiles, maintenance reminders, modification logs and running costs.</p>
-            <dl class="project-case">
-              <div><dt>Role</dt><dd>A motorcycle garage inside WeChat</dd></div>
-              <div><dt>Solves</dt><dd>Bike, maintenance, modification and spending records are scattered</dd></div>
-              <div><dt>Focus</dt><dd>Reliable local records first, sync later</dd></div>
-            </dl>
-            <a class="card-link" href="../#projects">View mini program details</a>
-          </article>
-
-          <article class="project-card" data-category="tool" data-href="https://github.com/llzclm1/laocao-homepage/releases/download/memoris-free-20260623/memoris-mac-free.zip">
-            <figure class="project-shot">
-              <img src="../assets/projects/detail-crops/memoris-material-board.webp" alt="memories desktop information capture app preview" width="720" height="900" loading="lazy" />
-              <figcaption>Desktop app / information capture</figcaption>
-            </figure>
-            <div class="card-topline">
-              <span class="status status-download">Free downloads</span>
-              <span class="type">Mac / Windows</span>
-            </div>
-            <h3>memories</h3>
-            <p>A desktop inbox for useful information found in chats, webpages, Xiaohongshu, screenshots and daily research.</p>
-            <dl class="project-case">
-              <div><dt>Role</dt><dd>A temporary inbox for information and ideas</dd></div>
-              <div><dt>Solves</dt><dd>Useful material scattered across apps and tabs</dd></div>
-              <div><dt>Version</dt><dd>Free Mac and Windows builds</dd></div>
-            </dl>
-            <div class="project-detail-downloads english-downloads">
-              <a class="button primary" href="https://github.com/llzclm1/laocao-homepage/releases/download/memoris-free-20260623/memoris-mac-free.zip">Download Mac</a>
-              <a class="button primary" href="https://github.com/llzclm1/laocao-homepage/releases/download/memoris-free-20260623/memoris-windows-free.zip">Download Windows</a>
-            </div>
-          </article>
-
-          <article class="project-card" data-category="game" data-href="game/worldcup/">
-            <figure class="project-shot">
-              <img src="../assets/projects/office-survivor-cover.webp" alt="Office Survivor WeChat mini game cover" width="405" height="720" loading="lazy" />
-              <figcaption>Mini game / Office Survivor</figcaption>
-            </figure>
-            <div class="card-topline">
-              <span class="status">Release under review</span>
-              <span class="type">Game / WeChat mini game</span>
-            </div>
-            <h3>Office Survivor</h3>
-            <p>A lightweight WeChat mini game about office survival, space control, growth and quick-session satisfaction.</p>
-            <dl class="project-case">
-              <div><dt>Role</dt><dd>A casual survival game for short breaks</dd></div>
-              <div><dt>Stage</dt><dd>Test version live, full release under review</dd></div>
-              <div><dt>Event</dt><dd>World Cup edition is playable on the web</dd></div>
-            </dl>
-            <a class="card-link" href="game/worldcup/">Play World Cup edition</a>
-          </article>
+          <a class="split-link-card" href="../for-factories/">
+            <span>Factories</span>
+            <strong>For Chinese Factories</strong>
+            <p>Improve company introductions, product photos, and buyer-facing materials.</p>
+          </a>
+          <a class="split-link-card" href="../field-materials/">
+            <span>Field</span>
+            <strong>Field Materials</strong>
+            <p>Real factory, workshop, lab, and product-detail records.</p>
+          </a>
         </div>
       </section>
 
-      <section class="updates-section" id="updates" aria-labelledby="updates-title">
+      <section class="home-split-section" id="field-materials" aria-labelledby="field-materials-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Field Materials</p>
+            <h2 id="field-materials-title">Real Factory Field Materials</h2>
+          </div>
+          <p>Workshops, labs, equipment, product details, and factory environments add context that plain company profiles often miss.</p>
+        </div>
+        <div class="split-link-grid">
+          <a class="split-link-card primary-split-card" href="../field-materials/">
+            <span>Field</span>
+            <strong>Field Materials</strong>
+            <p>View factory, workshop, lab, and product-detail examples.</p>
+          </a>
+          <a class="split-link-card" href="../for-buyers/">
+            <span>Buyers</span>
+            <strong>For Overseas Buyers</strong>
+            <p>Use field materials as one input before comparing supplier replies.</p>
+          </a>
+        </div>
+      </section>
+
+      <section class="home-split-section tools-split-section" id="lab" aria-labelledby="lab-title">
         <div class="section-heading compact">
-          <p class="eyebrow">Changelog</p>
-          <h2 id="updates-title">Recent updates</h2>
-          <p>Only project-level updates are listed here. Small wording changes and repeated deployments stay out of the public log.</p>
+          <p class="eyebrow">Lab</p>
+          <h2 id="lab-title">Gewuji Lab</h2>
+          <p>Small web tools and experiments from Gewuji Lab.</p>
         </div>
-        <div class="update-grid">
-          <article class="update-card highlighted">
-            <span>06.25</span>
-            <h3>English homepage added</h3>
-            <p>GEWUJI now has an English homepage with a language switch in the top navigation.</p>
-          </article>
-          <article class="update-card">
-            <span>06.25</span>
-            <h3>Sticker Booth Lab went live</h3>
-            <p>The online photo booth is now part of GEWUJI, with templates, camera capture, download and privacy notes.</p>
-          </article>
-        </div>
+        <a class="button ghost" href="../tools/">Open Lab / Tools</a>
       </section>
 
       <section class="about-section" id="about" aria-labelledby="about-title">
         <div class="about-copy">
           <p class="eyebrow">About</p>
           <h2 id="about-title">Turning small ideas into visible things</h2>
-          <p>GEWUJI is a personal product lab by Laocao. It is not a single startup pitch deck; it is a working shelf for things that are being built, tested and refined.</p>
-          <p>The projects come from everyday interests: photography, motorcycles, games, AI tools, small business workflows, information capture and the stubborn joy of making something real.</p>
-          <p>Some projects are already online. Some are early experiments. The point is to keep building, keep learning from real use, and keep a visible record of the process.</p>
+          <p>After 45, I care less about how much I own and more about how much curiosity I can still keep.</p>
+          <p>I like motorcycles for the feeling of freedom, coffee for the process, photography for holding passing moments, and 3D printing for turning ideas into objects.</p>
+          <p>I also like films, music, computers, AI, and new tools because curiosity is still the best way I know to stay young.</p>
+          <p>My work around factories comes from the same habit: look closely, keep useful records, and make things easier for other people to understand.</p>
         </div>
         <figure class="about-portrait-card">
           <img src="../assets/about/laocao-life-creation.webp" alt="Illustration of Laocao's life and making practice" width="599" height="900" loading="lazy" />
         </figure>
       </section>
 
+      <section class="faq-section" id="updates" aria-labelledby="updates-title">
+        <div class="section-heading compact">
+          <p class="eyebrow">Updates</p>
+          <h2 id="updates-title">Recent updates</h2>
+          <p>Only recent project-level updates are listed here.</p>
+        </div>
+        <div class="faq-list">
+          <details open>
+            <summary>2026-07-02: Main site visibility updated</summary>
+            <p>The Factory Bridge links now point to the on-site buyer and factory pages. The AI sitemap was tightened, and a weekly AI bot visibility checklist was added.</p>
+          </details>
+          <details>
+            <summary>2026-07-02: Godot World Cup H5 POC preview</summary>
+            <p>A separate Godot Web preview page was exported as an experiment. It remains a Lab item and does not replace the main site focus.</p>
+          </details>
+        </div>
+      </section>
+
       <section class="faq-section" id="faq" aria-labelledby="faq-title">
         <div class="section-heading compact">
           <p class="eyebrow">FAQ</p>
           <h2 id="faq-title">Questions</h2>
-          <p>A short explanation for people, search engines and AI search systems visiting for the first time.</p>
+          <p>A short explanation for people, search engines, and AI search systems visiting for the first time.</p>
         </div>
         <div class="faq-list">
           <details open>
             <summary>What is GEWUJI?</summary>
-            <p>GEWUJI is Laocao's personal product lab. It collects small products, tools and experiments including PixRoom, Sticker Booth Lab, memories, Zhipu, Business Mini Tools, Office Survivor and Motorcycle Garage.</p>
+            <p>GEWUJI is Laocao's main website, focused on Factory Bridge, real field materials, and overseas buyer communication.</p>
           </details>
           <details>
-            <summary>Which projects can I open now?</summary>
-            <p>You can open the World Cup Advisor, Sticker Booth Lab, Zhipu, Business Mini Tools, the Office Survivor World Cup web game, and download the free builds of memories.</p>
+            <summary>What is Factory Bridge?</summary>
+            <p>Factory Bridge is the main business project under GEWUJI. It helps overseas buyers and Chinese factories make factory context, product information, and basic questions clearer.</p>
           </details>
           <details>
-            <summary>What is memories?</summary>
-            <p>memories is a desktop inbox for capturing useful information from chats, webpages, screenshots and daily research. Free Mac and Windows builds are available.</p>
+            <summary>What are Field Materials for?</summary>
+            <p>Field Materials show factory photos, workshop context, lab rooms, and product details that plain text introductions often miss.</p>
           </details>
           <details>
-            <summary>How can I contact Laocao?</summary>
-            <p>Email laocao@gewuji.dev for product trials, early feedback, channel collaboration or project discussions.</p>
+            <summary>Are the old tools still available?</summary>
+            <p>Yes. They are collected under Gewuji Lab / Tools, but they are no longer the core focus of the homepage.</p>
           </details>
         </div>
       </section>
@@ -396,14 +308,14 @@
       <section class="contact-section" id="contact" aria-labelledby="contact-title">
         <div>
           <p class="eyebrow">Contact</p>
-          <h2 id="contact-title">Try, partner or talk</h2>
+          <h2 id="contact-title">Talk about buyers, factories, or field materials</h2>
         </div>
         <div class="contact-panel">
-          <p>If you are interested in memories, PixRoom, Zhipu, mini games or motorcycle software, email me.</p>
+          <p>If you are an overseas buyer or a Chinese factory trying to improve buyer-facing materials, email me.</p>
           <ul class="contact-fit">
-            <li>Product trials, early feedback and real-user interviews</li>
-            <li>Channel partnerships, content collaboration and business tests</li>
-            <li>Discussions around image tools, productivity tools, AI content tools, games or motorcycle software</li>
+            <li>Overseas buyers who want clearer supplier context before sample orders</li>
+            <li>Chinese factories that want better English introductions, product photos, and sales materials</li>
+            <li>Factory field materials that need to become clearer communication assets</li>
           </ul>
           <dl class="contact-list" aria-label="Contact details">
             <div>
@@ -413,31 +325,21 @@
           </dl>
           <div class="contact-actions">
             <a class="button primary" href="mailto:laocao@gewuji.dev">Send email</a>
-            <a class="button ghost" href="#projects">Back to projects</a>
+            <a class="button ghost" href="../field-materials/">View field materials</a>
           </div>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <span>© 2026 GEWUJI · Building · Testing · Recording · Sharing</span>
-      <a href="#top">Back to top</a>
+      <span>© 2026 GEWUJI · Factory Bridge · Field Materials</span>
+      <a href="../for-factories/">For Chinese Factories</a>
+      <a href="../for-buyers/">For Overseas Buyers</a>
+      <a href="../field-materials/">Field Materials</a>
+      <a href="../tools/">Lab</a>
+      <a href="../contact/">Contact</a>
     </footer>
-    <script>
-      document.querySelectorAll(".project-card[data-href]").forEach((card) => {
-        card.tabIndex = card.tabIndex || 0;
-        card.setAttribute("role", "link");
-        card.addEventListener("click", (event) => {
-          if (event.target.closest("a, button")) return;
-          window.location.href = card.dataset.href;
-        });
-        card.addEventListener("keydown", (event) => {
-          if (event.target.closest("a, button")) return;
-          if (event.key !== "Enter" && event.key !== " ") return;
-          event.preventDefault();
-          window.location.href = card.dataset.href;
-        });
-      });
-    </script>
+
+    <script src="../script.js?v=20260628-ux-clicks" defer></script>
   </body>
 </html>

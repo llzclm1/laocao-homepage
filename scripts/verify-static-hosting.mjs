@@ -50,6 +50,12 @@ assert.equal(home.includes('src="assets/projects/worldcup-game-preview.png"'), f
 assert.equal(home.includes('href="/'), false, "homepage should not use root-relative href paths");
 assert.equal(home.includes('src="/'), false, "homepage should not use root-relative src paths");
 
+const englishHome = fs.readFileSync(path.join(dist, "en", "index.html"), "utf8");
+assert.ok(englishHome.includes("Factory Bridge"), "English homepage should follow the Factory Bridge positioning");
+assert.ok(englishHome.includes("Field Materials"), "English homepage should link to field materials");
+assert.equal(englishHome.includes("Personal Product Lab"), false, "English homepage should not use the old product lab positioning");
+assert.equal(englishHome.includes("Selected Work"), false, "English homepage should not feature the old project grid");
+
 const stats = fs.readFileSync(path.join(dist, "stats.html"), "utf8");
 assert.ok(stats.includes('href="./"'), "stats page should use a relative home link");
 
