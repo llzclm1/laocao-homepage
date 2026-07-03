@@ -3677,23 +3677,23 @@ h2 {
 
 /* Warm industrial homepage. Scoped to Chinese / and English /en/ only. */
 .warm-home {
-  --warm-ink: #f7efe2;
-  --warm-muted: rgba(247, 239, 226, .68);
-  --warm-dim: rgba(247, 239, 226, .48);
-  --warm-line: rgba(238, 188, 106, .24);
-  --warm-line-soft: rgba(238, 188, 106, .14);
-  --warm-accent: #d6a34c;
-  --warm-accent-strong: #f0c46e;
-  --warm-black: #171008;
-  --warm-panel: rgba(37, 27, 16, .78);
-  --warm-panel-strong: rgba(58, 42, 24, .82);
+  --warm-ink: #f4efe6;
+  --warm-muted: #b9aa91;
+  --warm-dim: rgba(185, 170, 145, .68);
+  --warm-line: rgba(244, 239, 230, .16);
+  --warm-line-soft: rgba(244, 239, 230, .1);
+  --warm-accent: #b8893b;
+  --warm-accent-strong: #c69a55;
+  --warm-black: #0e0c08;
+  --warm-panel: rgba(20, 18, 14, .76);
+  --warm-panel-strong: rgba(29, 25, 18, .84);
   min-width: 320px;
   color: var(--warm-ink);
   background:
-    radial-gradient(circle at 16% 0%, rgba(214, 163, 76, .18), transparent 34%),
-    linear-gradient(180deg, #21170d 0%, #130e08 44%, #0d0a06 100%);
-  font-family: "Avenir Next", "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
-  letter-spacing: -.01em;
+    radial-gradient(circle at 16% 0%, rgba(184, 137, 59, .1), transparent 32%),
+    linear-gradient(180deg, #15110b 0%, #0e0c08 48%, #0a0906 100%);
+  font-family: "IBM Plex Sans", "Inter", "Noto Sans SC", "Source Han Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  letter-spacing: 0;
 }
 
 .warm-home::before {
@@ -3702,9 +3702,9 @@ h2 {
   inset: 0;
   pointer-events: none;
   background:
-    linear-gradient(rgba(238, 188, 106, .035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(238, 188, 106, .026) 1px, transparent 1px);
-  background-size: 92px 92px;
+    linear-gradient(rgba(244, 239, 230, .026) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(244, 239, 230, .018) 1px, transparent 1px);
+  background-size: 104px 104px;
   mask-image: linear-gradient(180deg, rgba(0, 0, 0, .52), transparent 76%);
   content: "";
 }
@@ -3728,11 +3728,11 @@ h2 {
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  border: 1px solid rgba(238, 188, 106, .18);
+  border: 1px solid var(--warm-line);
   border-radius: 0;
   padding: 12px 14px 12px 18px;
-  background: rgba(18, 12, 6, .74);
-  box-shadow: 0 22px 70px rgba(0, 0, 0, .28);
+  background: rgba(14, 12, 8, .8);
+  box-shadow: 0 18px 52px rgba(6, 5, 4, .32);
   backdrop-filter: blur(20px) saturate(1.12);
   transform: translateX(-50%);
 }
@@ -3743,7 +3743,7 @@ h2 {
   align-items: center;
   gap: 11px;
   color: var(--warm-ink);
-  font-weight: 850;
+  font-weight: 800;
   letter-spacing: .08em;
 }
 
@@ -3755,14 +3755,14 @@ h2 {
   border: 1px solid var(--warm-accent);
   border-radius: 0;
   background:
-    linear-gradient(135deg, rgba(214, 163, 76, .22), transparent 48%),
-    rgba(247, 239, 226, .04);
+    linear-gradient(135deg, rgba(184, 137, 59, .16), transparent 48%),
+    rgba(244, 239, 230, .035);
 }
 
 .warm-home .brand-mark::before {
   position: absolute;
   inset: 8px;
-  border: 1px solid rgba(247, 239, 226, .46);
+  border: 1px solid rgba(244, 239, 230, .34);
   background: transparent;
   content: "";
 }
@@ -3805,7 +3805,7 @@ h2 {
 
 .warm-home .nav .language-link {
   margin-left: 8px;
-  border: 1px solid rgba(238, 188, 106, .22);
+  border: 1px solid rgba(184, 137, 59, .32);
   color: var(--warm-ink);
 }
 
@@ -3831,16 +3831,16 @@ h2 {
   background-image: var(--hero-image);
   background-size: cover;
   background-position: 64% center;
-  filter: saturate(.78) contrast(1.06) brightness(.76);
+  filter: saturate(.68) contrast(1.08) brightness(.68);
   transform: scale(1.02);
 }
 
 .warm-home .warm-hero::after {
   z-index: -1;
   background:
-    linear-gradient(90deg, rgba(20, 14, 6, .95) 0%, rgba(20, 14, 6, .84) 38%, rgba(20, 14, 6, .56) 68%, rgba(20, 14, 6, .82) 100%),
-    linear-gradient(180deg, rgba(20, 14, 6, .4), rgba(20, 14, 6, .88)),
-    radial-gradient(circle at 18% 74%, rgba(214, 163, 76, .18), transparent 38%);
+    linear-gradient(90deg, rgba(14, 12, 8, .96) 0%, rgba(14, 12, 8, .84) 40%, rgba(14, 12, 8, .58) 68%, rgba(14, 12, 8, .84) 100%),
+    linear-gradient(180deg, rgba(14, 12, 8, .36), rgba(14, 12, 8, .9)),
+    radial-gradient(circle at 18% 74%, rgba(184, 137, 59, .1), transparent 38%);
 }
 
 .warm-home .warm-hero-inner {
@@ -3850,10 +3850,22 @@ h2 {
 .warm-home .warm-label {
   margin: 0 0 18px;
   color: var(--warm-accent-strong);
-  font-size: 12px;
-  font-weight: 780;
-  letter-spacing: .14em;
-  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: none;
+}
+
+.warm-home h1,
+.warm-home h2,
+.warm-home h3 {
+  font-family: "Archivo", "Space Grotesk", "Inter Tight", "IBM Plex Sans", sans-serif;
+}
+
+.warm-home:lang(zh-CN) h1,
+.warm-home:lang(zh-CN) h2,
+.warm-home:lang(zh-CN) h3 {
+  font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "STSong", serif;
 }
 
 .warm-home h1,
@@ -3864,18 +3876,21 @@ h2 {
 }
 
 .warm-home h1 {
-  max-width: 10.5em;
+  max-width: 9.6em;
   margin: 0;
   color: var(--warm-ink);
-  font-size: clamp(54px, 8.1vw, 118px);
-  font-weight: 850;
-  line-height: .94;
-  letter-spacing: -.075em;
+  font-size: clamp(58px, 8.2vw, 124px);
+  font-weight: 820;
+  line-height: .92;
+  letter-spacing: -.07em;
   text-wrap: balance;
 }
 
 .warm-home:lang(zh-CN) h1 {
-  font-size: clamp(52px, 7.2vw, 100px);
+  font-size: clamp(60px, 8.4vw, 122px);
+  font-weight: 700;
+  line-height: .98;
+  letter-spacing: -.045em;
 }
 
 .warm-home h1 span {
@@ -3884,11 +3899,11 @@ h2 {
 
 .warm-home .warm-hero-copy {
   width: min(680px, 100%);
-  margin: 28px 0 0;
-  color: rgba(247, 239, 226, .78);
+  margin: 30px 0 0;
+  color: var(--warm-muted);
   font-size: clamp(17px, 2vw, 22px);
-  font-weight: 520;
-  line-height: 1.72;
+  font-weight: 500;
+  line-height: 1.68;
 }
 
 .warm-home .hero-actions,
@@ -3908,7 +3923,7 @@ h2 {
   border-radius: 0;
   padding: 13px 22px;
   font-size: 14px;
-  font-weight: 820;
+  font-weight: 760;
   white-space: nowrap;
   transition:
     transform 180ms ease,
@@ -3929,20 +3944,20 @@ h2 {
 
 .warm-home .button.primary {
   color: #1b1309;
-  border-color: rgba(247, 239, 226, .9);
+  border-color: var(--warm-ink);
   background: var(--warm-ink);
 }
 
 .warm-home .button.factory {
-  color: #170f08;
+  color: var(--warm-accent-strong);
   border-color: var(--warm-accent);
-  background: var(--warm-accent);
+  background: rgba(184, 137, 59, .08);
 }
 
 .warm-home .button.ghost {
   color: var(--warm-ink);
-  border-color: rgba(247, 239, 226, .38);
-  background: rgba(247, 239, 226, .06);
+  border-color: rgba(244, 239, 230, .3);
+  background: rgba(244, 239, 230, .035);
 }
 
 .warm-home .entry-section,
@@ -3955,7 +3970,7 @@ h2 {
 
 .warm-home .entry-section {
   border-top: 1px solid var(--warm-line);
-  padding: clamp(82px, 11vw, 142px) 0 0;
+  padding: clamp(92px, 12vw, 156px) 0 0;
   margin-top: clamp(20px, 3vw, 42px);
 }
 
@@ -3972,16 +3987,16 @@ h2 {
 
 .warm-home .entry-card {
   display: flex;
-  min-height: 390px;
+  min-height: 360px;
   flex-direction: column;
   justify-content: space-between;
   gap: 26px;
   border: 1px solid var(--warm-line-soft);
   padding: clamp(24px, 3.2vw, 38px);
   background:
-    linear-gradient(145deg, rgba(247, 239, 226, .055), rgba(247, 239, 226, .018)),
+    linear-gradient(145deg, rgba(244, 239, 230, .032), rgba(244, 239, 230, .012)),
     var(--warm-panel);
-  box-shadow: inset 0 1px 0 rgba(247, 239, 226, .06);
+  box-shadow: none;
   transition:
     border-color 180ms ease,
     transform 180ms ease,
@@ -3990,28 +4005,33 @@ h2 {
 
 .warm-home .entry-card:hover,
 .warm-home .entry-card:focus-within {
-  border-color: rgba(238, 188, 106, .42);
+  border-color: rgba(184, 137, 59, .36);
   background:
-    linear-gradient(145deg, rgba(247, 239, 226, .075), rgba(247, 239, 226, .026)),
+    linear-gradient(145deg, rgba(244, 239, 230, .045), rgba(244, 239, 230, .016)),
     var(--warm-panel-strong);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
 .warm-home .entry-card h3 {
   margin: 0;
   color: var(--warm-ink);
-  font-size: clamp(28px, 3.9vw, 52px);
-  font-weight: 790;
-  line-height: 1.02;
-  letter-spacing: -.05em;
+  font-size: clamp(30px, 3.9vw, 54px);
+  font-weight: 760;
+  line-height: 1.04;
+  letter-spacing: -.045em;
   text-wrap: balance;
+}
+
+.warm-home:lang(zh-CN) .entry-card h3 {
+  font-weight: 700;
+  letter-spacing: -.035em;
 }
 
 .warm-home .entry-card p {
   margin: 0;
   color: var(--warm-muted);
   font-size: 16px;
-  line-height: 1.78;
+  line-height: 1.72;
 }
 
 .warm-home .entry-boundary {
@@ -4025,10 +4045,10 @@ h2 {
 
 .warm-home .entry-link {
   width: fit-content;
-  border-bottom: 1px solid rgba(238, 188, 106, .52);
+  border-bottom: 1px solid rgba(184, 137, 59, .52);
   padding-bottom: 8px;
   color: var(--warm-accent-strong);
-  font-weight: 820;
+  font-weight: 760;
   transition:
     color 180ms ease,
     border-color 180ms ease;
@@ -4067,7 +4087,7 @@ h2 {
   flex: 0 0 auto;
   color: var(--warm-accent-strong);
   font-size: 14px;
-  font-weight: 790;
+  font-weight: 760;
 }
 
 .warm-home .lab-strip a:hover,
@@ -4079,8 +4099,8 @@ h2 {
 .warm-home .contact-section h2 {
   margin: 0;
   color: var(--warm-ink);
-  font-size: clamp(30px, 4.2vw, 58px);
-  font-weight: 790;
+  font-size: clamp(32px, 4.2vw, 58px);
+  font-weight: 760;
   line-height: 1.04;
   letter-spacing: -.05em;
   text-wrap: balance;
@@ -4104,8 +4124,8 @@ h2 {
   border: 1px solid var(--warm-line);
   padding: clamp(24px, 3vw, 36px);
   background:
-    linear-gradient(145deg, rgba(214, 163, 76, .12), rgba(247, 239, 226, .03)),
-    rgba(31, 22, 12, .82);
+    linear-gradient(145deg, rgba(184, 137, 59, .06), rgba(244, 239, 230, .02)),
+    rgba(18, 16, 12, .78);
 }
 
 .warm-home .contact-panel p {
@@ -4113,12 +4133,6 @@ h2 {
   color: var(--warm-muted);
   font-size: clamp(17px, 1.6vw, 20px);
   line-height: 1.76;
-}
-
-.warm-home .contact-panel .contact-note {
-  margin-top: 18px;
-  color: var(--warm-dim);
-  font-size: 15px;
 }
 
 .warm-home .contact-panel .button {

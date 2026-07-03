@@ -106,3 +106,7 @@
 - 买家端页面从 supplier verification / reality check 口径调整为 supplier communication support，工厂端页面保留更直接的中文转化文案但降低“拿单”承诺感；`llms.txt` 和静态校验同步更新，已通过 `npm run build:prod && npm run verify:static`，未 push。
 - 中英文首页改为暖工业品牌首页：`/` 和 `/en/` 保留三入口（海外买家 / 中国工厂 / 实拍素材），Hero 使用本地真实工厂图 `field-materials/nonwoven-line-02.jpg` 加暖黑遮罩，Lab 降级为细条入口；已通过 `npm run build:prod && npm run verify:static`，并生成预览图 `outputs/warm-home-zh-desktop.png`、`outputs/warm-home-en-desktop.png`、`outputs/warm-home-zh-mobile.png`。按用户要求未 push。
 - 中英文首页强制简化为 Hero、三入口、小 Lab、Contact、Footer：移除独立 About、三入口大标题和卡片主次差异，入口标题改为海外买家 / 中国工厂 / 实拍素材及对应英文；已通过 `npm run build:prod`、`npm run verify:static`、`git diff --check`，按用户要求不自动 push。
+
+## 2026-07-04
+
+- 中英文首页字体、色彩和短文案调整为更克制的工业杂志感：中文标题改用宋体/思源宋体 fallback，英文标题改用 Archivo / Space Grotesk fallback，暖黑背景和暗金点缀压低饱和度；已通过 `npm run build:prod`、`npm run verify:static`、`git diff --check`，按用户要求不自动 push。
