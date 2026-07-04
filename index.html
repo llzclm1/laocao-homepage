@@ -181,7 +181,7 @@
 
       .warm-home .warm-hero-inner {
         width: 100%;
-        max-width: 760px;
+        max-width: 1080px;
       }
 
       .warm-home .warm-label {
@@ -200,11 +200,18 @@
       }
 
       .warm-home h1 {
-        max-width: 8.2em;
-        font-size: clamp(58px, 7.6vw, 112px);
+        max-width: min(1120px, 100%);
+        font-size: clamp(50px, 6.1vw, 84px);
         font-weight: 620;
-        line-height: 1.02;
+        line-height: 1.08;
         letter-spacing: -.035em;
+        overflow-wrap: normal;
+        word-break: keep-all;
+      }
+
+      .warm-home .title-chunk {
+        display: inline-block;
+        white-space: nowrap;
       }
 
       .warm-home .warm-hero-copy {
@@ -225,6 +232,18 @@
         font-size: 14px;
         font-weight: 500;
         letter-spacing: .04em;
+      }
+
+      .warm-home .hero-actions {
+        gap: clamp(16px, 2.2vw, 26px);
+        margin-top: 36px;
+      }
+
+      .warm-home .hero-actions .button {
+        min-width: clamp(180px, 17vw, 220px);
+        padding-right: 26px;
+        padding-left: 26px;
+        font-size: 15px;
       }
 
       .warm-home .button.primary {
@@ -302,6 +321,23 @@
         background: rgba(236, 231, 222, .54);
       }
 
+      .warm-home .audience-card h3 {
+        font-size: clamp(34px, 3.5vw, 50px);
+      }
+
+      .warm-home .audience-label {
+        margin: 0;
+        color: var(--accent);
+        font-family: var(--zh-sans);
+        font-size: 12px;
+        font-weight: 680;
+        letter-spacing: .06em;
+      }
+
+      .warm-home .audience-card .entry-link {
+        margin-top: auto;
+      }
+
       .warm-home .entry-card:hover,
       .warm-home .entry-card:focus-within {
         border-color: var(--line);
@@ -361,14 +397,16 @@
 
       .warm-home .section-heading {
         display: grid;
-        gap: 8px;
-        margin-bottom: clamp(28px, 4vw, 46px);
-        text-align: center;
+        grid-template-columns: minmax(170px, .28fr) minmax(0, 1fr);
+        align-items: end;
+        gap: clamp(18px, 3vw, 40px);
+        margin-bottom: clamp(22px, 3vw, 34px);
+        text-align: left;
       }
 
       .warm-home .section-heading h2 {
         margin: 0;
-        font-size: clamp(34px, 4.2vw, 60px);
+        font-size: clamp(30px, 3vw, 44px);
         font-weight: 680;
         letter-spacing: -.035em;
       }
@@ -424,10 +462,14 @@
 
       .warm-home .contact-choice h3 {
         margin: 0 0 16px;
-        font-size: clamp(24px, 2.8vw, 34px);
+        font-size: clamp(24px, 2.5vw, 32px);
         font-weight: 680;
-        line-height: 1.18;
+        line-height: 1.22;
         letter-spacing: -.025em;
+      }
+
+      .warm-home .contact-choice h3 span {
+        display: block;
       }
 
       .warm-home .contact-panel p {
@@ -536,12 +578,16 @@
         }
 
         .warm-home h1 {
-          font-size: clamp(44px, 14vw, 64px);
+          font-size: clamp(34px, 9vw, 44px);
         }
 
         .warm-home .entry-card {
           grid-template-columns: 1fr;
           gap: 12px;
+        }
+
+        .warm-home .section-heading {
+          grid-template-columns: 1fr;
         }
 
         .warm-home .entry-card > p:not(.entry-index),
@@ -632,8 +678,8 @@
         <div class="warm-hero-inner">
           <p class="warm-label">Factory Bridge · Factory Materials · Field Evidence</p>
           <h1 id="hero-title">
-            <span>让工厂资料更清楚</span>
-            <span>让供应商判断更可靠</span>
+            <span><span class="title-chunk">让工厂资料</span><span class="title-chunk">更清楚</span></span>
+            <span><span class="title-chunk">让供应商判断</span><span class="title-chunk">更可靠</span></span>
           </h1>
           <p class="warm-hero-copy">
             格物集 Factory Bridge 帮助中国工厂整理面向海外买家的资料，也帮助海外买家理解供应商回复、报价和实拍素材中的关键信号。
@@ -650,6 +696,7 @@
           <article class="entry-card audience-card" id="factories">
             <p class="entry-index">01</p>
             <div>
+              <p class="audience-label">For Chinese Factories</p>
               <h3>给中国工厂</h3>
             </div>
             <p>
@@ -667,6 +714,7 @@
           <article class="entry-card audience-card" id="buyers">
             <p class="entry-index">02</p>
             <div>
+              <p class="audience-label">For Overseas Buyers</p>
               <h3>给海外买家</h3>
             </div>
             <p>
@@ -728,14 +776,14 @@
         </div>
         <div class="contact-panel dual-contact">
           <article class="contact-choice">
-            <h3>中国工厂：发送一份现有资料</h3>
+            <h3><span>中国工厂</span><span>发送一份现有资料</span></h3>
             <p>
               你可以发送产品页、工厂介绍、开发信、宣传册或实拍素材，我们先帮你判断哪里不够清楚。
             </p>
             <a class="button primary" href="https://factory.gewuji.dev/for-factories/">发送现有资料</a>
           </article>
           <article class="contact-choice">
-            <h3>海外买家：发送一条供应商回复</h3>
+            <h3><span>海外买家</span><span>发送一条供应商回复</span></h3>
             <p>
               你可以发送供应商邮件、报价或聊天记录，我们帮你判断缺失信息、风险信号和下一步问题。
             </p>

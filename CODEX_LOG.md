@@ -125,6 +125,7 @@
 
 ## 2026-07-04
 
+- 主站首页排版细节微调：Hero 标题改为整词块断行并加宽标题容器，两个主入口按钮加宽，双栏分流区补英文小标签，能力层标题改为左标右题，底部双 CTA 标题拆成两行；未改配色、背景图、路由、sitemap 或 robots。已通过本地截图检查、`npm run build:prod`、`npm run verify:static`、`git diff --check`。
 - 紧急纠偏：已确认主站 `gewuji.dev` 源码为 `/Users/caocao/Documents/我的主页`，factory 子域名源码为 `/Users/caocao/Documents/工厂桥梁`；错误改到 factory 子域名的双边入口版已在 factory 仓库回滚。
 - 主站中英文首页按样图信息结构改为“中国工厂 / 海外买家”双边入口：Hero 两个主按钮、双边分流区、“我们处理什么信息”能力层、底部双 CTA；保留原米白/浅灰/黑字/棕色点缀、工厂背景图和杂志式排版。
 - 本轮主站只改首页相关文件和静态校验断言，未改 sitemap、robots、published_pages、路由结构或 SEO 页面白名单；已通过 `npm run build:prod`、`npm run verify:static`、`git diff --check`。
