@@ -342,6 +342,7 @@ function buildSitemap() {
     ["for-buyers/", "0.9"],
     ["for-factories/", "0.9"],
     ["field-materials/", "0.8"],
+    ["en/field-materials/", "0.7"],
     ["contact/", "0.5"],
     ["llms.txt", "0.6"],
     ["ai-sitemap.json", "0.6"]

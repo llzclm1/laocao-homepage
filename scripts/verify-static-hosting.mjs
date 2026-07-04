@@ -11,6 +11,7 @@ assert.ok(fs.existsSync(path.join(dist, "index.html")), "dist/index.html is miss
 assert.ok(fs.existsSync(path.join(dist, "m", "index.html")), "dist/m/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "b", "index.html")), "dist/b/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "contact", "index.html")), "dist/contact/index.html is missing");
+assert.ok(fs.existsSync(path.join(dist, "en", "field-materials", "index.html")), "dist/en/field-materials/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "favicon.ico")), "dist/favicon.ico is missing");
 assert.ok(fs.existsSync(path.join(dist, "lab", "index.html")), "dist/lab/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "trade.css")), "dist/trade.css is missing");
@@ -53,6 +54,8 @@ assert.equal(home.includes('src="/'), false, "homepage should not use root-relat
 const englishHome = fs.readFileSync(path.join(dist, "en", "index.html"), "utf8");
 assert.ok(englishHome.includes("Factory Bridge"), "English homepage should follow the Factory Bridge positioning");
 assert.ok(englishHome.includes("Field Evidence"), "English homepage should link to field evidence");
+assert.ok(englishHome.includes('href="field-materials/"'), "English homepage should link to English field materials");
+assert.ok(englishHome.includes("https://gewuji.dev/en/field-materials/"), "English homepage structured data should link to English field materials");
 assert.equal(englishHome.includes("Personal Product Lab"), false, "English homepage should not use the old product lab positioning");
 assert.equal(englishHome.includes("Selected Work"), false, "English homepage should not feature the old project grid");
 
@@ -180,6 +183,7 @@ assert.ok(sitemap.includes("/ai-sitemap.json"), "sitemap should include /ai-site
 assert.ok(sitemap.includes("/for-factories/"), "sitemap should include /for-factories/");
 assert.ok(sitemap.includes("/for-buyers/"), "sitemap should include /for-buyers/");
 assert.ok(sitemap.includes("/field-materials/"), "sitemap should include /field-materials/");
+assert.ok(sitemap.includes("/en/field-materials/"), "sitemap should include /en/field-materials/");
 assert.ok(sitemap.includes("/contact/"), "sitemap should include /contact/");
 assert.equal(sitemap.includes("/game/worldcup/"), false, "sitemap should not include old game pages");
 assert.equal(sitemap.includes("/tools/photo-booth/"), false, "sitemap should not include old tool pages");
@@ -220,6 +224,7 @@ assert.ok(JSON.stringify(aiSitemap).includes("不是正式审厂"), "AI sitemap 
 const factoryPage = fs.readFileSync(path.join(dist, "for-factories/index.html"), "utf8");
 const buyerPage = fs.readFileSync(path.join(dist, "for-buyers/index.html"), "utf8");
 const fieldMaterialsPage = fs.readFileSync(path.join(dist, "field-materials/index.html"), "utf8");
+const englishFieldMaterialsPage = fs.readFileSync(path.join(dist, "en/field-materials/index.html"), "utf8");
 assert.ok(factoryPage.includes('rel="canonical" href="https://gewuji.dev/for-factories/"'), "factory page should expose canonical URL");
 assert.ok(factoryPage.includes("工厂对外资料重构"), "factory page should include factory material rewrite SEO copy");
 assert.ok(factoryPage.includes('id="material-rewrite"'), "factory page should expose material rewrite anchor");
@@ -231,7 +236,14 @@ assert.ok(buyerPage.includes("Clearer Factory Information for Overseas Buyers"),
 assert.ok(buyerPage.includes("GEWUJI"), "buyer page should use the unified Gewuji brand shell");
 assert.ok(buyerPage.includes('application/ld+json'), "buyer page should include JSON-LD");
 assert.ok(fieldMaterialsPage.includes('rel="canonical" href="https://gewuji.dev/field-materials/"'), "field materials page should expose canonical URL");
-assert.ok(fieldMaterialsPage.includes("Factory Bridge / Field Evidence"), "field materials page should use the unified hero label");
+assert.ok(fieldMaterialsPage.includes('hreflang="en" href="https://gewuji.dev/en/field-materials/"'), "Chinese field materials page should link to English alternate");
+assert.ok(fieldMaterialsPage.includes("Factory Bridge / 实拍素材背书"), "Chinese field materials page should use the localized hero label");
+assert.ok(fieldMaterialsPage.includes("这里不是审厂证据，也不是验厂证明。"), "Chinese field materials page should expose the audit boundary");
 assert.ok(fieldMaterialsPage.includes('application/ld+json'), "field materials page should include JSON-LD");
+assert.ok(englishFieldMaterialsPage.includes('rel="canonical" href="https://gewuji.dev/en/field-materials/"'), "English field materials page should expose canonical URL");
+assert.ok(englishFieldMaterialsPage.includes('hreflang="zh-CN" href="https://gewuji.dev/field-materials/"'), "English field materials page should link to Chinese alternate");
+assert.ok(englishFieldMaterialsPage.includes("Factory Bridge / Field Evidence"), "English field materials page should use the unified hero label");
+assert.ok(englishFieldMaterialsPage.includes("../../field-materials/fastener-workshop-01.jpg"), "English field materials page should reuse existing field material images");
+assert.ok(englishFieldMaterialsPage.includes('application/ld+json'), "English field materials page should include JSON-LD");
 
 console.log("static hosting audit ok");
