@@ -8,6 +8,7 @@
 - 同步更新 `docs/promotion/overseas-ops-board.md` 与 `docs/promotion/social-reply-batch-2026-06-29.md`，把 `B054` 标为待可发布会话后自动发，把 `B055` 标为高风险待确认。
 - 用户登录 Facebook 后，已发布 `B054` 新手采购/代理问题短评；页面显示“待審查”。已补入海外发布总表、看板和批量回复表。
 - 用户要求所有平台继续发后，已发布 `B055` 供应商欺诈追讨问题短评；页面显示“待審查”。已补入海外发布总表、看板和批量回复表。
+- 继续按“所有该发平台都发”执行：LinkedIn 发布 `O002` supplier quote assumptions checklist，X 发布 `O003` supplier replies vs quote assumptions，Quora 发布 `Q004` sourcing agency / purchasing agent answer；Reddit 仍被 network security 拦截，未能发布。
 
 ## 2026-06-29
 
