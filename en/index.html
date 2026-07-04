@@ -13,8 +13,8 @@
     />
     <meta name="author" content="Lao Cao" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
-    <meta name="theme-color" content="#1c1811" />
-    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#f4f1ea" />
+    <meta name="color-scheme" content="light" />
     <link rel="canonical" href="https://gewuji.dev/en/" />
     <link rel="alternate" hreflang="zh-CN" href="https://gewuji.dev/" />
     <link rel="alternate" hreflang="en" href="https://gewuji.dev/en/" />
@@ -47,20 +47,387 @@
     <link rel="preload" as="image" href="../field-materials/nonwoven-line-02.jpg" type="image/jpeg" fetchpriority="high" />
     <link rel="stylesheet" href="../styles.css?v=20260704-serif-visible" />
     <style>
-      .warm-home:lang(en) {
+      .warm-home {
+        --bg-main: #f4f1ea;
+        --bg-soft: #ece7de;
+        --text-main: #2a2926;
+        --text-muted: #6f6a61;
+        --text-soft: #8b857a;
+        --line: rgba(42, 41, 38, .16);
+        --line-soft: rgba(42, 41, 38, .1);
+        --accent: #8a6a3f;
+        color: var(--text-main);
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, .42), transparent 38%),
+          var(--bg-main);
         font-family: Inter, "IBM Plex Sans", system-ui, sans-serif;
       }
 
-      .warm-home:lang(en) h1,
-      .warm-home:lang(en) h2,
-      .warm-home:lang(en) h3 {
-        font-family: Georgia, "Libre Baskerville", "Cormorant Garamond", "Playfair Display", serif;
+      .warm-home::before {
+        background:
+          linear-gradient(rgba(42, 41, 38, .035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(42, 41, 38, .026) 1px, transparent 1px);
+        background-size: 96px 96px;
+        mask-image: linear-gradient(180deg, rgba(0, 0, 0, .22), transparent 72%);
       }
 
-      .warm-home:lang(en) h1 {
+      .warm-home .site-header {
+        position: sticky;
+        top: 0;
+        left: auto;
+        width: 100%;
+        margin: 0 auto;
+        min-height: 72px;
+        padding: 14px max(20px, calc((100vw - 1180px) / 2));
+        border: 0;
+        border-bottom: 1px solid var(--line);
+        border-radius: 0;
+        background: rgba(244, 241, 234, .9);
+        box-shadow: none;
+        backdrop-filter: blur(18px);
+        transform: none;
+      }
+
+      .warm-home .brand {
+        gap: 12px;
+        color: var(--text-main);
+        letter-spacing: 0;
+      }
+
+      .warm-home .brand-mark {
+        width: 30px;
+        height: 30px;
+        flex-basis: 30px;
+        border: 1px solid var(--text-main);
+        background: transparent;
+      }
+
+      .warm-home .brand-mark::before {
+        inset: 7px;
+        border-color: var(--line);
+      }
+
+      .warm-home .brand-mark::after {
+        width: 8px;
+        height: 8px;
+        background: var(--accent);
+      }
+
+      .warm-home .brand-text {
+        display: grid;
+        gap: 2px;
+      }
+
+      .warm-home .brand-text strong {
+        font-size: 14px;
+        font-weight: 820;
+        letter-spacing: .12em;
+      }
+
+      .warm-home .brand-text small {
+        color: var(--text-muted);
+        font-size: 11px;
         font-weight: 620;
-        line-height: .96;
-        letter-spacing: -.055em;
+        letter-spacing: .04em;
+      }
+
+      .warm-home .nav a {
+        color: var(--text-muted);
+        font-size: 13px;
+        font-weight: 680;
+      }
+
+      .warm-home .nav a:hover,
+      .warm-home .nav a:focus-visible {
+        color: var(--text-main);
+        background: rgba(42, 41, 38, .055);
+      }
+
+      .warm-home .nav .language-link {
+        border-color: var(--line);
+        color: var(--text-main);
+        background: rgba(255, 255, 255, .42);
+      }
+
+      .warm-home .warm-hero {
+        display: grid;
+        min-height: calc(100dvh - 72px);
+        grid-template-columns: minmax(0, 1.04fr) minmax(280px, .96fr);
+        align-items: center;
+        gap: clamp(34px, 6vw, 92px);
+        padding: clamp(48px, 7vw, 84px) max(22px, calc((100vw - 1180px) / 2));
+        border-bottom: 1px solid var(--line);
+        background:
+          linear-gradient(90deg, rgba(236, 231, 222, .72), rgba(244, 241, 234, 0) 58%),
+          var(--bg-main);
+      }
+
+      .warm-home .warm-hero::before,
+      .warm-home .warm-hero::after {
+        display: none;
+      }
+
+      .warm-home .warm-hero-inner {
+        width: 100%;
+        max-width: 760px;
+      }
+
+      .warm-home .hero-image {
+        min-height: min(62vh, 560px);
+        margin: 0;
+        border: 1px solid var(--line);
+        background-image:
+          linear-gradient(180deg, rgba(244, 241, 234, .08), rgba(244, 241, 234, .34)),
+          var(--hero-image);
+        background-position: 58% center;
+        background-size: cover;
+        filter: grayscale(.55) saturate(.48) contrast(.94) brightness(1.08);
+      }
+
+      .warm-home .warm-label {
+        margin-bottom: 22px;
+        color: var(--accent);
+        font-size: 12px;
+        font-weight: 680;
+        letter-spacing: .06em;
+      }
+
+      .warm-home h1,
+      .warm-home h2,
+      .warm-home h3 {
+        color: var(--text-main);
+        font-family: "Libre Baskerville", "Cormorant Garamond", "Playfair Display", Georgia, serif;
+      }
+
+      .warm-home h1 {
+        max-width: 9em;
+        font-size: clamp(58px, 7vw, 108px);
+        font-weight: 620;
+        line-height: .98;
+        letter-spacing: -.052em;
+      }
+
+      .warm-home .warm-hero-copy {
+        width: min(700px, 100%);
+        color: var(--text-muted);
+        font-size: clamp(17px, 1.7vw, 21px);
+        line-height: 1.72;
+      }
+
+      .warm-home .button {
+        min-height: 46px;
+        border-radius: 0;
+        padding: 12px 20px;
+        font-size: 14px;
+        font-weight: 720;
+      }
+
+      .warm-home .button.primary {
+        border-color: var(--text-main);
+        background: var(--text-main);
+        color: var(--bg-main);
+      }
+
+      .warm-home .button.primary:hover,
+      .warm-home .button.primary:focus-visible {
+        border-color: #11100f;
+        background: #11100f;
+      }
+
+      .warm-home .button.factory,
+      .warm-home .button.ghost {
+        border-color: var(--line);
+        background: transparent;
+        color: var(--text-main);
+      }
+
+      .warm-home .button.factory:hover,
+      .warm-home .button.factory:focus-visible,
+      .warm-home .button.ghost:hover,
+      .warm-home .button.ghost:focus-visible {
+        background: rgba(42, 41, 38, .06);
+      }
+
+      .warm-home .entry-section,
+      .warm-home .contact-section,
+      .warm-home .site-footer {
+        width: min(1180px, calc(100% - 44px));
+      }
+
+      .warm-home .entry-section {
+        margin-top: 0;
+        border-top: 0;
+        padding: clamp(58px, 8vw, 104px) 0;
+      }
+
+      .warm-home .entry-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0;
+        border-top: 1px solid var(--line);
+      }
+
+      .warm-home .entry-card {
+        display: grid;
+        min-height: 0;
+        grid-template-columns: 92px minmax(190px, .45fr) minmax(0, 1fr) auto;
+        align-items: center;
+        gap: clamp(18px, 3vw, 42px);
+        border: 0;
+        border-bottom: 1px solid var(--line);
+        padding: clamp(24px, 3.2vw, 36px) 0;
+        background: transparent;
+      }
+
+      .warm-home .entry-card:hover,
+      .warm-home .entry-card:focus-within {
+        border-color: var(--line);
+        background: rgba(42, 41, 38, .025);
+        transform: none;
+      }
+
+      .warm-home .entry-index {
+        margin: 0;
+        color: var(--accent);
+        font-size: 13px;
+        font-weight: 760;
+        letter-spacing: .08em;
+      }
+
+      .warm-home .entry-card h3 {
+        color: var(--text-main);
+        font-size: clamp(28px, 3vw, 44px);
+        font-weight: 680;
+        letter-spacing: -.035em;
+      }
+
+      .warm-home .entry-card p {
+        color: var(--text-muted);
+        font-size: 16px;
+        line-height: 1.78;
+      }
+
+      .warm-home .entry-link {
+        width: max-content;
+        border-bottom-color: rgba(138, 106, 63, .55);
+        color: var(--accent);
+      }
+
+      .warm-home .entry-link:hover,
+      .warm-home .entry-link:focus-visible {
+        color: var(--text-main);
+        border-color: var(--text-main);
+      }
+
+      .warm-home .contact-section {
+        grid-template-columns: minmax(220px, .42fr) minmax(0, .58fr);
+        border-top: 1px solid var(--line);
+        padding: clamp(58px, 8vw, 96px) 0;
+      }
+
+      .warm-home .contact-section h2 {
+        color: var(--text-main);
+        font-size: clamp(32px, 4.2vw, 58px);
+        font-weight: 680;
+      }
+
+      .warm-home .contact-panel {
+        border: 1px solid var(--line);
+        background: var(--bg-soft);
+      }
+
+      .warm-home .contact-panel p {
+        color: var(--text-muted);
+      }
+
+      .warm-home .site-footer {
+        border-top: 1px solid var(--line);
+        color: var(--text-soft);
+      }
+
+      .warm-home .site-footer a {
+        color: var(--text-muted);
+      }
+
+      .warm-home .site-footer a:hover,
+      .warm-home .site-footer a:focus-visible {
+        color: var(--text-main);
+      }
+
+      @media (max-width: 940px) {
+        .warm-home .site-header {
+          align-items: center;
+        }
+
+        .warm-home .warm-hero {
+          min-height: auto;
+          grid-template-columns: 1fr;
+          padding-top: clamp(38px, 8vw, 64px);
+        }
+
+        .warm-home .hero-image {
+          min-height: 340px;
+          order: -1;
+        }
+
+        .warm-home .entry-card {
+          grid-template-columns: 74px 1fr;
+          align-items: start;
+        }
+
+        .warm-home .entry-card > p:not(.entry-index),
+        .warm-home .entry-link {
+          grid-column: 2;
+        }
+
+        .warm-home .contact-section {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .warm-home .site-header,
+        .warm-home .entry-section,
+        .warm-home .contact-section,
+        .warm-home .site-footer {
+          width: calc(100% - 28px);
+        }
+
+        .warm-home .site-header {
+          position: sticky;
+          padding: 10px 0;
+        }
+
+        .warm-home .brand-mark {
+          display: none;
+        }
+
+        .warm-home .brand-text small {
+          display: none;
+        }
+
+        .warm-home .warm-hero {
+          padding-right: 14px;
+          padding-left: 14px;
+        }
+
+        .warm-home .hero-image {
+          min-height: 230px;
+        }
+
+        .warm-home h1 {
+          font-size: clamp(44px, 13vw, 62px);
+        }
+
+        .warm-home .entry-card {
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+
+        .warm-home .entry-card > p:not(.entry-index),
+        .warm-home .entry-link {
+          grid-column: auto;
+        }
       }
     </style>
     <script type="application/ld+json">
@@ -120,7 +487,10 @@
     <header class="site-header">
       <a class="brand" href="#hero" aria-label="Back to homepage">
         <span class="brand-mark" aria-hidden="true"></span>
-        <span>GEWUJI</span>
+        <span class="brand-text">
+          <strong>GEWUJI</strong>
+          <small>Factory Bridge</small>
+        </span>
       </a>
       <nav class="nav" aria-label="Main navigation">
         <a href="#buyers">Communication</a>
@@ -153,45 +523,40 @@
             <a class="button ghost" href="#field-materials">Field Materials</a>
           </div>
         </div>
+        <figure class="hero-image" aria-hidden="true"></figure>
       </section>
 
       <section class="entry-section" id="entries" aria-label="Three main entrances">
         <div class="entry-grid">
           <article class="entry-card" id="buyers">
+            <p class="entry-index">01</p>
             <div>
               <h3>Supplier Communication</h3>
             </div>
             <p>
               Organize supplier replies, quotes, sample terms, MOQ, lead time, and payment details so key questions become clearer.
             </p>
-            <p class="entry-boundary">
-              Not a formal factory audit, not legal due diligence, not quality inspection.
-            </p>
             <a class="entry-link" href="https://factory.gewuji.dev/for-buyers/">View Communication Support</a>
           </article>
 
           <article class="entry-card" id="factories">
+            <p class="entry-index">02</p>
             <div>
               <h3>Factory Materials</h3>
             </div>
             <p>
               Organize product pages, factory profiles, development emails, and workshop materials so real capability becomes easier to understand.
             </p>
-            <p class="entry-boundary">
-              No guaranteed inquiries, no guaranteed conversion, no fake packaging.
-            </p>
             <a class="entry-link" href="https://factory.gewuji.dev/for-factories/">View Material Support</a>
           </article>
 
           <article class="entry-card" id="field-materials">
+            <p class="entry-index">03</p>
             <div>
               <h3>Field Materials</h3>
             </div>
             <p>
               View anonymous workshop, equipment, packaging, and production details showing how real factory information can become trust assets.
-            </p>
-            <p class="entry-boundary">
-              No customer names, factory names, drawings, order details, or sensitive information are disclosed.
             </p>
             <a class="entry-link" href="../field-materials/">View Field Materials</a>
           </article>
@@ -210,14 +575,6 @@
           </p>
           <a class="button primary" href="mailto:laocao@gewuji.dev">Send Existing Materials</a>
         </div>
-      </section>
-
-      <section class="lab-strip" id="lab" aria-label="Gewuji Lab small entrance">
-        <p>
-          <strong>Gewuji Lab:</strong>
-          Small tools, game tests, and web experiments.
-        </p>
-        <a href="../tools/">View Experiments →</a>
       </section>
     </main>
 
