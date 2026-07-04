@@ -3,7 +3,7 @@
 用途：把“今天先看什么、哪些能起草、哪些等确认、哪些已发待回访”收拢到一个地方。  
 规则：这里只做看板，不替代原始台账；明细仍回写到各平台存档和总表。
 
-最后更新：2026-06-30 16:17 CST
+最后更新：2026-07-04 10:18 CST
 
 ## 今日回访
 
@@ -32,15 +32,15 @@
 | --- | --- | --- | --- | --- | --- |
 | 暂无 | - | - | - | - | - |
 
-## 待发布确认
+## 待发布处理
 
 | ID | 平台 | 用途 | 草稿 | 状态 |
 | --- | --- | --- | --- | --- |
 | O001 | LinkedIn | 低频原创短帖 | A fast supplier reply feels good, but it is not enough to trust the quote. Before moving forward, check who you are paying, whether the company details match, what product they actually control, and whether the sample and packaging are consistent. Speed is helpful, but matching details matter more. | 已发布，转入回访 |
-| B054 | Facebook | 新手采购/代理问题短评 | If you’re just starting, keep the first order small and simple. Ask for clear fees, real warehouse/product photos, tracking details, and what happens if items are missing or wrong. Cheap service can get expensive fast if those parts are vague. | 待用户确认发布 |
-| B055 | Facebook | 供应商欺诈追讨问题短评 | First collect everything: chat history, invoice, payment record, company name, bank details, tracking, and product photos. Then report through the platform/payment channel first. Recovery is usually hard, but clean evidence gives you the best chance. | 待用户确认发布 |
+| B054 | Facebook | 新手采购/代理问题短评 | If you’re just starting, keep the first order small and simple. Ask for clear fees, real warehouse/product photos, tracking details, and what happens if items are missing or wrong. Cheap service can get expensive fast if those parts are vague. | 内容在边界内；Chrome 当前未登录 Facebook，待可发布会话后自动发 |
+| B055 | Facebook | 供应商欺诈追讨问题短评 | First collect everything: chat history, invoice, payment record, company name, bank details, tracking, and product photos. Then report through the platform/payment channel first. Recovery is usually hard, but clean evidence gives you the best chance. | 涉及欺诈追讨/平台申诉，按高风险内容先停下确认 |
 
-规则：只有草稿写完、且用户明确说“发”之后，才进入平台填写；点击提交前仍需再次确认。
+规则：内容在项目边界内可自动发布；关注、点赞、连接请求、主动私信、账号资料修改、删除/隐藏内容、争议性回复、正式服务承诺等高风险动作先停下确认。
 
 ## 已发布待回访
 

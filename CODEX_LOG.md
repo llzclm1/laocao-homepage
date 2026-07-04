@@ -4,6 +4,8 @@
 
 - 按用户要求调整海外平台对外内容规则：发帖、评论、回答等内容只要在项目边界内可自动发布，不再逐条等待确认；关注、点赞、连接请求、主动私信、账号资料修改、删除/隐藏内容、争议性回复和正式服务承诺等高风险动作仍需先停下确认。
 - 同步更新 `AGENTS.md`、`CODEX_HANDOFF.md`、`CODEX_TASKS.md`，让后续海外互动检查和批量回复按新边界执行。
+- 按新规则复核待发布项：Facebook `B054` 在边界内但 Chrome 未登录 Facebook，暂未发布；Facebook `B055` 涉及欺诈追讨/平台申诉，按高风险内容保留确认。
+- 同步更新 `docs/promotion/overseas-ops-board.md` 与 `docs/promotion/social-reply-batch-2026-06-29.md`，把 `B054` 标为待可发布会话后自动发，把 `B055` 标为高风险待确认。
 
 ## 2026-06-29
 
