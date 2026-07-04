@@ -27,3 +27,4 @@
 | 2026-07-04 | LinkedIn | https://www.linkedin.com/feed/ | Posted supplier quote assumptions checklist; no promotional link; add to daily follow-up |
 | 2026-07-04 | X | https://x.com/llzclm_ray | Posted supplier reply vs quote assumptions reminder; no promotional link; add to daily follow-up |
 | 2026-07-04 | Quora | https://www.quora.com/What-should-I-consider-when-hiring-a-sourcing-agency-or-purchasing-agent-from-China/answer/%E9%9B%B7%E9%B8%A3-%E6%9B%B9 | Answered China sourcing agency / purchasing agent selection question; no promotional link; add to daily follow-up |
+| 2026-07-04 | Quora | https://www.quora.com/Are-Chinese-aluminum-sheet-suppliers-worth-working-with/answer/%E9%9B%B7%E9%B8%A3-%E6%9B%B9 | Answered Chinese aluminum sheet supplier verification question; no promotional link; add to daily follow-up |

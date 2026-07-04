@@ -29,6 +29,8 @@
 - 2026-07-04 10:23 用户登录 Facebook 后，已发布 `B054` 评论；页面显示“待審查”。`B055` 仍按高风险内容保留确认。
 - 2026-07-04 10:28 用户要求所有平台继续发后，已发布 Facebook `B055` 评论；页面显示“待審查”。当前已定稿待发布项清空。
 - 2026-07-04 10:38 按“所有该发平台都发”继续执行：LinkedIn 发 `O002` 原创短帖，X 发 `O003` 原创短帖，Quora 回答 `Q004`；Reddit 仍被 network security 拦截，未能发布。
+- 2026-07-04 10:49 继续复核剩余候选和私信/通知：Facebook 无新通知/私信；LinkedIn 无新私信，只有曝光/系统通知；X 无提及，私信需要 passcode；Quora 无私信，通知为推荐内容；Reddit `B005` 可读但主评论提交控件不可用，未发成功；Facebook `B058` 是供应商广告不发，`B059` 页面不可见。
+- 2026-07-04 10:53 继续处理可发平台：Quora 发布 `Q005` aluminum sheet supplier verification answer；LinkedIn / X 搜索未找到合适真人求助帖，未追加评论。
 - 已新增海外账号包装方案：`docs/promotion/account-packaging-plan.md`，优先降低销售感和 Reddit 风控。
 - Quora 另有 6 条相近候选问题已归档，未回答。
 

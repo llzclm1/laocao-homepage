@@ -9,6 +9,8 @@
 - 用户登录 Facebook 后，已发布 `B054` 新手采购/代理问题短评；页面显示“待審查”。已补入海外发布总表、看板和批量回复表。
 - 用户要求所有平台继续发后，已发布 `B055` 供应商欺诈追讨问题短评；页面显示“待審查”。已补入海外发布总表、看板和批量回复表。
 - 继续按“所有该发平台都发”执行：LinkedIn 发布 `O002` supplier quote assumptions checklist，X 发布 `O003` supplier replies vs quote assumptions，Quora 发布 `Q004` sourcing agency / purchasing agent answer；Reddit 仍被 network security 拦截，未能发布。
+- 继续复核剩余候选和站内消息：Facebook / LinkedIn / X / Quora 未发现需要回复的新私信或真人互动；Reddit `B005` 可读但主评论提交控件不可用，未发成功；Facebook `B058` 判定为供应商自我广告不发，`B059` 页面不可见。
+- 继续处理可发平台：Quora 发布 `Q005` Chinese aluminum sheet supplier verification answer；LinkedIn / X 搜索候选未找到合适真人求助帖，未追加评论。
 
 ## 2026-06-29
 
