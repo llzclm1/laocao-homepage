@@ -38,7 +38,8 @@ for (const file of textFiles) {
 }
 
 const home = fs.readFileSync(path.join(dist, "index.html"), "utf8");
-assert.ok(home.includes('href="https://factory.gewuji.dev/for-factories/"'), "homepage should link to the Factory Bridge factories page");
+assert.ok(home.includes('href="https://factory.gewuji.dev/for-factories/#material-rewrite"'), "homepage should link to the material rewrite anchor");
+assert.ok(home.includes('href="https://factory.gewuji.dev/for-factories/#outreach-content"'), "homepage should link to the outreach content anchor");
 assert.ok(home.includes('href="field-materials/"'), "homepage should link to field materials");
 assert.ok(home.includes('href="tools/"'), "homepage should keep a low-priority lab link");
 assert.ok(home.includes('href="ai-sitemap.json"'), "homepage should expose the AI sitemap");
@@ -221,6 +222,8 @@ const buyerPage = fs.readFileSync(path.join(dist, "for-buyers/index.html"), "utf
 const fieldMaterialsPage = fs.readFileSync(path.join(dist, "field-materials/index.html"), "utf8");
 assert.ok(factoryPage.includes('rel="canonical" href="https://gewuji.dev/for-factories/"'), "factory page should expose canonical URL");
 assert.ok(factoryPage.includes("工厂对外资料重构"), "factory page should include factory material rewrite SEO copy");
+assert.ok(factoryPage.includes('id="material-rewrite"'), "factory page should expose material rewrite anchor");
+assert.ok(factoryPage.includes('id="outreach-content"'), "factory page should expose outreach content anchor");
 assert.ok(factoryPage.includes("GEWUJI"), "factory page should use the unified Gewuji brand shell");
 assert.ok(factoryPage.includes('application/ld+json'), "factory page should include JSON-LD");
 assert.ok(buyerPage.includes('rel="canonical" href="https://gewuji.dev/for-buyers/"'), "buyer page should expose canonical URL");
