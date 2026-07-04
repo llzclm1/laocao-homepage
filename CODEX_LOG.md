@@ -11,6 +11,9 @@
 - 继续按“所有该发平台都发”执行：LinkedIn 发布 `O002` supplier quote assumptions checklist，X 发布 `O003` supplier replies vs quote assumptions，Quora 发布 `Q004` sourcing agency / purchasing agent answer；Reddit 仍被 network security 拦截，未能发布。
 - 继续复核剩余候选和站内消息：Facebook / LinkedIn / X / Quora 未发现需要回复的新私信或真人互动；Reddit `B005` 可读但主评论提交控件不可用，未发成功；Facebook `B058` 判定为供应商自我广告不发，`B059` 页面不可见。
 - 继续处理可发平台：Quora 发布 `Q005` Chinese aluminum sheet supplier verification answer；LinkedIn / X 搜索候选未找到合适真人求助帖，未追加评论。
+- 继续处理剩余候选：Quora 发布 `B011/Q006` reliable China supplier sourcing process 和 `B014/Q007` Alibaba scam avoidance；`B012/B013/B015` 原页面不存在。Reddit 旧版页面发布 `B002` sports products supplier / sourcing agents 回复；`B003/B005` 尝试提交后未在用户评论页出现，按未成功记录。
+- 继续补发并验证剩余平台：Reddit 发布 `R002` Alibaba EXW/DDP 条款不一致回复；Quora 发布 `Q008` supplier authenticity verification answer；X 发布 `O004`，但正文被 X 截断成后半句。Reddit `R001/R003/R004/R005` 提交后未在用户评论页出现，`r/ecommerce` 明确因 karma 自动移除，均不计入已发。
+- 按用户“再试试”重试：X 补发完整 `O005` payment name mismatch note；Reddit 用更短回复成功发布 `R003` freight forwarder process check。两个动作均已页面验证并补入回访台账。
 
 ## 2026-06-29
 

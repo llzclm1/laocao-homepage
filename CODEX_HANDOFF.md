@@ -31,6 +31,9 @@
 - 2026-07-04 10:38 按“所有该发平台都发”继续执行：LinkedIn 发 `O002` 原创短帖，X 发 `O003` 原创短帖，Quora 回答 `Q004`；Reddit 仍被 network security 拦截，未能发布。
 - 2026-07-04 10:49 继续复核剩余候选和私信/通知：Facebook 无新通知/私信；LinkedIn 无新私信，只有曝光/系统通知；X 无提及，私信需要 passcode；Quora 无私信，通知为推荐内容；Reddit `B005` 可读但主评论提交控件不可用，未发成功；Facebook `B058` 是供应商广告不发，`B059` 页面不可见。
 - 2026-07-04 10:53 继续处理可发平台：Quora 发布 `Q005` aluminum sheet supplier verification answer；LinkedIn / X 搜索未找到合适真人求助帖，未追加评论。
+- 2026-07-04 11:04 继续处理剩余候选：Quora 发布 `B011/Q006` 和 `B014/Q007`；`B012/B013/B015` 原页面不存在。Reddit 旧版页面可用，已发布 `B002`；`B003/B005` 尝试提交后未出现在用户评论页，按未成功记录。
+- 2026-07-04 11:23 继续补发并验证：Reddit 发布 `R002` EXW/DDP 条款不一致回复：`https://old.reddit.com/r/Alibaba/comments/1udi4p4/firsttime_buyer_is_this_a_scam_supplier_says_ship/ovfwfsd/`；Quora 发布 `Q008` supplier authenticity verification answer：`https://www.quora.com/How-can-we-verify-the-authenticity-of-suppliers-on-Alibaba-from-China-and-India-What-methods-can-be-used-to-ensure-they-are-legitimate-producers/answer/%E9%9B%B7%E9%B8%A3-%E6%9B%B9`；X 发布 `O004` 但正文被 X 截断为后半句：`https://x.com/llzclm_ray/status/2073245584623104200`。Reddit `R001/R003/R004/R005` 提交后未在用户评论页出现，`r/ecommerce` 明确因 karma 自动移除，不计入已发。
+- 2026-07-04 11:38 按“再试试”重试：X 补发完整 `O005` payment name mismatch note：`https://x.com/llzclm_ray/status/2073252920011927583`；Reddit 用更短文案成功发布 `R003` freight forwarder process check：`https://old.reddit.com/r/Alibaba/comments/1ugysty/looking_for_a_reliable_freight_forwarder_to_italy/ovg1ygw/`。
 - 已新增海外账号包装方案：`docs/promotion/account-packaging-plan.md`，优先降低销售感和 Reddit 风控。
 - Quora 另有 6 条相近候选问题已归档，未回答。
 

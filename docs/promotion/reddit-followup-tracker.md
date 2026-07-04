@@ -13,6 +13,9 @@
 | 2026-06-29 | r/Business_China | Has anyone here used Made-in-China.com to find manufacturers for private label products? | https://www.reddit.com/r/Business_China/comments/1udijk9/comment/oufl1mj/ | 已回复 | 无链接，回答平台只能做供应商发现，需核验公司、产品、工厂现场和小单风险 |
 | 2026-06-29 | r/Entrepreneurs | Anyone here use Made-in-China when looking for suppliers? | https://www.reddit.com/r/Entrepreneurs/comments/1udbvfs/comment/oufqcer/ | 已回复 | 无链接，回答平台不是核心筛选，重点核验供应商、付款主体、现场视频和小单试单 |
 | 2026-07-02 | r/Alibaba | My business grew too fast and my current supplier cannot keep up | https://www.reddit.com/r/Alibaba/comments/1uhllqc/comment/ov1brft/ | 已回复 | 无链接，回答产能切换风险：保留原供应商基线产能，用单 SKU/小批量验证第二供应商 |
+| 2026-07-04 | r/wholesale_suppliers | Looking for Reliable Sports Products Manufacturers & Sourcing Agents in China | https://old.reddit.com/r/wholesale_suppliers/comments/1ufgh2e/looking_for_reliable_sports_products/ | 已回复 | 无链接，回答欧洲运动产品供应商筛选：规格、合规、样品、包装、付款主体和小单试单 |
+| 2026-07-04 | r/Alibaba | First-time buyer, is this a scam? Supplier says ship to China + EXW? | https://old.reddit.com/r/Alibaba/comments/1udi4p4/firsttime_buyer_is_this_a_scam_supplier_says_ship/ovfwfsd/ | 已回复 | 无链接，回答平台订单条款需与 PI/DDP 约定一致，付款主体也要匹配 |
+| 2026-07-04 | r/Alibaba | Looking for a reliable freight forwarder to Italy | https://old.reddit.com/r/Alibaba/comments/1ugysty/looking_for_a_reliable_freight_forwarder_to_italy/ovg1ygw/ | 已回复 | 无链接，回答货代先测流程：仓库地址、到仓照片、计费方式、线路和赔付规则 |
 
 ## 使用规则
 
