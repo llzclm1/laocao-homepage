@@ -23,3 +23,4 @@
 | 2026-07-02 | Quora | https://www.quora.com/How-do-I-check-if-the-supplier-on-Alibaba-is-legit/answer/%E9%9B%B7%E9%B8%A3-%E6%9B%B9 | Answered Alibaba supplier legitimacy check question; no promotional link; add to daily follow-up |
 | 2026-07-02 | X | https://x.com/llzclm_ray/status/2072514965676929389 | Posted short supplier reply vs proof reminder; no promotional link; add to daily follow-up |
 | 2026-07-04 | Facebook | https://www.facebook.com/groups/672155363342806/posts/hello-is-there-anyone-that/2153094611915533/ | Commented on beginner China buying / agent question; pending review; no promotional link; add to daily follow-up |
+| 2026-07-04 | Facebook | https://www.facebook.com/groups/importhq/posts/30240906138857099/ | Commented on supplier fraud evidence/reporting question; pending review; no promotional link; add to daily follow-up |
