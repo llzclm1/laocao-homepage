@@ -52,7 +52,7 @@ assert.equal(home.includes('src="/'), false, "homepage should not use root-relat
 
 const englishHome = fs.readFileSync(path.join(dist, "en", "index.html"), "utf8");
 assert.ok(englishHome.includes("Factory Bridge"), "English homepage should follow the Factory Bridge positioning");
-assert.ok(englishHome.includes("Field Materials"), "English homepage should link to field materials");
+assert.ok(englishHome.includes("Field Evidence"), "English homepage should link to field evidence");
 assert.equal(englishHome.includes("Personal Product Lab"), false, "English homepage should not use the old product lab positioning");
 assert.equal(englishHome.includes("Selected Work"), false, "English homepage should not feature the old project grid");
 

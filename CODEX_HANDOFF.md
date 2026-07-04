@@ -259,3 +259,10 @@
 - `llms.txt` 和 `ai-sitemap.json` 生成口径已改为 `Factory Bridge by Gewuji`，保留必要长尾词，但不把 `China Factory Bridge` 作为主品牌。
 - 已通过 `npm run build:prod`、`npm run verify:static`、本地链接审计和 `git diff --check`。
 - 注意：本仓库部署域名仍是 `gewuji.dev`。`factory.gewuji.dev/` 根路径线上当前由其他部署源返回内容，后续若要让 factory 根入口页同步，需要先确认对应仓库或部署配置。
+
+## 2026-07-04 定位冲突复核
+
+- 主站可控的 `/for-buyers/` 已进一步降级为海外采购商辅助页，避免继续被理解为 supplier verification / reliability check 主服务。
+- 主站可控的 `/field-materials/` 导航旧锚点已改为 `/for-factories/#material-rewrite` 和 `/for-factories/#outreach-content`，Field Materials 口径继续收敛为 Field Evidence / 实拍素材背书。
+- `llms.txt` 顶部站点事实、推荐摘要和引用方式已从旧“个人产品实验室”改为“服务国内工厂的工厂对外资料重构”主线；`ai-sitemap.json` 生成脚本同步。
+- 已确认 `factory.gewuji.dev` 对应另一个本地仓库 `/Users/caocao/Documents/工厂桥梁`，本仓库只部署 `gewuji.dev`。本轮主站验证通过：`npm run build:prod`、`npm run verify:static`、`git diff --check`。

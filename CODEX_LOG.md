@@ -116,3 +116,4 @@
 - 首页标题字体可见性修正：由于前一版中文 serif 栈与旧版接近，英文外部字体未加载时变化不明显，已把首页标题优先级改为系统可命中的 `Songti SC` / `Georgia` 并降低粗重字重；已通过静态验证后推送。
 - 线上 CSS 缓存修正：首页 HTML 已更新但 `styles.css` 仍被静态缓存返回旧内容，因此把首页字体覆盖内联到 `/` 和 `/en/`，保证标题字体调整立即生效；未改其他页面。
 - Factory Bridge 子页面视觉系统统一：`/for-buyers/`、`/for-factories/`、`/field-materials/` 从旧 CFB / Next 导出模板改为 GEWUJI / Factory Bridge 统一壳，补充暖工业 CSS token、统一 Header / Footer、CTA / 表单文案、Field Materials canonical 和 AI sitemap / llms 口径；已通过 `npm run build:prod`、`npm run verify:static`、本地链接审计和 `git diff --check`，按用户要求未 push。
+- 主站与 Factory Bridge 定位冲突复核：主站可控的 `/for-buyers/`、`/field-materials/` 修正旧锚点和过强 buyer-check 口径，`llms.txt` 与 AI sitemap 改为“服务国内工厂的工厂对外资料重构”主线；已通过 `npm run build:prod`、`npm run verify:static`、`git diff --check`。另确认 `factory.gewuji.dev` 实际源码在 `/Users/caocao/Documents/工厂桥梁`，本仓库仍只部署 `gewuji.dev`。
