@@ -6,7 +6,7 @@
 - GSC 早期曝光观察：每周把 GSC 新 query/page 录入 `data/gsc/gsc-early-signals.csv`，按 `docs/gsc-query-page-analysis.md` 判断项目、意图和下一步动作；低曝光和 0 点击先观察，不自动删除/noindex。
 - 技术 SEO：主站 favicon、`/contact/`、`/lab/` 兼容页已补；Cloudflare `Always Use HTTPS`、`www` 到根域名 301、默认静态扩展名 Cache Rule 已开启；GSC `sitemap.xml` 已重新提交。下一步观察 24 小时 4xx 和静态资源 cache hit rate。
 - 主站 IA：旧工具和游戏实验已统一降级到 `/tools/`；如要进一步处理低质量工具页，需用户确认 noindex / sitemap 移除候选。
-- 主站 Factory Bridge 入口：中英文首页已改为“国内工厂对外资料重构 / 海外开发内容 / 实拍素材背书”主线；主站可控 `/for-buyers/` 已降级为海外采购商辅助页，`/field-materials/` 为 Field Evidence / 实拍素材背书。部署后检查首页三入口、子页 Header / Footer、Field Materials 图片和移动端按钮是否生效。
+- 主站 Factory Bridge 入口：中英文首页已改为“中国工厂 / 海外买家”双边分流入口；主站可控 `/for-buyers/` 已降级为海外采购商辅助页，`/field-materials/` 为 Field Evidence / 实拍素材背书。部署后检查首页双入口、底部双 CTA、Field Materials 图片和移动端按钮是否生效。
 - Factory 子域名源头：`factory.gewuji.dev` 实际源码在 `/Users/caocao/Documents/工厂桥梁`；本仓库 `CNAME` 为 `gewuji.dev`，当前只控制主站静态页面。两个仓库都需要部署后才能让线上主站和子域名完全同步。
 - 外链观察：定期把 Ahrefs / GSC 发现的外链补入 `data/backlinks/backlink-audit-log.csv`；无手动处罚前不提交 disavow。
 - 干净外链第一批：LinkedIn profile、GitHub profile、GitHub README resource repository、Notion public checklist、About.me profile 已完成并补入 `data/backlinks/backlink-audit-log.csv`；下一步只做定期索引/可访问性复查。

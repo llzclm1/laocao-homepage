@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Gewuji organizes supplier replies, product materials, factory profiles, workshop photos, and field materials into clearer factory context for overseas buyers."
+      content="Gewuji Factory Bridge helps Chinese factories organize buyer-facing materials and helps overseas buyers read supplier replies, quotes, and field material signals."
     />
     <meta
       name="keywords"
-      content="Gewuji, Factory Bridge, Chinese factories, buyer-facing materials, factory material rewrite, outreach content, field evidence, workshop photos, overseas buyers"
+      content="Gewuji, Factory Bridge, Chinese factories, overseas buyers, supplier replies, factory materials, payment risk, field evidence, workshop photos"
     />
     <meta name="author" content="Lao Cao" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -26,24 +26,24 @@
     <link rel="alternate" type="application/json" href="../ai-sitemap.json" title="AI Sitemap" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en_US" />
-    <meta property="og:title" content="Gewuji | Real Factories, Clearly Understood" />
+    <meta property="og:title" content="Gewuji | Factory Materials and Supplier Decision Gateway" />
     <meta
       property="og:description"
-      content="Gewuji organizes supplier replies, product materials, factory profiles, workshop photos, and field materials into clearer factory context for overseas buyers."
+      content="A gateway for Chinese factories organizing buyer-facing materials and overseas buyers reading supplier communication signals."
     />
     <meta property="og:url" content="https://gewuji.dev/en/" />
     <meta property="og:site_name" content="Gewuji" />
     <meta property="og:image" content="https://gewuji.dev/assets/home/hero-factory-exterior.png" />
     <meta property="og:image:alt" content="Gewuji light gray industrial factory exterior homepage background" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Gewuji | Real Factories, Clearly Understood" />
+    <meta name="twitter:title" content="Gewuji | Factory Materials and Supplier Decision Gateway" />
     <meta
       name="twitter:description"
-      content="Clearer factory context from supplier replies, product materials, factory profiles, workshop photos, and field materials."
+      content="Factory Bridge entrances for Chinese factories and overseas buyers."
     />
     <meta name="twitter:image" content="https://gewuji.dev/assets/home/hero-factory-exterior.png" />
     <meta name="twitter:image:alt" content="Gewuji light gray industrial factory exterior homepage background" />
-    <title>Gewuji | Real Factories, Clearly Understood</title>
+    <title>Gewuji | Factory Materials and Supplier Decision Gateway</title>
     <link rel="preload" as="image" href="../assets/home/hero-factory-exterior.png" type="image/png" fetchpriority="high" />
     <link rel="stylesheet" href="../styles.css?v=20260704-serif-visible" />
     <style>
@@ -263,6 +263,12 @@
         border-top: 1px solid var(--line);
       }
 
+      .warm-home .audience-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        border-top: 0;
+      }
+
       .warm-home .entry-card {
         display: grid;
         min-height: 0;
@@ -273,6 +279,17 @@
         border-bottom: 1px solid var(--line);
         padding: clamp(24px, 3.2vw, 36px) 0;
         background: transparent;
+      }
+
+      .warm-home .audience-card {
+        display: flex;
+        min-height: 360px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 22px;
+        border: 1px solid var(--line);
+        padding: clamp(26px, 3.4vw, 40px);
+        background: rgba(236, 231, 222, .54);
       }
 
       .warm-home .entry-card:hover,
@@ -303,6 +320,46 @@
         line-height: 1.78;
       }
 
+      .warm-home .audience-list {
+        display: grid;
+        gap: 10px;
+        margin: 0;
+        padding: 0;
+        color: #4f4a43;
+        font-size: 14px;
+        line-height: 1.7;
+        list-style: none;
+      }
+
+      .warm-home .audience-list li {
+        position: relative;
+        padding-left: 18px;
+      }
+
+      .warm-home .audience-list li::before {
+        position: absolute;
+        top: .72em;
+        left: 0;
+        width: 6px;
+        height: 6px;
+        background: var(--accent);
+        content: "";
+      }
+
+      .warm-home .section-heading {
+        display: grid;
+        gap: 8px;
+        margin-bottom: clamp(28px, 4vw, 46px);
+        text-align: center;
+      }
+
+      .warm-home .section-heading h2 {
+        margin: 0;
+        font-size: clamp(34px, 4.2vw, 60px);
+        font-weight: 680;
+        letter-spacing: -.035em;
+      }
+
       .warm-home .entry-link {
         width: max-content;
         border-bottom-color: rgba(138, 106, 63, .55);
@@ -330,6 +387,31 @@
       .warm-home .contact-panel {
         border: 1px solid var(--line);
         background: var(--bg-soft);
+      }
+
+      .warm-home .dual-contact {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1px;
+        padding: 0;
+        overflow: hidden;
+        background: var(--line);
+      }
+
+      .warm-home .contact-choice {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: clamp(24px, 3vw, 34px);
+        background: var(--bg-soft);
+      }
+
+      .warm-home .contact-choice h3 {
+        margin: 0 0 16px;
+        font-size: clamp(24px, 2.8vw, 34px);
+        font-weight: 680;
+        line-height: 1.18;
+        letter-spacing: -.025em;
       }
 
       .warm-home .contact-panel p {
@@ -376,8 +458,18 @@
           align-items: start;
         }
 
+        .warm-home .audience-grid,
+        .warm-home .dual-contact {
+          grid-template-columns: 1fr;
+        }
+
+        .warm-home .audience-card {
+          min-height: 0;
+        }
+
         .warm-home .entry-card > p:not(.entry-index),
-        .warm-home .entry-link {
+        .warm-home .entry-link,
+        .warm-home .audience-list {
           grid-column: 2;
         }
 
@@ -422,7 +514,8 @@
         }
 
         .warm-home .entry-card > p:not(.entry-index),
-        .warm-home .entry-link {
+        .warm-home .entry-link,
+        .warm-home .audience-list {
           grid-column: auto;
         }
       }
@@ -435,7 +528,7 @@
         "name": "Gewuji",
         "alternateName": "格物集",
         "url": "https://gewuji.dev/en/",
-        "description": "Gewuji organizes supplier replies, product materials, factory profiles, workshop photos, and field materials into clearer factory context for overseas buyers.",
+        "description": "Gewuji Factory Bridge helps Chinese factories organize buyer-facing materials and helps overseas buyers read supplier replies, quotes, and field material signals.",
         "inLanguage": "en",
         "publisher": {
           "@type": "Person",
@@ -444,9 +537,9 @@
           "email": "laocao@gewuji.dev"
         },
         "about": [
-          "Factory Bridge",
-          "supplier information",
-          "factory materials",
+          "Chinese factories",
+          "overseas buyers",
+          "supplier communication",
           "field evidence"
         ]
       }
@@ -456,19 +549,19 @@
         "@context": "https://schema.org",
         "@type": "ItemList",
         "name": "Gewuji homepage content entrances",
-        "description": "Three content entrances for supplier information, factory materials, and field materials.",
+        "description": "Three homepage entrances for Chinese factories, overseas buyers, and field materials.",
         "itemListElement": [
           {
             "@type": "ListItem",
             "position": 1,
-            "name": "Supplier Information",
-            "url": "https://factory.gewuji.dev/for-factories/#material-rewrite"
+            "name": "For Chinese Factories",
+            "url": "https://factory.gewuji.dev/for-factories/"
           },
           {
             "@type": "ListItem",
             "position": 2,
-            "name": "Factory Materials",
-            "url": "https://factory.gewuji.dev/for-factories/#outreach-content"
+            "name": "For Overseas Buyers",
+            "url": "https://factory.gewuji.dev/for-buyers/"
           },
           {
             "@type": "ListItem",
@@ -490,8 +583,8 @@
         </span>
       </a>
       <nav class="nav" aria-label="Main navigation">
-        <a href="https://factory.gewuji.dev/for-factories/#material-rewrite">Materials</a>
-        <a href="https://factory.gewuji.dev/for-factories/#outreach-content">Outreach</a>
+        <a href="https://factory.gewuji.dev/for-factories/">For Factories</a>
+        <a href="https://factory.gewuji.dev/for-buyers/">For Buyers</a>
         <a href="field-materials/">Field Evidence</a>
         <a href="#contact">Contact</a>
         <a class="language-link" href="../" hreflang="zh-CN" lang="zh-CN">中文</a>
@@ -508,53 +601,91 @@
         <div class="warm-hero-inner">
           <p class="warm-label">Factory Bridge · Factory Materials · Field Evidence</p>
           <h1 id="hero-title">
-            <span>Real Factories.</span>
-            <span>Clearly Understood.</span>
+            <span>Clearer factory materials.</span>
+            <span>More reliable supplier judgment.</span>
           </h1>
           <p class="warm-hero-copy">
-            Gewuji organizes supplier replies, product materials, factory profiles, workshop photos, and field materials into clearer factory context for overseas buyers.
+            Gewuji Factory Bridge helps Chinese factories organize buyer-facing materials and helps overseas buyers read key signals in supplier replies, quotes, and field materials.
           </p>
-          <div class="hero-actions" aria-label="Homepage entrances">
-            <a class="button primary" href="https://factory.gewuji.dev/for-factories/#material-rewrite">Supplier Information</a>
-            <a class="button factory" href="https://factory.gewuji.dev/for-factories/#outreach-content">Factory Materials</a>
-            <a class="button ghost" href="field-materials/">Field Materials</a>
+          <div class="hero-actions" aria-label="Homepage audience entrances">
+            <a class="button primary" href="https://factory.gewuji.dev/for-factories/">I am a Chinese factory</a>
+            <a class="button factory" href="https://factory.gewuji.dev/for-buyers/">I am an overseas buyer</a>
           </div>
         </div>
       </section>
 
-      <section class="entry-section" id="entries" aria-label="Three main entrances">
-        <div class="entry-grid">
-          <article class="entry-card" id="buyers">
+      <section class="entry-section audience-section" id="entries" aria-label="Factory and buyer entrances">
+        <div class="entry-grid audience-grid">
+          <article class="entry-card audience-card" id="factories">
             <p class="entry-index">01</p>
             <div>
-              <h3>Supplier Information</h3>
+              <h3>For Chinese Factories</h3>
             </div>
             <p>
-              Organize supplier replies, quotes, sample terms, MOQ, lead time, and payment details so key questions become clearer.
+              Turn existing product pages, factory profiles, outreach emails, and field photos into English materials that overseas buyers can understand and continue discussing.
             </p>
-            <a class="entry-link" href="https://factory.gewuji.dev/for-factories/#material-rewrite">View Supplier Information</a>
+            <ul class="audience-list">
+              <li>Product material rewrite</li>
+              <li>Factory profile optimization</li>
+              <li>Outreach and trade content</li>
+              <li>Field material organization</li>
+            </ul>
+            <a class="entry-link" href="https://factory.gewuji.dev/for-factories/">Send existing materials</a>
           </article>
 
-          <article class="entry-card" id="factories">
+          <article class="entry-card audience-card" id="buyers">
             <p class="entry-index">02</p>
             <div>
-              <h3>Factory Materials</h3>
+              <h3>For Overseas Buyers</h3>
             </div>
             <p>
-              Organize product pages, factory profiles, outreach emails, and workshop materials so real capability becomes easier to understand.
+              Read Chinese supplier replies, quotes, sample discussions, and factory materials to identify missing information, vague claims, and questions that still need confirmation.
             </p>
-            <a class="entry-link" href="https://factory.gewuji.dev/for-factories/#outreach-content">View Factory Materials</a>
+            <ul class="audience-list">
+              <li>Supplier reply review</li>
+              <li>Payment risk signals</li>
+              <li>Sample questions</li>
+              <li>Factory material signals</li>
+            </ul>
+            <a class="entry-link" href="https://factory.gewuji.dev/free-supplier-reply-review/">Review supplier reply</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="entry-section info-section" id="signals" aria-labelledby="signals-title">
+        <div class="section-heading">
+          <p class="warm-label">Factory Bridge signals</p>
+          <h2 id="signals-title">What information we handle</h2>
+        </div>
+        <div class="entry-grid">
+          <article class="entry-card">
+            <p class="entry-index">01</p>
+            <div>
+              <h3>Supplier replies and quotes</h3>
+            </div>
+            <p>
+              Organize supplier replies, quotes, MOQ, lead time, and payment details so buyers can spot missing or vague points.
+            </p>
           </article>
 
-          <article class="entry-card" id="field-materials">
-            <p class="entry-index">03</p>
+          <article class="entry-card">
+            <p class="entry-index">02</p>
             <div>
-              <h3>Field Materials</h3>
+              <h3>Factory materials and product profiles</h3>
             </div>
             <p>
-              Use privacy-protected workshop, equipment, packaging, and production details to show how real factory information can support trust.
+              Rewrite product pages, factory profiles, and outreach emails so real capability becomes easier for overseas buyers to understand.
             </p>
-            <a class="entry-link" href="field-materials/">View Field Materials</a>
+          </article>
+
+          <article class="entry-card">
+            <p class="entry-index">03</p>
+            <div>
+              <h3>Field materials and visible signals</h3>
+            </div>
+            <p>
+              Use anonymized workshop, equipment, packaging, and production details to help buyers read visible factory signals.
+            </p>
           </article>
         </div>
       </section>
@@ -562,22 +693,31 @@
       <section class="contact-section" id="contact" aria-labelledby="contact-title">
         <div>
           <p class="warm-label">Contact</p>
-          <h2 id="contact-title">Send Existing Factory Materials</h2>
+          <h2 id="contact-title">Choose the next step</h2>
         </div>
-        <div class="contact-panel">
-          <p>
-            Send a product page, factory profile, outreach email, brochure, or a few workshop photos.<br />
-            Gewuji can first review whether these materials match how overseas buyers read and judge factory information.
-          </p>
-          <a class="button primary" href="mailto:laocao@gewuji.dev">Send Existing Materials</a>
+        <div class="contact-panel dual-contact">
+          <article class="contact-choice">
+            <h3>Chinese factory: send existing materials</h3>
+            <p>
+              Send a product page, factory profile, outreach email, brochure, or field photos. We can first check what is still unclear.
+            </p>
+            <a class="button primary" href="https://factory.gewuji.dev/for-factories/">Send existing materials</a>
+          </article>
+          <article class="contact-choice">
+            <h3>Overseas buyer: send one supplier reply</h3>
+            <p>
+              Send a supplier email, quote, or chat record. We can check missing information, risk signals, and next questions.
+            </p>
+            <a class="button factory" href="https://factory.gewuji.dev/free-supplier-reply-review/">Review Supplier Reply</a>
+          </article>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
       <span>© 2026 GEWUJI</span>
-      <a href="https://factory.gewuji.dev/for-factories/#material-rewrite">Materials</a>
-      <a href="https://factory.gewuji.dev/for-factories/#outreach-content">Outreach</a>
+      <a href="https://factory.gewuji.dev/for-factories/">For Factories</a>
+      <a href="https://factory.gewuji.dev/for-buyers/">For Buyers</a>
       <a href="field-materials/">Field Evidence</a>
       <a href="../tools/">Lab</a>
       <a href="mailto:laocao@gewuji.dev">Contact</a>

@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="格物集整理供应商回复、产品资料、工厂介绍、车间照片和实拍素材，让真实工厂信息更清楚、更完整，也更便于海外采购商判断。"
+      content="格物集 Factory Bridge 帮助中国工厂整理面向海外买家的资料，也帮助海外买家理解供应商回复、报价和实拍素材中的关键信号。"
     />
     <meta
       name="keywords"
-      content="格物集, 工厂桥梁, 供应商信息, 工厂资料, 实拍素材, 真实工厂信息, 海外采购商, 车间照片, Field Evidence"
+      content="格物集, 工厂桥梁, 中国工厂, 海外买家, 供应商回复, 工厂资料, 实拍素材, 付款风险, Field Evidence"
     />
     <meta name="author" content="老曹" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -27,24 +27,24 @@
     <link rel="alternate" type="application/json" href="ai-sitemap.json" title="AI Sitemap" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="zh_CN" />
-    <meta property="og:title" content="格物集｜真实工厂值得被正确理解" />
+    <meta property="og:title" content="格物集｜工厂资料与供应商判断入口" />
     <meta
       property="og:description"
-      content="格物集整理供应商回复、产品资料、工厂介绍、车间照片和实拍素材，让真实工厂信息更清楚、更完整，也更便于海外采购商判断。"
+      content="给中国工厂整理面向海外买家的资料，也帮助海外买家理解供应商回复、报价和实拍素材中的关键信号。"
     />
     <meta property="og:url" content="https://gewuji.dev/" />
     <meta property="og:site_name" content="格物集" />
     <meta property="og:image" content="https://gewuji.dev/assets/home/hero-factory-exterior.png" />
     <meta property="og:image:alt" content="格物集白灰工业风工厂外景首页背景" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="格物集｜真实工厂值得被正确理解" />
+    <meta name="twitter:title" content="格物集｜工厂资料与供应商判断入口" />
     <meta
       name="twitter:description"
-      content="让真实工厂信息更清楚、更完整，也更便于海外采购商判断。"
+      content="给中国工厂和海外买家的 Factory Bridge 双边入口。"
     />
     <meta name="twitter:image" content="https://gewuji.dev/assets/home/hero-factory-exterior.png" />
     <meta name="twitter:image:alt" content="格物集白灰工业风工厂外景首页背景" />
-    <title>格物集｜真实工厂值得被正确理解</title>
+    <title>格物集｜工厂资料与供应商判断入口</title>
     <link rel="preload" as="image" href="assets/home/hero-factory-exterior.png" type="image/png" fetchpriority="high" />
     <link rel="stylesheet" href="styles.css?v=20260704-serif-visible" />
     <style>
@@ -273,6 +273,12 @@
         border-top: 1px solid var(--line);
       }
 
+      .warm-home .audience-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        border-top: 0;
+      }
+
       .warm-home .entry-card {
         display: grid;
         min-height: 0;
@@ -283,6 +289,17 @@
         border-bottom: 1px solid var(--line);
         padding: clamp(24px, 3.2vw, 36px) 0;
         background: transparent;
+      }
+
+      .warm-home .audience-card {
+        display: flex;
+        min-height: 360px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 22px;
+        border: 1px solid var(--line);
+        padding: clamp(26px, 3.4vw, 40px);
+        background: rgba(236, 231, 222, .54);
       }
 
       .warm-home .entry-card:hover,
@@ -315,6 +332,47 @@
         line-height: 1.85;
       }
 
+      .warm-home .audience-list {
+        display: grid;
+        gap: 10px;
+        margin: 0;
+        padding: 0;
+        color: #4f4a43;
+        font-family: var(--zh-sans);
+        font-size: 14px;
+        line-height: 1.7;
+        list-style: none;
+      }
+
+      .warm-home .audience-list li {
+        position: relative;
+        padding-left: 18px;
+      }
+
+      .warm-home .audience-list li::before {
+        position: absolute;
+        top: .72em;
+        left: 0;
+        width: 6px;
+        height: 6px;
+        background: var(--accent);
+        content: "";
+      }
+
+      .warm-home .section-heading {
+        display: grid;
+        gap: 8px;
+        margin-bottom: clamp(28px, 4vw, 46px);
+        text-align: center;
+      }
+
+      .warm-home .section-heading h2 {
+        margin: 0;
+        font-size: clamp(34px, 4.2vw, 60px);
+        font-weight: 680;
+        letter-spacing: -.035em;
+      }
+
       .warm-home .entry-link {
         width: max-content;
         border-bottom-color: rgba(138, 106, 63, .55);
@@ -345,6 +403,31 @@
       .warm-home .contact-panel {
         border: 1px solid var(--line);
         background: var(--bg-soft);
+      }
+
+      .warm-home .dual-contact {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1px;
+        padding: 0;
+        overflow: hidden;
+        background: var(--line);
+      }
+
+      .warm-home .contact-choice {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: clamp(24px, 3vw, 34px);
+        background: var(--bg-soft);
+      }
+
+      .warm-home .contact-choice h3 {
+        margin: 0 0 16px;
+        font-size: clamp(24px, 2.8vw, 34px);
+        font-weight: 680;
+        line-height: 1.18;
+        letter-spacing: -.025em;
       }
 
       .warm-home .contact-panel p {
@@ -406,8 +489,18 @@
           align-items: start;
         }
 
+        .warm-home .audience-grid,
+        .warm-home .dual-contact {
+          grid-template-columns: 1fr;
+        }
+
+        .warm-home .audience-card {
+          min-height: 0;
+        }
+
         .warm-home .entry-card > p:not(.entry-index),
-        .warm-home .entry-link {
+        .warm-home .entry-link,
+        .warm-home .audience-list {
           grid-column: 2;
         }
 
@@ -452,7 +545,8 @@
         }
 
         .warm-home .entry-card > p:not(.entry-index),
-        .warm-home .entry-link {
+        .warm-home .entry-link,
+        .warm-home .audience-list {
           grid-column: auto;
         }
       }
@@ -465,7 +559,7 @@
         "name": "格物集",
         "alternateName": "GEWUJI",
         "url": "https://gewuji.dev/",
-        "description": "格物集整理供应商回复、产品资料、工厂介绍、车间照片和实拍素材，让真实工厂信息更清楚、更完整，也更便于海外采购商判断。",
+        "description": "格物集 Factory Bridge 帮助中国工厂整理面向海外买家的资料，也帮助海外买家理解供应商回复、报价和实拍素材中的关键信号。",
         "inLanguage": "zh-CN",
         "publisher": {
           "@type": "Person",
@@ -475,8 +569,8 @@
         },
         "about": [
           "工厂桥梁",
-          "供应商信息",
-          "工厂资料",
+          "给中国工厂",
+          "给海外买家",
           "实拍素材"
         ]
       }
@@ -486,19 +580,19 @@
         "@context": "https://schema.org",
         "@type": "ItemList",
         "name": "格物集首页内容入口",
-        "description": "供应商信息、工厂资料和实拍素材三个内容入口。",
+        "description": "给中国工厂、给海外买家和实拍素材三个主站入口。",
         "itemListElement": [
           {
             "@type": "ListItem",
             "position": 1,
-            "name": "供应商信息",
-            "url": "https://factory.gewuji.dev/for-factories/#material-rewrite"
+            "name": "给中国工厂",
+            "url": "https://factory.gewuji.dev/for-factories/"
           },
           {
             "@type": "ListItem",
             "position": 2,
-            "name": "工厂资料",
-            "url": "https://factory.gewuji.dev/for-factories/#outreach-content"
+            "name": "给海外买家",
+            "url": "https://factory.gewuji.dev/for-buyers/"
           },
           {
             "@type": "ListItem",
@@ -520,9 +614,9 @@
         </span>
       </a>
       <nav class="nav" aria-label="主导航">
-        <a href="https://factory.gewuji.dev/for-factories/#material-rewrite">资料重构</a>
-        <a href="https://factory.gewuji.dev/for-factories/#outreach-content">开发内容</a>
-        <a href="field-materials/">实拍背书</a>
+        <a href="https://factory.gewuji.dev/for-factories/">给中国工厂</a>
+        <a href="https://factory.gewuji.dev/for-buyers/">给海外买家</a>
+        <a href="field-materials/">实拍素材</a>
         <a href="#contact">联系</a>
         <a class="language-link" href="en/" hreflang="en" lang="en">EN</a>
       </nav>
@@ -538,53 +632,91 @@
         <div class="warm-hero-inner">
           <p class="warm-label">Factory Bridge · Factory Materials · Field Evidence</p>
           <h1 id="hero-title">
-            <span>真实工厂</span>
-            <span>值得被正确理解</span>
+            <span>让工厂资料更清楚</span>
+            <span>让供应商判断更可靠</span>
           </h1>
           <p class="warm-hero-copy">
-            格物集整理供应商回复、产品资料、工厂介绍、车间照片和实拍素材，让真实工厂信息更清楚、更完整，也更便于海外采购商判断。
+            格物集 Factory Bridge 帮助中国工厂整理面向海外买家的资料，也帮助海外买家理解供应商回复、报价和实拍素材中的关键信号。
           </p>
-          <div class="hero-actions" aria-label="首页内容入口">
-            <a class="button primary" href="https://factory.gewuji.dev/for-factories/#material-rewrite">供应商信息</a>
-            <a class="button factory" href="https://factory.gewuji.dev/for-factories/#outreach-content">工厂资料</a>
-            <a class="button ghost" href="field-materials/">实拍素材</a>
+          <div class="hero-actions" aria-label="首页双边入口">
+            <a class="button primary" href="https://factory.gewuji.dev/for-factories/">我是中国工厂</a>
+            <a class="button factory" href="https://factory.gewuji.dev/for-buyers/">我是海外买家</a>
           </div>
         </div>
       </section>
 
-      <section class="entry-section" id="entries" aria-label="三个主入口">
-        <div class="entry-grid entry-grid-zh">
-          <article class="entry-card" id="buyers">
+      <section class="entry-section audience-section" id="entries" aria-label="给中国工厂和海外买家的双边入口">
+        <div class="entry-grid entry-grid-zh audience-grid">
+          <article class="entry-card audience-card" id="factories">
             <p class="entry-index">01</p>
             <div>
-              <h3>供应商信息</h3>
+              <h3>给中国工厂</h3>
             </div>
             <p>
-              整理供应商回复、报价、样品、MOQ、交期和付款信息，让关键问题更清楚。
+              把现有产品资料、工厂介绍、开发信和实拍素材，整理成海外买家更容易理解、也更愿意继续沟通的英文资料。
             </p>
-            <a class="entry-link" href="https://factory.gewuji.dev/for-factories/#material-rewrite">查看供应商信息</a>
+            <ul class="audience-list">
+              <li>产品资料重构</li>
+              <li>工厂介绍优化</li>
+              <li>开发信与外贸内容</li>
+              <li>实拍素材整理</li>
+            </ul>
+            <a class="entry-link" href="https://factory.gewuji.dev/for-factories/">发送现有资料</a>
           </article>
 
-          <article class="entry-card" id="factories">
+          <article class="entry-card audience-card" id="buyers">
             <p class="entry-index">02</p>
             <div>
-              <h3>工厂资料</h3>
+              <h3>给海外买家</h3>
             </div>
             <p>
-              整理产品页、工厂介绍、开发信和车间素材，让真实能力更容易被理解。
+              帮助你阅读中国供应商回复、报价、样品沟通和工厂资料，识别缺失信息、模糊表达和需要继续确认的问题。
             </p>
-            <a class="entry-link" href="https://factory.gewuji.dev/for-factories/#outreach-content">查看工厂资料</a>
+            <ul class="audience-list">
+              <li>Supplier reply review</li>
+              <li>Payment risk signals</li>
+              <li>Sample questions</li>
+              <li>Factory material signals</li>
+            </ul>
+            <a class="entry-link" href="https://factory.gewuji.dev/free-supplier-reply-review/">查看供应商回复</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="entry-section info-section" id="signals" aria-labelledby="signals-title">
+        <div class="section-heading">
+          <p class="warm-label">Factory Bridge signals</p>
+          <h2 id="signals-title">我们处理什么信息</h2>
+        </div>
+        <div class="entry-grid entry-grid-zh">
+          <article class="entry-card">
+            <p class="entry-index">01</p>
+            <div>
+              <h3>供应商回复与报价</h3>
+            </div>
+            <p>
+              整理供应商回复、报价、MOQ、交期和付款信息，帮助买家发现缺失和模糊点。
+            </p>
           </article>
 
-          <article class="entry-card" id="field-materials">
-            <p class="entry-index">03</p>
+          <article class="entry-card">
+            <p class="entry-index">02</p>
             <div>
-              <h3>实拍素材</h3>
+              <h3>工厂资料与产品介绍</h3>
             </div>
             <p>
-              用匿名处理后的车间、设备、包装和生产细节，展示真实工厂信息如何形成信任背书。
+              重构产品页、工厂介绍和开发信，让真实能力更容易被海外买家理解。
             </p>
-            <a class="entry-link" href="field-materials/">查看实拍素材</a>
+          </article>
+
+          <article class="entry-card">
+            <p class="entry-index">03</p>
+            <div>
+              <h3>实拍素材与现场信号</h3>
+            </div>
+            <p>
+              用匿名处理后的车间、设备、包装和生产细节，帮助买家阅读可见的工厂信号。
+            </p>
           </article>
         </div>
       </section>
@@ -592,23 +724,32 @@
       <section class="contact-section" id="contact" aria-labelledby="contact-title">
         <div>
           <p class="warm-label">Contact</p>
-          <h2 id="contact-title">发送一份现有资料</h2>
+          <h2 id="contact-title">选择下一步</h2>
         </div>
-        <div class="contact-panel">
-          <p>
-            你可以发送产品页、工厂介绍、开发信、宣传册或几张车间照片。<br />
-            格物集会先判断这些资料是否符合海外采购商的阅读和判断习惯，并指出最需要重构的部分。
-          </p>
-          <a class="button primary" href="mailto:laocao@gewuji.dev">发送现有资料</a>
+        <div class="contact-panel dual-contact">
+          <article class="contact-choice">
+            <h3>中国工厂：发送一份现有资料</h3>
+            <p>
+              你可以发送产品页、工厂介绍、开发信、宣传册或实拍素材，我们先帮你判断哪里不够清楚。
+            </p>
+            <a class="button primary" href="https://factory.gewuji.dev/for-factories/">发送现有资料</a>
+          </article>
+          <article class="contact-choice">
+            <h3>海外买家：发送一条供应商回复</h3>
+            <p>
+              你可以发送供应商邮件、报价或聊天记录，我们帮你判断缺失信息、风险信号和下一步问题。
+            </p>
+            <a class="button factory" href="https://factory.gewuji.dev/free-supplier-reply-review/">Review Supplier Reply</a>
+          </article>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
       <span>© 2026 格物集</span>
-      <a href="https://factory.gewuji.dev/for-factories/#material-rewrite">资料重构</a>
-      <a href="https://factory.gewuji.dev/for-factories/#outreach-content">开发内容</a>
-      <a href="field-materials/">实拍背书</a>
+      <a href="https://factory.gewuji.dev/for-factories/">给中国工厂</a>
+      <a href="https://factory.gewuji.dev/for-buyers/">给海外买家</a>
+      <a href="field-materials/">实拍素材</a>
       <a href="tools/">Lab</a>
       <a href="mailto:laocao@gewuji.dev">联系</a>
     </footer>

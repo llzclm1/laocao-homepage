@@ -39,8 +39,9 @@ for (const file of textFiles) {
 }
 
 const home = fs.readFileSync(path.join(dist, "index.html"), "utf8");
-assert.ok(home.includes('href="https://factory.gewuji.dev/for-factories/#material-rewrite"'), "homepage should link to the material rewrite anchor");
-assert.ok(home.includes('href="https://factory.gewuji.dev/for-factories/#outreach-content"'), "homepage should link to the outreach content anchor");
+assert.ok(home.includes('href="https://factory.gewuji.dev/for-factories/"'), "homepage should link to the factory-side entrance");
+assert.ok(home.includes('href="https://factory.gewuji.dev/for-buyers/"'), "homepage should link to the buyer-side entrance");
+assert.ok(home.includes('href="https://factory.gewuji.dev/free-supplier-reply-review/"'), "homepage should link to the supplier reply review action");
 assert.ok(home.includes('href="field-materials/"'), "homepage should link to field materials");
 assert.ok(home.includes('href="tools/"'), "homepage should keep a low-priority lab link");
 assert.ok(home.includes('href="ai-sitemap.json"'), "homepage should expose the AI sitemap");

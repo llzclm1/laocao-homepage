@@ -125,6 +125,9 @@
 
 ## 2026-07-04
 
+- 紧急纠偏：已确认主站 `gewuji.dev` 源码为 `/Users/caocao/Documents/我的主页`，factory 子域名源码为 `/Users/caocao/Documents/工厂桥梁`；错误改到 factory 子域名的双边入口版已在 factory 仓库回滚。
+- 主站中英文首页按样图信息结构改为“中国工厂 / 海外买家”双边入口：Hero 两个主按钮、双边分流区、“我们处理什么信息”能力层、底部双 CTA；保留原米白/浅灰/黑字/棕色点缀、工厂背景图和杂志式排版。
+- 本轮主站只改首页相关文件和静态校验断言，未改 sitemap、robots、published_pages、路由结构或 SEO 页面白名单；已通过 `npm run build:prod`、`npm run verify:static`、`git diff --check`。
 - 中英文首页字体、色彩和短文案调整为更克制的工业杂志感：中文标题改用宋体/思源宋体 fallback，英文标题改用 Archivo / Space Grotesk fallback，暖黑背景和暗金点缀压低饱和度；已通过 `npm run build:prod`、`npm run verify:static`、`git diff --check`，按用户要求不自动 push。
 - 中英文首页继续压缩视觉优先级：首屏控制在一屏内完成判断，三入口后先 Contact、再 Lab 小入口，Lab 降级为 footer 前弱链接条；已通过 `npm run build:prod`、`npm run verify:static`、`git diff --check`，按用户要求不自动 push。
 - 中英文首页亮度和色彩层级微调：仅调整 `.warm-home` 背景、文字、线条、按钮和 Hero 遮罩，保持首页结构与文案不变；已通过 `npm run build:prod`、`npm run verify:static`、`git diff --check`，按用户要求不自动 push。
