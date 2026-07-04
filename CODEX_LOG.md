@@ -6,6 +6,7 @@
 - 同步更新 `AGENTS.md`、`CODEX_HANDOFF.md`、`CODEX_TASKS.md`，让后续海外互动检查和批量回复按新边界执行。
 - 按新规则复核待发布项：Facebook `B054` 在边界内但 Chrome 未登录 Facebook，暂未发布；Facebook `B055` 涉及欺诈追讨/平台申诉，按高风险内容保留确认。
 - 同步更新 `docs/promotion/overseas-ops-board.md` 与 `docs/promotion/social-reply-batch-2026-06-29.md`，把 `B054` 标为待可发布会话后自动发，把 `B055` 标为高风险待确认。
+- 用户登录 Facebook 后，已发布 `B054` 新手采购/代理问题短评；页面显示“待審查”。已补入海外发布总表、看板和批量回复表。
 
 ## 2026-06-29
 
