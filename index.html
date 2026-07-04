@@ -57,11 +57,12 @@
         --line: rgba(42, 41, 38, .16);
         --line-soft: rgba(42, 41, 38, .1);
         --accent: #8a6a3f;
+        --zh-sans: "Source Han Sans SC", "Noto Sans SC", "HarmonyOS Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
         color: var(--text-main);
         background:
           linear-gradient(180deg, rgba(255, 255, 255, .42), transparent 38%),
           var(--bg-main);
-        font-family: "Noto Sans SC", "Source Han Sans SC", "PingFang SC", system-ui, sans-serif;
+        font-family: var(--zh-sans);
       }
 
       .warm-home::before {
@@ -133,9 +134,11 @@
       }
 
       .warm-home .nav a {
-        color: var(--text-muted);
+        color: #3e3a34;
+        font-family: var(--zh-sans);
         font-size: 13px;
-        font-weight: 680;
+        font-weight: 500;
+        letter-spacing: .06em;
       }
 
       .warm-home .nav a:hover,
@@ -205,18 +208,23 @@
       }
 
       .warm-home .warm-hero-copy {
-        width: min(700px, 100%);
-        color: var(--text-muted);
-        font-size: clamp(17px, 1.7vw, 21px);
-        line-height: 1.75;
+        width: min(760px, 100%);
+        color: #5a554e;
+        font-family: var(--zh-sans);
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 1.9;
+        letter-spacing: .01em;
       }
 
       .warm-home .button {
         min-height: 46px;
         border-radius: 0;
         padding: 12px 20px;
+        font-family: var(--zh-sans);
         font-size: 14px;
-        font-weight: 720;
+        font-weight: 500;
+        letter-spacing: .04em;
       }
 
       .warm-home .button.primary {
@@ -300,15 +308,20 @@
       }
 
       .warm-home .entry-card p {
-        color: var(--text-muted);
-        font-size: 16px;
-        line-height: 1.78;
+        color: #5a554e;
+        font-family: var(--zh-sans);
+        font-size: 15px;
+        font-weight: 400;
+        line-height: 1.85;
       }
 
       .warm-home .entry-link {
         width: max-content;
         border-bottom-color: rgba(138, 106, 63, .55);
         color: var(--accent);
+        font-family: var(--zh-sans);
+        font-weight: 500;
+        letter-spacing: .04em;
       }
 
       .warm-home .entry-link:hover,
@@ -335,16 +348,31 @@
       }
 
       .warm-home .contact-panel p {
-        color: var(--text-muted);
+        color: #5a554e;
+        font-family: var(--zh-sans);
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.85;
+      }
+
+      .warm-home input,
+      .warm-home textarea,
+      .warm-home select,
+      .warm-home ::placeholder {
+        font-family: var(--zh-sans);
       }
 
       .warm-home .site-footer {
         border-top: 1px solid var(--line);
         color: var(--text-soft);
+        font-family: var(--zh-sans);
+        font-weight: 400;
       }
 
       .warm-home .site-footer a {
         color: var(--text-muted);
+        font-family: var(--zh-sans);
+        font-weight: 400;
       }
 
       .warm-home .site-footer a:hover,
