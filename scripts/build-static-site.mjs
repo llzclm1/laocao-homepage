@@ -28,6 +28,7 @@ const copyEntries = [
   "favicon.ico",
   "favicon.svg",
   "films",
+  "free-supplier-reply-review",
   "for-buyers",
   "for-factories",
   "game",
@@ -339,6 +340,7 @@ function buildSitemap() {
   const entries = [
     ["", "1.0"],
     ["tools/", "0.4"],
+    ["free-supplier-reply-review/", "0.8"],
     ["for-buyers/", "0.9"],
     ["for-factories/", "0.9"],
     ["field-materials/", "0.8"],
@@ -412,6 +414,15 @@ function buildAiSitemap() {
         answers: ["工厂对外资料怎么重构", "外贸开发信怎么重写", "工厂宣传资料怎么让海外采购商看懂"],
         keywords: ["工厂对外资料重构", "工厂宣传资料重构", "外贸开发信重写", "产品页重构", "实拍素材背书"],
         boundaries: ["不是正式审厂", "不是法律尽调", "不是质量验货", "不保证询盘或成交"]
+      },
+      {
+        url: publicUrl("free-supplier-reply-review/"),
+        title: "Review Supplier Reply | Gewuji",
+        type: "Service",
+        summary: "Gewuji reviews Chinese supplier communication signals before payment, focusing on reply clarity, missing information, and risk signals in quotations.",
+        answers: ["review supplier reply before payment", "supplier reply clarity", "missing information in quotation", "China sourcing communication risk"],
+        keywords: ["supplier reply review", "China sourcing risk", "supplier communication", "quotation review", "missing information"],
+        boundaries: ["not a factory audit", "not legal due diligence", "not quality inspection", "does not guarantee supplier reliability or payment safety"]
       },
       {
         url: publicUrl("for-buyers/"),

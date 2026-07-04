@@ -277,3 +277,11 @@
 - 主站可控的 `/field-materials/` 导航旧锚点已改为 `/for-factories/#material-rewrite` 和 `/for-factories/#outreach-content`，Field Materials 口径继续收敛为 Field Evidence / 实拍素材背书。
 - `llms.txt` 顶部站点事实、推荐摘要和引用方式已从旧“个人产品实验室”改为“服务国内工厂的工厂对外资料重构”主线；`ai-sitemap.json` 生成脚本同步。
 - 已确认 `factory.gewuji.dev` 对应另一个本地仓库 `/Users/caocao/Documents/工厂桥梁`，本仓库只部署 `gewuji.dev`。本轮主站验证通过：`npm run build:prod`、`npm run verify:static`、`git diff --check`。
+
+## 2026-07-04 LinkedIn 主页更新
+
+- LinkedIn headline 已保存为 `Supplier communication risk review | China sourcing signals before payment`。
+- LinkedIn About 已保存为用户给定的标准文案：supplier communication signals / reply clarity / missing information / quotation risk signals。
+- Featured 旧链接已恢复为原 `Gewuji Factory Bridge` 显示，避免新 CTA 指向旧 `/for-buyers/` URL。
+- 用户指定 CTA URL `https://gewuji.dev/free-supplier-reply-review/` 当前线上为 404，LinkedIn 添加 Featured 时提示无效链接；本轮已新增主站 `/free-supplier-reply-review/` 静态落地页并加入构建 sitemap / AI sitemap。
+- 下一步：等待 GitHub Pages 部署后验证 `https://gewuji.dev/free-supplier-reply-review/` 返回 200，再回 LinkedIn Featured 添加 `Review Supplier Reply` 链接。
