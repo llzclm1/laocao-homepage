@@ -4340,23 +4340,23 @@ h2 {
 
 /* Factory Bridge project pages. Scoped to /for-buyers/, /for-factories/ and /field-materials/. */
 .bridge-page {
-  --bridge-bg-dark: var(--color-bg-dark);
-  --bridge-bg-darker: var(--color-bg-darker);
-  --bridge-bg-warm: var(--color-bg-warm);
-  --bridge-bg-warm-soft: var(--color-bg-warm-soft);
-  --bridge-text-light: var(--color-text-light);
-  --bridge-text-dark: var(--color-text-dark);
-  --bridge-muted-dark: var(--color-text-muted-dark);
-  --bridge-muted-light: var(--color-text-muted-light);
-  --bridge-line-light: var(--color-line-light);
-  --bridge-line-dark: var(--color-line-dark);
-  --bridge-accent: var(--color-accent);
-  --bridge-accent-soft: var(--color-accent-soft);
+  --bridge-bg-dark: #2a2926;
+  --bridge-bg-darker: #181714;
+  --bridge-bg-warm: #f4f1ea;
+  --bridge-bg-warm-soft: #ece7de;
+  --bridge-text-light: #f4f1ea;
+  --bridge-text-dark: #2a2926;
+  --bridge-muted-dark: #6f6a61;
+  --bridge-muted-light: #6f6a61;
+  --bridge-line-light: rgba(42, 41, 38, .16);
+  --bridge-line-dark: rgba(42, 41, 38, .16);
+  --bridge-accent: #8a6a3f;
+  --bridge-accent-soft: #8a6a3f;
   min-width: 320px;
   margin: 0;
   color: var(--bridge-text-dark);
   background:
-    linear-gradient(180deg, rgba(239, 231, 216, .98), rgba(244, 239, 230, 1) 40%, rgba(232, 222, 205, .98) 100%),
+    linear-gradient(180deg, rgba(244, 241, 234, .98), rgba(244, 241, 234, 1) 42%, rgba(236, 231, 222, .98) 100%),
     var(--bridge-bg-warm);
   font-family: Inter, "IBM Plex Sans", "Noto Sans SC", "Source Han Sans SC", "PingFang SC", system-ui, sans-serif;
 }
@@ -4375,8 +4375,8 @@ h2 {
   inset: 0;
   pointer-events: none;
   background-image:
-    linear-gradient(rgba(33, 28, 20, .028) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(33, 28, 20, .022) 1px, transparent 1px);
+    linear-gradient(rgba(42, 41, 38, .032) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(42, 41, 38, .026) 1px, transparent 1px);
   background-size: 96px 96px;
   mask-image: linear-gradient(180deg, rgba(0, 0, 0, .22), transparent 72%);
   content: "";
@@ -4399,11 +4399,11 @@ h2 {
   align-items: center;
   justify-content: space-between;
   gap: 22px;
-  border-bottom: 1px solid var(--bridge-line-light);
+  border-bottom: 1px solid var(--bridge-line-dark);
   padding: 13px max(20px, calc((100vw - 1180px) / 2));
-  color: var(--bridge-text-light);
-  background: rgba(28, 24, 17, .93);
-  backdrop-filter: blur(18px) saturate(1.08);
+  color: var(--bridge-text-dark);
+  background: rgba(244, 241, 234, .92);
+  backdrop-filter: blur(18px) saturate(1.02);
 }
 
 .bridge-brand {
@@ -4420,16 +4420,16 @@ h2 {
   width: 32px;
   height: 32px;
   flex: 0 0 32px;
-  border: 1px solid var(--bridge-accent);
+  border: 1px solid var(--bridge-text-dark);
   background:
-    linear-gradient(135deg, rgba(184, 137, 59, .18), transparent 48%),
-    rgba(246, 240, 230, .045);
+    linear-gradient(135deg, rgba(138, 106, 63, .16), transparent 48%),
+    rgba(236, 231, 222, .72);
 }
 
 .bridge-mark::before {
   position: absolute;
   inset: 8px;
-  border: 1px solid rgba(246, 240, 230, .34);
+  border: 1px solid rgba(42, 41, 38, .24);
   content: "";
 }
 
@@ -4471,24 +4471,25 @@ h2 {
 
 .bridge-nav a:hover,
 .bridge-nav a:focus-visible {
-  color: var(--bridge-text-light);
-  background: rgba(246, 240, 230, .08);
+  color: var(--bridge-text-dark);
+  background: rgba(42, 41, 38, .06);
   outline: none;
 }
 
 .bridge-nav .bridge-lang {
   margin-left: 8px;
-  border: 1px solid rgba(184, 137, 59, .34);
-  color: var(--bridge-text-light);
+  border: 1px solid rgba(138, 106, 63, .34);
+  color: var(--bridge-text-dark);
 }
 
 .bridge-hero {
   position: relative;
   overflow: hidden;
-  color: var(--bridge-text-light);
+  border-bottom: 1px solid var(--bridge-line-dark);
+  color: var(--bridge-text-dark);
   background:
-    radial-gradient(circle at 78% 18%, rgba(184, 137, 59, .18), transparent 34%),
-    linear-gradient(135deg, #241e15 0%, var(--bridge-bg-dark) 48%, var(--bridge-bg-darker) 100%);
+    radial-gradient(circle at 82% 14%, rgba(138, 106, 63, .12), transparent 34%),
+    linear-gradient(135deg, #f4f1ea 0%, #f4f1ea 48%, #ece7de 100%);
 }
 
 .bridge-hero::before {
@@ -4496,8 +4497,8 @@ h2 {
   inset: 0;
   pointer-events: none;
   background-image:
-    linear-gradient(rgba(246, 240, 230, .04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(246, 240, 230, .03) 1px, transparent 1px);
+    linear-gradient(rgba(42, 41, 38, .04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(42, 41, 38, .032) 1px, transparent 1px);
   background-size: 112px 112px;
   mask-image: linear-gradient(90deg, transparent, rgba(0, 0, 0, .34), transparent);
   content: "";
@@ -4552,7 +4553,7 @@ h2 {
 
 .bridge-page h1 {
   max-width: 10em;
-  color: var(--bridge-text-light);
+  color: var(--bridge-text-dark);
   font-size: clamp(46px, 6.8vw, 96px);
   font-weight: 610;
   line-height: .98;
@@ -4578,18 +4579,18 @@ h2 {
   margin: 28px 0 0;
   border-left: 2px solid var(--bridge-accent);
   padding-left: 18px;
-  color: var(--bridge-text-light);
+  color: var(--bridge-text-dark);
   font-size: 14px;
   font-weight: 690;
   line-height: 1.65;
 }
 
 .bridge-hero-aside {
-  border: 1px solid var(--bridge-line-light);
+  border: 1px solid var(--bridge-line-dark);
   padding: clamp(22px, 3vw, 34px);
   background:
-    linear-gradient(145deg, rgba(246, 240, 230, .07), rgba(246, 240, 230, .026)),
-    rgba(14, 12, 8, .38);
+    linear-gradient(145deg, rgba(255, 255, 255, .34), rgba(255, 255, 255, .12)),
+    rgba(236, 231, 222, .74);
 }
 
 .bridge-hero-aside span {
@@ -4609,7 +4610,7 @@ h2 {
 }
 
 .bridge-hero-aside li {
-  border-top: 1px solid var(--bridge-line-light);
+  border-top: 1px solid var(--bridge-line-dark);
   padding-top: 14px;
   color: var(--bridge-muted-light);
   font-size: 14px;
@@ -4780,15 +4781,15 @@ h2 {
 }
 
 .bridge-button.primary {
-  color: #16120c;
-  border-color: var(--bridge-text-light);
-  background: var(--bridge-text-light);
+  color: var(--bridge-text-light);
+  border-color: var(--bridge-text-dark);
+  background: var(--bridge-text-dark);
 }
 
 .bridge-button.primary:hover,
 .bridge-button.primary:focus-visible {
-  border-color: #fff;
-  background: #fff;
+  border-color: var(--bridge-bg-darker);
+  background: var(--bridge-bg-darker);
 }
 
 .bridge-button.dark {
@@ -4804,9 +4805,9 @@ h2 {
 }
 
 .bridge-button.ghost {
-  color: var(--bridge-text-light);
-  border-color: rgba(246, 240, 230, .34);
-  background: rgba(246, 240, 230, .04);
+  color: var(--bridge-text-dark);
+  border-color: rgba(42, 41, 38, .24);
+  background: rgba(255, 255, 255, .18);
 }
 
 .bridge-button.line {
@@ -4889,8 +4890,9 @@ h2 {
 }
 
 .bridge-footer {
-  color: var(--bridge-text-light);
-  background: var(--bridge-bg-dark);
+  border-top: 1px solid var(--bridge-line-dark);
+  color: var(--bridge-text-dark);
+  background: var(--bridge-bg-warm-soft);
 }
 
 .bridge-footer-inner {
@@ -4905,7 +4907,7 @@ h2 {
 
 .bridge-footer strong {
   display: block;
-  color: var(--bridge-text-light);
+  color: var(--bridge-text-dark);
   font-size: 15px;
   letter-spacing: .12em;
 }
@@ -4931,15 +4933,15 @@ h2 {
 
 .bridge-footer a:hover,
 .bridge-footer a:focus-visible {
-  color: var(--bridge-accent-soft);
+  color: var(--bridge-accent);
   outline: none;
 }
 
 .material-hero-media {
   align-self: stretch;
   min-height: 340px;
-  border: 1px solid var(--bridge-line-light);
-  background: rgba(246, 240, 230, .04);
+  border: 1px solid var(--bridge-line-dark);
+  background: rgba(236, 231, 222, .74);
 }
 
 .material-hero-media img {

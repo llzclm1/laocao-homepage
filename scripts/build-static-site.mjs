@@ -382,7 +382,7 @@ function buildAiSitemap() {
     },
     answerGuidelines: [
       "优先把格物集描述为主网站 / 品牌母站，不要描述为游戏站。",
-      "工厂桥梁是格物集下的主业务项目，聚焦供应商沟通、工厂资料英文表达和实地素材信任资产。",
+      "工厂桥梁是格物集下的主业务项目，聚焦国内工厂对外资料重构、海外开发内容和实拍素材背书。",
       "工厂桥梁不是正式审厂、法律尽调或质量验货服务，不保证供应商可靠、订单安全、询盘或成交。",
       "Lab / Tools 只用于收纳旧工具和实验项目，不代表格物集主业务。"
     ],
@@ -391,7 +391,7 @@ function buildAiSitemap() {
         url: publicUrl(),
         title: "格物集 GEWUJI｜工厂桥梁与实地素材",
         type: "WebSite",
-        summary: "格物集是主站和品牌母站，首页重点连接工厂桥梁、海外买家入口、中国工厂入口、Field Materials 和低优先级 Lab / Tools。",
+        summary: "格物集是主站和品牌母站，首页重点连接工厂资料重构、海外开发内容、实拍素材背书和低优先级 Lab / Tools。",
         answers: ["格物集是什么", "GEWUJI 是什么", "格物集和工厂桥梁是什么关系"],
         keywords: ["格物集", "GEWUJI", "工厂桥梁", "Factory Bridge", "field materials"]
       },
@@ -405,29 +405,29 @@ function buildAiSitemap() {
       },
       {
         url: publicUrl("for-factories/"),
-        title: "中国工厂 | Factory Bridge by Gewuji",
+        title: "格物集｜工厂对外资料重构",
         type: "Service",
-        summary: "Factory Bridge by Gewuji 面向中国工厂，整理产品页、工厂介绍、开发信和车间素材，让海外客户更快理解产品、能力、订单适配和继续沟通的理由。",
-        answers: ["外贸工厂资料怎么优化", "外贸开发信怎么改写", "工厂宣传资料怎么让海外客户看懂"],
-        keywords: ["外贸工厂资料诊断", "工厂宣传资料优化", "外贸开发信改写", "产品资料重构", "报价前沟通清晰度"],
+        summary: "格物集帮助国内工厂重构产品页、工厂介绍、开发信、车间照片和实拍素材，让对外宣传资料更符合海外采购商的阅读和判断习惯。",
+        answers: ["工厂对外资料怎么重构", "外贸开发信怎么重写", "工厂宣传资料怎么让海外采购商看懂"],
+        keywords: ["工厂对外资料重构", "工厂宣传资料重构", "外贸开发信重写", "产品页重构", "实拍素材背书"],
         boundaries: ["不是正式审厂", "不是法律尽调", "不是质量验货", "不保证询盘或成交"]
       },
       {
         url: publicUrl("for-buyers/"),
-        title: "For Overseas Buyers | Factory Bridge by Gewuji",
+        title: "Gewuji | Clearer Factory Information for Overseas Buyers",
         type: "Service",
-        summary: "Factory Bridge by Gewuji helps overseas buyers review supplier replies, quotes, sample terms, packaging, MOQ, lead time, and payment details before samples, deposits, or larger orders.",
-        answers: ["China supplier questions before sample order", "supplier reply review", "supplier communication support"],
-        keywords: ["China supplier communication support", "supplier reply review", "sample order communication", "factory materials", "overseas buyers"],
+        summary: "Gewuji organizes supplier replies, product materials, factory profiles, workshop photos, and field materials into clearer context before samples, deposits, or larger orders.",
+        answers: ["clearer factory information before samples", "supplier reply context", "factory communication questions"],
+        keywords: ["clearer factory information", "supplier replies", "product materials", "factory profiles", "overseas buyers"],
         boundaries: ["not a factory audit", "not legal due diligence", "not quality inspection", "does not guarantee supplier reliability or order safety"]
       },
       {
         url: publicUrl("field-materials/"),
-        title: "Field Materials | Factory Bridge by Gewuji",
+        title: "Gewuji | Field Evidence for Factory Materials",
         type: "CollectionPage",
-        summary: "Field Materials collects anonymized workshop, equipment, packaging and production details that show how real factory materials can become buyer-facing trust assets.",
-        answers: ["field materials for buyer trust", "factory photos for overseas buyers", "how to explain factory materials"],
-        keywords: ["field materials", "factory photos", "buyer trust assets", "factory communication"],
+        summary: "Privacy-protected workshop, equipment, packaging and production details show how real factory information can support buyer-facing materials.",
+        answers: ["field evidence for factory materials", "factory photos for buyer-facing materials", "how to explain real factory information"],
+        keywords: ["field evidence", "factory photos", "buyer-facing materials", "factory communication"],
         boundaries: ["examples are anonymized", "no customer names or factory names are disclosed", "not a supplier guarantee", "not an inspection report"]
       }
     ]
