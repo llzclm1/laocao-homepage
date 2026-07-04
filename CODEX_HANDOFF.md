@@ -283,5 +283,6 @@
 - LinkedIn headline 已保存为 `Supplier communication risk review | China sourcing signals before payment`。
 - LinkedIn About 已保存为用户给定的标准文案：supplier communication signals / reply clarity / missing information / quotation risk signals。
 - Featured 旧链接已恢复为原 `Gewuji Factory Bridge` 显示，避免新 CTA 指向旧 `/for-buyers/` URL。
-- 用户指定 CTA URL `https://gewuji.dev/free-supplier-reply-review/` 当前线上为 404，LinkedIn 添加 Featured 时提示无效链接；本轮已新增主站 `/free-supplier-reply-review/` 静态落地页并加入构建 sitemap / AI sitemap。
-- 下一步：等待 GitHub Pages 部署后验证 `https://gewuji.dev/free-supplier-reply-review/` 返回 200，再回 LinkedIn Featured 添加 `Review Supplier Reply` 链接。
+- 用户指定 CTA URL `https://gewuji.dev/free-supplier-reply-review/` 已新增为主站静态落地页并部署成功，当前返回 200。
+- LinkedIn Featured 已新增 `Review Supplier Reply`，描述为 `Structured review of Chinese supplier replies, quotations, and missing information before payment.`，链接经 LinkedIn safety 跳转指向 `https://gewuji.dev/free-supplier-reply-review/`。
+- 主页最终验证通过：headline、About、新 Featured 均显示；旧 `Gewuji Factory Bridge` Featured 保留在第二位。
