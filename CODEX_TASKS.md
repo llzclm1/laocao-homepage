@@ -26,3 +26,9 @@
 - Reddit 跟帖台账：`docs/promotion/reddit-followup-tracker.md`
 - Reddit 搜索存档：`docs/promotion/reddit-search-archive.md`
 - 海外发帖台账：`docs/promotion/overseas-posting-log.md`
+
+## 2026-07-04 Field Materials Hero Image
+
+- Done: `/field-materials/` 首屏图已换为 `nonwoven-line-02.jpg`，中英文页同步。
+- Done: 分享预览图和 preload 已同步。
+- Next: 部署后检查线上首屏图片是否刷新。

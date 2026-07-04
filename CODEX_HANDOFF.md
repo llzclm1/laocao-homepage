@@ -286,3 +286,9 @@
 - 用户指定 CTA URL `https://gewuji.dev/free-supplier-reply-review/` 已新增为主站静态落地页并部署成功，当前返回 200。
 - LinkedIn Featured 已新增 `Review Supplier Reply`，描述为 `Structured review of Chinese supplier replies, quotations, and missing information before payment.`，链接经 LinkedIn safety 跳转指向 `https://gewuji.dev/free-supplier-reply-review/`。
 - 主页最终验证通过：headline、About、新 Featured 均显示；旧 `Gewuji Factory Bridge` Featured 保留在第二位。
+
+## 2026-07-04 Field Materials Hero Image
+
+- `/field-materials/` and `/en/field-materials/` now use `field-materials/nonwoven-line-02.jpg` as hero, preload, OG, and Twitter image.
+- The old `fastener-workshop-01.jpg` remains in the material sample gallery; only the first-screen image changed.
+- `npm run build:prod` and `npm run verify:static` passed.

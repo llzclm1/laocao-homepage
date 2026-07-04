@@ -135,3 +135,9 @@
 - 主站与 Factory Bridge 定位冲突复核：主站可控的 `/for-buyers/`、`/field-materials/` 修正旧锚点和过强 buyer-check 口径，`llms.txt` 与 AI sitemap 改为“服务国内工厂的工厂对外资料重构”主线；已通过 `npm run build:prod`、`npm run verify:static`、`git diff --check`。另确认 `factory.gewuji.dev` 实际源码在 `/Users/caocao/Documents/工厂桥梁`，本仓库仍只部署 `gewuji.dev`。
 - LinkedIn 主页 headline 已保存为 `Supplier communication risk review | China sourcing signals before payment`，About 已保存为用户给定的 supplier communication signals 标准文案。Featured 新 CTA 添加时发现 `https://gewuji.dev/free-supplier-reply-review/` 线上为 404，LinkedIn 判定无效链接；已先新增主站 `/free-supplier-reply-review/` 落地页并加入构建 sitemap / AI sitemap，待部署生效后回 LinkedIn 添加正确 Featured 链接。
 - GitHub Pages 部署后 `https://gewuji.dev/free-supplier-reply-review/` 已返回 200；LinkedIn Featured 已新增 `Review Supplier Reply`，实际链接经 LinkedIn safety 跳转指向 `https://gewuji.dev/free-supplier-reply-review/`。主页验证通过：headline、About、新 Featured 均显示；旧 `Gewuji Factory Bridge` Featured 保留在第二位。
+
+## 2026-07-04 Field Materials Hero Image
+
+- `/field-materials/` 和 `/en/field-materials/` 首屏图、preload、OG/Twitter 图已从 `fastener-workshop-01.jpg` 换为更干净的 `nonwoven-line-02.jpg`。
+- 素材样本列表、sitemap 和 robots 未改。
+- 已通过 `npm run build:prod` 和 `npm run verify:static`。
