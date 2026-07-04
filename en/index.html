@@ -33,18 +33,18 @@
     />
     <meta property="og:url" content="https://gewuji.dev/en/" />
     <meta property="og:site_name" content="Gewuji" />
-    <meta property="og:image" content="https://gewuji.dev/field-materials/nonwoven-line-02.jpg" />
-    <meta property="og:image:alt" content="Gewuji real factory scene homepage background" />
+    <meta property="og:image" content="https://gewuji.dev/assets/home/hero-factory-exterior.png" />
+    <meta property="og:image:alt" content="Gewuji light gray industrial factory exterior homepage background" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Gewuji | Real Factories, Clearly Understood" />
     <meta
       name="twitter:description"
       content="Supplier replies, factory materials, workshop photos, and field materials organized into clearer factory context."
     />
-    <meta name="twitter:image" content="https://gewuji.dev/field-materials/nonwoven-line-02.jpg" />
-    <meta name="twitter:image:alt" content="Gewuji real factory scene homepage background" />
+    <meta name="twitter:image" content="https://gewuji.dev/assets/home/hero-factory-exterior.png" />
+    <meta name="twitter:image:alt" content="Gewuji light gray industrial factory exterior homepage background" />
     <title>Gewuji | Real Factories, Clearly Understood</title>
-    <link rel="preload" as="image" href="../field-materials/nonwoven-line-02.jpg" type="image/jpeg" fetchpriority="high" />
+    <link rel="preload" as="image" href="../assets/home/hero-factory-exterior.png" type="image/png" fetchpriority="high" />
     <link rel="stylesheet" href="../styles.css?v=20260704-serif-visible" />
     <style>
       .warm-home {
@@ -152,14 +152,22 @@
       .warm-home .warm-hero {
         display: grid;
         min-height: calc(100dvh - 72px);
-        grid-template-columns: minmax(0, 1.04fr) minmax(280px, .96fr);
+        grid-template-columns: minmax(0, 1fr);
         align-items: center;
-        gap: clamp(34px, 6vw, 92px);
         padding: clamp(48px, 7vw, 84px) max(22px, calc((100vw - 1180px) / 2));
         border-bottom: 1px solid var(--line);
         background:
-          linear-gradient(90deg, rgba(236, 231, 222, .72), rgba(244, 241, 234, 0) 58%),
-          var(--bg-main);
+          linear-gradient(
+            90deg,
+            rgba(244, 241, 234, .96) 0%,
+            rgba(244, 241, 234, .86) 36%,
+            rgba(244, 241, 234, .36) 68%,
+            rgba(244, 241, 234, .12) 100%
+          ),
+          var(--hero-image);
+        background-color: var(--bg-main);
+        background-position: center right;
+        background-size: cover;
       }
 
       .warm-home .warm-hero::before,
@@ -170,18 +178,6 @@
       .warm-home .warm-hero-inner {
         width: 100%;
         max-width: 760px;
-      }
-
-      .warm-home .hero-image {
-        min-height: min(62vh, 560px);
-        margin: 0;
-        border: 1px solid var(--line);
-        background-image:
-          linear-gradient(180deg, rgba(244, 241, 234, .08), rgba(244, 241, 234, .34)),
-          var(--hero-image);
-        background-position: 58% center;
-        background-size: cover;
-        filter: grayscale(.55) saturate(.48) contrast(.94) brightness(1.08);
       }
 
       .warm-home .warm-label {
@@ -363,11 +359,16 @@
           min-height: auto;
           grid-template-columns: 1fr;
           padding-top: clamp(38px, 8vw, 64px);
-        }
-
-        .warm-home .hero-image {
-          min-height: 340px;
-          order: -1;
+          background:
+            linear-gradient(
+              180deg,
+              rgba(244, 241, 234, .94) 0%,
+              rgba(244, 241, 234, .82) 46%,
+              rgba(244, 241, 234, .96) 100%
+            ),
+            var(--hero-image);
+          background-position: 62% top;
+          background-size: cover;
         }
 
         .warm-home .entry-card {
@@ -409,10 +410,6 @@
         .warm-home .warm-hero {
           padding-right: 14px;
           padding-left: 14px;
-        }
-
-        .warm-home .hero-image {
-          min-height: 230px;
         }
 
         .warm-home h1 {
@@ -506,7 +503,7 @@
         class="warm-hero"
         id="hero"
         aria-labelledby="hero-title"
-        style="--hero-image: url('../field-materials/nonwoven-line-02.jpg')"
+        style="--hero-image: url('../assets/home/hero-factory-exterior.png')"
       >
         <div class="warm-hero-inner">
           <p class="warm-label">Factory Bridge · Field Materials · Supplier Communication</p>
@@ -523,7 +520,6 @@
             <a class="button ghost" href="#field-materials">Field Materials</a>
           </div>
         </div>
-        <figure class="hero-image" aria-hidden="true"></figure>
       </section>
 
       <section class="entry-section" id="entries" aria-label="Three main entrances">
