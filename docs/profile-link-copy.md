@@ -7,40 +7,76 @@
 ### Headline
 
 ```text
-China sourcing notes | Supplier communication, factory materials, and buyer-ready product information
+Supplier communication risk review | China sourcing signals before payment
 ```
 
 ### About
 
 ```text
-I work on Gewuji, a small web and field-material project focused on practical supplier communication between overseas buyers and Chinese factories.
+We analyze supplier communication signals from Chinese factories to help buyers reduce sourcing risk before payment.
 
-Over the years, I have photographed and documented more than 1,000 companies in Zhejiang, Jiangsu, and Shanghai. That field experience helps me notice whether a supplier's photos, product materials, workshop information, and replies are clear enough for a buyer to understand before a sample order.
+We focus on:
 
-Factory Bridge by Gewuji focuses on practical supplier communication support, clearer questions before sample orders, supplier reply review from a communication angle, and factory materials rewritten into buyer-understandable English.
+* Supplier reply clarity
+* Missing information detection
+* Risk signals in quotations
 
-Main project:
-https://gewuji.dev/for-buyers/
+We do not guess — we analyze real communication data.
 ```
 
 ### Featured link
 
-- Title: `Gewuji Factory Bridge`
-- URL: `https://gewuji.dev/for-buyers/`
+- Title: `Review Supplier Reply`
+- URL: `https://gewuji.dev/free-supplier-reply-review/`
 - Description:
 
 ```text
-Practical supplier communication support and field-material based trust assets for overseas buyers working with Chinese factories.
+Structured review of Chinese supplier replies, quotations, and missing information before payment.
+```
+
+### CTA
+
+```text
+👉 Review Supplier Reply
 ```
 
 ### 推荐记录方式
 
 - `sourceDomain`: `linkedin.com`
-- `targetUrl`: `https://gewuji.dev/for-buyers/`
-- `anchorText`: `Gewuji Factory Bridge`
+- `targetUrl`: `https://gewuji.dev/free-supplier-reply-review/`
+- `anchorText`: `Review Supplier Reply`
 - `category`: `clean`
 - `action`: `keep`
 - `notes`: `LinkedIn profile or featured profile link.`
+
+## Email 开发信模板
+
+### Subject
+
+```text
+Supplier Risk & Communication Review for Your China Sourcing
+```
+
+### Body
+
+```text
+Hi,
+
+I help buyers review Chinese supplier communication before making payments.
+
+We analyze:
+
+* supplier replies
+* quotations
+* missing or unclear information
+
+The goal is to reduce sourcing risk before you commit to any payment.
+
+If you want, you can send me one supplier message and I can give you a structured risk review.
+
+👉 Review Supplier Reply:
+https://gewuji.dev/free-supplier-reply-review/
+```
 
 ## About.me profile
 

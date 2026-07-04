@@ -3,6 +3,7 @@
 ## 当前状态
 
 - 正在做 China Factory Bridge 海外推广。
+- 2026-07-04 已把 LinkedIn 标准 About / CTA 和 Email 开发信核心模板写入 `docs/profile-link-copy.md` 与 `docs/promotion/account-packaging-plan.md`；尚未实际改 LinkedIn 主页。
 - 国内社媒不做。
 - Reddit 账号：`PenFine4776`。
 - Reddit 跟帖台账：`docs/promotion/reddit-followup-tracker.md`。

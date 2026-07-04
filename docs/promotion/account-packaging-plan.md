@@ -42,8 +42,10 @@
 
 ## LinkedIn
 
-- Headline：China sourcing notes | Supplier visibility, samples, factory materials, buyer-side checks
-- About：I write practical notes for overseas buyers working with Chinese suppliers. Topics include supplier red flags, factory photos, samples, packaging, MOQ, lead time, and clearer supplier communication before orders get expensive.
+- Headline：Supplier communication risk review | China sourcing signals before payment
+- About：We analyze supplier communication signals from Chinese factories to help buyers reduce sourcing risk before payment.
+- Focus：Supplier reply clarity / missing information detection / risk signals in quotations.
+- CTA：Review Supplier Reply -> https://gewuji.dev/free-supplier-reply-review/
 - 封面文案：Supplier visibility beats polished claims.
 - 封面图片：样品桌、包装箱、质检标签、车间远景、笔记本和产品资料。
 - 不放二维码，不放夸张 CTA。
