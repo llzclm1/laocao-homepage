@@ -174,3 +174,10 @@
 - Added `docs/gewuji-geo-sop.md`, `docs/gewuji-geo-page-matrix.md`, `docs/gewuji-geo-checklist.md`, `docs/gewuji-ai-prompt-monitoring.md`, `data/geo/gewuji-prompt-matrix.csv`, and `data/geo/ai-prompt-monitoring-log.csv`.
 - Kept the SOP specific to Gewuji / Factory Bridge: buyer guides, checklist/template pages, field evidence, and factory material pages.
 - Did not modify pages, sitemap, factory subdomain files, or deployment output.
+
+## 2026-07-05 Buyer Guides First 5 Execution
+
+- Limited build output and sitemap to `/buyer-guides/` plus the first 5 published guides.
+- Added Article / FAQPage / BreadcrumbList schema, visible FAQ blocks, and `Last updated: July 5, 2026` to the first 5 guide pages.
+- Kept old checklist / RFQ / FQ / review paths accessible as compatibility redirects but removed old redirect paths from sitemap.
+- Added `docs/gsc-bing-submit-checklist-2026-07-05.md` for manual GSC and Bing submission.

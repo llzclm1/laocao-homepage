@@ -320,3 +320,10 @@
 - Added Gewuji-specific GEO SOP, page matrix, checklist, AI prompt monitoring flow, prompt matrix CSV, and blank monitoring log CSV.
 - GEO direction is buyer guides, checklist/template pages, field evidence, and factory material pages.
 - Do not shift this into SaaS review, VS, alternatives, toplist, or AI tool directory tactics.
+
+## 2026-07-05 Buyer Guides First 5 Execution
+
+- Published only the first 5 buyer guides in build output and sitemap.
+- Added Article, FAQPage, and BreadcrumbList schema, FAQ sections, and updated dates to the first 5 guides.
+- Old compatibility paths stay accessible but are excluded from sitemap.
+- `docs/gsc-bing-submit-checklist-2026-07-05.md` lists manual GSC / Bing submit URLs.

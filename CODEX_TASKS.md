@@ -51,3 +51,10 @@
 
 - Done: added GEO SOP, page matrix, checklist, AI prompt monitoring flow, prompt matrix CSV, and blank monitoring log CSV.
 - Next: use `data/geo/gewuji-prompt-matrix.csv` for weekly manual AI prompt tests.
+
+## 2026-07-05 Buyer Guides First 5 Execution
+
+- Done: publish only first 5 buyer guides in build output and sitemap.
+- Done: add Article / FAQPage / BreadcrumbList schema to those guide pages.
+- Done: keep old paths accessible but out of sitemap.
+- Next: after deployment, manually submit the URLs in `docs/gsc-bing-submit-checklist-2026-07-05.md`.

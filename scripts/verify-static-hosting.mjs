@@ -13,6 +13,14 @@ assert.ok(fs.existsSync(path.join(dist, "b", "index.html")), "dist/b/index.html 
 assert.ok(fs.existsSync(path.join(dist, "contact", "index.html")), "dist/contact/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "index.html")), "dist/buyer-guides/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "verify-chinese-supplier-before-deposit", "index.html")), "dist/buyer-guides/verify-chinese-supplier-before-deposit/index.html is missing");
+assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "check-if-chinese-factory-is-real", "index.html")), "dist/buyer-guides/check-if-chinese-factory-is-real/index.html is missing");
+assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "questions-before-ordering-samples-from-china", "index.html")), "dist/buyer-guides/questions-before-ordering-samples-from-china/index.html is missing");
+assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "china-supplier-red-flags-before-first-order", "index.html")), "dist/buyer-guides/china-supplier-red-flags-before-first-order/index.html is missing");
+assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "chinese-factory-video-call-checklist", "index.html")), "dist/buyer-guides/chinese-factory-video-call-checklist/index.html is missing");
+assert.equal(fs.existsSync(path.join(dist, "buyer-guides", "alibaba-vs-made-in-china-sourcing-safety")), false, "unpublished buyer guide should not be copied");
+assert.ok(fs.existsSync(path.join(dist, "china-supplier-checklist", "index.html")), "old china supplier checklist path should stay accessible");
+assert.ok(fs.existsSync(path.join(dist, "rfq-template-for-chinese-suppliers", "index.html")), "old RFQ path should stay accessible");
+assert.ok(fs.existsSync(path.join(dist, "fq-template-for-chinese-suppliers", "index.html")), "misspelled FQ path should stay accessible as a compatibility redirect");
 assert.ok(fs.existsSync(path.join(dist, "en", "field-materials", "index.html")), "dist/en/field-materials/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "favicon.ico")), "dist/favicon.ico is missing");
 assert.ok(fs.existsSync(path.join(dist, "lab", "index.html")), "dist/lab/index.html is missing");
@@ -188,6 +196,11 @@ assert.ok(sitemap.includes("/buyer-guides/check-if-chinese-factory-is-real/"), "
 assert.ok(sitemap.includes("/buyer-guides/questions-before-ordering-samples-from-china/"), "sitemap should include sample-questions guide");
 assert.ok(sitemap.includes("/buyer-guides/china-supplier-red-flags-before-first-order/"), "sitemap should include red-flags guide");
 assert.ok(sitemap.includes("/buyer-guides/chinese-factory-video-call-checklist/"), "sitemap should include video-call guide");
+assert.equal(sitemap.includes("/buyer-guides/alibaba-vs-made-in-china-sourcing-safety/"), false, "sitemap should not include unpublished buyer guides");
+assert.equal(sitemap.includes("/china-supplier-checklist/"), false, "sitemap should not include old checklist redirect path");
+assert.equal(sitemap.includes("/rfq-template-for-chinese-suppliers/"), false, "sitemap should not include old RFQ redirect path");
+assert.equal(sitemap.includes("/free-supplier-reply-review/"), false, "sitemap should not include old review redirect path");
+assert.equal(sitemap.includes("/fq-template-for-chinese-suppliers/"), false, "sitemap should not include misspelled RFQ path");
 assert.ok(sitemap.includes("/ai-sitemap.json"), "sitemap should include /ai-sitemap.json");
 assert.ok(sitemap.includes("/for-factories/"), "sitemap should include /for-factories/");
 assert.ok(sitemap.includes("/for-buyers/"), "sitemap should include /for-buyers/");

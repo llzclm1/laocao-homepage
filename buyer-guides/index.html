@@ -37,15 +37,30 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "CollectionPage",
-        "name": "Buyer Guides",
-        "url": "https://gewuji.dev/buyer-guides/",
-        "description": "Practical China supplier communication guides for overseas buyers before samples, deposits, tooling fees, and bulk orders.",
-        "isPartOf": {
-          "@type": "WebSite",
-          "name": "Gewuji",
-          "url": "https://gewuji.dev/"
-        }
+        "@graph": [
+          {
+            "@type": "CollectionPage",
+            "name": "Buyer Guides",
+            "url": "https://gewuji.dev/buyer-guides/",
+            "description": "Practical China supplier communication guides for overseas buyers before samples, deposits, tooling fees, and bulk orders.",
+            "isPartOf": {
+              "@type": "WebSite",
+              "name": "Gewuji",
+              "url": "https://gewuji.dev/"
+            }
+          },
+          {
+            "@type": "ItemList",
+            "name": "Published buyer guides",
+            "itemListElement": [
+              {"@type": "ListItem", "position": 1, "name": "How to Verify a Chinese Supplier Before Paying a Deposit", "url": "https://gewuji.dev/buyer-guides/verify-chinese-supplier-before-deposit/"},
+              {"@type": "ListItem", "position": 2, "name": "How to Check If a Chinese Factory Is Real", "url": "https://gewuji.dev/buyer-guides/check-if-chinese-factory-is-real/"},
+              {"@type": "ListItem", "position": 3, "name": "Questions to Ask a Chinese Supplier Before Ordering Samples", "url": "https://gewuji.dev/buyer-guides/questions-before-ordering-samples-from-china/"},
+              {"@type": "ListItem", "position": 4, "name": "China Supplier Red Flags Before Your First Order", "url": "https://gewuji.dev/buyer-guides/china-supplier-red-flags-before-first-order/"},
+              {"@type": "ListItem", "position": 5, "name": "Chinese Factory Video Call Checklist for Overseas Buyers", "url": "https://gewuji.dev/buyer-guides/chinese-factory-video-call-checklist/"}
+            ]
+          }
+        ]
       }
     </script>
   </head>
@@ -106,11 +121,6 @@
               <p>Learn what to check before paying a deposit to a Chinese supplier, including company match, product details, payment account, sample terms, and unclear supplier replies.</p>
             </article>
             <article class="bridge-card">
-              <p class="bridge-kicker">Platforms</p>
-              <h3><a href="./alibaba-vs-made-in-china-sourcing-safety/">Alibaba vs Made-in-China: Which Is Safer for Sourcing?</a></h3>
-              <p>Compare platform signals, payment risk, factory visibility, and first-order checks from a sourcing risk perspective.</p>
-            </article>
-            <article class="bridge-card">
               <p class="bridge-kicker">Factory Signals</p>
               <h3><a href="./check-if-chinese-factory-is-real/">How to Check If a Chinese Factory Is Real</a></h3>
               <p>A practical checklist around workshop evidence, product control, business license, video calls, and reply consistency.</p>
@@ -129,48 +139,7 @@
               <p class="bridge-kicker">Video Calls</p>
               <h3><a href="./chinese-factory-video-call-checklist/">Chinese Factory Video Call Checklist for Overseas Buyers</a></h3>
               <p>A focused checklist for workshop, sample room, packaging area, labels, production flow, and product-specific evidence.</p>
-            </article>
-            <article class="bridge-card">
-              <p class="bridge-kicker">Platform Signals</p>
-              <h3><a href="./should-you-trust-alibaba-supplier-badges/">Should You Trust Supplier Badges on Alibaba?</a></h3>
-              <p>Why badges can be useful signals but still fall short of proving factory reliability.</p>
-            </article>
-            <article class="bridge-card">
-              <p class="bridge-kicker">First Orders</p>
-              <h3><a href="./reduce-risk-first-order-from-china/">How to Reduce Risk on Your First Order from China</a></h3>
-              <p>Use samples, written specs, small trial orders, packaging checks, payment account verification, and reply review.</p>
-            </article>
-            <article class="bridge-card">
-              <p class="bridge-kicker">Documents</p>
-              <h3><a href="./documents-chinese-supplier-should-provide/">What Documents Should a Chinese Supplier Provide Before an Order?</a></h3>
-              <p>Business license, invoice details, product specs, certificates, packing information, and sample terms.</p>
-            </article>
-            <article class="bridge-card">
-              <p class="bridge-kicker">Factory vs Trading</p>
-              <h3><a href="./chinese-factory-or-trading-company/">Is Your Chinese Supplier a Factory or Trading Company?</a></h3>
-              <p>Practical ways to check product range, workshop evidence, technical replies, and business consistency.</p>
-            </article>
-            <article class="bridge-card">
-              <p class="bridge-kicker">Sample Orders</p>
-              <h3><a href="./sample-order-before-bulk-production-china/">What Should Be Written in a Sample Order Before Bulk Production?</a></h3>
-              <p>What to define in writing before bulk production, from specs and materials to packaging and sample limits.</p>
-            </article>
-            <article class="bridge-card">
-              <p class="bridge-kicker">Quotations</p>
-              <h3><a href="./compare-chinese-supplier-quotations-beyond-price/">How to Compare Chinese Supplier Quotations Beyond Price</a></h3>
-              <p>Compare MOQ, material, packaging, sample terms, lead time, payment terms, customization, and unclear assumptions.</p>
-            </article>
-            <article class="bridge-card">
-              <p class="bridge-kicker">Tooling</p>
-              <h3><a href="./check-before-sending-tooling-money-chinese-factory/">What to Check Before Sending Tooling Money to a Chinese Factory</a></h3>
-              <p>Check ownership terms, drawings, sample approval, payment account, refund terms, timeline, and project change handling.</p>
-            </article>
-            <article class="bridge-card">
-              <p class="bridge-kicker">Certificates</p>
-              <h3><a href="./verify-ce-ul-rohs-certificates-china/">How to Verify CE, UL, or RoHS Certificates from a Chinese Supplier</a></h3>
-              <p>Review certificate scope, product model match, issuing body, expiry date, and common red flags.</p>
-            </article>
-          </div>
+            </article>          </div>
         </div>
       </section>
 

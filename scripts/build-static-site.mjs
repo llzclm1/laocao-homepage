@@ -13,6 +13,13 @@ const publicBaseUrl = new URL(basePath, `${siteUrl}/`).toString().replace(/\/$/,
 const lastmod = "2026-06-28";
 const googleAnalyticsId = "G-NCZSC59MVC";
 const googleAdsId = "AW-986301049";
+const publishedBuyerGuides = [
+  "verify-chinese-supplier-before-deposit",
+  "check-if-chinese-factory-is-real",
+  "questions-before-ordering-samples-from-china",
+  "china-supplier-red-flags-before-first-order",
+  "chinese-factory-video-call-checklist"
+];
 
 const copyEntries = [
   "8221b5ee5eb23147b8f2422b2cb6096e.txt",
@@ -20,6 +27,9 @@ const copyEntries = [
   "assets",
   "b",
   "buyer-guides",
+  "fq-template-for-chinese-suppliers",
+  "rfq-template-for-chinese-suppliers",
+  "china-supplier-checklist",
   "CNAME",
   "contact",
   "docs",
@@ -70,6 +80,7 @@ rewriteTextFile("SEARCH_ENGINE_SUBMISSION.md", (text) =>
 injectAnalyticsTags();
 injectContentAssistantSeo();
 injectContentAssistantConfig();
+pruneUnpublishedBuyerGuides();
 
 fs.writeFileSync(path.join(outDir, "robots.txt"), buildRobots(), "utf8");
 fs.writeFileSync(path.join(outDir, "sitemap.xml"), buildSitemap(), "utf8");
@@ -247,6 +258,16 @@ function injectContentAssistantSeo() {
   fs.writeFileSync(file, cleanedHtml.replace("</head>", `${seoTags}\n  </head>`), "utf8");
 }
 
+function pruneUnpublishedBuyerGuides() {
+  const guidesDir = path.join(outDir, "buyer-guides");
+  if (!fs.existsSync(guidesDir)) return;
+
+  for (const entry of fs.readdirSync(guidesDir, { withFileTypes: true })) {
+    if (!entry.isDirectory() || publishedBuyerGuides.includes(entry.name)) continue;
+    fs.rmSync(path.join(guidesDir, entry.name), { recursive: true, force: true });
+  }
+}
+
 function buildAnalyticsTags() {
   const tags = [];
   const googleVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
@@ -342,15 +363,7 @@ function buildSitemap() {
     ["", "1.0"],
     ["tools/", "0.4"],
     ["buyer-guides/", "0.8"],
-    ["buyer-guides/verify-chinese-supplier-before-deposit/", "0.7"],
-    ["buyer-guides/check-if-chinese-factory-is-real/", "0.7"],
-    ["buyer-guides/questions-before-ordering-samples-from-china/", "0.7"],
-    ["buyer-guides/china-supplier-red-flags-before-first-order/", "0.7"],
-    ["buyer-guides/chinese-factory-video-call-checklist/", "0.7"],
-    ["free-supplier-reply-review/", "0.8"],
-    ["rfq-template-for-chinese-suppliers/", "0.4"],
-    ["fq-template-for-chinese-suppliers/", "0.3"],
-    ["china-supplier-checklist/", "0.4"],
+    ...publishedBuyerGuides.map((slug) => [`buyer-guides/${slug}/`, "0.7"]),
     ["for-buyers/", "0.9"],
     ["for-factories/", "0.9"],
     ["field-materials/", "0.8"],
