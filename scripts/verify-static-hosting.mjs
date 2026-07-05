@@ -43,7 +43,7 @@ for (const file of textFiles) {
 const home = fs.readFileSync(path.join(dist, "index.html"), "utf8");
 assert.ok(home.includes('href="https://factory.gewuji.dev/for-factories/"'), "homepage should link to the factory-side entrance");
 assert.ok(home.includes('href="https://factory.gewuji.dev/for-buyers/"'), "homepage should link to the buyer-side entrance");
-assert.ok(home.includes('href="https://factory.gewuji.dev/free-supplier-reply-review/"'), "homepage should link to the supplier reply review action");
+assert.ok(home.includes('href="for-buyers/"'), "homepage should link to the supplier reply review action");
 assert.ok(home.includes('href="field-materials/"'), "homepage should link to field materials");
 assert.ok(home.includes('href="tools/"'), "homepage should keep a low-priority lab link");
 assert.ok(home.includes('href="ai-sitemap.json"'), "homepage should expose the AI sitemap");
@@ -183,6 +183,11 @@ for (const file of requiredAssets) {
 const sitemap = fs.readFileSync(path.join(dist, "sitemap.xml"), "utf8");
 assert.ok(sitemap.includes("/tools/"), "sitemap should include /tools/");
 assert.ok(sitemap.includes("/buyer-guides/"), "sitemap should include /buyer-guides/");
+assert.ok(sitemap.includes("/buyer-guides/verify-chinese-supplier-before-deposit/"), "sitemap should include verify guide");
+assert.ok(sitemap.includes("/buyer-guides/check-if-chinese-factory-is-real/"), "sitemap should include factory-real guide");
+assert.ok(sitemap.includes("/buyer-guides/questions-before-ordering-samples-from-china/"), "sitemap should include sample-questions guide");
+assert.ok(sitemap.includes("/buyer-guides/china-supplier-red-flags-before-first-order/"), "sitemap should include red-flags guide");
+assert.ok(sitemap.includes("/buyer-guides/chinese-factory-video-call-checklist/"), "sitemap should include video-call guide");
 assert.ok(sitemap.includes("/ai-sitemap.json"), "sitemap should include /ai-sitemap.json");
 assert.ok(sitemap.includes("/for-factories/"), "sitemap should include /for-factories/");
 assert.ok(sitemap.includes("/for-buyers/"), "sitemap should include /for-buyers/");
