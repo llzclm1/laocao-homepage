@@ -46,3 +46,8 @@
 - Done: added `/buyer-guides/` index page and 14 buyer-guide static placeholder pages.
 - Done: added `docs/growth-channel-shift.md`, `docs/buyer-guides-content-roadmap.md`, `docs/quora-reddit-linkedin-distribution-plan.md`, and `data/content/buyer-guides-14-day-plan.csv`.
 - Next: write the first full 800-1200 word guide and start the 14-day publish/distribution cycle.
+
+## 2026-07-05 Gewuji GEO SOP
+
+- Done: added GEO SOP, page matrix, checklist, AI prompt monitoring flow, prompt matrix CSV, and blank monitoring log CSV.
+- Next: use `data/geo/gewuji-prompt-matrix.csv` for weekly manual AI prompt tests.

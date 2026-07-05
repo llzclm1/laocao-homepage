@@ -168,3 +168,9 @@
 - 已同步更新 `docs/promotion/overseas-posting-log.md` 和 `docs/promotion/reddit-followup-tracker.md`；本轮未点赞、关注、连接、私信或放推广链接。
 - 已在 Google Chrome 中发布 Facebook 个人动态 1 条，主题为 first supplier order checklist；系统提示已成功与 FRIENDS 分享，无链接、无私信引导。
 - 用户登录 Quora 后，已在 Google Chrome 中发布 `How can I safely buy from a supplier in China?` 回答：`https://www.quora.com/How-can-I-safely-buy-from-a-supplier-in-China/answer/%E9%9B%B7%E9%B8%A3-%E6%9B%B9`；无链接、无私信引导、无服务承诺。
+
+## 2026-07-05 Gewuji GEO SOP
+
+- Added `docs/gewuji-geo-sop.md`, `docs/gewuji-geo-page-matrix.md`, `docs/gewuji-geo-checklist.md`, `docs/gewuji-ai-prompt-monitoring.md`, `data/geo/gewuji-prompt-matrix.csv`, and `data/geo/ai-prompt-monitoring-log.csv`.
+- Kept the SOP specific to Gewuji / Factory Bridge: buyer guides, checklist/template pages, field evidence, and factory material pages.
+- Did not modify pages, sitemap, factory subdomain files, or deployment output.

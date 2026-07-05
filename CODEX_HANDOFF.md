@@ -314,3 +314,9 @@
 - `/` and `/en/` now have guarded Microsoft Clarity click events on homepage entrance and language-switch links.
 - Event calls use `if (window.clarity) window.clarity("event", eventName);`.
 - No visual, copy, route, sitemap, tools, games, factory subdomain, or service page changes were made.
+
+## 2026-07-05 Gewuji GEO SOP
+
+- Added Gewuji-specific GEO SOP, page matrix, checklist, AI prompt monitoring flow, prompt matrix CSV, and blank monitoring log CSV.
+- GEO direction is buyer guides, checklist/template pages, field evidence, and factory material pages.
+- Do not shift this into SaaS review, VS, alternatives, toplist, or AI tool directory tactics.
