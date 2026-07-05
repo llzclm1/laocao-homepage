@@ -39,3 +39,4 @@
 | 2026-07-05 | X | https://x.com/llzclm_ray | Posted first supplier order checklist; no promotional link; add to daily follow-up |
 | 2026-07-05 | LinkedIn | https://www.linkedin.com/feed/ | Posted supplier first-order assumption checklist; no promotional link; add to daily follow-up |
 | 2026-07-05 | Reddit | https://old.reddit.com/r/Alibaba/comments/1unaq3i/question_about_ddp_price/ovno8yp/ | Replied to DDP China-to-New-York price / fee-scope question; no promotional link; add to daily follow-up |
+| 2026-07-05 | Facebook | https://www.facebook.com/ | Posted first supplier order checklist to personal feed; friends visibility; no promotional link; add to daily follow-up |

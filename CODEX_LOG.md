@@ -166,3 +166,5 @@
 - 已在 Google Chrome 中发布 LinkedIn 原创短帖 1 条，主题为 supplier first-order assumptions；无链接、无私信引导。
 - 已在 Google Chrome 中发布 Reddit `r/Alibaba` DDP price 回复 1 条：`https://old.reddit.com/r/Alibaba/comments/1unaq3i/question_about_ddp_price/ovno8yp/`。
 - 已同步更新 `docs/promotion/overseas-posting-log.md` 和 `docs/promotion/reddit-followup-tracker.md`；本轮未点赞、关注、连接、私信或放推广链接。
+- 已在 Google Chrome 中发布 Facebook 个人动态 1 条，主题为 first supplier order checklist；系统提示已成功与 FRIENDS 分享，无链接、无私信引导。
+- Quora 本轮打开 `How can I safely buy from a supplier in China?`，但 Chrome 中 Quora 显示未登录，仅有 `Sign In`，因此未发布；需用户先登录 Quora 后继续。

@@ -21,7 +21,7 @@
 - LinkedIn 回访：`O001` 新帖需检查评论、连接请求和私信。
 - 待发布处理：暂无已定稿待发布项；Reddit `B003/B005/R001/R003/R004/R005` 已尝试但提交后未在用户评论页出现，`r/ecommerce` 因 karma 自动移除，Facebook `B058` 是供应商广告不发，`B059` 页面不可见。
 - 每日回访：2026-06-30 12:50 CST 已检查 Facebook / LinkedIn / Reddit / Quora / X，本轮无需要当天回复的真人线索。
-- 2026-07-05 已发布 X / LinkedIn 原创短帖各 1 条，并在 Reddit `r/Alibaba` 发布 DDP price 回复 1 条；下一轮优先回访这三处是否有真人回复。
+- 2026-07-05 已发布 X / LinkedIn / Facebook 原创短帖各 1 条，并在 Reddit `r/Alibaba` 发布 DDP price 回复 1 条；Quora 因 Chrome 未登录未发布，下一步先登录后继续。
 
 ## 记录
 

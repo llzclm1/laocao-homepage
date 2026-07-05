@@ -223,6 +223,8 @@
 - 已在 Chrome 中发布 X 原创短帖：first supplier order checklist，无链接，后续每日回访需检查回复、引用和私信。
 - 已在 Chrome 中发布 LinkedIn 原创短帖：supplier first-order assumption checklist，无链接；未捕获具体 share URL，先以 feed 入口记录，后续回访时补直达链接。
 - 已在 Chrome 中发布 Reddit `r/Alibaba` DDP 价格问题回复：`https://old.reddit.com/r/Alibaba/comments/1unaq3i/question_about_ddp_price/ovno8yp/`。
+- 已在 Chrome 中发布 Facebook 个人动态：first supplier order checklist；系统提示已成功与 FRIENDS 分享，无链接。
+- Quora 当前 Chrome 未登录，候选问题为 `https://www.quora.com/How-can-I-safely-buy-from-a-supplier-in-China`；用户登录后可继续发布。
 - 本轮未点赞、关注、连接、私信或放推广链接；Reddit 回复只给公开、具体的费用边界检查建议。
 
 ## 2026-07-03 GSC 早期曝光观察
