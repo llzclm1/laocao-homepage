@@ -145,3 +145,17 @@
 - `/field-materials/` 和 `/en/field-materials/` 首屏图、preload、OG/Twitter 图已从 `fastener-workshop-01.jpg` 换为更干净的 `nonwoven-line-02.jpg`。
 - 素材样本列表、sitemap 和 robots 未改。
 - 已通过 `npm run build:prod` 和 `npm run verify:static`。
+
+## 2026-07-05 Homepage Clarity Events
+
+- Added Microsoft Clarity custom click events to only the Chinese homepage `/` and English homepage `/en/`.
+- Kept the implementation inline and guarded with `if (window.clarity)`.
+- Did not change homepage visuals, text, href targets, sitemap, tools, games, factory subdomain, or other pages.
+- `npm run build:prod`, `npm run verify:static`, and `git diff --check` passed.
+
+## 2026-07-05 Buyer Guides Channel Shift
+
+- Switched the documented growth focus from `公众号 / 视频号` to `英文 SEO + Quora + Reddit + LinkedIn/X`.
+- Added new static collection page `/buyer-guides/` plus 14 English buyer-guide URLs with title, meta description, H1, shared outline sections, soft CTA, and service-boundary copy.
+- Added new planning docs: `docs/growth-channel-shift.md`, `docs/buyer-guides-content-roadmap.md`, `docs/quora-reddit-linkedin-distribution-plan.md`, and `data/content/buyer-guides-14-day-plan.csv`.
+- Updated `scripts/build-static-site.mjs` and `scripts/verify-static-hosting.mjs` so buyer guides are copied, indexed, and checked with the rest of the static site.

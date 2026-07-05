@@ -104,6 +104,10 @@
 - 已新增 `docs/promotion/7-day-account-warmup-plan.md`。
 - 这份表只定义 7 天的轻量动作节奏，不引入新工具，不替代现有看板和台账。
 - 当前建议主顺序：Facebook 评论型起号 > LinkedIn 短评论/短原创 > Quora 沉淀回答 > X 低频存在感。
+- 2026-07-05 已把增长主线从“公众号 / 视频号”切到“英文 SEO + Quora + Reddit + LinkedIn/X”，新增英文栏目 `/buyer-guides/` 与首批 14 个静态 guide URL 占位页。
+- 新增策略文档：`docs/growth-channel-shift.md`、`docs/buyer-guides-content-roadmap.md`、`docs/quora-reddit-linkedin-distribution-plan.md`。
+- 新增执行表：`data/content/buyer-guides-14-day-plan.csv`。
+- 当前 buyer guides 先完成 URL、title、meta、H1、outline 占位和统一 CTA / 边界；正文 800-1200 词内容仍待后续按 14 天计划逐篇补写。
 
 ## 2026-06-30 Facebook 账号包装
 
@@ -294,3 +298,9 @@
 - `/field-materials/` and `/en/field-materials/` now use `field-materials/nonwoven-line-02.jpg` as hero, preload, OG, and Twitter image.
 - The old `fastener-workshop-01.jpg` remains in the material sample gallery; only the first-screen image changed.
 - `npm run build:prod` and `npm run verify:static` passed.
+
+## 2026-07-05 Homepage Clarity Events
+
+- `/` and `/en/` now have guarded Microsoft Clarity click events on homepage entrance and language-switch links.
+- Event calls use `if (window.clarity) window.clarity("event", eventName);`.
+- No visual, copy, route, sitemap, tools, games, factory subdomain, or service page changes were made.

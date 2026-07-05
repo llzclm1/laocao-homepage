@@ -7,6 +7,7 @@
 - 技术 SEO：主站 favicon、`/contact/`、`/lab/` 兼容页已补；Cloudflare `Always Use HTTPS`、`www` 到根域名 301、默认静态扩展名 Cache Rule 已开启；GSC `sitemap.xml` 已重新提交。下一步观察 24 小时 4xx 和静态资源 cache hit rate。
 - 主站 IA：旧工具和游戏实验已统一降级到 `/tools/`；如要进一步处理低质量工具页，需用户确认 noindex / sitemap 移除候选。
 - 主站 Factory Bridge 入口：中英文首页已改为“中国工厂 / 海外买家”双边分流入口；主站可控 `/for-buyers/` 已降级为海外采购商辅助页，`/field-materials/` 为 Field Evidence / 实拍素材背书。部署后检查首页双入口、底部双 CTA、Field Materials 图片和移动端按钮是否生效。
+- 新增长主线：英文 SEO + Quora + Reddit + LinkedIn / X。`/buyer-guides/` 已落栏目页和 14 个英文 guide 占位 URL；下一步按 `data/content/buyer-guides-14-day-plan.csv` 逐篇补正文并做渠道拆分。
 - Factory 子域名源头：`factory.gewuji.dev` 实际源码在 `/Users/caocao/Documents/工厂桥梁`；本仓库 `CNAME` 为 `gewuji.dev`，当前只控制主站静态页面。两个仓库都需要部署后才能让线上主站和子域名完全同步。
 - 外链观察：定期把 Ahrefs / GSC 发现的外链补入 `data/backlinks/backlink-audit-log.csv`；无手动处罚前不提交 disavow。
 - 干净外链第一批：LinkedIn profile、GitHub profile、GitHub README resource repository、Notion public checklist、About.me profile 已完成并补入 `data/backlinks/backlink-audit-log.csv`；下一步只做定期索引/可访问性复查。
@@ -32,3 +33,15 @@
 - Done: `/field-materials/` 首屏图已换为 `nonwoven-line-02.jpg`，中英文页同步。
 - Done: 分享预览图和 preload 已同步。
 - Next: 部署后检查线上首屏图片是否刷新。
+
+## 2026-07-05 Homepage Clarity Events
+
+- Done: `/` and `/en/` homepage entrance clicks now trigger Clarity custom events.
+- Done: event calls are guarded by `window.clarity`.
+- Next: after deployment, verify events appear in Clarity custom events.
+
+## 2026-07-05 Buyer Guides Shift
+
+- Done: added `/buyer-guides/` index page and 14 buyer-guide static placeholder pages.
+- Done: added `docs/growth-channel-shift.md`, `docs/buyer-guides-content-roadmap.md`, `docs/quora-reddit-linkedin-distribution-plan.md`, and `data/content/buyer-guides-14-day-plan.csv`.
+- Next: write the first full 800-1200 word guide and start the 14-day publish/distribution cycle.

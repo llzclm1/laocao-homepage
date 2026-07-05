@@ -19,6 +19,7 @@ const copyEntries = [
   "_next",
   "assets",
   "b",
+  "buyer-guides",
   "CNAME",
   "contact",
   "docs",
@@ -340,6 +341,7 @@ function buildSitemap() {
   const entries = [
     ["", "1.0"],
     ["tools/", "0.4"],
+    ["buyer-guides/", "0.8"],
     ["free-supplier-reply-review/", "0.8"],
     ["for-buyers/", "0.9"],
     ["for-factories/", "0.9"],
@@ -405,6 +407,15 @@ function buildAiSitemap() {
         summary: "Gewuji Lab 收纳旧工具、小型 Web 实验和临时项目。这里可以发现 World Cup Advisor、Photo Booth、Content Assistant 等内容，但它们不是格物集主业务。",
         answers: ["Gewuji Lab 是什么", "格物集有哪些工具实验", "格物集旧工具在哪里"],
         keywords: ["Gewuji Lab", "格物集工具", "web tools", "experiments"]
+      },
+      {
+        url: publicUrl("buyer-guides/"),
+        title: "Buyer Guides | Practical China Supplier Communication Guides",
+        type: "CollectionPage",
+        summary: "Practical China supplier communication guides for overseas buyers before samples, deposits, tooling fees, and bulk orders.",
+        answers: ["China supplier communication guides", "buyer guides before paying deposit", "questions before ordering from Chinese suppliers"],
+        keywords: ["buyer guides", "China supplier checklist", "supplier replies", "deposits", "samples"],
+        boundaries: ["not a factory audit", "not legal due diligence", "not quality inspection", "does not guarantee supplier reliability or order safety"]
       },
       {
         url: publicUrl("for-factories/"),

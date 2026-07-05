@@ -11,6 +11,8 @@ assert.ok(fs.existsSync(path.join(dist, "index.html")), "dist/index.html is miss
 assert.ok(fs.existsSync(path.join(dist, "m", "index.html")), "dist/m/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "b", "index.html")), "dist/b/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "contact", "index.html")), "dist/contact/index.html is missing");
+assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "index.html")), "dist/buyer-guides/index.html is missing");
+assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "verify-chinese-supplier-before-deposit", "index.html")), "dist/buyer-guides/verify-chinese-supplier-before-deposit/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "en", "field-materials", "index.html")), "dist/en/field-materials/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "favicon.ico")), "dist/favicon.ico is missing");
 assert.ok(fs.existsSync(path.join(dist, "lab", "index.html")), "dist/lab/index.html is missing");
@@ -180,6 +182,7 @@ for (const file of requiredAssets) {
 
 const sitemap = fs.readFileSync(path.join(dist, "sitemap.xml"), "utf8");
 assert.ok(sitemap.includes("/tools/"), "sitemap should include /tools/");
+assert.ok(sitemap.includes("/buyer-guides/"), "sitemap should include /buyer-guides/");
 assert.ok(sitemap.includes("/ai-sitemap.json"), "sitemap should include /ai-sitemap.json");
 assert.ok(sitemap.includes("/for-factories/"), "sitemap should include /for-factories/");
 assert.ok(sitemap.includes("/for-buyers/"), "sitemap should include /for-buyers/");
@@ -215,6 +218,7 @@ assert.equal(aiSitemap.site.name, "格物集", "AI sitemap should describe the s
 assert.equal(aiSitemapPaths.includes("/m/"), false, "AI sitemap should not include standalone trade manufacturer page");
 assert.equal(aiSitemapPaths.includes("/b/"), false, "AI sitemap should not include standalone trade buyer page");
 assert.ok(aiSitemapPaths.includes("/tools/"), "AI sitemap should include the Lab / Tools index");
+assert.ok(aiSitemapPaths.includes("/buyer-guides/"), "AI sitemap should include buyer guides");
 assert.equal(aiSitemapPaths.includes("/tools/photo-booth/"), false, "AI sitemap should not elevate old photo booth pages");
 assert.equal(aiSitemapPaths.includes("/tools/worldcup-advisor/advisor/"), false, "AI sitemap should not elevate World Cup Advisor pages");
 assert.ok(aiSitemapPaths.includes("/for-factories/"), "AI sitemap should include the factory bridge factory page");
@@ -224,6 +228,7 @@ assert.ok(JSON.stringify(aiSitemap).includes("不是正式审厂"), "AI sitemap 
 
 const factoryPage = fs.readFileSync(path.join(dist, "for-factories/index.html"), "utf8");
 const buyerPage = fs.readFileSync(path.join(dist, "for-buyers/index.html"), "utf8");
+const buyerGuidesPage = fs.readFileSync(path.join(dist, "buyer-guides/index.html"), "utf8");
 const fieldMaterialsPage = fs.readFileSync(path.join(dist, "field-materials/index.html"), "utf8");
 const englishFieldMaterialsPage = fs.readFileSync(path.join(dist, "en/field-materials/index.html"), "utf8");
 assert.ok(factoryPage.includes('rel="canonical" href="https://gewuji.dev/for-factories/"'), "factory page should expose canonical URL");
@@ -236,6 +241,9 @@ assert.ok(buyerPage.includes('rel="canonical" href="https://gewuji.dev/for-buyer
 assert.ok(buyerPage.includes("Clearer Factory Information for Overseas Buyers"), "buyer page should include auxiliary buyer context SEO copy");
 assert.ok(buyerPage.includes("GEWUJI"), "buyer page should use the unified Gewuji brand shell");
 assert.ok(buyerPage.includes('application/ld+json'), "buyer page should include JSON-LD");
+assert.ok(buyerGuidesPage.includes('rel="canonical" href="https://gewuji.dev/buyer-guides/"'), "buyer guides page should expose canonical URL");
+assert.ok(buyerGuidesPage.includes("Practical China supplier communication guides"), "buyer guides page should include buyer guide SEO copy");
+assert.ok(buyerGuidesPage.includes("Not a formal audit"), "buyer guides page should expose service boundaries");
 assert.ok(fieldMaterialsPage.includes('rel="canonical" href="https://gewuji.dev/field-materials/"'), "field materials page should expose canonical URL");
 assert.ok(fieldMaterialsPage.includes('hreflang="en" href="https://gewuji.dev/en/field-materials/"'), "Chinese field materials page should link to English alternate");
 assert.ok(fieldMaterialsPage.includes("Factory Bridge / 实拍素材背书"), "Chinese field materials page should use the localized hero label");
