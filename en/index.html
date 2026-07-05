@@ -617,6 +617,13 @@
         ]
       }
     </script>
+    <script>
+      function trackClarityEvent(eventName) {
+        if (window.clarity) {
+          window.clarity("event", eventName);
+        }
+      }
+    </script>
   </head>
   <body class="warm-home">
     <header class="site-header">
@@ -628,11 +635,11 @@
         </span>
       </a>
       <nav class="nav" aria-label="Main navigation">
-        <a href="https://factory.gewuji.dev/for-factories/">For Factories</a>
-        <a href="https://factory.gewuji.dev/for-buyers/">For Buyers</a>
-        <a href="field-materials/">Field Evidence</a>
+        <a href="https://factory.gewuji.dev/for-factories/" onclick="trackClarityEvent('home_en_click_materials')">For Factories</a>
+        <a href="https://factory.gewuji.dev/for-buyers/" onclick="trackClarityEvent('home_en_click_outreach')">For Buyers</a>
+        <a href="field-materials/" onclick="trackClarityEvent('home_en_click_field_evidence')">Field Evidence</a>
         <a href="#contact">Contact</a>
-        <a class="language-link" href="../" hreflang="zh-CN" lang="zh-CN">中文</a>
+        <a class="language-link" href="../" hreflang="zh-CN" lang="zh-CN" onclick="trackClarityEvent('home_en_click_language_zh')">中文</a>
       </nav>
     </header>
 
@@ -653,8 +660,8 @@
             Gewuji Factory Bridge helps Chinese factories organize buyer-facing materials and helps overseas buyers read key signals in supplier replies, quotes, and field materials.
           </p>
           <div class="hero-actions" aria-label="Homepage audience entrances">
-            <a class="button primary" href="https://factory.gewuji.dev/for-factories/">I am a Chinese factory</a>
-            <a class="button factory" href="https://factory.gewuji.dev/for-buyers/">I am an overseas buyer</a>
+            <a class="button primary" href="https://factory.gewuji.dev/for-factories/" onclick="trackClarityEvent('home_en_click_materials')">I am a Chinese factory</a>
+            <a class="button factory" href="https://factory.gewuji.dev/for-buyers/" onclick="trackClarityEvent('home_en_click_outreach')">I am an overseas buyer</a>
           </div>
         </div>
       </section>
@@ -676,7 +683,7 @@
               <li>Outreach and trade content</li>
               <li>Field material organization</li>
             </ul>
-            <a class="entry-link" href="https://factory.gewuji.dev/for-factories/">Send existing materials</a>
+            <a class="entry-link" href="https://factory.gewuji.dev/for-factories/" onclick="trackClarityEvent('home_en_click_send_materials')">Send existing materials</a>
           </article>
 
           <article class="entry-card audience-card" id="buyers">
@@ -748,7 +755,7 @@
             <p>
               Send a product page, factory profile, outreach email, brochure, or field photos. We can first check what is still unclear.
             </p>
-            <a class="button primary" href="https://factory.gewuji.dev/for-factories/">Send existing materials</a>
+            <a class="button primary" href="https://factory.gewuji.dev/for-factories/" onclick="trackClarityEvent('home_en_click_send_materials')">Send existing materials</a>
           </article>
           <article class="contact-choice">
             <h3><span>Overseas buyer</span><span>Send one supplier reply</span></h3>
@@ -763,9 +770,9 @@
 
     <footer class="site-footer">
       <span>© 2026 GEWUJI</span>
-      <a href="https://factory.gewuji.dev/for-factories/">For Factories</a>
-      <a href="https://factory.gewuji.dev/for-buyers/">For Buyers</a>
-      <a href="field-materials/">Field Evidence</a>
+      <a href="https://factory.gewuji.dev/for-factories/" onclick="trackClarityEvent('home_en_click_materials')">For Factories</a>
+      <a href="https://factory.gewuji.dev/for-buyers/" onclick="trackClarityEvent('home_en_click_outreach')">For Buyers</a>
+      <a href="field-materials/" onclick="trackClarityEvent('home_en_click_field_evidence')">Field Evidence</a>
       <a href="../tools/">Lab</a>
       <a href="mailto:laocao@gewuji.dev">Contact</a>
     </footer>
