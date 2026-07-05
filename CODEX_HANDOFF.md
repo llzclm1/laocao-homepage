@@ -105,6 +105,7 @@
 - 这份表只定义 7 天的轻量动作节奏，不引入新工具，不替代现有看板和台账。
 - 当前建议主顺序：Facebook 评论型起号 > LinkedIn 短评论/短原创 > Quora 沉淀回答 > X 低频存在感。
 - 2026-07-05 已把增长主线从“公众号 / 视频号”切到“英文 SEO + Quora + Reddit + LinkedIn/X”，新增英文栏目 `/buyer-guides/` 与首批 14 个静态 guide URL 占位页。
+- 2026-07-05 已在 Chrome 发布 Quora 回答 `How can I safely buy from a supplier in China?`：`https://www.quora.com/How-can-I-safely-buy-from-a-supplier-in-China/answer/%E9%9B%B7%E9%B8%A3-%E6%9B%B9`；无链接、无私信引导，后续纳入每日回访。
 - 新增策略文档：`docs/growth-channel-shift.md`、`docs/buyer-guides-content-roadmap.md`、`docs/quora-reddit-linkedin-distribution-plan.md`。
 - 新增执行表：`data/content/buyer-guides-14-day-plan.csv`。
 - 当前 buyer guides 先完成 URL、title、meta、H1、outline 占位和统一 CTA / 边界；正文 800-1200 词内容仍待后续按 14 天计划逐篇补写。

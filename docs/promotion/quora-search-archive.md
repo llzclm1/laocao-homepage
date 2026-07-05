@@ -7,7 +7,7 @@
 | 日期 | 主题 | 问题 | 链接 | 状态 | 备注 |
 | --- | --- | --- | --- | --- | --- |
 | 2026-06-29 | 进口合规 / FDA | I want to import sunglass and drinkware from China to the USA but not sure about passing FDA. What should I do? | https://www.quora.com/I-want-to-import-sunglass-and-drinkware-from-China-to-the-USA-but-not-sure-about-passing-FDA-What-should-I-do | 候选，未回答 | 可讲合规边界、第三方测试、供应商文件不能替代进口责任；问题较旧但相关 |
-| 2026-06-29 | 供应商安全采购 | How can I safely buy from a supplier in China? | https://www.quora.com/How-can-I-safely-buy-from-a-supplier-in-China | 候选，未回答 | 泛采购安全问题；适合讲样品、付款、合同、工厂真实性，不适合带硬链接 |
+| 2026-06-29 | 供应商安全采购 | How can I safely buy from a supplier in China? | https://www.quora.com/How-can-I-safely-buy-from-a-supplier-in-China/answer/%E9%9B%B7%E9%B8%A3-%E6%9B%B9 | 已回答 | 已发布无链接答案，强调付款主体、产品范围、样品、工厂/贸易商边界、付款前书面确认和小单试水 |
 | 2026-06-29 | 医疗设备供应商验证 | How can I find and verify Chinese medical device suppliers I can trust? | https://www.quora.com/How-can-I-find-and-verify-Chinese-medical-device-suppliers-I-can-trust | 候选，未回答 | 高风险品类，适合强调合规顾问和正式审厂；回答需谨慎 |
 | 2026-06-29 | 最佳中国供应商 | How do I find the best supplier from China? | https://www.quora.com/How-do-I-find-the-best-supplier-from-China | 候选，未回答 | 可复用供应商筛选框架；已有回答和互动，优先级中等 |
 | 2026-06-29 | 合法供应商 / 平台选择 | Where can I find legit vendors? | https://www.quora.com/Where-can-I-find-legit-vendors | 候选，未回答 | 问题较泛，容易变成平台清单；如回答应聚焦验证逻辑 |

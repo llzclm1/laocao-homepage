@@ -40,3 +40,4 @@
 | 2026-07-05 | LinkedIn | https://www.linkedin.com/feed/ | Posted supplier first-order assumption checklist; no promotional link; add to daily follow-up |
 | 2026-07-05 | Reddit | https://old.reddit.com/r/Alibaba/comments/1unaq3i/question_about_ddp_price/ovno8yp/ | Replied to DDP China-to-New-York price / fee-scope question; no promotional link; add to daily follow-up |
 | 2026-07-05 | Facebook | https://www.facebook.com/ | Posted first supplier order checklist to personal feed; friends visibility; no promotional link; add to daily follow-up |
+| 2026-07-05 | Quora | https://www.quora.com/How-can-I-safely-buy-from-a-supplier-in-China/answer/%E9%9B%B7%E9%B8%A3-%E6%9B%B9 | Answered safe China supplier buying question; no promotional link; add to daily follow-up |
