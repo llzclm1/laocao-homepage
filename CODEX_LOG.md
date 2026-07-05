@@ -159,3 +159,10 @@
 - Added new static collection page `/buyer-guides/` plus 14 English buyer-guide URLs with title, meta description, H1, shared outline sections, soft CTA, and service-boundary copy.
 - Added new planning docs: `docs/growth-channel-shift.md`, `docs/buyer-guides-content-roadmap.md`, `docs/quora-reddit-linkedin-distribution-plan.md`, and `data/content/buyer-guides-14-day-plan.csv`.
 - Updated `scripts/build-static-site.mjs` and `scripts/verify-static-hosting.mjs` so buyer guides are copied, indexed, and checked with the rest of the static site.
+
+## 2026-07-05 海外平台发布
+
+- 已在 Google Chrome 中发布 X 原创短帖 1 条，主题为 first supplier order checklist；无链接、无私信引导。
+- 已在 Google Chrome 中发布 LinkedIn 原创短帖 1 条，主题为 supplier first-order assumptions；无链接、无私信引导。
+- 已在 Google Chrome 中发布 Reddit `r/Alibaba` DDP price 回复 1 条：`https://old.reddit.com/r/Alibaba/comments/1unaq3i/question_about_ddp_price/ovno8yp/`。
+- 已同步更新 `docs/promotion/overseas-posting-log.md` 和 `docs/promotion/reddit-followup-tracker.md`；本轮未点赞、关注、连接、私信或放推广链接。

@@ -36,3 +36,6 @@
 | 2026-07-04 | X | https://x.com/llzclm_ray/status/2073245584623104200 | Posted supplier payment name mismatch note; text was truncated by X; add to daily follow-up |
 | 2026-07-04 | X | https://x.com/llzclm_ray/status/2073252920011927583 | Posted complete supplier payment name mismatch note after truncated X post; no promotional link; add to daily follow-up |
 | 2026-07-04 | Reddit | https://old.reddit.com/r/Alibaba/comments/1ugysty/looking_for_a_reliable_freight_forwarder_to_italy/ovg1ygw/ | Replied to China-to-Italy freight forwarder verification question; no promotional link; add to daily follow-up |
+| 2026-07-05 | X | https://x.com/llzclm_ray | Posted first supplier order checklist; no promotional link; add to daily follow-up |
+| 2026-07-05 | LinkedIn | https://www.linkedin.com/feed/ | Posted supplier first-order assumption checklist; no promotional link; add to daily follow-up |
+| 2026-07-05 | Reddit | https://old.reddit.com/r/Alibaba/comments/1unaq3i/question_about_ddp_price/ovno8yp/ | Replied to DDP China-to-New-York price / fee-scope question; no promotional link; add to daily follow-up |

@@ -16,6 +16,7 @@
 | 2026-07-04 | r/wholesale_suppliers | Looking for Reliable Sports Products Manufacturers & Sourcing Agents in China | https://old.reddit.com/r/wholesale_suppliers/comments/1ufgh2e/looking_for_reliable_sports_products/ | 已回复 | 无链接，回答欧洲运动产品供应商筛选：规格、合规、样品、包装、付款主体和小单试单 |
 | 2026-07-04 | r/Alibaba | First-time buyer, is this a scam? Supplier says ship to China + EXW? | https://old.reddit.com/r/Alibaba/comments/1udi4p4/firsttime_buyer_is_this_a_scam_supplier_says_ship/ovfwfsd/ | 已回复 | 无链接，回答平台订单条款需与 PI/DDP 约定一致，付款主体也要匹配 |
 | 2026-07-04 | r/Alibaba | Looking for a reliable freight forwarder to Italy | https://old.reddit.com/r/Alibaba/comments/1ugysty/looking_for_a_reliable_freight_forwarder_to_italy/ovg1ygw/ | 已回复 | 无链接，回答货代先测流程：仓库地址、到仓照片、计费方式、线路和赔付规则 |
+| 2026-07-05 | r/Alibaba | Question about DDP price | https://old.reddit.com/r/Alibaba/comments/1unaq3i/question_about_ddp_price/ovno8yp/ | 已回复 | 无链接，回答 DDP 报价不能只看总价，需确认 Yiwu 提货、内陆运输、清关税费、最终派送和异常费用责任 |
 
 ## 使用规则
 
