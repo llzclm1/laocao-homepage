@@ -22,3 +22,24 @@ Submit the main service page:
 https://gewuji.dev/supplier-reply-review/
 
 Then check GSC / Bing status after 3 days and 7 days.
+
+## 2026-07-05
+
+URL:
+https://gewuji.dev/supplier-reply-review/
+
+GSC:
+Submitted via URL Inspection.
+Status shown: indexing requested / submitted again.
+
+Bing Webmaster:
+Submitted successfully.
+Submission time: Today at 13:35.
+
+Notes:
+Main conversion page for Supplier Reply Review.
+No file changes were made during submission.
+No commit or push.
+
+Next:
+Check GSC / Bing status after 3 days and 7 days.
