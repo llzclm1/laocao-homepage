@@ -4695,6 +4695,51 @@ h2 {
   line-height: 1.7;
 }
 
+.bridge-card ul {
+  margin: 12px 0 0;
+  padding-left: 18px;
+  color: var(--bridge-muted-dark);
+  font-size: 15px;
+  line-height: 1.68;
+}
+
+.bridge-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--bridge-line-dark);
+  background: rgba(239, 231, 216, .56);
+}
+
+.bridge-table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+}
+
+.bridge-table th,
+.bridge-table td {
+  border-bottom: 1px solid var(--bridge-line-dark);
+  padding: 18px 20px;
+  color: var(--bridge-muted-dark);
+  font-size: 15px;
+  line-height: 1.62;
+  text-align: left;
+  vertical-align: top;
+}
+
+.bridge-table th {
+  color: var(--bridge-text-dark);
+  font-weight: 780;
+}
+
+.bridge-table thead th {
+  background: rgba(42, 41, 38, .05);
+}
+
+.bridge-table tbody tr:last-child th,
+.bridge-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
 .bridge-line-list {
   display: grid;
   margin: 0;

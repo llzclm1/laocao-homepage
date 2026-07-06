@@ -54,6 +54,7 @@ const copyEntries = [
   "SEARCH_ENGINE_SUBMISSION.md",
   "sitemap.xml",
   "stats.html",
+  "supplier-reply-review",
   "styles.css",
   "trade.css",
   "tools"
@@ -365,6 +366,7 @@ function buildSitemap() {
     ["buyer-guides/", "0.8"],
     ...publishedBuyerGuides.map((slug) => [`buyer-guides/${slug}/`, "0.7"]),
     ["for-buyers/", "0.9"],
+    ["supplier-reply-review/", "0.8"],
     ["for-factories/", "0.9"],
     ["field-materials/", "0.8"],
     ["en/field-materials/", "0.7"],
@@ -446,6 +448,15 @@ function buildAiSitemap() {
         answers: ["工厂对外资料怎么重构", "外贸开发信怎么重写", "工厂宣传资料怎么让海外采购商看懂"],
         keywords: ["工厂对外资料重构", "工厂宣传资料重构", "外贸开发信重写", "产品页重构", "实拍素材背书"],
         boundaries: ["不是正式审厂", "不是法律尽调", "不是质量验货", "不保证询盘或成交"]
+      },
+      {
+        url: publicUrl("supplier-reply-review/"),
+        title: "Supplier Reply Review Before You Pay a Chinese Supplier",
+        type: "WebPage",
+        summary: "Gewuji reviews one supplier reply, quote, sample term, or payment detail before sample fees, deposits, tooling money, or larger orders, highlighting unclear terms, missing details, risk signals, and next questions.",
+        answers: ["review supplier reply before paying sample fee", "unclear supplier reply before deposit", "questions before paying Chinese supplier"],
+        keywords: ["supplier reply review", "Chinese supplier reply", "sample fee", "deposit", "tooling money", "missing terms"],
+        boundaries: ["not a factory audit", "not legal due diligence", "not quality inspection", "does not guarantee supplier reliability or payment safety"]
       },
       {
         url: publicUrl("free-supplier-reply-review/"),

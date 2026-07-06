@@ -17,6 +17,7 @@ assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "check-if-chinese-factor
 assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "questions-before-ordering-samples-from-china", "index.html")), "dist/buyer-guides/questions-before-ordering-samples-from-china/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "china-supplier-red-flags-before-first-order", "index.html")), "dist/buyer-guides/china-supplier-red-flags-before-first-order/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "chinese-factory-video-call-checklist", "index.html")), "dist/buyer-guides/chinese-factory-video-call-checklist/index.html is missing");
+assert.ok(fs.existsSync(path.join(dist, "supplier-reply-review", "index.html")), "dist/supplier-reply-review/index.html is missing");
 assert.equal(fs.existsSync(path.join(dist, "buyer-guides", "alibaba-vs-made-in-china-sourcing-safety")), false, "unpublished buyer guide should not be copied");
 assert.ok(fs.existsSync(path.join(dist, "china-supplier-checklist", "index.html")), "old china supplier checklist path should stay accessible");
 assert.ok(fs.existsSync(path.join(dist, "rfq-template-for-chinese-suppliers", "index.html")), "old RFQ path should stay accessible");
@@ -196,6 +197,7 @@ assert.ok(sitemap.includes("/buyer-guides/check-if-chinese-factory-is-real/"), "
 assert.ok(sitemap.includes("/buyer-guides/questions-before-ordering-samples-from-china/"), "sitemap should include sample-questions guide");
 assert.ok(sitemap.includes("/buyer-guides/china-supplier-red-flags-before-first-order/"), "sitemap should include red-flags guide");
 assert.ok(sitemap.includes("/buyer-guides/chinese-factory-video-call-checklist/"), "sitemap should include video-call guide");
+assert.ok(sitemap.includes("/supplier-reply-review/"), "sitemap should include supplier reply review page");
 assert.equal(sitemap.includes("/buyer-guides/alibaba-vs-made-in-china-sourcing-safety/"), false, "sitemap should not include unpublished buyer guides");
 assert.equal(sitemap.includes("/china-supplier-checklist/"), false, "sitemap should not include old checklist redirect path");
 assert.equal(sitemap.includes("/rfq-template-for-chinese-suppliers/"), false, "sitemap should not include old RFQ redirect path");
@@ -237,6 +239,7 @@ assert.equal(aiSitemapPaths.includes("/m/"), false, "AI sitemap should not inclu
 assert.equal(aiSitemapPaths.includes("/b/"), false, "AI sitemap should not include standalone trade buyer page");
 assert.ok(aiSitemapPaths.includes("/tools/"), "AI sitemap should include the Lab / Tools index");
 assert.ok(aiSitemapPaths.includes("/buyer-guides/"), "AI sitemap should include buyer guides");
+assert.ok(aiSitemapPaths.includes("/supplier-reply-review/"), "AI sitemap should include supplier reply review page");
 assert.equal(aiSitemapPaths.includes("/tools/photo-booth/"), false, "AI sitemap should not elevate old photo booth pages");
 assert.equal(aiSitemapPaths.includes("/tools/worldcup-advisor/advisor/"), false, "AI sitemap should not elevate World Cup Advisor pages");
 assert.ok(aiSitemapPaths.includes("/for-factories/"), "AI sitemap should include the factory bridge factory page");
@@ -263,9 +266,10 @@ assert.ok(buyerGuidesPage.includes('rel="canonical" href="https://gewuji.dev/buy
 assert.ok(buyerGuidesPage.includes("Practical China supplier communication guides"), "buyer guides page should include buyer guide SEO copy");
 assert.ok(buyerGuidesPage.includes("Not a formal audit"), "buyer guides page should expose service boundaries");
 assert.ok(fieldMaterialsPage.includes('rel="canonical" href="https://gewuji.dev/field-materials/"'), "field materials page should expose canonical URL");
-assert.ok(fieldMaterialsPage.includes('hreflang="en" href="https://gewuji.dev/en/field-materials/"'), "Chinese field materials page should link to English alternate");
-assert.ok(fieldMaterialsPage.includes("Factory Bridge / 实拍素材背书"), "Chinese field materials page should use the localized hero label");
-assert.ok(fieldMaterialsPage.includes("这里不是审厂证据，也不是验厂证明。"), "Chinese field materials page should expose the audit boundary");
+assert.ok(fieldMaterialsPage.includes("Field Materials Evidence Library"), "field materials page should use the buyer-side evidence library positioning");
+assert.ok(fieldMaterialsPage.includes("We do not claim a supplier is reliable from a video."), "field materials page should expose the supplier reliability boundary");
+assert.ok(fieldMaterialsPage.includes("../supplier-reply-review/"), "field materials page should link to supplier reply review");
+assert.ok(fieldMaterialsPage.includes('"@type": "FAQPage"'), "field materials page should include FAQPage schema");
 assert.ok(fieldMaterialsPage.includes('application/ld+json'), "field materials page should include JSON-LD");
 assert.ok(englishFieldMaterialsPage.includes('rel="canonical" href="https://gewuji.dev/en/field-materials/"'), "English field materials page should expose canonical URL");
 assert.ok(englishFieldMaterialsPage.includes('hreflang="zh-CN" href="https://gewuji.dev/field-materials/"'), "English field materials page should link to Chinese alternate");
