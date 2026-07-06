@@ -3,7 +3,6 @@
 ## 进行中
 
 - AI bot 观察：每周按 `docs/ai-bot-visibility-checklist.md` 记录三个站点 AI bot 请求、核心页抓取、404/5xx 和 sitemap/robots 状态。
-- YouTube 内容测试：已完成 Gewuji Supplier Review 频道定位、首批 20 个题目、视频脚本模板和 5 条 Shorts 脚本；下一步如果继续推进，只需先拍/剪最小 5 条 Shorts，不要抢走 buyer guides 和 external distribution 优先级。
 - GSC 早期曝光观察：每周把 GSC 新 query/page 录入 `data/gsc/gsc-early-signals.csv`，按 `docs/gsc-query-page-analysis.md` 判断项目、意图和下一步动作；低曝光和 0 点击先观察，不自动删除/noindex。
 - 技术 SEO：主站 favicon、`/contact/`、`/lab/` 兼容页已补；Cloudflare `Always Use HTTPS`、`www` 到根域名 301、默认静态扩展名 Cache Rule 已开启；GSC `sitemap.xml` 已重新提交。下一步观察 24 小时 4xx 和静态资源 cache hit rate。
 - 主站 IA：旧工具和游戏实验已统一降级到 `/tools/`；如要进一步处理低质量工具页，需用户确认 noindex / sitemap 移除候选。
@@ -59,9 +58,3 @@
 - Done: add Article / FAQPage / BreadcrumbList schema to those guide pages.
 - Done: keep old paths accessible but out of sitemap.
 - Next: after deployment, manually submit the URLs in `docs/gsc-bing-submit-checklist-2026-07-05.md`.
-
-## 2026-07-06 YouTube Content Starter Plan
-
-- Done: added `docs/youtube-channel-plan.md`, `docs/youtube-first-20-topics.md`, `templates/youtube-video-script-template.md`, and `scripts/content/youtube-shorts-batch-01.md`.
-- Done: kept positioning within supplier communication checks, field materials interpretation, and soft CTA boundaries.
-- Next: produce only the first 5 Shorts if YouTube testing starts; keep `/supplier-reply-review/`, `/buyer-guides/`, and external distribution ahead of YouTube.
