@@ -1,5 +1,12 @@
 # CODEX_LOG
 
+## 2026-07-06
+
+- 新增 Gewuji Supplier Review YouTube 内容启动计划：频道定位、非定位边界、受众、四个内容支柱、短视频/短讲解格式、视觉和 CTA 规则、8 周测试节奏与指标。
+- 新增首批 20 个英文 YouTube 题目，按 Buyer Payment Risk、Supplier Reality、Sample Order、Red Flags 四组整理，并补充 format、source page、target CTA、description link、hook idea 和 key points。
+- 新增 YouTube 视频脚本模板与第一批 5 条英文 Shorts 脚本，覆盖 deposit 前检查、factory video 边界、supplier "yes" 回复、sample order 问题、factory video call 使用方式。
+- 本轮只新增文档和脚本素材，未改网站页面、sitemap、构建脚本、世界杯更新动作或对外发布流程；按用户要求不 push。
+
 ## 2026-07-04
 
 - 更新 LinkedIn 标准化主页文案和 Email 开发信核心模板：LinkedIn About 改为 supplier communication signals / risk before payment 口径，CTA 改为 `Review Supplier Reply`，链接统一到 `/free-supplier-reply-review/`；仅更新文档，未操作平台资料页。
