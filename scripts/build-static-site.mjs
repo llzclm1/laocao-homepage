@@ -367,6 +367,7 @@ function buildSitemap() {
     ...publishedBuyerGuides.map((slug) => [`buyer-guides/${slug}/`, "0.7"]),
     ["for-buyers/", "0.9"],
     ["supplier-reply-review/", "0.8"],
+    ["supplier-reply-review/sample-report/", "0.7"],
     ["for-factories/", "0.9"],
     ["field-materials/", "0.8"],
     ["en/field-materials/", "0.7"],
@@ -457,6 +458,15 @@ function buildAiSitemap() {
         answers: ["review supplier reply before paying sample fee", "unclear supplier reply before deposit", "questions before paying Chinese supplier"],
         keywords: ["supplier reply review", "Chinese supplier reply", "sample fee", "deposit", "tooling money", "missing terms"],
         boundaries: ["not a factory audit", "not legal due diligence", "not quality inspection", "does not guarantee supplier reliability or payment safety"]
+      },
+      {
+        url: publicUrl("supplier-reply-review/sample-report/"),
+        title: "Sample Supplier Reply Review Report",
+        type: "WebPage",
+        summary: "A generic sample report showing how Gewuji reviews a Chinese supplier reply before sample fees, deposits, tooling money, or larger orders, including missing details, risk signals, next questions, and a suggested reply.",
+        answers: ["sample supplier reply review report", "what does a supplier reply review include", "supplier reply review example before payment"],
+        keywords: ["supplier reply review sample", "Chinese supplier reply", "sample fee", "deposit", "risk signals", "suggested reply"],
+        boundaries: ["generic sample only", "not a real supplier case", "not a factory audit", "not legal due diligence", "not quality inspection", "does not guarantee supplier reliability or payment safety"]
       },
       {
         url: publicUrl("free-supplier-reply-review/"),
