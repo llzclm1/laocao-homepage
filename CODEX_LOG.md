@@ -7,7 +7,8 @@
 - 按用户新的 YouTube 本地素材包计划，已重建精简文件集：频道计划、首批 5 条 Shorts 生产包、production manifest、4 周验证方案和空白 tracker。
 - 新增 `docs/youtube-ai-faceless-workflow-for-gewuji.md`，把 AI 无脸视频流程改造成 Gewuji Supplier Review 的低成本、边界安全、长尾搜索和服务转化 SOP。
 - 已生成第一条本地 Shorts 视频 `outputs/youtube/shorts-batch-01/short-01-deposit-check.mp4`：1080x1920、30fps、40 秒、H.264 MP4、AAC audio；文件位于 ignored `outputs/`，不纳入 git。
-- 本轮 YouTube 范围保持本地交付：不生成 `.mp4`，不登录 / 上传 YouTube，不改网站页面、sitemap、schema、构建脚本或公开 URL。
+- 新增 `docs/youtube-ai-generated-production-route.md`，记录不做口播、不露脸、不拍摄的全 AI 生产路线：Remotion Skills 为主、HyperFrames 为辅，生成式视觉仅限说明性素材并保留人工边界审查。
+- 本轮 YouTube 范围保持本地交付：除第一条本地 POC mp4 外，不登录 / 上传 YouTube，不把视频文件纳入 git，不改网站页面、sitemap、schema、构建脚本或公开 URL。
 - 前次收口未修改页面、sitemap、robots、buyer guides、Supplier Reply Review 或 Field Materials；本轮 YouTube 素材包同样未修改这些公开页面和站点文件。
 - External GEO / 平台反馈记录规则：公开请求无法拿到真实 24h 平台指标，Reddit / Quora / Medium 可能返回 403、challenge 或登录限制；不要伪造 views、likes、replies，等后台真实数据或人工确认后再更新。
 - 当前主线保持为 Supplier Reply Review 转化页、Sample Report、Buyer Guides、External GEO 分发与存活观察、Field Materials 信任背书；YouTube 暂不作为当前主线，仅作为后续复用内容和本地验证的测试渠道。

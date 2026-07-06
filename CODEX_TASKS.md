@@ -69,4 +69,5 @@
 - Done: added `docs/youtube-ai-faceless-workflow-for-gewuji.md` to adapt AI faceless video production into a boundary-safe Gewuji SOP.
 - Done: generated the first local Short video at `outputs/youtube/shorts-batch-01/short-01-deposit-check.mp4`; mp4 stays ignored under `outputs/`.
 - Done: kept scope local only: generated mp4 stays ignored under `outputs/`; no YouTube login/upload, no website pages, no sitemap, no schema, and no build-script changes.
+- Done: added `docs/youtube-ai-generated-production-route.md` for the no-talking-head, all-AI production route.
 - Next: if requested later, generate real Shorts with the existing local `ffmpeg` workflow and fill tracker metrics only from real YouTube / analytics data.
