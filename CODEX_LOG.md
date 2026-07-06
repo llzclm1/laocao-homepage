@@ -2,11 +2,13 @@
 
 ## 2026-07-06
 
-- 记录当前收口状态：主站和 factory 子站 working tree clean；本地 `main` 不 ahead `origin/main`；`git log origin/main..HEAD` 为空；`git diff --check` 通过。
-- 已移除 / 回退 YouTube starter plan 相关未 push commits；当前主站没有 tracked 的 `youtube` / `shorts` 文件，本地目录未发现 YouTube 残留文件。
-- 本次收口未修改页面、sitemap、robots、buyer guides、Supplier Reply Review 或 Field Materials。
+- 前次收口曾确认主站和 factory 子站 clean、本地 `main` 与 `origin/main` 同步；本轮按用户要求完成 YouTube 本地素材包后只做本地 commit，不 push。
+- 前次已移除 / 回退 YouTube starter plan 相关未 push commits；当时主站没有 tracked 的 `youtube` / `shorts` 文件。
+- 按用户新的 YouTube 本地素材包计划，已重建精简文件集：频道计划、首批 5 条 Shorts 生产包、production manifest、4 周验证方案和空白 tracker。
+- 本轮 YouTube 范围保持本地交付：不生成 `.mp4`，不登录 / 上传 YouTube，不改网站页面、sitemap、schema、构建脚本或公开 URL。
+- 前次收口未修改页面、sitemap、robots、buyer guides、Supplier Reply Review 或 Field Materials；本轮 YouTube 素材包同样未修改这些公开页面和站点文件。
 - External GEO / 平台反馈记录规则：公开请求无法拿到真实 24h 平台指标，Reddit / Quora / Medium 可能返回 403、challenge 或登录限制；不要伪造 views、likes、replies，等后台真实数据或人工确认后再更新。
-- 当前主线保持为 Supplier Reply Review 转化页、Sample Report、Buyer Guides、External GEO 分发与存活观察、Field Materials 信任背书；YouTube 暂不作为当前主线，仅可作为后续复用内容的测试渠道。
+- 当前主线保持为 Supplier Reply Review 转化页、Sample Report、Buyer Guides、External GEO 分发与存活观察、Field Materials 信任背书；YouTube 暂不作为当前主线，仅作为后续复用内容和本地验证的测试渠道。
 
 ## 2026-07-04
 
