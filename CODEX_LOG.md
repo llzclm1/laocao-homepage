@@ -1,5 +1,13 @@
 # CODEX_LOG
 
+## 2026-07-06
+
+- 记录当前收口状态：主站和 factory 子站 working tree clean；本地 `main` 不 ahead `origin/main`；`git log origin/main..HEAD` 为空；`git diff --check` 通过。
+- 已移除 / 回退 YouTube starter plan 相关未 push commits；当前主站没有 tracked 的 `youtube` / `shorts` 文件，本地目录未发现 YouTube 残留文件。
+- 本次收口未修改页面、sitemap、robots、buyer guides、Supplier Reply Review 或 Field Materials。
+- External GEO / 平台反馈记录规则：公开请求无法拿到真实 24h 平台指标，Reddit / Quora / Medium 可能返回 403、challenge 或登录限制；不要伪造 views、likes、replies，等后台真实数据或人工确认后再更新。
+- 当前主线保持为 Supplier Reply Review 转化页、Sample Report、Buyer Guides、External GEO 分发与存活观察、Field Materials 信任背书；YouTube 暂不作为当前主线，仅可作为后续复用内容的测试渠道。
+
 ## 2026-07-04
 
 - 更新 LinkedIn 标准化主页文案和 Email 开发信核心模板：LinkedIn About 改为 supplier communication signals / risk before payment 口径，CTA 改为 `Review Supplier Reply`，链接统一到 `/free-supplier-reply-review/`；仅更新文档，未操作平台资料页。

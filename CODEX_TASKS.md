@@ -2,6 +2,9 @@
 
 ## 进行中
 
+- 当前主线：Supplier Reply Review 转化页、Supplier Reply Review Sample Report、Buyer Guides 长尾 SEO、External GEO 分发与存活观察、Field Materials 信任背书。
+- External GEO 反馈回填：只在拿到后台真实数据或人工确认后更新 views / likes / replies；公开请求遇到 403、challenge 或登录限制时不要造数。
+- YouTube：暂不作为当前主线；不新增、不恢复相关计划，后续只可作为复用 buyer guides / external content 的测试渠道。
 - AI bot 观察：每周按 `docs/ai-bot-visibility-checklist.md` 记录三个站点 AI bot 请求、核心页抓取、404/5xx 和 sitemap/robots 状态。
 - GSC 早期曝光观察：每周把 GSC 新 query/page 录入 `data/gsc/gsc-early-signals.csv`，按 `docs/gsc-query-page-analysis.md` 判断项目、意图和下一步动作；低曝光和 0 点击先观察，不自动删除/noindex。
 - 技术 SEO：主站 favicon、`/contact/`、`/lab/` 兼容页已补；Cloudflare `Always Use HTTPS`、`www` 到根域名 301、默认静态扩展名 Cache Rule 已开启；GSC `sitemap.xml` 已重新提交。下一步观察 24 小时 4xx 和静态资源 cache hit rate。

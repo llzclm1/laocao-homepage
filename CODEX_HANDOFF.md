@@ -3,6 +3,11 @@
 ## 当前状态
 
 - 正在做 China Factory Bridge 海外推广。
+- 2026-07-06 收口状态：主站 working tree clean，factory 子站 clean；本地 `main` 不 ahead `origin/main`，`git log origin/main..HEAD` 为空，`git diff --check` 通过。
+- 2026-07-06 已移除 / 回退 YouTube starter plan 相关未 push commits；当前主站没有 tracked 的 `youtube` / `shorts` 文件，本地目录未发现 YouTube 残留文件。
+- 当前主线是 Supplier Reply Review 转化页、Supplier Reply Review Sample Report、Buyer Guides 长尾 SEO、External GEO 分发与存活观察、Field Materials 信任背书。
+- External GEO 平台数据不要猜：公开请求无法拿到真实 24h 指标，Reddit / Quora / Medium 可能返回 403、challenge 或登录限制；只有拿到后台真实数据或人工确认后再更新 views / likes / replies。
+- YouTube 暂不作为当前主线；以后只作为复用 buyer guides / external content 的测试渠道，不抢主线优先级。
 - 主站路径确认：`https://gewuji.dev/` 源码在 `/Users/caocao/Documents/我的主页`；factory 子域名 `https://factory.gewuji.dev/` 源码在 `/Users/caocao/Documents/工厂桥梁`。
 - 2026-07-04 紧急纠偏后：factory 子域名错误双边入口改版已回滚；主站中英文首页已按“中国工厂 / 海外买家”双边分流入口重构，未改 sitemap、robots、published_pages 或路由结构。
 - 2026-07-04 已把 LinkedIn 标准 About / CTA 和 Email 开发信核心模板写入 `docs/profile-link-copy.md` 与 `docs/promotion/account-packaging-plan.md`；尚未实际改 LinkedIn 主页。
