@@ -66,5 +66,7 @@
 
 - Done: rebuilt the compact YouTube local asset pack for Gewuji Supplier Review.
 - Done: added the channel plan, first 5 Shorts production pack, production manifest, 4-week validation plan, and blank 4-week tracker.
-- Done: kept scope local only: no `.mp4`, no YouTube login/upload, no website pages, no sitemap, no schema, and no build-script changes.
+- Done: added `docs/youtube-ai-faceless-workflow-for-gewuji.md` to adapt AI faceless video production into a boundary-safe Gewuji SOP.
+- Done: generated the first local Short video at `outputs/youtube/shorts-batch-01/short-01-deposit-check.mp4`; mp4 stays ignored under `outputs/`.
+- Done: kept scope local only: generated mp4 stays ignored under `outputs/`; no YouTube login/upload, no website pages, no sitemap, no schema, and no build-script changes.
 - Next: if requested later, generate real Shorts with the existing local `ffmpeg` workflow and fill tracker metrics only from real YouTube / analytics data.
