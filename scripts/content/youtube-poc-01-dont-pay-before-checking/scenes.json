@@ -1,0 +1,85 @@
+{
+  "video_id": "youtube-poc-01-dont-pay-before-checking",
+  "title": "Don’t Pay a Chinese Supplier Before Checking This",
+  "format": "YouTube Short, vertical 9:16",
+  "duration_target_seconds": 39,
+  "aspect_ratio": "9:16",
+  "source_page": "https://gewuji.dev/buyer-guides/verify-chinese-supplier-before-deposit/",
+  "cta_link": "https://gewuji.dev/supplier-reply-review/sample-report/",
+  "voice_style": "clear international English, calm, practical, consultant-like, medium speed, low emotional intensity",
+  "visual_style": "clean B2B card animation, white/gray background, supplier message card, checklist highlights, no fake factory footage",
+  "scenes": [
+    {
+      "scene_id": "01-title-card",
+      "duration_seconds": 4,
+      "screen_text": "Don’t Pay a Chinese Supplier Before Checking This",
+      "voiceover": "A fast supplier reply is not proof.",
+      "visual_direction": "White and light gray vertical card layout with a simple payment-before-checking warning marker. No factory footage.",
+      "animation_notes": "Title fades in, then a small checklist icon appears under the title."
+    },
+    {
+      "scene_id": "02-fast-reply",
+      "duration_seconds": 4,
+      "screen_text": "Fast reply? Still check the details.",
+      "voiceover": "Before you pay a Chinese supplier, slow down and check the reply carefully.",
+      "visual_direction": "Show an illustrative supplier message card with a quick response timestamp and neutral blurred text blocks.",
+      "animation_notes": "Message card slides up. Highlight moves from the timestamp to the checklist area."
+    },
+    {
+      "scene_id": "03-company-payment-account",
+      "duration_seconds": 5,
+      "screen_text": "1. Company name vs payment account",
+      "voiceover": "First, does the company name match the payment account?",
+      "visual_direction": "Two clean fields appear side by side: company name and payment account name, using placeholder text only.",
+      "animation_notes": "A comparison line connects the two fields, then a neutral question mark appears."
+    },
+    {
+      "scene_id": "04-sample-version",
+      "duration_seconds": 5,
+      "screen_text": "2. Sample version clearly written?",
+      "voiceover": "Second, is the sample version clearly written, including model, material, size, or color?",
+      "visual_direction": "Checklist card with model, material, size, and color rows. Use generic placeholders.",
+      "animation_notes": "Rows enter one by one. Each row gets a soft highlight, not a success guarantee."
+    },
+    {
+      "scene_id": "05-packaging-logo",
+      "duration_seconds": 4,
+      "screen_text": "3. Packaging and logo included?",
+      "voiceover": "Third, are packaging and logo details included, or still unclear?",
+      "visual_direction": "Simple packaging card with label placeholders. Do not show real logos, private labels, or customer artwork.",
+      "animation_notes": "Packaging outline appears. Logo field remains as a gray placeholder block."
+    },
+    {
+      "scene_id": "06-delivery-meaning",
+      "duration_seconds": 5,
+      "screen_text": "4. What does “7 days delivery” mean?",
+      "voiceover": "Fourth, when they say \"7 days delivery\", does that mean production time, shipping time, or arrival time?",
+      "visual_direction": "Timeline with three labels: production, shipping, arrival. Keep the timeline illustrative.",
+      "animation_notes": "The phrase \"7 days delivery\" lands on screen, then splits into three possible meanings."
+    },
+    {
+      "scene_id": "07-sample-vs-bulk",
+      "duration_seconds": 5,
+      "screen_text": "5. Will bulk match the sample?",
+      "voiceover": "Fifth, will bulk production match the approved sample, or can details change later?",
+      "visual_direction": "Two cards labeled sample and bulk production with matching detail rows and a small difference marker.",
+      "animation_notes": "Cards align vertically. One row pulses to show a detail that needs confirmation."
+    },
+    {
+      "scene_id": "08-boundary-note",
+      "duration_seconds": 4,
+      "screen_text": "This is not proof of reliability.",
+      "voiceover": "These checks do not prove whether a supplier is reliable.",
+      "visual_direction": "Boundary note card on a plain background with calm, neutral typography.",
+      "animation_notes": "Card fades in with no warning flash or dramatic effect."
+    },
+    {
+      "scene_id": "09-cta-card",
+      "duration_seconds": 3,
+      "screen_text": "See the sample Supplier Reply Review report on Gewuji",
+      "voiceover": "They only help you find unclear points before payment. See the sample Supplier Reply Review report on Gewuji.",
+      "visual_direction": "Final CTA card with the Gewuji name and a clean link placeholder for the sample report.",
+      "animation_notes": "CTA rises gently. Keep the tone informational, not sales-driven."
+    }
+  ]
+}
