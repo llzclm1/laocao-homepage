@@ -6,6 +6,7 @@
 - 2026-07-06 前次收口曾确认主站和 factory 子站 clean；本轮 YouTube 本地素材包完成后只做本地 commit，不 push，因此 `main` 会相对 `origin/main` ahead 1。
 - 2026-07-06 已按用户要求重建精简 YouTube 本地素材包：`docs/youtube-channel-plan.md`、`docs/youtube-validation-plan.md`、`docs/youtube-ai-faceless-workflow-for-gewuji.md`、`docs/youtube-4-week-validation-tracker.csv`、`scripts/content/youtube-shorts-batch-01.md`、`scripts/content/youtube-shorts-batch-01-production-manifest.csv`。本轮只做本地素材、验证框架和 AI 无脸视频 SOP；除第一条本地 POC mp4 外，不登录 / 上传 YouTube，不把视频文件纳入 git，不改网站页面、sitemap、schema 或构建脚本。
 - 2026-07-07 用户已明确允许本轮临时改用 Chrome；已完成 LinkedIn / Reddit 只读回访，未发现需要当天回复的真人线索；随后已在 LinkedIn 发布 1 条原创短帖，主题为 sample approval vs mass production risk：`https://www.linkedin.com/feed/update/urn:li:share:7480108919801991168/`，无链接、无私信引导，已纳入每日回访。
+- 2026-07-07 用户随后要求“不要停下来，把今天该发的都发掉”；本轮继续完成 X 原创短帖 1 条：`https://x.com/llzclm_ray/status/2074344633124159908`，以及 Reddit `r/Entrepreneurs` 回复 1 条：`https://old.reddit.com/r/Entrepreneurs/comments/1ueff34/how_do_businesses_actually_vet_suppliers_on/ow0ri1d/`。Quora 目标问题答题页两次进入后都返回 `Something went wrong`，因此未把 Quora 记为已发。
 - 2026-07-06 已生成第一条本地视频文件：`outputs/youtube/shorts-batch-01/short-01-deposit-check.mp4`。该目录被 `.gitignore` 忽略，视频文件不进仓库；manifest 已把 `short-01-deposit-check` 标为 `local_mp4_generated`。
 - 2026-07-06 新增全 AI 视频生产路线：`docs/youtube-ai-generated-production-route.md`。路线明确第一阶段不做真人口播、不露脸、不拍摄，主方案为 Remotion Skills，HyperFrames 作为备选，生成式视觉只做说明性素材。
 - 当前主线是 Supplier Reply Review 转化页、Supplier Reply Review Sample Report、Buyer Guides 长尾 SEO、External GEO 分发与存活观察、Field Materials 信任背书。

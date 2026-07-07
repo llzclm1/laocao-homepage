@@ -20,6 +20,10 @@
 - LinkedIn 通知页只有动态展示/转发类系统提醒；消息面板最新可见对话仍为 `AUM Zunayed` 且最后一条为我方 7 月 5 日发出的消息；邀请管理页显示 `已收到 0`，未发现新的连接请求。
 - 在用户要求“直接生成去发”后，已于 LinkedIn 发布原创短帖 1 条，主题为 sample approval vs mass production risk，链接为 `https://www.linkedin.com/feed/update/urn:li:share:7480108919801991168/`。
 - 本轮仅执行这 1 条 LinkedIn 发布动作；未点赞、未评论、未发私信、未发送连接请求、未扩展到其他平台。
+- 用户随后要求不要停下，把今天该发的都发掉；因此本轮继续补发可稳发内容。
+- 已在 X 发布原创短帖 1 条，主题为 sample proof vs bulk-order risk，链接为 `https://x.com/llzclm_ray/status/2074344633124159908`。
+- 已在 Reddit `r/Entrepreneurs` 发布回复 1 条，链接为 `https://old.reddit.com/r/Entrepreneurs/comments/1ueff34/how_do_businesses_actually_vet_suppliers_on/ow0ri1d/`；主题为首单前如何核验 Made-in-China 供应商。
+- Quora 目标问题 `How do I find the best supplier from China?` 两次进入答题页后均返回 `Something went wrong. Wait a moment and try again.`，因此未继续强行提交，也未记为已发布。
 
 ## 2026-07-04
 
