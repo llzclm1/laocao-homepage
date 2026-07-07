@@ -24,6 +24,8 @@
 - 已在 X 发布原创短帖 1 条，主题为 sample proof vs bulk-order risk，链接为 `https://x.com/llzclm_ray/status/2074344633124159908`。
 - 已在 Reddit `r/Entrepreneurs` 发布回复 1 条，链接为 `https://old.reddit.com/r/Entrepreneurs/comments/1ueff34/how_do_businesses_actually_vet_suppliers_on/ow0ri1d/`；主题为首单前如何核验 Made-in-China 供应商。
 - Quora 目标问题 `How do I find the best supplier from China?` 两次进入答题页后均返回 `Something went wrong. Wait a moment and try again.`，因此未继续强行提交，也未记为已发布。
+- 用户补登录后，已在 Substack 发布长文 1 条：`https://gewuji.substack.com/p/a-sample-approval-is-not-production`，标题为 `A sample approval is not production proof`。
+- Medium `new-story` 页面可进入编辑器，但本轮发布过程中出现 `Something is wrong and we cannot save your story`，且正文被错误打乱，因此未记为已发布。
 
 ## 2026-07-04
 

@@ -48,3 +48,4 @@
 | 2026-07-07 | LinkedIn | https://www.linkedin.com/feed/update/urn:li:share:7480108919801991168/ | Posted sample approval vs mass production risk checklist; no promotional link; add to daily follow-up |
 | 2026-07-07 | Reddit | https://old.reddit.com/r/Entrepreneurs/comments/1ueff34/how_do_businesses_actually_vet_suppliers_on/ow0ri1d/ | Replied to Made-in-China first-order vetting question; no promotional link; add to daily follow-up |
 | 2026-07-07 | X | https://x.com/llzclm_ray/status/2074344633124159908 | Posted sample proof vs bulk-order risk reminder; no promotional link; add to daily follow-up |
+| 2026-07-07 | Substack | https://gewuji.substack.com/p/a-sample-approval-is-not-production | Published sample approval vs production proof article; no promotional link; add to daily follow-up |
