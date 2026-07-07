@@ -13,6 +13,14 @@
 - External GEO / 平台反馈记录规则：公开请求无法拿到真实 24h 平台指标，Reddit / Quora / Medium 可能返回 403、challenge 或登录限制；不要伪造 views、likes、replies，等后台真实数据或人工确认后再更新。
 - 当前主线保持为 Supplier Reply Review 转化页、Sample Report、Buyer Guides、External GEO 分发与存活观察、Field Materials 信任背书；YouTube 暂不作为当前主线，仅作为后续复用内容和本地验证的测试渠道。
 
+## 2026-07-07
+
+- 用户先确认可临时改用 Chrome 做只读站内检查，因此本轮按用户授权在现有 `browser-act` `chrome-direct` 会话中检查 LinkedIn 和 Reddit。
+- Reddit `https://www.reddit.com/message/inbox/` 显示 inbox 为空，未发现新的私信、评论回复、帖子回复或提及。
+- LinkedIn 通知页只有动态展示/转发类系统提醒；消息面板最新可见对话仍为 `AUM Zunayed` 且最后一条为我方 7 月 5 日发出的消息；邀请管理页显示 `已收到 0`，未发现新的连接请求。
+- 在用户要求“直接生成去发”后，已于 LinkedIn 发布原创短帖 1 条，主题为 sample approval vs mass production risk，链接为 `https://www.linkedin.com/feed/update/urn:li:share:7480108919801991168/`。
+- 本轮仅执行这 1 条 LinkedIn 发布动作；未点赞、未评论、未发私信、未发送连接请求、未扩展到其他平台。
+
 ## 2026-07-04
 
 - 更新 LinkedIn 标准化主页文案和 Email 开发信核心模板：LinkedIn About 改为 supplier communication signals / risk before payment 口径，CTA 改为 `Review Supplier Reply`，链接统一到 `/free-supplier-reply-review/`；仅更新文档，未操作平台资料页。
