@@ -34,18 +34,18 @@
     />
     <meta property="og:url" content="https://gewuji.dev/" />
     <meta property="og:site_name" content="格物集" />
-    <meta property="og:image" content="https://gewuji.dev/assets/home/hero-factory-exterior.png" />
-    <meta property="og:image:alt" content="格物集白灰工业风工厂外景首页背景" />
+    <meta property="og:image" content="https://gewuji.dev/assets/home/hero-scene-electronics-assembly.webp" />
+    <meta property="og:image:alt" content="Premium industrial electronics assembly line with clean production details" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="格物集｜工厂资料与供应商判断入口" />
     <meta
       name="twitter:description"
       content="给中国工厂和海外买家的 Factory Bridge 双边入口。"
     />
-    <meta name="twitter:image" content="https://gewuji.dev/assets/home/hero-factory-exterior.png" />
-    <meta name="twitter:image:alt" content="格物集白灰工业风工厂外景首页背景" />
+    <meta name="twitter:image" content="https://gewuji.dev/assets/home/hero-scene-electronics-assembly.webp" />
+    <meta name="twitter:image:alt" content="Premium industrial electronics assembly line with clean production details" />
     <title>格物集｜工厂资料与供应商判断入口</title>
-    <link rel="preload" as="image" href="assets/home/hero-factory-exterior.png" type="image/png" fetchpriority="high" />
+    <link rel="preload" as="image" href="assets/home/hero-scene-electronics-assembly.webp" type="image/webp" fetchpriority="high" />
     <link rel="stylesheet" href="styles.css?v=20260704-serif-visible" />
     <style>
       .warm-home {
@@ -596,6 +596,1231 @@
           grid-column: auto;
         }
       }
+
+      .warm-home .site-header {
+        position: fixed;
+        top: 18px;
+        left: 50%;
+        width: min(1120px, calc(100% - 32px));
+        min-height: 64px;
+        padding: 11px 14px 11px 16px;
+        border: 1px solid rgba(17, 17, 17, .08);
+        border-radius: 16px;
+        background: rgba(255, 255, 255, .72);
+        box-shadow: 0 18px 54px rgba(17, 24, 39, .08);
+        backdrop-filter: blur(22px) saturate(1.1);
+        animation: navbarIn 600ms ease both;
+        transform: translateX(-50%);
+      }
+
+      .warm-home .warm-hero {
+        position: relative;
+        display: grid;
+        min-height: 100dvh;
+        grid-template-columns: minmax(0, 1fr);
+        align-items: center;
+        overflow: hidden;
+        padding: 112px max(22px, calc((100vw - 1180px) / 2)) 62px;
+        border-bottom: 1px solid rgba(17, 17, 17, .08);
+        background: #f6f7f8;
+      }
+
+      .warm-home .warm-hero-bg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 64% center;
+        animation: heroKenBurns 20s ease-out infinite alternate;
+      }
+
+      .warm-home .warm-hero-scrim {
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(90deg, rgba(255, 255, 255, .98) 0%, rgba(255, 255, 255, .88) 36%, rgba(255, 255, 255, .34) 68%, rgba(255, 255, 255, .1) 100%),
+          linear-gradient(180deg, rgba(255, 255, 255, .24), rgba(246, 247, 248, .18));
+      }
+
+      .warm-home .warm-hero-inner {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: minmax(0, .92fr) minmax(320px, .58fr);
+        gap: clamp(34px, 5vw, 72px);
+        align-items: center;
+        width: 100%;
+        max-width: 1180px;
+      }
+
+      .warm-home .warm-hero-content {
+        min-width: 0;
+      }
+
+      .warm-home .warm-label {
+        width: fit-content;
+        margin: 0 0 18px;
+        border: 1px solid rgba(17, 17, 17, .1);
+        border-radius: 999px;
+        padding: 8px 11px;
+        color: #4b5563;
+        background: rgba(255, 255, 255, .68);
+        font-family: var(--zh-sans);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: .03em;
+        backdrop-filter: blur(14px);
+      }
+
+      .warm-home h1 {
+        max-width: 820px;
+        color: #111;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: clamp(48px, 6.4vw, 88px);
+        font-weight: 820;
+        line-height: .98;
+        letter-spacing: 0;
+      }
+
+      .warm-home .title-line {
+        display: block;
+      }
+
+      .warm-home .title-char {
+        display: inline-block;
+        opacity: 0;
+        animation: titleCharIn 600ms ease both;
+        animation-delay: calc(200ms + (var(--i) * 30ms));
+        transform: translateX(-18px);
+      }
+
+      .warm-home .warm-hero-copy {
+        width: min(660px, 100%);
+        margin: 26px 0 0;
+        color: #4b5563;
+        font-family: var(--zh-sans);
+        font-size: clamp(17px, 1.7vw, 21px);
+        font-weight: 430;
+        line-height: 1.72;
+        opacity: 0;
+        animation: fadeInUp 1000ms ease 800ms both;
+      }
+
+      .warm-home .hero-actions {
+        gap: 12px;
+        margin-top: 32px;
+        opacity: 0;
+        animation: fadeInUp 800ms ease 1200ms both;
+      }
+
+      .warm-home .hero-actions .button {
+        min-width: 0;
+        min-height: 48px;
+        border-radius: 12px;
+        padding: 13px 20px;
+        font-size: 15px;
+        letter-spacing: 0;
+        transition:
+          transform 300ms ease,
+          box-shadow 300ms ease,
+          background 300ms ease,
+          border-color 300ms ease;
+      }
+
+      .warm-home .hero-actions .button:hover,
+      .warm-home .hero-actions .button:focus-visible {
+        transform: scale(1.02);
+      }
+
+      .warm-home .button.primary {
+        border-color: #111;
+        background: #111;
+        color: #fff;
+      }
+
+      .warm-home .button.factory {
+        border-color: rgba(17, 17, 17, .14);
+        background: rgba(255, 255, 255, .7);
+        color: #111;
+        backdrop-filter: blur(14px);
+      }
+
+      .warm-home .hero-intel-card {
+        width: min(420px, 100%);
+        justify-self: end;
+        border: 1px solid rgba(255, 255, 255, .7);
+        border-radius: 20px;
+        padding: 22px;
+        background: rgba(255, 255, 255, .66);
+        box-shadow: 0 24px 76px rgba(17, 24, 39, .12);
+        backdrop-filter: blur(22px) saturate(1.08);
+        opacity: 0;
+        animation: cardIn 900ms ease 1400ms both;
+      }
+
+      .warm-home .intel-kicker {
+        margin: 0 0 18px;
+        color: #4b5563;
+        font-family: var(--zh-sans);
+        font-size: 12px;
+        font-weight: 760;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+      }
+
+      .warm-home .intel-group {
+        display: grid;
+        gap: 10px;
+        border-top: 1px solid rgba(17, 17, 17, .08);
+        padding: 17px 0 0;
+      }
+
+      .warm-home .intel-group + .intel-group {
+        margin-top: 17px;
+      }
+
+      .warm-home .intel-group h2 {
+        margin: 0;
+        color: #111;
+        font-family: var(--zh-sans);
+        font-size: 16px;
+        font-weight: 780;
+        letter-spacing: 0;
+      }
+
+      .warm-home .intel-group ul {
+        display: grid;
+        gap: 8px;
+        margin: 0;
+        padding: 0;
+        color: #4b5563;
+        font-family: var(--zh-sans);
+        font-size: 14px;
+        line-height: 1.45;
+        list-style: none;
+      }
+
+      .warm-home .intel-group li {
+        position: relative;
+        padding-left: 15px;
+      }
+
+      .warm-home .intel-group li::before {
+        position: absolute;
+        top: .62em;
+        left: 0;
+        width: 5px;
+        height: 5px;
+        border-radius: 999px;
+        background: #111;
+        content: "";
+      }
+
+      @keyframes navbarIn {
+        from {
+          opacity: 0;
+          transform: translateX(-50%) translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(-50%) translateY(0);
+        }
+      }
+
+      @keyframes titleCharIn {
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes cardIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes heroKenBurns {
+        from {
+          transform: scale(1.02) translate3d(0, 0, 0);
+        }
+        to {
+          transform: scale(1) translate3d(-8px, 0, 0);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .warm-home .site-header,
+        .warm-home .warm-hero-bg,
+        .warm-home .title-char,
+        .warm-home .warm-hero-copy,
+        .warm-home .hero-actions,
+        .warm-home .hero-intel-card {
+          animation: none;
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      @media (max-width: 940px) {
+        .warm-home .warm-hero {
+          min-height: auto;
+          padding-top: 112px;
+        }
+
+        .warm-home .warm-hero-bg {
+          object-position: 68% center;
+        }
+
+        .warm-home .warm-hero-scrim {
+          background:
+            linear-gradient(180deg, rgba(255, 255, 255, .97) 0%, rgba(255, 255, 255, .84) 58%, rgba(255, 255, 255, .96) 100%);
+        }
+
+        .warm-home .warm-hero-inner {
+          grid-template-columns: 1fr;
+        }
+
+        .warm-home .hero-intel-card {
+          justify-self: start;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .warm-home .site-header {
+          top: 10px;
+          width: calc(100% - 24px);
+          padding: 10px 12px;
+        }
+
+        .warm-home .warm-hero {
+          padding: 104px 14px 46px;
+        }
+
+        .warm-home h1 {
+          font-size: clamp(40px, 12vw, 56px);
+        }
+
+        .warm-home .hero-intel-card {
+          border-radius: 16px;
+          padding: 18px;
+        }
+      }
+
+      .warm-home .site-header {
+        border-color: rgba(255, 255, 255, .16);
+        background: rgba(15, 15, 14, .32);
+        box-shadow: none;
+      }
+
+      .warm-home .brand,
+      .warm-home .nav a {
+        color: rgba(255, 255, 255, .88);
+      }
+
+      .warm-home .brand-mark {
+        border-color: rgba(255, 255, 255, .86);
+      }
+
+      .warm-home .brand-mark::before {
+        border-color: rgba(255, 255, 255, .18);
+        background: transparent;
+      }
+
+      .warm-home .brand-mark::after {
+        background: rgba(255, 255, 255, .86);
+      }
+
+      .warm-home .brand-text small,
+      .warm-home .nav a:hover,
+      .warm-home .nav a:focus-visible {
+        color: #fff;
+      }
+
+      .warm-home .nav a:hover,
+      .warm-home .nav a:focus-visible {
+        background: rgba(255, 255, 255, .1);
+      }
+
+      .warm-home .nav .language-link {
+        display: none;
+      }
+
+      .warm-home .warm-hero {
+        min-height: 100dvh;
+        padding: 118px max(22px, calc((100vw - 1180px) / 2)) 72px;
+        background: #080807;
+      }
+
+      .warm-home .warm-hero-bg {
+        object-position: center;
+        filter: saturate(.92) contrast(1.04) brightness(.82);
+        animation: heroKenBurns 24s ease-out both;
+      }
+
+      .warm-home .warm-hero-scrim {
+        background:
+          radial-gradient(circle at 74% 48%, rgba(255, 255, 255, .08), transparent 34%),
+          linear-gradient(90deg, rgba(6, 6, 5, .92) 0%, rgba(8, 8, 7, .78) 42%, rgba(8, 8, 7, .36) 72%, rgba(8, 8, 7, .18) 100%),
+          linear-gradient(180deg, rgba(0, 0, 0, .22), rgba(0, 0, 0, .62));
+      }
+
+      .warm-home .warm-hero-inner {
+        grid-template-columns: minmax(0, .8fr) minmax(260px, .34fr);
+        max-width: 1180px;
+      }
+
+      .warm-home .warm-label {
+        border-color: rgba(255, 255, 255, .18);
+        color: rgba(255, 255, 255, .7);
+        background: rgba(255, 255, 255, .08);
+      }
+
+      .warm-home h1 {
+        max-width: 720px;
+        color: #fff;
+        font-size: clamp(58px, 7.4vw, 108px);
+        font-weight: 760;
+        line-height: .92;
+        opacity: 0;
+        animation: fadeInUp 900ms ease 260ms both;
+      }
+
+      .warm-home .warm-hero-copy {
+        width: min(600px, 100%);
+        color: rgba(255, 255, 255, .72);
+        font-size: clamp(18px, 1.8vw, 23px);
+        line-height: 1.55;
+        animation-delay: 520ms;
+      }
+
+      .warm-home .hero-actions {
+        animation-delay: 820ms;
+      }
+
+      .warm-home .button.primary {
+        border-color: rgba(255, 255, 255, .9);
+        background: #fff;
+        color: #111;
+        box-shadow: 0 18px 48px rgba(0, 0, 0, .22);
+      }
+
+      .warm-home .button.factory {
+        border-color: rgba(255, 255, 255, .22);
+        background: rgba(255, 255, 255, .08);
+        color: #fff;
+      }
+
+      .warm-home .hero-intel-card {
+        display: flex;
+        width: min(320px, 100%);
+        flex-wrap: wrap;
+        gap: 10px;
+        align-self: end;
+        justify-self: end;
+        border-color: rgba(255, 255, 255, .16);
+        border-radius: 18px;
+        padding: 14px;
+        background: rgba(255, 255, 255, .08);
+        box-shadow: none;
+        color: rgba(255, 255, 255, .82);
+        animation: fadeInUp 900ms ease 980ms both;
+      }
+
+      .warm-home .hero-intel-card span {
+        border: 1px solid rgba(255, 255, 255, .14);
+        border-radius: 999px;
+        padding: 8px 10px;
+        font-size: 12px;
+        font-weight: 720;
+      }
+
+      @media (max-width: 940px) {
+        .warm-home .warm-hero-scrim {
+          background:
+            linear-gradient(180deg, rgba(6, 6, 5, .92) 0%, rgba(8, 8, 7, .7) 56%, rgba(8, 8, 7, .94) 100%);
+        }
+      }
+
+      .warm-home .warm-hero-inner {
+        display: block;
+      }
+
+      .warm-home .warm-hero-content {
+        width: min(920px, 100%);
+      }
+
+      .warm-home h1 {
+        max-width: 920px;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: clamp(46px, 5.2vw, 76px);
+        font-weight: 780;
+        line-height: .98;
+      }
+
+      .warm-home .hero-intel-card {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+      }
+
+      @media (max-width: 940px) {
+        .warm-home .hero-intel-card {
+          position: static;
+          margin-top: 34px;
+        }
+      }
+
+      .warm-home {
+        --home-ink: #111;
+        --home-muted: #5f6670;
+        --home-line: rgba(17, 17, 17, .1);
+        background: #f7f8f8;
+      }
+
+      .warm-home .site-header {
+        border-color: rgba(17, 17, 17, .08);
+        background: rgba(255, 255, 255, .62);
+        box-shadow: 0 18px 54px rgba(17, 24, 39, .08);
+      }
+
+      .warm-home .brand,
+      .warm-home .nav a,
+      .warm-home .brand-text small,
+      .warm-home .nav a:hover,
+      .warm-home .nav a:focus-visible {
+        color: var(--home-ink);
+      }
+
+      .warm-home .brand-mark {
+        border-color: var(--home-ink);
+      }
+
+      .warm-home .brand-mark::after {
+        background: var(--home-ink);
+      }
+
+      .warm-home .warm-hero {
+        background: #eef1f2;
+      }
+
+      .warm-home .warm-hero-bg {
+        filter: saturate(.9) contrast(1.02) brightness(1.02);
+      }
+
+      .warm-home .warm-hero-scrim {
+        background:
+          linear-gradient(90deg, rgba(247, 248, 248, .98) 0%, rgba(247, 248, 248, .82) 38%, rgba(247, 248, 248, .18) 70%, rgba(247, 248, 248, 0) 100%),
+          linear-gradient(180deg, rgba(255, 255, 255, .12), rgba(247, 248, 248, .28));
+      }
+
+      .warm-home .warm-label {
+        border-color: rgba(17, 17, 17, .1);
+        color: #4b5563;
+        background: rgba(255, 255, 255, .58);
+      }
+
+      .warm-home h1 {
+        color: var(--home-ink);
+      }
+
+      .warm-home .warm-hero-copy {
+        color: #4b5563;
+      }
+
+      .warm-home .button.primary {
+        border-color: var(--home-ink);
+        background: var(--home-ink);
+        color: #fff;
+      }
+
+      .warm-home .button.factory {
+        border-color: rgba(17, 17, 17, .16);
+        background: rgba(255, 255, 255, .64);
+        color: var(--home-ink);
+      }
+
+      .warm-home .hero-intel-card {
+        color: var(--home-ink);
+        border-color: rgba(17, 17, 17, .1);
+        background: rgba(255, 255, 255, .56);
+        box-shadow: 0 18px 54px rgba(17, 24, 39, .08);
+      }
+
+      .warm-home .hero-intel-card span {
+        border-color: rgba(17, 17, 17, .12);
+      }
+
+      .home-section {
+        width: min(1180px, calc(100% - 44px));
+        margin: 0 auto;
+        padding: clamp(82px, 10vw, 132px) 0;
+        border-bottom: 1px solid var(--home-line);
+      }
+
+      .section-kicker {
+        margin: 0 0 18px;
+        color: #6b7280;
+        font-size: 12px;
+        font-weight: 760;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+      }
+
+      .home-section h2 {
+        max-width: 880px;
+        margin: 0;
+        color: var(--home-ink);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: clamp(38px, 5vw, 72px);
+        font-weight: 760;
+        line-height: 1.02;
+        letter-spacing: 0;
+      }
+
+      .plain-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: clamp(22px, 4vw, 56px);
+        margin-top: clamp(48px, 7vw, 82px);
+      }
+
+      .plain-grid article {
+        border-top: 1px solid var(--home-line);
+        padding-top: 22px;
+      }
+
+      .plain-grid span,
+      .analysis-grid span,
+      .field-list span {
+        color: #6b7280;
+        font-size: 13px;
+        font-weight: 760;
+      }
+
+      .plain-grid h3 {
+        margin: 18px 0 0;
+        color: var(--home-ink);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: clamp(24px, 2.6vw, 36px);
+        line-height: 1.08;
+      }
+
+      .problem-note,
+      .quote-shift,
+      .plain-grid dl {
+        margin: 22px 0 0;
+        color: var(--home-muted);
+        font-size: 14px;
+        line-height: 1.55;
+      }
+
+      .plain-grid dl {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 7px 14px;
+      }
+
+      .plain-grid dt {
+        color: #6b7280;
+        font-size: 12px;
+        font-weight: 760;
+      }
+
+      .plain-grid dd {
+        margin: 0;
+        color: var(--home-ink);
+        font-weight: 650;
+      }
+
+      .quote-shift {
+        width: fit-content;
+        border: 1px solid var(--home-line);
+        border-radius: 999px;
+        padding: 11px 14px;
+        background: rgba(255, 255, 255, .52);
+        color: var(--home-ink);
+        font-weight: 700;
+      }
+
+      .bridge-section,
+      .review-section,
+      .field-section {
+        display: grid;
+        grid-template-columns: minmax(0, .9fr) minmax(280px, .58fr);
+        gap: clamp(34px, 6vw, 86px);
+        align-items: start;
+      }
+
+      .bridge-section > p,
+      .field-section p {
+        margin: 0;
+        color: var(--home-muted);
+        font-size: clamp(18px, 2vw, 24px);
+        line-height: 1.65;
+      }
+
+      .review-example {
+        border: 1px solid var(--home-line);
+        border-radius: 6px;
+        padding: clamp(24px, 3vw, 34px);
+        background:
+          linear-gradient(90deg, rgba(17, 17, 17, .035) 1px, transparent 1px) 0 0 / 34px 100%,
+          rgba(255, 255, 255, .62);
+        box-shadow: 0 18px 64px rgba(17, 24, 39, .06);
+      }
+
+      .document-fragment {
+        margin: 0 0 24px;
+        border-left: 2px solid rgba(17, 17, 17, .18);
+        padding-left: 16px;
+      }
+
+      .document-fragment span {
+        color: #6b7280;
+        font-size: 12px;
+        font-weight: 760;
+      }
+
+      .document-fragment p {
+        margin: 8px 0 0;
+        color: var(--home-ink);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 13px;
+        line-height: 1.5;
+      }
+
+      .supplier-says {
+        margin: 0 0 26px;
+        color: var(--home-ink);
+        font-size: clamp(22px, 2.6vw, 34px);
+        font-weight: 680;
+        line-height: 1.18;
+      }
+
+      .analysis-grid {
+        display: grid;
+        gap: 18px;
+      }
+
+      .analysis-grid div {
+        border-top: 1px solid var(--home-line);
+        padding-top: 14px;
+      }
+
+      .analysis-grid p,
+      .next-question {
+        margin: 8px 0 0;
+        color: var(--home-ink);
+        font-size: 16px;
+        line-height: 1.55;
+      }
+
+      .next-question {
+        margin-top: 24px;
+        color: var(--home-muted);
+      }
+
+      .field-list,
+      .field-gallery {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .field-gallery figure {
+        position: relative;
+        min-height: 160px;
+        overflow: hidden;
+        margin: 0;
+        border-radius: 6px;
+        background: #e5e7eb;
+      }
+
+      .field-gallery img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        min-height: 160px;
+        object-fit: cover;
+        filter: saturate(.86) contrast(1.02);
+        transition: transform 900ms ease;
+      }
+
+      .field-gallery figure:hover img {
+        transform: scale(1.04);
+      }
+
+      .field-gallery figcaption {
+        position: absolute;
+        left: 12px;
+        bottom: 12px;
+        border: 1px solid rgba(255, 255, 255, .34);
+        border-radius: 999px;
+        padding: 7px 10px;
+        color: #111;
+        background: rgba(255, 255, 255, .62);
+        backdrop-filter: blur(12px);
+        font-size: 12px;
+        font-weight: 760;
+      }
+
+      .field-list span {
+        border: 1px solid var(--home-line);
+        border-radius: 999px;
+        padding: 12px 14px;
+        color: var(--home-ink);
+        background: rgba(255, 255, 255, .58);
+      }
+
+      .final-cta {
+        padding-bottom: clamp(92px, 12vw, 150px);
+        border-bottom: 0;
+      }
+
+      .final-cta h2 {
+        max-width: 940px;
+      }
+
+      @media (max-width: 820px) {
+        .plain-grid,
+        .bridge-section,
+        .review-section,
+        .field-section {
+          grid-template-columns: 1fr;
+        }
+
+        .field-list,
+        .field-gallery {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .warm-home .warm-hero-bg {
+        z-index: 0;
+        animation: documentaryCamera 24s ease-out both;
+        transform-origin: 62% 50%;
+        will-change: transform;
+      }
+
+      .hero-visual-rotation {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        overflow: hidden;
+      }
+
+      .warm-home .hero-scene {
+        opacity: 0;
+        transition: opacity 1800ms cubic-bezier(.22, .61, .36, 1);
+      }
+
+      .warm-home .hero-scene.is-active {
+        opacity: 1;
+        animation: documentaryCamera 16s cubic-bezier(.22, .61, .36, 1) both;
+      }
+
+      .warm-home .scene-left .warm-hero-content {
+        margin-right: auto;
+        margin-left: 0;
+      }
+
+      .warm-home .scene-right .warm-hero-content {
+        margin-right: 0;
+        margin-left: auto;
+      }
+
+      .warm-home .scene-right .warm-label,
+      .warm-home .scene-right .hero-actions {
+        margin-left: auto;
+      }
+
+      .warm-home .scene-right .warm-hero-copy,
+      .warm-home .scene-right h1 {
+        margin-left: auto;
+        text-align: right;
+      }
+
+      .warm-home .warm-hero::before {
+        display: none;
+      }
+
+      .warm-home .warm-hero::after {
+        display: none;
+      }
+
+      .warm-home .warm-hero-content {
+        position: relative;
+        z-index: 2;
+        transform: translate3d(0, calc(var(--scroll-y, 0px) * .05), 0);
+      }
+
+      .warm-home .warm-hero-scrim {
+        z-index: 1;
+      }
+
+      .warm-home .hero-intel-card {
+        z-index: 3;
+        filter: blur(10px);
+        animation:
+          glassTagIn 1000ms ease 980ms both,
+          glassTagFloat 10s ease-in-out 2s infinite;
+        transform: translate3d(0, calc(var(--scroll-y, 0px) * -.025), 0);
+        will-change: transform, filter, opacity;
+      }
+
+      .supplier-info-layer {
+        position: absolute;
+        z-index: 2;
+        right: clamp(120px, 16vw, 260px);
+        bottom: clamp(178px, 20vw, 280px);
+        display: grid;
+        gap: 12px;
+        width: min(300px, 24vw);
+        border: 1px solid rgba(17, 17, 17, .1);
+        border-radius: 20px;
+        padding: 18px;
+        color: rgba(17, 17, 17, .72);
+        background: rgba(255, 255, 255, .34);
+        box-shadow: 0 24px 80px rgba(17, 24, 39, .12);
+        backdrop-filter: blur(20px) saturate(1.05);
+        opacity: .74;
+        transform: translate3d(0, calc(var(--scroll-y, 0px) * -.045), 0) rotate(-1.5deg);
+        animation:
+          supplierCueIn 1200ms ease 900ms both,
+          supplierCueFloat 9s ease-in-out 2s infinite;
+        pointer-events: none;
+      }
+
+      .supplier-info-layer p {
+        margin: 0 0 2px;
+        font-size: 13px;
+        font-weight: 820;
+      }
+
+      .supplier-info-layer span {
+        display: block;
+        border-top: 1px solid rgba(17, 17, 17, .08);
+        padding-top: 9px;
+        font-size: 12px;
+        font-weight: 680;
+      }
+
+      .supplier-info-layer .confirmed {
+        color: rgba(17, 17, 17, .82);
+      }
+
+      .warm-home .hero-intel-card {
+        right: clamp(40px, 6vw, 90px);
+        bottom: clamp(74px, 8vw, 118px);
+      }
+
+      .supplier-info-layer {
+        right: clamp(150px, 18vw, 290px);
+        bottom: clamp(210px, 24vw, 330px);
+      }
+
+      .warm-home .warm-hero {
+        min-height: 100dvh;
+        padding-bottom: clamp(32px, 4vw, 48px);
+      }
+
+      .warm-home .warm-hero-content {
+        z-index: 4;
+      }
+
+      .supplier-info-layer {
+        right: clamp(86px, 12vw, 190px);
+        bottom: clamp(176px, 20vw, 260px);
+        width: min(230px, 19vw);
+        gap: 8px;
+        border: 0;
+        border-radius: 16px;
+        padding: 13px 14px;
+        color: rgba(17, 17, 17, .48);
+        background: rgba(255, 255, 255, .18);
+        box-shadow: 0 18px 56px rgba(17, 24, 39, .08);
+        opacity: .46;
+      }
+
+      .supplier-info-layer p {
+        font-size: 11px;
+      }
+
+      .supplier-info-layer span {
+        border-top-color: rgba(17, 17, 17, .045);
+        padding-top: 7px;
+        font-size: 10px;
+      }
+
+      .supplier-info-layer .confirmed {
+        color: rgba(17, 17, 17, .58);
+      }
+
+      .warm-home .hero-intel-card {
+        right: clamp(34px, 5vw, 80px);
+        bottom: clamp(76px, 8vw, 116px);
+        opacity: .78;
+      }
+
+      .warm-home h1 {
+        animation: none;
+        opacity: 1;
+      }
+
+      .warm-home .title-line {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      .warm-home .title-line:first-child {
+        animation: heroLineIn 900ms ease 800ms both;
+      }
+
+      .warm-home .title-line:last-child {
+        animation: heroLineIn 900ms ease 1200ms both;
+      }
+
+      .warm-home .home-section.reveal,
+      .warm-home .plain-grid article.reveal,
+      .warm-home .flow-step.reveal,
+      .warm-home .review-example.reveal,
+      .warm-home .analysis-grid div.reveal,
+      .warm-home .field-gallery figure.reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition:
+          opacity 900ms ease,
+          transform 900ms ease;
+      }
+
+      .warm-home .home-section.reveal.is-visible,
+      .warm-home .plain-grid article.reveal.is-visible,
+      .warm-home .flow-step.reveal.is-visible,
+      .warm-home .review-example.reveal.is-visible,
+      .warm-home .analysis-grid div.reveal.is-visible,
+      .warm-home .field-gallery figure.reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .bridge-flow {
+        display: grid;
+        gap: 14px;
+      }
+
+      .flow-step {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        color: var(--home-ink);
+        font-size: clamp(28px, 3.4vw, 48px);
+        font-weight: 760;
+        line-height: 1.06;
+      }
+
+      .flow-step::after {
+        width: 34px;
+        height: 1px;
+        background: var(--home-line);
+        content: "";
+      }
+
+      .flow-step:last-child::after {
+        display: none;
+      }
+
+      @keyframes documentaryCamera {
+        from {
+          transform: scale(1.018) translate3d(-10px, 5px, 0);
+        }
+        to {
+          transform: scale(1.075) translate3d(12px, -7px, 0);
+        }
+      }
+
+      @keyframes supplierCueIn {
+        from {
+          opacity: 0;
+          filter: blur(14px);
+          translate: 0 18px;
+        }
+        to {
+          filter: blur(0);
+        }
+      }
+
+      @keyframes supplierCueFloat {
+        0%, 100% {
+          translate: 0 0;
+        }
+        50% {
+          translate: 0 -5px;
+        }
+      }
+
+      @keyframes heroLineIn {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes glassTagIn {
+        from {
+          opacity: 0;
+          filter: blur(10px);
+          transform: translateY(18px);
+        }
+        to {
+          opacity: 1;
+          filter: blur(0);
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes glassTagFloat {
+        0%, 100% {
+          translate: 0 0;
+        }
+        50% {
+          translate: 0 -6px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .warm-home .warm-hero-bg,
+        .warm-home .hero-intel-card,
+        .supplier-info-layer,
+        .warm-home .warm-hero::before,
+        .warm-home .warm-hero::after,
+        .warm-home .title-line,
+        .warm-home .home-section.reveal,
+        .warm-home .plain-grid article.reveal,
+        .warm-home .flow-step.reveal,
+        .warm-home .review-example.reveal,
+        .warm-home .analysis-grid div.reveal,
+        .warm-home .field-list span.reveal {
+          animation: none;
+          opacity: 1;
+          filter: none;
+          transform: none;
+          transition: none;
+        }
+      }
+
+      .supplier-info-layer {
+        right: clamp(44px, 8vw, 130px);
+        bottom: clamp(186px, 21vw, 280px);
+        width: min(188px, 16vw);
+        gap: 6px;
+        padding: 10px 11px;
+        border: 0;
+        color: rgba(17, 17, 17, .36);
+        background: rgba(255, 255, 255, .12);
+        box-shadow: 0 14px 42px rgba(17, 24, 39, .05);
+        backdrop-filter: blur(16px) saturate(1.02);
+        opacity: .36;
+      }
+
+      .supplier-info-layer p {
+        font-size: 10px;
+      }
+
+      .supplier-info-layer span {
+        border-top-color: rgba(17, 17, 17, .03);
+        padding-top: 5px;
+        font-size: 9px;
+      }
+
+      .supplier-info-layer .confirmed {
+        color: rgba(17, 17, 17, .43);
+      }
+
+      .warm-home .hero-intel-card {
+        right: clamp(30px, 5vw, 76px);
+        bottom: clamp(70px, 7vw, 108px);
+        opacity: .68;
+      }
+
+      .home-section {
+        padding-top: clamp(92px, 11vw, 142px);
+        padding-bottom: clamp(92px, 11vw, 142px);
+      }
+
+      .problem-section .plain-grid article,
+      .review-example,
+      .field-gallery figure {
+        background-color: rgba(255, 255, 255, .38);
+      }
+
+      .warm-home h1 {
+        font-size: clamp(40px, 4.45vw, 64px);
+      }
+
+      .warm-home .hero-intel-card {
+        display: none;
+      }
+
+      .supplier-info-layer {
+        right: clamp(20px, 4vw, 76px);
+        bottom: clamp(170px, 18vw, 240px);
+        width: min(166px, 14vw);
+        opacity: 0;
+      }
+
+      .supplier-info-layer.is-visible {
+        opacity: .28;
+        color: rgba(17, 17, 17, .3);
+        background: rgba(255, 255, 255, .08);
+        box-shadow: 0 10px 30px rgba(17, 24, 39, .035);
+      }
+
+      .supplier-info-layer p {
+        font-size: 9px;
+      }
+
+      .supplier-info-layer span {
+        font-size: 8px;
+      }
+
+      .warm-home .warm-hero {
+        padding-bottom: 0;
+      }
+
+      .warm-home .hero-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+        width: min(100%, 340px);
+        gap: 12px;
+      }
+
+      .warm-home .hero-actions .button {
+        width: 100%;
+        justify-content: center;
+        white-space: normal;
+      }
+
+      .home-section {
+        padding-top: clamp(72px, 8vw, 112px);
+      }
     </style>
     <script type="application/ld+json">
       {
@@ -663,139 +1888,166 @@
         <span class="brand-mark" aria-hidden="true"></span>
         <span class="brand-text">
           <strong>GEWUJI</strong>
-          <small>Factory Bridge</small>
+          <small>Factory Bridge · Field Materials</small>
         </span>
       </a>
       <nav class="nav" aria-label="主导航">
-        <a href="https://factory.gewuji.dev/for-factories/" onclick="trackClarityEvent('home_zh_click_material_rewrite')">给中国工厂</a>
-        <a href="https://factory.gewuji.dev/for-buyers/" onclick="trackClarityEvent('home_zh_click_outreach_content')">给海外买家</a>
-        <a href="field-materials/" onclick="trackClarityEvent('home_zh_click_field_materials')">实拍素材</a>
-        <a href="#contact">联系</a>
+        <a href="https://factory.gewuji.dev/for-factories/" onclick="trackClarityEvent('home_zh_click_material_rewrite')">For Factories</a>
+        <a href="https://factory.gewuji.dev/for-buyers/" onclick="trackClarityEvent('home_zh_click_outreach_content')">For Buyers</a>
+        <a href="field-materials/" onclick="trackClarityEvent('home_zh_click_field_materials')">Field Materials</a>
+        <a href="#contact">About</a>
         <a class="language-link" href="en/" hreflang="en" lang="en" onclick="trackClarityEvent('home_zh_click_language_en')">EN</a>
       </nav>
     </header>
 
     <main>
-      <section
-        class="warm-hero"
-        id="hero"
-        aria-labelledby="hero-title"
-        style="--hero-image: url('assets/home/hero-factory-exterior.png')"
-      >
+      <section class="warm-hero scene-left" id="hero" aria-labelledby="hero-title">
+        <div class="hero-visual-rotation" aria-hidden="true">
+          <img class="warm-hero-bg hero-scene is-active" src="assets/home/hero-scene-electronics-assembly.webp" alt="" fetchpriority="high" />
+          <img class="warm-hero-bg hero-scene" src="assets/home/hero-scene-cnc-machining.webp" alt="" loading="lazy" />
+          <img class="warm-hero-bg hero-scene" src="assets/home/hero-scene-workshop-environment.webp" alt="" loading="lazy" />
+          <img class="warm-hero-bg hero-scene" src="assets/home/hero-scene-packaging-shipping.webp" alt="" loading="lazy" />
+          <img class="warm-hero-bg hero-scene" src="assets/home/hero-scene-product-inspection.webp" alt="" loading="lazy" />
+          <img class="warm-hero-bg hero-scene" src="assets/home/hero-scene-cleanroom-manufacturing.webp" alt="" loading="lazy" />
+        </div>
+        <div class="warm-hero-scrim" aria-hidden="true"></div>
+        <div class="supplier-info-layer" aria-label="Supplier information clarity cue">
+          <p>Supplier Reply</p>
+          <span class="confirmed">✓ Confirmed information</span>
+          <span>? Missing details</span>
+          <span>→ Next questions</span>
+        </div>
         <div class="warm-hero-inner">
-          <p class="warm-label">Factory Bridge · Factory Materials · Field Evidence</p>
-          <h1 id="hero-title">
-            <span><span class="title-chunk">让工厂资料</span><span class="title-chunk">更清楚</span></span>
-            <span><span class="title-chunk">让供应商判断</span><span class="title-chunk">更可靠</span></span>
-          </h1>
-          <p class="warm-hero-copy">
-            格物集 Factory Bridge 帮助中国工厂整理面向海外买家的资料，也帮助海外买家理解供应商回复、报价和实拍素材中的关键信号。
-          </p>
-          <div class="hero-actions" aria-label="首页双边入口">
-            <a class="button primary" href="https://factory.gewuji.dev/for-factories/" onclick="trackClarityEvent('home_zh_click_material_rewrite')">我是中国工厂</a>
-            <a class="button factory" href="https://factory.gewuji.dev/for-buyers/" onclick="trackClarityEvent('home_zh_click_outreach_content')">我是海外买家</a>
+          <div class="warm-hero-content">
+            <p class="warm-label">China-based sourcing intelligence partner</p>
+            <h1 id="hero-title">
+              <span class="title-line">Real factories.</span>
+              <span class="title-line">Clearly understood.</span>
+            </h1>
+            <p class="warm-hero-copy" id="hero-subtitle">
+              Helping overseas buyers understand Chinese suppliers before samples, deposits and production.
+            </p>
+            <div class="hero-actions" aria-label="Supplier review actions">
+              <a class="button primary" href="free-supplier-reply-review/" onclick="trackClarityEvent('home_zh_click_supplier_reply_review')">Review a Supplier Reply</a>
+              <a class="button factory" href="field-materials/" onclick="trackClarityEvent('home_zh_click_field_materials')">Explore Field Materials</a>
+            </div>
+          </div>
+          <div class="hero-intel-card" aria-label="Factory Bridge focus tags" aria-hidden="true">
+            <span>Factory Bridge</span>
+            <span>Field Materials</span>
+            <span>Buyer Communication</span>
           </div>
         </div>
       </section>
 
-      <section class="entry-section audience-section" id="entries" aria-label="给中国工厂和海外买家的双边入口">
-        <div class="entry-grid entry-grid-zh audience-grid">
-          <article class="entry-card audience-card" id="factories">
-            <p class="entry-index">01</p>
-            <div>
-              <p class="audience-label">For Chinese Factories</p>
-              <h3>给中国工厂</h3>
-            </div>
-            <p>
-              把现有产品资料、工厂介绍、开发信和实拍素材，整理成海外买家更容易理解、也更愿意继续沟通的英文资料。
-            </p>
-            <ul class="audience-list">
-              <li>产品资料重构</li>
-              <li>工厂介绍优化</li>
-              <li>开发信与外贸内容</li>
-              <li>实拍素材整理</li>
-            </ul>
-            <a class="entry-link" href="https://factory.gewuji.dev/for-factories/" onclick="trackClarityEvent('home_zh_click_send_materials')">发送现有资料</a>
+      <section class="home-section problem-section reveal" id="entries" aria-labelledby="problem-title">
+        <p class="section-kicker">The buyer problem</p>
+        <h2 id="problem-title">Finding suppliers is easy. Understanding them is harder.</h2>
+        <div class="plain-grid">
+          <article class="reveal">
+            <span>Supplier Reply</span>
+            <h3>What is confirmed?</h3>
+            <p class="problem-note">Supplier: “We can provide best price.”</p>
+            <dl>
+              <dt>Confirmed</dt>
+              <dd>Price received</dd>
+              <dt>Missing</dt>
+              <dd>MOQ / Lead time</dd>
+            </dl>
           </article>
-
-          <article class="entry-card audience-card" id="buyers">
-            <p class="entry-index">02</p>
-            <div>
-              <p class="audience-label">For Overseas Buyers</p>
-              <h3>给海外买家</h3>
-            </div>
-            <p>
-              帮助你阅读中国供应商回复、报价、样品沟通和工厂资料，识别缺失信息、模糊表达和需要继续确认的问题。
-            </p>
-            <ul class="audience-list">
-              <li>Supplier reply review</li>
-              <li>Payment risk signals</li>
-              <li>Sample questions</li>
-              <li>Factory material signals</li>
-            </ul>
-            <a class="entry-link" href="for-buyers/">查看供应商回复</a>
+          <article class="reveal">
+            <span>Quotation</span>
+            <h3>What is still unclear?</h3>
+            <p class="quote-shift">Listed price → Actual quote</p>
+          </article>
+          <article class="reveal">
+            <span>Factory Materials</span>
+            <h3>What can you actually see?</h3>
+            <dl>
+              <dt>Visible</dt>
+              <dd>Machine / Workshop / Packaging</dd>
+              <dt>Cannot confirm</dt>
+              <dd>Production control / Order outcome</dd>
+            </dl>
           </article>
         </div>
       </section>
 
-      <section class="entry-section info-section" id="signals" aria-labelledby="signals-title">
-        <div class="section-heading">
-          <p class="warm-label">Factory Bridge signals</p>
-          <h2 id="signals-title">我们处理什么信息</h2>
-        </div>
-        <div class="entry-grid entry-grid-zh">
-          <article class="entry-card">
-            <p class="entry-index">01</p>
-            <div>
-              <h3>供应商回复与报价</h3>
-            </div>
-            <p>
-              整理供应商回复、报价、MOQ、交期和付款信息，帮助买家发现缺失和模糊点。
-            </p>
-          </article>
-
-          <article class="entry-card">
-            <p class="entry-index">02</p>
-            <div>
-              <h3>工厂资料与产品介绍</h3>
-            </div>
-            <p>
-              重构产品页、工厂介绍和开发信，让真实能力更容易被海外买家理解。
-            </p>
-          </article>
-
-          <article class="entry-card">
-            <p class="entry-index">03</p>
-            <div>
-              <h3>实拍素材与现场信号</h3>
-            </div>
-            <p>
-              用匿名处理后的车间、设备、包装和生产细节，帮助买家阅读可见的工厂信号。
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <section class="contact-section" id="contact" aria-labelledby="contact-title">
+      <section class="home-section bridge-section reveal" id="signals" aria-labelledby="bridge-title">
         <div>
-          <p class="warm-label">Contact</p>
-          <h2 id="contact-title">选择下一步</h2>
+          <p class="section-kicker">Factory Bridge method</p>
+          <h2 id="bridge-title" class="bridge-flow">
+            <span class="flow-step reveal">Supplier Communication</span>
+            <span class="flow-step reveal">Factory Materials</span>
+            <span class="flow-step reveal">Buyer Decision</span>
+          </h2>
         </div>
-        <div class="contact-panel dual-contact">
-          <article class="contact-choice">
-            <h3><span>中国工厂</span><span>发送一份现有资料</span></h3>
-            <p>
-              你可以发送产品页、工厂介绍、开发信、宣传册或实拍素材，我们先帮你判断哪里不够清楚。
-            </p>
-            <a class="button primary" href="https://factory.gewuji.dev/for-factories/" onclick="trackClarityEvent('home_zh_click_send_materials')">发送现有资料</a>
-          </article>
-          <article class="contact-choice">
-            <h3><span>海外买家</span><span>发送一条供应商回复</span></h3>
-            <p>
-              你可以发送供应商邮件、报价或聊天记录，我们帮你判断缺失信息、风险信号和下一步问题。
-            </p>
-            <a class="button factory" href="for-buyers/">Review Supplier Reply</a>
-          </article>
+        <p>
+          Gewuji connects supplier replies, visible factory context, and the buyer's next sourcing decision. The work is not supplier scoring. It is making unclear information easier to read before the next commitment.
+        </p>
+      </section>
+
+      <section class="home-section review-section reveal" aria-labelledby="review-title">
+        <div>
+          <p class="section-kicker">Supplier Reply Review</p>
+          <h2 id="review-title">What supplier information should you clarify before paying?</h2>
+        </div>
+        <div class="review-example reveal">
+          <div class="document-fragment" aria-label="Supplier message fragment">
+            <span>Supplier message</span>
+            <p>Best quality · Fast delivery · Custom packaging available</p>
+          </div>
+          <p class="supplier-says">“We can provide best quality and fast delivery.”</p>
+          <div class="analysis-grid">
+            <div class="reveal">
+              <span>Confirmed</span>
+              <p>Price received</p>
+            </div>
+            <div class="reveal">
+              <span>Unclear</span>
+              <p>Material details</p>
+            </div>
+            <div class="reveal">
+              <span>Missing</span>
+              <p>Lead time / packaging / sample scope</p>
+            </div>
+          </div>
+          <p class="next-question">Next question: “Could you confirm the material, packaging method, sample scope, and production lead time in writing?”</p>
+        </div>
+      </section>
+
+      <section class="home-section field-section reveal" aria-labelledby="field-title">
+        <div>
+          <p class="section-kicker">Field Materials</p>
+          <h2 id="field-title">Real factory context, not just supplier claims.</h2>
+          <p>Workshop, equipment, product details, and packaging help buyers understand visible information. This is not a formal audit report.</p>
+        </div>
+        <div class="field-gallery" aria-label="Field material types">
+          <figure class="reveal">
+            <img src="assets/home/hero-scene-textile-workshop.webp" alt="Workshop view" loading="lazy" />
+            <figcaption>Workshop</figcaption>
+          </figure>
+          <figure class="reveal">
+            <img src="assets/home/hero-scene-cleanroom-manufacturing.webp" alt="Equipment detail" loading="lazy" />
+            <figcaption>Equipment</figcaption>
+          </figure>
+          <figure class="reveal">
+            <img src="assets/home/hero-scene-product-inspection.webp" alt="Product detail" loading="lazy" />
+            <figcaption>Product details</figcaption>
+          </figure>
+          <figure class="reveal">
+            <img src="assets/home/hero-scene-packaging-shipping.webp" alt="Packaging and material context" loading="lazy" />
+            <figcaption>Packaging</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="home-section final-cta reveal" id="contact" aria-labelledby="contact-title">
+        <p class="section-kicker">Next step</p>
+        <h2 id="contact-title">Have a supplier reply, quote, or factory material you are not sure how to read?</h2>
+        <div class="hero-actions">
+          <a class="button primary" href="free-supplier-reply-review/" onclick="trackClarityEvent('home_zh_click_supplier_reply_review_bottom')">Review a Supplier Reply</a>
+          <a class="button factory" href="field-materials/" onclick="trackClarityEvent('home_zh_click_field_materials_bottom')">Explore Field Materials</a>
         </div>
       </section>
     </main>
@@ -808,5 +2060,98 @@
       <a href="tools/">Lab</a>
       <a href="mailto:laocao@gewuji.dev">联系</a>
     </footer>
+    <script>
+      const motionOK = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (motionOK) {
+        const updateScrollMotion = () => {
+          document.documentElement.style.setProperty("--scroll-y", `${Math.min(window.scrollY, 900)}px`);
+        };
+
+        updateScrollMotion();
+        window.addEventListener("scroll", updateScrollMotion, { passive: true });
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.18, rootMargin: "0px 0px -8% 0px" });
+
+      document.querySelectorAll(".reveal").forEach((node, index) => {
+        node.style.transitionDelay = `${Math.min(index * 70, 420)}ms`;
+        observer.observe(node);
+      });
+
+      const hero = document.querySelector(".warm-hero");
+      const heroScenes = Array.from(document.querySelectorAll(".hero-scene"));
+      const heroSubtitle = document.querySelector("#hero-subtitle");
+      const supplierCue = document.querySelector(".supplier-info-layer");
+      const heroStory = [
+        {
+          subtitle: "Helping overseas buyers understand Chinese suppliers before samples, deposits and production.",
+          position: "left",
+          cue: true
+        },
+        {
+          subtitle: "Reading machining details beyond supplier descriptions.",
+          position: "left",
+          cue: true
+        },
+        {
+          subtitle: "Looking beyond supplier profiles to understand real production context.",
+          position: "left",
+          cue: false
+        },
+        {
+          subtitle: "Clarifying packaging, shipping and order details before commitment.",
+          position: "left",
+          cue: true
+        },
+        {
+          subtitle: "Turning visible factory signals into better buyer questions.",
+          position: "right",
+          cue: false
+        },
+        {
+          subtitle: "Helping buyers understand product details before moving forward.",
+          position: "left",
+          cue: true
+        },
+        {
+          subtitle: "Turning visible factory signals into better buyer questions.",
+          position: "right",
+          cue: false
+        }
+      ];
+
+      if (motionOK && hero && heroScenes.length > 1 && heroSubtitle) {
+        let heroIndex = 0;
+        if (supplierCue && heroStory[0].cue) {
+          window.setTimeout(() => supplierCue.classList.add("is-visible"), 1200);
+        }
+
+        window.setInterval(() => {
+          heroScenes[heroIndex].classList.remove("is-active");
+          heroIndex = (heroIndex + 1) % heroScenes.length;
+          heroScenes[heroIndex].classList.add("is-active");
+
+          const story = heroStory[heroIndex];
+          hero.classList.toggle("scene-left", story.position === "left");
+          hero.classList.toggle("scene-right", story.position === "right");
+          heroSubtitle.textContent = story.subtitle;
+
+          if (supplierCue) {
+            supplierCue.classList.remove("is-visible");
+            if (story.cue) {
+              window.setTimeout(() => supplierCue.classList.add("is-visible"), 900);
+            }
+          }
+        }, 7000);
+      }
+    </script>
   </body>
 </html>
