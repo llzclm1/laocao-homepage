@@ -23,6 +23,7 @@ assert.equal(fs.existsSync(path.join(dist, "buyer-guides", "alibaba-vs-made-in-c
 assert.ok(fs.existsSync(path.join(dist, "china-supplier-checklist", "index.html")), "old china supplier checklist path should stay accessible");
 assert.ok(fs.existsSync(path.join(dist, "rfq-template-for-chinese-suppliers", "index.html")), "old RFQ path should stay accessible");
 assert.ok(fs.existsSync(path.join(dist, "fq-template-for-chinese-suppliers", "index.html")), "misspelled FQ path should stay accessible as a compatibility redirect");
+assert.ok(fs.existsSync(path.join(dist, "en", "index.html")), "dist/en/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "en", "field-materials", "index.html")), "dist/en/field-materials/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "favicon.ico")), "dist/favicon.ico is missing");
 assert.ok(fs.existsSync(path.join(dist, "lab", "index.html")), "dist/lab/index.html is missing");
@@ -64,60 +65,15 @@ assert.equal(home.includes('src="assets/projects/worldcup-game-preview.png"'), f
 assert.equal(home.includes('href="/'), false, "homepage should not use root-relative href paths");
 assert.equal(home.includes('src="/'), false, "homepage should not use root-relative src paths");
 
-const englishHome = fs.readFileSync(path.join(dist, "en", "index.html"), "utf8");
-assert.ok(englishHome.includes("Factory Bridge"), "English homepage should follow the Factory Bridge positioning");
-assert.ok(englishHome.includes("Field Evidence"), "English homepage should link to field evidence");
-assert.ok(englishHome.includes('href="field-materials/"'), "English homepage should link to English field materials");
-assert.ok(englishHome.includes("https://gewuji.dev/en/field-materials/"), "English homepage structured data should link to English field materials");
-assert.equal(englishHome.includes("Personal Product Lab"), false, "English homepage should not use the old product lab positioning");
-assert.equal(englishHome.includes("Selected Work"), false, "English homepage should not feature the old project grid");
+const englishHomeRedirect = fs.readFileSync(path.join(dist, "en", "index.html"), "utf8");
+assert.ok(englishHomeRedirect.includes('http-equiv="refresh" content="0; url=../"'), "/en/ should redirect to /");
+assert.ok(englishHomeRedirect.includes('rel="canonical" href="https://gewuji.dev/"'), "/en/ canonical should point to /");
+assert.ok(englishHomeRedirect.includes('window.location.replace("../")'), "/en/ should use the existing JS redirect pattern");
 
-function extractMatches(text, pattern) {
-  return [...text.matchAll(pattern)].map((match) => match[1]);
-}
-
-function extractBlocks(text, pattern) {
-  return [...text.matchAll(pattern)].map((match) => match[0]);
-}
-
-function normalizeEnglishHomeHref(href) {
-  return href.replace(/^\.\.\//, "").replace(/^#top$/, "#top");
-}
-
-function isCoreHomeLink(href) {
-  return href !== "" && href !== "en/";
-}
-
-function assertSameItems(actual, expected, message) {
-  assert.deepEqual([...new Set(actual)].sort(), [...new Set(expected)].sort(), message);
-}
-
-const homeSections = extractMatches(home, /<section\b[^>]*\bid="([^"]+)"/g);
-const englishHomeSections = extractMatches(englishHome, /<section\b[^>]*\bid="([^"]+)"/g);
-assertSameItems(englishHomeSections, homeSections, "English homepage sections should match Chinese homepage sections");
-
-const homeNavLinks = extractBlocks(home, /<nav\b[\s\S]*?<\/nav>/g)
-  .flatMap((nav) => extractMatches(nav, /href="([^"]+)"/g))
-  .filter(isCoreHomeLink);
-const englishHomeNavLinks = extractBlocks(englishHome, /<nav\b[\s\S]*?<\/nav>/g)
-  .flatMap((nav) => extractMatches(nav, /href="([^"]+)"/g))
-  .map(normalizeEnglishHomeHref)
-  .filter(isCoreHomeLink);
-assertSameItems(englishHomeNavLinks, homeNavLinks, "English homepage nav links should match Chinese homepage nav links");
-
-const homeHeroLinks = extractBlocks(home, /<div class="hero-actions"[\s\S]*?<\/div>/g)
-  .flatMap((block) => extractMatches(block, /href="([^"]+)"/g));
-const englishHomeHeroLinks = extractBlocks(englishHome, /<div class="hero-actions"[\s\S]*?<\/div>/g)
-  .flatMap((block) => extractMatches(block, /href="([^"]+)"/g))
-  .map(normalizeEnglishHomeHref);
-assertSameItems(englishHomeHeroLinks, homeHeroLinks, "English homepage hero CTAs should match Chinese homepage hero CTAs");
-
-const homeFooterLinks = extractBlocks(home, /<footer\b[\s\S]*?<\/footer>/g)
-  .flatMap((footer) => extractMatches(footer, /href="([^"]+)"/g));
-const englishHomeFooterLinks = extractBlocks(englishHome, /<footer\b[\s\S]*?<\/footer>/g)
-  .flatMap((footer) => extractMatches(footer, /href="([^"]+)"/g))
-  .map(normalizeEnglishHomeHref);
-assertSameItems(englishHomeFooterLinks, homeFooterLinks, "English homepage footer links should match Chinese homepage footer links");
+const englishFieldMaterialsRedirect = fs.readFileSync(path.join(dist, "en", "field-materials", "index.html"), "utf8");
+assert.ok(englishFieldMaterialsRedirect.includes('http-equiv="refresh" content="0; url=../../field-materials/"'), "/en/field-materials/ should redirect to /field-materials/");
+assert.ok(englishFieldMaterialsRedirect.includes('rel="canonical" href="https://gewuji.dev/field-materials/"'), "/en/field-materials/ canonical should point to /field-materials/");
+assert.ok(englishFieldMaterialsRedirect.includes('window.location.replace("../../field-materials/")'), "/en/field-materials/ should use the existing JS redirect pattern");
 
 const stats = fs.readFileSync(path.join(dist, "stats.html"), "utf8");
 assert.ok(stats.includes('href="./"'), "stats page should use a relative home link");
@@ -276,14 +232,11 @@ assert.ok(supplierReplySamplePage.includes("This is a generic sample report."), 
 assert.ok(supplierReplySamplePage.includes('"@type": "FAQPage"'), "supplier reply review sample report should include FAQPage schema");
 assert.ok(fieldMaterialsPage.includes('rel="canonical" href="https://gewuji.dev/field-materials/"'), "field materials page should expose canonical URL");
 assert.ok(fieldMaterialsPage.includes("Field Materials Evidence Library"), "field materials page should use the buyer-side evidence library positioning");
-assert.ok(fieldMaterialsPage.includes("We do not claim a supplier is reliable from a video."), "field materials page should expose the supplier reliability boundary");
+assert.ok(fieldMaterialsPage.includes("it cannot prove supplier reliability"), "field materials page should expose the supplier reliability boundary");
 assert.ok(fieldMaterialsPage.includes("../supplier-reply-review/"), "field materials page should link to supplier reply review");
 assert.ok(fieldMaterialsPage.includes('"@type": "FAQPage"'), "field materials page should include FAQPage schema");
 assert.ok(fieldMaterialsPage.includes('application/ld+json'), "field materials page should include JSON-LD");
-assert.ok(englishFieldMaterialsPage.includes('rel="canonical" href="https://gewuji.dev/en/field-materials/"'), "English field materials page should expose canonical URL");
-assert.ok(englishFieldMaterialsPage.includes('hreflang="zh-CN" href="https://gewuji.dev/field-materials/"'), "English field materials page should link to Chinese alternate");
-assert.ok(englishFieldMaterialsPage.includes("Factory Bridge / Field Evidence"), "English field materials page should use the unified hero label");
-assert.ok(englishFieldMaterialsPage.includes("../../field-materials/fastener-workshop-01.jpg"), "English field materials page should reuse existing field material images");
-assert.ok(englishFieldMaterialsPage.includes('application/ld+json'), "English field materials page should include JSON-LD");
+assert.ok(englishFieldMaterialsPage.includes('rel="canonical" href="https://gewuji.dev/field-materials/"'), "English field materials redirect should canonicalize to /field-materials/");
+assert.ok(englishFieldMaterialsPage.includes('http-equiv="refresh" content="0; url=../../field-materials/"'), "English field materials redirect should point to /field-materials/");
 
 console.log("static hosting audit ok");
