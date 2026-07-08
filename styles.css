@@ -4569,6 +4569,18 @@ h2 {
   letter-spacing: -.05em;
 }
 
+.buyers-page .bridge-page h1,
+.buyers-page h1 {
+  max-width: 800px;
+  font-size: clamp(36px, 4vw, 52px);
+  line-height: 1.14;
+  letter-spacing: -.04em;
+}
+
+.buyers-page .bridge-hero-copy {
+  max-width: 680px;
+}
+
 .bridge-page:lang(zh-CN) h1 {
   font-size: clamp(44px, 6.6vw, 84px);
   line-height: 1.08;
@@ -5004,6 +5016,14 @@ h2 {
   background: rgba(255, 255, 255, .58);
 }
 
+.field-materials-page .bridge-hero-inner {
+  align-items: center;
+}
+
+.field-materials-page .material-hero-media {
+  min-height: clamp(360px, 44vw, 560px);
+}
+
 .material-hero-media img {
   width: 100%;
   height: 100%;
@@ -5105,6 +5125,15 @@ h2 {
   filter: saturate(.82) contrast(1.03);
 }
 
+.material-card-inline {
+  margin: 0 0 20px;
+}
+
+.material-card-inline img {
+  aspect-ratio: 16 / 10;
+  filter: saturate(.76) contrast(1.04) brightness(.98);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .bridge-page *,
   .bridge-page *::before,
@@ -5189,6 +5218,17 @@ h2 {
     letter-spacing: -.035em;
   }
 
+  .buyers-page h1 {
+    max-width: 11.5em;
+    font-size: clamp(31px, 8.4vw, 38px);
+    line-height: 1.12;
+  }
+
+  .buyers-page .bridge-lead {
+    font-size: 16px;
+    line-height: 1.62;
+  }
+
   .bridge-page:lang(zh-CN) h1 {
     font-size: clamp(32px, 10vw, 44px);
     line-height: 1.12;
@@ -5208,6 +5248,3 @@ h2 {
     width: 100%;
   }
 }
-  border-radius: 12px;
-  overflow: hidden;
-  border-radius: 8px;
