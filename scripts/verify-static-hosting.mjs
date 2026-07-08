@@ -176,15 +176,25 @@ assert.equal(sitemap.includes("/m/"), false, "sitemap should not include standal
 assert.equal(sitemap.includes("/b/"), false, "sitemap should not include standalone trade buyer page");
 
 const llms = fs.readFileSync(path.join(dist, "llms.txt"), "utf8");
-assert.ok(llms.includes("ai-sitemap.json"), "llms.txt should link to the AI sitemap");
+assert.ok(llms.includes("AI sitemap: https://gewuji.dev/ai-sitemap.json"), "llms.txt should link to the AI sitemap");
 assert.equal(llms.includes("https://gewuji.dev/m/"), false, "llms should not link standalone trade manufacturer page");
 assert.equal(llms.includes("https://gewuji.dev/b/"), false, "llms should not link standalone trade buyer page");
-assert.ok(llms.includes("贴贴研究所"), "llms.txt should include the photo booth project");
-assert.ok(llms.includes("世界杯盘口情绪"), "llms.txt should include worldcup market sentiment keywords");
-assert.ok(llms.includes("基准、保守、开放三种比分情景"), "llms.txt should explain worldcup score scenarios");
-assert.ok(llms.includes("Factory Bridge by Gewuji"), "llms.txt should include the unified Factory Bridge brand");
-assert.ok(llms.includes("工厂对外资料重构"), "llms.txt should include factory-side material rewrite keywords");
-assert.ok(llms.includes("clearer factory information"), "llms.txt should include auxiliary buyer-context keywords");
+for (const expected of [
+  "Factory Bridge",
+  "Supplier Reply Review",
+  "supplier replies",
+  "quotations",
+  "sample terms",
+  "payment details",
+  "field materials",
+  "not supplier verification",
+  "not factory audit",
+  "not legal due diligence",
+  "not quality inspection",
+  "not payment safety guarantee"
+]) {
+  assert.ok(llms.includes(expected), `llms.txt should include current Gewuji positioning: ${expected}`);
+}
 
 const robots = fs.readFileSync(path.join(dist, "robots.txt"), "utf8");
 assert.equal(robots.includes("AI-Sitemap:"), false, "robots should not include non-standard AI-Sitemap directives");

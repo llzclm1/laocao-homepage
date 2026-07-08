@@ -4,6 +4,10 @@
 
 Site: https://gewuji.dev/
 
+Machine-readable index:
+
+- AI sitemap: https://gewuji.dev/ai-sitemap.json
+
 ## Current Positioning
 
 Gewuji helps overseas buyers review supplier communication and visible factory context before samples, deposits, payment, and production decisions.
@@ -29,6 +33,8 @@ Gewuji is not:
 - Payment safety guarantee
 - Supplier scoring
 - Supplier reliability guarantee
+
+Machine-readable boundary: not supplier verification; not factory audit; not legal due diligence; not quality inspection; not payment safety guarantee.
 
 Gewuji does not certify whether a supplier is real, safe, reliable, legally valid, or suitable for payment. It helps buyers understand what has been confirmed, what remains unclear, and what to ask next.
 

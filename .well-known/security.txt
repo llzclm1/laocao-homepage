@@ -1,0 +1,4 @@
+Contact: mailto:llzclm@gmail.com
+Preferred-Languages: en, zh
+Canonical: https://gewuji.dev/.well-known/security.txt
+Expires: 2027-07-08T00:00:00Z

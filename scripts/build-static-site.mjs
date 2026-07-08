@@ -22,6 +22,7 @@ const publishedBuyerGuides = [
 ];
 
 const copyEntries = [
+  ".well-known",
   "8221b5ee5eb23147b8f2422b2cb6096e.txt",
   "_next",
   "assets",
