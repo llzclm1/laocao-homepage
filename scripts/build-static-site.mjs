@@ -20,6 +20,9 @@ const publishedBuyerGuides = [
   "china-supplier-red-flags-before-first-order",
   "chinese-factory-video-call-checklist"
 ];
+const publishedSpanishBuyerGuides = [
+  "como-revisar-un-proveedor-chino-antes-de-pagar"
+];
 
 const copyEntries = [
   ".well-known",
@@ -35,6 +38,7 @@ const copyEntries = [
   "contact",
   "docs",
   "en",
+  "es",
   "factory-assets",
   "field-materials",
   "favicon.ico",
@@ -364,7 +368,9 @@ function buildSitemap() {
   const entries = [
     ["", "1.0"],
     ["buyer-guides/", "0.8"],
+    ["es/buyer-guides/", "0.5"],
     ...publishedBuyerGuides.map((slug) => [`buyer-guides/${slug}/`, "0.7"]),
+    ...publishedSpanishBuyerGuides.map((slug) => [`es/buyer-guides/${slug}/`, "0.5"]),
     ["for-buyers/", "0.9"],
     ["supplier-reply-review/", "0.8"],
     ["supplier-reply-review/sample-report/", "0.7"],

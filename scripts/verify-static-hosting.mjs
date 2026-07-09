@@ -12,6 +12,8 @@ assert.ok(fs.existsSync(path.join(dist, "m", "index.html")), "dist/m/index.html 
 assert.ok(fs.existsSync(path.join(dist, "b", "index.html")), "dist/b/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "contact", "index.html")), "dist/contact/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "index.html")), "dist/buyer-guides/index.html is missing");
+assert.ok(fs.existsSync(path.join(dist, "es", "buyer-guides", "index.html")), "dist/es/buyer-guides/index.html is missing");
+assert.ok(fs.existsSync(path.join(dist, "es", "buyer-guides", "como-revisar-un-proveedor-chino-antes-de-pagar", "index.html")), "dist/es/buyer-guides/como-revisar-un-proveedor-chino-antes-de-pagar/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "verify-chinese-supplier-before-deposit", "index.html")), "dist/buyer-guides/verify-chinese-supplier-before-deposit/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "check-if-chinese-factory-is-real", "index.html")), "dist/buyer-guides/check-if-chinese-factory-is-real/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "questions-before-ordering-samples-from-china", "index.html")), "dist/buyer-guides/questions-before-ordering-samples-from-china/index.html is missing");
@@ -162,6 +164,8 @@ assert.equal(sitemap.includes("/rfq-template-for-chinese-suppliers/"), false, "s
 assert.equal(sitemap.includes("/free-supplier-reply-review/"), false, "sitemap should not include old review redirect path");
 assert.equal(sitemap.includes("/fq-template-for-chinese-suppliers/"), false, "sitemap should not include misspelled RFQ path");
 assert.ok(sitemap.includes("/ai-sitemap.json"), "sitemap should include /ai-sitemap.json");
+assert.ok(sitemap.includes("/es/buyer-guides/"), "sitemap should include /es/buyer-guides/");
+assert.ok(sitemap.includes("/es/buyer-guides/como-revisar-un-proveedor-chino-antes-de-pagar/"), "sitemap should include the first Spanish buyer guide");
 assert.ok(sitemap.includes("/for-factories/"), "sitemap should include /for-factories/");
 assert.ok(sitemap.includes("/for-buyers/"), "sitemap should include /for-buyers/");
 assert.ok(sitemap.includes("/field-materials/"), "sitemap should include /field-materials/");
@@ -220,6 +224,9 @@ assert.ok(JSON.stringify(aiSitemap).includes("不是正式审厂"), "AI sitemap 
 const factoryPage = fs.readFileSync(path.join(dist, "for-factories/index.html"), "utf8");
 const buyerPage = fs.readFileSync(path.join(dist, "for-buyers/index.html"), "utf8");
 const buyerGuidesPage = fs.readFileSync(path.join(dist, "buyer-guides/index.html"), "utf8");
+const spanishBuyerGuidesPage = fs.readFileSync(path.join(dist, "es/buyer-guides/index.html"), "utf8");
+const spanishPaymentGuidePage = fs.readFileSync(path.join(dist, "es/buyer-guides/como-revisar-un-proveedor-chino-antes-de-pagar/index.html"), "utf8");
+const paymentGuidePage = fs.readFileSync(path.join(dist, "buyer-guides/verify-chinese-supplier-before-deposit/index.html"), "utf8");
 const supplierReplyReviewPage = fs.readFileSync(path.join(dist, "supplier-reply-review/index.html"), "utf8");
 const supplierReplySamplePage = fs.readFileSync(path.join(dist, "supplier-reply-review/sample-report/index.html"), "utf8");
 const fieldMaterialsPage = fs.readFileSync(path.join(dist, "field-materials/index.html"), "utf8");
@@ -237,6 +244,17 @@ assert.ok(buyerPage.includes('application/ld+json'), "buyer page should include 
 assert.ok(buyerGuidesPage.includes('rel="canonical" href="https://gewuji.dev/buyer-guides/"'), "buyer guides page should expose canonical URL");
 assert.ok(buyerGuidesPage.includes("Practical China supplier communication guides"), "buyer guides page should include buyer guide SEO copy");
 assert.ok(buyerGuidesPage.includes("Not a formal audit"), "buyer guides page should expose service boundaries");
+assert.ok(spanishBuyerGuidesPage.includes('lang="es"'), "Spanish buyer guides page should use Spanish language metadata");
+assert.ok(spanishBuyerGuidesPage.includes('rel="canonical" href="https://gewuji.dev/es/buyer-guides/"'), "Spanish buyer guides page should expose canonical URL");
+assert.ok(spanishBuyerGuidesPage.includes('hreflang="en" href="https://gewuji.dev/buyer-guides/"'), "Spanish buyer guides page should expose English hreflang");
+assert.ok(spanishBuyerGuidesPage.includes('hreflang="es" href="https://gewuji.dev/es/buyer-guides/"'), "Spanish buyer guides page should expose Spanish hreflang");
+assert.ok(spanishBuyerGuidesPage.includes("No es auditoría formal"), "Spanish buyer guides page should expose service boundaries");
+assert.ok(paymentGuidePage.includes('hreflang="es" href="https://gewuji.dev/es/buyer-guides/como-revisar-un-proveedor-chino-antes-de-pagar/"'), "English payment guide should expose Spanish article hreflang");
+assert.ok(spanishPaymentGuidePage.includes('lang="es"'), "Spanish payment guide should use Spanish language metadata");
+assert.ok(spanishPaymentGuidePage.includes('rel="canonical" href="https://gewuji.dev/es/buyer-guides/como-revisar-un-proveedor-chino-antes-de-pagar/"'), "Spanish payment guide should expose canonical URL");
+assert.ok(spanishPaymentGuidePage.includes('hreflang="en" href="https://gewuji.dev/buyer-guides/verify-chinese-supplier-before-deposit/"'), "Spanish payment guide should expose English hreflang");
+assert.ok(spanishPaymentGuidePage.includes("Esta guía no verifica proveedores"), "Spanish payment guide should avoid formal verification positioning");
+assert.ok(spanishPaymentGuidePage.includes("No es auditoría de fábrica"), "Spanish payment guide should expose audit boundary");
 assert.ok(supplierReplyReviewPage.includes('href="sample-report/"'), "supplier reply review page should link to the sample report");
 assert.ok(supplierReplySamplePage.includes('rel="canonical" href="https://gewuji.dev/supplier-reply-review/sample-report/"'), "supplier reply review sample report should expose canonical URL");
 assert.ok(supplierReplySamplePage.includes("This is a generic sample report."), "supplier reply review sample report should expose generic sample boundary");
