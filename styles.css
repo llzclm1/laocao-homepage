@@ -5131,7 +5131,7 @@ h2 {
 
 .material-card-inline img {
   aspect-ratio: 16 / 10;
-  filter: saturate(.76) contrast(1.04) brightness(.98);
+  filter: saturate(.68) contrast(1.06) brightness(.96);
 }
 
 @media (prefers-reduced-motion: reduce) {
