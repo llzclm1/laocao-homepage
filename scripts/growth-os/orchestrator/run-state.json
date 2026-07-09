@@ -1,0 +1,20 @@
+{
+  "last_run": "2026-07-09T08:03:11.548Z",
+  "processed_items": [
+    "GO-001"
+  ],
+  "failed_agents": [],
+  "pending_review": [],
+  "generated_drafts": [
+    "GO-001"
+  ],
+  "monitoring_state": [
+    {
+      "id": "GO-001",
+      "url": "/buyer-guides/questions-before-ordering-samples-from-china/",
+      "content_status": "published_candidate",
+      "monitor_status": "stub"
+    }
+  ],
+  "errors": []
+}
