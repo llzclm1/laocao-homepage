@@ -242,6 +242,7 @@ assert.ok(buyerPage.includes("Clearer Factory Information for Overseas Buyers"),
 assert.ok(buyerPage.includes("GEWUJI"), "buyer page should use the unified Gewuji brand shell");
 assert.ok(buyerPage.includes('application/ld+json'), "buyer page should include JSON-LD");
 assert.ok(buyerGuidesPage.includes('rel="canonical" href="https://gewuji.dev/buyer-guides/"'), "buyer guides page should expose canonical URL");
+assert.ok(buyerGuidesPage.includes('hreflang="es" href="https://gewuji.dev/es/buyer-guides/"'), "buyer guides page should expose Spanish hreflang");
 assert.ok(buyerGuidesPage.includes("Practical China supplier communication guides"), "buyer guides page should include buyer guide SEO copy");
 assert.ok(buyerGuidesPage.includes("Not a formal audit"), "buyer guides page should expose service boundaries");
 assert.ok(spanishBuyerGuidesPage.includes('lang="es"'), "Spanish buyer guides page should use Spanish language metadata");
