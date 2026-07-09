@@ -1,42 +1,85 @@
-# 项目规则
+# Gewuji Codex Working Rules
 
-## 世界杯更新动作保护
+这些规则用于减少无关改动和混合提交。简单任务优先按用户当轮指令执行，不为了读上下文而阻塞。
 
-做性能、SEO、GEO、PageSpeed、样式、图片、缓存、构建或统计代码优化时，不得改动世界杯项目的更新动作。
+## Context
 
-受保护范围包括但不限于：
+- For non-trivial site, SEO, product, or multi-file changes, review relevant project context files if present:
+  - `PROJECT_CONTEXT.md`
+  - `PROJECT_DECISIONS.md`
+  - `PROJECT_STATUS.md`
+- For scoped tasks, inspect only files relevant to the requested change.
+- If expected files are missing, report clearly before making risky assumptions.
+- Treat `CODEX_HANDOFF.md` as local working context. Do not require it by default and do not commit it unless explicitly requested.
 
-- `scripts/sync-worldcup-data.mjs`
-- `scripts/sync-worldcup-odds.mjs`
-- `tools/worldcup-advisor/worldcup-live-loader.js`
-- `tools/worldcup-advisor/worldcup-status.js`
-- `tools/worldcup-advisor/data/worldcup-2026.js`
-- `tools/worldcup-advisor/data/worldcup-odds.js`
-- 世界杯赛后数据同步、盘口数据同步、北京时间更新文案、定时任务和自动化触发逻辑
+## Git Discipline
 
-如确实需要修改上述范围，必须先明确说明原因、影响范围和验证方式，并等用户确认后再动手。
+- Run `git status` before staging.
+- Keep commits scoped to the user-approved files and hunks.
+- Use `git add -p` when a file contains unrelated changes.
+- Never stage unrelated dirty or untracked files.
+- Never commit unless explicitly requested.
+- Never push unless explicitly requested.
 
-## 对外发帖/回复流程
+## Protected Surfaces
 
-所有海外平台发帖、评论、回答、私信、连接请求等对外内容，默认按以下流程执行：
+Do not touch these unless the user explicitly asks:
 
-1. 先选定目标平台和具体位置，只做读取、选题和回复判断。
-2. 内容在项目边界内时，可以直接写入并发布，不再逐条等待用户确认。
-3. 项目边界：去 AI 味、简单直接、像正常人分享经验；不硬广、不主动推服务、不引导私信、不留联系方式、不写“我可以帮你”这类销售话术，除非用户明确要求。
-4. 涉及高风险动作时必须先停下确认：关注、点赞、连接请求、主动私信、付费推广、账号资料修改、删除/隐藏内容、争议性回复、政治/法律/医疗/金融建议、或任何可能被理解为正式服务承诺的内容。
-5. 新平台首次实际发布后必须立即补进 `docs/promotion/overseas-posting-log.md` 并纳入每日检查范围。
-6. 已纳入平台的发布和回复先暂存链接，半天批量更新一次 `docs/promotion/overseas-posting-log.md` 和对应跟踪文件；新平台首次发布除外。
+- `sitemap.xml`
+- `robots.txt`
+- canonical tags
+- URLs
+- unrelated uncommitted files
+- old project / lab / tools pages
+- `CODEX_HANDOFF.md`
 
-## 浏览器规则
+## Project Boundary
 
-- 海外社媒网页、账号、表单和发布/回复操作统一使用 Safari。
-- 不再默认使用 Chrome、Edge、内置浏览器或 chrome-direct；如果当前工具无法操作 Safari，先说明原因并停下。
+Gewuji is:
 
-## 海外社媒执行频率
+- Factory Bridge
+- Supplier Reply Review
+- buyer communication support
+- factory material communication support
 
-- 当前已纳入的每个海外社媒平台，每天目标发 1-2 条内容。
-- 回复不限次数；看到合适的真人问题或讨论就可以准备回复。
-- 回复要求去 AI 味，简单直接，像正常人分享经验，不像销售员找客户，不写长篇模板。
-- 不主动推服务、引导私信、留联系方式或写“我可以帮你”这类销售话术，除非用户明确要求。
-- 新平台首次实际发布后必须立即补进 `docs/promotion/overseas-posting-log.md` 并纳入每日发帖、回复和回访范围。
-- 频率规则不覆盖内容边界：只要内容在边界内，发帖和回复可自动发布；越界或高风险动作必须先停下确认。
+Gewuji is not:
+
+- supplier verification
+- factory audit
+- legal due diligence
+- quality inspection
+- supplier reliability guarantee
+- payment safety guarantee
+- supplier scoring
+
+Use language like:
+
+- visible signal
+- communication signal
+- information gap
+- unclear terms
+- next questions
+- field material
+
+Avoid language like:
+
+- verified supplier
+- audited factory
+- safe supplier
+- reliable supplier guarantee
+- payment safe
+- risk-free sourcing
+
+## Site Style
+
+- Keep the site static and low-dependency.
+- Prefer small, reversible HTML/CSS/content changes.
+- Do not add new frameworks or build complexity for one-off work.
+- Match the existing visual direction: silver industrial, premium B2B, Factory Bridge.
+- Avoid old foreign trade marketing style and generic AI SaaS dashboard style.
+
+## External Publishing
+
+Do not publish, reply, DM, follow, like, or change account profiles unless the current user request explicitly authorizes that platform and action.
+
+Drafting and research are fine when requested, but public actions need explicit current-turn approval.
