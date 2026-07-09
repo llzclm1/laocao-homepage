@@ -1,104 +1,68 @@
-# Gewuji Growth OS Phase 1
+# Gewuji Growth OS Full System v1
 
-这套工作流解决一个问题：把 Gewuji 的想法先固定成可评估的机会，再进入内容、分发、监控和反馈闭环。
+Gewuji Growth OS 是内部增长操作系统，用来把海外买家问题、工厂资料表达问题和 AI 搜索可见度信号，转成可审核、可发布、可监控的内容与业务改进队列。
 
-## 目标
+它不是网站改版，不是 SaaS，不是自动发帖工具，也不是批量 AI 内容系统。
 
-Growth OS v1 是内部工作流，不是 SaaS，不是自动发帖工具，也不是批量 AI 内容系统。
+## Positioning
 
-流程：
+Gewuji helps:
+
+- overseas buyers understand supplier replies, quotations, sample terms, payment details, and field materials
+- Chinese factories improve materials that overseas buyers can understand
+
+Boundaries:
+
+- not supplier verification guarantee
+- not factory audit
+- not quality inspection
+- not payment protection
+- not supplier reliability guarantee
+
+## System Flow
 
 ```text
-想法
--> 机会队列
--> SEO / buyer value 评分
--> 内容生产
--> 人工分发
--> GEO / GSC / 外部反馈监控
--> Buyer Intelligence 沉淀
+Data Sources
+-> Opportunity Engine
+-> Content Factory
+-> Review Engine
+-> Publishing Queue
+-> Distribution Engine
+-> Monitoring Engine
+-> Feedback Loop
 ```
 
-## 固定入口
+## Modules
 
-所有新想法先进入：
+| Module | Path | Output |
+|---|---|---|
+| Architecture | `docs/growth-os/architecture/` | system map and agent roles |
+| Opportunity Engine | `docs/growth-os/opportunities/` + `data/growth-os/opportunities.jsonl` | scored opportunity queue |
+| Content Factory | `docs/growth-os/content-engine/` + `docs/content-pipeline/` | briefs, drafts, schema plans, distribution drafts |
+| Review Engine | `docs/growth-os/review-engine/` | `approved` or `needs_revision` |
+| Publishing Queue | `docs/growth-os/publishing/` | `page-ready` checklist |
+| Distribution Engine | `docs/growth-os/distribution/` + `docs/social/queue/` | reviewed social drafts |
+| Monitoring Engine | `docs/growth-os/monitoring/` + `docs/geo-monitoring/` | SEO and GEO monitoring records |
+| Feedback Loop | `docs/growth-os/feedback/` + `data/growth-os/content-status.json` | optimization queue |
 
-- `docs/growth-os/opportunities/queue.md`
+## Live Data
 
-通过评分后进入：
-
-- `docs/growth-os/seo-opportunities/keyword-opportunity-table.md`
-
-进入内容生产后使用：
-
-- `docs/content-pipeline/README.md`
-
-发布后进入人工分发队列：
-
-- `docs/social/queue/README.md`
-
-每周监控 AI 搜索和外部可见度：
-
-- `docs/geo-monitoring/README.md`
-
-结构化机会记录：
+Canonical data files:
 
 - `data/growth-os/opportunities.jsonl`
+- `data/growth-os/content-status.json`
 
-## 必填字段
+Docs-side mirrors for structure reference:
 
-每个机会必须记录：
+- `docs/growth-os/data/opportunities.jsonl`
+- `docs/growth-os/data/content-status.json`
 
-- buyer question
-- source
-- intent
-- existing page
-- score
-- decision
-- next action
-- owner / status
-- boundary risk
+## Automation Boundary
 
-## 状态
+Current scripts are local-only:
 
-只使用这些状态：
+- `scripts/growth-os/opportunity-validator.mjs`
+- `scripts/growth-os/content-status-checker.mjs`
+- `scripts/growth-os/geo-report-generator.mjs`
 
-- `captured`
-- `scored`
-- `approved`
-- `brief_ready`
-- `draft_ready`
-- `human_review`
-- `published`
-- `distributed`
-- `monitoring`
-- `improve_or_stop`
-- `rejected`
-
-## 边界
-
-禁止：
-
-- 自动发帖
-- 自动评论
-- 批量 AI 文章
-- 自动抓取登录墙
-- 保存客户隐私
-- 把 Growth OS 做成 SaaS
-
-允许：
-
-- 人工记录真实问题
-- 人工确认机会
-- 生成待审核 brief
-- 生成待审核外部回复草稿
-- 记录匿名反馈
-- 用数据决定更新、合并、暂停或放弃内容
-
-## 当前样例
-
-第一条已进入流程的样例：
-
-- buyer question: `questions before ordering samples from China`
-- source: 现有 Buyer Guide brief
-- status: `brief_ready`
-- next action: 生成正式页面草稿或进入人工审核
+They do not crawl, log in, post, comment, submit forms, or call external APIs.
