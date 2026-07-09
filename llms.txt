@@ -48,7 +48,7 @@ Review of supplier messages, quotations, sample terms, payment requests, and rel
 
 Field Materials:
 
-Photos, videos, product details, packaging views, workshop images, equipment views, QC table photos, or sample room materials that show visible factory context. Field Materials are not a formal audit or reliability guarantee.
+Photos, videos, product details, packaging views, workshop images, equipment views, QC table photos, and sample room materials that show visible factory context. Field Materials are not a formal audit or reliability guarantee.
 
 Factory Bridge:
 
