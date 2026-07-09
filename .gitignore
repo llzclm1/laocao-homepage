@@ -14,3 +14,20 @@ outputs/
 outputs/*-homepage.png
 tools/site-stats-review/input/*
 !tools/site-stats-review/input/.gitkeep
+
+# Local temporary files
+_tmp_*
+
+# Local generated content outputs
+scripts/content/**/output/
+scripts/content/**/preview*/
+scripts/content/**/thumbnails*/
+scripts/content/**/*.mp4
+scripts/content/**/*.mp3
+scripts/content/**/voiceover*.json
+
+# Rejected local Field Materials candidates
+field-materials/field-real-carton-labeling-area.jpg
+field-materials/field-real-sample-room-video.jpg
+field-materials/field-real-surface-finishing-line.jpg
+field-materials/field-real-clean-sample-box.jpg
