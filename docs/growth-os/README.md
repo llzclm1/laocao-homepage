@@ -43,19 +43,19 @@ Data Sources
 | Publishing Queue | `docs/growth-os/publishing/` | `page-ready` checklist |
 | Distribution Engine | `docs/growth-os/distribution/` + `docs/social/queue/` | reviewed social drafts |
 | Monitoring Engine | `docs/growth-os/monitoring/` + `docs/geo-monitoring/` | SEO and GEO monitoring records |
-| Feedback Loop | `docs/growth-os/feedback/` + `data/growth-os/content-status.json` | optimization queue |
+| Feedback Loop | `docs/growth-os/feedback/` + `data/growth-os/state/content-lifecycle.json` | optimization queue |
 
 ## Live Data
 
 Canonical data files:
 
 - `data/growth-os/opportunities.jsonl`
-- `data/growth-os/content-status.json`
+- `data/growth-os/state/content-lifecycle.json`
 
 Docs-side mirrors for structure reference:
 
 - `docs/growth-os/data/opportunities.jsonl`
-- `docs/growth-os/data/content-status.json`
+- `docs/growth-os/state-machine/content-status-schema.md`
 
 ## Automation Boundary
 

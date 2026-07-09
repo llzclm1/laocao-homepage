@@ -1,0 +1,36 @@
+{
+  "states": [
+    "discovered",
+    "scored",
+    "research_ready",
+    "draft_ready",
+    "review_pending",
+    "approved",
+    "publish_ready",
+    "rejected",
+    "revision_required",
+    "published",
+    "monitoring",
+    "learning"
+  ],
+  "transitions": {
+    "discovered": ["scored"],
+    "scored": ["research_ready"],
+    "research_ready": ["draft_ready"],
+    "draft_ready": ["review_pending"],
+    "review_pending": ["approved", "rejected", "revision_required"],
+    "approved": ["publish_ready", "published"],
+    "publish_ready": ["published"],
+    "rejected": [],
+    "revision_required": ["draft_ready", "review_pending"],
+    "published": ["monitoring"],
+    "monitoring": ["learning"],
+    "learning": ["research_ready"]
+  },
+  "manual_required": ["approved", "publish_ready", "published"],
+  "legacy_status_map": {
+    "published_candidate": "monitoring",
+    "review": "review_pending",
+    "needs_revision": "revision_required"
+  }
+}

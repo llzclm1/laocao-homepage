@@ -1,0 +1,145 @@
+{
+  "updated_at": "2026-07-09T14:18:44.655Z",
+  "items": [
+    {
+      "content_id": "GO-001",
+      "platform": "linkedin",
+      "file": "docs/social/content-pack/go-001/linkedin.md",
+      "status": "review_pending",
+      "generated_at": "2026-07-09T14:18:44.655Z"
+    },
+    {
+      "content_id": "GO-001",
+      "platform": "reddit",
+      "file": "docs/social/content-pack/go-001/reddit.md",
+      "status": "review_pending",
+      "generated_at": "2026-07-09T14:18:44.655Z"
+    },
+    {
+      "content_id": "GO-001",
+      "platform": "x-thread",
+      "file": "docs/social/content-pack/go-001/x-thread.md",
+      "status": "review_pending",
+      "generated_at": "2026-07-09T14:18:44.655Z"
+    },
+    {
+      "content_id": "GO-001",
+      "platform": "substack",
+      "file": "docs/social/content-pack/go-001/substack.md",
+      "status": "review_pending",
+      "generated_at": "2026-07-09T14:18:44.655Z"
+    },
+    {
+      "content_id": "GO-001",
+      "platform": "medium",
+      "file": "docs/social/content-pack/go-001/medium.md",
+      "status": "review_pending",
+      "generated_at": "2026-07-09T14:18:44.655Z"
+    },
+    {
+      "content_id": "GO-002",
+      "platform": "linkedin",
+      "file": "docs/social/content-pack/go-002/linkedin.md",
+      "status": "review_pending",
+      "generated_at": "2026-07-09T14:18:44.655Z"
+    },
+    {
+      "content_id": "GO-002",
+      "platform": "reddit",
+      "file": "docs/social/content-pack/go-002/reddit.md",
+      "status": "review_pending",
+      "generated_at": "2026-07-09T14:18:44.655Z"
+    },
+    {
+      "content_id": "GO-002",
+      "platform": "x-thread",
+      "file": "docs/social/content-pack/go-002/x-thread.md",
+      "status": "review_pending",
+      "generated_at": "2026-07-09T14:18:44.655Z"
+    },
+    {
+      "content_id": "GO-002",
+      "platform": "substack",
+      "file": "docs/social/content-pack/go-002/substack.md",
+      "status": "review_pending",
+      "generated_at": "2026-07-09T14:18:44.655Z"
+    },
+    {
+      "content_id": "GO-002",
+      "platform": "medium",
+      "file": "docs/social/content-pack/go-002/medium.md",
+      "status": "review_pending",
+      "generated_at": "2026-07-09T14:18:44.655Z"
+    },
+    {
+      "content_id": "GO-004",
+      "platform": "linkedin",
+      "file": "docs/social/content-pack/go-004/linkedin.md",
+      "status": "review_pending",
+      "generated_at": "2026-07-09T14:18:44.655Z"
+    },
+    {
+      "content_id": "GO-004",
+      "platform": "reddit",
+      "file": "docs/social/content-pack/go-004/reddit.md",
+      "status": "review_pending",
+      "generated_at": "2026-07-09T14:18:44.655Z"
+    },
+    {
+      "content_id": "GO-004",
+      "platform": "x-thread",
+      "file": "docs/social/content-pack/go-004/x-thread.md",
+      "status": "review_pending",
+      "generated_at": "2026-07-09T14:18:44.655Z"
+    },
+    {
+      "content_id": "GO-004",
+      "platform": "substack",
+      "file": "docs/social/content-pack/go-004/substack.md",
+      "status": "review_pending",
+      "generated_at": "2026-07-09T14:18:44.655Z"
+    },
+    {
+      "content_id": "GO-004",
+      "platform": "medium",
+      "file": "docs/social/content-pack/go-004/medium.md",
+      "status": "review_pending",
+      "generated_at": "2026-07-09T14:18:44.655Z"
+    },
+    {
+      "content_id": "GO-006",
+      "platform": "linkedin",
+      "file": "docs/social/content-pack/go-006/linkedin.md",
+      "status": "review_pending",
+      "generated_at": "2026-07-09T14:18:44.655Z"
+    },
+    {
+      "content_id": "GO-006",
+      "platform": "reddit",
+      "file": "docs/social/content-pack/go-006/reddit.md",
+      "status": "review_pending",
+      "generated_at": "2026-07-09T14:18:44.655Z"
+    },
+    {
+      "content_id": "GO-006",
+      "platform": "x-thread",
+      "file": "docs/social/content-pack/go-006/x-thread.md",
+      "status": "review_pending",
+      "generated_at": "2026-07-09T14:18:44.655Z"
+    },
+    {
+      "content_id": "GO-006",
+      "platform": "substack",
+      "file": "docs/social/content-pack/go-006/substack.md",
+      "status": "review_pending",
+      "generated_at": "2026-07-09T14:18:44.655Z"
+    },
+    {
+      "content_id": "GO-006",
+      "platform": "medium",
+      "file": "docs/social/content-pack/go-006/medium.md",
+      "status": "review_pending",
+      "generated_at": "2026-07-09T14:18:44.655Z"
+    }
+  ]
+}

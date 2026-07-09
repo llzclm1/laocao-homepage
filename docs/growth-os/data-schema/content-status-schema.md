@@ -1,47 +1,5 @@
-# Content Status Schema
+# 旧内容状态 Schema（已退役）
 
-This schema documents `data/growth-os/content-status.json`.
+`content-status.json` 已于 2026-07-10 归档，不再作为运行状态源。
 
-## Root
-
-```json
-{
-  "updated_at": "2026-07-09",
-  "items": []
-}
-```
-
-## Item Fields
-
-| Field | Type | Required | Meaning |
-|---|---|---|---|
-| `id` | string | yes | Opportunity ID |
-| `url` | string | yes | Page URL or target URL |
-| `publish_date` | string | yes | Date content became a candidate or published page |
-| `status` | string | yes | Current state |
-| `traffic` | number or null | no | Traffic signal |
-| `ranking` | number/string/null | no | Search position or note |
-| `ai_citation` | number/string/null | no | AI citation state |
-| `conversion` | number/string/null | no | Lead or CTA signal |
-| `next_review` | string | no | Next review date |
-| `optimization_queue` | array | no | Suggested improvements |
-
-## Autonomous Fields
-
-- `approval_required`
-- `approved_by`
-- `approved_at`
-- `last_agent_run_at`
-- `last_monitoring_report`
-
-## Allowed Status
-
-- `draft`
-- `review`
-- `published_candidate`
-- `approval_required`
-- `page_published`
-- `distributed`
-- `monitoring`
-- `optimization_candidate`
-- `improve_or_stop`
+当前生命周期 schema 请见 `docs/growth-os/state-machine/content-status-schema.md`，唯一数据文件为 `data/growth-os/state/content-lifecycle.json`。

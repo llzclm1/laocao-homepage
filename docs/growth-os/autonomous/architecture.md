@@ -30,7 +30,7 @@ v1 不联网爬取，不登录平台，不调用真实 API。
 ## 输出
 
 - `data/growth-os/opportunities.jsonl`
-- `data/growth-os/content-status.json`
+- `data/growth-os/state/content-lifecycle.json`
 - `docs/content-pipeline/<go-id>/`
 - `docs/social/queue/`
 - `docs/geo-monitoring/`

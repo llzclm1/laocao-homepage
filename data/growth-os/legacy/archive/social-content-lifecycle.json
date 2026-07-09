@@ -1,0 +1,50 @@
+[
+  {
+    "id": "GO-001",
+    "title": "Questions Before Ordering Samples From China",
+    "status": "monitoring",
+    "platforms": [
+      { "name": "LinkedIn", "status": "ready" },
+      { "name": "Reddit", "status": "ready" },
+      { "name": "X", "status": "ready" },
+      { "name": "Substack", "status": "ready" },
+      { "name": "Medium", "status": "ready" }
+    ]
+  },
+  {
+    "id": "GO-002",
+    "title": "Questions Before Paying China Supplier Deposit",
+    "status": "review_pending",
+    "platforms": [
+      { "name": "LinkedIn", "status": "ready" },
+      { "name": "Reddit", "status": "ready" },
+      { "name": "X", "status": "ready" },
+      { "name": "Substack", "status": "ready" },
+      { "name": "Medium", "status": "ready" }
+    ]
+  },
+  {
+    "id": "GO-004",
+    "title": "What factory videos can and cannot prove",
+    "status": "review_pending",
+    "platforms": [
+      { "name": "LinkedIn", "status": "draft" },
+      { "name": "Reddit", "status": "draft" },
+      { "name": "X", "status": "draft" },
+      { "name": "Substack", "status": "draft" },
+      { "name": "Medium", "status": "draft" }
+    ]
+  },
+  {
+    "id": "GO-006",
+    "title": "Compare Alibaba supplier quotations beyond price",
+    "status": "publish_ready",
+    "platforms": [
+      { "name": "LinkedIn", "status": "ready" },
+      { "name": "Reddit", "status": "ready" },
+      { "name": "X", "status": "ready" },
+      { "name": "Substack", "status": "ready" },
+      { "name": "Medium", "status": "ready" }
+    ]
+  }
+]

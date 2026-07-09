@@ -15,7 +15,7 @@ Summarize SEO, GEO, distribution, and feedback signals.
 
 ## Inputs
 
-- `data/growth-os/content-status.json`
+- `data/growth-os/state/content-lifecycle.json`
 - future `data/growth-os/monitoring-results.jsonl`
 - `docs/growth-os/monitoring/geo-monitoring.md`
 - `docs/social/queue/`

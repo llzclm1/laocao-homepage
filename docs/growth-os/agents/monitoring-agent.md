@@ -2,7 +2,7 @@
 
 ## Input
 
-- `data/growth-os/content-status.json`
+- `data/growth-os/state/content-lifecycle.json`
 - `docs/growth-os/monitoring/geo-monitoring.md`
 - manual SEO/GEO observations
 

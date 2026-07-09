@@ -7,11 +7,13 @@ import { run as runResearchAgent } from "../agents/research-agent/interface.mjs"
 import { run as runContentAgent } from "../agents/content-agent/interface.mjs";
 import { run as runReviewAgent } from "../agents/review-agent/interface.mjs";
 import { run as runMonitorAgent } from "../agents/monitor-agent/interface.mjs";
+import { generatePerformanceReport } from "../performance/performance-analyzer.mjs";
+import { generateReviewQueue } from "../review/review-queue-generator.mjs";
+import { loadLifecycleState } from "../state/state-manager.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../..");
 const stateFile = path.join(root, "scripts/growth-os/orchestrator/run-state.json");
 const opportunityFile = path.join(root, "data/growth-os/opportunities.jsonl");
-const contentStatusFile = path.join(root, "data/growth-os/content-status.json");
 
 export function runDailyPipeline(now = new Date()) {
   const errors = [];
@@ -20,7 +22,7 @@ export function runDailyPipeline(now = new Date()) {
   const pendingReview = [];
   const monitoringState = [];
   const opportunities = readJsonl(opportunityFile);
-  const contentStatus = readJson(contentStatusFile, { items: [] });
+  const lifecycle = loadLifecycleState();
 
   for (const opportunity of opportunities) {
     try {
@@ -32,15 +34,15 @@ export function runDailyPipeline(now = new Date()) {
 
       const packageState = getPackageState(opportunity.id);
       const reviewDecision = getReviewDecision(opportunity.id, review);
-      const statusItem = contentStatus.items.find((item) => item.id === opportunity.id || item.url === opportunity.url) || null;
+      const statusItem = lifecycle.find((item) => item.id === opportunity.id) || null;
 
       if (packageState.ready) generatedDrafts.push(opportunity.id);
-      if (reviewDecision !== "approved") pendingReview.push(opportunity.id);
+      if (statusItem?.status === "review_pending" || reviewDecision !== "approved") pendingReview.push(opportunity.id);
 
       monitoringState.push({
         id: opportunity.id,
         url: opportunity.url,
-        content_status: statusItem?.status || null,
+        lifecycle_status: statusItem?.status || null,
         monitor_status: monitor.status
       });
     } catch (error) {
@@ -60,6 +62,8 @@ export function runDailyPipeline(now = new Date()) {
   };
 
   fs.writeFileSync(stateFile, `${JSON.stringify(state, null, 2)}\n`, "utf8");
+  const reviewQueue = generateReviewQueue(now);
+  const performanceReport = generatePerformanceReport(now);
 
   return {
     date: state.last_run,
@@ -67,6 +71,8 @@ export function runDailyPipeline(now = new Date()) {
     generatedDrafts: state.generated_drafts.length,
     needReview: state.pending_review.length,
     errors: state.errors,
+    reviewQueue,
+    performanceReport,
     state
   };
 }
@@ -83,11 +89,6 @@ function readJsonl(file) {
         throw new Error(`${path.relative(root, file)} line ${index + 1}: ${error.message}`);
       }
     });
-}
-
-function readJson(file, fallback) {
-  if (!fs.existsSync(file)) return fallback;
-  return JSON.parse(fs.readFileSync(file, "utf8"));
 }
 
 function getPackageState(opportunityId) {

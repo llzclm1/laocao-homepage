@@ -4,7 +4,7 @@ The Feedback Loop turns performance and buyer signals into content and service i
 
 ## Inputs
 
-- `data/growth-os/content-status.json`
+- `data/growth-os/state/content-lifecycle.json`
 - GSC observations
 - AI-search monitoring
 - distribution responses

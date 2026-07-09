@@ -5,7 +5,7 @@
 Autonomous Mode v1 只读取本地文件：
 
 - `data/growth-os/opportunities.jsonl`
-- `data/growth-os/content-status.json`
+- `data/growth-os/state/content-lifecycle.json`
 - `docs/content-pipeline/`
 - `docs/social/queue/`
 - `docs/geo-monitoring/`

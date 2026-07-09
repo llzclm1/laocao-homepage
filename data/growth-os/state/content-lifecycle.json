@@ -1,0 +1,142 @@
+[
+  {
+    "id": "GO-001",
+    "title": "Questions Before Ordering Samples From China",
+    "status": "monitoring",
+    "platforms": [
+      {
+        "name": "LinkedIn",
+        "status": "ready"
+      },
+      {
+        "name": "Reddit",
+        "status": "ready"
+      },
+      {
+        "name": "X",
+        "status": "ready"
+      },
+      {
+        "name": "Substack",
+        "status": "ready"
+      },
+      {
+        "name": "Medium",
+        "status": "ready"
+      }
+    ],
+    "previous_status": "monitoring",
+    "updated": "2026-07-09",
+    "last_action": "approve",
+    "lifecycle_stage": "monitoring",
+    "review_status": "approved",
+    "publish_status": "published",
+    "monitor_status": "monitoring",
+    "learning_status": "not_started"
+  },
+  {
+    "id": "GO-002",
+    "title": "Questions Before Paying China Supplier Deposit",
+    "status": "approved",
+    "platforms": [
+      {
+        "name": "LinkedIn",
+        "status": "ready"
+      },
+      {
+        "name": "Reddit",
+        "status": "ready"
+      },
+      {
+        "name": "X",
+        "status": "ready"
+      },
+      {
+        "name": "Substack",
+        "status": "ready"
+      },
+      {
+        "name": "Medium",
+        "status": "ready"
+      }
+    ],
+    "previous_status": "approved",
+    "updated": "2026-07-09",
+    "last_action": "approve",
+    "lifecycle_stage": "review",
+    "review_status": "approved",
+    "publish_status": "ready",
+    "monitor_status": "not_started",
+    "learning_status": "not_started"
+  },
+  {
+    "id": "GO-004",
+    "title": "What factory videos can and cannot prove",
+    "status": "revision_required",
+    "platforms": [
+      {
+        "name": "LinkedIn",
+        "status": "draft"
+      },
+      {
+        "name": "Reddit",
+        "status": "draft"
+      },
+      {
+        "name": "X",
+        "status": "draft"
+      },
+      {
+        "name": "Substack",
+        "status": "draft"
+      },
+      {
+        "name": "Medium",
+        "status": "draft"
+      }
+    ],
+    "previous_status": "revision_required",
+    "updated": "2026-07-09",
+    "last_action": "approve",
+    "lifecycle_stage": "review",
+    "review_status": "revision_required",
+    "publish_status": "not_ready",
+    "monitor_status": "not_started",
+    "learning_status": "not_started"
+  },
+  {
+    "id": "GO-006",
+    "title": "Compare Alibaba supplier quotations beyond price",
+    "status": "publish_ready",
+    "platforms": [
+      {
+        "name": "LinkedIn",
+        "status": "ready"
+      },
+      {
+        "name": "Reddit",
+        "status": "ready"
+      },
+      {
+        "name": "X",
+        "status": "ready"
+      },
+      {
+        "name": "Substack",
+        "status": "ready"
+      },
+      {
+        "name": "Medium",
+        "status": "ready"
+      }
+    ],
+    "previous_status": "publish_ready",
+    "updated": "2026-07-09",
+    "last_action": "approve",
+    "lifecycle_stage": "publish",
+    "review_status": "approved",
+    "publish_status": "ready",
+    "monitor_status": "not_started",
+    "learning_status": "not_started"
+  }
+]
