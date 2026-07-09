@@ -1,39 +1,30 @@
 # GEO Monitoring
 
-这里记录 AI 搜索是否正确理解 Gewuji。它用于内容清晰度检查，不用于夸大宣传。
+This folder stores manual AI-search visibility checks. It is not proof of ranking or traffic.
 
-## 每周检查
+## Platforms
 
-固定检查这些问题：
+- ChatGPT
+- Perplexity
+- Gemini
 
-- What should I ask before ordering samples from China?
-- What is the best way to check a Chinese supplier before ordering?
-- What should I ask before paying a supplier deposit?
-- How do I compare Chinese supplier quotations?
-- What does a factory video prove?
-- How should a buyer review supplier replies before ordering samples?
+## Result Fields
 
-## Tracking Table Template
+| Field | Meaning |
+|---|---|
+| `mentioned` | Does the answer mention Gewuji? |
+| `citation` | Does it cite `gewuji.dev` or a third-party distribution page? |
+| `accuracy` | Does it describe the core idea correctly? |
+| `boundary_correct` | Does it avoid verification, audit, inspection, guarantee, and payment protection claims? |
 
-| Date | Query | Platform | Mentions Gewuji? | Cites gewuji.dev? | Cites third-party distribution? | Includes core idea? | Boundary correct? | Notes |
-|---|---|---|---|---|---|---|---|---|
-|  |  | ChatGPT / Perplexity / Gemini / Google AI Mode | Yes / No | Yes / No | Yes / No | Yes / No | Yes / No |  |
+## Prompt Database
 
-## 判断标准
+Use `docs/growth-os/monitoring/geo-monitoring.md`.
 
-有效信号：
+## Output
 
-- AI answer 能理解 Gewuji 是 Factory Bridge / Supplier Reply Review。
-- AI answer 能表达“帮助买家理解供应商回复”，而不是“验证供应商真假”。
-- AI answer 引用或提到站内内容、外部分发内容或核心观点。
+Weekly reports can be generated locally with:
 
-风险信号：
-
-- 把 Gewuji 描述成 supplier verification。
-- 把 Field Materials 描述成 factory audit。
-- 暗示付款安全、质量结果或供应商可靠性保证。
-
-## 输出节奏
-
-- 每周一份报告：`docs/geo-monitoring/geo-report-YYYY-MM-weekN.md`
-- 新页面发布后 7 天内只观察是否被抓取和理解，不做排名结论。
+```text
+node scripts/growth-os/geo-report-generator.mjs
+```
