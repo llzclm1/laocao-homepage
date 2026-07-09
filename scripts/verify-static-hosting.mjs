@@ -56,7 +56,7 @@ assert.ok(home.includes('href="https://factory.gewuji.dev/for-factories/"'), "ho
 assert.ok(home.includes('href="https://factory.gewuji.dev/for-buyers/"'), "homepage should link to the buyer-side entrance");
 assert.ok(home.includes('href="for-buyers/"'), "homepage should link to the supplier reply review action");
 assert.ok(home.includes('href="field-materials/"'), "homepage should link to field materials");
-assert.ok(home.includes('href="tools/"'), "homepage should keep a low-priority lab link");
+assert.equal(home.includes('href="tools/"'), false, "homepage should not link legacy tools");
 assert.ok(home.includes('href="ai-sitemap.json"'), "homepage should expose the AI sitemap");
 assert.equal(home.includes('id="guide"'), false, "homepage should not embed the utility navigation section");
 assert.equal(home.includes("工位突围：世界杯摸鱼版"), false, "homepage should not feature the world cup event banner");
@@ -147,7 +147,7 @@ for (const file of requiredAssets) {
 }
 
 const sitemap = fs.readFileSync(path.join(dist, "sitemap.xml"), "utf8");
-assert.ok(sitemap.includes("/tools/"), "sitemap should include /tools/");
+assert.equal(sitemap.includes("/tools/"), false, "sitemap should not include legacy tools index");
 assert.ok(sitemap.includes("/buyer-guides/"), "sitemap should include /buyer-guides/");
 assert.ok(sitemap.includes("/buyer-guides/verify-chinese-supplier-before-deposit/"), "sitemap should include verify guide");
 assert.ok(sitemap.includes("/buyer-guides/check-if-chinese-factory-is-real/"), "sitemap should include factory-real guide");
@@ -169,6 +169,7 @@ assert.ok(sitemap.includes("/en/field-materials/"), "sitemap should include /en/
 assert.ok(sitemap.includes("/contact/"), "sitemap should include /contact/");
 assert.equal(sitemap.includes("/game/worldcup/"), false, "sitemap should not include old game pages");
 assert.equal(sitemap.includes("/tools/photo-booth/"), false, "sitemap should not include old tool pages");
+assert.equal(sitemap.includes("/tools/worldcup-advisor/"), false, "sitemap should not include World Cup Advisor pages");
 assert.equal(sitemap.includes("/tools/content-assistant/"), false, "sitemap should not include temporary tool pages");
 assert.equal(sitemap.includes("/tools/content-assistant/admin/"), false, "sitemap should not include admin tool pages");
 assert.equal(sitemap.includes("/nav/"), false, "sitemap should not include old navigation helper pages");
@@ -205,7 +206,7 @@ const aiSitemapPaths = aiSitemap.pages.map((page) => new URL(page.url).pathname.
 assert.equal(aiSitemap.site.name, "格物集", "AI sitemap should describe the site");
 assert.equal(aiSitemapPaths.includes("/m/"), false, "AI sitemap should not include standalone trade manufacturer page");
 assert.equal(aiSitemapPaths.includes("/b/"), false, "AI sitemap should not include standalone trade buyer page");
-assert.ok(aiSitemapPaths.includes("/tools/"), "AI sitemap should include the Lab / Tools index");
+assert.equal(aiSitemapPaths.includes("/tools/"), false, "AI sitemap should not include legacy tools index");
 assert.ok(aiSitemapPaths.includes("/buyer-guides/"), "AI sitemap should include buyer guides");
 assert.ok(aiSitemapPaths.includes("/supplier-reply-review/"), "AI sitemap should include supplier reply review page");
 assert.ok(aiSitemapPaths.includes("/supplier-reply-review/sample-report/"), "AI sitemap should include supplier reply review sample report");

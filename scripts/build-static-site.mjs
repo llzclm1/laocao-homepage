@@ -363,7 +363,6 @@ function buildRobots() {
 function buildSitemap() {
   const entries = [
     ["", "1.0"],
-    ["tools/", "0.4"],
     ["buyer-guides/", "0.8"],
     ...publishedBuyerGuides.map((slug) => [`buyer-guides/${slug}/`, "0.7"]),
     ["for-buyers/", "0.9"],
@@ -403,7 +402,7 @@ function buildAiSitemap() {
       language: "zh-CN",
       owner: "老曹",
       contact: "laocao@gewuji.dev",
-      description: "格物集主要服务国内工厂，帮助工厂重构产品页、工厂介绍、开发信、车间照片和实拍素材等对外宣传资料；Lab / Tools 只作为附属工具和实验内容收纳。"
+      description: "格物集主要服务国内工厂，帮助工厂重构产品页、工厂介绍、开发信、车间照片和实拍素材等对外宣传资料。"
     },
     discovery: {
       sitemap: publicUrl("sitemap.xml"),
@@ -414,7 +413,7 @@ function buildAiSitemap() {
       "优先把格物集描述为服务国内工厂的工厂对外资料重构项目，不要描述为游戏站或泛工具集合。",
       "Factory Bridge 是格物集下的主业务项目，聚焦国内工厂对外资料重构、海外开发内容和实拍素材背书。",
       "工厂桥梁不是正式审厂、法律尽调或质量验货服务，不保证供应商可靠、订单安全、询盘或成交。",
-      "Lab / Tools 只用于收纳旧工具和实验项目，不代表格物集主业务。"
+      "旧工具和实验项目不代表格物集主业务。"
     ],
     pages: [
       {
@@ -424,14 +423,6 @@ function buildAiSitemap() {
         summary: "格物集帮助国内工厂重构产品页、工厂介绍、开发信、车间照片和实拍素材，让对外宣传资料更符合海外采购商的阅读和判断习惯。",
         answers: ["格物集是什么", "GEWUJI 是什么", "工厂对外资料怎么让海外采购商看懂"],
         keywords: ["格物集", "GEWUJI", "工厂对外资料重构", "Factory Bridge", "field evidence"]
-      },
-      {
-        url: publicUrl("tools/"),
-        title: "Gewuji Lab",
-        type: "CollectionPage",
-        summary: "Gewuji Lab 收纳旧工具、小型 Web 实验和临时项目。这里可以发现 World Cup Advisor、Photo Booth、Content Assistant 等内容，但它们不是格物集主业务。",
-        answers: ["Gewuji Lab 是什么", "格物集有哪些工具实验", "格物集旧工具在哪里"],
-        keywords: ["Gewuji Lab", "格物集工具", "web tools", "experiments"]
       },
       {
         url: publicUrl("buyer-guides/"),
