@@ -168,6 +168,27 @@ ${summary.recommended_actions.length ? summary.recommended_actions.map((item, in
   return path.relative(root, dashboardFile);
 }
 
+export function refreshDashboardDiscovery(discovery, now = new Date()) {
+  const view = readJsonFile(dashboardViewFile);
+  if (!view || !view.title) return false;
+  const items = (discovery?.items || []).slice(0, 5).map((item) => ({
+    ...item,
+    platform: discoveryPlatformLabel(item.platform)
+  }));
+  view.generated_at = now.toISOString();
+  view.today_opportunities = items;
+  view.discovery_summary = buildDiscoverySummaryView(discovery?.discovery_summary);
+  view.today_actions = buildTodayActions(view.today_action, view.platform_execution || [], items);
+  if (items[0]) {
+    view.decision_summary = {
+      ...(view.decision_summary || {}),
+      next_best_action: `优先回复 ${items[0].platform}：${items[0].topic}。${items[0].risk_note}`
+    };
+  }
+  fs.writeFileSync(dashboardViewFile, `${JSON.stringify(view, null, 2)}\n`, "utf8");
+  return true;
+}
+
 function writeDashboardData(summary, context, business, todayAction, socialQueue, socialPublishing, contentLifecycle) {
   fs.mkdirSync(dashboardDataDir, { recursive: true });
   const opportunityById = new Map(readJsonl(opportunitiesFile).map((item) => [item.id, item]));
@@ -256,7 +277,11 @@ function buildDashboardView(summary, priority, dashboard) {
     title: "Growth OS 增长运营中心",
     decision_summary: decisionSummary,
     today_actions: todayActions,
-    today_opportunities: (summary.social_discovery?.items || []).slice(0, 5),
+    today_opportunities: (summary.social_discovery?.items || []).slice(0, 5).map((item) => ({
+      ...item,
+      platform: discoveryPlatformLabel(item.platform)
+    })),
+    discovery_summary: buildDiscoverySummaryView(summary.social_discovery?.discovery_summary),
     business_signals: businessSignals,
     platform_execution: platformExecution,
     today_action: action ? {
@@ -385,7 +410,7 @@ function buildDecisionSummary(action, summary, platformExecution) {
       ? `Reddit removal rate ${reddit.removal_rate}% 偏高，继续发帖会损耗账号信任。`
       : "当前买家互动数据不足，不能用发帖量替代商业信号。",
     next_best_action: topDiscovery
-      ? `优先回复 ${topDiscovery.platform}：${topDiscovery.topic}。${topDiscovery.risk_note}`
+      ? `优先回复 ${discoveryPlatformLabel(topDiscovery.platform)}：${topDiscovery.topic}。${topDiscovery.risk_note}`
       : reddit?.risk_status === "High"
       ? "发布 3 条无链接、无项目提及、经验型 Reddit comments，并暂停独立推广帖。"
       : nextStepForStatus(action?.status),
@@ -401,7 +426,7 @@ function buildDecisionSummary(action, summary, platformExecution) {
 function buildTodayActions(action, platformExecution, discoveryItems) {
   if (discoveryItems.length) {
     return discoveryItems.slice(0, 3).map((item) => ({
-      platform: item.platform,
+      platform: discoveryPlatformLabel(item.platform),
       action: `回复：${item.topic}`,
       priority: item.intent_score,
       status: "待执行",
@@ -1170,6 +1195,47 @@ function readablePlatform(platform) {
   if (platform === "linkedin") return "LinkedIn";
   if (platform === "x-thread") return "X";
   return String(platform || "").replace(/\b\w/g, (char) => char.toUpperCase());
+}
+
+function discoveryPlatformLabel(platform) {
+  if (platform === "linkedin") return "LinkedIn";
+  if (platform === "reddit") return "Reddit";
+  if (platform === "quora") return "Quora";
+  if (platform === "x") return "X";
+  return String(platform || "");
+}
+
+function buildDiscoverySummaryView(summary = {}) {
+  return {
+    newly_discovered_today: Number(summary.newly_discovered_today) || 0,
+    manual_added_today: Number(summary.manual_added_today) || 0,
+    imported_today: Number(summary.imported_today) || 0,
+    existing_log_opportunities: Number(summary.existing_log_opportunities) || 0,
+    fresh_opportunities: Number(summary.fresh_opportunities) || 0,
+    aging_opportunities: Number(summary.aging_opportunities) || 0,
+    platform_failures: Number(summary.platform_failures) || 0,
+    persistent_automatic_candidates: Number(summary.persistent_automatic_candidates) || 0,
+    current_mode: summary.current_mode || "existing_log_manual_inbox_import",
+    rss_adapter_works_in_dry_run: Boolean(summary.rss_adapter_works_in_dry_run),
+    last_verified_rss_result: summary.last_verified_rss_result || null,
+    last_collection_time: summary.last_collection_time || null,
+    last_successful_discovery: summary.last_successful_discovery || null,
+    collection_message: summary.collection_message || "No verified public opportunities were discovered today.",
+    collection_status: (summary.collection_status || []).map((item) => ({
+      ...item,
+      platform: discoveryPlatformLabel(item.platform),
+      status_label: discoveryCollectionStatusLabel(item.status, item.message)
+    }))
+  };
+}
+
+function discoveryCollectionStatusLabel(status, message) {
+  if (status === "success") return "Success";
+  if (status === "blocked") return /\b403\b/.test(String(message || "")) ? "Blocked (403)" : "Blocked";
+  if (status === "failed") return "Failed";
+  if (status === "no_verified_results") return "No verified results";
+  if (status === "not_run") return "Not run";
+  return "Outcome not recorded";
 }
 
 function renderTopBusinessOpportunity(item) {

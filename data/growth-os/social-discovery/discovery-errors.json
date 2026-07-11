@@ -1,0 +1,10 @@
+[
+  {
+    "platform": "reddit",
+    "timestamp": "2026-07-11T02:50:47.842Z",
+    "source": "legacy_reddit_public_json",
+    "error_type": "public_api_failed",
+    "message": "Reddit public search returned 403",
+    "retry_recommendation": "Use the configured public RSS sources during the next daily collection window; do not bypass access controls."
+  }
+]

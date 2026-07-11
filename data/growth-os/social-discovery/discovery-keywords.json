@@ -1,0 +1,53 @@
+{
+  "buyer_intent": [
+    "verify Chinese supplier",
+    "supplier changed bank account",
+    "Alibaba deposit refund",
+    "China sourcing problem",
+    "factory or trading company",
+    "supplier quotation risk",
+    "sample order China",
+    "Chinese manufacturer communication",
+    "MOQ problem supplier",
+    "how to find reliable Chinese suppliers"
+  ],
+  "factory_intent": [
+    "find overseas buyers for factory",
+    "B2B export marketing",
+    "factory product presentation",
+    "foreign trade email",
+    "industrial marketing China",
+    "export customer development"
+  ],
+  "reddit_rss_subreddits": [
+    "supplychain",
+    "procurement",
+    "smallbusiness",
+    "Entrepreneur",
+    "FulfillmentByAmazon",
+    "Alibaba",
+    "ecommerce",
+    "manufacturing"
+  ],
+  "platform_queries": {
+    "reddit": [
+      "site:reddit.com/r/ sourcing Chinese supplier",
+      "site:reddit.com Alibaba supplier deposit",
+      "site:reddit.com China factory verification",
+      "site:reddit.com supplier changed payment account"
+    ],
+    "quora": [
+      "site:quora.com Chinese supplier verification",
+      "site:quora.com sourcing from China",
+      "site:quora.com reliable China manufacturer"
+    ],
+    "linkedin": [
+      "site:linkedin.com/posts China sourcing supplier risk",
+      "site:linkedin.com/posts procurement Chinese suppliers"
+    ],
+    "x": [
+      "site:x.com China sourcing supplier",
+      "site:twitter.com China manufacturer procurement"
+    ]
+  }
+}

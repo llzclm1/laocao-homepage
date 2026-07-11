@@ -1,0 +1,35 @@
+{
+  "last_verified_rss_result": {
+    "platform": "reddit",
+    "url_count": 10,
+    "mode": "dry_run",
+    "persisted_candidates": 0,
+    "note": "Public Reddit RSS returned real URLs during the v2.1 dry-run; dry-run did not write candidates."
+  },
+  "platforms": {
+    "reddit": {
+      "last_attempt_at": "2026-07-11T02:50:47.842Z",
+      "status": "blocked",
+      "added": 0,
+      "message": "Legacy Reddit public JSON returned 403 before the RSS adapter was introduced."
+    },
+    "quora": {
+      "last_attempt_at": "2026-07-11T03:21:52.643Z",
+      "status": "no_verified_results",
+      "added": 0,
+      "message": "quora returned no verified public candidates"
+    },
+    "linkedin": {
+      "last_attempt_at": "2026-07-11T03:21:52.643Z",
+      "status": "no_verified_results",
+      "added": 0,
+      "message": "linkedin returned no verified public candidates"
+    },
+    "x": {
+      "last_attempt_at": "2026-07-11T03:21:52.643Z",
+      "status": "no_verified_results",
+      "added": 0,
+      "message": "x returned no verified public candidates"
+    }
+  }
+}

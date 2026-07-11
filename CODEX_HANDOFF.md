@@ -3,6 +3,8 @@
 ## 当前状态
 
 - 正在做 China Factory Bridge 海外推广。
+- 2026-07-09 已完成今日海外社媒发布：LinkedIn 原创短帖 1 条（factory videos / visible context，成功发布但未捕获直达 share URL）、Reddit `r/AmazonFBA` 回复 1 条：`https://old.reddit.com/r/AmazonFBA/comments/1f6civi/alibaba_no_response_from_suppliers/owf9ur7/`、X 短帖 1 条：`https://x.com/llzclm_ray/status/2075066776300446041`、Substack 长文 1 条：`https://gewuji.substack.com/p/questions-to-ask-before-paying-a`。Quora 本轮未强发，避免弱内容；Medium 未继续发布。
+- 2026-07-09 已同步发布台账：`docs/promotion/overseas-posting-log.md`、`docs/promotion/reddit-followup-tracker.md`、`data/marketing/social-outreach-log.csv`。下一轮每日回访需检查 7 月 9 日新增的 LinkedIn / Reddit / X / Substack 互动，并在 LinkedIn activity 中回填直达 share URL。
 - 2026-07-06 前次收口曾确认主站和 factory 子站 clean；本轮 YouTube 本地素材包完成后只做本地 commit，不 push，因此 `main` 会相对 `origin/main` ahead 1。
 - 2026-07-06 已按用户要求重建精简 YouTube 本地素材包：`docs/youtube-channel-plan.md`、`docs/youtube-validation-plan.md`、`docs/youtube-ai-faceless-workflow-for-gewuji.md`、`docs/youtube-4-week-validation-tracker.csv`、`scripts/content/youtube-shorts-batch-01.md`、`scripts/content/youtube-shorts-batch-01-production-manifest.csv`。本轮只做本地素材、验证框架和 AI 无脸视频 SOP；除第一条本地 POC mp4 外，不登录 / 上传 YouTube，不把视频文件纳入 git，不改网站页面、sitemap、schema 或构建脚本。
 - 2026-07-07 用户已明确允许本轮临时改用 Chrome；已完成 LinkedIn / Reddit 只读回访，未发现需要当天回复的真人线索；随后已在 LinkedIn 发布 1 条原创短帖，主题为 sample approval vs mass production risk：`https://www.linkedin.com/feed/update/urn:li:share:7480108919801991168/`，无链接、无私信引导，已纳入每日回访。
@@ -337,3 +339,12 @@
 - Added Article, FAQPage, and BreadcrumbList schema, FAQ sections, and updated dates to the first 5 guides.
 - Old compatibility paths stay accessible but are excluded from sitemap.
 - `docs/gsc-bing-submit-checklist-2026-07-05.md` lists manual GSC / Bing submit URLs.
+
+## 2026-07-11 Social Discovery Engine v2.1
+
+- v2.1 只做公开内容发现、去重、主题匹配、候选排序和人工回复辅助；不登录社媒、不读取私信、不自动评论或发帖。
+- Reddit 已切换到配置化 subreddit RSS；Quora、LinkedIn、X 仅使用公开搜索结果或人工粘贴/导入的真实公开 URL。旧 Reddit JSON 的 403 仅作为历史错误记录，不会继续请求。
+- 候选池：`data/growth-os/social-discovery/discovered-posts.json`；人工入池：`manual-inbox.json`；关键词与 RSS 列表：`discovery-keywords.json`；失败记录：`discovery-errors.json`。
+- Runtime 输出自动新发现、旧日志库存、人工入池、采集状态和候选新鲜度。超过 14 天、已回复、已删除、锁帖或已忽略的候选不进入今日机会。
+- Reddit RSS dry-run 已验证返回 10 个真实公开 URL，但未写入候选池；当前持久化自动候选为 0，不能表述为稳定的每日自动发现。
+- 当前自动采集没有新增已验证候选时，Dashboard 明确显示旧日志筛选与人工/搜索结果导入模式；不会把旧日志候选伪装成当天发现。

@@ -382,6 +382,8 @@
     const publishUrl = "http://127.0.0.1:8787/__publishing-links";
     const signalUrl = "http://127.0.0.1:8787/__buyer-signal";
     const reviewActionUrl = "http://127.0.0.1:8787/__review-action";
+    const discoveryActionUrl = "http://127.0.0.1:8787/__discovery-action";
+    const manualDiscoveryUrl = "http://127.0.0.1:8787/__manual-discovery";
     const app = document.getElementById("app");
     const generatedAt = document.getElementById("generatedAt");
     let state = null;
@@ -409,7 +411,8 @@
     function render() {
       app.innerHTML = `
         ${renderHero(state.today_action, state.tasks)}
-        ${renderTodayOpportunities(state.today_opportunities)}
+        ${renderTodayOpportunities(state.today_opportunities, state.discovery_summary)}
+        ${renderManualDiscoveryForm()}
         ${renderBusinessSignals(state.business_signals)}
         ${renderPlatformExecution(state.platform_execution)}
         ${renderSearch()}
@@ -501,7 +504,7 @@
       `;
     }
 
-    function renderTodayOpportunities(items = []) {
+    function renderTodayOpportunities(items = [], summary = {}) {
       const opportunities = items.slice(0, 5);
       return `
         <section class="panel" id="today-opportunities">
@@ -513,20 +516,72 @@
             </div>
             <span class="pill neutral">${opportunities.length} 条</span>
           </div>
+          ${renderDiscoverySummary(summary)}
           <div class="discovery-grid">${opportunities.length ? opportunities.map((item) => `
-            <article class="card searchable" data-search="${searchText(item)}">
+            <article class="card searchable" data-discovery-card data-search="${searchText(item)}">
               <div class="head">
                 <h3>${escapeHtml(item.platform)}</h3>
                 <span class="pill ${item.intent_score === "High" ? "high" : item.intent_score === "Medium" ? "warn" : "neutral"}">${escapeHtml(item.intent_score)}</span>
               </div>
               <p><strong>${escapeHtml(item.topic)}</strong></p>
-              <p class="meta">作者：${escapeHtml(item.author || "Not recorded")} · 预期价值：${escapeHtml(item.expected_value)}</p>
+              <p class="meta">来源：${escapeHtml(discoverySourceLabel(item.source_method))} · 首次发现：${escapeHtml(formatDate(item.first_seen_at || item.discovered_at))}</p>
+              <p class="meta">新鲜度：${escapeHtml(item.freshness_status || "Not recorded")} · 已在候选池 ${escapeHtml(String(item.age_days ?? "Not recorded"))} 天</p>
+              <p class="meta">作者：${escapeHtml(item.author || "Not recorded")} · 预期价值：${escapeHtml(item.expected_value)} · 状态：${escapeHtml(item.status)}</p>
+              <p class="meta">原始 URL：<a href="${escapeHtml(item.url || item.thread_url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.url || item.thread_url)}</a></p>
               <p style="margin-top:10px;"><strong>为什么相关：</strong>${escapeHtml(item.why_relevant)}</p>
-              <div class="comment-preview"><strong>建议回复</strong><br>${escapeHtml(item.suggested_comment)}</div>
+              <div class="comment-preview"><strong>建议回复</strong><br>${escapeHtml(item.suggested_comment || "原帖上下文不足，需人工确认后再写回复。")}</div>
               <p class="meta">风险：${escapeHtml(item.risk_status)} · ${escapeHtml(item.risk_note)}</p>
-              <p style="margin-top:10px;"><a class="button secondary" href="${escapeHtml(item.thread_url)}" target="_blank" rel="noopener noreferrer">打开原帖</a></p>
+              <p class="meta">人工审核：${item.needs_manual_review ? "需要" : "仍建议"}</p>
+              <div class="review-actions" data-discovery-actions>
+                <a class="button secondary" href="${escapeHtml(item.url || item.thread_url)}" target="_blank" rel="noopener noreferrer">打开原帖</a>
+                <button type="button" class="secondary" data-discovery-copy="${escapeHtml(item.id)}" ${item.suggested_comment ? "" : "disabled"}>复制建议回复</button>
+                <button type="button" class="secondary" data-discovery-action="view" data-id="${escapeHtml(item.id)}">标记已查看</button>
+                <button type="button" class="revision" data-discovery-action="ignore" data-id="${escapeHtml(item.id)}">忽略</button>
+                <button type="button" class="approve" data-discovery-action="add_today" data-id="${escapeHtml(item.id)}">加入今日任务</button>
+              </div>
+              <p class="meta" data-discovery-status></p>
             </article>
           `).join("") : `<p class="meta">暂无可行动机会。请先导入带 URL 的真实讨论。</p>`}</div>
+        </section>
+      `;
+    }
+
+    function renderDiscoverySummary(summary = {}) {
+      const statuses = summary.collection_status || [];
+      return `
+        <div class="cards" style="margin:14px 0;">
+          <div class="card"><span class="meta">自动新发现</span><strong class="signal-value">${escapeHtml(String(summary.newly_discovered_today || 0))}</strong></div>
+          <div class="card"><span class="meta">旧日志库存</span><strong class="signal-value">${escapeHtml(String(summary.existing_log_opportunities || 0))}</strong></div>
+          <div class="card"><span class="meta">人工入池</span><strong class="signal-value">${escapeHtml(String(summary.manual_added_today || 0))}</strong></div>
+          <div class="card"><span class="meta">新鲜机会</span><strong class="signal-value">${escapeHtml(String(summary.fresh_opportunities || 0))}</strong></div>
+          <div class="card"><span class="meta">老化机会</span><strong class="signal-value">${escapeHtml(String(summary.aging_opportunities || 0))}</strong></div>
+        </div>
+        <p class="meta">采集状态：${escapeHtml(summary.collection_message || "No verified public opportunities were discovered today.")}</p>
+        <p class="meta">RSS 适配器：${summary.rss_adapter_works_in_dry_run ? "dry-run 已验证" : "尚未验证"} · 最近验证结果：${escapeHtml(String(summary.last_verified_rss_result?.url_count || 0))} 个 URL · 持久化自动候选：${escapeHtml(String(summary.persistent_automatic_candidates || 0))}</p>
+        <p class="meta">当前模式：${escapeHtml(discoveryModeLabel(summary.current_mode))}</p>
+        <div class="list" style="margin:10px 0 14px;">${statuses.map((item) => `<p class="meta"><strong>${escapeHtml(item.platform)}：</strong>${escapeHtml(item.status_label || item.status)}${item.last_collection_at ? ` · ${escapeHtml(formatDate(item.last_collection_at))}` : ""}</p>`).join("")}</div>
+      `;
+    }
+
+    function renderManualDiscoveryForm() {
+      return `
+        <section class="panel" id="manual-discovery">
+          <div class="head">
+            <div>
+              <p class="section-label">Layer 2 · Execution</p>
+              <h2>手工收集公开讨论</h2>
+              <p class="meta">粘贴已打开的公开链接，系统只做本地入池、去重和建议回复。</p>
+            </div>
+            <span class="pill neutral">人工审核</span>
+          </div>
+          <form class="form-grid" data-manual-discovery-form>
+            <label><span>平台</span><select name="platform" required><option value="reddit">Reddit</option><option value="quora">Quora</option><option value="linkedin">LinkedIn</option><option value="x">X</option></select></label>
+            <label><span>公开 URL</span><input name="url" type="url" required placeholder="https://..."></label>
+            <label class="wide"><span>主题</span><input name="topic" required placeholder="原帖标题或问题"></label>
+            <label><span>作者（可选）</span><input name="author" placeholder="未记录可留空"></label>
+            <label><span>简短说明（可选）</span><input name="note" placeholder="公开上下文或匹配原因"></label>
+            <div class="wide review-actions"><button type="submit" class="approve">加入候选池</button><span id="manualDiscoveryStatus" class="meta"></span></div>
+          </form>
         </section>
       `;
     }
@@ -900,6 +955,16 @@
         saveReviewAction(reviewButton);
         return;
       }
+      const discoveryButton = event.target.closest("[data-discovery-action]");
+      if (discoveryButton) {
+        saveDiscoveryAction(discoveryButton);
+        return;
+      }
+      const copyButton = event.target.closest("[data-discovery-copy]");
+      if (copyButton) {
+        copyDiscoveryComment(copyButton);
+        return;
+      }
       const button = event.target.closest("[data-filter-type]");
       if (!button) return;
       if (button.dataset.filterType === "status") statusFilter = button.dataset.filterValue;
@@ -921,12 +986,43 @@
       }, status);
     }
 
+    async function saveDiscoveryAction(button) {
+      const card = button.closest("[data-discovery-card]");
+      const status = card.querySelector("[data-discovery-status]");
+      try {
+        const response = await fetch(discoveryActionUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id: button.dataset.id, action: button.dataset.discoveryAction })
+        });
+        if (!response.ok) throw new Error(await response.text());
+        status.textContent = "已记录。重新运行 Runtime 后会更新候选状态。";
+        if (button.dataset.discoveryAction === "ignore") card.hidden = true;
+      } catch (error) {
+        status.textContent = `保存失败：${error.message}`;
+      }
+    }
+
+    async function copyDiscoveryComment(button) {
+      const item = (state.today_opportunities || []).find((candidate) => candidate.id === button.dataset.discoveryCopy);
+      const card = button.closest("[data-discovery-card]");
+      const status = card.querySelector("[data-discovery-status]");
+      try {
+        await navigator.clipboard.writeText(item?.suggested_comment || "");
+        status.textContent = "建议回复已复制。";
+      } catch {
+        status.textContent = "复制失败，请手动选择建议回复。";
+      }
+    }
+
     document.addEventListener("submit", async (event) => {
       const signalForm = event.target.closest("[data-signal-form]");
       const publishForm = event.target.closest("[data-publish-form]");
-      if (!signalForm && !publishForm) return;
+      const manualDiscoveryForm = event.target.closest("[data-manual-discovery-form]");
+      if (!signalForm && !publishForm && !manualDiscoveryForm) return;
       event.preventDefault();
       if (signalForm) await postForm(signalUrl, signalForm, "signalStatus");
+      if (manualDiscoveryForm) await saveManualDiscovery(manualDiscoveryForm);
       if (publishForm) {
         const data = Object.fromEntries(new FormData(publishForm));
         await postJson(publishUrl, {
@@ -945,6 +1041,23 @@
         }, "publishStatus");
       }
     });
+
+    async function saveManualDiscovery(form) {
+      const status = document.getElementById("manualDiscoveryStatus");
+      try {
+        const response = await fetch(manualDiscoveryUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(Object.fromEntries(new FormData(form)))
+        });
+        if (!response.ok) throw new Error(await response.text());
+        const result = await response.json();
+        status.textContent = result.added ? "已加入候选池，正在刷新看板。" : "该公开链接已在候选池中。";
+        window.setTimeout(() => window.location.reload(), 250);
+      } catch (error) {
+        status.textContent = `保存失败：${error.message}`;
+      }
+    }
 
     function applyFilters() {
       document.querySelectorAll("[data-filter-type]").forEach((button) => {
@@ -971,6 +1084,22 @@
 
     async function postForm(url, form, statusId) {
       await postJson(url, Object.fromEntries(new FormData(form)), statusId);
+    }
+
+    function discoverySourceLabel(value) {
+      const labels = {
+        reddit_rss: "Reddit RSS 新发现",
+        search: "公开搜索结果",
+        search_import: "搜索结果导入",
+        manual: "人工收集",
+        outreach_log: "已有外联日志"
+      };
+      return labels[value] || value || "Not recorded";
+    }
+
+    function discoveryModeLabel(value) {
+      if (value === "public_discovery") return "公开发现模式";
+      return "已有外联日志 + 人工收集 + 搜索结果导入";
     }
 
     async function postJson(url, body, statusTarget) {
