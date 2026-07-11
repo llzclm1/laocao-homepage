@@ -1,0 +1,1256 @@
+{
+  "generated_at": "2026-07-11T01:37:44.342Z",
+  "title": "Growth OS 增长运营中心",
+  "decision_summary": {
+    "current_stage": "Authority Building",
+    "main_signal": "搜索引擎、AI crawler 和社媒 crawler 已开始访问，但真实买家信号还不明显。",
+    "main_risk": "Reddit removal rate 33% 偏高，继续发帖会损耗账号信任。",
+    "next_best_action": "发布 3 条无链接、无项目提及、经验型 Reddit comments，并暂停独立推广帖。",
+    "growth_job": {
+      "id": "GO-006",
+      "title": "如何比较阿里巴巴供应商报价而不只看价格",
+      "status": "待发布",
+      "score": 90
+    }
+  },
+  "today_actions": [
+    {
+      "platform": "Reddit",
+      "action": "发布 3 条 comment-first 回复，不放链接，不提项目。",
+      "priority": "High",
+      "status": "待执行",
+      "reason": "Removal rate 偏高，必须从发帖切换到低风险评论。",
+      "done": false
+    },
+    {
+      "platform": "Quora",
+      "action": "回答 2 个高意图问题。",
+      "priority": "Medium",
+      "status": "待执行",
+      "reason": "Quora 更适合沉淀长尾问题和权威回答。",
+      "done": false
+    },
+    {
+      "platform": "LinkedIn",
+      "action": "回复 5 条行业相关帖子，发布时只讲经验判断。",
+      "priority": "High",
+      "status": "待执行",
+      "reason": "GO-006 已进入发布/分发阶段。",
+      "done": false
+    }
+  ],
+  "business_signals": [
+    {
+      "label": "Qualified Interactions",
+      "value": 0,
+      "note": "只统计对方回复评论、私信、明确问题、合作意向或采购相关互动；当前未追踪到。"
+    },
+    {
+      "label": "Buyer Replies",
+      "value": 0,
+      "note": "未追踪到明确买家回复。"
+    },
+    {
+      "label": "Partner Leads",
+      "value": 0,
+      "note": "未追踪到合作意向。"
+    },
+    {
+      "label": "Supplier Leads",
+      "value": 0,
+      "note": "Not tracked"
+    },
+    {
+      "label": "Audience Interactions",
+      "value": "Not tracked",
+      "note": "普通点赞不计入 Qualified Interaction。"
+    },
+    {
+      "label": "Website Visits",
+      "value": 333,
+      "note": "Cloudflare 2026-07-10 / 24h"
+    },
+    {
+      "label": "Review Requests",
+      "value": 0,
+      "note": "来自发布记录 metrics.leads。"
+    },
+    {
+      "label": "Paid Opportunities",
+      "value": 0,
+      "note": "未追踪到付费机会。"
+    }
+  ],
+  "platform_execution": [
+    {
+      "platform": "LinkedIn",
+      "role": "行业可信度",
+      "current_strategy": "经验分享 + 行业评论，不硬广。",
+      "today_action": "回复 5 条行业相关帖子，发布时只讲经验判断。",
+      "progress": "0 / 5",
+      "risk_status": "Low",
+      "risk_reason": "未发现明确访问错误或异常重复行为。",
+      "recommended_action": "保持低频、经验型互动，补录直达链接。",
+      "latest_result": "1 条 Growth OS 发布记录"
+    },
+    {
+      "platform": "Reddit",
+      "role": "社区信任",
+      "current_strategy": "Comment-first，只回答具体问题，不放链接。",
+      "today_action": "发布 3 条无链接经验型 comments，暂停独立推广帖。",
+      "progress": "0 / 3",
+      "risk_status": "High",
+      "risk_reason": "High removal rate",
+      "recommended_action": "Stop promotional posts and switch to comment-first.",
+      "latest_result": "6 of 18 removed",
+      "total_actions": 18,
+      "removed": 6,
+      "removal_rate": 33
+    },
+    {
+      "platform": "Quora",
+      "role": "问题型权威",
+      "current_strategy": "回答高意图 sourcing 问题，少链接，重过程。",
+      "today_action": "回答 2 个高意图问题。",
+      "progress": "0 / 2",
+      "risk_status": "Medium",
+      "risk_reason": "平台数据不完整，需要人工回访确认保留和互动。",
+      "recommended_action": "优先回答采购付款、供应商判断、报价问题。",
+      "latest_result": "已有回答与内容浏览，但未接入完整指标。"
+    },
+    {
+      "platform": "X",
+      "role": "轻量传播",
+      "current_strategy": "短观点 + 图片卡片，避免长文堆叠。",
+      "today_action": "发布 1 条图片卡片或短 thread。",
+      "progress": "0 / 1",
+      "risk_status": "Medium",
+      "risk_reason": "历史出现文本截断，长文需要转图片或 thread。",
+      "recommended_action": "X 长内容优先做 image card。",
+      "latest_result": "0 条 Growth OS 发布记录"
+    },
+    {
+      "platform": "Medium",
+      "role": "长文沉淀",
+      "current_strategy": "经验总结型文章，不堆 SEO 关键词。",
+      "today_action": "暂不新增，优先复用已发布长文。",
+      "progress": "0 / 0",
+      "risk_status": "Low",
+      "risk_reason": "当前未发现移除或访问异常。",
+      "recommended_action": "有完整案例后再发布。",
+      "latest_result": "0 条 Growth OS 发布记录"
+    },
+    {
+      "platform": "Substack",
+      "role": "深度复盘",
+      "current_strategy": "沉淀长文和判断框架。",
+      "today_action": "暂不新增，复查已发布文章。 ",
+      "progress": "0 / 0",
+      "risk_status": "Low",
+      "risk_reason": "当前未发现移除或访问异常。",
+      "recommended_action": "只发布完整主题，不追求频率。",
+      "latest_result": "0 条 Growth OS 发布记录"
+    },
+    {
+      "platform": "Facebook",
+      "role": "低频群组验证",
+      "current_strategy": "谨慎评论，等待审核结果。",
+      "today_action": "回访 pending review，不新增大量评论。",
+      "progress": "0 / 1",
+      "risk_status": "Medium",
+      "risk_reason": "群组审核和可见性不稳定。",
+      "recommended_action": "只记录真实通过的评论和互动。",
+      "latest_result": "历史多条 group comment 处于 pending review。"
+    }
+  ],
+  "today_action": {
+    "id": "GO-006",
+    "title": "如何比较阿里巴巴供应商报价而不只看价格",
+    "status": "待发布",
+    "status_key": "publish_ready",
+    "score": 90,
+    "scores": {
+      "seo": 95,
+      "geo": 87,
+      "business": 86
+    },
+    "reason": [
+      "买家处于付款或采购决策阶段",
+      "与 Supplier Reply Review 高匹配",
+      "最近出现多个类似问题",
+      "GEO 存在机会"
+    ],
+    "next_step": "打开发布内容，人工发布后记录链接",
+    "content_package": "/growth-os/review/go-006/",
+    "review_url": "/growth-os/review/go-006/"
+  },
+  "tasks": [
+    "发布 GO-006 的 LinkedIn 内容",
+    "记录 GO-006 的发布链接",
+    "检查 GO-006 的 GEO 优化建议"
+  ],
+  "opportunities": [
+    {
+      "id": "GO-001",
+      "title": "下样品单前需要问中国供应商什么问题",
+      "tags": [
+        "HIGH",
+        "sample_order"
+      ],
+      "seo_score": 95,
+      "geo_score": 95,
+      "business_score": 98,
+      "status": "Monitoring",
+      "priority": "HIGH",
+      "source": "existing buyer guide workflow",
+      "intent": "",
+      "buyer_stage": "sample_order",
+      "question": "Questions before ordering samples from China",
+      "url": "/growth-os/review/go-001/",
+      "tags_cn": [
+        "高商业价值",
+        "采购信息"
+      ],
+      "status_cn": "监测中",
+      "source_cn": "existing buyer guide workflow",
+      "stage_cn": "Sample order",
+      "priority_cn": "高商业价值"
+    },
+    {
+      "id": "GO-002",
+      "title": "付款前需要确认哪些中国供应商信息",
+      "tags": [
+        "HIGH",
+        "pre_payment"
+      ],
+      "seo_score": 94,
+      "geo_score": 92,
+      "business_score": 95,
+      "status": "Published",
+      "priority": "HIGH",
+      "source": "mock:reddit",
+      "intent": "",
+      "buyer_stage": "pre_payment",
+      "question": "Questions before paying a China supplier deposit",
+      "url": "/growth-os/review/go-002/",
+      "tags_cn": [
+        "高商业价值",
+        "买家信任"
+      ],
+      "status_cn": "已发布",
+      "source_cn": "Reddit buyer question",
+      "stage_cn": "Pre-payment",
+      "priority_cn": "高商业价值"
+    },
+    {
+      "id": "GO-006",
+      "title": "如何比较阿里巴巴供应商报价而不只看价格",
+      "tags": [
+        "HIGH",
+        "quote_review"
+      ],
+      "seo_score": 95,
+      "geo_score": 87,
+      "business_score": 86,
+      "status": "Publish Ready",
+      "priority": "HIGH",
+      "source": "mock:internal",
+      "intent": "",
+      "buyer_stage": "quote_review",
+      "question": "Compare Alibaba supplier quotations beyond price",
+      "url": "/growth-os/review/go-006/",
+      "tags_cn": [
+        "高商业价值",
+        "买家信任"
+      ],
+      "status_cn": "待发布",
+      "source_cn": "mock:internal",
+      "stage_cn": "Quote review",
+      "priority_cn": "高商业价值"
+    },
+    {
+      "id": "GO-004",
+      "title": "工厂视频能证明什么、不能证明什么",
+      "tags": [
+        "LOW",
+        "research"
+      ],
+      "seo_score": 68,
+      "geo_score": 68,
+      "business_score": 54,
+      "status": "Revision Required",
+      "priority": "LOW",
+      "source": "mock:news",
+      "intent": "",
+      "buyer_stage": "research",
+      "question": "What factory videos can and cannot prove",
+      "url": "/growth-os/review/go-004/",
+      "tags_cn": [
+        "低优先级",
+        "采购信息"
+      ],
+      "status_cn": "需要修改",
+      "source_cn": "mock:news",
+      "stage_cn": "Research",
+      "priority_cn": "低优先级"
+    }
+  ],
+  "lifecycle": {
+    "summary": {
+      "draft_ready": 0,
+      "review_pending": 0,
+      "approved": 0,
+      "publish_ready": 1,
+      "rejected": 0,
+      "revision_required": 1,
+      "published": 1,
+      "monitoring": 1,
+      "learning": 0
+    },
+    "stages": [
+      "发现机会",
+      "生成内容",
+      "审核",
+      "待发布",
+      "已发布",
+      "监测",
+      "复盘学习"
+    ],
+    "items": [
+      {
+        "id": "GO-001",
+        "title": "下样品单前需要问中国供应商什么问题",
+        "status": "monitoring",
+        "lifecycle_stage": "monitoring",
+        "review_status": "approved",
+        "publish_status": "published",
+        "monitor_status": "monitoring",
+        "learning_status": "not_started",
+        "content_url": "/growth-os/review/go-001/",
+        "completion": {
+          "progress": 88,
+          "completed": [
+            "Opportunity",
+            "Brief",
+            "Draft",
+            "FAQ",
+            "Schema",
+            "LinkedIn",
+            "Reddit"
+          ],
+          "missing": [
+            "Published"
+          ]
+        },
+        "platforms": [
+          {
+            "content_id": "GO-001",
+            "name": "LinkedIn",
+            "status": "ready",
+            "draft_file": "/docs/social/content-pack/go-001/linkedin.md",
+            "url": "",
+            "published_date": "",
+            "metrics": {
+              "views": 0,
+              "likes": 0,
+              "comments": 0,
+              "clicks": 0,
+              "leads": 0
+            }
+          },
+          {
+            "content_id": "GO-001",
+            "name": "Reddit",
+            "status": "ready",
+            "draft_file": "/docs/social/content-pack/go-001/reddit.md",
+            "url": "",
+            "published_date": "",
+            "metrics": {
+              "views": 0,
+              "likes": 0,
+              "comments": 0,
+              "clicks": 0,
+              "leads": 0
+            }
+          },
+          {
+            "content_id": "GO-001",
+            "name": "X",
+            "status": "ready",
+            "draft_file": "/docs/social/content-pack/go-001/x-thread.md",
+            "url": "",
+            "published_date": "",
+            "metrics": {
+              "views": 0,
+              "likes": 0,
+              "comments": 0,
+              "clicks": 0,
+              "leads": 0
+            }
+          },
+          {
+            "content_id": "GO-001",
+            "name": "Substack",
+            "status": "ready",
+            "draft_file": "/docs/social/content-pack/go-001/substack.md",
+            "url": "",
+            "published_date": "",
+            "metrics": {
+              "views": 0,
+              "likes": 0,
+              "comments": 0,
+              "clicks": 0,
+              "leads": 0
+            }
+          },
+          {
+            "content_id": "GO-001",
+            "name": "Medium",
+            "status": "ready",
+            "draft_file": "/docs/social/content-pack/go-001/medium.md",
+            "url": "",
+            "published_date": "",
+            "metrics": {
+              "views": 0,
+              "likes": 0,
+              "comments": 0,
+              "clicks": 0,
+              "leads": 0
+            }
+          }
+        ],
+        "status_cn": "监测中",
+        "timeline": [
+          {
+            "date": "07-11",
+            "event": "发现机会"
+          },
+          {
+            "date": "07-11",
+            "event": "生成内容"
+          },
+          {
+            "date": "07-11",
+            "event": "进入审核"
+          },
+          {
+            "date": "07-11",
+            "event": "准备发布"
+          },
+          {
+            "date": "07-11",
+            "event": "发布/监测"
+          }
+        ]
+      },
+      {
+        "id": "GO-002",
+        "title": "付款前需要确认哪些中国供应商信息",
+        "status": "published",
+        "lifecycle_stage": "publish",
+        "review_status": "approved",
+        "publish_status": "published",
+        "monitor_status": "not_started",
+        "learning_status": "not_started",
+        "content_url": "/growth-os/review/go-002/",
+        "completion": {
+          "progress": 86,
+          "completed": [
+            "Opportunity",
+            "Brief",
+            "Draft",
+            "Schema",
+            "LinkedIn",
+            "Reddit"
+          ],
+          "missing": [
+            "FAQ"
+          ]
+        },
+        "platforms": [
+          {
+            "content_id": "GO-002",
+            "name": "LinkedIn",
+            "status": "ready",
+            "draft_file": "/docs/social/content-pack/go-002/linkedin.md",
+            "url": "https://www.linkedin.com/feed/update/urn:li:share:7481150116930801664/",
+            "published_date": "2026-07-10",
+            "metrics": {
+              "views": 0,
+              "likes": 0,
+              "comments": 0,
+              "clicks": 0,
+              "leads": 0
+            }
+          },
+          {
+            "content_id": "GO-002",
+            "name": "Reddit",
+            "status": "ready",
+            "draft_file": "/docs/social/content-pack/go-002/reddit.md",
+            "url": "",
+            "published_date": "",
+            "metrics": {
+              "views": 0,
+              "likes": 0,
+              "comments": 0,
+              "clicks": 0,
+              "leads": 0
+            }
+          },
+          {
+            "content_id": "GO-002",
+            "name": "X",
+            "status": "ready",
+            "draft_file": "/docs/social/content-pack/go-002/x-thread.md",
+            "url": "",
+            "published_date": "",
+            "metrics": {
+              "views": 0,
+              "likes": 0,
+              "comments": 0,
+              "clicks": 0,
+              "leads": 0
+            }
+          },
+          {
+            "content_id": "GO-002",
+            "name": "Substack",
+            "status": "ready",
+            "draft_file": "/docs/social/content-pack/go-002/substack.md",
+            "url": "",
+            "published_date": "",
+            "metrics": {
+              "views": 0,
+              "likes": 0,
+              "comments": 0,
+              "clicks": 0,
+              "leads": 0
+            }
+          },
+          {
+            "content_id": "GO-002",
+            "name": "Medium",
+            "status": "ready",
+            "draft_file": "/docs/social/content-pack/go-002/medium.md",
+            "url": "",
+            "published_date": "",
+            "metrics": {
+              "views": 0,
+              "likes": 0,
+              "comments": 0,
+              "clicks": 0,
+              "leads": 0
+            }
+          }
+        ],
+        "status_cn": "已发布",
+        "timeline": [
+          {
+            "date": "07-11",
+            "event": "发现机会"
+          },
+          {
+            "date": "07-11",
+            "event": "生成内容"
+          },
+          {
+            "date": "07-11",
+            "event": "进入审核"
+          },
+          {
+            "date": "07-11",
+            "event": "准备发布"
+          },
+          {
+            "date": "07-11",
+            "event": "发布/监测"
+          }
+        ]
+      },
+      {
+        "id": "GO-004",
+        "title": "工厂视频能证明什么、不能证明什么",
+        "status": "revision_required",
+        "lifecycle_stage": "review",
+        "review_status": "revision_required",
+        "publish_status": "not_ready",
+        "monitor_status": "not_started",
+        "learning_status": "not_started",
+        "content_url": "/growth-os/review/go-004/",
+        "completion": {
+          "progress": 75,
+          "completed": [
+            "Opportunity",
+            "Brief",
+            "Draft",
+            "Schema",
+            "LinkedIn",
+            "Reddit"
+          ],
+          "missing": [
+            "FAQ",
+            "Published"
+          ]
+        },
+        "platforms": [
+          {
+            "content_id": "GO-004",
+            "name": "LinkedIn",
+            "status": "draft",
+            "draft_file": "/docs/social/content-pack/go-004/linkedin.md",
+            "url": "",
+            "published_date": "",
+            "metrics": {
+              "views": 0,
+              "likes": 0,
+              "comments": 0,
+              "clicks": 0,
+              "leads": 0
+            }
+          },
+          {
+            "content_id": "GO-004",
+            "name": "Reddit",
+            "status": "draft",
+            "draft_file": "/docs/social/content-pack/go-004/reddit.md",
+            "url": "",
+            "published_date": "",
+            "metrics": {
+              "views": 0,
+              "likes": 0,
+              "comments": 0,
+              "clicks": 0,
+              "leads": 0
+            }
+          },
+          {
+            "content_id": "GO-004",
+            "name": "X",
+            "status": "draft",
+            "draft_file": "/docs/social/content-pack/go-004/x-thread.md",
+            "url": "",
+            "published_date": "",
+            "metrics": {
+              "views": 0,
+              "likes": 0,
+              "comments": 0,
+              "clicks": 0,
+              "leads": 0
+            }
+          },
+          {
+            "content_id": "GO-004",
+            "name": "Substack",
+            "status": "draft",
+            "draft_file": "/docs/social/content-pack/go-004/substack.md",
+            "url": "",
+            "published_date": "",
+            "metrics": {
+              "views": 0,
+              "likes": 0,
+              "comments": 0,
+              "clicks": 0,
+              "leads": 0
+            }
+          },
+          {
+            "content_id": "GO-004",
+            "name": "Medium",
+            "status": "draft",
+            "draft_file": "/docs/social/content-pack/go-004/medium.md",
+            "url": "",
+            "published_date": "",
+            "metrics": {
+              "views": 0,
+              "likes": 0,
+              "comments": 0,
+              "clicks": 0,
+              "leads": 0
+            }
+          }
+        ],
+        "status_cn": "需要修改",
+        "timeline": [
+          {
+            "date": "07-11",
+            "event": "发现机会"
+          },
+          {
+            "date": "07-11",
+            "event": "生成内容"
+          }
+        ]
+      },
+      {
+        "id": "GO-006",
+        "title": "如何比较阿里巴巴供应商报价而不只看价格",
+        "status": "publish_ready",
+        "lifecycle_stage": "publish",
+        "review_status": "approved",
+        "publish_status": "ready",
+        "monitor_status": "not_started",
+        "learning_status": "not_started",
+        "content_url": "/growth-os/review/go-006/",
+        "completion": {
+          "progress": 75,
+          "completed": [
+            "Opportunity",
+            "Brief",
+            "Draft",
+            "Schema",
+            "LinkedIn",
+            "Reddit"
+          ],
+          "missing": [
+            "FAQ",
+            "Published"
+          ]
+        },
+        "platforms": [
+          {
+            "content_id": "GO-006",
+            "name": "LinkedIn",
+            "status": "ready",
+            "draft_file": "/docs/social/content-pack/go-006/linkedin.md",
+            "url": "",
+            "published_date": "",
+            "metrics": {
+              "views": 0,
+              "likes": 0,
+              "comments": 0,
+              "clicks": 0,
+              "leads": 0
+            }
+          },
+          {
+            "content_id": "GO-006",
+            "name": "Reddit",
+            "status": "ready",
+            "draft_file": "/docs/social/content-pack/go-006/reddit.md",
+            "url": "",
+            "published_date": "",
+            "metrics": {
+              "views": 0,
+              "likes": 0,
+              "comments": 0,
+              "clicks": 0,
+              "leads": 0
+            }
+          },
+          {
+            "content_id": "GO-006",
+            "name": "X",
+            "status": "ready",
+            "draft_file": "/docs/social/content-pack/go-006/x-thread.md",
+            "url": "",
+            "published_date": "",
+            "metrics": {
+              "views": 0,
+              "likes": 0,
+              "comments": 0,
+              "clicks": 0,
+              "leads": 0
+            }
+          },
+          {
+            "content_id": "GO-006",
+            "name": "Substack",
+            "status": "ready",
+            "draft_file": "/docs/social/content-pack/go-006/substack.md",
+            "url": "",
+            "published_date": "",
+            "metrics": {
+              "views": 0,
+              "likes": 0,
+              "comments": 0,
+              "clicks": 0,
+              "leads": 0
+            }
+          },
+          {
+            "content_id": "GO-006",
+            "name": "Medium",
+            "status": "ready",
+            "draft_file": "/docs/social/content-pack/go-006/medium.md",
+            "url": "",
+            "published_date": "",
+            "metrics": {
+              "views": 0,
+              "likes": 0,
+              "comments": 0,
+              "clicks": 0,
+              "leads": 0
+            }
+          }
+        ],
+        "status_cn": "待发布",
+        "timeline": [
+          {
+            "date": "07-11",
+            "event": "发现机会"
+          },
+          {
+            "date": "07-11",
+            "event": "生成内容"
+          },
+          {
+            "date": "07-11",
+            "event": "进入审核"
+          },
+          {
+            "date": "07-11",
+            "event": "准备发布"
+          }
+        ]
+      }
+    ],
+    "review_queue": [],
+    "publishing_queue": [
+      "GO-006"
+    ],
+    "published": [
+      "GO-001",
+      "GO-002"
+    ],
+    "learning": [],
+    "review_history": [
+      {
+        "id": "GO-002",
+        "previous": "review_pending",
+        "new": "approved",
+        "date": "2026-07-09"
+      },
+      {
+        "id": "GO-002",
+        "previous": "review_pending",
+        "new": "approved",
+        "date": "2026-07-09"
+      },
+      {
+        "id": "GO-002",
+        "previous": "review_pending",
+        "new": "approved",
+        "date": "2026-07-09"
+      },
+      {
+        "id": "GO-002",
+        "previous": "review_pending",
+        "new": "approved",
+        "date": "2026-07-09"
+      },
+      {
+        "id": "GO-002",
+        "previous": "review_pending",
+        "new": "approved",
+        "date": "2026-07-09"
+      },
+      {
+        "id": "GO-002",
+        "previous": "review_pending",
+        "new": "approved",
+        "date": "2026-07-09"
+      },
+      {
+        "id": "GO-002",
+        "previous": "review_pending",
+        "new": "approved",
+        "date": "2026-07-09"
+      },
+      {
+        "id": "GO-002",
+        "previous": "review_pending",
+        "new": "approved",
+        "date": "2026-07-09"
+      },
+      {
+        "id": "GO-002",
+        "previous": "review_pending",
+        "new": "approved",
+        "date": "2026-07-09"
+      },
+      {
+        "id": "GO-002",
+        "previous": "review_pending",
+        "new": "approved",
+        "date": "2026-07-09"
+      },
+      {
+        "id": "GO-002",
+        "previous": "review_pending",
+        "new": "revision_required",
+        "date": "2026-07-09"
+      },
+      {
+        "id": "GO-002",
+        "previous": "review_pending",
+        "new": "approved",
+        "date": "2026-07-09"
+      },
+      {
+        "id": "GO-002",
+        "previous": "review_pending",
+        "new": "approved",
+        "date": "2026-07-09"
+      },
+      {
+        "id": "GO-002",
+        "previous": "review_pending",
+        "new": "approved",
+        "date": "2026-07-09"
+      },
+      {
+        "id": "GO-002",
+        "previous": "review_pending",
+        "new": "approved",
+        "date": "2026-07-09"
+      },
+      {
+        "id": "GO-002",
+        "previous": "review_pending",
+        "new": "revision_required",
+        "date": "2026-07-09"
+      },
+      {
+        "id": "GO-002",
+        "previous": "review_pending",
+        "new": "approved",
+        "date": "2026-07-09"
+      },
+      {
+        "id": "GO-002",
+        "previous": "review_pending",
+        "new": "approved",
+        "date": "2026-07-09"
+      },
+      {
+        "id": "GO-002",
+        "action": "approve",
+        "from": "review_pending",
+        "to": "approved",
+        "date": "2026-07-09",
+        "note": "test immediate approval"
+      },
+      {
+        "id": "GO-002",
+        "action": "published",
+        "from": "approved",
+        "to": "published",
+        "date": "2026-07-10",
+        "note": "LinkedIn: https://www.linkedin.com/posts/%E6%9B%B9-%E8%80%81-26570392_sourcing-manufacturing-supplychain-share-7480947431203942400-SiVW/?utm_source=share&utm_medium=member_desktop&rcm=ACoAABOuia0BIaanxkqgsTGJE_Ysh4LQAZlwIdE"
+      }
+    ]
+  },
+  "reuse_chains": [
+    {
+      "id": "GO-001",
+      "title": "下样品单前需要问中国供应商什么问题",
+      "assets": [
+        "Buyer Guide",
+        "LinkedIn",
+        "Reddit",
+        "X",
+        "Substack",
+        "Medium",
+        "FAQ",
+        "GEO任务"
+      ]
+    },
+    {
+      "id": "GO-002",
+      "title": "付款前需要确认哪些中国供应商信息",
+      "assets": [
+        "Buyer Guide",
+        "LinkedIn",
+        "Reddit",
+        "X",
+        "Substack",
+        "Medium",
+        "FAQ",
+        "GEO任务"
+      ]
+    },
+    {
+      "id": "GO-004",
+      "title": "工厂视频能证明什么、不能证明什么",
+      "assets": [
+        "Buyer Guide",
+        "LinkedIn",
+        "Reddit",
+        "X",
+        "Substack",
+        "Medium",
+        "FAQ",
+        "GEO任务"
+      ]
+    },
+    {
+      "id": "GO-006",
+      "title": "如何比较阿里巴巴供应商报价而不只看价格",
+      "assets": [
+        "Buyer Guide",
+        "LinkedIn",
+        "Reddit",
+        "X",
+        "Substack",
+        "Medium",
+        "FAQ",
+        "GEO任务"
+      ]
+    }
+  ],
+  "published": [
+    {
+      "id": "GO-001",
+      "title": "下样品单前需要问中国供应商什么问题",
+      "platform": "LinkedIn",
+      "url": "",
+      "published_date": "",
+      "metrics": {
+        "views": 0,
+        "likes": 0,
+        "comments": 0,
+        "clicks": 0,
+        "leads": 0
+      },
+      "next_check_date": "2026-07-17",
+      "status": "monitoring",
+      "status_cn": "监测中"
+    },
+    {
+      "id": "GO-001",
+      "title": "下样品单前需要问中国供应商什么问题",
+      "platform": "Reddit",
+      "url": "",
+      "published_date": "",
+      "metrics": {
+        "views": 0,
+        "likes": 0,
+        "comments": 0,
+        "clicks": 0,
+        "leads": 0
+      },
+      "next_check_date": "2026-07-17",
+      "status": "monitoring",
+      "status_cn": "监测中"
+    },
+    {
+      "id": "GO-001",
+      "title": "下样品单前需要问中国供应商什么问题",
+      "platform": "X",
+      "url": "",
+      "published_date": "",
+      "metrics": {
+        "views": 0,
+        "likes": 0,
+        "comments": 0,
+        "clicks": 0,
+        "leads": 0
+      },
+      "next_check_date": "2026-07-17",
+      "status": "monitoring",
+      "status_cn": "监测中"
+    },
+    {
+      "id": "GO-001",
+      "title": "下样品单前需要问中国供应商什么问题",
+      "platform": "Substack",
+      "url": "",
+      "published_date": "",
+      "metrics": {
+        "views": 0,
+        "likes": 0,
+        "comments": 0,
+        "clicks": 0,
+        "leads": 0
+      },
+      "next_check_date": "2026-07-17",
+      "status": "monitoring",
+      "status_cn": "监测中"
+    },
+    {
+      "id": "GO-001",
+      "title": "下样品单前需要问中国供应商什么问题",
+      "platform": "Medium",
+      "url": "",
+      "published_date": "",
+      "metrics": {
+        "views": 0,
+        "likes": 0,
+        "comments": 0,
+        "clicks": 0,
+        "leads": 0
+      },
+      "next_check_date": "2026-07-17",
+      "status": "monitoring",
+      "status_cn": "监测中"
+    },
+    {
+      "id": "GO-002",
+      "title": "付款前需要确认哪些中国供应商信息",
+      "platform": "LinkedIn",
+      "url": "https://www.linkedin.com/feed/update/urn:li:share:7481150116930801664/",
+      "published_date": "2026-07-10",
+      "metrics": {
+        "views": 0,
+        "likes": 0,
+        "comments": 0,
+        "clicks": 0,
+        "leads": 0
+      },
+      "next_check_date": "2026-07-16",
+      "status": "monitoring",
+      "status_cn": "监测中"
+    },
+    {
+      "id": "GO-002",
+      "title": "付款前需要确认哪些中国供应商信息",
+      "platform": "Reddit",
+      "url": "",
+      "published_date": "",
+      "metrics": {
+        "views": 0,
+        "likes": 0,
+        "comments": 0,
+        "clicks": 0,
+        "leads": 0
+      },
+      "next_check_date": "2026-07-17",
+      "status": "monitoring",
+      "status_cn": "监测中"
+    },
+    {
+      "id": "GO-002",
+      "title": "付款前需要确认哪些中国供应商信息",
+      "platform": "X",
+      "url": "",
+      "published_date": "",
+      "metrics": {
+        "views": 0,
+        "likes": 0,
+        "comments": 0,
+        "clicks": 0,
+        "leads": 0
+      },
+      "next_check_date": "2026-07-17",
+      "status": "monitoring",
+      "status_cn": "监测中"
+    },
+    {
+      "id": "GO-002",
+      "title": "付款前需要确认哪些中国供应商信息",
+      "platform": "Substack",
+      "url": "",
+      "published_date": "",
+      "metrics": {
+        "views": 0,
+        "likes": 0,
+        "comments": 0,
+        "clicks": 0,
+        "leads": 0
+      },
+      "next_check_date": "2026-07-17",
+      "status": "monitoring",
+      "status_cn": "监测中"
+    },
+    {
+      "id": "GO-002",
+      "title": "付款前需要确认哪些中国供应商信息",
+      "platform": "Medium",
+      "url": "",
+      "published_date": "",
+      "metrics": {
+        "views": 0,
+        "likes": 0,
+        "comments": 0,
+        "clicks": 0,
+        "leads": 0
+      },
+      "next_check_date": "2026-07-17",
+      "status": "monitoring",
+      "status_cn": "监测中"
+    }
+  ],
+  "learning": {
+    "recent_pattern": "“供应商信任”是最高频买家问题。",
+    "evidence": [
+      "2 个客户信号",
+      "3 个高价值机会"
+    ],
+    "recommendation": "继续创建 Supplier Trust 内容集群，并优先连接 Supplier Reply Review。"
+  },
+  "archived": [
+    {
+      "id": "GO-003",
+      "title": "Questions before ordering samples from China",
+      "reasons": [
+        "搜索需求低",
+        "商业价值不足",
+        "内容重复"
+      ]
+    },
+    {
+      "id": "GO-005",
+      "title": "Best AI logo generator for ecommerce",
+      "reasons": [
+        "搜索需求低",
+        "商业价值不足",
+        "内容重复"
+      ]
+    },
+    {
+      "id": "CS-001",
+      "title": "What should I ask before paying a China supplier deposit?",
+      "reasons": [
+        "搜索需求低",
+        "商业价值不足",
+        "内容重复"
+      ]
+    },
+    {
+      "id": "CS-002",
+      "title": "How do I compare Alibaba supplier quotations beyond price?",
+      "reasons": [
+        "搜索需求低",
+        "商业价值不足",
+        "内容重复"
+      ]
+    },
+    {
+      "id": "CS-003",
+      "title": "What factory photos help overseas buyers understand capability?",
+      "reasons": [
+        "搜索需求低",
+        "商业价值不足",
+        "内容重复"
+      ]
+    }
+  ],
+  "input_options": {
+    "platforms": [
+      "LinkedIn",
+      "Reddit",
+      "Quora",
+      "X",
+      "Medium",
+      "Substack",
+      "Facebook"
+    ],
+    "stages": [
+      "pre_payment",
+      "sample_order",
+      "quote_review",
+      "research",
+      "factory_materials"
+    ]
+  },
+  "traffic_intelligence": {
+    "crawler_traffic": "high",
+    "legacy_traffic": "present",
+    "buyer_intent_traffic": "low / not clear yet",
+    "site_health": "ok",
+    "action": "monitor buyer-intent pages, do not optimize based on total request count",
+    "conclusion": "站点健康，爬虫开始访问，但真实买家信号还不明显。",
+    "report": "docs/growth-os/cloudflare/traffic-observation-2026-07-10.md"
+  }
+}

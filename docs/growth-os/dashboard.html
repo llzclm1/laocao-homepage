@@ -1,0 +1,960 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Growth OS 增长运营中心</title>
+  <style>
+    :root {
+      --ink: #152033;
+      --muted: #65758b;
+      --line: #dce5ef;
+      --bg: #f6f8fb;
+      --panel: #fff;
+      --blue: #2563eb;
+      --green: #0f766e;
+      --amber: #b45309;
+      --red: #b91c1c;
+      --shadow: 0 18px 50px rgba(21, 32, 51, .08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font: 14px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    header, main {
+      width: min(1180px, calc(100% - 36px));
+      margin: 0 auto;
+    }
+    header {
+      align-items: flex-end;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 28px 0 14px;
+    }
+    h1, h2, h3, p { margin: 0; }
+    h1 { font-size: clamp(28px, 4vw, 44px); line-height: 1.05; }
+    h2 { font-size: 19px; margin-bottom: 12px; }
+    h3 { font-size: 15px; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    button, .button {
+      background: var(--ink);
+      border: 0;
+      border-radius: 8px;
+      color: #fff;
+      cursor: pointer;
+      display: inline-block;
+      font-weight: 750;
+      padding: 10px 14px;
+      text-decoration: none;
+    }
+    button.secondary, .button.secondary {
+      background: #fff;
+      border: 1px solid var(--line);
+      color: var(--ink);
+    }
+    button.approve { background: var(--green); }
+    button.reject { background: var(--red); }
+    button.revision { background: var(--amber); }
+    input, select, textarea {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      font: inherit;
+      padding: 9px 10px;
+      width: 100%;
+    }
+    textarea { min-height: 76px; resize: vertical; }
+    label span {
+      color: var(--muted);
+      display: block;
+      font-size: 12px;
+      font-weight: 750;
+      margin-bottom: 4px;
+    }
+    main {
+      display: grid;
+      gap: 18px;
+      padding: 10px 0 46px;
+    }
+    .meta { color: var(--muted); }
+    .panel, .hero {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 18px;
+    }
+    .hero {
+      box-shadow: var(--shadow);
+      display: grid;
+      gap: 20px;
+      grid-template-columns: 1.35fr .65fr;
+      padding: clamp(20px, 3vw, 32px);
+    }
+    .label {
+      color: var(--amber);
+      font-weight: 850;
+      margin-bottom: 8px;
+    }
+    .kicker {
+      align-items: center;
+      display: flex;
+      gap: 8px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+    .action-title {
+      font-size: clamp(28px, 5vw, 52px);
+      line-height: 1.04;
+      margin: 4px 0 14px;
+    }
+    .toolbar {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 1fr auto;
+    }
+    .section-label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .decision-grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin: 16px 0;
+    }
+    .decision-item {
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px;
+    }
+    .next-action {
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      border-radius: 12px;
+      color: #7c2d12;
+      margin-top: 14px;
+      padding: 14px;
+    }
+    .next-action strong {
+      display: block;
+      font-size: 18px;
+      line-height: 1.3;
+      margin-top: 4px;
+    }
+    .signal-grid {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    .signal-value {
+      display: block;
+      font-size: 22px;
+      font-weight: 900;
+      margin-top: 4px;
+    }
+    .platform-grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .platform-card .meta {
+      margin-top: 4px;
+    }
+    .action-row {
+      align-items: flex-start;
+      display: grid;
+      gap: 10px;
+      grid-template-columns: auto 1fr auto;
+    }
+    .grid { display: grid; gap: 18px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .cards { display: grid; gap: 12px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 14px;
+    }
+    .head {
+      align-items: center;
+      display: flex;
+      gap: 10px;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .pill {
+      border-radius: 999px;
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 3px 8px;
+      white-space: nowrap;
+    }
+    .high { background: #ecfdf5; color: var(--green); }
+    .neutral { background: #eef2ff; color: var(--blue); }
+    .warn { background: #fef3c7; color: var(--amber); }
+    .bad { background: #fef2f2; color: var(--red); }
+    .scores {
+      display: grid;
+      gap: 8px;
+      grid-template-columns: repeat(3, 1fr);
+      margin: 14px 0;
+    }
+    .score {
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 11px;
+    }
+    .score b {
+      display: block;
+      font-size: 24px;
+      line-height: 1;
+      margin-top: 4px;
+    }
+    .tasks, .list { display: grid; gap: 9px; }
+    .task {
+      align-items: flex-start;
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      display: flex;
+      gap: 10px;
+      padding: 11px;
+    }
+    .box {
+      border: 2px solid #94a3b8;
+      border-radius: 4px;
+      flex: 0 0 auto;
+      height: 18px;
+      margin-top: 1px;
+      width: 18px;
+    }
+    .reasons {
+      display: grid;
+      gap: 8px;
+      list-style: none;
+      margin: 14px 0 18px;
+      padding: 0;
+    }
+    .reasons li::before {
+      color: var(--green);
+      content: "✓";
+      font-weight: 900;
+      margin-right: 8px;
+    }
+    .flow {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .step {
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 10px;
+    }
+    .arrow { color: var(--muted); }
+    .chain {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .asset {
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 7px 9px;
+    }
+    .progress {
+      background: #e2e8f0;
+      border-radius: 999px;
+      height: 10px;
+      margin: 12px 0;
+      overflow: hidden;
+    }
+    .progress span {
+      background: var(--blue);
+      display: block;
+      height: 100%;
+    }
+    .checklist {
+      display: grid;
+      gap: 5px;
+      margin-top: 8px;
+    }
+    details {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      margin-top: 10px;
+      padding: 12px;
+    }
+    summary { cursor: pointer; font-weight: 850; }
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0;
+    }
+    .filters button {
+      background: #fff;
+      border: 1px solid var(--line);
+      color: var(--ink);
+      padding: 8px 11px;
+    }
+    .filters button.active {
+      background: var(--ink);
+      color: #fff;
+    }
+    .timeline {
+      border-left: 2px solid var(--line);
+      display: grid;
+      gap: 8px;
+      margin-top: 10px;
+      padding-left: 12px;
+    }
+    .form-grid {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .form-grid .wide { grid-column: 1 / -1; }
+    .review-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .error {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 10px;
+      color: var(--red);
+      padding: 14px;
+    }
+    @media (max-width: 860px) {
+      header, .hero, .grid, .cards, .form-grid, .toolbar, .decision-grid, .signal-grid, .platform-grid, .action-row { grid-template-columns: 1fr; }
+      header { align-items: flex-start; flex-direction: column; }
+      .scores { grid-template-columns: 1fr; }
+      .form-grid .wide { grid-column: auto; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Growth OS 增长运营中心</h1>
+      <p class="meta" id="generatedAt">读取本地数据中...</p>
+    </div>
+    <a class="button secondary" href="./dashboard.md">打开 Markdown 摘要</a>
+  </header>
+
+  <main id="app">
+    <section class="panel">加载中...</section>
+  </main>
+
+  <script>
+    const viewUrl = "http://127.0.0.1:8787/data/growth-os/viewer/dashboard-view.json";
+    const publishUrl = "http://127.0.0.1:8787/__publishing-links";
+    const signalUrl = "http://127.0.0.1:8787/__buyer-signal";
+    const reviewActionUrl = "http://127.0.0.1:8787/__review-action";
+    const app = document.getElementById("app");
+    const generatedAt = document.getElementById("generatedAt");
+    let state = null;
+    let statusFilter = "all";
+    let platformFilter = "all";
+
+    main();
+
+    async function main() {
+      try {
+        state = await fetchJson(viewUrl);
+        generatedAt.textContent = `生成时间：${formatDate(state.generated_at)}`;
+        render();
+      } catch (error) {
+        app.innerHTML = `<section class="error">加载失败：${escapeHtml(error.message)}。请先运行：<code>node scripts/growth-os/runtime/run.mjs --dry-run</code></section>`;
+      }
+    }
+
+    async function fetchJson(url) {
+      const response = await fetch(`${url}?t=${Date.now()}`, { cache: "no-store" });
+      if (!response.ok) throw new Error(`${url} ${response.status}`);
+      return response.json();
+    }
+
+    function render() {
+      app.innerHTML = `
+        ${renderHero(state.today_action, state.tasks)}
+        ${renderBusinessSignals(state.business_signals)}
+        ${renderPlatformExecution(state.platform_execution)}
+        ${renderSearch()}
+        <section class="grid">
+          ${renderReviewQueue(state.lifecycle.items)}
+          ${renderPublishingQueue(state.lifecycle.items)}
+        </section>
+        <section class="grid">
+          ${renderTrafficIntelligence(state.traffic_intelligence)}
+          ${renderPublished(state.published)}
+        </section>
+        <section class="grid">
+          ${renderLearning(state.learning)}
+          ${renderArchived(state.archived)}
+        </section>
+        ${renderOpportunities(state.opportunities)}
+        ${renderLifecycle(state.lifecycle)}
+        ${renderReuseChains(state.reuse_chains)}
+        ${renderInputs(state.input_options)}
+      `;
+      applyFilters();
+      applySearch();
+    }
+
+    function renderSearch() {
+      return `
+        <section class="panel toolbar">
+          <div>
+            <h2>今天先看什么</h2>
+            <p class="meta">搜索 GO ID、标题、买家问题、平台或状态。</p>
+          </div>
+          <input id="globalSearch" type="search" placeholder="搜索：GO-002 / LinkedIn / 待审核 / supplier trust">
+        </section>
+      `;
+    }
+
+    function renderHero(action, tasks) {
+      const decision = state.decision_summary || {};
+      if (!action) return `<section class="hero"><div><p class="label">今日重点</p><h2>暂无优先行动</h2></div></section>`;
+      return `
+        <section class="hero">
+          <div>
+            <p class="section-label">Layer 1 · Decision</p>
+            <p class="kicker"><span>🔥</span><span>今日重点</span></p>
+            <h2 class="action-title">${escapeHtml(action.id)}<br>${escapeHtml(action.title)}</h2>
+            <p>状态：<span class="pill ${statusClass(action.status_key)}">${escapeHtml(action.status)}</span></p>
+            <div class="decision-grid">
+              ${decisionItem("当前阶段", decision.current_stage)}
+              ${decisionItem("主要信号", decision.main_signal)}
+              ${decisionItem("主要风险", decision.main_risk)}
+            </div>
+            <div class="next-action">
+              <span class="section-label">下一步最佳动作</span>
+              <strong>${escapeHtml(decision.next_best_action || action.next_step)}</strong>
+            </div>
+            <div class="scores">
+              ${scoreBox("SEO", action.scores.seo)}
+              ${scoreBox("GEO", action.scores.geo)}
+              ${scoreBox("商业", action.scores.business)}
+            </div>
+            <p style="margin-top:14px;">
+              <a class="button" href="${action.review_url}${["approved", "publish_ready"].includes(action.status_key) ? "?mode=publish" : ""}" target="_blank" rel="noopener">${escapeHtml(actionButtonLabel(action.status_key))}</a>
+              <a class="button secondary" href="#assets">查看生成资产</a>
+            </p>
+          </div>
+          <aside>
+            <h2>今日动作</h2>
+            <div class="tasks">${(state.today_actions || []).slice(0, 3).map(renderTodayAction).join("") || tasks.slice(0, 3).map((task) => `<div class="task"><span class="box"></span><span>${escapeHtml(task)}</span></div>`).join("")}</div>
+          </aside>
+        </section>
+      `;
+    }
+
+    function decisionItem(label, value) {
+      return `<div class="decision-item"><p class="meta">${escapeHtml(label)}</p><strong>${escapeHtml(value || "Not tracked")}</strong></div>`;
+    }
+
+    function renderTodayAction(item) {
+      return `
+        <div class="task action-row">
+          <span class="box"></span>
+          <span>
+            <strong>${escapeHtml(item.platform)} · ${escapeHtml(item.action)}</strong>
+            <span class="meta" style="display:block;">原因：${escapeHtml(item.reason)}</span>
+          </span>
+          <span class="pill ${item.priority === "High" ? "warn" : "neutral"}">${escapeHtml(item.priority)}</span>
+        </div>
+      `;
+    }
+
+    function renderBusinessSignals(items = []) {
+      return `
+        <section class="panel">
+          <div class="head">
+            <div>
+              <p class="section-label">Layer 1 · Decision</p>
+              <h2>Business Signals</h2>
+            </div>
+            <span class="pill neutral">保守统计</span>
+          </div>
+          <div class="signal-grid">${items.map((item) => `
+            <article class="card">
+              <p class="meta">${escapeHtml(item.label)}</p>
+              <span class="signal-value">${escapeHtml(item.value)}</span>
+              <p class="meta">${escapeHtml(item.note || "")}</p>
+            </article>
+          `).join("")}</div>
+        </section>
+      `;
+    }
+
+    function renderPlatformExecution(items = []) {
+      return `
+        <section class="panel">
+          <div class="head">
+            <div>
+              <p class="section-label">Layer 2 · Execution</p>
+              <h2>平台执行</h2>
+            </div>
+            <span class="pill neutral">${items.length} platforms</span>
+          </div>
+          <div class="platform-grid">${items.map((item) => `
+            <article class="card platform-card searchable" data-search="${searchText(item)}">
+              <div class="head">
+                <h3>${escapeHtml(item.platform)}</h3>
+                <span class="pill ${riskClass(item.risk_status)}">${escapeHtml(item.risk_status)}</span>
+              </div>
+              <p class="meta">Role：${escapeHtml(item.role)}</p>
+              <p><strong>Strategy：</strong>${escapeHtml(item.current_strategy)}</p>
+              <p><strong>Today：</strong>${escapeHtml(item.today_action)}</p>
+              <p><strong>Progress：</strong>${escapeHtml(item.progress)}</p>
+              <p><strong>Latest：</strong>${escapeHtml(item.latest_result)}</p>
+              <p class="meta">Risk reason：${escapeHtml(item.risk_reason)}</p>
+              <p class="meta">Recommended：${escapeHtml(item.recommended_action)}</p>
+              ${item.platform === "Reddit" ? `<p style="margin-top:8px;"><span class="pill bad">Removed ${escapeHtml(item.removed)} / ${escapeHtml(item.total_actions)} · ${escapeHtml(item.removal_rate)}%</span></p>` : ""}
+            </article>
+          `).join("")}</div>
+        </section>
+      `;
+    }
+
+    function renderOpportunities(items) {
+      return `
+        <section class="panel">
+          <h2>机会池</h2>
+          <div class="cards">${items.map((item) => `
+            <article class="card searchable" data-search="${searchText(item)}">
+              <div class="head">
+                <h3>${escapeHtml(item.id)}</h3>
+                <span class="pill ${item.priority === "HIGH" ? "high" : "neutral"}">${escapeHtml(item.priority_cn)}</span>
+              </div>
+              <p><strong>${escapeHtml(item.title)}</strong></p>
+              <p class="meta">来源：${escapeHtml(item.source_cn)} · 阶段：${escapeHtml(item.stage_cn)}</p>
+              <p class="meta">${escapeHtml(item.tags_cn.join(" · "))}</p>
+              <div class="scores">
+                ${scoreBox("SEO", item.seo_score)}
+                ${scoreBox("GEO", item.geo_score)}
+                ${scoreBox("商业", item.business_score)}
+              </div>
+              <p>状态：<span class="pill neutral">${escapeHtml(item.status_cn)}</span></p>
+            </article>
+          `).join("")}</div>
+        </section>
+      `;
+    }
+
+    function renderTrafficIntelligence(traffic) {
+      if (!traffic) return "";
+      return `
+        <section class="panel searchable" data-search="traffic cloudflare crawler legacy buyer health ${escapeHtml(Object.values(traffic).join(" ").toLowerCase())}">
+          <div class="head">
+            <h2>Traffic Intelligence</h2>
+            <span class="pill ${traffic.site_health === "ok" ? "high" : "bad"}">${escapeHtml(traffic.site_health)}</span>
+          </div>
+          <p>${escapeHtml(traffic.conclusion)}</p>
+          <div class="scores">
+            ${trafficBox("Crawler", traffic.crawler_traffic)}
+            ${trafficBox("Legacy", traffic.legacy_traffic)}
+            ${trafficBox("Buyer", traffic.buyer_intent_traffic)}
+          </div>
+          <p class="meta">建议：${escapeHtml(traffic.action)}</p>
+          ${traffic.report ? `<p style="margin-top:10px;"><a class="button secondary" href="/${escapeHtml(traffic.report)}" target="_blank" rel="noopener">查看 Cloudflare 报告</a></p>` : ""}
+        </section>
+      `;
+    }
+
+    function trafficBox(label, value) {
+      return `<div class="score"><span class="meta">${escapeHtml(label)}</span><b style="font-size:18px;">${escapeHtml(value)}</b></div>`;
+    }
+
+    function renderLifecycle(lifecycle) {
+      return `
+        <section class="panel">
+          <h2>内容生命周期</h2>
+          <div class="flow">${lifecycle.stages.map((step, index) => `${index ? `<span class="arrow">→</span>` : ""}<span class="step">${escapeHtml(step)}</span>`).join("")}</div>
+          <div class="scores">
+            ${scoreBox("草稿", lifecycle.summary.draft_ready)}
+            ${scoreBox("审核", lifecycle.summary.review_pending)}
+            ${scoreBox("已批准", lifecycle.summary.approved)}
+            ${scoreBox("待发布", lifecycle.summary.publish_ready)}
+            ${scoreBox("拒绝", lifecycle.summary.rejected)}
+            ${scoreBox("修改", lifecycle.summary.revision_required)}
+            ${scoreBox("已发布", lifecycle.summary.published)}
+            ${scoreBox("监测", lifecycle.summary.monitoring)}
+            ${scoreBox("学习", lifecycle.summary.learning)}
+          </div>
+          <div class="filters">
+            ${filterButton("status", "all", "全部状态")}
+            ${filterButton("status", "review_pending", "审核")}
+            ${filterButton("status", "approved", "已批准")}
+            ${filterButton("status", "publish_ready", "待发布")}
+            ${filterButton("status", "rejected", "已拒绝")}
+            ${filterButton("status", "revision_required", "需要修改")}
+            ${filterButton("status", "monitoring", "监测")}
+            ${filterButton("status", "learning", "学习")}
+          </div>
+          <div class="filters">
+            ${filterButton("platform", "all", "全部平台")}
+            ${state.input_options.platforms.map((platform) => filterButton("platform", platform, platform)).join("")}
+          </div>
+          <div class="cards">${lifecycle.items.map(renderLifecycleCard).join("")}</div>
+        </section>
+      `;
+    }
+
+    function renderReviewQueue(items) {
+      const queue = items.filter((item) => item.status === "review_pending");
+      return `
+        <section class="panel">
+          <h2>审核队列</h2>
+          <div class="cards">${queue.length ? queue.map((item) => `
+            <article class="card searchable" data-review-card="${escapeHtml(item.id)}" data-search="${searchText(item)}">
+              <div class="head">
+                <h3>${escapeHtml(item.id)}</h3>
+                <span class="pill warn">待审核</span>
+              </div>
+              <p><strong>${escapeHtml(item.title)}</strong></p>
+              <p style="margin-top:10px;"><a class="button secondary" href="${item.content_url}" target="_blank" rel="noopener">进入审核工作台</a></p>
+              <label style="display:block;margin-top:10px;"><span>审核备注</span><textarea data-review-note placeholder="Add FAQ / Reduce promotion tone / Need more factory examples"></textarea></label>
+              <div class="review-actions">
+                <button class="approve" type="button" data-review-action="approve" data-id="${escapeHtml(item.id)}">✅ 批准</button>
+                <button class="reject" type="button" data-review-action="reject" data-id="${escapeHtml(item.id)}">❌ 不批准</button>
+                <button class="revision" type="button" data-review-action="revision" data-id="${escapeHtml(item.id)}">✏️ 需要修改</button>
+              </div>
+              <p class="meta" data-review-status>保存到 review-actions.jsonl</p>
+            </article>
+          `).join("") : `<p class="meta">暂无待审核内容。</p>`}</div>
+          ${renderReviewHistory(state.lifecycle.review_history || [])}
+        </section>
+      `;
+    }
+
+    function renderReviewHistory(items) {
+      if (!items.length) return "";
+      return `
+        <details>
+          <summary>审核历史 · ${items.length}</summary>
+          <div class="list">${items.slice().reverse().map((item) => `
+            <p><strong>${escapeHtml(item.id)}</strong> ${escapeHtml(item.previous)} → ${escapeHtml(item.new)} · ${escapeHtml(item.date || "")}</p>
+          `).join("")}</div>
+        </details>
+      `;
+    }
+
+    function renderPublishingQueue(items) {
+      const queue = items.filter((item) => ["approved", "publish_ready"].includes(item.status));
+      return `
+        <section class="panel" id="publishing-queue">
+          <h2>发布队列</h2>
+          <div class="cards">${queue.length ? queue.map((item) => `
+            <article class="card searchable" data-search="${searchText(item)}">
+              <div class="head">
+                <h3>${escapeHtml(item.id)}</h3>
+                <span class="pill high">${escapeHtml(item.status_cn)}</span>
+              </div>
+              <p><strong>${escapeHtml(item.title)}</strong></p>
+              <p style="margin-top:10px;"><a class="button secondary" href="${publishWorkspaceUrl(item.id)}">打开发布内容</a></p>
+              <div class="chain">${item.platforms.map((platform) => `<span class="asset">${escapeHtml(platform.name)}：${escapeHtml(platform.status)}</span>`).join("")}</div>
+            </article>
+          `).join("") : `<p class="meta">暂无待发布内容。</p>`}</div>
+        </section>
+      `;
+    }
+
+    function renderLifecycleCard(item) {
+      const platforms = item.platforms.map((platform) => platform.name).join(",");
+      return `
+        <article class="card searchable" data-lifecycle-card data-status="${escapeHtml(item.status)}" data-platforms="${escapeHtml(platforms)}" data-search="${searchText(item)} ${escapeHtml(platforms)}">
+          <div class="head">
+            <h3>${escapeHtml(item.id)}</h3>
+            <span class="pill neutral">${escapeHtml(item.status_cn)}</span>
+          </div>
+          <p><strong>${escapeHtml(item.title)}</strong></p>
+          <p style="margin-top:10px;"><a class="button secondary" href="${item.content_url}" target="_blank" rel="noopener">进入审核工作台</a></p>
+          ${renderCompletion(item.completion)}
+          <div class="chain">${item.platforms.map((platform) => `<span class="asset">${escapeHtml(platform.name)}：${escapeHtml(platform.status)}</span>`).join("")}</div>
+          <div class="timeline">${item.timeline.map((row) => `<p><strong>${escapeHtml(row.date)}</strong> ${escapeHtml(row.event)}</p>`).join("")}</div>
+        </article>
+      `;
+    }
+
+    function publishWorkspaceUrl(id) {
+      return `/growth-os/review/${String(id || "").toLowerCase()}/?mode=publish`;
+    }
+
+    function renderReuseChains(items) {
+      return `
+        <section class="panel" id="assets">
+          <h2>内容复用链</h2>
+          <div class="cards">${items.map((item) => `
+            <article class="card searchable" data-search="${searchText(item)} ${escapeHtml(item.platform)} ${escapeHtml(item.status_cn)}">
+              <h3>${escapeHtml(item.id)} · ${escapeHtml(item.title)}</h3>
+              <div class="chain">${item.assets.map((asset, index) => `${index ? `<span class="arrow">→</span>` : ""}<span class="asset">${escapeHtml(asset)}</span>`).join("")}</div>
+            </article>
+          `).join("")}</div>
+        </section>
+      `;
+    }
+
+    function renderPublished(items) {
+      return `
+        <section class="panel">
+          <h2>已发布</h2>
+          <div class="list">${items.length ? items.map((item) => `
+            <article class="card">
+              <div class="head">
+                <h3>${escapeHtml(item.id)} / ${escapeHtml(item.platform)}</h3>
+                <span class="pill neutral">${escapeHtml(item.status_cn)}</span>
+              </div>
+              <p>${escapeHtml(item.title)}</p>
+              <p class="meta">发布时间：${escapeHtml(item.published_date || "待录入")}</p>
+              <p>发布链接：${item.url ? `<a href="${item.url}" target="_blank" rel="noopener">${escapeHtml(item.url)}</a>` : "待录入"}</p>
+              <p class="meta">下一次检查：${escapeHtml(item.next_check_date || "待定")}</p>
+              <div class="scores">
+                ${scoreBox("浏览", item.metrics.views)}
+                ${scoreBox("点击", item.metrics.clicks)}
+                ${scoreBox("询盘", item.metrics.leads)}
+              </div>
+            </article>
+          `).join("") : `<p class="meta">暂无已发布链接。</p>`}</div>
+        </section>
+      `;
+    }
+
+    function renderLearning(learning) {
+      return `
+        <section class="panel">
+          <h2>AI 策略建议</h2>
+          <div class="card">
+            <h3>最近发现</h3>
+            <p>${escapeHtml(learning.recent_pattern)}</p>
+            <p class="meta" style="margin-top:8px;">依据：${escapeHtml((learning.evidence || []).join(" · "))}</p>
+          </div>
+          <div class="card" style="margin-top:10px;">
+            <h3>建议</h3>
+            <p>${escapeHtml(learning.recommendation)}</p>
+          </div>
+        </section>
+      `;
+    }
+
+    function renderArchived(items) {
+      return `
+        <section class="panel">
+          <h2>Archived / 停止原因</h2>
+          <div class="cards">${items.length ? items.map((item) => `
+            <article class="card">
+              <h3>${escapeHtml(item.id)} · ${escapeHtml(item.title)}</h3>
+              <ul>${item.reasons.map((reason) => `<li>${escapeHtml(reason)}</li>`).join("")}</ul>
+            </article>
+          `).join("") : `<p class="meta">暂无归档项。</p>`}</div>
+        </section>
+      `;
+    }
+
+    function renderInputs(options) {
+      return `
+        <section class="grid">
+          <section class="panel">
+            <h2>添加客户信号</h2>
+            <form class="form-grid" data-signal-form>
+              <label><span>来源</span><input name="source" placeholder="Reddit / 客户对话 / LinkedIn"></label>
+              <label><span>阶段</span><select name="stage">${options.stages.map((stage) => `<option>${escapeHtml(stage)}</option>`).join("")}</select></label>
+              <label class="wide"><span>问题</span><textarea name="question" placeholder="买家真实问题"></textarea></label>
+              <label><span>痛点</span><input name="pain" placeholder="trust / deposit / quote"></label>
+              <label><span>关联 GO</span><input name="related_go" placeholder="GO-002"></label>
+              <p class="wide"><button type="submit">保存客户信号</button></p>
+              <p class="meta wide" id="signalStatus">保存到 buyer-signals.jsonl</p>
+            </form>
+          </section>
+          <section class="panel">
+            <h2>添加发布结果</h2>
+            <form class="form-grid" data-publish-form>
+              <label><span>GO ID</span><input name="content_id" placeholder="GO-002"></label>
+              <label><span>平台</span><select name="platform">${options.platforms.map((platform) => `<option>${escapeHtml(platform)}</option>`).join("")}</select></label>
+              <label class="wide"><span>URL</span><input name="url" placeholder="https://..."></label>
+              <label><span>浏览</span><input name="views" type="number" min="0" value="0"></label>
+              <label><span>点击</span><input name="clicks" type="number" min="0" value="0"></label>
+              <label><span>询盘</span><input name="leads" type="number" min="0" value="0"></label>
+              <p class="wide"><button type="submit">保存发布结果</button></p>
+              <p class="meta wide" id="publishStatus">保存到 published-content / social-metrics</p>
+            </form>
+          </section>
+        </section>
+      `;
+    }
+
+    function scoreBox(label, value) {
+      return `<div class="score"><span class="meta">${label}</span><b>${Number(value) || 0}</b></div>`;
+    }
+
+    function statusClass(status) {
+      if (["published", "monitoring", "learning"].includes(status)) return "high";
+      if (["review_pending", "approved", "publish_ready"].includes(status)) return "warn";
+      if (["rejected", "revision_required"].includes(status)) return "bad";
+      return "neutral";
+    }
+
+    function riskClass(status) {
+      if (status === "High") return "bad";
+      if (status === "Medium") return "warn";
+      return "high";
+    }
+
+    function actionButtonLabel(status) {
+      if (status === "review_pending") return "进入审核工作台";
+      if (["approved", "publish_ready"].includes(status)) return "打开发布内容";
+      if (["published", "monitoring", "learning"].includes(status)) return "查看内容";
+      if (status === "revision_required") return "查看修改要求";
+      return "查看内容包";
+    }
+
+    function renderCompletion(completion) {
+      if (!completion) return "";
+      return `
+        <div class="progress" aria-label="内容完成度 ${completion.progress}%"><span style="width:${completion.progress}%"></span></div>
+        <p class="meta">内容完成度：${completion.progress}%</p>
+        <div class="checklist">
+          <p>已完成：${completion.completed.map((item) => `✓ ${escapeHtml(item)}`).join(" · ")}</p>
+          <p class="meta">缺少：${completion.missing.map((item) => `⬜ ${escapeHtml(item)}`).join(" · ") || "无"}</p>
+        </div>
+      `;
+    }
+
+    function searchText(item) {
+      return escapeHtml(Object.values(item || {}).flatMap((value) => Array.isArray(value) ? value : [value]).join(" ").toLowerCase());
+    }
+
+    function filterButton(type, value, label) {
+      const active = type === "status" ? statusFilter === value : platformFilter === value;
+      return `<button type="button" data-filter-type="${type}" data-filter-value="${value}" class="${active ? "active" : ""}">${label}</button>`;
+    }
+
+    document.addEventListener("click", (event) => {
+      const reviewButton = event.target.closest("[data-review-action]");
+      if (reviewButton) {
+        saveReviewAction(reviewButton);
+        return;
+      }
+      const button = event.target.closest("[data-filter-type]");
+      if (!button) return;
+      if (button.dataset.filterType === "status") statusFilter = button.dataset.filterValue;
+      if (button.dataset.filterType === "platform") platformFilter = button.dataset.filterValue;
+      applyFilters();
+    });
+
+    document.addEventListener("input", (event) => {
+      if (event.target.id === "globalSearch") applySearch();
+    });
+
+    async function saveReviewAction(button) {
+      const card = button.closest("[data-review-card]");
+      const status = card.querySelector("[data-review-status]");
+      await postJson(reviewActionUrl, {
+        id: button.dataset.id,
+        action: button.dataset.reviewAction,
+        note: card.querySelector("[data-review-note]").value
+      }, status);
+    }
+
+    document.addEventListener("submit", async (event) => {
+      const signalForm = event.target.closest("[data-signal-form]");
+      const publishForm = event.target.closest("[data-publish-form]");
+      if (!signalForm && !publishForm) return;
+      event.preventDefault();
+      if (signalForm) await postForm(signalUrl, signalForm, "signalStatus");
+      if (publishForm) {
+        const data = Object.fromEntries(new FormData(publishForm));
+        await postJson(publishUrl, {
+          content_id: data.content_id,
+          platform: data.platform,
+          status: Number(data.views || 0) || Number(data.clicks || 0) || Number(data.leads || 0) ? "measuring" : "published",
+          url: data.url,
+          published_date: new Date().toISOString().slice(0, 10),
+          metrics: {
+            views: Number(data.views) || 0,
+            likes: 0,
+            comments: 0,
+            clicks: Number(data.clicks) || 0,
+            leads: Number(data.leads) || 0
+          }
+        }, "publishStatus");
+      }
+    });
+
+    function applyFilters() {
+      document.querySelectorAll("[data-filter-type]").forEach((button) => {
+        const active = button.dataset.filterType === "status"
+          ? button.dataset.filterValue === statusFilter
+          : button.dataset.filterValue === platformFilter;
+        button.classList.toggle("active", active);
+      });
+      document.querySelectorAll("[data-lifecycle-card]").forEach((card) => {
+        const statusOk = statusFilter === "all" || card.dataset.status === statusFilter;
+        const platformOk = platformFilter === "all" || card.dataset.platforms.split(",").includes(platformFilter);
+        card.dataset.filterHidden = String(!statusOk || !platformOk);
+      });
+      applySearch();
+    }
+
+    function applySearch() {
+      const query = (document.getElementById("globalSearch")?.value || "").trim().toLowerCase();
+      document.querySelectorAll(".searchable").forEach((card) => {
+        const searchOk = !query || card.dataset.search.includes(query);
+        card.hidden = card.dataset.filterHidden === "true" || !searchOk;
+      });
+    }
+
+    async function postForm(url, form, statusId) {
+      await postJson(url, Object.fromEntries(new FormData(form)), statusId);
+    }
+
+    async function postJson(url, body, statusTarget) {
+      const status = typeof statusTarget === "string" ? document.getElementById(statusTarget) : statusTarget;
+      try {
+        const response = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
+        });
+        if (!response.ok) throw new Error(await response.text());
+        status.textContent = "已保存。重新运行 runtime 后会进入看板。";
+      } catch (error) {
+        status.textContent = `保存失败：${error.message}`;
+      }
+    }
+
+    function formatDate(value) {
+      return value ? new Date(value).toLocaleString() : "unknown";
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "").replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        "\"": "&quot;",
+        "'": "&#39;"
+      }[char]));
+    }
+  </script>
+</body>
+</html>

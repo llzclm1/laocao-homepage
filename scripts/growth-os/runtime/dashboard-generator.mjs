@@ -16,13 +16,20 @@ const publishedLinksFile = path.join(root, "data/growth-os/social/published-link
 const publishedContentFile = path.join(root, "data/growth-os/social/published-content.json");
 const socialMetricsFile = path.join(root, "data/growth-os/social/social-metrics.json");
 const reviewHistoryFile = path.join(root, "data/growth-os/review-history.jsonl");
+const socialOutreachLogFile = path.join(root, "data/marketing/social-outreach-log.csv");
+const cloudflareObservationFile = path.join(root, "data/growth-os/imports/cloudflare/cloudflare-traffic-overview-2026-07-10.json");
 
 export function writeDashboard(summary, context) {
   const business = summary.business_opportunities || [];
-  const highestConversion = business.find((item) => !["published", "published_candidate", "monitoring"].includes(item.status)) || business[0] || null;
   const socialQueue = buildSocialQueue(summary.social_content?.items || []);
   const socialPublishing = buildSocialPublishing(socialQueue);
   const contentLifecycle = buildContentLifecycle(business, socialQueue, socialPublishing);
+  const statusById = new Map(contentLifecycle.items.map((item) => [item.id, item.status]));
+  const businessWithLifecycle = business.map((item) => ({
+    ...item,
+    status: statusById.get(item.id) || item.status
+  }));
+  const highestConversion = businessWithLifecycle.find((item) => isActionableStatus(item.status)) || businessWithLifecycle[0] || null;
   const markdown = `# Growth OS Today
 
 Generated at: ${summary.date}
@@ -41,7 +48,7 @@ ${highestConversion ? renderTopBusinessOpportunity(highestConversion) : "- Highe
 
 Business queue:
 
-${business.length ? business.slice(0, 5).map(renderBusinessRow).join("\n") : "- No business-ranked opportunities."}
+${businessWithLifecycle.length ? businessWithLifecycle.slice(0, 5).map(renderBusinessRow).join("\n") : "- No business-ranked opportunities."}
 
 ## Pending Review
 
@@ -123,6 +130,10 @@ ${renderPublishingQueue(socialPublishing.waiting_metrics)}
 
 - Performance Report: ${summary.performance_report}
 
+## Traffic Intelligence
+
+${renderTrafficIntelligence(summary.cloudflare_traffic)}
+
 ## SEO Signals
 
 - See performance report for GSC/import signals.
@@ -148,7 +159,7 @@ ${summary.recommended_actions.length ? summary.recommended_actions.map((item, in
 - Warnings: ${summary.state_validation.warnings.length}
 `;
 
-  writeDashboardData(summary, context, business, highestConversion, socialQueue, socialPublishing, contentLifecycle);
+  writeDashboardData(summary, context, businessWithLifecycle, highestConversion, socialQueue, socialPublishing, contentLifecycle);
   fs.writeFileSync(dashboardFile, markdown, "utf8");
   return path.relative(root, dashboardFile);
 }
@@ -156,6 +167,7 @@ ${summary.recommended_actions.length ? summary.recommended_actions.map((item, in
 function writeDashboardData(summary, context, business, todayAction, socialQueue, socialPublishing, contentLifecycle) {
   fs.mkdirSync(dashboardDataDir, { recursive: true });
   const opportunityById = new Map(readJsonl(opportunitiesFile).map((item) => [item.id, item]));
+  const lifecycleById = new Map(contentLifecycle.items.map((item) => [item.id, item]));
 
   const priority = {
     generated_at: summary.date,
@@ -167,6 +179,8 @@ function writeDashboardData(summary, context, business, todayAction, socialQueue
       reason_bullets: reasonBullets(todayAction),
       score: todayAction.final_priority || todayAction.score || 0,
       action: actionFromStatus(todayAction.status),
+      status: todayAction.status,
+      status_cn: chineseLifecycleStatus(todayAction.status),
       scores: {
         seo: todayAction.seo_score || 0,
         geo: todayAction.geo_score || 0,
@@ -175,11 +189,7 @@ function writeDashboardData(summary, context, business, todayAction, socialQueue
       content_package: reviewWorkspaceUrl(todayAction.id),
       review_url: reviewWorkspaceUrl(todayAction.id)
     } : null,
-    tasks: todayAction ? [
-      `Review ${todayAction.id} content`,
-      `Publish LinkedIn post for ${todayAction.id}`,
-      `Check GEO gap for ${todayAction.id}`
-    ] : ["Review opportunity queue"]
+    tasks: todayAction ? tasksForStatus(todayAction) : ["Review opportunity queue"]
   };
 
   const dashboard = {
@@ -192,7 +202,7 @@ function writeDashboardData(summary, context, business, todayAction, socialQueue
       seo_score: item.seo_score || 0,
       geo_score: item.geo_score || 0,
       business_score: item.business_intent_score || item.final_priority || 0,
-      status: readableStatus(item.status),
+      status: readableStatus(lifecycleById.get(item.id)?.status || item.status),
       priority: item.priority || "UNKNOWN",
       source: item.source && item.source !== "Growth OS" ? item.source : opportunityById.get(item.id)?.source || sourceFromPackage(item.id),
       intent: item.intent || "",
@@ -202,6 +212,7 @@ function writeDashboardData(summary, context, business, todayAction, socialQueue
     })),
     content_packages: buildContentPackages(summary, business),
     content_lifecycle: contentLifecycle,
+    traffic_intelligence: summary.cloudflare_traffic || null,
     social_queue: socialQueue,
     social_publishing: socialPublishing,
     platform_compliance: {
@@ -231,13 +242,22 @@ function writeDashboardData(summary, context, business, todayAction, socialQueue
 function buildDashboardView(summary, priority, dashboard) {
   const action = priority.today_action;
   const lifecycle = dashboard.content_lifecycle;
+  const platformExecution = buildPlatformExecution(summary, lifecycle);
+  const businessSignals = buildBusinessSignals(summary);
+  const decisionSummary = buildDecisionSummary(action, summary, platformExecution);
+  const todayActions = buildTodayActions(action, platformExecution);
   return {
     generated_at: summary.date,
     title: "Growth OS 增长运营中心",
+    decision_summary: decisionSummary,
+    today_actions: todayActions,
+    business_signals: businessSignals,
+    platform_execution: platformExecution,
     today_action: action ? {
       id: action.id,
       title: chineseTitle(action.id, action.title),
-      status: chineseActionStatus(action.action),
+      status: action.status_cn || chineseActionStatus(action.action),
+      status_key: action.status || action.action,
       score: action.score,
       scores: action.scores,
       reason: [
@@ -246,11 +266,11 @@ function buildDashboardView(summary, priority, dashboard) {
         "最近出现多个类似问题",
         "GEO 存在机会"
       ],
-      next_step: "进入审核工作台完成人工审核",
+      next_step: nextStepForStatus(action.status),
       content_package: action.content_package,
       review_url: action.review_url
     } : null,
-    tasks: (priority.tasks || []).map(chineseTask),
+    tasks: (priority.tasks || []).map(chineseTask).slice(0, 3),
     opportunities: dashboard.opportunities.map((item) => ({
       ...item,
       title: chineseTitle(item.id, item.title),
@@ -307,9 +327,18 @@ function buildDashboardView(summary, priority, dashboard) {
       reasons: ["搜索需求低", "商业价值不足", "内容重复"].filter((_, index) => index === 0 || item.decision === "archive")
     })),
     input_options: {
-      platforms: ["LinkedIn", "Reddit", "X", "Substack", "Medium"],
+      platforms: ["LinkedIn", "Reddit", "Quora", "X", "Medium", "Substack", "Facebook"],
       stages: ["pre_payment", "sample_order", "quote_review", "research", "factory_materials"]
-    }
+    },
+    traffic_intelligence: summary.cloudflare_traffic ? {
+      crawler_traffic: summary.cloudflare_traffic.levels.crawler_traffic,
+      legacy_traffic: summary.cloudflare_traffic.levels.legacy_traffic,
+      buyer_intent_traffic: summary.cloudflare_traffic.levels.buyer_intent_traffic,
+      site_health: summary.cloudflare_traffic.levels.site_health,
+      action: summary.cloudflare_traffic.action,
+      conclusion: summary.cloudflare_traffic.conclusion,
+      report: summary.cloudflare_traffic.report
+    } : null
   };
 }
 
@@ -330,9 +359,273 @@ function buildReviewView(summary, dashboard) {
           business: opportunity.business_score || 0
         },
         sections: contentSections(item.id),
-        social: socialSections(item.id)
+        social: socialSections(item.id),
+        social_images: socialImages(item.id)
       };
     })
+  };
+}
+
+function buildDecisionSummary(action, summary, platformExecution) {
+  const reddit = platformExecution.find((item) => item.platform === "Reddit");
+  const traffic = summary.cloudflare_traffic;
+  return {
+    current_stage: "Authority Building",
+    main_signal: traffic?.levels?.buyer_intent_traffic === "low / not clear yet"
+      ? "搜索引擎、AI crawler 和社媒 crawler 已开始访问，但真实买家信号还不明显。"
+      : "外部内容正在形成搜索和平台可见性，需要继续观察真实买家互动。",
+    main_risk: reddit?.risk_status === "High"
+      ? `Reddit removal rate ${reddit.removal_rate}% 偏高，继续发帖会损耗账号信任。`
+      : "当前买家互动数据不足，不能用发帖量替代商业信号。",
+    next_best_action: reddit?.risk_status === "High"
+      ? "发布 3 条无链接、无项目提及、经验型 Reddit comments，并暂停独立推广帖。"
+      : nextStepForStatus(action?.status),
+    growth_job: action ? {
+      id: action.id,
+      title: chineseTitle(action.id, action.title),
+      status: chineseLifecycleStatus(action.status),
+      score: action.score || 0
+    } : null
+  };
+}
+
+function buildTodayActions(action, platformExecution) {
+  const byPlatform = new Map(platformExecution.map((item) => [item.platform, item]));
+  const reddit = byPlatform.get("Reddit");
+  const linkedIn = byPlatform.get("LinkedIn");
+  const quora = byPlatform.get("Quora");
+  const items = [
+    {
+      platform: "Reddit",
+      action: reddit?.risk_status === "High"
+        ? "发布 3 条 comment-first 回复，不放链接，不提项目。"
+        : "发布 1-3 条真实问题回复，不放链接。",
+      priority: "High",
+      status: "待执行",
+      reason: reddit?.risk_status === "High"
+        ? "Removal rate 偏高，必须从发帖切换到低风险评论。"
+        : "Reddit 是真实买家问题来源，但需要保守互动。",
+      done: false
+    },
+    {
+      platform: "Quora",
+      action: quora?.today_action || "回答 2 个高意图 sourcing 问题。",
+      priority: "Medium",
+      status: "待执行",
+      reason: "Quora 更适合沉淀长尾问题和权威回答。",
+      done: false
+    },
+    {
+      platform: "LinkedIn",
+      action: linkedIn?.today_action || "回复 5 条行业相关帖子，优先经验分享。",
+      priority: action?.status === "publish_ready" ? "High" : "Medium",
+      status: "待执行",
+      reason: action?.id ? `${action.id} 已进入发布/分发阶段。` : "LinkedIn 适合建立行业可信度。",
+      done: false
+    }
+  ];
+  return items.slice(0, 3);
+}
+
+function buildBusinessSignals(summary) {
+  const cloudflare = readJsonFile(cloudflareObservationFile);
+  const publishedLinks = readPublishedLinks();
+  const metrics = publishedLinks.map((item) => item.metrics || {});
+  const reviewRequests = metrics.reduce((sum, item) => sum + (Number(item.leads) || 0), 0);
+  return [
+    signalItem("Qualified Interactions", 0, "只统计对方回复评论、私信、明确问题、合作意向或采购相关互动；当前未追踪到。"),
+    signalItem("Buyer Replies", 0, "未追踪到明确买家回复。"),
+    signalItem("Partner Leads", 0, "未追踪到合作意向。"),
+    signalItem("Supplier Leads", 0, "Not tracked"),
+    signalItem("Audience Interactions", "Not tracked", "普通点赞不计入 Qualified Interaction。"),
+    signalItem("Website Visits", Number(cloudflare?.total_visits) || 0, cloudflare?.date ? `Cloudflare ${cloudflare.date} / ${cloudflare.window || "24h"}` : "No Cloudflare observation"),
+    signalItem("Review Requests", reviewRequests, "来自发布记录 metrics.leads。"),
+    signalItem("Paid Opportunities", 0, "未追踪到付费机会。")
+  ];
+}
+
+function signalItem(label, value, note) {
+  return { label, value, note };
+}
+
+function buildPlatformExecution(summary, lifecycle) {
+  const redditRisk = readRedditRisk();
+  const publishedByPlatform = countPublishedByPlatform(lifecycle.items || []);
+  const definitions = [
+    {
+      platform: "LinkedIn",
+      role: "行业可信度",
+      current_strategy: "经验分享 + 行业评论，不硬广。",
+      today_action: "回复 5 条行业相关帖子，发布时只讲经验判断。",
+      progress: "0 / 5",
+      risk_status: "Low",
+      risk_reason: "未发现明确访问错误或异常重复行为。",
+      recommended_action: "保持低频、经验型互动，补录直达链接。",
+      latest_result: `${publishedByPlatform.LinkedIn || 0} 条 Growth OS 发布记录`
+    },
+    {
+      platform: "Reddit",
+      role: "社区信任",
+      current_strategy: "Comment-first，只回答具体问题，不放链接。",
+      today_action: "发布 3 条无链接经验型 comments，暂停独立推广帖。",
+      progress: "0 / 3",
+      risk_status: redditRisk.status,
+      risk_reason: redditRisk.reason,
+      recommended_action: redditRisk.recommended_action,
+      latest_result: `${redditRisk.removed} of ${redditRisk.total_actions} removed`,
+      total_actions: redditRisk.total_actions,
+      removed: redditRisk.removed,
+      removal_rate: redditRisk.removal_rate
+    },
+    {
+      platform: "Quora",
+      role: "问题型权威",
+      current_strategy: "回答高意图 sourcing 问题，少链接，重过程。",
+      today_action: "回答 2 个高意图问题。",
+      progress: "0 / 2",
+      risk_status: "Medium",
+      risk_reason: "平台数据不完整，需要人工回访确认保留和互动。",
+      recommended_action: "优先回答采购付款、供应商判断、报价问题。",
+      latest_result: "已有回答与内容浏览，但未接入完整指标。"
+    },
+    {
+      platform: "X",
+      role: "轻量传播",
+      current_strategy: "短观点 + 图片卡片，避免长文堆叠。",
+      today_action: "发布 1 条图片卡片或短 thread。",
+      progress: "0 / 1",
+      risk_status: "Medium",
+      risk_reason: "历史出现文本截断，长文需要转图片或 thread。",
+      recommended_action: "X 长内容优先做 image card。",
+      latest_result: `${publishedByPlatform.X || 0} 条 Growth OS 发布记录`
+    },
+    {
+      platform: "Medium",
+      role: "长文沉淀",
+      current_strategy: "经验总结型文章，不堆 SEO 关键词。",
+      today_action: "暂不新增，优先复用已发布长文。",
+      progress: "0 / 0",
+      risk_status: "Low",
+      risk_reason: "当前未发现移除或访问异常。",
+      recommended_action: "有完整案例后再发布。",
+      latest_result: `${publishedByPlatform.Medium || 0} 条 Growth OS 发布记录`
+    },
+    {
+      platform: "Substack",
+      role: "深度复盘",
+      current_strategy: "沉淀长文和判断框架。",
+      today_action: "暂不新增，复查已发布文章。 ",
+      progress: "0 / 0",
+      risk_status: "Low",
+      risk_reason: "当前未发现移除或访问异常。",
+      recommended_action: "只发布完整主题，不追求频率。",
+      latest_result: `${publishedByPlatform.Substack || 0} 条 Growth OS 发布记录`
+    },
+    {
+      platform: "Facebook",
+      role: "低频群组验证",
+      current_strategy: "谨慎评论，等待审核结果。",
+      today_action: "回访 pending review，不新增大量评论。",
+      progress: "0 / 1",
+      risk_status: "Medium",
+      risk_reason: "群组审核和可见性不稳定。",
+      recommended_action: "只记录真实通过的评论和互动。",
+      latest_result: "历史多条 group comment 处于 pending review。"
+    }
+  ];
+  return definitions;
+}
+
+function countPublishedByPlatform(items) {
+  const counts = {};
+  for (const item of items) {
+    for (const platform of item.platforms || []) {
+      if (!platform.url) continue;
+      counts[platform.name] = (counts[platform.name] || 0) + 1;
+    }
+  }
+  return counts;
+}
+
+function readRedditRisk() {
+  const fallback = {
+    total_actions: 0,
+    removed: 0,
+    removal_rate: 0,
+    status: "Medium",
+    reason: "Reddit removal data not tracked.",
+    recommended_action: "Keep comment-first and record removals manually."
+  };
+  if (!fs.existsSync(socialOutreachLogFile)) return fallback;
+  const rows = parseCsv(fs.readFileSync(socialOutreachLogFile, "utf8"));
+  const audit = rows.find((row) => row.platform === "Reddit" && /Browser audit total/i.test(row.topic || ""));
+  const text = audit ? Object.values(audit).join(" ") : "";
+  const match = text.match(/(\d+)\s+Reddit comments:\s+(\d+)\s+visible\s+and\s+(\d+)\s+removed/i);
+  const total = Number(match?.[1]) || 0;
+  const removed = Number(match?.[3]) || 0;
+  const rate = total ? Math.round((removed / total) * 100) : 0;
+  const status = rate > 20 ? "High" : rate > 10 ? "Medium" : "Low";
+  return {
+    total_actions: total,
+    removed,
+    removal_rate: rate,
+    status,
+    reason: status === "High" ? "High removal rate" : "Removal rate within current guardrail",
+    recommended_action: status === "High"
+      ? "Stop promotional posts and switch to comment-first."
+      : "Continue low-frequency comment-first replies."
+  };
+}
+
+function parseCsv(text) {
+  const lines = String(text || "").trim().split(/\r?\n/).filter(Boolean);
+  const headers = parseCsvLine(lines.shift() || "");
+  return lines.map((line) => {
+    const values = parseCsvLine(line);
+    return Object.fromEntries(headers.map((header, index) => [header, values[index] || ""]));
+  });
+}
+
+function parseCsvLine(line) {
+  const values = [];
+  let value = "";
+  let quoted = false;
+  for (let index = 0; index < line.length; index += 1) {
+    const char = line[index];
+    const next = line[index + 1];
+    if (char === "\"" && quoted && next === "\"") {
+      value += "\"";
+      index += 1;
+    } else if (char === "\"") {
+      quoted = !quoted;
+    } else if (char === "," && !quoted) {
+      values.push(value);
+      value = "";
+    } else {
+      value += char;
+    }
+  }
+  values.push(value);
+  return values;
+}
+
+function readJsonFile(file) {
+  if (!fs.existsSync(file)) return null;
+  try {
+    return JSON.parse(fs.readFileSync(file, "utf8"));
+  } catch {
+    return null;
+  }
+}
+
+function socialImages(id) {
+  const dir = `/docs/social/content-pack/${String(id).toLowerCase()}`;
+  return {
+    linkedin: `${dir}/social-image.png`,
+    reddit: `${dir}/reddit-image.png`,
+    x: `${dir}/x-thread.png`,
+    substack: `${dir}/substack-image.png`,
+    medium: `${dir}/medium-image.png`
   };
 }
 
@@ -374,6 +667,10 @@ function chineseTask(task) {
   return String(task)
     .replace(/^Review (GO-\d+) content$/, "审核 $1")
     .replace(/^Publish LinkedIn post for (GO-\d+)$/, "发布 $1 的 LinkedIn 内容")
+    .replace(/^Record published URL for (GO-\d+)$/, "记录 $1 的发布链接")
+    .replace(/^Check social metrics for (GO-\d+)$/, "检查 $1 的社媒效果")
+    .replace(/^Record clicks and leads for (GO-\d+)$/, "录入 $1 的点击和询盘")
+    .replace(/^Review learning signals for (GO-\d+)$/, "复盘 $1 的学习信号")
     .replace(/^Check GEO gap for (GO-\d+)$/, "检查 $1 的 GEO 优化建议");
 }
 
@@ -422,8 +719,21 @@ function nextCheckDate(date) {
 
 function chineseActionStatus(action) {
   if (action === "review") return "待审核";
+  if (action === "publish") return "待发布";
   if (action === "monitor") return "监测中";
   return "待处理";
+}
+
+function nextStepForStatus(status) {
+  if (status === "review_pending") return "进入审核工作台完成人工审核";
+  if (["approved", "publish_ready"].includes(status)) return "打开发布内容，人工发布后记录链接";
+  if (["published", "monitoring"].includes(status)) return "查看发布效果并补录数据";
+  if (status === "revision_required") return "按审核意见修改内容";
+  return "查看内容包并处理下一步";
+}
+
+function isActionableStatus(status) {
+  return !["published", "monitoring", "learning", "rejected"].includes(status);
 }
 
 function chineseLifecycleStatus(status) {
@@ -499,6 +809,18 @@ function buildSocialQueue(items) {
     platforms,
     pack_url: `/docs/social/content-pack/${String(id).toLowerCase()}/`
   }));
+}
+
+function renderTrafficIntelligence(traffic) {
+  if (!traffic) return "- No Cloudflare traffic observation imported.";
+  return `- Crawler traffic: ${traffic.levels.crawler_traffic}
+- Legacy traffic: ${traffic.levels.legacy_traffic}
+- Buyer-intent traffic: ${traffic.levels.buyer_intent_traffic}
+- Security/scanner traffic: ${traffic.levels.security_scanner_traffic}
+- Healthy static traffic: ${traffic.levels.healthy_static_traffic}
+- Site health: ${traffic.levels.site_health}
+- Action: ${traffic.action}
+- Report: ${traffic.report}`;
 }
 
 function buildSocialPublishing(socialQueue) {
@@ -578,8 +900,7 @@ function buildContentLifecycle(business, socialQueue, socialPublishing) {
     });
     const itemStatus = lifecycle.status || statusToLifecycle(business.find((item) => item.id === id)?.status);
     const publishedPlatforms = platforms.filter((platform) => platform.url);
-    const metricTotal = platforms.reduce((total, platform) => total + platform.metrics.views + platform.metrics.clicks + platform.metrics.leads, 0);
-    const status = metricTotal ? "learning" : publishedPlatforms.length ? "monitoring" : itemStatus;
+    const status = itemStatus;
     return {
       id,
       title: lifecycle.title || titles.get(id) || id,
@@ -790,8 +1111,27 @@ function buildLearning(summary) {
 
 function actionFromStatus(status) {
   if (status === "published_candidate" || status === "published") return "monitor";
+  if (["approved", "publish_ready"].includes(status)) return "publish";
   if (status === "draft_ready") return "review";
   return "review";
+}
+
+function tasksForStatus(item) {
+  if (["approved", "publish_ready"].includes(item.status)) return [
+    `Publish LinkedIn post for ${item.id}`,
+    `Record published URL for ${item.id}`,
+    `Check GEO gap for ${item.id}`
+  ];
+  if (["published", "monitoring"].includes(item.status)) return [
+    `Check social metrics for ${item.id}`,
+    `Record clicks and leads for ${item.id}`,
+    `Review learning signals for ${item.id}`
+  ];
+  return [
+    `Review ${item.id} content`,
+    `Publish LinkedIn post for ${item.id}`,
+    `Check GEO gap for ${item.id}`
+  ];
 }
 
 function reasonBullets(item) {
