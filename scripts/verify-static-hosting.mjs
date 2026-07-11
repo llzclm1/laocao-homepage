@@ -223,14 +223,27 @@ assert.ok(JSON.stringify(aiSitemap).includes("不是正式审厂"), "AI sitemap 
 
 const factoryPage = fs.readFileSync(path.join(dist, "for-factories/index.html"), "utf8");
 const buyerPage = fs.readFileSync(path.join(dist, "for-buyers/index.html"), "utf8");
+const shortBuyerPage = fs.readFileSync(path.join(dist, "b/index.html"), "utf8");
+const shortFactoryPage = fs.readFileSync(path.join(dist, "m/index.html"), "utf8");
+const contactPage = fs.readFileSync(path.join(dist, "contact/index.html"), "utf8");
 const buyerGuidesPage = fs.readFileSync(path.join(dist, "buyer-guides/index.html"), "utf8");
 const spanishBuyerGuidesPage = fs.readFileSync(path.join(dist, "es/buyer-guides/index.html"), "utf8");
 const spanishPaymentGuidePage = fs.readFileSync(path.join(dist, "es/buyer-guides/como-revisar-un-proveedor-chino-antes-de-pagar/index.html"), "utf8");
 const paymentGuidePage = fs.readFileSync(path.join(dist, "buyer-guides/verify-chinese-supplier-before-deposit/index.html"), "utf8");
 const supplierReplyReviewPage = fs.readFileSync(path.join(dist, "supplier-reply-review/index.html"), "utf8");
 const supplierReplySamplePage = fs.readFileSync(path.join(dist, "supplier-reply-review/sample-report/index.html"), "utf8");
+const supplierReplyExamplesPage = fs.readFileSync(path.join(dist, "supplier-reply-review/examples/index.html"), "utf8");
 const fieldMaterialsPage = fs.readFileSync(path.join(dist, "field-materials/index.html"), "utf8");
 const englishFieldMaterialsPage = fs.readFileSync(path.join(dist, "en/field-materials/index.html"), "utf8");
+const corePages = [home, factoryPage, buyerPage, shortBuyerPage, shortFactoryPage, contactPage, buyerGuidesPage, spanishBuyerGuidesPage, spanishPaymentGuidePage, paymentGuidePage, supplierReplyReviewPage, supplierReplySamplePage, supplierReplyExamplesPage, fieldMaterialsPage];
+for (const page of corePages) {
+  assert.equal(page.includes('href="mailto:'), false, "core pages should not expose mailto links that Cloudflare rewrites as internal 404 URLs");
+}
+assert.ok(contactPage.includes("data-email-link"), "contact page should build its email action after load");
+assert.ok(buyerGuidesPage.includes('"item": "https://gewuji.dev/buyer-guides/'), "buyer guide ItemList entries should use schema.org item URLs");
+assert.ok(spanishBuyerGuidesPage.includes('"item": "https://gewuji.dev/es/buyer-guides/'), "Spanish buyer guide ItemList entries should use schema.org item URLs");
+assert.equal(fieldMaterialsPage.includes('"name": "Field material signal categories"'), false, "field materials should not expose incomplete ListItem schema");
+assert.ok(paymentGuidePage.includes('"logo": {"@type": "ImageObject"'), "buyer guide publisher schema should include a logo");
 assert.ok(factoryPage.includes('rel="canonical" href="https://gewuji.dev/for-factories/"'), "factory page should expose canonical URL");
 assert.ok(factoryPage.includes("工厂对外资料重构"), "factory page should include factory material rewrite SEO copy");
 assert.ok(factoryPage.includes('id="material-rewrite"'), "factory page should expose material rewrite anchor");
