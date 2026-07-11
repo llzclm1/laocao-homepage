@@ -9,6 +9,8 @@ const outreachLogFile = path.join(root, "data/marketing/social-outreach-log.csv"
 const discoveredPostsFile = path.join(discoveryDir, "discovered-posts.json");
 const manualInboxFile = path.join(discoveryDir, "manual-inbox.json");
 const collectionStateFile = path.join(discoveryDir, "collection-state.json");
+const sourceStatusFile = path.join(discoveryDir, "source-status.json");
+const healthFile = path.join(discoveryDir, "discovery-health.json");
 const actionsFile = path.join(discoveryDir, "candidate-actions.jsonl");
 const outputFile = path.join(discoveryDir, "today-opportunities.json");
 export const supportedPlatforms = new Set(["reddit", "quora", "linkedin", "x"]);
@@ -31,7 +33,7 @@ export function discoverSocialOpportunities(now = new Date()) {
     sources: ["reddit_rss", "search", "outreach_log", "manual", "search_import"],
     supported_platforms: [...supportedPlatforms],
     items,
-    discovery_summary: buildDiscoverySummary(eligibleCandidates, collectionSnapshot.platforms, now, collectionSnapshot.last_verified_rss_result)
+    discovery_summary: buildDiscoverySummary(eligibleCandidates, collectionSnapshot.platforms, now, collectionSnapshot.last_verified_rss_result, collectionSnapshot.health)
   };
 
   fs.mkdirSync(discoveryDir, { recursive: true });
@@ -213,7 +215,7 @@ function appendCandidates(candidates, now, options = {}) {
   return { added, duplicates, total: merged.length };
 }
 
-function buildDiscoverySummary(candidates, collectionStatus, now, lastVerifiedRssResult) {
+function buildDiscoverySummary(candidates, collectionStatus, now, lastVerifiedRssResult, health) {
   const active = candidates.filter(isDashboardCandidate);
   const currentDate = dateKey(now);
   const automatedSources = new Set(["reddit_rss", "search", "public_api"]);
@@ -235,10 +237,12 @@ function buildDiscoverySummary(candidates, collectionStatus, now, lastVerifiedRs
     platform_failures: failures.length,
     persistent_automatic_candidates: persistentAutomaticCandidates.length,
     current_mode: persistentAutomaticCandidates.length ? "public_discovery" : "existing_log_manual_inbox_import",
+    search_provider_status: process.env.SOCIAL_DISCOVERY_SEARCH_PROVIDER ? "configured" : "not_configured",
     rss_adapter_works_in_dry_run: Boolean(lastVerifiedRssResult?.url_count),
     last_verified_rss_result: lastVerifiedRssResult || null,
     last_collection_time: attempts.at(-1) || null,
     last_successful_discovery: successes.at(-1) || null,
+    health: health || null,
     collection_status: collectionStatus,
     collection_message: newlyDiscoveredToday.length
       ? `${newlyDiscoveredToday.length} 条新公开候选已进入人工审核。`
@@ -249,9 +253,14 @@ function buildDiscoverySummary(candidates, collectionStatus, now, lastVerifiedRs
 }
 
 function readCollectionSnapshot() {
-  const state = readJson(collectionStateFile, { platforms: {} });
+  const legacyState = readJson(collectionStateFile, { platforms: {} });
+  const sourceState = readJson(sourceStatusFile, { sources: {} });
+  const health = readJson(healthFile, null);
   const platforms = [...supportedPlatforms].map((platform) => {
-    const value = state.platforms?.[platform];
+    const current = Object.values(sourceState.sources || {})
+      .filter((item) => item.platform === platform)
+      .sort((left, right) => Date.parse(right.last_attempt_at || "") - Date.parse(left.last_attempt_at || ""))[0];
+    const value = current || legacyState.platforms?.[platform];
     if (!value) return { platform, status: "not_run", added: 0, last_collection_at: null, message: "No verified results recorded" };
     if (typeof value === "string") return { platform, status: "unknown", added: 0, last_collection_at: normalizeDate(value), message: "Collection outcome was not recorded" };
     return {
@@ -259,10 +268,21 @@ function readCollectionSnapshot() {
       status: value.status || "unknown",
       added: Number(value.added) || 0,
       last_collection_at: normalizeDate(value.last_attempt_at || value.last_collection_at),
-      message: cleanText(value.message || "")
+      message: cleanText(value.message || value.last_error || ""),
+      source_name: value.source_name || ""
     };
   });
-  return { platforms, last_verified_rss_result: state.last_verified_rss_result || null };
+  const latestRss = Object.values(sourceState.sources || {})
+    .filter((item) => item.source_method === "reddit_rss" && Number(item.last_raw_items) > 0)
+    .sort((left, right) => Date.parse(right.last_attempt_at || "") - Date.parse(left.last_attempt_at || ""))[0];
+  const lastVerifiedRssResult = latestRss ? {
+    platform: "reddit",
+    url_count: Number(latestRss.last_raw_items),
+    mode: "scheduled",
+    persisted_candidates: Number(latestRss.added) || 0,
+    note: "Public Reddit RSS returned items during the last scheduled collection."
+  } : legacyState.last_verified_rss_result || null;
+  return { platforms, last_verified_rss_result: lastVerifiedRssResult, health };
 }
 
 function mergeDuplicateCandidates(left, right, now) {

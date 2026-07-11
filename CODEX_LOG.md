@@ -208,3 +208,9 @@
 - Added Article / FAQPage / BreadcrumbList schema, visible FAQ blocks, and `Last updated: July 5, 2026` to the first 5 guide pages.
 - Kept old checklist / RFQ / FQ / review paths accessible as compatibility redirects but removed old redirect paths from sitemap.
 - Added `docs/gsc-bing-submit-checklist-2026-07-05.md` for manual GSC and Bing submission.
+
+## 2026-07-11 Social Discovery v3 Phase A
+
+- 新增公开 Source Adapter、Reddit RSS、Search Provider 降级、手动每日调度入口和来源健康状态；未安装系统计划任务，未登录或操作社媒平台。
+- 公开 RSS 403/429 会进入来源冷却；未配置 Search Provider 时返回 `not_configured`，不伪造候选、不阻塞其他来源。
+- 当前自动持久化候选仍为 0；Phase B-D 未执行。

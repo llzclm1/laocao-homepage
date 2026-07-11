@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.gewuji.social-discovery</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/bin/env</string>
+    <string>node</string>
+    <string>PROJECT_ROOT/scripts/growth-os/discovery/run-scheduled-discovery.mjs</string>
+  </array>
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key>
+    <integer>8</integer>
+    <key>Minute</key>
+    <integer>0</integer>
+  </dict>
+  <key>WorkingDirectory</key>
+  <string>PROJECT_ROOT</string>
+  <key>StandardOutPath</key>
+  <string>/tmp/gewuji-social-discovery.log</string>
+  <key>StandardErrorPath</key>
+  <string>/tmp/gewuji-social-discovery-error.log</string>
+</dict>
+</plist>

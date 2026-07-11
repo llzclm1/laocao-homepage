@@ -558,6 +558,8 @@
         </div>
         <p class="meta">采集状态：${escapeHtml(summary.collection_message || "No verified public opportunities were discovered today.")}</p>
         <p class="meta">RSS 适配器：${summary.rss_adapter_works_in_dry_run ? "dry-run 已验证" : "尚未验证"} · 最近验证结果：${escapeHtml(String(summary.last_verified_rss_result?.url_count || 0))} 个 URL · 持久化自动候选：${escapeHtml(String(summary.persistent_automatic_candidates || 0))}</p>
+        <p class="meta">搜索 Provider：${summary.search_provider_status === "configured" ? "Configured" : "Search provider not configured"}</p>
+        <p class="meta">Discovery Health：${escapeHtml(summary.health?.status || "Manual Mode")} · ${escapeHtml(summary.health?.message || "Automatic public discovery is currently unavailable.")}</p>
         <p class="meta">当前模式：${escapeHtml(discoveryModeLabel(summary.current_mode))}</p>
         <div class="list" style="margin:10px 0 14px;">${statuses.map((item) => `<p class="meta"><strong>${escapeHtml(item.platform)}：</strong>${escapeHtml(item.status_label || item.status)}${item.last_collection_at ? ` · ${escapeHtml(formatDate(item.last_collection_at))}` : ""}</p>`).join("")}</div>
       `;

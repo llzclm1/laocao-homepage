@@ -1,0 +1,23 @@
+{
+  "reddit": {
+    "enabled": true,
+    "daily_limit": 30,
+    "per_source_limit": 10,
+    "cooldown_hours": 12,
+    "subreddits": [
+      "supplychain",
+      "procurement",
+      "ecommerce",
+      "FulfillmentByAmazon",
+      "smallbusiness",
+      "Entrepreneur",
+      "manufacturing"
+    ]
+  },
+  "search": {
+    "enabled": true,
+    "per_source_limit": 10,
+    "cooldown_hours": 12,
+    "platforms": ["quora", "linkedin", "x"]
+  }
+}

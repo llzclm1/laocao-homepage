@@ -348,3 +348,9 @@
 - Runtime 输出自动新发现、旧日志库存、人工入池、采集状态和候选新鲜度。超过 14 天、已回复、已删除、锁帖或已忽略的候选不进入今日机会。
 - Reddit RSS dry-run 已验证返回 10 个真实公开 URL，但未写入候选池；当前持久化自动候选为 0，不能表述为稳定的每日自动发现。
 - 当前自动采集没有新增已验证候选时，Dashboard 明确显示旧日志筛选与人工/搜索结果导入模式；不会把旧日志候选伪装成当天发现。
+
+## 2026-07-11 Social Discovery v3 Phase A
+
+- 已建立公开 Source Adapter、Reddit RSS、可配置 Search Provider、手动调度入口、来源状态和 Discovery Health；未登录、不自动互动、不安装 launchd。
+- `source-status.json` 是来源运行状态源；`collection-state.json` 只保留 v2.1 的 RSS dry-run 观察。当前自动新候选仍为 0，运行模式保持 existing log + manual inbox + import。
+- Phase B-D 未开始：候选验证/排序、结果回收/归因、策略反馈和完整测试需用户继续确认后再做。

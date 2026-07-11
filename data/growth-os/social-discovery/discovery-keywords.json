@@ -19,15 +19,57 @@
     "industrial marketing China",
     "export customer development"
   ],
-  "reddit_rss_subreddits": [
-    "supplychain",
-    "procurement",
-    "smallbusiness",
-    "Entrepreneur",
-    "FulfillmentByAmazon",
-    "Alibaba",
-    "ecommerce",
-    "manufacturing"
+  "buyer_high_intent": [
+    "supplier changed bank account",
+    "Alibaba deposit refund",
+    "supplier refuses refund",
+    "factory verification before payment",
+    "Chinese supplier stopped replying"
+  ],
+  "buyer_problem": [
+    "China supplier quotation problem",
+    "how to check Chinese manufacturer",
+    "supplier payment terms China"
+  ],
+  "supplier_risk": [
+    "factory or trading company",
+    "Chinese manufacturer communication"
+  ],
+  "payment_risk": [
+    "supplier changed bank account",
+    "Alibaba deposit refund",
+    "supplier payment terms China"
+  ],
+  "sample_and_moq": [
+    "sample quality different from bulk",
+    "sample order China",
+    "MOQ problem supplier"
+  ],
+  "factory_verification": [
+    "verify Chinese supplier",
+    "how to find reliable Chinese suppliers"
+  ],
+  "factory_marketing": [
+    "factory product presentation",
+    "industrial marketing China"
+  ],
+  "overseas_customer_development": [
+    "find overseas buyers for factory",
+    "B2B export marketing",
+    "foreign trade email"
+  ],
+  "ai_business": [
+    "AI sourcing assistant",
+    "AI supplier research"
+  ],
+  "negative_keywords": [
+    "politics",
+    "tariff news",
+    "geopolitics",
+    "stock market",
+    "product recommendation",
+    "job recruitment",
+    "software sourcing"
   ],
   "platform_queries": {
     "reddit": [

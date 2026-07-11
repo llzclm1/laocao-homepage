@@ -1,0 +1,49 @@
+{
+  "updated_at": "2026-07-11T03:21:52.643Z",
+  "sources": {
+    "legacy_reddit_public_json": {
+      "platform": "reddit",
+      "source_name": "legacy_reddit_public_json",
+      "source_method": "public_api",
+      "status": "blocked",
+      "last_attempt_at": "2026-07-11T02:50:47.842Z",
+      "last_success_at": null,
+      "cooldown_until": "2026-07-11T14:50:47.842Z",
+      "consecutive_failures": 1,
+      "last_error": "Reddit public search returned 403"
+    },
+    "search:legacy:quora": {
+      "platform": "quora",
+      "source_name": "search:legacy:quora",
+      "source_method": "search",
+      "status": "no_verified_results",
+      "last_attempt_at": "2026-07-11T03:21:52.643Z",
+      "last_success_at": "2026-07-11T03:21:52.643Z",
+      "cooldown_until": "2026-07-11T15:21:52.643Z",
+      "consecutive_failures": 0,
+      "last_error": null
+    },
+    "search:legacy:linkedin": {
+      "platform": "linkedin",
+      "source_name": "search:legacy:linkedin",
+      "source_method": "search",
+      "status": "no_verified_results",
+      "last_attempt_at": "2026-07-11T03:21:52.643Z",
+      "last_success_at": "2026-07-11T03:21:52.643Z",
+      "cooldown_until": "2026-07-11T15:21:52.643Z",
+      "consecutive_failures": 0,
+      "last_error": null
+    },
+    "search:legacy:x": {
+      "platform": "x",
+      "source_name": "search:legacy:x",
+      "source_method": "search",
+      "status": "no_verified_results",
+      "last_attempt_at": "2026-07-11T03:21:52.643Z",
+      "last_success_at": "2026-07-11T03:21:52.643Z",
+      "cooldown_until": "2026-07-11T15:21:52.643Z",
+      "consecutive_failures": 0,
+      "last_error": null
+    }
+  }
+}

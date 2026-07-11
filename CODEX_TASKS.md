@@ -2,6 +2,8 @@
 
 ## 进行中
 
+- Social Discovery v3：Phase A 已完成来源适配、RSS、Provider 降级、调度入口和健康状态；下一步仅在确认后进入 Phase B 的候选验证、新鲜度排序和回复模板重复风险。不要自动安装 launchd 或自动执行社媒互动。
+
 - 当前主线：Supplier Reply Review 转化页、Supplier Reply Review Sample Report、Buyer Guides 长尾 SEO、External GEO 分发与存活观察、Field Materials 信任背书。
 - External GEO 反馈回填：只在拿到后台真实数据或人工确认后更新 views / likes / replies；公开请求遇到 403、challenge 或登录限制时不要造数。
 - YouTube：精简本地素材包已完成；暂不作为当前主线。后续只有用户明确要求时才生成真实 `.mp4`、登录 / 上传 YouTube 或扩展 4 周真实发布数据。

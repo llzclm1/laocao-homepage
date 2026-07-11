@@ -1216,10 +1216,12 @@ function buildDiscoverySummaryView(summary = {}) {
     platform_failures: Number(summary.platform_failures) || 0,
     persistent_automatic_candidates: Number(summary.persistent_automatic_candidates) || 0,
     current_mode: summary.current_mode || "existing_log_manual_inbox_import",
+    search_provider_status: summary.search_provider_status || "not_configured",
     rss_adapter_works_in_dry_run: Boolean(summary.rss_adapter_works_in_dry_run),
     last_verified_rss_result: summary.last_verified_rss_result || null,
     last_collection_time: summary.last_collection_time || null,
     last_successful_discovery: summary.last_successful_discovery || null,
+    health: summary.health || null,
     collection_message: summary.collection_message || "No verified public opportunities were discovered today.",
     collection_status: (summary.collection_status || []).map((item) => ({
       ...item,
@@ -1235,6 +1237,8 @@ function discoveryCollectionStatusLabel(status, message) {
   if (status === "failed") return "Failed";
   if (status === "no_verified_results") return "No verified results";
   if (status === "not_run") return "Not run";
+  if (status === "not_configured") return "Search provider not configured";
+  if (status === "skipped") return "Cooldown active";
   return "Outcome not recorded";
 }
 
