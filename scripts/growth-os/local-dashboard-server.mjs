@@ -149,8 +149,11 @@ function saveReviewAction(req, res) {
 function saveDiscoveryAction(req, res) {
   readBody(req, 20000, (body) => {
     try {
-      const entry = recordDiscoveryAction(JSON.parse(body || "{}"));
-      sendJson(res, { ok: true, entry });
+      const now = new Date();
+      const entry = recordDiscoveryAction(JSON.parse(body || "{}"), now);
+      const discovery = discoverSocialOpportunities(now);
+      refreshDashboardDiscovery(discovery, now);
+      sendJson(res, { ok: true, entry, workspace: discovery.workspace });
     } catch (error) {
       send(res, 400, error.message || "Invalid discovery action");
     }

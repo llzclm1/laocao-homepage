@@ -214,3 +214,9 @@
 - 新增公开 Source Adapter、Reddit RSS、Search Provider 降级、手动每日调度入口和来源健康状态；未安装系统计划任务，未登录或操作社媒平台。
 - 公开 RSS 403/429 会进入来源冷却；未配置 Search Provider 时返回 `not_configured`，不伪造候选、不阻塞其他来源。
 - 当前自动持久化候选仍为 0；Phase B-D 未执行。
+
+## 2026-07-11 Social Execution Workspace
+
+- 将候选工作流收口为 Inbox、Today、Results、Reports 四个视图，Today 默认最多显示 3 条人工选择的候选。
+- 增加严格的 Viewed、Draft Prepared、Replied（必须有真实回复 URL）和结果动作；本地操作后立即刷新 Viewer 数据，不等待 Runtime。
+- Business Signals 只从 Results 的人工结果与真实发布记录计算；未新增登录、评论、发布或采集功能。

@@ -15,25 +15,27 @@ const actionsFile = path.join(discoveryDir, "candidate-actions.jsonl");
 const outputFile = path.join(discoveryDir, "today-opportunities.json");
 export const supportedPlatforms = new Set(["reddit", "quora", "linkedin", "x"]);
 const sourceMethods = new Set(["search", "public_api", "reddit_rss", "outreach_log", "manual", "search_import"]);
+const inboxStates = new Set(["inbox", "later"]);
+const todayStates = new Set(["today", "viewed", "draft_prepared"]);
+const resultStates = new Set(["outcome_pending", "received_reply", "removed", "no_response", "buyer_signal", "partner_signal", "review_request", "paid_opportunity", "closed"]);
 
 export function discoverSocialOpportunities(now = new Date()) {
-  const actions = latestActions(readJsonl(actionsFile));
-  const candidates = dedupeCandidates([
-    ...readJsonArray(discoveredPostsFile),
-    ...readOutreachCandidates(now)
-  ], now).map((item) => applyAction(item, actions.get(item.id)));
+  const actions = readJsonl(actionsFile);
+  const candidates = readDiscoveryCandidates(now).map((item) => applyActions(item, actions));
 
   const eligibleCandidates = candidates
     .filter(isDashboardCandidate)
     .sort(compareCandidates);
-  const items = eligibleCandidates.slice(0, 5);
+  const workspace = buildWorkspace(eligibleCandidates);
   const collectionSnapshot = readCollectionSnapshot();
   const result = {
     generated_at: now.toISOString(),
     sources: ["reddit_rss", "search", "outreach_log", "manual", "search_import"],
     supported_platforms: [...supportedPlatforms],
-    items,
-    discovery_summary: buildDiscoverySummary(eligibleCandidates, collectionSnapshot.platforms, now, collectionSnapshot.last_verified_rss_result, collectionSnapshot.health)
+    // Kept for existing Markdown/report consumers. The operating workspace uses inbox/today/results.
+    items: workspace.inbox.slice(0, 5),
+    workspace,
+    discovery_summary: buildDiscoverySummary(eligibleCandidates, workspace, collectionSnapshot.platforms, now, collectionSnapshot.last_verified_rss_result, collectionSnapshot.health)
   };
 
   fs.mkdirSync(discoveryDir, { recursive: true });
@@ -53,11 +55,70 @@ export function recordDiscoveryAction(value, now = new Date()) {
   const id = String(value.id || "").trim();
   const action = String(value.action || "").trim();
   if (!/^DISC-[a-f0-9]{12}$/i.test(id)) throw new Error("Invalid discovery candidate id");
-  if (!["view", "ignore", "add_today"].includes(action)) throw new Error("Invalid discovery action");
-  const entry = { id, action, date: now.toISOString(), user: "local" };
+  const history = readJsonl(actionsFile);
+  const candidate = readDiscoveryCandidates(now).find((item) => item.id === id);
+  if (!candidate) throw new Error("Discovery candidate was not found");
+  const replyUrl = action === "replied" ? normalizeUrl(value.reply_url) : "";
+  if (action === "replied") {
+    const issue = replyUrlIssue(candidate, replyUrl);
+    if (issue) throw new Error(issue);
+    const duplicate = duplicateReplyAction(history, id, replyUrl);
+    if (duplicate) return { ...duplicate, duplicate: true };
+  }
+  const fromState = candidateWorkflowState(history.filter((item) => item.id === id));
+  const toState = transitionForDiscoveryAction(fromState, action);
+  if (!toState) throw new Error(`Action ${action} is not available from ${fromState}`);
+  if (action === "select_today" && selectedTodayCount(history) >= 3) throw new Error("Today can contain at most three opportunities");
+  const entry = {
+    id,
+    action,
+    from_state: fromState,
+    to_state: toState,
+    reply_url: replyUrl || undefined,
+    reply_url_verification: action === "replied" ? "manual" : undefined,
+    note: cleanText(value.note || ""),
+    date: now.toISOString(),
+    user: "local"
+  };
   fs.mkdirSync(discoveryDir, { recursive: true });
   fs.appendFileSync(actionsFile, `${JSON.stringify(entry)}\n`, "utf8");
   return entry;
+}
+
+export function duplicateReplyAction(history, id, replyUrl) {
+  const normalized = normalizeUrl(replyUrl);
+  return history.find((item) => item.id === id && item.action === "replied" && normalizeUrl(item.reply_url) === normalized) || null;
+}
+
+export function replyUrlIssue(candidate, replyUrl) {
+  const normalized = normalizeUrl(replyUrl);
+  if (!/^https:\/\//i.test(normalized)) return "A public HTTPS reply URL is required before marking Replied";
+  const parsed = new URL(normalized);
+  const host = parsed.hostname.toLowerCase();
+  if (host === "localhost" || host.endsWith(".localhost") || host === "example.com" || host.endsWith(".example.com") || host === "127.0.0.1" || host === "::1") {
+    return "Reply URL must be a public platform URL, not a local or example URL";
+  }
+  if (normalized === normalizeUrl(candidate.url)) return "Reply URL cannot be the original candidate URL";
+  if (!matchesPlatformUrl(candidate.platform, normalized)) return "Reply URL must belong to the same platform as the candidate";
+  return "";
+}
+
+export function readDiscoveryOutcomeStats() {
+  return discoveryOutcomeStatsForActions(readJsonl(actionsFile));
+}
+
+export function discoveryOutcomeStatsForActions(actions) {
+  const idsFor = (names) => new Set(actions.filter((item) => names.has(item.action)).map((item) => item.id));
+  const replied = idsFor(new Set(["received_reply", "buyer_signal"]));
+  const partners = idsFor(new Set(["partner_signal"]));
+  const qualified = new Set([...replied, ...partners]);
+  return {
+    qualified_interactions: qualified.size,
+    buyer_replies: replied.size,
+    partner_leads: partners.size,
+    review_requests: idsFor(new Set(["review_request"])).size,
+    paid_opportunities: idsFor(new Set(["paid_opportunity"])).size
+  };
 }
 
 export function addManualSocialOpportunity(value, now = new Date()) {
@@ -160,7 +221,6 @@ export function createDiscoveredCandidate(input, now = new Date()) {
     expected_value: score.expected_value,
     risk_status: risk.status,
     risk_note: risk.note,
-    status: "new",
     dedupe_key: dedupeKey(platform, url, title),
     reason: score.reason,
     why_relevant: score.reason,
@@ -215,7 +275,7 @@ function appendCandidates(candidates, now, options = {}) {
   return { added, duplicates, total: merged.length };
 }
 
-function buildDiscoverySummary(candidates, collectionStatus, now, lastVerifiedRssResult, health) {
+function buildDiscoverySummary(candidates, workspace, collectionStatus, now, lastVerifiedRssResult, health) {
   const active = candidates.filter(isDashboardCandidate);
   const currentDate = dateKey(now);
   const automatedSources = new Set(["reddit_rss", "search", "public_api"]);
@@ -234,6 +294,9 @@ function buildDiscoverySummary(candidates, collectionStatus, now, lastVerifiedRs
     existing_log_opportunities: existingLog.length,
     fresh_opportunities: active.filter((item) => item.freshness_status === "Fresh").length,
     aging_opportunities: active.filter((item) => item.freshness_status === "Aging").length,
+    inbox_opportunities: workspace.inbox.length,
+    today_selected: workspace.today.length,
+    results_pending: workspace.results.filter((item) => item.workflow_state === "outcome_pending").length,
     platform_failures: failures.length,
     persistent_automatic_candidates: persistentAutomaticCandidates.length,
     current_mode: persistentAutomaticCandidates.length ? "public_discovery" : "existing_log_manual_inbox_import",
@@ -357,7 +420,6 @@ function readOutreachCandidates(now) {
         expected_value: expectedValueForProfile(row.target_profile, score.expected_value),
         risk_status: risk.status,
         risk_note: risk.note,
-        status: "new",
         dedupe_key: dedupeKey(platform, url, row.topic),
         reason: row.notes || score.reason,
         why_relevant: row.notes || score.reason,
@@ -403,7 +465,6 @@ function normalizeCandidate(value, now) {
     expected_value: ["Buyer", "Partner", "Supplier", "Audience", "Ignore"].includes(value.expected_value) ? value.expected_value : score.expected_value,
     risk_status: ["Low", "Medium", "High"].includes(value.risk_status) ? value.risk_status : risk.status,
     risk_note: cleanText(value.risk_note || risk.note),
-    status: ["new", "shortlisted", "ignored", "replied", "removed", "locked"].includes(value.status) ? value.status : "new",
     dedupe_key: cleanText(value.dedupe_key || dedupeKey(platform, url, title)),
     reason: cleanText(value.reason || score.reason),
     why_relevant: cleanText(value.why_relevant || value.reason || score.reason),
@@ -412,22 +473,97 @@ function normalizeCandidate(value, now) {
   }, now);
 }
 
-function latestActions(items) {
-  return new Map(items.filter((item) => item?.id && item?.action).map((item) => [item.id, item]));
+function applyActions(item, actions) {
+  const history = actions
+    .filter((action) => action?.id === item.id && action?.action)
+    .sort((left, right) => Date.parse(left.date || "") - Date.parse(right.date || ""));
+  let workflowState = "inbox";
+  let replyUrl = "";
+  let replyUrlVerification = null;
+  let lastActionAt = null;
+  for (const action of history) {
+    const next = transitionForDiscoveryAction(workflowState, action.action, true) || action.to_state;
+    if (!next) continue;
+    workflowState = next;
+    if (action.reply_url) {
+      replyUrl = normalizeUrl(action.reply_url);
+      replyUrlVerification = action.reply_url_verification || "manual";
+    }
+    lastActionAt = normalizeDate(action.date) || lastActionAt;
+  }
+  return {
+    ...item,
+    workflow_state: workflowState,
+    reply_url: replyUrl || null,
+    reply_url_verification: replyUrlVerification,
+    last_action_at: lastActionAt,
+    needs_manual_review: inboxStates.has(workflowState)
+  };
 }
 
-function applyAction(item, action) {
-  if (!action) return item;
-  if (action.action === "ignore") return { ...item, status: "ignored" };
-  if (["view", "add_today"].includes(action.action)) return { ...item, status: "shortlisted" };
-  return item;
+function readDiscoveryCandidates(now) {
+  return dedupeCandidates([
+    ...readJsonArray(discoveredPostsFile),
+    ...readOutreachCandidates(now)
+  ], now);
+}
+
+function buildWorkspace(candidates) {
+  const bySelectedTime = (left, right) => Date.parse(left.last_action_at || "") - Date.parse(right.last_action_at || "");
+  return {
+    inbox: candidates.filter((item) => inboxStates.has(item.workflow_state)).sort(compareCandidates),
+    today: candidates.filter((item) => todayStates.has(item.workflow_state)).sort(bySelectedTime),
+    results: candidates.filter((item) => resultStates.has(item.workflow_state)).sort((left, right) => Date.parse(right.last_action_at || "") - Date.parse(left.last_action_at || ""))
+  };
+}
+
+export function candidateWorkflowState(history) {
+  return history
+    .slice()
+    .sort((left, right) => Date.parse(left.date || "") - Date.parse(right.date || ""))
+    .reduce((state, item) => transitionForDiscoveryAction(state, item.action, true) || item.to_state || state, "inbox");
+}
+
+function selectedTodayCount(actions) {
+  const histories = new Map();
+  for (const item of actions.filter((item) => item?.id && item?.action)) {
+    histories.set(item.id, [...(histories.get(item.id) || []), item]);
+  }
+  return [...histories.values()].filter((history) => todayStates.has(candidateWorkflowState(history))).length;
+}
+
+export function transitionForDiscoveryAction(fromState, action, replay = false) {
+  const aliases = { add_today: "select_today", view: "viewed" };
+  const normalizedAction = aliases[action] || action;
+  const allowed = {
+    inbox: { select_today: "today", later: "later", ignore: "ignored" },
+    later: { select_today: "today", ignore: "ignored" },
+    today: { viewed: "viewed", later: "later", ignore: "ignored" },
+    viewed: { draft_prepared: "draft_prepared", later: "later", ignore: "ignored" },
+    draft_prepared: { replied: "outcome_pending", viewed: "viewed" },
+    outcome_pending: {
+      received_reply: "received_reply",
+      removed: "removed",
+      no_response: "no_response",
+      buyer_signal: "buyer_signal",
+      partner_signal: "partner_signal",
+      review_request: "review_request",
+      paid_opportunity: "paid_opportunity",
+      closed: "closed"
+    },
+    received_reply: { buyer_signal: "buyer_signal", partner_signal: "partner_signal", review_request: "review_request", paid_opportunity: "paid_opportunity", closed: "closed" },
+    buyer_signal: { paid_opportunity: "paid_opportunity", closed: "closed" },
+    partner_signal: { paid_opportunity: "paid_opportunity", closed: "closed" },
+    review_request: { paid_opportunity: "paid_opportunity", closed: "closed" },
+    paid_opportunity: { closed: "closed" }
+  };
+  const next = allowed[fromState]?.[normalizedAction] || null;
+  if (replay && !next && action === "ignore") return "ignored";
+  return next;
 }
 
 function isDashboardCandidate(item) {
-  return item.status !== "ignored"
-    && item.status !== "replied"
-    && item.status !== "removed"
-    && item.status !== "locked"
+  return item.workflow_state !== "ignored"
     && item.freshness_status !== "Archive"
     && item.expected_value !== "Ignore"
     && Boolean(item.url);

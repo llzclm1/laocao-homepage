@@ -3,6 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { lifecycleFile, loadLifecycleState } from "../state/state-manager.mjs";
+import { readDiscoveryOutcomeStats } from "../discovery/social-discovery-engine.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../..");
 const dashboardFile = path.join(root, "docs/growth-os/dashboard.md");
@@ -171,20 +172,17 @@ ${summary.recommended_actions.length ? summary.recommended_actions.map((item, in
 export function refreshDashboardDiscovery(discovery, now = new Date()) {
   const view = readJsonFile(dashboardViewFile);
   if (!view || !view.title) return false;
-  const items = (discovery?.items || []).slice(0, 5).map((item) => ({
-    ...item,
-    platform: discoveryPlatformLabel(item.platform)
-  }));
+  const workspace = buildDiscoveryWorkspaceView(discovery);
   view.generated_at = now.toISOString();
-  view.today_opportunities = items;
+  view.workspace = workspace;
+  view.opportunity_inbox = workspace.inbox;
+  view.today_execution = workspace.today;
+  view.results = workspace.results;
+  view.today_opportunities = workspace.inbox.slice(0, 5);
   view.discovery_summary = buildDiscoverySummaryView(discovery?.discovery_summary);
-  view.today_actions = buildTodayActions(view.today_action, view.platform_execution || [], items);
-  if (items[0]) {
-    view.decision_summary = {
-      ...(view.decision_summary || {}),
-      next_best_action: `优先回复 ${items[0].platform}：${items[0].topic}。${items[0].risk_note}`
-    };
-  }
+  view.today_actions = buildTodayActions(workspace);
+  view.business_signals = buildBusinessSignals();
+  view.decision_summary = buildDecisionSummary(view.today_action, { social_discovery: discovery }, view.platform_execution || [], workspace);
   fs.writeFileSync(dashboardViewFile, `${JSON.stringify(view, null, 2)}\n`, "utf8");
   return true;
 }
@@ -269,18 +267,20 @@ function buildDashboardView(summary, priority, dashboard) {
   const action = priority.today_action;
   const lifecycle = dashboard.content_lifecycle;
   const platformExecution = buildPlatformExecution(summary, lifecycle);
-  const businessSignals = buildBusinessSignals(summary);
-  const decisionSummary = buildDecisionSummary(action, summary, platformExecution);
-  const todayActions = buildTodayActions(action, platformExecution, summary.social_discovery?.items || []);
+  const workspace = buildDiscoveryWorkspaceView(summary.social_discovery);
+  const businessSignals = buildBusinessSignals();
+  const decisionSummary = buildDecisionSummary(action, summary, platformExecution, workspace);
+  const todayActions = buildTodayActions(workspace);
   return {
     generated_at: summary.date,
     title: "Growth OS 增长运营中心",
     decision_summary: decisionSummary,
     today_actions: todayActions,
-    today_opportunities: (summary.social_discovery?.items || []).slice(0, 5).map((item) => ({
-      ...item,
-      platform: discoveryPlatformLabel(item.platform)
-    })),
+    workspace,
+    opportunity_inbox: workspace.inbox,
+    today_execution: workspace.today,
+    results: workspace.results,
+    today_opportunities: workspace.inbox.slice(0, 5),
     discovery_summary: buildDiscoverySummaryView(summary.social_discovery?.discovery_summary),
     business_signals: businessSignals,
     platform_execution: platformExecution,
@@ -397,10 +397,11 @@ function buildReviewView(summary, dashboard) {
   };
 }
 
-function buildDecisionSummary(action, summary, platformExecution) {
+function buildDecisionSummary(action, summary, platformExecution, workspace = buildDiscoveryWorkspaceView(summary.social_discovery)) {
   const reddit = platformExecution.find((item) => item.platform === "Reddit");
   const traffic = summary.cloudflare_traffic;
-  const topDiscovery = summary.social_discovery?.items?.[0];
+  const currentTask = workspace.today[0];
+  const nextInbox = workspace.inbox[0];
   return {
     current_stage: "Authority Building",
     main_signal: traffic?.levels?.buyer_intent_traffic === "low / not clear yet"
@@ -409,11 +410,11 @@ function buildDecisionSummary(action, summary, platformExecution) {
     main_risk: reddit?.risk_status === "High"
       ? `Reddit removal rate ${reddit.removal_rate}% 偏高，继续发帖会损耗账号信任。`
       : "当前买家互动数据不足，不能用发帖量替代商业信号。",
-    next_best_action: topDiscovery
-      ? `优先回复 ${discoveryPlatformLabel(topDiscovery.platform)}：${topDiscovery.topic}。${topDiscovery.risk_note}`
-      : reddit?.risk_status === "High"
-      ? "发布 3 条无链接、无项目提及、经验型 Reddit comments，并暂停独立推广帖。"
-      : nextStepForStatus(action?.status),
+    next_best_action: currentTask
+      ? `先完成 ${currentTask.platform}：${currentTask.topic}。`
+      : nextInbox
+      ? `先在 Opportunity Inbox 审核：${nextInbox.platform} / ${nextInbox.topic}。`
+      : "暂无已选今日任务；等待人工导入或审核新的公开讨论。",
     growth_job: action ? {
       id: action.id,
       title: chineseTitle(action.id, action.title),
@@ -423,68 +424,33 @@ function buildDecisionSummary(action, summary, platformExecution) {
   };
 }
 
-function buildTodayActions(action, platformExecution, discoveryItems) {
-  if (discoveryItems.length) {
-    return discoveryItems.slice(0, 3).map((item) => ({
+function buildTodayActions(workspace) {
+  return (workspace.today || []).slice(0, 3).map((item) => ({
       platform: discoveryPlatformLabel(item.platform),
       action: `回复：${item.topic}`,
       priority: item.intent_score,
-      status: "待执行",
+      status: workspaceStateLabel(item.workflow_state),
       reason: item.why_relevant,
-      done: false
+      done: ["outcome_pending", "received_reply", "removed", "no_response", "buyer_signal", "partner_signal", "review_request", "paid_opportunity", "closed"].includes(item.workflow_state),
+      id: item.id
     }));
-  }
-  const byPlatform = new Map(platformExecution.map((item) => [item.platform, item]));
-  const reddit = byPlatform.get("Reddit");
-  const linkedIn = byPlatform.get("LinkedIn");
-  const quora = byPlatform.get("Quora");
-  const items = [
-    {
-      platform: "Reddit",
-      action: reddit?.risk_status === "High"
-        ? "发布 3 条 comment-first 回复，不放链接，不提项目。"
-        : "发布 1-3 条真实问题回复，不放链接。",
-      priority: "High",
-      status: "待执行",
-      reason: reddit?.risk_status === "High"
-        ? "Removal rate 偏高，必须从发帖切换到低风险评论。"
-        : "Reddit 是真实买家问题来源，但需要保守互动。",
-      done: false
-    },
-    {
-      platform: "Quora",
-      action: quora?.today_action || "回答 2 个高意图 sourcing 问题。",
-      priority: "Medium",
-      status: "待执行",
-      reason: "Quora 更适合沉淀长尾问题和权威回答。",
-      done: false
-    },
-    {
-      platform: "LinkedIn",
-      action: linkedIn?.today_action || "回复 5 条行业相关帖子，优先经验分享。",
-      priority: action?.status === "publish_ready" ? "High" : "Medium",
-      status: "待执行",
-      reason: action?.id ? `${action.id} 已进入发布/分发阶段。` : "LinkedIn 适合建立行业可信度。",
-      done: false
-    }
-  ];
-  return items.slice(0, 3);
 }
 
-function buildBusinessSignals(summary) {
+function buildBusinessSignals() {
   const cloudflare = readJsonFile(cloudflareObservationFile);
   const publishedLinks = readPublishedLinks();
   const metrics = publishedLinks.map((item) => item.metrics || {});
-  const reviewRequests = metrics.reduce((sum, item) => sum + (Number(item.leads) || 0), 0);
+  const socialOutcomes = readDiscoveryOutcomeStats();
+  const reviewRequests = metrics.reduce((sum, item) => sum + (Number(item.leads) || 0), 0) + socialOutcomes.review_requests;
   return [
-    signalItem("Qualified Interactions", 0, "只统计对方回复评论、私信、明确问题、合作意向或采购相关互动；当前未追踪到。"),
-    signalItem("Buyer Replies", 0, "未追踪到明确买家回复。"),
-    signalItem("Partner Leads", 0, "未追踪到合作意向。"),
+    signalItem("Qualified Interactions", socialOutcomes.qualified_interactions, "来自 Results 中人工记录的回复、买家或合作信号。"),
+    signalItem("Buyer Replies", socialOutcomes.buyer_replies, "来自 Results 中的 Received Reply / Buyer Signal。"),
+    signalItem("Partner Leads", socialOutcomes.partner_leads, "来自 Results 中的 Partner Signal。"),
     signalItem("Supplier Leads", 0, "Not tracked"),
     signalItem("Audience Interactions", "Not tracked", "普通点赞不计入 Qualified Interaction。"),
     signalItem("Website Visits", Number(cloudflare?.total_visits) || 0, cloudflare?.date ? `Cloudflare ${cloudflare.date} / ${cloudflare.window || "24h"}` : "No Cloudflare observation"),
-    signalItem("Review Requests", reviewRequests, "来自发布记录 metrics.leads。"),
-    signalItem("Paid Opportunities", 0, "未追踪到付费机会。")
+    signalItem("Review Requests", reviewRequests, "来自发布结果 metrics.leads 与 Results 中人工记录。"),
+    signalItem("Paid Opportunities", socialOutcomes.paid_opportunities, "来自 Results 中人工确认的付费机会。")
   ];
 }
 
@@ -1205,6 +1171,55 @@ function discoveryPlatformLabel(platform) {
   return String(platform || "");
 }
 
+function buildDiscoveryWorkspaceView(discovery = {}) {
+  const workspace = discovery.workspace || {};
+  const mapItem = (item) => ({
+    ...item,
+    platform: discoveryPlatformLabel(item.platform),
+    workflow_state_label: workspaceStateLabel(item.workflow_state),
+    source_label: discoverySourceLabel(item.source_method)
+  });
+  return {
+    inbox: (workspace.inbox || []).map(mapItem),
+    today: (workspace.today || []).map(mapItem).slice(0, 3),
+    results: (workspace.results || []).map(mapItem),
+    summary: {
+      inbox_count: Number(discovery.discovery_summary?.inbox_opportunities) || (workspace.inbox || []).length,
+      today_count: Number(discovery.discovery_summary?.today_selected) || (workspace.today || []).length,
+      results_pending: Number(discovery.discovery_summary?.results_pending) || 0
+    }
+  };
+}
+
+function workspaceStateLabel(state) {
+  return {
+    inbox: "待审核",
+    later: "稍后处理",
+    today: "已加入今天",
+    viewed: "已查看",
+    draft_prepared: "草稿已准备",
+    outcome_pending: "等待结果",
+    received_reply: "收到回复",
+    removed: "已删除",
+    no_response: "暂无回复",
+    buyer_signal: "买家信号",
+    partner_signal: "合作信号",
+    review_request: "审核请求",
+    paid_opportunity: "付费机会",
+    closed: "已关闭"
+  }[state] || "待审核";
+}
+
+function discoverySourceLabel(source) {
+  return {
+    reddit_rss: "Reddit RSS",
+    search: "公开搜索",
+    search_import: "搜索导入",
+    manual: "人工入池",
+    outreach_log: "已有外联日志"
+  }[source] || "未记录";
+}
+
 function buildDiscoverySummaryView(summary = {}) {
   return {
     newly_discovered_today: Number(summary.newly_discovered_today) || 0,
@@ -1213,6 +1228,9 @@ function buildDiscoverySummaryView(summary = {}) {
     existing_log_opportunities: Number(summary.existing_log_opportunities) || 0,
     fresh_opportunities: Number(summary.fresh_opportunities) || 0,
     aging_opportunities: Number(summary.aging_opportunities) || 0,
+    inbox_opportunities: Number(summary.inbox_opportunities) || 0,
+    today_selected: Number(summary.today_selected) || 0,
+    results_pending: Number(summary.results_pending) || 0,
     platform_failures: Number(summary.platform_failures) || 0,
     persistent_automatic_candidates: Number(summary.persistent_automatic_candidates) || 0,
     current_mode: summary.current_mode || "existing_log_manual_inbox_import",

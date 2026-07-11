@@ -35,6 +35,20 @@
       gap: 16px;
       padding: 28px 0 14px;
     }
+    .workspace-nav, .workflow-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .workspace-nav button {
+      background: #fff;
+      border: 1px solid var(--line);
+      color: var(--ink);
+      padding: 8px 11px;
+    }
+    .workspace-nav button.active { background: var(--ink); color: #fff; }
+    .workspace-view[hidden] { display: none; }
+    .workflow-actions { margin-top: 12px; }
     h1, h2, h3, p { margin: 0; }
     h1 { font-size: clamp(28px, 4vw, 44px); line-height: 1.05; }
     h2 { font-size: 19px; margin-bottom: 12px; }
@@ -370,7 +384,7 @@
       <h1>Growth OS 增长运营中心</h1>
       <p class="meta" id="generatedAt">读取本地数据中...</p>
     </div>
-    <a class="button secondary" href="./dashboard.md">打开 Markdown 摘要</a>
+    <nav class="workspace-nav" id="workspaceNav" aria-label="Growth OS 工作区"></nav>
   </header>
 
   <main id="app">
@@ -389,6 +403,7 @@
     let state = null;
     let statusFilter = "all";
     let platformFilter = "all";
+    let workspacePage = workspacePageFromHash();
 
     main();
 
@@ -409,32 +424,38 @@
     }
 
     function render() {
+      document.getElementById("workspaceNav").innerHTML = renderWorkspaceNav();
       app.innerHTML = `
-        ${renderHero(state.today_action, state.tasks)}
-        ${renderTodayOpportunities(state.today_opportunities, state.discovery_summary)}
-        ${renderManualDiscoveryForm()}
-        ${renderBusinessSignals(state.business_signals)}
-        ${renderPlatformExecution(state.platform_execution)}
-        ${renderSearch()}
-        <section class="grid">
-          ${renderReviewQueue(state.lifecycle.items)}
-          ${renderPublishingQueue(state.lifecycle.items)}
+        <section class="workspace-view" ${workspacePage === "today" ? "" : "hidden"}>${renderTodayWorkspace()}</section>
+        <section class="workspace-view" ${workspacePage === "inbox" ? "" : "hidden"}>${renderInboxWorkspace()}</section>
+        <section class="workspace-view" ${workspacePage === "results" ? "" : "hidden"}>${renderResultsWorkspace()}</section>
+        <section class="workspace-view" ${workspacePage === "reports" ? "" : "hidden"}>
+          ${renderHero(state.today_action, state.tasks)}
+          ${renderBusinessSignals(state.business_signals)}
+          ${renderPlatformExecution(state.platform_execution)}
+          ${renderDiscoverySummary(state.discovery_summary)}
+          ${renderSearch()}
+          <section class="grid">${renderReviewQueue(state.lifecycle.items)}${renderPublishingQueue(state.lifecycle.items)}</section>
+          <section class="grid">${renderTrafficIntelligence(state.traffic_intelligence)}${renderPublished(state.published)}</section>
+          <section class="grid">${renderLearning(state.learning)}${renderArchived(state.archived)}</section>
+          ${renderOpportunities(state.opportunities)}
+          ${renderLifecycle(state.lifecycle)}
+          ${renderReuseChains(state.reuse_chains)}
+          ${renderInputs(state.input_options)}
         </section>
-        <section class="grid">
-          ${renderTrafficIntelligence(state.traffic_intelligence)}
-          ${renderPublished(state.published)}
-        </section>
-        <section class="grid">
-          ${renderLearning(state.learning)}
-          ${renderArchived(state.archived)}
-        </section>
-        ${renderOpportunities(state.opportunities)}
-        ${renderLifecycle(state.lifecycle)}
-        ${renderReuseChains(state.reuse_chains)}
-        ${renderInputs(state.input_options)}
       `;
       applyFilters();
       applySearch();
+    }
+
+    function workspacePageFromHash() {
+      const page = window.location.hash.replace(/^#/, "").toLowerCase();
+      return ["inbox", "today", "results", "reports"].includes(page) ? page : "today";
+    }
+
+    function renderWorkspaceNav() {
+      const labels = { inbox: "Inbox", today: "Today", results: "Results", reports: "Reports" };
+      return Object.entries(labels).map(([page, label]) => `<button type="button" data-workspace-page="${page}" class="${workspacePage === page ? "active" : ""}">${label}</button>`).join("");
     }
 
     function renderSearch() {
@@ -504,46 +525,72 @@
       `;
     }
 
-    function renderTodayOpportunities(items = [], summary = {}) {
-      const opportunities = items.slice(0, 5);
+    function workspaceData() {
+      return state.workspace || {
+        inbox: state.opportunity_inbox || state.today_opportunities || [],
+        today: state.today_execution || [],
+        results: state.results || []
+      };
+    }
+
+    function renderTodayWorkspace() {
+      const workspace = workspaceData();
+      const items = workspace.today || [];
       return `
-        <section class="panel" id="today-opportunities">
-          <div class="head">
-            <div>
-              <p class="section-label">Layer 1 · Decision</p>
-              <h2>今日机会</h2>
-              <p class="meta">今天最值得去回复的真实讨论。</p>
-            </div>
-            <span class="pill neutral">${opportunities.length} 条</span>
+        <section class="hero">
+          <div>
+            <p class="section-label">Today · 默认工作区</p>
+            <p class="kicker">只完成已经人工选择的任务</p>
+            <h2 class="action-title">${items.length ? `${items.length} 条待执行` : "今天尚未选任务"}</h2>
+            <div class="next-action"><span class="section-label">当前先做</span><strong>${items[0] ? `${escapeHtml(items[0].platform)} / ${escapeHtml(items[0].topic)}` : "先在 Inbox 审核一个真实候选。"}</strong></div>
           </div>
-          ${renderDiscoverySummary(summary)}
-          <div class="discovery-grid">${opportunities.length ? opportunities.map((item) => `
-            <article class="card searchable" data-discovery-card data-search="${searchText(item)}">
-              <div class="head">
-                <h3>${escapeHtml(item.platform)}</h3>
-                <span class="pill ${item.intent_score === "High" ? "high" : item.intent_score === "Medium" ? "warn" : "neutral"}">${escapeHtml(item.intent_score)}</span>
-              </div>
-              <p><strong>${escapeHtml(item.topic)}</strong></p>
-              <p class="meta">来源：${escapeHtml(discoverySourceLabel(item.source_method))} · 首次发现：${escapeHtml(formatDate(item.first_seen_at || item.discovered_at))}</p>
-              <p class="meta">新鲜度：${escapeHtml(item.freshness_status || "Not recorded")} · 已在候选池 ${escapeHtml(String(item.age_days ?? "Not recorded"))} 天</p>
-              <p class="meta">作者：${escapeHtml(item.author || "Not recorded")} · 预期价值：${escapeHtml(item.expected_value)} · 状态：${escapeHtml(item.status)}</p>
-              <p class="meta">原始 URL：<a href="${escapeHtml(item.url || item.thread_url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.url || item.thread_url)}</a></p>
-              <p style="margin-top:10px;"><strong>为什么相关：</strong>${escapeHtml(item.why_relevant)}</p>
-              <div class="comment-preview"><strong>建议回复</strong><br>${escapeHtml(item.suggested_comment || "原帖上下文不足，需人工确认后再写回复。")}</div>
-              <p class="meta">风险：${escapeHtml(item.risk_status)} · ${escapeHtml(item.risk_note)}</p>
-              <p class="meta">人工审核：${item.needs_manual_review ? "需要" : "仍建议"}</p>
-              <div class="review-actions" data-discovery-actions>
-                <a class="button secondary" href="${escapeHtml(item.url || item.thread_url)}" target="_blank" rel="noopener noreferrer">打开原帖</a>
-                <button type="button" class="secondary" data-discovery-copy="${escapeHtml(item.id)}" ${item.suggested_comment ? "" : "disabled"}>复制建议回复</button>
-                <button type="button" class="secondary" data-discovery-action="view" data-id="${escapeHtml(item.id)}">标记已查看</button>
-                <button type="button" class="revision" data-discovery-action="ignore" data-id="${escapeHtml(item.id)}">忽略</button>
-                <button type="button" class="approve" data-discovery-action="add_today" data-id="${escapeHtml(item.id)}">加入今日任务</button>
-              </div>
-              <p class="meta" data-discovery-status></p>
-            </article>
-          `).join("") : `<p class="meta">暂无可行动机会。请先导入带 URL 的真实讨论。</p>`}</div>
+          <aside><p class="meta">Today 上限 3 条</p><p class="meta">候选不会自动进入 Today</p></aside>
+        </section>
+        <section class="panel">
+          <div class="head"><div><h2>今天执行</h2><p class="meta">依次查看、准备草稿、手动发布、粘贴真实回复 URL。</p></div><span class="pill neutral">${items.length} / 3</span></div>
+          <div class="cards">${items.length ? items.map((item) => renderWorkspaceCandidate(item, "today")).join("") : `<p class="meta">暂无已选任务。请到 Inbox 选择候选。</p>`}</div>
         </section>
       `;
+    }
+
+    function renderInboxWorkspace() {
+      const items = workspaceData().inbox || [];
+      return `
+        <section class="panel">
+          <div class="head"><div><p class="section-label">Inbox · 待审核机会</p><h2>Opportunity Inbox</h2><p class="meta">只有人工确认仍可回复、主题匹配且风险可接受的候选，才能加入 Today。</p></div><span class="pill neutral">${items.length} 条</span></div>
+          <div class="cards">${items.length ? items.map((item) => renderWorkspaceCandidate(item, "inbox")).join("") : `<p class="meta">暂无候选。可在下方粘贴公开链接。</p>`}</div>
+        </section>
+        ${renderManualDiscoveryForm()}
+      `;
+    }
+
+    function renderResultsWorkspace() {
+      const items = workspaceData().results || [];
+      return `
+        <section class="panel">
+          <div class="head"><div><p class="section-label">Results · 结果跟踪</p><h2>已发布回复</h2><p class="meta">真实回复 URL 和后续结果只在这里记录。</p></div><span class="pill neutral">${items.length} 条</span></div>
+          <div class="cards">${items.length ? items.map((item) => renderWorkspaceCandidate(item, "results")).join("") : `<p class="meta">尚无已发布回复。</p>`}</div>
+        </section>
+      `;
+    }
+
+    function renderWorkspaceCandidate(item, mode) {
+      const stateLabel = item.workflow_state_label || item.workflow_state || "待审核";
+      const header = `<div class="head"><h3>${escapeHtml(item.platform)} · ${escapeHtml(item.topic)}</h3><span class="pill ${item.risk_status === "High" ? "bad" : "neutral"}">${escapeHtml(stateLabel)}</span></div>`;
+      const detail = `<p class="meta">${escapeHtml(item.expected_value)} · ${escapeHtml(item.freshness_status || "Not recorded")} · ${escapeHtml(item.source_label || discoverySourceLabel(item.source_method))}</p><p class="meta">作者：${escapeHtml(item.author || "Not recorded")} · 风险：${escapeHtml(item.risk_status)} · ${escapeHtml(item.risk_note)}</p>`;
+      const source = `<a class="button secondary" href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer">打开原帖</a>`;
+      let actions = "";
+      if (mode === "inbox") actions = `${source}<button type="button" class="approve" data-discovery-action="select_today" data-id="${escapeHtml(item.id)}">加入今天</button>${item.workflow_state === "later" ? "" : `<button type="button" class="secondary" data-discovery-action="later" data-id="${escapeHtml(item.id)}">稍后</button>`}<button type="button" class="revision" data-discovery-action="ignore" data-id="${escapeHtml(item.id)}">忽略</button>`;
+      if (mode === "today") {
+        if (item.workflow_state === "today") actions = `${source}<button type="button" class="secondary" data-discovery-copy="${escapeHtml(item.id)}" ${item.suggested_comment ? "" : "disabled"}>复制建议回复</button><button type="button" class="approve" data-discovery-action="viewed" data-id="${escapeHtml(item.id)}">已查看</button>`;
+        if (item.workflow_state === "viewed") actions = `${source}<button type="button" class="secondary" data-discovery-copy="${escapeHtml(item.id)}" ${item.suggested_comment ? "" : "disabled"}>复制建议回复</button><button type="button" class="approve" data-discovery-action="draft_prepared" data-id="${escapeHtml(item.id)}">草稿已准备</button>`;
+        if (item.workflow_state === "draft_prepared") actions = `${source}<label style="flex:1;min-width:220px;"><span>实际回复 URL</span><input type="url" data-reply-url placeholder="https://..."></label><button type="button" class="approve" data-discovery-action="replied" data-id="${escapeHtml(item.id)}">标记已发布回复</button>`;
+      }
+      if (mode === "results") {
+        const outcomes = item.workflow_state === "outcome_pending" ? `<button type="button" class="revision" data-discovery-action="removed" data-id="${escapeHtml(item.id)}">被删除</button><button type="button" class="secondary" data-discovery-action="received_reply" data-id="${escapeHtml(item.id)}">收到回复</button><button type="button" class="approve" data-discovery-action="buyer_signal" data-id="${escapeHtml(item.id)}">买家信号</button><button type="button" class="approve" data-discovery-action="partner_signal" data-id="${escapeHtml(item.id)}">合作信号</button><button type="button" class="secondary" data-discovery-action="review_request" data-id="${escapeHtml(item.id)}">审核请求</button><button type="button" class="approve" data-discovery-action="paid_opportunity" data-id="${escapeHtml(item.id)}">付费机会</button><button type="button" class="secondary" data-discovery-action="no_response" data-id="${escapeHtml(item.id)}">无回复</button>` : item.workflow_state === "received_reply" ? `<button type="button" class="approve" data-discovery-action="buyer_signal" data-id="${escapeHtml(item.id)}">买家信号</button><button type="button" class="approve" data-discovery-action="partner_signal" data-id="${escapeHtml(item.id)}">合作信号</button><button type="button" class="secondary" data-discovery-action="review_request" data-id="${escapeHtml(item.id)}">审核请求</button><button type="button" class="approve" data-discovery-action="paid_opportunity" data-id="${escapeHtml(item.id)}">付费机会</button><button type="button" class="secondary" data-discovery-action="closed" data-id="${escapeHtml(item.id)}">关闭</button>` : ["buyer_signal", "partner_signal", "review_request", "paid_opportunity"].includes(item.workflow_state) ? `<button type="button" class="secondary" data-discovery-action="closed" data-id="${escapeHtml(item.id)}">关闭</button>` : `<span class="meta">结果已记录。</span>`;
+        actions = `${source}${outcomes}`;
+      }
+      return `<article class="card searchable" data-discovery-card data-search="${searchText(item)}">${header}<p><strong>${escapeHtml(item.why_relevant)}</strong></p>${detail}${mode === "today" ? `<div class="comment-preview"><strong>建议回复</strong><br>${escapeHtml(item.suggested_comment || "请先阅读原帖。")}</div>` : ""}${mode === "results" ? `<p>回复链接：${item.reply_url ? `<a href="${escapeHtml(item.reply_url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.reply_url)}</a>` : "未记录"}</p><p class="meta">回复链接验证：${escapeHtml(item.reply_url_verification || "未记录")}</p>` : ""}<div class="workflow-actions">${actions}</div><p class="meta" data-discovery-status></p></article>`;
     }
 
     function renderDiscoverySummary(summary = {}) {
@@ -952,6 +999,11 @@
     }
 
     document.addEventListener("click", (event) => {
+      const workspaceButton = event.target.closest("[data-workspace-page]");
+      if (workspaceButton) {
+        window.location.hash = workspaceButton.dataset.workspacePage;
+        return;
+      }
       const reviewButton = event.target.closest("[data-review-action]");
       if (reviewButton) {
         saveReviewAction(reviewButton);
@@ -972,6 +1024,11 @@
       if (button.dataset.filterType === "status") statusFilter = button.dataset.filterValue;
       if (button.dataset.filterType === "platform") platformFilter = button.dataset.filterValue;
       applyFilters();
+    });
+
+    window.addEventListener("hashchange", () => {
+      workspacePage = workspacePageFromHash();
+      if (state) render();
     });
 
     document.addEventListener("input", (event) => {
@@ -995,18 +1052,23 @@
         const response = await fetch(discoveryActionUrl, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ id: button.dataset.id, action: button.dataset.discoveryAction })
+          body: JSON.stringify({
+            id: button.dataset.id,
+            action: button.dataset.discoveryAction,
+            reply_url: card.querySelector("[data-reply-url]")?.value || ""
+          })
         });
         if (!response.ok) throw new Error(await response.text());
-        status.textContent = "已记录。重新运行 Runtime 后会更新候选状态。";
-        if (button.dataset.discoveryAction === "ignore") card.hidden = true;
+        status.textContent = "已记录，正在刷新工作区。";
+        await main();
       } catch (error) {
         status.textContent = `保存失败：${error.message}`;
       }
     }
 
     async function copyDiscoveryComment(button) {
-      const item = (state.today_opportunities || []).find((candidate) => candidate.id === button.dataset.discoveryCopy);
+      const item = [...(state.opportunity_inbox || []), ...(state.today_execution || []), ...(state.results || [])]
+        .find((candidate) => candidate.id === button.dataset.discoveryCopy);
       const card = button.closest("[data-discovery-card]");
       const status = card.querySelector("[data-discovery-status]");
       try {

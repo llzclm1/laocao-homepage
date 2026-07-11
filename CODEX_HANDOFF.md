@@ -354,3 +354,10 @@
 - 已建立公开 Source Adapter、Reddit RSS、可配置 Search Provider、手动调度入口、来源状态和 Discovery Health；未登录、不自动互动、不安装 launchd。
 - `source-status.json` 是来源运行状态源；`collection-state.json` 只保留 v2.1 的 RSS dry-run 观察。当前自动新候选仍为 0，运行模式保持 existing log + manual inbox + import。
 - Phase B-D 未开始：候选验证/排序、结果回收/归因、策略反馈和完整测试需用户继续确认后再做。
+
+## 2026-07-11 Social Execution Workspace
+
+- 社媒候选状态统一由 `data/growth-os/social-discovery/candidate-actions.jsonl` 的事件序列推导：Inbox → Today → Viewed → Draft Prepared → Replied / Outcome Pending → Results。
+- Dashboard 默认打开 Today；旧日志、RSS、手工入池和导入候选都先进入 Inbox，最多 3 条经人工确认后加入 Today，不再按排名自动生成今日任务。
+- Results 记录真实回复 URL、删除、收到回复、买家/合作信号、审核请求和付费机会；Business Signals 只读取这些人工记录与真实发布数据。
+- RSS 第 1 次真实采集为 0 条新候选、1 个 403、6 个 429，Health 为 Blocked；第 2、3 次仍按已创建的 Codex automation 执行。Phase B 与采集器扩张继续暂停。
