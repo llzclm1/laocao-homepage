@@ -200,6 +200,7 @@ export function createDiscoveredCandidate(input, now = new Date()) {
   const matchedKeywords = (input.keywords || []).filter((keyword) => text.includes(String(keyword).toLowerCase()));
   const score = scoreCandidate({ platform, title, snippet, matched_keywords: matchedKeywords });
   const risk = riskForPlatform(platform, input.published_at);
+  const opportunityRisk = opportunityRiskForCandidate(input.published_at, snippet);
   const enoughContext = snippet.length >= 40 && !/\b(deleted|removed|locked)\b/i.test(text);
   const firstSeenAt = normalizeDate(input.first_seen_at || input.discovered_at) || now.toISOString();
   const candidate = withFreshness({
@@ -219,11 +220,15 @@ export function createDiscoveredCandidate(input, now = new Date()) {
     intent_score: score.label,
     intent_rank: score.rank,
     expected_value: score.expected_value,
+    opportunity_quality: score.label,
     risk_status: risk.status,
     risk_note: risk.note,
+    opportunity_risk_status: opportunityRisk.status,
+    opportunity_risk_note: opportunityRisk.note,
     dedupe_key: dedupeKey(platform, url, title),
     reason: score.reason,
-    why_relevant: score.reason,
+    why_relevant: whyRelevantForCandidate({ title, snippet, expectedValue: score.expected_value }),
+    suggested_angle: suggestedAngleForCandidate({ title, snippet }),
     suggested_comment: enoughContext ? suggestedComment({ title, snippet, platform }) : "",
     needs_manual_review: true
   }, now);
@@ -401,6 +406,7 @@ function readOutreachCandidates(now) {
       const url = normalizeUrl(row.url);
       const score = scoreCandidate({ platform, title: row.topic, snippet: row.notes, matched_keywords: [] });
       const risk = riskForPlatform(platform, null);
+      const opportunityRisk = opportunityRiskForCandidate(null, row.notes);
       return {
         id: candidateId(platform, url),
         platform,
@@ -418,11 +424,15 @@ function readOutreachCandidates(now) {
         intent_score: score.label,
         intent_rank: score.rank,
         expected_value: expectedValueForProfile(row.target_profile, score.expected_value),
+        opportunity_quality: score.label,
         risk_status: risk.status,
         risk_note: risk.note,
+        opportunity_risk_status: opportunityRisk.status,
+        opportunity_risk_note: opportunityRisk.note,
         dedupe_key: dedupeKey(platform, url, row.topic),
         reason: row.notes || score.reason,
-        why_relevant: row.notes || score.reason,
+        why_relevant: whyRelevantForCandidate({ title: row.topic, snippet: row.notes, expectedValue: expectedValueForProfile(row.target_profile, score.expected_value) }),
+        suggested_angle: suggestedAngleForCandidate({ title: row.topic, snippet: row.notes }),
         suggested_comment: suggestedComment({ title: row.topic, snippet: row.notes, platform }),
         needs_manual_review: true
       };
@@ -445,6 +455,7 @@ function normalizeCandidate(value, now) {
   if (!supportedPlatforms.has(platform) || !url || !title || !matchesPlatformUrl(platform, url)) return null;
   const score = scoreCandidate({ platform, title, snippet: value.snippet, matched_keywords: value.matched_keywords || [] });
   const risk = riskForPlatform(platform, value.published_at);
+  const opportunityRisk = opportunityRiskForCandidate(value.published_at, value.snippet);
   const firstSeenAt = normalizeDate(value.first_seen_at || value.discovered_at) || now.toISOString();
   return withFreshness({
     id: /^DISC-[a-f0-9]{12}$/i.test(value.id || "") ? value.id : candidateId(platform, url),
@@ -463,11 +474,15 @@ function normalizeCandidate(value, now) {
     intent_score: ["High", "Medium", "Low"].includes(value.intent_score) ? value.intent_score : score.label,
     intent_rank: Number(value.intent_rank) || score.rank,
     expected_value: ["Buyer", "Partner", "Supplier", "Audience", "Ignore"].includes(value.expected_value) ? value.expected_value : score.expected_value,
+    opportunity_quality: ["High", "Medium", "Low"].includes(value.opportunity_quality) ? value.opportunity_quality : (["High", "Medium", "Low"].includes(value.intent_score) ? value.intent_score : score.label),
     risk_status: ["Low", "Medium", "High"].includes(value.risk_status) ? value.risk_status : risk.status,
     risk_note: cleanText(value.risk_note || risk.note),
+    opportunity_risk_status: ["Low", "Medium", "High"].includes(value.opportunity_risk_status) ? value.opportunity_risk_status : opportunityRisk.status,
+    opportunity_risk_note: cleanText(value.opportunity_risk_note || opportunityRisk.note),
     dedupe_key: cleanText(value.dedupe_key || dedupeKey(platform, url, title)),
     reason: cleanText(value.reason || score.reason),
-    why_relevant: cleanText(value.why_relevant || value.reason || score.reason),
+    why_relevant: cleanText(value.why_relevant || whyRelevantForCandidate({ title, snippet: value.snippet, expectedValue: value.expected_value || score.expected_value })),
+    suggested_angle: cleanText(value.suggested_angle || suggestedAngleForCandidate({ title, snippet: value.snippet })),
     suggested_comment: cleanText(value.suggested_comment || ""),
     needs_manual_review: value.needs_manual_review !== false
   }, now);
@@ -604,6 +619,37 @@ function riskForPlatform(platform, publishedAt) {
   }
   if (["linkedin", "x"].includes(platform)) return { status: "Medium", note: "仅人工确认公开可访问后参与，不做自动互动。" };
   return { status: "Medium", note: "先确认问题上下文与页面公开可访问性。" };
+}
+
+function opportunityRiskForCandidate(publishedAt, snippet) {
+  if (publishedAt && Date.now() - Date.parse(publishedAt) > 30 * 24 * 60 * 60 * 1000) {
+    return { status: "Medium", note: "帖子较旧，加入 Today 前确认仍可评论。" };
+  }
+  if (/\b(deleted|removed|locked)\b/i.test(String(snippet || ""))) {
+    return { status: "High", note: "页面可能已删除或锁定，需要人工确认。" };
+  }
+  return { status: "Medium", note: "URL 和可评论状态尚未验证。" };
+}
+
+function whyRelevantForCandidate({ title, snippet, expectedValue }) {
+  const text = `${title || ""} ${snippet || ""}`.toLowerCase();
+  if (expectedValue === "Partner") return "可能涉及合作意向，需要人工确认上下文。";
+  if (/refund|deposit/.test(text)) return "对方正在处理付款、定金或退款问题，属于高意图采购场景。";
+  if (/pay|payment|bank account|beneficiary/.test(text)) return "对方正在确认供应商付款方式或收款信息。";
+  if (/reliable|verify|verification/.test(text)) return "对方明确寻找供应商核验建议。";
+  if (/sample|moq|shipping|supplier|manufacturer|alibaba/.test(text)) return "问题与供应商沟通或采购决策直接相关。";
+  return "Needs manual review";
+}
+
+function suggestedAngleForCandidate({ title, snippet }) {
+  const text = `${title || ""} ${snippet || ""}`.toLowerCase();
+  if (/refund|deposit/.test(text)) return "检查 PI、定金覆盖范围和退款条款，并要求书面确认。";
+  if (/bank account|beneficiary/.test(text)) return "核对收款账户、受益人名称和当前 PI。";
+  if (/sample|shipping/.test(text)) return "拆分样品费、运费、定制范围和大货标准。";
+  if (/moq/.test(text)) return "确认 MOQ 适用于成品、材料变体还是包装。";
+  if (/reliable|verify|verification/.test(text)) return "避免保证式判断，聚焦可核对的书面信息。";
+  if (/pay|payment/.test(text)) return "用一份书面摘要确认价格、条款、交期和付款节点。";
+  return "先阅读原帖，再围绕已确认与仍不清楚的信息回复。";
 }
 
 function suggestedComment({ title, snippet, platform }) {
