@@ -39,7 +39,7 @@
     h1 { font-size: clamp(28px, 4vw, 44px); line-height: 1.05; }
     h2 { font-size: 19px; margin-bottom: 12px; }
     h3 { font-size: 15px; }
-    a { color: var(--blue); text-decoration: none; }
+    a { color: var(--blue); overflow-wrap: anywhere; text-decoration: none; }
     a:hover { text-decoration: underline; }
     button, .button {
       background: var(--ink);
@@ -94,6 +94,7 @@
       grid-template-columns: 1.35fr .65fr;
       padding: clamp(20px, 3vw, 32px);
     }
+    .hero > *, .card, .decision-item { min-width: 0; }
     .label {
       color: var(--amber);
       font-weight: 850;
@@ -165,6 +166,19 @@
       gap: 12px;
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
+    .discovery-grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .comment-preview {
+      background: #f8fafc;
+      border-left: 3px solid var(--blue);
+      color: var(--ink);
+      margin: 10px 0;
+      padding: 10px 12px;
+    }
+    .comment-preview, .next-action strong { overflow-wrap: anywhere; }
     .platform-card .meta {
       margin-top: 4px;
     }
@@ -343,7 +357,7 @@
       padding: 14px;
     }
     @media (max-width: 860px) {
-      header, .hero, .grid, .cards, .form-grid, .toolbar, .decision-grid, .signal-grid, .platform-grid, .action-row { grid-template-columns: 1fr; }
+      header, .hero, .grid, .cards, .form-grid, .toolbar, .decision-grid, .signal-grid, .platform-grid, .discovery-grid, .action-row { grid-template-columns: 1fr; }
       header { align-items: flex-start; flex-direction: column; }
       .scores { grid-template-columns: 1fr; }
       .form-grid .wide { grid-column: auto; }
@@ -395,6 +409,7 @@
     function render() {
       app.innerHTML = `
         ${renderHero(state.today_action, state.tasks)}
+        ${renderTodayOpportunities(state.today_opportunities)}
         ${renderBusinessSignals(state.business_signals)}
         ${renderPlatformExecution(state.platform_execution)}
         ${renderSearch()}
@@ -458,6 +473,7 @@
             <p style="margin-top:14px;">
               <a class="button" href="${action.review_url}${["approved", "publish_ready"].includes(action.status_key) ? "?mode=publish" : ""}" target="_blank" rel="noopener">${escapeHtml(actionButtonLabel(action.status_key))}</a>
               <a class="button secondary" href="#assets">查看生成资产</a>
+              <a class="button secondary" href="#today-opportunities">查看今日机会</a>
             </p>
           </div>
           <aside>
@@ -482,6 +498,36 @@
           </span>
           <span class="pill ${item.priority === "High" ? "warn" : "neutral"}">${escapeHtml(item.priority)}</span>
         </div>
+      `;
+    }
+
+    function renderTodayOpportunities(items = []) {
+      const opportunities = items.slice(0, 5);
+      return `
+        <section class="panel" id="today-opportunities">
+          <div class="head">
+            <div>
+              <p class="section-label">Layer 1 · Decision</p>
+              <h2>今日机会</h2>
+              <p class="meta">今天最值得去回复的真实讨论。</p>
+            </div>
+            <span class="pill neutral">${opportunities.length} 条</span>
+          </div>
+          <div class="discovery-grid">${opportunities.length ? opportunities.map((item) => `
+            <article class="card searchable" data-search="${searchText(item)}">
+              <div class="head">
+                <h3>${escapeHtml(item.platform)}</h3>
+                <span class="pill ${item.intent_score === "High" ? "high" : item.intent_score === "Medium" ? "warn" : "neutral"}">${escapeHtml(item.intent_score)}</span>
+              </div>
+              <p><strong>${escapeHtml(item.topic)}</strong></p>
+              <p class="meta">作者：${escapeHtml(item.author || "Not recorded")} · 预期价值：${escapeHtml(item.expected_value)}</p>
+              <p style="margin-top:10px;"><strong>为什么相关：</strong>${escapeHtml(item.why_relevant)}</p>
+              <div class="comment-preview"><strong>建议回复</strong><br>${escapeHtml(item.suggested_comment)}</div>
+              <p class="meta">风险：${escapeHtml(item.risk_status)} · ${escapeHtml(item.risk_note)}</p>
+              <p style="margin-top:10px;"><a class="button secondary" href="${escapeHtml(item.thread_url)}" target="_blank" rel="noopener noreferrer">打开原帖</a></p>
+            </article>
+          `).join("") : `<p class="meta">暂无可行动机会。请先导入带 URL 的真实讨论。</p>`}</div>
+        </section>
       `;
     }
 

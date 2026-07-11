@@ -102,6 +102,10 @@ ${renderQualityRows(summary.content_quality?.items || [])}
 - Performance report: ${summary.social_performance?.output || "not generated"}
 - Recommendation: ${summary.social_performance?.recommendation || "No social performance data yet."}
 
+## Today's Social Opportunities
+
+${renderSocialDiscovery(summary.social_discovery?.items || [])}
+
 ## Publishing Queue
 
 Ready:
@@ -215,6 +219,7 @@ function writeDashboardData(summary, context, business, todayAction, socialQueue
     traffic_intelligence: summary.cloudflare_traffic || null,
     social_queue: socialQueue,
     social_publishing: socialPublishing,
+    social_discovery: summary.social_discovery || { items: [] },
     platform_compliance: {
       social_ready: summary.platform_compliance?.social_ready || 0,
       compliance_passed: summary.platform_compliance?.compliance_passed || 0,
@@ -245,12 +250,13 @@ function buildDashboardView(summary, priority, dashboard) {
   const platformExecution = buildPlatformExecution(summary, lifecycle);
   const businessSignals = buildBusinessSignals(summary);
   const decisionSummary = buildDecisionSummary(action, summary, platformExecution);
-  const todayActions = buildTodayActions(action, platformExecution);
+  const todayActions = buildTodayActions(action, platformExecution, summary.social_discovery?.items || []);
   return {
     generated_at: summary.date,
     title: "Growth OS 增长运营中心",
     decision_summary: decisionSummary,
     today_actions: todayActions,
+    today_opportunities: (summary.social_discovery?.items || []).slice(0, 5),
     business_signals: businessSignals,
     platform_execution: platformExecution,
     today_action: action ? {
@@ -369,6 +375,7 @@ function buildReviewView(summary, dashboard) {
 function buildDecisionSummary(action, summary, platformExecution) {
   const reddit = platformExecution.find((item) => item.platform === "Reddit");
   const traffic = summary.cloudflare_traffic;
+  const topDiscovery = summary.social_discovery?.items?.[0];
   return {
     current_stage: "Authority Building",
     main_signal: traffic?.levels?.buyer_intent_traffic === "low / not clear yet"
@@ -377,7 +384,9 @@ function buildDecisionSummary(action, summary, platformExecution) {
     main_risk: reddit?.risk_status === "High"
       ? `Reddit removal rate ${reddit.removal_rate}% 偏高，继续发帖会损耗账号信任。`
       : "当前买家互动数据不足，不能用发帖量替代商业信号。",
-    next_best_action: reddit?.risk_status === "High"
+    next_best_action: topDiscovery
+      ? `优先回复 ${topDiscovery.platform}：${topDiscovery.topic}。${topDiscovery.risk_note}`
+      : reddit?.risk_status === "High"
       ? "发布 3 条无链接、无项目提及、经验型 Reddit comments，并暂停独立推广帖。"
       : nextStepForStatus(action?.status),
     growth_job: action ? {
@@ -389,7 +398,17 @@ function buildDecisionSummary(action, summary, platformExecution) {
   };
 }
 
-function buildTodayActions(action, platformExecution) {
+function buildTodayActions(action, platformExecution, discoveryItems) {
+  if (discoveryItems.length) {
+    return discoveryItems.slice(0, 3).map((item) => ({
+      platform: item.platform,
+      action: `回复：${item.topic}`,
+      priority: item.intent_score,
+      status: "待执行",
+      reason: item.why_relevant,
+      done: false
+    }));
+  }
   const byPlatform = new Map(platformExecution.map((item) => [item.platform, item]));
   const reddit = byPlatform.get("Reddit");
   const linkedIn = byPlatform.get("LinkedIn");
@@ -1173,6 +1192,11 @@ function renderPublishingQueue(items) {
     .slice(0, 8)
     .map((item) => `- ${item.content_id} ${item.platform}${item.url ? `: ${item.url}` : ""}`)
     .join("\n");
+}
+
+function renderSocialDiscovery(items) {
+  if (!items.length) return "- No verified reply opportunities yet.";
+  return items.map((item) => `- ${item.intent_score} ${item.platform}: ${item.topic} (${item.expected_value})`).join("\n");
 }
 
 function renderQualityRows(items) {

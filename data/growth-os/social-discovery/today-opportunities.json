@@ -1,0 +1,77 @@
+{
+  "generated_at": "2026-07-11T02:25:04.292Z",
+  "source": "data/marketing/social-outreach-log.csv",
+  "supported_platforms": [
+    "Reddit",
+    "LinkedIn",
+    "Quora",
+    "X"
+  ],
+  "items": [
+    {
+      "platform": "Reddit",
+      "thread_url": "https://www.reddit.com/r/FulfillmentByAmazon/comments/xrhfp4/alibaba_deposit_refund/",
+      "author": "Not recorded",
+      "topic": "Alibaba deposit refund",
+      "intent_score": "High",
+      "intent_rank": 3,
+      "why_relevant": "Written terms before deposit",
+      "suggested_comment": "Before paying, I would ask for one clean written summary of the product scope, quantity, price, trade term, what the deposit covers, when the balance is due, and what can change the price or lead time. It makes it easier to spot where both sides may be assuming different things.",
+      "expected_value": "Buyer",
+      "risk_status": "High",
+      "risk_note": "只回复原问题，不放链接、不提项目、不发独立推广帖。"
+    },
+    {
+      "platform": "Reddit",
+      "thread_url": "https://www.reddit.com/r/FulfillmentByAmazon/comments/3b38av/paying_chinese_supplier_company_bank_account_vs/",
+      "author": "Not recorded",
+      "topic": "Company vs personal bank account",
+      "intent_score": "High",
+      "intent_rank": 3,
+      "why_relevant": "Payment account mismatch",
+      "suggested_comment": "I would ask the supplier to restate the beneficiary name, payment details, and the order scope on the current quotation or pro forma invoice. The point is to make mismatches visible before payment, not to assume the account detail alone proves anything.",
+      "expected_value": "Buyer",
+      "risk_status": "High",
+      "risk_note": "只回复原问题，不放链接、不提项目、不发独立推广帖。"
+    },
+    {
+      "platform": "Reddit",
+      "thread_url": "https://www.reddit.com/r/FulfillmentByAmazon/comments/lw8ea0/how_do_you_pay_alibaba_suppliers/",
+      "author": "Not recorded",
+      "topic": "How to pay Alibaba suppliers",
+      "intent_score": "High",
+      "intent_rank": 3,
+      "why_relevant": "Deposit terms and PI clarity",
+      "suggested_comment": "Before paying, I would ask for one clean written summary of the product scope, quantity, price, trade term, what the deposit covers, when the balance is due, and what can change the price or lead time. It makes it easier to spot where both sides may be assuming different things.",
+      "expected_value": "Buyer",
+      "risk_status": "High",
+      "risk_note": "只回复原问题，不放链接、不提项目、不发独立推广帖。"
+    },
+    {
+      "platform": "Reddit",
+      "thread_url": "https://www.reddit.com/r/smallbusiness/comments/1de3t7g/how_to_pay_supplier/",
+      "author": "Not recorded",
+      "topic": "How to pay supplier",
+      "intent_score": "High",
+      "intent_rank": 3,
+      "why_relevant": "Payment terms and written confirmation angle",
+      "suggested_comment": "Before paying, I would ask for one clean written summary of the product scope, quantity, price, trade term, what the deposit covers, when the balance is due, and what can change the price or lead time. It makes it easier to spot where both sides may be assuming different things.",
+      "expected_value": "Buyer",
+      "risk_status": "High",
+      "risk_note": "只回复原问题，不放链接、不提项目、不发独立推广帖。"
+    },
+    {
+      "platform": "Reddit",
+      "thread_url": "https://www.reddit.com/r/smallbusiness/comments/118cyry/how_to_pay_a_manufacturer_on_alibaba/",
+      "author": "Not recorded",
+      "topic": "Pay manufacturer on Alibaba",
+      "intent_score": "High",
+      "intent_rank": 3,
+      "why_relevant": "Platform/order documentation angle",
+      "suggested_comment": "Before paying, I would ask for one clean written summary of the product scope, quantity, price, trade term, what the deposit covers, when the balance is due, and what can change the price or lead time. It makes it easier to spot where both sides may be assuming different things.",
+      "expected_value": "Buyer",
+      "risk_status": "High",
+      "risk_note": "只回复原问题，不放链接、不提项目、不发独立推广帖。"
+    }
+  ]
+}

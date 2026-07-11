@@ -1,6 +1,6 @@
 # Growth OS Today
 
-Generated at: 2026-07-11T01:37:44.342Z
+Generated at: 2026-07-11T02:25:04.292Z
 Mode: dry-run
 
 ## Today's Opportunities
@@ -81,6 +81,14 @@ Business queue:
 - Best performing content: GO-002
 - Performance report: docs/growth-os/social-reports/social-report-2026-07-11.md
 - Recommendation: Create similar content for GO-002.
+
+## Today's Social Opportunities
+
+- High Reddit: Alibaba deposit refund (Buyer)
+- High Reddit: Company vs personal bank account (Buyer)
+- High Reddit: How to pay Alibaba suppliers (Buyer)
+- High Reddit: How to pay supplier (Buyer)
+- High Reddit: Pay manufacturer on Alibaba (Buyer)
 
 ## Publishing Queue
 
