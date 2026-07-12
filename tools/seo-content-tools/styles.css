@@ -1,14 +1,14 @@
 :root {
   color-scheme: light;
-  --bg: #f5f3ee;
-  --panel: #fffdf8;
-  --ink: #1d1c18;
-  --muted: #6b665c;
-  --line: #d8d2c6;
-  --accent: #23685a;
+  --bg: #f4f6f7;
+  --panel: #ffffff;
+  --ink: #18212b;
+  --muted: #65717d;
+  --line: #dfe4e7;
+  --accent: #1f5f55;
   --accent-dark: #16483e;
   --soft: #e8eee8;
-  --shadow: 0 24px 70px rgba(60, 54, 42, 0.12);
+  --shadow: 0 24px 70px rgba(24, 33, 43, 0.1);
 }
 
 * {
@@ -22,9 +22,7 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  background:
-    linear-gradient(120deg, rgba(35, 104, 90, 0.1), transparent 32rem),
-    var(--bg);
+  background: var(--bg);
   color: var(--ink);
   font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
   line-height: 1.6;

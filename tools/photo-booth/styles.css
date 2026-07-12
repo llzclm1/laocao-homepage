@@ -1,33 +1,27 @@
-@import url("https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=DynaPuff:wght@600;700&family=ZCOOL+KuaiLe&display=swap");
-
 :root {
-  --bg: #fffdfb;
+  --bg: #f4f6f7;
   --surface: #ffffff;
-  --text: #342444;
-  --muted: #9a7a8b;
-  --line: rgba(117, 84, 155, 0.16);
-  --pink: #ec6da6;
-  --pink-dark: #d93c88;
-  --pink-soft: #fde7ec;
-  --rose-ink: #76549b;
-  --plum: #553276;
-  --peach: #fde4dc;
-  --cloud-pink: #f6b8c0;
-  --glass-fill: rgba(255, 255, 255, 0.64);
-  --glass-fill-strong: rgba(255, 255, 255, 0.82);
-  --glass-edge: rgba(117, 84, 155, 0.14);
-  --glass-tint: rgba(236, 109, 166, 0.055);
-  --shell: rgba(255, 255, 255, 0.5);
-  --shadow: 0 24px 64px rgba(85, 50, 118, 0.1);
+  --text: #18212b;
+  --muted: #65717d;
+  --line: rgba(24, 33, 43, 0.12);
+  --pink: #1f5f55;
+  --pink-dark: #16483e;
+  --pink-soft: #e8eee8;
+  --rose-ink: #1f5f55;
+  --plum: #18212b;
+  --peach: #edf1f2;
+  --cloud-pink: #dce7e4;
+  --glass-fill: rgba(255, 255, 255, 0.72);
+  --glass-fill-strong: rgba(255, 255, 255, 0.92);
+  --glass-edge: rgba(24, 33, 43, 0.12);
+  --glass-tint: rgba(31, 95, 85, 0.05);
+  --shell: rgba(255, 255, 255, 0.72);
+  --shadow: 0 24px 64px rgba(24, 33, 43, 0.1);
   --soft-ease: cubic-bezier(0.32, 0.72, 0, 1);
   --focus-ring: 0 0 0 4px rgba(225, 29, 72, 0.18), 0 0 0 1px rgba(225, 29, 72, 0.78);
-  --font-art: "ZCOOL KuaiLe", "Bagel Fat One", "也字工厂小石头",
-    "YeZiGongChangXiaoShiTou", "Arial Rounded MT Bold", "Avenir Next Rounded",
-    "Yuanti SC", "PingFang SC", sans-serif;
-  --font-display: "Bagel Fat One", "DynaPuff", "SF Pro Rounded", "Avenir Next Rounded", "Nunito", "PingFang SC",
-    "Hiragino Sans GB", sans-serif;
-  --font-body: "Avenir Next", "SF Pro Text", "PingFang SC", "Hiragino Sans GB", system-ui,
-    sans-serif;
+  --font-art: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-display: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 
 * {
@@ -40,16 +34,11 @@ html {
 
 body {
   margin: 0;
-  background:
-    url("assets/fairy-landscape.png") center bottom / cover no-repeat fixed,
-    radial-gradient(circle at 18% 18%, rgba(253, 228, 220, 0.58), transparent 26%),
-    radial-gradient(circle at 86% 24%, rgba(246, 184, 192, 0.3), transparent 28%),
-    linear-gradient(180deg, #fffdfb 0%, #fffdfb 34%, #fff1f3 100%),
-    var(--bg);
+  background: var(--bg);
   color: var(--text);
   font-family: var(--font-body);
   font-size: 16px;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
@@ -165,7 +154,7 @@ button {
   gap: 10px;
   width: fit-content;
   font-family: var(--font-art);
-  color: #7c6690;
+  color: var(--rose-ink);
   font-size: 22px;
   font-weight: 400;
   letter-spacing: 0.015em;
@@ -181,11 +170,11 @@ button {
   border-radius: 15px;
   background:
     radial-gradient(circle at 35% 18%, rgba(255, 255, 255, 0.82), transparent 26%),
-    linear-gradient(145deg, #a78ac5, #76549b);
+    linear-gradient(145deg, #6f9f96, #1f5f55);
   box-shadow:
-    0 10px 20px rgba(85, 50, 118, 0.12),
+    0 10px 20px rgba(24, 33, 43, 0.12),
     inset 0 1px 1px rgba(255, 255, 255, 0.86),
-    inset 0 -10px 18px rgba(116, 38, 72, 0.12);
+    inset 0 -10px 18px rgba(22, 72, 62, 0.12);
   color: white;
   font-family: var(--font-art);
   font-size: 19px;

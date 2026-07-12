@@ -1,16 +1,16 @@
 :root {
-  --bg: #eef2f7;
+  --bg: #f4f6f7;
   --panel: #ffffff;
   --panel-soft: #f7f8fb;
-  --ink: #24212b;
-  --muted: #8b8796;
-  --line: #e6e8ef;
-  --purple: #5b25ec;
-  --purple-deep: #351adf;
-  --pink: #f23863;
-  --green: #2fbf65;
-  --shadow: 0 28px 80px rgba(68, 78, 96, .18);
-  --soft-shadow: 0 16px 42px rgba(68, 78, 96, .12);
+  --ink: #18212b;
+  --muted: #65717d;
+  --line: #dfe4e7;
+  --purple: #1f5f55;
+  --purple-deep: #16483e;
+  --pink: #8a6b3f;
+  --green: #1f5f55;
+  --shadow: 0 28px 80px rgba(24, 33, 43, .12);
+  --soft-shadow: 0 16px 42px rgba(24, 33, 43, .08);
   --radius: 18px;
   --radius-lg: 28px;
 }
@@ -21,10 +21,7 @@ body {
   margin: 0;
   min-width: 320px;
   overflow-x: hidden;
-  background:
-    radial-gradient(circle at 10% 2%, rgba(255, 255, 255, .95), transparent 23rem),
-    radial-gradient(circle at 85% 14%, rgba(91, 37, 236, .10), transparent 26rem),
-    linear-gradient(135deg, #e8edf4 0%, #f8fafc 48%, #e7ebf2 100%);
+  background: var(--bg);
   color: var(--ink);
   font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
   line-height: 1.62;
@@ -109,7 +106,7 @@ footer {
   border-radius: 50%;
   background:
     radial-gradient(circle at 42% 42%, #fff 0 24%, transparent 25%),
-    conic-gradient(from 40deg, #f23863, #5b25ec, #2fbf65, #f6c743, #f23863);
+    conic-gradient(from 40deg, #1f5f55, #6f9f96, #8a6b3f, #d7b66a, #1f5f55);
   box-shadow: 0 0 0 5px rgba(255, 255, 255, .72);
 }
 nav {
