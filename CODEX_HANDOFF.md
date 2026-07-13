@@ -1,5 +1,12 @@
 # CODEX_HANDOFF
 
+## 2026-07-13 GSC 内容入口收敛
+
+- 没有重复创建高意图文章；现有 deposit、sample、quotation comparison、factory-vs-trading 页面继续作为核心内容。
+- quotation comparison 与 factory-vs-trading 已纳入 Buyer Guides 索引和静态构建发布清单。
+- `/china-supplier-checklist/` 已从重定向页改为无需登录的可下载检查清单，并连接到 Buyer Guides 与 Supplier Reply Review。
+- 下一步以 28 天 GSC 查询词、核心页面展示和真实点击验证，不继续扩展 Growth OS。
+
 ## 当前状态
 
 - 正在做 China Factory Bridge 海外推广。

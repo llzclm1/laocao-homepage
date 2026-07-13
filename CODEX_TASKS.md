@@ -1,5 +1,11 @@
 # CODEX_TASKS
 
+## 2026-07-13 GSC 内容入口
+
+- [x] 将 quotation comparison 与 factory-vs-trading 两篇现有 Buyer Guide 纳入正式构建和索引。
+- [x] 将 `/china-supplier-checklist/` 从跳转页改为可直接使用和下载的免费清单。
+- [ ] 发布后观察 28 天 GSC 查询词、核心页面展示和自然点击。
+
 ## 进行中
 
 - Social Discovery：RSS 三次真实采集仍在验证，Phase B 保持暂停。当前优先级是人工执行闭环：Inbox 审核候选 → Today 最多 3 条 → 录入真实回复 URL → Results 记录真实结果；不要自动安装 launchd 或执行社媒互动。

@@ -17,6 +17,8 @@ const publishedBuyerGuides = [
   "verify-chinese-supplier-before-deposit",
   "check-if-chinese-factory-is-real",
   "questions-before-ordering-samples-from-china",
+  "compare-chinese-supplier-quotations-beyond-price",
+  "chinese-factory-or-trading-company",
   "china-supplier-red-flags-before-first-order",
   "chinese-factory-video-call-checklist"
 ];
@@ -369,6 +371,7 @@ function buildSitemap() {
   const entries = [
     ["", "1.0"],
     ["buyer-guides/", "0.8"],
+    ["china-supplier-checklist/", "0.7"],
     ["es/buyer-guides/", "0.5"],
     ...publishedBuyerGuides.map((slug) => [`buyer-guides/${slug}/`, "0.7"]),
     ...publishedSpanishBuyerGuides.map((slug) => [`es/buyer-guides/${slug}/`, "0.5"]),

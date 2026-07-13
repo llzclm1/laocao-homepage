@@ -22,7 +22,11 @@ assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "chinese-factory-video-c
 assert.ok(fs.existsSync(path.join(dist, "supplier-reply-review", "index.html")), "dist/supplier-reply-review/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "supplier-reply-review", "sample-report", "index.html")), "dist/supplier-reply-review/sample-report/index.html is missing");
 assert.equal(fs.existsSync(path.join(dist, "buyer-guides", "alibaba-vs-made-in-china-sourcing-safety")), false, "unpublished buyer guide should not be copied");
-assert.ok(fs.existsSync(path.join(dist, "china-supplier-checklist", "index.html")), "old china supplier checklist path should stay accessible");
+assert.ok(fs.existsSync(path.join(dist, "china-supplier-checklist", "index.html")), "china supplier checklist page should exist");
+assert.ok(
+  fs.existsSync(path.join(dist, "china-supplier-checklist", "china-supplier-verification-checklist.txt")),
+  "downloadable china supplier checklist should exist"
+);
 assert.ok(fs.existsSync(path.join(dist, "rfq-template-for-chinese-suppliers", "index.html")), "old RFQ path should stay accessible");
 assert.ok(fs.existsSync(path.join(dist, "fq-template-for-chinese-suppliers", "index.html")), "misspelled FQ path should stay accessible as a compatibility redirect");
 assert.ok(fs.existsSync(path.join(dist, "en", "index.html")), "dist/en/index.html is missing");
@@ -157,10 +161,12 @@ assert.ok(sitemap.includes("/buyer-guides/check-if-chinese-factory-is-real/"), "
 assert.ok(sitemap.includes("/buyer-guides/questions-before-ordering-samples-from-china/"), "sitemap should include sample-questions guide");
 assert.ok(sitemap.includes("/buyer-guides/china-supplier-red-flags-before-first-order/"), "sitemap should include red-flags guide");
 assert.ok(sitemap.includes("/buyer-guides/chinese-factory-video-call-checklist/"), "sitemap should include video-call guide");
+assert.ok(sitemap.includes("/buyer-guides/compare-chinese-supplier-quotations-beyond-price/"), "sitemap should include quotation comparison guide");
+assert.ok(sitemap.includes("/buyer-guides/chinese-factory-or-trading-company/"), "sitemap should include factory-or-trading guide");
 assert.ok(sitemap.includes("/supplier-reply-review/"), "sitemap should include supplier reply review page");
 assert.ok(sitemap.includes("/supplier-reply-review/sample-report/"), "sitemap should include supplier reply review sample report");
 assert.equal(sitemap.includes("/buyer-guides/alibaba-vs-made-in-china-sourcing-safety/"), false, "sitemap should not include unpublished buyer guides");
-assert.equal(sitemap.includes("/china-supplier-checklist/"), false, "sitemap should not include old checklist redirect path");
+assert.ok(sitemap.includes("/china-supplier-checklist/"), "sitemap should include the published checklist page");
 assert.equal(sitemap.includes("/rfq-template-for-chinese-suppliers/"), false, "sitemap should not include old RFQ redirect path");
 assert.equal(sitemap.includes("/free-supplier-reply-review/"), false, "sitemap should not include old review redirect path");
 assert.equal(sitemap.includes("/fq-template-for-chinese-suppliers/"), false, "sitemap should not include misspelled RFQ path");

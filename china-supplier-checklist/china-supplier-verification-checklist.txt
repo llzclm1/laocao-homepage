@@ -1,0 +1,48 @@
+CHINA SUPPLIER VERIFICATION CHECKLIST
+
+Use before samples, deposits, tooling fees, or a first bulk order.
+
+BUSINESS IDENTITY
+[ ] Quotation company name recorded
+[ ] Invoice company name recorded
+[ ] Payment beneficiary name recorded
+[ ] Different company or account names explained in writing
+[ ] Email domain and business documents compared for consistency
+
+PRODUCT AND QUOTATION
+[ ] Exact product version and specification confirmed
+[ ] Material, dimensions, customization, packaging, and labeling confirmed
+[ ] MOQ, unit price, currency, and Incoterm confirmed
+[ ] Included and excluded costs listed
+[ ] Open details and possible price changes listed
+
+SAMPLES AND PRODUCTION
+[ ] Sample type identified: stock, similar, custom, or pre-production
+[ ] Sample fee and shipping cost separated
+[ ] Sample-to-bulk differences explained
+[ ] Written approval reference defined
+[ ] Bulk production changes require written confirmation
+
+PAYMENT AND TIMING
+[ ] Deposit coverage confirmed
+[ ] Balance payment trigger confirmed
+[ ] Lead-time starting point confirmed
+[ ] Refund or cancellation terms recorded
+[ ] Changed payment instructions explained in writing
+
+SUPPLIER ROLE AND EVIDENCE
+[ ] In-house processes identified
+[ ] Outsourced processes identified
+[ ] Product-specific workshop or production evidence requested
+[ ] Technical replies checked for product specificity
+[ ] Responsibility boundaries are clear
+
+FINAL PAUSE CHECK
+[ ] Product scope, quotation, payment details, sample basis, and open questions appear in one current written record
+[ ] No unexplained mismatch remains before payment
+
+BOUNDARY
+This checklist organizes visible information and questions. It is not a factory audit, legal due diligence, quality inspection, or supplier reliability guarantee.
+
+Buyer guides: https://gewuji.dev/buyer-guides/
+Supplier Reply Review: https://gewuji.dev/supplier-reply-review/
