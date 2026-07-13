@@ -1,5 +1,18 @@
 # CODEX_HANDOFF
 
+## 2026-07-13 有效积压总收口
+
+- 当前有效主线只剩三件事：核心采购页等待 GSC 真实数据、Supplier Reply Review 等待真实转化、Social Content Agent 走人工发布闭环。
+- 四篇核心 Buyer Guide、索引、Checklist 和 Supplier Reply Review 已完成 canonical、schema、内链、CTA、构建发布与站内链接审计。唯一真实缺口是 Checklist 没有结构化数据，现已补 WebPage / BreadcrumbList，并加入静态验证。
+- Social Content Agent 保留 `Keywords → Opportunities → Drafts → Manual Publish`。机会列表只展示 `data/social-agent/opportunities.json` 中人工审核的真实 HTTPS URL，不再依赖 RSS、搜索结果、旧台账或 Growth OS 状态机。
+- Reddit 保持 Trust Building：无链接、无品牌、无 CTA、无私信引导。当前没有未发布且已核对的 Reddit 目标 URL，因此人工队列明确暂停 Reddit，不伪造机会。
+- 人工发布队列：`docs/social/manual-publish-queue-2026-07-13.md`。覆盖 LinkedIn、X、Quora、Medium、Substack、Facebook、Reddit；只准备，未发布。
+- GSC 28 天基线：13 展示、0 点击、平均排名 15.9；下一检查日期 2026-08-10，详见 `docs/gsc/gsc-28-day-baseline-2026-07-13.md`。
+- 已取代：Growth OS Phase B、更多采集器、复杂默认 Growth OS、旧 Reddit 获客模式。
+- 暂停：YouTube 扩展、游戏扩展、Growth OS 新模块和所有缺少真实数据的长期扩展。
+- `CODEX_LOG.md` 有用户改动，本轮未修改。`$CODEX_HOME/` 和归属不明 dirty/untracked 未处理。
+- 独立运行入口为 `npm run social-agent`；默认地址 `http://127.0.0.1:8787/growth-os/dashboard`。
+
 ## 2026-07-13 GSC 内容入口收敛
 
 - 没有重复创建高意图文章；现有 deposit、sample、quotation comparison、factory-vs-trading 页面继续作为核心内容。

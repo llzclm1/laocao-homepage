@@ -3,1291 +3,213 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Growth OS 增长运营中心</title>
+  <title>Social Content Agent</title>
   <style>
-    :root {
-      --ink: #152033;
-      --muted: #65758b;
-      --line: #dce5ef;
-      --bg: #f6f8fb;
-      --panel: #fff;
-      --blue: #2563eb;
-      --green: #0f766e;
-      --amber: #b45309;
-      --red: #b91c1c;
-      --shadow: 0 18px 50px rgba(21, 32, 51, .08);
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--ink);
-      font: 14px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-    header, main {
-      width: min(1180px, calc(100% - 36px));
-      margin: 0 auto;
-    }
-    header {
-      align-items: flex-end;
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 28px 0 14px;
-    }
-    .workspace-nav, .workflow-actions, .header-actions, .report-nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .workspace-nav button {
-      background: #fff;
-      border: 1px solid var(--line);
-      color: var(--ink);
-      padding: 8px 11px;
-    }
-    .workspace-nav button.active { background: var(--ink); color: #fff; }
-    .header-actions { align-items: center; justify-content: flex-end; }
-    .header-actions button, .report-nav button, button.text-button {
-      background: transparent;
-      border: 0;
-      color: var(--muted);
-      padding: 7px 8px;
-    }
-    .report-nav button.active { background: #eef2ff; color: var(--blue); }
-    .server-dot { background: var(--green); border-radius: 50%; display: inline-block; height: 8px; width: 8px; }
-    .server-dot.offline { background: var(--red); }
-    .workspace-view[hidden] { display: none; }
-    .workflow-actions { margin-top: 12px; }
-    h1, h2, h3, p { margin: 0; }
-    h1 { font-size: clamp(28px, 4vw, 44px); line-height: 1.05; }
-    h2 { font-size: 19px; margin-bottom: 12px; }
-    h3 { font-size: 15px; }
-    a { color: var(--blue); overflow-wrap: anywhere; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    button, .button {
-      background: var(--ink);
-      border: 0;
-      border-radius: 8px;
-      color: #fff;
-      cursor: pointer;
-      display: inline-block;
-      font-weight: 750;
-      padding: 10px 14px;
-      text-decoration: none;
-    }
-    button.secondary, .button.secondary {
-      background: #fff;
-      border: 1px solid var(--line);
-      color: var(--ink);
-    }
-    button.approve { background: var(--green); }
-    button.reject { background: var(--red); }
-    button.revision { background: var(--amber); }
-    button.quiet { background: transparent; color: var(--muted); padding-inline: 6px; }
-    input, select, textarea {
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      font: inherit;
-      padding: 9px 10px;
-      width: 100%;
-    }
-    textarea { min-height: 76px; resize: vertical; }
-    label span {
-      color: var(--muted);
-      display: block;
-      font-size: 12px;
-      font-weight: 750;
-      margin-bottom: 4px;
-    }
-    main {
-      display: grid;
-      gap: 18px;
-      padding: 10px 0 46px;
-    }
-    .meta { color: var(--muted); }
-    .panel, .hero {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 18px;
-    }
-    .hero {
-      box-shadow: var(--shadow);
-      display: grid;
-      gap: 20px;
-      grid-template-columns: 1.35fr .65fr;
-      padding: clamp(20px, 3vw, 32px);
-    }
-    .hero > *, .card, .decision-item { min-width: 0; }
-    .label {
-      color: var(--amber);
-      font-weight: 850;
-      margin-bottom: 8px;
-    }
-    .kicker {
-      align-items: center;
-      display: flex;
-      gap: 8px;
-      font-weight: 900;
-      margin-bottom: 8px;
-    }
-    .action-title {
-      font-size: clamp(28px, 5vw, 52px);
-      line-height: 1.04;
-      margin: 4px 0 14px;
-    }
-    .toolbar {
-      display: grid;
-      gap: 12px;
-      grid-template-columns: 1fr auto;
-    }
-    .section-label {
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 900;
-      letter-spacing: .04em;
-      text-transform: uppercase;
-    }
-    .decision-grid {
-      display: grid;
-      gap: 12px;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      margin: 16px 0;
-    }
-    .decision-item {
-      background: #f8fafc;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 12px;
-    }
-    .next-action {
-      background: #fff7ed;
-      border: 1px solid #fed7aa;
-      border-radius: 12px;
-      color: #7c2d12;
-      margin-top: 14px;
-      padding: 14px;
-    }
-    .next-action strong {
-      display: block;
-      font-size: 18px;
-      line-height: 1.3;
-      margin-top: 4px;
-    }
-    .signal-grid {
-      display: grid;
-      gap: 10px;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-    .signal-value {
-      display: block;
-      font-size: 22px;
-      font-weight: 900;
-      margin-top: 4px;
-    }
-    .platform-grid {
-      display: grid;
-      gap: 12px;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-    .discovery-grid {
-      display: grid;
-      gap: 12px;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-    .comment-preview {
-      background: #f8fafc;
-      border-left: 3px solid var(--blue);
-      color: var(--ink);
-      margin: 10px 0;
-      padding: 10px 12px;
-    }
-    .comment-preview, .next-action strong { overflow-wrap: anywhere; }
-    .candidate-facts { display: grid; gap: 7px; margin: 10px 0; }
-    .candidate-facts p { overflow-wrap: anywhere; }
-    .platform-risk { background: #fff7ed; border: 1px solid #fed7aa; }
-    .platform-card .meta {
-      margin-top: 4px;
-    }
-    .action-row {
-      align-items: flex-start;
-      display: grid;
-      gap: 10px;
-      grid-template-columns: auto 1fr auto;
-    }
-    .grid { display: grid; gap: 18px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .cards { display: grid; gap: 12px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .card {
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 14px;
-    }
-    .head {
-      align-items: center;
-      display: flex;
-      gap: 10px;
-      justify-content: space-between;
-      margin-bottom: 10px;
-    }
-    .pill {
-      border-radius: 999px;
-      display: inline-block;
-      font-size: 12px;
-      font-weight: 800;
-      padding: 3px 8px;
-      white-space: nowrap;
-    }
-    .high { background: #ecfdf5; color: var(--green); }
-    .neutral { background: #eef2ff; color: var(--blue); }
-    .warn { background: #fef3c7; color: var(--amber); }
-    .bad { background: #fef2f2; color: var(--red); }
-    .scores {
-      display: grid;
-      gap: 8px;
-      grid-template-columns: repeat(3, 1fr);
-      margin: 14px 0;
-    }
-    .score {
-      background: #f8fafc;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 11px;
-    }
-    .score b {
-      display: block;
-      font-size: 24px;
-      line-height: 1;
-      margin-top: 4px;
-    }
-    .tasks, .list { display: grid; gap: 9px; }
-    .task {
-      align-items: flex-start;
-      background: #f8fafc;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      display: flex;
-      gap: 10px;
-      padding: 11px;
-    }
-    .box {
-      border: 2px solid #94a3b8;
-      border-radius: 4px;
-      flex: 0 0 auto;
-      height: 18px;
-      margin-top: 1px;
-      width: 18px;
-    }
-    .reasons {
-      display: grid;
-      gap: 8px;
-      list-style: none;
-      margin: 14px 0 18px;
-      padding: 0;
-    }
-    .reasons li::before {
-      color: var(--green);
-      content: "✓";
-      font-weight: 900;
-      margin-right: 8px;
-    }
-    .flow {
-      align-items: center;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .step {
-      background: #f8fafc;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 6px 10px;
-    }
-    .arrow { color: var(--muted); }
-    .chain {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 10px;
-    }
-    .asset {
-      background: #f8fafc;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 7px 9px;
-    }
-    .progress {
-      background: #e2e8f0;
-      border-radius: 999px;
-      height: 10px;
-      margin: 12px 0;
-      overflow: hidden;
-    }
-    .progress span {
-      background: var(--blue);
-      display: block;
-      height: 100%;
-    }
-    .checklist {
-      display: grid;
-      gap: 5px;
-      margin-top: 8px;
-    }
-    details {
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      margin-top: 10px;
-      padding: 12px;
-    }
-    summary { cursor: pointer; font-weight: 850; }
-    .filters {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin: 12px 0;
-    }
-    .filters button {
-      background: #fff;
-      border: 1px solid var(--line);
-      color: var(--ink);
-      padding: 8px 11px;
-    }
-    .filters button.active {
-      background: var(--ink);
-      color: #fff;
-    }
-    .timeline {
-      border-left: 2px solid var(--line);
-      display: grid;
-      gap: 8px;
-      margin-top: 10px;
-      padding-left: 12px;
-    }
-    .form-grid {
-      display: grid;
-      gap: 10px;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-    .form-grid .wide { grid-column: 1 / -1; }
-    .review-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 10px;
-    }
-    .error {
-      background: #fef2f2;
-      border: 1px solid #fecaca;
-      border-radius: 10px;
-      color: var(--red);
-      padding: 14px;
-    }
-    @media (max-width: 860px) {
-      header, .hero, .grid, .cards, .form-grid, .toolbar, .decision-grid, .signal-grid, .platform-grid, .discovery-grid, .action-row { grid-template-columns: 1fr; }
-      header { align-items: flex-start; flex-direction: column; }
-      .header-actions { justify-content: flex-start; }
-      .scores { grid-template-columns: 1fr; }
-      .form-grid .wide { grid-column: auto; }
-    }
+    :root { --ink:#152033; --muted:#65758b; --line:#dce5ef; --bg:#f6f8fb; --panel:#fff; --blue:#2563eb; --green:#0f766e; --amber:#b45309; --red:#b91c1c; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--ink); font:14px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    header, main { width:min(1120px, calc(100% - 36px)); margin:0 auto; }
+    header { align-items:flex-start; display:flex; justify-content:space-between; gap:20px; padding:28px 0 14px; }
+    h1, h2, h3, p { margin:0; }
+    h1 { font-size:32px; line-height:1.15; }
+    h2 { font-size:20px; }
+    h3 { font-size:16px; line-height:1.35; }
+    main { display:grid; gap:16px; padding:10px 0 46px; }
+    .meta { color:var(--muted); }
+    .panel, .card { background:var(--panel); border:1px solid var(--line); border-radius:10px; }
+    .panel { padding:18px; }
+    .cards { display:grid; gap:12px; grid-template-columns:repeat(2, minmax(0, 1fr)); margin-top:14px; }
+    .card { min-width:0; padding:14px; }
+    .head { align-items:flex-start; display:flex; gap:12px; justify-content:space-between; }
+    .pill { background:#eef2ff; border-radius:999px; color:var(--blue); display:inline-block; font-size:12px; font-weight:800; padding:3px 8px; white-space:nowrap; }
+    .pill.published { background:#ecfdf5; color:var(--green); }
+    .keyword-grid { display:grid; gap:12px; grid-template-columns:minmax(0, 1fr) auto; margin-top:12px; }
+    textarea, input, select { border:1px solid var(--line); border-radius:8px; font:inherit; padding:9px 10px; width:100%; }
+    textarea { min-height:132px; resize:vertical; }
+    button, .button { background:var(--ink); border:0; border-radius:8px; color:#fff; cursor:pointer; display:inline-block; font:inherit; font-weight:750; padding:9px 12px; text-decoration:none; }
+    button.secondary, .button.secondary { background:#fff; border:1px solid var(--line); color:var(--ink); }
+    button.quiet { background:transparent; color:var(--blue); padding:6px 0; }
+    .actions { align-items:center; display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+    .facts { display:grid; gap:6px; margin-top:12px; }
+    .facts p { overflow-wrap:anywhere; }
+    .draft { background:#f8fafc; border-left:3px solid var(--blue); margin-top:12px; padding:10px 12px; white-space:pre-wrap; overflow-wrap:anywhere; }
+    .empty { background:#f8fafc; border:1px dashed var(--line); border-radius:8px; color:var(--muted); padding:18px; }
+    .form-grid { display:grid; gap:10px; grid-template-columns:repeat(2, minmax(0, 1fr)); margin-top:12px; }
+    .form-grid .wide { grid-column:1 / -1; }
+    details { border-top:1px solid var(--line); margin-top:16px; padding-top:14px; }
+    summary { cursor:pointer; font-weight:750; }
+    .debug { background:#f8fafc; border-radius:8px; margin-top:10px; padding:12px; }
+    .error { background:#fef2f2; border:1px solid #fecaca; border-radius:10px; color:var(--red); padding:14px; }
+    .status { min-height:20px; }
+    .server { align-items:center; display:flex; gap:8px; }
+    .dot { background:var(--green); border-radius:50%; height:8px; width:8px; }
+    .dot.offline { background:var(--red); }
+    @media (max-width:760px) { header { flex-direction:column; } .cards, .form-grid, .keyword-grid { grid-template-columns:1fr; } .form-grid .wide { grid-column:auto; } }
   </style>
 </head>
 <body>
   <header>
     <div>
-      <h1>Growth OS 增长运营中心</h1>
+      <h1>Social Content Agent</h1>
       <p class="meta" id="generatedAt">读取本地数据中...</p>
     </div>
-    <div>
-      <nav class="workspace-nav" id="workspaceNav" aria-label="Growth OS 工作区"></nav>
-      <div class="header-actions"><span class="meta" id="serverStatus"><span class="server-dot"></span> Local server</span><button type="button" id="reloadData">刷新工作台</button></div>
-    </div>
+    <div class="server"><span class="dot" id="serverDot"></span><span class="meta" id="serverStatus">Local server</span><button type="button" id="runAgent">Generate</button><button type="button" class="secondary" id="reload">刷新</button></div>
   </header>
 
-  <main id="app">
-    <section class="panel">加载中...</section>
-  </main>
+  <main id="app"><section class="panel">加载中...</section></main>
 
   <script>
-    const viewUrl = "http://127.0.0.1:8787/data/growth-os/viewer/dashboard-view.json";
-    const publishUrl = "http://127.0.0.1:8787/__publishing-links";
-    const signalUrl = "http://127.0.0.1:8787/__buyer-signal";
-    const reviewActionUrl = "http://127.0.0.1:8787/__review-action";
-    const discoveryActionUrl = "http://127.0.0.1:8787/__discovery-action";
-    const manualDiscoveryUrl = "http://127.0.0.1:8787/__manual-discovery";
+    const viewUrl = "/data/social-agent/view.json";
+    const keywordsUrl = "/__social-agent-keywords";
+    const manualUrl = "/__manual-discovery";
+    const publishedUrl = "/__social-agent-draft-published";
+    const runUrl = "/__social-agent-run";
     const app = document.getElementById("app");
-    const generatedAt = document.getElementById("generatedAt");
     let state = null;
-    let statusFilter = "all";
-    let platformFilter = "all";
-    let inboxFilter = "priority";
-    let inboxShowAll = false;
-    let reportsPage = "overview";
-    let workspacePage = workspacePageFromHash();
 
-    main();
+    load();
+    document.getElementById("reload").addEventListener("click", load);
+    document.getElementById("runAgent").addEventListener("click", runAgent);
 
-    async function main() {
+    async function load() {
       try {
-        state = await fetchJson(viewUrl);
-        generatedAt.textContent = `Last updated：${formatDate(state.generated_at)}`;
+        const response = await fetch(`${viewUrl}?t=${Date.now()}`, { cache:"no-store" });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        state = await response.json();
+        document.getElementById("generatedAt").textContent = `Last updated: ${formatDate(state.generated_at)}`;
         setServerStatus(true);
         render();
-      } catch (error) {
+      } catch {
         setServerStatus(false);
-        app.innerHTML = `<section class="error">Local Growth OS server is not available. Changes cannot be saved.</section>`;
+        app.innerHTML = `<section class="error">Local Social Content Agent server is not available. Changes cannot be saved.</section>`;
       }
-    }
-
-    async function fetchJson(url) {
-      const response = await fetch(`${url}?t=${Date.now()}`, { cache: "no-store" });
-      if (!response.ok) throw new Error(`${url} ${response.status}`);
-      return response.json();
     }
 
     function render() {
-      document.getElementById("workspaceNav").innerHTML = renderWorkspaceNav();
-      app.innerHTML = `
-        <section class="workspace-view" ${workspacePage === "today" ? "" : "hidden"}>${renderTodayWorkspace()}</section>
-        <section class="workspace-view" ${workspacePage === "inbox" ? "" : "hidden"}>${renderInboxWorkspace()}</section>
-        <section class="workspace-view" ${workspacePage === "results" ? "" : "hidden"}>${renderResultsWorkspace()}</section>
-        <section class="workspace-view" ${workspacePage === "reports" ? "" : "hidden"}>${renderReportsWorkspace()}</section>
-      `;
-      applyFilters();
-      applySearch();
+      app.innerHTML = `${renderKeywords()}${renderOpportunities()}${renderDrafts()}${renderDebug()}`;
     }
 
-    function workspacePageFromHash() {
-      const page = window.location.hash.replace(/^#/, "").toLowerCase();
-      return ["inbox", "today", "results", "reports"].includes(page) ? page : "today";
+    function renderKeywords() {
+      return `<section class="panel">
+        <div class="head"><div><h2>Keywords</h2><p class="meta">一行一个关键词。保存后用于下一轮公开内容筛选与草稿主题。</p></div></div>
+        <form id="keywordsForm"><div class="keyword-grid"><textarea name="keywords" aria-label="Keywords">${escapeHtml((state.keywords || []).join("\n"))}</textarea><div><button type="submit">保存关键词</button><p class="meta status" id="keywordsStatus" style="margin-top:8px;"></p></div></div></form>
+      </section>`;
     }
 
-    function renderWorkspaceNav() {
-      const labels = { inbox: "Inbox", today: "Today", results: "Results", reports: "Reports" };
-      return Object.entries(labels).map(([page, label]) => `<button type="button" data-workspace-page="${page}" class="${workspacePage === page ? "active" : ""}">${label}</button>`).join("");
+    function renderOpportunities() {
+      const items = state.opportunities || [];
+      return `<section class="panel">
+        <div class="head"><div><h2>Opportunities</h2><p class="meta">仅显示真实公开 HTTPS 链接。每个平台最多 3 条，总计最多 10 条。</p></div><span class="pill">${items.length} 条</span></div>
+        ${renderRedditTrust()}
+        ${items.length ? `<div class="cards">${items.map(renderOpportunity).join("")}</div>` : `<div class="empty" style="margin-top:14px;">当前没有新的可处理公开机会。系统不会用假 URL 或旧状态填充。</div>`}
+        <details><summary>粘贴公开链接</summary><p class="meta" style="margin-top:8px;">用于 LinkedIn、Reddit、Quora、X 或 Facebook 的公开帖子。不会登录、读取私信或自动互动。</p>${renderManualForm()}</details>
+      </section>`;
     }
 
-    function renderSearch() {
-      return `
-        <section class="panel toolbar">
-          <div>
-            <h2>今天先看什么</h2>
-            <p class="meta">搜索 GO ID、标题、买家问题、平台或状态。</p>
-          </div>
-          <input id="globalSearch" type="search" placeholder="搜索：GO-002 / LinkedIn / 待审核 / supplier trust">
-        </section>
-      `;
+    function renderRedditTrust() {
+      const trust = state.reddit_trust || {};
+      const metrics = trust.metrics || {};
+      return `<div class="card" style="margin-top:14px;"><div class="head"><div><h3>Reddit · Trust Building</h3><p class="meta">Mode: ${escapeHtml(trust.mode || "trust_building")} · Goal: ${escapeHtml(trust.goal || "Build account reputation")}</p></div><span class="pill">${escapeHtml(trust.target || "zero_removed_comments")}</span></div><div class="facts"><p><strong>Comments posted:</strong> ${escapeHtml(metrics.comments_posted || 0)} / ${escapeHtml(metrics.target_comments || 50)} · <strong>Removed:</strong> ${escapeHtml(metrics.removed_count || 0)} · <strong>Removal rate:</strong> ${escapeHtml(metrics.removal_rate || 0)}%</p><p><strong>Community participation:</strong> ${escapeHtml(metrics.community_participation || 0)} · Links: ${trust.link_allowed ? "Allowed" : "Not allowed"} · Promotion: ${trust.promotion_allowed ? "Allowed" : "Not allowed"}</p></div></div>`;
     }
 
-    function renderHero(action, tasks) {
-      const decision = state.decision_summary || {};
-      if (!action) return `<section class="hero"><div><p class="label">今日重点</p><h2>暂无优先行动</h2></div></section>`;
-      return `
-        <section class="hero">
-          <div>
-            <p class="section-label">Layer 1 · Decision</p>
-            <p class="kicker"><span>🔥</span><span>今日重点</span></p>
-            <h2 class="action-title">${escapeHtml(action.id)}<br>${escapeHtml(action.title)}</h2>
-            <p>状态：<span class="pill ${statusClass(action.status_key)}">${escapeHtml(action.status)}</span></p>
-            <div class="decision-grid">
-              ${decisionItem("当前阶段", decision.current_stage)}
-              ${decisionItem("主要信号", decision.main_signal)}
-              ${decisionItem("主要风险", decision.main_risk)}
-            </div>
-            <div class="next-action">
-              <span class="section-label">下一步最佳动作</span>
-              <strong>${escapeHtml(decision.next_best_action || action.next_step)}</strong>
-            </div>
-            <div class="scores">
-              ${scoreBox("SEO", action.scores.seo)}
-              ${scoreBox("GEO", action.scores.geo)}
-              ${scoreBox("商业", action.scores.business)}
-            </div>
-            <p style="margin-top:14px;">
-              <a class="button" href="${action.review_url}${["approved", "publish_ready"].includes(action.status_key) ? "?mode=publish" : ""}" target="_blank" rel="noopener">${escapeHtml(actionButtonLabel(action.status_key))}</a>
-              <a class="button secondary" href="#assets">查看生成资产</a>
-              <a class="button secondary" href="#today-opportunities">查看今日机会</a>
-            </p>
-          </div>
-          <aside>
-            <h2>今日动作</h2>
-            <div class="tasks">${(state.today_actions || []).slice(0, 3).map(renderTodayAction).join("") || tasks.slice(0, 3).map((task) => `<div class="task"><span class="box"></span><span>${escapeHtml(task)}</span></div>`).join("")}</div>
-          </aside>
-        </section>
-      `;
+    function renderOpportunity(item) {
+      const xCount = item.platform === "X" ? `<p class="meta">X 字符数：${item.x_character_count} / 280</p>` : "";
+      return `<article class="card" data-opportunity-id="${escapeHtml(item.id)}">
+        <div class="head"><div><span class="pill">${escapeHtml(item.platform)}</span><h3 style="margin-top:8px;">${escapeHtml(item.title)}</h3></div></div>
+        <div class="facts"><p><strong>Topic:</strong> ${escapeHtml(item.topic)}</p><p><strong>Author:</strong> ${escapeHtml(item.author)}</p><p><strong>Source:</strong> ${escapeHtml(item.source)}</p>${xCount}</div>
+        <div class="draft"><strong>Suggested Reply</strong><br>${escapeHtml(item.suggested_reply)}</div>
+        <div class="actions"><a class="button secondary" href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer">Open Original</a><button type="button" class="secondary" data-copy-opportunity="${escapeHtml(item.id)}">Copy</button></div><p class="meta status"></p>
+      </article>`;
     }
 
-    function decisionItem(label, value) {
-      return `<div class="decision-item"><p class="meta">${escapeHtml(label)}</p><strong>${escapeHtml(value || "Not tracked")}</strong></div>`;
+    function renderManualForm() {
+      return `<form id="manualForm" class="form-grid"><label class="wide"><span class="meta">Public URL</span><input required name="url" type="url" placeholder="https://..."></label><label><span class="meta">Platform</span><select name="platform"><option value="">Detect from URL</option><option>LinkedIn</option><option>Reddit</option><option>Quora</option><option>X</option><option>Facebook</option></select></label><label><span class="meta">Topic</span><input required name="topic" placeholder="What is this post about?"></label><label class="wide"><span class="meta">Author (optional)</span><input name="author" placeholder="Not recorded is fine"></label><label class="wide"><span class="meta">Short note (optional)</span><input name="note" placeholder="Useful context for the reply"></label><div class="wide"><button type="submit">Add Opportunity</button><span class="meta status" id="manualStatus" style="margin-left:8px;"></span></div></form>`;
     }
 
-    function renderTodayAction(item) {
-      return `
-        <div class="task action-row">
-          <span class="box"></span>
-          <span>
-            <strong>${escapeHtml(item.platform)} · ${escapeHtml(item.action)}</strong>
-            <span class="meta" style="display:block;">原因：${escapeHtml(item.reason)}</span>
-          </span>
-          <span class="pill ${item.priority === "High" ? "warn" : "neutral"}">${escapeHtml(item.priority)}</span>
-        </div>
-      `;
+    function renderDrafts() {
+      const items = state.drafts || [];
+      return `<section class="panel"><div class="head"><div><h2>Drafts · Manual Publish</h2><p class="meta">每日主动内容草稿。人工确认、复制并在平台手动发布；系统不会自动发帖。</p></div><span class="pill">${items.length} 份</span></div><div class="cards">${items.map(renderDraft).join("")}</div></section>`;
     }
 
-    function workspaceData() {
-      return state.workspace || {
-        inbox: state.opportunity_inbox || state.today_opportunities || [],
-        today: state.today_execution || [],
-        results: state.results || []
-      };
+    function renderDraft(item) {
+      const count = item.platform === "X" ? `X 字符数：${item.character_count} / 280` : `英文词数：${item.word_count}`;
+      return `<article class="card" data-draft-id="${escapeHtml(item.id)}"><div class="head"><div><span class="pill ${item.published ? "published" : ""}">${escapeHtml(item.platform)}</span><h3 style="margin-top:8px;">${escapeHtml(item.title)}</h3></div>${item.published ? `<span class="pill published">已标记发布</span>` : ""}</div><p class="meta" style="margin-top:8px;">${escapeHtml(item.type)} · ${escapeHtml(count)}</p><div class="draft">${escapeHtml(item.draft)}</div><div class="actions"><button type="button" class="secondary" data-copy-draft="${escapeHtml(item.id)}">Copy</button><a class="button secondary" href="${escapeHtml(item.publish_url)}" target="_blank" rel="noopener noreferrer">Open ${escapeHtml(item.platform)}</a>${item.published ? "" : `<button type="button" data-mark-published="${escapeHtml(item.id)}">Mark Published</button>`}</div><p class="meta status"></p></article>`;
     }
 
-    function renderTodayWorkspace() {
-      const workspace = workspaceData();
-      const items = workspace.today || [];
-      const completedToday = (workspace.results || []).filter((item) => String(item.last_action_at || "").slice(0, 10) === new Date().toISOString().slice(0, 10)).length;
-      const remaining = Math.max(0, 3 - items.length);
-      return `
-        <section class="hero">
-          <div>
-            <p class="section-label">Today · 默认工作区</p>
-            <p class="kicker">只完成已经人工选择的任务</p>
-            <h2 class="action-title">${items.length ? `${items.length} 条待执行` : "今天尚未选任务"}</h2>
-            <div class="next-action"><span class="section-label">当前先做</span><strong>${items[0] ? `${escapeHtml(items[0].platform)} / ${escapeHtml(items[0].topic)}` : "先在 Inbox 审核一个真实候选。"}</strong></div>
-          </div>
-          <aside><p class="meta">今日上限：3 条</p><p class="meta">当前完成：${completedToday} 条</p><p class="meta">剩余名额：${remaining} 条</p><p class="meta">候选不会自动进入 Today</p></aside>
-        </section>
-        <section class="panel">
-          <div class="head"><div><h2>今天执行</h2><p class="meta">依次查看、准备草稿、手动发布、粘贴真实回复 URL。</p></div><span class="pill neutral">${items.length} / 3</span></div>
-          <div class="cards">${items.length ? items.map((item) => renderWorkspaceCandidate(item, "today")).join("") : `<div><p class="meta">暂无已选任务。请到 Inbox 选择候选。</p><button type="button" data-workspace-page="inbox" style="margin-top:12px;">去 Inbox 选择任务</button></div>`}</div>
-        </section>
-      `;
-    }
-
-    function renderInboxWorkspace() {
-      const items = workspaceData().inbox || [];
-      const visibleItems = inboxVisibleItems(items);
-      const counts = inboxCounts(items);
-      return `
-        <section class="panel">
-          <div class="head"><div><p class="section-label">Inbox · 待审核机会</p><h2>Opportunity Inbox</h2><p class="meta">只有人工确认仍可回复、主题匹配且风险可接受的候选，才能加入 Today。</p></div><span class="pill neutral">${items.length} 条</span></div>
-          <div class="signal-grid"><div class="card"><span class="meta">待审核总数</span><strong class="signal-value">${counts.total}</strong></div><div class="card"><span class="meta">High Intent Buyer</span><strong class="signal-value">${counts.highBuyer}</strong></div><div class="card"><span class="meta">Medium Intent</span><strong class="signal-value">${counts.medium}</strong></div><div class="card"><span class="meta">Aging / Later</span><strong class="signal-value">${counts.agingLater}</strong></div></div>
-          ${renderManualDiscoveryForm()}
-          ${renderInboxPlatformRisk()}
-          <div class="filters">${["priority", "all", "high", "buyer", "partner", "fresh", "recent", "later"].map((filter) => `<button type="button" data-inbox-filter="${filter}" class="${inboxFilter === filter ? "active" : ""}">${inboxFilterLabel(filter)}</button>`).join("")}</div>
-          <div class="cards">${visibleItems.length ? visibleItems.map((item) => renderWorkspaceCandidate(item, "inbox")).join("") : `<p class="meta">当前筛选下没有候选。</p>`}</div>
-          ${!inboxShowAll && visibleItems.length < items.length ? `<button type="button" class="secondary" data-inbox-show-all style="margin-top:12px;">查看全部 ${items.length} 条</button>` : ""}
-        </section>
-      `;
-    }
-
-    function renderResultsWorkspace() {
-      const items = workspaceData().results || [];
-      return `
-        <section class="panel">
-          <div class="head"><div><p class="section-label">Results · 结果跟踪</p><h2>已发布回复</h2><p class="meta">真实回复 URL 和后续结果只在这里记录。</p></div><span class="pill neutral">${items.length} 条</span></div>
-          <div class="cards">${items.length ? items.map((item) => renderWorkspaceCandidate(item, "results")).join("") : `<div><p class="meta">尚无已发布回复。</p><button type="button" data-workspace-page="today" style="margin-top:12px;">查看 Today</button></div>`}</div>
-        </section>
-      `;
-    }
-
-    function renderWorkspaceCandidate(item, mode) {
-      const stateLabel = item.workflow_state_label || item.workflow_state || "待审核";
-      const header = `<div class="head"><h3>${escapeHtml(item.platform)} · ${escapeHtml(item.topic)}</h3><span class="pill neutral">${escapeHtml(stateLabel)}</span></div>`;
-      const detail = `<div class="candidate-facts"><p class="meta">Opportunity Quality：${escapeHtml(item.opportunity_quality || item.intent_score || "Not recorded")} · Intent：${escapeHtml(item.intent_score || "Not recorded")} · Expected Value：${escapeHtml(item.expected_value || "Not recorded")}</p><p class="meta">Freshness：${escapeHtml(item.freshness_status || "Not recorded")} · 作者：${escapeHtml(item.author || "Not recorded")} · 来源：${escapeHtml(item.source_label || discoverySourceLabel(item.source_method))}</p><p><strong>为什么值得回复：</strong>${escapeHtml(item.why_relevant || "Needs manual review")}</p><p><strong>建议回复角度：</strong>${escapeHtml(item.suggested_angle || "先阅读原帖，再人工判断。")}</p>${item.opportunity_risk_status && item.opportunity_risk_status !== "Low" ? `<p class="meta"><strong>Opportunity Risk：${escapeHtml(item.opportunity_risk_status)}</strong> · ${escapeHtml(item.opportunity_risk_note || "需要人工确认")}</p>` : ""}<p class="meta">Manual Review Required：${item.needs_manual_review === false ? "No" : "Yes"}</p></div>`;
-      const source = `<a class="button secondary" href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer">打开原帖</a>`;
-      let actions = "";
-      if (mode === "inbox") actions = `<button type="button" class="approve" data-discovery-action="select_today" data-id="${escapeHtml(item.id)}">加入 Today</button>${source}${item.workflow_state === "later" ? "" : `<button type="button" class="text-button" data-discovery-action="later" data-id="${escapeHtml(item.id)}">稍后</button>`}<button type="button" class="quiet" data-discovery-action="ignore" data-confirm-ignore data-id="${escapeHtml(item.id)}">忽略</button>`;
-      if (mode === "today") {
-        if (item.workflow_state === "today") actions = `${source}<button type="button" class="secondary" data-discovery-copy="${escapeHtml(item.id)}" ${item.suggested_comment ? "" : "disabled"}>复制建议回复</button><button type="button" class="approve" data-discovery-action="viewed" data-id="${escapeHtml(item.id)}">已查看</button>`;
-        if (item.workflow_state === "viewed") actions = `${source}<button type="button" class="secondary" data-discovery-copy="${escapeHtml(item.id)}" ${item.suggested_comment ? "" : "disabled"}>复制建议回复</button><button type="button" class="approve" data-discovery-action="draft_prepared" data-id="${escapeHtml(item.id)}">草稿已准备</button>`;
-        if (item.workflow_state === "draft_prepared") actions = `${source}<label style="flex:1;min-width:220px;"><span>实际回复 URL</span><input type="url" data-reply-url placeholder="https://..."></label><button type="button" class="approve" data-discovery-action="replied" data-id="${escapeHtml(item.id)}">标记已发布回复</button>`;
-      }
-      if (mode === "results") {
-        const outcomes = item.workflow_state === "outcome_pending" ? `<button type="button" class="revision" data-discovery-action="removed" data-id="${escapeHtml(item.id)}">被删除</button><button type="button" class="secondary" data-discovery-action="received_reply" data-id="${escapeHtml(item.id)}">收到回复</button><button type="button" class="approve" data-discovery-action="buyer_signal" data-id="${escapeHtml(item.id)}">买家信号</button><button type="button" class="approve" data-discovery-action="partner_signal" data-id="${escapeHtml(item.id)}">合作信号</button><button type="button" class="secondary" data-discovery-action="review_request" data-id="${escapeHtml(item.id)}">审核请求</button><button type="button" class="approve" data-discovery-action="paid_opportunity" data-id="${escapeHtml(item.id)}">付费机会</button><button type="button" class="secondary" data-discovery-action="no_response" data-id="${escapeHtml(item.id)}">无回复</button>` : item.workflow_state === "received_reply" ? `<button type="button" class="approve" data-discovery-action="buyer_signal" data-id="${escapeHtml(item.id)}">买家信号</button><button type="button" class="approve" data-discovery-action="partner_signal" data-id="${escapeHtml(item.id)}">合作信号</button><button type="button" class="secondary" data-discovery-action="review_request" data-id="${escapeHtml(item.id)}">审核请求</button><button type="button" class="approve" data-discovery-action="paid_opportunity" data-id="${escapeHtml(item.id)}">付费机会</button><button type="button" class="secondary" data-discovery-action="closed" data-id="${escapeHtml(item.id)}">关闭</button>` : ["buyer_signal", "partner_signal", "review_request", "paid_opportunity"].includes(item.workflow_state) ? `<button type="button" class="secondary" data-discovery-action="closed" data-id="${escapeHtml(item.id)}">关闭</button>` : `<span class="meta">结果已记录。</span>`;
-        actions = `${source}${outcomes}`;
-      }
-      return `<article class="card searchable" data-discovery-card data-search="${searchText(item)}">${header}${detail}${mode === "today" ? `<div class="comment-preview"><strong>建议回复</strong><br>${escapeHtml(item.suggested_comment || "请先阅读原帖。")}</div>` : ""}${mode === "results" ? `<p>回复链接：${item.reply_url ? `<a href="${escapeHtml(item.reply_url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.reply_url)}</a>` : "未记录"}</p><p class="meta">回复链接验证：${escapeHtml(item.reply_url_verification || "未记录")}</p>` : ""}<div class="workflow-actions">${actions}</div><p class="meta" data-discovery-status></p></article>`;
-    }
-
-    function renderDiscoverySummary(summary = {}) {
-      const statuses = summary.collection_status || [];
-      return `
-        <div class="cards" style="margin:14px 0;">
-          <div class="card"><span class="meta">自动新发现</span><strong class="signal-value">${escapeHtml(String(summary.newly_discovered_today || 0))}</strong></div>
-          <div class="card"><span class="meta">旧日志库存</span><strong class="signal-value">${escapeHtml(String(summary.existing_log_opportunities || 0))}</strong></div>
-          <div class="card"><span class="meta">人工入池</span><strong class="signal-value">${escapeHtml(String(summary.manual_added_today || 0))}</strong></div>
-          <div class="card"><span class="meta">新鲜机会</span><strong class="signal-value">${escapeHtml(String(summary.fresh_opportunities || 0))}</strong></div>
-          <div class="card"><span class="meta">老化机会</span><strong class="signal-value">${escapeHtml(String(summary.aging_opportunities || 0))}</strong></div>
-        </div>
-        <p class="meta">采集状态：${escapeHtml(summary.collection_message || "No verified public opportunities were discovered today.")}</p>
-        <p class="meta">RSS 适配器：${summary.rss_adapter_works_in_dry_run ? "dry-run 已验证" : "尚未验证"} · 最近验证结果：${escapeHtml(String(summary.last_verified_rss_result?.url_count || 0))} 个 URL · 持久化自动候选：${escapeHtml(String(summary.persistent_automatic_candidates || 0))}</p>
-        <p class="meta">搜索 Provider：${summary.search_provider_status === "configured" ? "Configured" : "Search provider not configured"}</p>
-        <p class="meta">Discovery Health：${escapeHtml(summary.health?.status || "Manual Mode")} · ${escapeHtml(summary.health?.message || "Automatic public discovery is currently unavailable.")}</p>
-        <p class="meta">当前模式：${escapeHtml(discoveryModeLabel(summary.current_mode))}</p>
-        <div class="list" style="margin:10px 0 14px;">${statuses.map((item) => `<p class="meta"><strong>${escapeHtml(item.platform)}：</strong>${escapeHtml(item.status_label || item.status)}${item.last_collection_at ? ` · ${escapeHtml(formatDate(item.last_collection_at))}` : ""}</p>`).join("")}</div>
-      `;
-    }
-
-    function renderManualDiscoveryForm() {
-      return `
-        <details id="manual-discovery">
-          <summary>+ 添加机会</summary>
-          <p class="meta" style="margin:8px 0;">粘贴公开链接，系统只做本地入池、去重和建议回复，不自动进入 Today。</p>
-          <form class="form-grid" data-manual-discovery-form>
-            <label><span>平台</span><select name="platform" required><option value="reddit">Reddit</option><option value="quora">Quora</option><option value="linkedin">LinkedIn</option><option value="x">X</option></select></label>
-            <label><span>公开 URL</span><input name="url" type="url" required placeholder="https://..."></label>
-            <label class="wide"><span>主题</span><input name="topic" required placeholder="原帖标题或问题"></label>
-            <label><span>作者（可选）</span><input name="author" placeholder="未记录可留空"></label>
-            <label><span>简短说明（可选）</span><input name="note" placeholder="公开上下文或匹配原因"></label>
-            <div class="wide review-actions"><button type="submit" class="approve">加入候选池</button><span id="manualDiscoveryStatus" class="meta"></span></div>
-          </form>
-        </details>
-      `;
-    }
-
-    function inboxVisibleItems(items) {
-      if (inboxFilter === "priority") {
-        const priority = items.filter((item) => item.expected_value === "Buyer" && item.intent_score === "High" && ["Fresh", "Recent"].includes(item.freshness_status));
-        const fallback = items.filter((item) => !priority.includes(item) && item.workflow_state !== "later");
-        return [...priority, ...fallback].slice(0, 8);
-      }
-      const filtered = items.filter((item) => {
-        if (inboxFilter === "high") return item.intent_score === "High";
-        if (inboxFilter === "buyer") return item.expected_value === "Buyer";
-        if (inboxFilter === "partner") return item.expected_value === "Partner";
-        if (inboxFilter === "fresh") return item.freshness_status === "Fresh";
-        if (inboxFilter === "recent") return item.freshness_status === "Recent";
-        if (inboxFilter === "later") return item.workflow_state === "later";
-        return true;
-      });
-      return inboxShowAll ? filtered : filtered.slice(0, 8);
-    }
-
-    function inboxCounts(items) {
-      return {
-        total: items.length,
-        highBuyer: items.filter((item) => item.expected_value === "Buyer" && item.intent_score === "High").length,
-        medium: items.filter((item) => item.intent_score === "Medium").length,
-        agingLater: items.filter((item) => ["Aging", "Archive"].includes(item.freshness_status) || item.workflow_state === "later").length
-      };
-    }
-
-    function inboxFilterLabel(filter) {
-      return { priority: "Priority", all: "All", high: "High Intent", buyer: "Buyer", partner: "Partner", fresh: "Fresh", recent: "Recent", later: "Later" }[filter];
-    }
-
-    function renderInboxPlatformRisk() {
-      const reddit = (state.platform_execution || []).find((item) => item.platform === "Reddit");
-      if (!reddit) return "";
-      return `<article class="card platform-risk" style="margin-top:12px;"><div class="head"><strong>Reddit Platform Risk</strong><span class="pill bad">${escapeHtml(reddit.risk_status)}</span></div><p>Reason：${escapeHtml(reddit.removed)} of ${escapeHtml(reddit.total_actions)} comments removed (${escapeHtml(reddit.removal_rate)}%).</p><p class="meta">Operating Rule：Comment-first, no links, no project mention.</p></article>`;
-    }
-
-    function renderReportsWorkspace() {
-      const nav = `<nav class="report-nav" aria-label="Reports 分类">${["overview", "platforms", "traffic", "lifecycle", "health", "archive"].map((page) => `<button type="button" data-reports-page="${page}" class="${reportsPage === page ? "active" : ""}">${reportPageLabel(page)}</button>`).join("")}</nav>`;
-      const pages = {
-        overview: `${renderBusinessSignals(state.business_signals)}${renderPlatformExecution((state.platform_execution || []).slice(0, 4))}<section class="grid">${renderLearning(state.learning)}${renderDiscoverySummary(state.discovery_summary)}</section>`,
-        platforms: `${renderPlatformExecution(state.platform_execution)}${renderPublished(state.published)}${renderReuseChains(state.reuse_chains)}`,
-        traffic: `${renderSearch()}${renderTrafficIntelligence(state.traffic_intelligence)}${renderOpportunities(state.opportunities)}`,
-        lifecycle: `<section class="grid">${renderReviewQueue(state.lifecycle.items)}${renderPublishingQueue(state.lifecycle.items)}</section>${renderLifecycle(state.lifecycle)}`,
-        health: `${renderDiscoverySummary(state.discovery_summary)}${renderInputs(state.input_options)}`,
-        archive: `${renderArchived(state.archived)}`
-      };
-      return `<section class="panel"><div class="head"><div><p class="section-label">Reports</p><h2>复盘与系统状态</h2></div></div>${nav}</section>${pages[reportsPage]}`;
-    }
-
-    function reportPageLabel(page) {
-      return { overview: "Overview", platforms: "Platforms", traffic: "Traffic & SEO", lifecycle: "Content Lifecycle", health: "System Health", archive: "Archive" }[page];
-    }
-
-    function setServerStatus(online) {
-      const target = document.getElementById("serverStatus");
-      if (!target) return;
-      target.innerHTML = `<span class="server-dot ${online ? "" : "offline"}"></span> ${online ? "Local server available" : "Local server unavailable"}`;
-    }
-
-    function renderBusinessSignals(items = []) {
-      return `
-        <section class="panel">
-          <div class="head">
-            <div>
-              <p class="section-label">Layer 1 · Decision</p>
-              <h2>Business Signals</h2>
-            </div>
-            <span class="pill neutral">保守统计</span>
-          </div>
-          <div class="signal-grid">${items.map((item) => `
-            <article class="card">
-              <p class="meta">${escapeHtml(item.label)}</p>
-              <span class="signal-value">${escapeHtml(item.value)}</span>
-              <p class="meta">${escapeHtml(item.note || "")}</p>
-            </article>
-          `).join("")}</div>
-        </section>
-      `;
-    }
-
-    function renderPlatformExecution(items = []) {
-      return `
-        <section class="panel">
-          <div class="head">
-            <div>
-              <p class="section-label">Layer 2 · Execution</p>
-              <h2>平台执行</h2>
-            </div>
-            <span class="pill neutral">${items.length} platforms</span>
-          </div>
-          <div class="platform-grid">${items.map((item) => `
-            <article class="card platform-card searchable" data-search="${searchText(item)}">
-              <div class="head">
-                <h3>${escapeHtml(item.platform)}</h3>
-                <span class="pill ${riskClass(item.risk_status)}">${escapeHtml(item.risk_status)}</span>
-              </div>
-              <p class="meta">Role：${escapeHtml(item.role)}</p>
-              <p><strong>Strategy：</strong>${escapeHtml(item.current_strategy)}</p>
-              <p><strong>Today：</strong>${escapeHtml(item.today_action)}</p>
-              <p><strong>Progress：</strong>${escapeHtml(item.progress)}</p>
-              <p><strong>Latest：</strong>${escapeHtml(item.latest_result)}</p>
-              <p class="meta">Risk reason：${escapeHtml(item.risk_reason)}</p>
-              <p class="meta">Recommended：${escapeHtml(item.recommended_action)}</p>
-              ${item.platform === "Reddit" ? `<p style="margin-top:8px;"><span class="pill bad">Removed ${escapeHtml(item.removed)} / ${escapeHtml(item.total_actions)} · ${escapeHtml(item.removal_rate)}%</span></p>` : ""}
-            </article>
-          `).join("")}</div>
-        </section>
-      `;
-    }
-
-    function renderOpportunities(items) {
-      return `
-        <section class="panel">
-          <h2>机会池</h2>
-          <div class="cards">${items.map((item) => `
-            <article class="card searchable" data-search="${searchText(item)}">
-              <div class="head">
-                <h3>${escapeHtml(item.id)}</h3>
-                <span class="pill ${item.priority === "HIGH" ? "high" : "neutral"}">${escapeHtml(item.priority_cn)}</span>
-              </div>
-              <p><strong>${escapeHtml(item.title)}</strong></p>
-              <p class="meta">来源：${escapeHtml(item.source_cn)} · 阶段：${escapeHtml(item.stage_cn)}</p>
-              <p class="meta">${escapeHtml(item.tags_cn.join(" · "))}</p>
-              <div class="scores">
-                ${scoreBox("SEO", item.seo_score)}
-                ${scoreBox("GEO", item.geo_score)}
-                ${scoreBox("商业", item.business_score)}
-              </div>
-              <p>状态：<span class="pill neutral">${escapeHtml(item.status_cn)}</span></p>
-            </article>
-          `).join("")}</div>
-        </section>
-      `;
-    }
-
-    function renderTrafficIntelligence(traffic) {
-      if (!traffic) return "";
-      return `
-        <section class="panel searchable" data-search="traffic cloudflare crawler legacy buyer health ${escapeHtml(Object.values(traffic).join(" ").toLowerCase())}">
-          <div class="head">
-            <h2>Traffic Intelligence</h2>
-            <span class="pill ${traffic.site_health === "ok" ? "high" : "bad"}">${escapeHtml(traffic.site_health)}</span>
-          </div>
-          <p>${escapeHtml(traffic.conclusion)}</p>
-          <div class="scores">
-            ${trafficBox("Crawler", traffic.crawler_traffic)}
-            ${trafficBox("Legacy", traffic.legacy_traffic)}
-            ${trafficBox("Buyer", traffic.buyer_intent_traffic)}
-          </div>
-          <p class="meta">建议：${escapeHtml(traffic.action)}</p>
-          ${traffic.report ? `<p style="margin-top:10px;"><a class="button secondary" href="/${escapeHtml(traffic.report)}" target="_blank" rel="noopener">查看 Cloudflare 报告</a></p>` : ""}
-        </section>
-      `;
-    }
-
-    function trafficBox(label, value) {
-      return `<div class="score"><span class="meta">${escapeHtml(label)}</span><b style="font-size:18px;">${escapeHtml(value)}</b></div>`;
-    }
-
-    function renderLifecycle(lifecycle) {
-      return `
-        <section class="panel">
-          <h2>内容生命周期</h2>
-          <div class="flow">${lifecycle.stages.map((step, index) => `${index ? `<span class="arrow">→</span>` : ""}<span class="step">${escapeHtml(step)}</span>`).join("")}</div>
-          <div class="scores">
-            ${scoreBox("草稿", lifecycle.summary.draft_ready)}
-            ${scoreBox("审核", lifecycle.summary.review_pending)}
-            ${scoreBox("已批准", lifecycle.summary.approved)}
-            ${scoreBox("待发布", lifecycle.summary.publish_ready)}
-            ${scoreBox("拒绝", lifecycle.summary.rejected)}
-            ${scoreBox("修改", lifecycle.summary.revision_required)}
-            ${scoreBox("已发布", lifecycle.summary.published)}
-            ${scoreBox("监测", lifecycle.summary.monitoring)}
-            ${scoreBox("学习", lifecycle.summary.learning)}
-          </div>
-          <div class="filters">
-            ${filterButton("status", "all", "全部状态")}
-            ${filterButton("status", "review_pending", "审核")}
-            ${filterButton("status", "approved", "已批准")}
-            ${filterButton("status", "publish_ready", "待发布")}
-            ${filterButton("status", "rejected", "已拒绝")}
-            ${filterButton("status", "revision_required", "需要修改")}
-            ${filterButton("status", "monitoring", "监测")}
-            ${filterButton("status", "learning", "学习")}
-          </div>
-          <div class="filters">
-            ${filterButton("platform", "all", "全部平台")}
-            ${state.input_options.platforms.map((platform) => filterButton("platform", platform, platform)).join("")}
-          </div>
-          <div class="cards">${lifecycle.items.map(renderLifecycleCard).join("")}</div>
-        </section>
-      `;
-    }
-
-    function renderReviewQueue(items) {
-      const queue = items.filter((item) => item.status === "review_pending");
-      return `
-        <section class="panel">
-          <h2>审核队列</h2>
-          <div class="cards">${queue.length ? queue.map((item) => `
-            <article class="card searchable" data-review-card="${escapeHtml(item.id)}" data-search="${searchText(item)}">
-              <div class="head">
-                <h3>${escapeHtml(item.id)}</h3>
-                <span class="pill warn">待审核</span>
-              </div>
-              <p><strong>${escapeHtml(item.title)}</strong></p>
-              <p style="margin-top:10px;"><a class="button secondary" href="${item.content_url}" target="_blank" rel="noopener">进入审核工作台</a></p>
-              <label style="display:block;margin-top:10px;"><span>审核备注</span><textarea data-review-note placeholder="Add FAQ / Reduce promotion tone / Need more factory examples"></textarea></label>
-              <div class="review-actions">
-                <button class="approve" type="button" data-review-action="approve" data-id="${escapeHtml(item.id)}">✅ 批准</button>
-                <button class="reject" type="button" data-review-action="reject" data-id="${escapeHtml(item.id)}">❌ 不批准</button>
-                <button class="revision" type="button" data-review-action="revision" data-id="${escapeHtml(item.id)}">✏️ 需要修改</button>
-              </div>
-              <p class="meta" data-review-status>保存到 review-actions.jsonl</p>
-            </article>
-          `).join("") : `<p class="meta">暂无待审核内容。</p>`}</div>
-          ${renderReviewHistory(state.lifecycle.review_history || [])}
-        </section>
-      `;
-    }
-
-    function renderReviewHistory(items) {
-      if (!items.length) return "";
-      return `
-        <details>
-          <summary>审核历史 · ${items.length}</summary>
-          <div class="list">${items.slice().reverse().map((item) => `
-            <p><strong>${escapeHtml(item.id)}</strong> ${escapeHtml(item.previous)} → ${escapeHtml(item.new)} · ${escapeHtml(item.date || "")}</p>
-          `).join("")}</div>
-        </details>
-      `;
-    }
-
-    function renderPublishingQueue(items) {
-      const queue = items.filter((item) => ["approved", "publish_ready"].includes(item.status));
-      return `
-        <section class="panel" id="publishing-queue">
-          <h2>发布队列</h2>
-          <div class="cards">${queue.length ? queue.map((item) => `
-            <article class="card searchable" data-search="${searchText(item)}">
-              <div class="head">
-                <h3>${escapeHtml(item.id)}</h3>
-                <span class="pill high">${escapeHtml(item.status_cn)}</span>
-              </div>
-              <p><strong>${escapeHtml(item.title)}</strong></p>
-              <p style="margin-top:10px;"><a class="button secondary" href="${publishWorkspaceUrl(item.id)}">打开发布内容</a></p>
-              <div class="chain">${item.platforms.map((platform) => `<span class="asset">${escapeHtml(platform.name)}：${escapeHtml(platform.status)}</span>`).join("")}</div>
-            </article>
-          `).join("") : `<p class="meta">暂无待发布内容。</p>`}</div>
-        </section>
-      `;
-    }
-
-    function renderLifecycleCard(item) {
-      const platforms = item.platforms.map((platform) => platform.name).join(",");
-      return `
-        <article class="card searchable" data-lifecycle-card data-status="${escapeHtml(item.status)}" data-platforms="${escapeHtml(platforms)}" data-search="${searchText(item)} ${escapeHtml(platforms)}">
-          <div class="head">
-            <h3>${escapeHtml(item.id)}</h3>
-            <span class="pill neutral">${escapeHtml(item.status_cn)}</span>
-          </div>
-          <p><strong>${escapeHtml(item.title)}</strong></p>
-          <p style="margin-top:10px;"><a class="button secondary" href="${item.content_url}" target="_blank" rel="noopener">进入审核工作台</a></p>
-          ${renderCompletion(item.completion)}
-          <div class="chain">${item.platforms.map((platform) => `<span class="asset">${escapeHtml(platform.name)}：${escapeHtml(platform.status)}</span>`).join("")}</div>
-          <div class="timeline">${item.timeline.map((row) => `<p><strong>${escapeHtml(row.date)}</strong> ${escapeHtml(row.event)}</p>`).join("")}</div>
-        </article>
-      `;
-    }
-
-    function publishWorkspaceUrl(id) {
-      return `/growth-os/review/${String(id || "").toLowerCase()}/?mode=publish`;
-    }
-
-    function renderReuseChains(items) {
-      return `
-        <section class="panel" id="assets">
-          <h2>内容复用链</h2>
-          <div class="cards">${items.map((item) => `
-            <article class="card searchable" data-search="${searchText(item)} ${escapeHtml(item.platform)} ${escapeHtml(item.status_cn)}">
-              <h3>${escapeHtml(item.id)} · ${escapeHtml(item.title)}</h3>
-              <div class="chain">${item.assets.map((asset, index) => `${index ? `<span class="arrow">→</span>` : ""}<span class="asset">${escapeHtml(asset)}</span>`).join("")}</div>
-            </article>
-          `).join("")}</div>
-        </section>
-      `;
-    }
-
-    function renderPublished(items) {
-      return `
-        <section class="panel">
-          <h2>已发布</h2>
-          <div class="list">${items.length ? items.map((item) => `
-            <article class="card">
-              <div class="head">
-                <h3>${escapeHtml(item.id)} / ${escapeHtml(item.platform)}</h3>
-                <span class="pill neutral">${escapeHtml(item.status_cn)}</span>
-              </div>
-              <p>${escapeHtml(item.title)}</p>
-              <p class="meta">发布时间：${escapeHtml(item.published_date || "待录入")}</p>
-              <p>发布链接：${item.url ? `<a href="${item.url}" target="_blank" rel="noopener">${escapeHtml(item.url)}</a>` : "待录入"}</p>
-              <p class="meta">下一次检查：${escapeHtml(item.next_check_date || "待定")}</p>
-              <div class="scores">
-                ${scoreBox("浏览", item.metrics.views)}
-                ${scoreBox("点击", item.metrics.clicks)}
-                ${scoreBox("询盘", item.metrics.leads)}
-              </div>
-            </article>
-          `).join("") : `<p class="meta">暂无已发布链接。</p>`}</div>
-        </section>
-      `;
-    }
-
-    function renderLearning(learning) {
-      return `
-        <section class="panel">
-          <h2>AI 策略建议</h2>
-          <div class="card">
-            <h3>最近发现</h3>
-            <p>${escapeHtml(learning.recent_pattern)}</p>
-            <p class="meta" style="margin-top:8px;">依据：${escapeHtml((learning.evidence || []).join(" · "))}</p>
-          </div>
-          <div class="card" style="margin-top:10px;">
-            <h3>建议</h3>
-            <p>${escapeHtml(learning.recommendation)}</p>
-          </div>
-        </section>
-      `;
-    }
-
-    function renderArchived(items) {
-      return `
-        <section class="panel">
-          <h2>Archived / 停止原因</h2>
-          <div class="cards">${items.length ? items.map((item) => `
-            <article class="card">
-              <h3>${escapeHtml(item.id)} · ${escapeHtml(item.title)}</h3>
-              <ul>${item.reasons.map((reason) => `<li>${escapeHtml(reason)}</li>`).join("")}</ul>
-            </article>
-          `).join("") : `<p class="meta">暂无归档项。</p>`}</div>
-        </section>
-      `;
-    }
-
-    function renderInputs(options) {
-      return `
-        <section class="grid">
-          <section class="panel">
-            <h2>添加客户信号</h2>
-            <form class="form-grid" data-signal-form>
-              <label><span>来源</span><input name="source" placeholder="Reddit / 客户对话 / LinkedIn"></label>
-              <label><span>阶段</span><select name="stage">${options.stages.map((stage) => `<option>${escapeHtml(stage)}</option>`).join("")}</select></label>
-              <label class="wide"><span>问题</span><textarea name="question" placeholder="买家真实问题"></textarea></label>
-              <label><span>痛点</span><input name="pain" placeholder="trust / deposit / quote"></label>
-              <label><span>关联 GO</span><input name="related_go" placeholder="GO-002"></label>
-              <p class="wide"><button type="submit">保存客户信号</button></p>
-              <p class="meta wide" id="signalStatus">保存到 buyer-signals.jsonl</p>
-            </form>
-          </section>
-          <section class="panel">
-            <h2>添加发布结果</h2>
-            <form class="form-grid" data-publish-form>
-              <label><span>GO ID</span><input name="content_id" placeholder="GO-002"></label>
-              <label><span>平台</span><select name="platform">${options.platforms.map((platform) => `<option>${escapeHtml(platform)}</option>`).join("")}</select></label>
-              <label class="wide"><span>URL</span><input name="url" placeholder="https://..."></label>
-              <label><span>浏览</span><input name="views" type="number" min="0" value="0"></label>
-              <label><span>点击</span><input name="clicks" type="number" min="0" value="0"></label>
-              <label><span>询盘</span><input name="leads" type="number" min="0" value="0"></label>
-              <p class="wide"><button type="submit">保存发布结果</button></p>
-              <p class="meta wide" id="publishStatus">保存到 published-content / social-metrics</p>
-            </form>
-          </section>
-        </section>
-      `;
-    }
-
-    function scoreBox(label, value) {
-      return `<div class="score"><span class="meta">${label}</span><b>${Number(value) || 0}</b></div>`;
-    }
-
-    function statusClass(status) {
-      if (["published", "monitoring", "learning"].includes(status)) return "high";
-      if (["review_pending", "approved", "publish_ready"].includes(status)) return "warn";
-      if (["rejected", "revision_required"].includes(status)) return "bad";
-      return "neutral";
-    }
-
-    function riskClass(status) {
-      if (status === "High") return "bad";
-      if (status === "Medium") return "warn";
-      return "high";
-    }
-
-    function actionButtonLabel(status) {
-      if (status === "review_pending") return "进入审核工作台";
-      if (["approved", "publish_ready"].includes(status)) return "打开发布内容";
-      if (["published", "monitoring", "learning"].includes(status)) return "查看内容";
-      if (status === "revision_required") return "查看修改要求";
-      return "查看内容包";
-    }
-
-    function renderCompletion(completion) {
-      if (!completion) return "";
-      return `
-        <div class="progress" aria-label="内容完成度 ${completion.progress}%"><span style="width:${completion.progress}%"></span></div>
-        <p class="meta">内容完成度：${completion.progress}%</p>
-        <div class="checklist">
-          <p>已完成：${completion.completed.map((item) => `✓ ${escapeHtml(item)}`).join(" · ")}</p>
-          <p class="meta">缺少：${completion.missing.map((item) => `⬜ ${escapeHtml(item)}`).join(" · ") || "无"}</p>
-        </div>
-      `;
-    }
-
-    function searchText(item) {
-      return escapeHtml(Object.values(item || {}).flatMap((value) => Array.isArray(value) ? value : [value]).join(" ").toLowerCase());
-    }
-
-    function filterButton(type, value, label) {
-      const active = type === "status" ? statusFilter === value : platformFilter === value;
-      return `<button type="button" data-filter-type="${type}" data-filter-value="${value}" class="${active ? "active" : ""}">${label}</button>`;
-    }
-
-    document.addEventListener("click", (event) => {
-      const workspaceButton = event.target.closest("[data-workspace-page]");
-      if (workspaceButton) {
-        window.location.hash = workspaceButton.dataset.workspacePage;
-        return;
-      }
-      const reviewButton = event.target.closest("[data-review-action]");
-      if (reviewButton) {
-        saveReviewAction(reviewButton);
-        return;
-      }
-      const discoveryButton = event.target.closest("[data-discovery-action]");
-      if (discoveryButton) {
-        if (discoveryButton.hasAttribute("data-confirm-ignore") && !window.confirm("确认忽略这条候选？")) return;
-        saveDiscoveryAction(discoveryButton);
-        return;
-      }
-      const inboxFilterButton = event.target.closest("[data-inbox-filter]");
-      if (inboxFilterButton) {
-        inboxFilter = inboxFilterButton.dataset.inboxFilter;
-        inboxShowAll = inboxFilter === "all";
-        render();
-        return;
-      }
-      if (event.target.closest("[data-inbox-show-all]")) {
-        inboxShowAll = true;
-        inboxFilter = "all";
-        render();
-        return;
-      }
-      const reportsButton = event.target.closest("[data-reports-page]");
-      if (reportsButton) {
-        reportsPage = reportsButton.dataset.reportsPage;
-        render();
-        return;
-      }
-      const copyButton = event.target.closest("[data-discovery-copy]");
-      if (copyButton) {
-        copyDiscoveryComment(copyButton);
-        return;
-      }
-      const button = event.target.closest("[data-filter-type]");
-      if (!button) return;
-      if (button.dataset.filterType === "status") statusFilter = button.dataset.filterValue;
-      if (button.dataset.filterType === "platform") platformFilter = button.dataset.filterValue;
-      applyFilters();
-    });
-
-    window.addEventListener("hashchange", () => {
-      workspacePage = workspacePageFromHash();
-      if (state) render();
-    });
-
-    document.getElementById("reloadData").addEventListener("click", main);
-
-    document.addEventListener("input", (event) => {
-      if (event.target.id === "globalSearch") applySearch();
-    });
-
-    async function saveReviewAction(button) {
-      const card = button.closest("[data-review-card]");
-      const status = card.querySelector("[data-review-status]");
-      await postJson(reviewActionUrl, {
-        id: button.dataset.id,
-        action: button.dataset.reviewAction,
-        note: card.querySelector("[data-review-note]").value
-      }, status);
-    }
-
-    async function saveDiscoveryAction(button) {
-      const card = button.closest("[data-discovery-card]");
-      const status = card.querySelector("[data-discovery-status]");
-      try {
-        const response = await fetch(discoveryActionUrl, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            id: button.dataset.id,
-            action: button.dataset.discoveryAction,
-            reply_url: card.querySelector("[data-reply-url]")?.value || ""
-          })
-        });
-        if (!response.ok) throw new Error(await response.text());
-        status.textContent = "已记录，正在刷新工作区。";
-        await main();
-      } catch (error) {
-        status.textContent = "Local Growth OS server is not available. Changes cannot be saved.";
-      }
-    }
-
-    async function copyDiscoveryComment(button) {
-      const item = [...(state.opportunity_inbox || []), ...(state.today_execution || []), ...(state.results || [])]
-        .find((candidate) => candidate.id === button.dataset.discoveryCopy);
-      const card = button.closest("[data-discovery-card]");
-      const status = card.querySelector("[data-discovery-status]");
-      try {
-        await navigator.clipboard.writeText(item?.suggested_comment || "");
-        status.textContent = "建议回复已复制。";
-      } catch {
-        status.textContent = "复制失败，请手动选择建议回复。";
-      }
+    function renderDebug() {
+      const collection = state.collection || {};
+      const sourceRows = (collection.sources || []).map((source) => `<li>${escapeHtml(source.platform)}: ${escapeHtml(source.status)}${source.message ? ` (${escapeHtml(source.message)})` : ""}</li>`).join("");
+      return `<details><summary>Debug</summary><div class="debug"><p><strong>Collection:</strong> ${escapeHtml(collection.message || "Not recorded")}</p><p class="meta">${escapeHtml(state.debug?.rule || "")}</p><p class="meta">Active candidates: ${escapeHtml(state.debug?.active_candidates || 0)} · Shown: ${escapeHtml(state.debug?.selected_opportunities || 0)}</p>${sourceRows ? `<ul class="meta">${sourceRows}</ul>` : ""}</div></details>`;
     }
 
     document.addEventListener("submit", async (event) => {
-      const signalForm = event.target.closest("[data-signal-form]");
-      const publishForm = event.target.closest("[data-publish-form]");
-      const manualDiscoveryForm = event.target.closest("[data-manual-discovery-form]");
-      if (!signalForm && !publishForm && !manualDiscoveryForm) return;
-      event.preventDefault();
-      if (signalForm) await postForm(signalUrl, signalForm, "signalStatus");
-      if (manualDiscoveryForm) await saveManualDiscovery(manualDiscoveryForm);
-      if (publishForm) {
-        const data = Object.fromEntries(new FormData(publishForm));
-        await postJson(publishUrl, {
-          content_id: data.content_id,
-          platform: data.platform,
-          status: Number(data.views || 0) || Number(data.clicks || 0) || Number(data.leads || 0) ? "measuring" : "published",
-          url: data.url,
-          published_date: new Date().toISOString().slice(0, 10),
-          metrics: {
-            views: Number(data.views) || 0,
-            likes: 0,
-            comments: 0,
-            clicks: Number(data.clicks) || 0,
-            leads: Number(data.leads) || 0
-          }
-        }, "publishStatus");
-      }
+      if (event.target.id === "keywordsForm") { event.preventDefault(); await saveKeywords(event.target); }
+      if (event.target.id === "manualForm") { event.preventDefault(); await saveManual(event.target); }
     });
 
-    async function saveManualDiscovery(form) {
-      const status = document.getElementById("manualDiscoveryStatus");
+    document.addEventListener("click", async (event) => {
+      const opportunity = event.target.closest("[data-copy-opportunity]");
+      if (opportunity) return copyText((state.opportunities || []).find((item) => item.id === opportunity.dataset.copyOpportunity)?.suggested_reply, opportunity.closest(".card"));
+      const draft = event.target.closest("[data-copy-draft]");
+      if (draft) return copyText((state.drafts || []).find((item) => item.id === draft.dataset.copyDraft)?.draft, draft.closest(".card"));
+      const mark = event.target.closest("[data-mark-published]");
+      if (mark) await markPublished(mark);
+    });
+
+    async function saveKeywords(form) {
+      const status = document.getElementById("keywordsStatus");
+      await post(keywordsUrl, { keywords: new FormData(form).get("keywords") }, status);
+    }
+
+    async function saveManual(form) {
+      const status = document.getElementById("manualStatus");
+      const result = await post(manualUrl, Object.fromEntries(new FormData(form)), status);
+      if (result) { status.textContent = result.added?.length ? "已加入机会列表。" : "该公开链接已存在。"; await load(); }
+    }
+
+    async function markPublished(button) {
+      const card = button.closest(".card");
+      const status = card.querySelector(".status");
+      const result = await post(publishedUrl, { draft_id: button.dataset.markPublished }, status);
+      if (result) { status.textContent = "已记录为人工发布。"; await load(); }
+    }
+
+    async function runAgent() {
+      const button = document.getElementById("runAgent");
+      button.disabled = true;
+      button.textContent = "Generating...";
       try {
-        const response = await fetch(manualDiscoveryUrl, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(Object.fromEntries(new FormData(form)))
-        });
+        const response = await fetch(runUrl, { method:"POST" });
         if (!response.ok) throw new Error(await response.text());
-        const result = await response.json();
-        status.textContent = result.added ? "已加入候选池，正在刷新看板。" : "该公开链接已在候选池中。";
-        window.setTimeout(() => window.location.reload(), 250);
-      } catch (error) {
-        status.textContent = "Local Growth OS server is not available. Changes cannot be saved.";
+        await load();
+      } catch {
+        document.getElementById("serverStatus").textContent = "Local server unavailable";
+      } finally {
+        button.disabled = false;
+        button.textContent = "Generate";
       }
     }
 
-    function applyFilters() {
-      document.querySelectorAll("[data-filter-type]").forEach((button) => {
-        const active = button.dataset.filterType === "status"
-          ? button.dataset.filterValue === statusFilter
-          : button.dataset.filterValue === platformFilter;
-        button.classList.toggle("active", active);
-      });
-      document.querySelectorAll("[data-lifecycle-card]").forEach((card) => {
-        const statusOk = statusFilter === "all" || card.dataset.status === statusFilter;
-        const platformOk = platformFilter === "all" || card.dataset.platforms.split(",").includes(platformFilter);
-        card.dataset.filterHidden = String(!statusOk || !platformOk);
-      });
-      applySearch();
-    }
 
-    function applySearch() {
-      const query = (document.getElementById("globalSearch")?.value || "").trim().toLowerCase();
-      document.querySelectorAll(".searchable").forEach((card) => {
-        const searchOk = !query || card.dataset.search.includes(query);
-        card.hidden = card.dataset.filterHidden === "true" || !searchOk;
-      });
-    }
-
-    async function postForm(url, form, statusId) {
-      await postJson(url, Object.fromEntries(new FormData(form)), statusId);
-    }
-
-    function discoverySourceLabel(value) {
-      const labels = {
-        reddit_rss: "Reddit RSS 新发现",
-        search: "公开搜索结果",
-        search_import: "搜索结果导入",
-        manual: "人工收集",
-        outreach_log: "已有外联日志"
-      };
-      return labels[value] || value || "Not recorded";
-    }
-
-    function discoveryModeLabel(value) {
-      if (value === "public_discovery") return "公开发现模式";
-      return "已有外联日志 + 人工收集 + 搜索结果导入";
-    }
-
-    async function postJson(url, body, statusTarget) {
-      const status = typeof statusTarget === "string" ? document.getElementById(statusTarget) : statusTarget;
+    async function post(url, body, status) {
       try {
-        const response = await fetch(url, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(body)
-        });
+        const response = await fetch(url, { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(body) });
         if (!response.ok) throw new Error(await response.text());
-        status.textContent = "已保存。重新运行 runtime 后会进入看板。";
-      } catch (error) {
-        status.textContent = "Local Growth OS server is not available. Changes cannot be saved.";
+        return response.json();
+      } catch {
+        status.textContent = "Local Social Content Agent server is not available. Changes cannot be saved.";
+        return null;
       }
     }
 
-    function formatDate(value) {
-      return value ? new Date(value).toLocaleString() : "unknown";
+    async function copyText(text, card) {
+      const status = card.querySelector(".status");
+      try { await navigator.clipboard.writeText(text || ""); status.textContent = "已复制。"; } catch { status.textContent = "复制失败，请手动选择文本。"; }
     }
 
-    function escapeHtml(value) {
-      return String(value ?? "").replace(/[&<>"']/g, (char) => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        "\"": "&quot;",
-        "'": "&#39;"
-      }[char]));
-    }
+    function setServerStatus(online) { document.getElementById("serverDot").classList.toggle("offline", !online); document.getElementById("serverStatus").textContent = online ? "Local server available" : "Local server unavailable"; }
+    function formatDate(value) { return value ? new Date(value).toLocaleString() : "unknown"; }
+    function escapeHtml(value) { return String(value ?? "").replace(/[&<>\"']/g, (char) => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", "\"":"&quot;", "'":"&#39;" }[char])); }
   </script>
 </body>
 </html>

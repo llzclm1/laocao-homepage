@@ -1,0 +1,15 @@
+[
+  {
+    "id": "SOC-0d10dacd",
+    "platform": "x",
+    "url": "https://x.com/DeryaTR_/status/2061124643637936566",
+    "title": "One person building an operating system using Codex",
+    "topic": "One person building an operating system using Codex",
+    "author": "Derya Unutmaz",
+    "note": "One person building an operating system using Codex.",
+    "suggested_reply": "Codex gives a one-person builder remarkable leverage, but code is only part of it. The hard part is defining system boundaries, deciding what stays human-reviewed, and keeping one source of truth as the project grows. AI compresses implementation time; the builder still owns the decisions.",
+    "status": "pending",
+    "discovered_at": "2026-07-11T00:00:00.000Z",
+    "source_method": "manual"
+  }
+]

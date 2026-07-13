@@ -1,5 +1,43 @@
 # CODEX_TASKS
 
+## 2026-07-13 有效积压总收口
+
+以下分类是当前有效口径；下方历史记录只作追溯，不再自动转为开发任务。
+
+### 已完成
+
+- [x] 审核四篇核心 Buyer Guide（deposit、sample questions、quotation comparison、factory vs trading）、Buyer Guides 索引、`/china-supplier-checklist/`、`/supplier-reply-review/` 的 canonical、schema、内链、CTA、构建发布和站内失效链接。
+- [x] 修复 Checklist 缺少 WebPage / BreadcrumbList schema，并增加静态验证断言；其余被审页面未发现需要修改的真实问题。
+- [x] 将 Social Content Agent 从 Growth OS 状态机中独立出来：保留 `Keywords → Opportunities → Drafts → Manual Publish`、真实公开 URL、人工审核和 Reddit Trust Building；不再依赖 RSS、搜索候选或旧台账。
+- [x] 建立精简人工发布队列：`docs/social/manual-publish-queue-2026-07-13.md`。
+- [x] 建立 GSC 28 天基线：13 展示、0 点击、平均排名 15.9，见 `docs/gsc/gsc-28-day-baseline-2026-07-13.md`。
+- [x] 本地运行 `npm run build`、`npm run verify:static`、Social Agent Node 检查和差异检查。
+
+### 等待真实数据
+
+- [ ] 2026-08-10 复查 GSC 过去 28 天总览与核心页 query/page；未拿到真实数据前不补数、不扩写、不删页。
+- [ ] External GEO、社媒互动、外链、Clarity、AI bot 和已发布内容表现，只在后台真实数据或人工确认后回填。
+- [ ] Supplier Reply Review 的提交量、有效对话和转化结果，等待真实使用数据。
+
+### 人工发布
+
+- [ ] 按 `docs/social/manual-publish-queue-2026-07-13.md` 人工审核 LinkedIn、X、Quora、Medium、Substack、Facebook 草稿；本轮只准备，不发布。
+- [ ] Reddit 暂无未发布且已核对的真实目标 URL；继续 Trust Building，必须无链接、无品牌、无 CTA、无私信引导。
+- [x] 浏览器端页面、真实机会、草稿数量和本地保存接口已完成验证。
+
+### 已取代
+
+- Growth OS Phase B、复杂默认 Growth OS 工作流和自动互动，已由轻量 Social Content Agent 人工闭环取代。
+- 旧 Reddit 获客模式（批量候选、追求回复量、带转化目的互动）已由 Reddit Trust Building 取代。
+- 更多自动采集器已由“真实公开 URL + 人工审核”口径取代，不继续实现。
+
+### 暂停
+
+- YouTube 扩展、更多视频批次、真实上传和 4 周扩展数据暂停；仅保留已有本地材料。
+- 游戏扩展、Godot 替换和新玩法开发暂停。
+- Growth OS 新模块、更多连接器、GEO 自动化和其他未验证扩展暂停。
+- `$CODEX_HOME/` 仅审计并排除，不纳入仓库处理；归属不明 dirty/untracked 不清理、不提交。
+
 ## 2026-07-13 GSC 内容入口
 
 - [x] 将 quotation comparison 与 factory-vs-trading 两篇现有 Buyer Guide 纳入正式构建和索引。

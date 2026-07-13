@@ -28,6 +28,10 @@ const legacyFreeReview = fs.readFileSync(path.join(dist, "free-supplier-reply-re
 assert.ok(legacyFreeReview.includes("../supplier-reply-review/"), "legacy free review path should redirect to supplier reply review");
 assert.equal(fs.existsSync(path.join(dist, "buyer-guides", "alibaba-vs-made-in-china-sourcing-safety")), false, "unpublished buyer guide should not be copied");
 assert.ok(fs.existsSync(path.join(dist, "china-supplier-checklist", "index.html")), "china supplier checklist page should exist");
+const supplierChecklistPage = fs.readFileSync(path.join(dist, "china-supplier-checklist", "index.html"), "utf8");
+assert.ok(supplierChecklistPage.includes('rel="canonical" href="https://gewuji.dev/china-supplier-checklist/"'), "supplier checklist should expose canonical URL");
+assert.ok(supplierChecklistPage.includes('"@type": "WebPage"'), "supplier checklist should expose WebPage schema");
+assert.ok(supplierChecklistPage.includes('"@type": "BreadcrumbList"'), "supplier checklist should expose breadcrumb schema");
 assert.ok(
   fs.existsSync(path.join(dist, "china-supplier-checklist", "china-supplier-verification-checklist.txt")),
   "downloadable china supplier checklist should exist"
