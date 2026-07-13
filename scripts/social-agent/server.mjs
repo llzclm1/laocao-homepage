@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import { addSocialAgentOpportunity, markSocialAgentDraftPublished, runSocialAgent, saveSocialAgentKeywords } from "./run.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
-const port = Number(process.env.PORT || 8787);
+const port = Number(process.env.PORT || 8790);
 const host = "127.0.0.1";
 const dashboard = path.join(root, "docs/growth-os/dashboard.html");
 const types = { ".html": "text/html; charset=utf-8", ".json": "application/json; charset=utf-8", ".txt": "text/plain; charset=utf-8" };

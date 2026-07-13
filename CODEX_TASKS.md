@@ -24,6 +24,7 @@
 - [ ] 按 `docs/social/manual-publish-queue-2026-07-13.md` 人工审核 LinkedIn、X、Quora、Medium、Substack、Facebook 草稿；本轮只准备，不发布。
 - [ ] Reddit 暂无未发布且已核对的真实目标 URL；继续 Trust Building，必须无链接、无品牌、无 CTA、无私信引导。
 - [x] 浏览器端页面、真实机会、草稿数量和本地保存接口已完成验证。
+- [x] 将轻量 Agent 正式入口固定为 `8790`，避免与仍占用 `8787` 的旧 Growth OS 服务冲突。
 
 ### 已取代
 

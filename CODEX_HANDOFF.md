@@ -11,7 +11,7 @@
 - 已取代：Growth OS Phase B、更多采集器、复杂默认 Growth OS、旧 Reddit 获客模式。
 - 暂停：YouTube 扩展、游戏扩展、Growth OS 新模块和所有缺少真实数据的长期扩展。
 - `CODEX_LOG.md` 有用户改动，本轮未修改。`$CODEX_HOME/` 和归属不明 dirty/untracked 未处理。
-- 独立运行入口为 `npm run social-agent`；默认地址 `http://127.0.0.1:8787/growth-os/dashboard`。
+- 独立运行入口为 `npm run social-agent`；正式地址 `http://127.0.0.1:8790/growth-os/dashboard`。`8787` 是旧 Growth OS 本地服务，不再作为轻量 Agent 正式入口。
 
 ## 2026-07-13 GSC 内容入口收敛
 
