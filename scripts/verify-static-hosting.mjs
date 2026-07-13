@@ -60,6 +60,7 @@ assert.ok(home.includes('href="for-buyers/"'), "homepage should link to the supp
 assert.ok(home.includes('href="field-materials/"'), "homepage should link to field materials");
 assert.equal(home.includes('href="tools/"'), false, "homepage should not link legacy tools");
 assert.ok(home.includes('href="ai-sitemap.json"'), "homepage should expose the AI sitemap");
+assert.equal(home.includes("googletagmanager.com"), false, "Google Analytics should be opt-in to protect default page performance");
 assert.equal(home.includes('id="guide"'), false, "homepage should not embed the utility navigation section");
 assert.equal(home.includes("工位突围：世界杯摸鱼版"), false, "homepage should not feature the world cup event banner");
 assert.equal(home.includes('href="tools/worldcup-advisor/"'), false, "homepage should not directly feature World Cup Advisor");
