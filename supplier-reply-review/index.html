@@ -334,44 +334,27 @@
           <div>
             <h2 id="contact-title">Review Supplier Reply</h2>
             <p class="bridge-contact-copy">
-              Send one supplier reply, quote, sample term, or payment detail. Gewuji can first check whether the communication is clear enough before the next payment or order step.
+              Email one focused supplier reply, quotation, sample term, or payment detail. Attach screenshots or documents after removing private customer information you do not want to share.
             </p>
+            <div class="bridge-actions">
+              <a
+                class="bridge-button primary"
+                href="#contact"
+                data-review-email-link
+              >Email the material</a>
+            </div>
           </div>
-          <form
-            class="bridge-form"
-            action="mailto:llzclm@gmail.com?subject=Supplier%20Reply%20Review"
-            enctype="text/plain"
-            method="post"
-          >
-            <label>
-              <span>Name</span>
-              <input type="text" name="name" autocomplete="name" />
-            </label>
-            <label>
-              <span>Email</span>
-              <input type="email" name="email" autocomplete="email" />
-            </label>
-            <label>
-              <span>Product category</span>
-              <input type="text" name="product_category" />
-            </label>
-            <label>
-              <span>Payment stage</span>
-              <input type="text" name="payment_stage" placeholder="Sample fee, deposit, tooling, larger order" />
-            </label>
-            <label class="full">
-              <span>Supplier reply or link</span>
-              <textarea name="supplier_reply" rows="5"></textarea>
-            </label>
-            <label class="full">
-              <span>What are you about to decide?</span>
-              <textarea name="decision_context" rows="4"></textarea>
-            </label>
-            <button class="bridge-button dark" type="submit">Review Supplier Reply</button>
-            <p class="bridge-form-note">
-              Email is also available directly: llzclm@gmail.com
-            </p>
-          </form>
+          <div class="bridge-callout">
+            <strong>Include four things</strong>
+            <p>1. Product category</p>
+            <p>2. Payment stage: sample fee, deposit, tooling, or larger order</p>
+            <p>3. The decision you are about to make</p>
+            <p>4. The supplier reply, quotation, invoice, or screenshots</p>
+            <br />
+            <strong>What happens next</strong>
+            <p>Gewuji separates confirmed information from unclear points, notes communication risks, and drafts the next questions. If the material is outside this scope, the reply will say so.</p>
+            <p>Email: <strong>llzclm@gmail.com</strong></p>
+          </div>
         </div>
       </section>
     </main>
@@ -392,5 +375,12 @@
         </nav>
       </div>
     </footer>
+    <script>
+      document.querySelectorAll("[data-review-email-link]").forEach((link) => {
+        link.href =
+          "mai" +
+          "lto:llzclm@gmail.com?subject=Supplier%20Reply%20Review&body=Product%20category%3A%0APayment%20stage%3A%0ADecision%20I%20am%20about%20to%20make%3A%0AWhat%20is%20unclear%3A%0A%0APlease%20attach%20the%20supplier%20reply%2C%20quotation%2C%20or%20screenshots.";
+      });
+    </script>
   </body>
 </html>

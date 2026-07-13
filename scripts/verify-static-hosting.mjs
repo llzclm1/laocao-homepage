@@ -21,6 +21,11 @@ assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "china-supplier-red-flag
 assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "chinese-factory-video-call-checklist", "index.html")), "dist/buyer-guides/chinese-factory-video-call-checklist/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "supplier-reply-review", "index.html")), "dist/supplier-reply-review/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "supplier-reply-review", "sample-report", "index.html")), "dist/supplier-reply-review/sample-report/index.html is missing");
+const supplierReplyReview = fs.readFileSync(path.join(dist, "supplier-reply-review", "index.html"), "utf8");
+assert.ok(supplierReplyReview.includes("data-review-email-link"), "supplier reply review should provide a client-built email action");
+assert.equal(supplierReplyReview.includes("<form"), false, "supplier reply review should not rely on a mailto form");
+const legacyFreeReview = fs.readFileSync(path.join(dist, "free-supplier-reply-review", "index.html"), "utf8");
+assert.ok(legacyFreeReview.includes("../supplier-reply-review/"), "legacy free review path should redirect to supplier reply review");
 assert.equal(fs.existsSync(path.join(dist, "buyer-guides", "alibaba-vs-made-in-china-sourcing-safety")), false, "unpublished buyer guide should not be copied");
 assert.ok(fs.existsSync(path.join(dist, "china-supplier-checklist", "index.html")), "china supplier checklist page should exist");
 assert.ok(

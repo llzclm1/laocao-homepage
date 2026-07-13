@@ -5,6 +5,8 @@
 - [x] 将 quotation comparison 与 factory-vs-trading 两篇现有 Buyer Guide 纳入正式构建和索引。
 - [x] 将 `/china-supplier-checklist/` 从跳转页改为可直接使用和下载的免费清单。
 - [ ] 发布后观察 28 天 GSC 查询词、核心页面展示和自然点击。
+- [x] 将 Supplier Reply Review 从不稳定的 mailto 表单改为明确的邮件提交入口。
+- [x] 修正 `/free-supplier-reply-review/` 到正式 Review 页面。
 
 ## 进行中
 

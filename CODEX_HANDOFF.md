@@ -6,6 +6,8 @@
 - quotation comparison 与 factory-vs-trading 已纳入 Buyer Guides 索引和静态构建发布清单。
 - `/china-supplier-checklist/` 已从重定向页改为无需登录的可下载检查清单，并连接到 Buyer Guides 与 Supplier Reply Review。
 - 下一步以 28 天 GSC 查询词、核心页面展示和真实点击验证，不继续扩展 Growth OS。
+- Supplier Reply Review 不再使用容易失效的 mailto 表单；页面明确列出提交材料、隐私处理和后续交付。
+- 旧入口 `/free-supplier-reply-review/` 已改为跳转到 `/supplier-reply-review/`，避免把高意图访客送到泛 Buyer 页面。
 
 ## 当前状态
 
