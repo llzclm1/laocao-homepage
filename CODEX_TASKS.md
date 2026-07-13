@@ -6,6 +6,8 @@
 
 ### 已完成
 
+- [x] 复核下一批 LinkedIn、X、Medium、Substack、Facebook 草稿的平台长度、重复主题、事实边界和推广风险；Quora、Reddit 因缺少真实目标 URL 继续暂停。队列见 `docs/social/manual-publish-queue-2026-07-13.md`。
+- [x] 修正唯一 X 机会卡建议回复超过 280 字符的问题，并重新生成 Social Agent 视图。
 - [x] 审核四篇核心 Buyer Guide（deposit、sample questions、quotation comparison、factory vs trading）、Buyer Guides 索引、`/china-supplier-checklist/`、`/supplier-reply-review/` 的 canonical、schema、内链、CTA、构建发布和站内失效链接。
 - [x] 修复 Checklist 缺少 WebPage / BreadcrumbList schema，并增加静态验证断言；其余被审页面未发现需要修改的真实问题。
 - [x] 将 Social Content Agent 从 Growth OS 状态机中独立出来：保留 `Keywords → Opportunities → Drafts → Manual Publish`、真实公开 URL、人工审核和 Reddit Trust Building；不再依赖 RSS、搜索候选或旧台账。

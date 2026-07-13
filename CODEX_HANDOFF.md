@@ -7,10 +7,11 @@
 - Social Content Agent 保留 `Keywords → Opportunities → Drafts → Manual Publish`。机会列表只展示 `data/social-agent/opportunities.json` 中人工审核的真实 HTTPS URL，不再依赖 RSS、搜索结果、旧台账或 Growth OS 状态机。
 - Reddit 保持 Trust Building：无链接、无品牌、无 CTA、无私信引导。当前没有未发布且已核对的 Reddit 目标 URL，因此人工队列明确暂停 Reddit，不伪造机会。
 - 人工发布队列：`docs/social/manual-publish-queue-2026-07-13.md`。覆盖 LinkedIn、X、Quora、Medium、Substack、Facebook、Reddit；只准备，未发布。
+- 2026-07-13 最终队列复核：LinkedIn 157 词、X 224 字符、Medium 815 词、Substack 612 词、Facebook 44 词，均可进入人工发布；Quora 缺真实问题 URL、Reddit 缺真实目标帖子，继续暂停。唯一 X 机会回复已压缩到 280 字符以内。
 - GSC 28 天基线：13 展示、0 点击、平均排名 15.9；下一检查日期 2026-08-10，详见 `docs/gsc/gsc-28-day-baseline-2026-07-13.md`。
 - 已取代：Growth OS Phase B、更多采集器、复杂默认 Growth OS、旧 Reddit 获客模式。
 - 暂停：YouTube 扩展、游戏扩展、Growth OS 新模块和所有缺少真实数据的长期扩展。
-- `CODEX_LOG.md` 有用户改动，本轮未修改。`$CODEX_HOME/` 和归属不明 dirty/untracked 未处理。
+- `CODEX_LOG.md` 有既有用户改动，本轮未将其纳入提交。`$CODEX_HOME/` 和归属不明 dirty/untracked 未处理。
 - 独立运行入口为 `npm run social-agent`；正式地址 `http://127.0.0.1:8790/growth-os/dashboard`。`8787` 是旧 Growth OS 本地服务，不再作为轻量 Agent 正式入口。
 
 ## 2026-07-13 GSC 内容入口收敛
