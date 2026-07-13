@@ -242,6 +242,8 @@ const buyerGuidesPage = fs.readFileSync(path.join(dist, "buyer-guides/index.html
 const spanishBuyerGuidesPage = fs.readFileSync(path.join(dist, "es/buyer-guides/index.html"), "utf8");
 const spanishPaymentGuidePage = fs.readFileSync(path.join(dist, "es/buyer-guides/como-revisar-un-proveedor-chino-antes-de-pagar/index.html"), "utf8");
 const paymentGuidePage = fs.readFileSync(path.join(dist, "buyer-guides/verify-chinese-supplier-before-deposit/index.html"), "utf8");
+const quotationGuidePage = fs.readFileSync(path.join(dist, "buyer-guides/compare-chinese-supplier-quotations-beyond-price/index.html"), "utf8");
+const supplierRoleGuidePage = fs.readFileSync(path.join(dist, "buyer-guides/chinese-factory-or-trading-company/index.html"), "utf8");
 const supplierReplyReviewPage = fs.readFileSync(path.join(dist, "supplier-reply-review/index.html"), "utf8");
 const supplierReplySamplePage = fs.readFileSync(path.join(dist, "supplier-reply-review/sample-report/index.html"), "utf8");
 const supplierReplyExamplesPage = fs.readFileSync(path.join(dist, "supplier-reply-review/examples/index.html"), "utf8");
@@ -256,6 +258,11 @@ assert.ok(buyerGuidesPage.includes('"item": "https://gewuji.dev/buyer-guides/'),
 assert.ok(spanishBuyerGuidesPage.includes('"item": "https://gewuji.dev/es/buyer-guides/'), "Spanish buyer guide ItemList entries should use schema.org item URLs");
 assert.equal(fieldMaterialsPage.includes('"name": "Field material signal categories"'), false, "field materials should not expose incomplete ListItem schema");
 assert.ok(paymentGuidePage.includes('"logo": {"@type": "ImageObject"'), "buyer guide publisher schema should include a logo");
+assert.ok(quotationGuidePage.includes('"@type":"Article"'), "quotation guide should include Article schema");
+assert.ok(quotationGuidePage.includes("../../supplier-reply-review/"), "quotation guide should link to supplier reply review");
+assert.ok(supplierRoleGuidePage.includes('"@type":"Article"'), "supplier role guide should include Article schema");
+assert.ok(supplierRoleGuidePage.includes("../../china-supplier-checklist/"), "supplier role guide should link to the checklist");
+assert.equal(supplierRoleGuidePage.includes("alibaba-vs-made-in-china-sourcing-safety"), false, "supplier role guide should not link to an unpublished guide");
 assert.ok(factoryPage.includes('rel="canonical" href="https://gewuji.dev/for-factories/"'), "factory page should expose canonical URL");
 assert.ok(factoryPage.includes("工厂对外资料重构"), "factory page should include factory material rewrite SEO copy");
 assert.ok(factoryPage.includes('id="material-rewrite"'), "factory page should expose material rewrite anchor");

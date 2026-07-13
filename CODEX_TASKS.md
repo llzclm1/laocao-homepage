@@ -7,6 +7,8 @@
 - [ ] 发布后观察 28 天 GSC 查询词、核心页面展示和自然点击。
 - [x] 将 Supplier Reply Review 从不稳定的 mailto 表单改为明确的邮件提交入口。
 - [x] 修正 `/free-supplier-reply-review/` 到正式 Review 页面。
+- [x] 为 quotation comparison 与 factory-vs-trading 页面补结构化数据和明确转化内链。
+- [x] 清理 factory-vs-trading 页面指向未发布文章的 404 链接。
 
 ## 进行中
 
