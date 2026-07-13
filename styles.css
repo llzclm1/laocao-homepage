@@ -3691,7 +3691,7 @@ h2 {
 .warm-home {
   --warm-ink: #f6f0e6;
   --warm-muted: #c8b99f;
-  --warm-dim: #9f927d;
+  --warm-dim: #c8b99f;
   --warm-line: rgba(246, 240, 230, .18);
   --warm-line-soft: rgba(246, 240, 230, .14);
   --warm-accent: #b8893b;
