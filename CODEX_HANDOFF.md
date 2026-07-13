@@ -11,6 +11,9 @@
 - GSC 28 天基线：13 展示、0 点击、平均排名 15.9；下一检查日期 2026-08-10，详见 `docs/gsc/gsc-28-day-baseline-2026-07-13.md`。
 - 已取代：Growth OS Phase B、更多采集器、复杂默认 Growth OS、旧 Reddit 获客模式。
 - 暂停：YouTube 扩展、游戏扩展、Growth OS 新模块和所有缺少真实数据的长期扩展。
+- 当前没有可继续离线开发的有效积压；后续只由真实数据、真实目标 URL 或用户明确授权的人工发布触发。
+- 旧“进行中”、批量社媒、Growth OS、游戏和 YouTube 历史任务已移至 `docs/archive/codex-tasks-history-before-2026-07-13.md`，不再作为当前任务。
+- 已创建只读真实数据提醒：2026-07-20 Factory Bridge 增长数据、2026-08-10 主站 GSC 28 天、2026-08-13 Factory Bridge AI bot 与引用复查，均为北京时间 20:00。
 - `CODEX_LOG.md` 有既有用户改动，本轮未将其纳入提交。`$CODEX_HOME/` 和归属不明 dirty/untracked 未处理。
 - 独立运行入口为 `npm run social-agent`；正式地址 `http://127.0.0.1:8790/growth-os/dashboard`。`8787` 是旧 Growth OS 本地服务，不再作为轻量 Agent 正式入口。
 
