@@ -173,6 +173,7 @@ assert.ok(sitemap.includes("/buyer-guides/chinese-factory-video-call-checklist/"
 assert.ok(sitemap.includes("/buyer-guides/compare-chinese-supplier-quotations-beyond-price/"), "sitemap should include quotation comparison guide");
 assert.ok(sitemap.includes("/buyer-guides/chinese-factory-or-trading-company/"), "sitemap should include factory-or-trading guide");
 assert.ok(sitemap.includes("/supplier-reply-review/"), "sitemap should include supplier reply review page");
+assert.ok(sitemap.includes("/supplier-reply-review/methodology/"), "sitemap should include supplier reply review methodology");
 assert.ok(sitemap.includes("/supplier-reply-review/sample-report/"), "sitemap should include supplier reply review sample report");
 assert.equal(sitemap.includes("/buyer-guides/alibaba-vs-made-in-china-sourcing-safety/"), false, "sitemap should not include unpublished buyer guides");
 assert.ok(sitemap.includes("/china-supplier-checklist/"), "sitemap should include the published checklist page");
@@ -182,7 +183,7 @@ assert.equal(sitemap.includes("/fq-template-for-chinese-suppliers/"), false, "si
 assert.ok(sitemap.includes("/ai-sitemap.json"), "sitemap should include /ai-sitemap.json");
 assert.ok(sitemap.includes("/es/buyer-guides/"), "sitemap should include /es/buyer-guides/");
 assert.ok(sitemap.includes("/es/buyer-guides/como-revisar-un-proveedor-chino-antes-de-pagar/"), "sitemap should include the first Spanish buyer guide");
-assert.ok(sitemap.includes("/for-factories/"), "sitemap should include /for-factories/");
+assert.equal(sitemap.includes("/for-factories/"), false, "sitemap should not include the migrated /for-factories/ URL");
 assert.ok(sitemap.includes("/for-buyers/"), "sitemap should include /for-buyers/");
 assert.ok(sitemap.includes("/field-materials/"), "sitemap should include /field-materials/");
 assert.ok(sitemap.includes("/en/field-materials/"), "sitemap should include /en/field-materials/");

@@ -377,8 +377,8 @@ function buildSitemap() {
     ...publishedSpanishBuyerGuides.map((slug) => [`es/buyer-guides/${slug}/`, "0.5"]),
     ["for-buyers/", "0.9"],
     ["supplier-reply-review/", "0.8"],
+    ["supplier-reply-review/methodology/", "0.7"],
     ["supplier-reply-review/sample-report/", "0.7"],
-    ["for-factories/", "0.9"],
     ["field-materials/", "0.8"],
     ["en/field-materials/", "0.7"],
     ["contact/", "0.5"],
@@ -444,7 +444,7 @@ function buildAiSitemap() {
         boundaries: ["not a factory audit", "not legal due diligence", "not quality inspection", "does not guarantee supplier reliability or order safety"]
       },
       {
-        url: publicUrl("for-factories/"),
+        url: "https://factory.gewuji.dev/for-factories/",
         title: "格物集｜工厂对外资料重构",
         type: "Service",
         summary: "格物集帮助国内工厂重构产品页、工厂介绍、开发信、车间照片和实拍素材，让对外宣传资料更符合海外采购商的阅读和判断习惯。",
@@ -459,7 +459,32 @@ function buildAiSitemap() {
         summary: "Gewuji reviews one supplier reply, quote, sample term, or payment detail before sample fees, deposits, tooling money, or larger orders, highlighting unclear terms, missing details, risk signals, and next questions.",
         answers: ["review supplier reply before paying sample fee", "unclear supplier reply before deposit", "questions before paying Chinese supplier"],
         keywords: ["supplier reply review", "Chinese supplier reply", "sample fee", "deposit", "tooling money", "missing terms"],
-        boundaries: ["not a factory audit", "not legal due diligence", "not quality inspection", "does not guarantee supplier reliability or payment safety"]
+        boundaries: ["not a factory audit", "not legal due diligence", "not quality inspection", "does not guarantee supplier reliability or payment safety"],
+        relatedPages: [
+          publicUrl("supplier-reply-review/methodology/"),
+          publicUrl("supplier-reply-review/examples/"),
+          publicUrl("supplier-reply-review/sample-report/")
+        ]
+      },
+      {
+        url: publicUrl("supplier-reply-review/methodology/"),
+        title: "How We Review Chinese Supplier Replies | GewuJi",
+        type: "WebPage",
+        summary: "GewuJi's Supplier Reply Review methodology explains how supplier communication is examined for visible information, missing details, and clearer follow-up questions before buyers make decisions.",
+        answers: ["what is supplier reply review", "how to review a Chinese supplier reply", "how to identify missing information in supplier communication"],
+        keywords: ["supplier reply review methodology", "Chinese supplier communication", "missing information", "follow-up questions"],
+        boundaries: ["not supplier verification", "not a factory audit", "not legal due diligence", "not quality inspection", "does not guarantee supplier reliability"],
+        parent: publicUrl("supplier-reply-review/")
+      },
+      {
+        url: publicUrl("supplier-reply-review/examples/"),
+        title: "Supplier Reply Review Examples",
+        type: "CollectionPage",
+        summary: "Examples showing how supplier replies can be organized into visible information, missing details, and follow-up questions.",
+        answers: ["supplier reply review examples", "missing details in supplier replies", "follow-up questions for Chinese suppliers"],
+        keywords: ["supplier reply examples", "Chinese supplier communication", "missing details", "follow-up questions"],
+        boundaries: ["examples do not verify suppliers", "not a factory audit", "does not guarantee supplier reliability"],
+        parent: publicUrl("supplier-reply-review/")
       },
       {
         url: publicUrl("supplier-reply-review/sample-report/"),
@@ -468,7 +493,8 @@ function buildAiSitemap() {
         summary: "A generic sample report showing how Gewuji reviews a Chinese supplier reply before sample fees, deposits, tooling money, or larger orders, including missing details, risk signals, next questions, and a suggested reply.",
         answers: ["sample supplier reply review report", "what does a supplier reply review include", "supplier reply review example before payment"],
         keywords: ["supplier reply review sample", "Chinese supplier reply", "sample fee", "deposit", "risk signals", "suggested reply"],
-        boundaries: ["generic sample only", "not a real supplier case", "not a factory audit", "not legal due diligence", "not quality inspection", "does not guarantee supplier reliability or payment safety"]
+        boundaries: ["generic sample only", "not a real supplier case", "not a factory audit", "not legal due diligence", "not quality inspection", "does not guarantee supplier reliability or payment safety"],
+        parent: publicUrl("supplier-reply-review/")
       },
       {
         url: publicUrl("free-supplier-reply-review/"),

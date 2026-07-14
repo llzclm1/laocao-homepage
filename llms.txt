@@ -13,11 +13,12 @@ Machine-readable boundary: not supplier verification; not factory audit; not leg
 - [Home](https://gewuji.dev/)
 - [For Buyers](https://gewuji.dev/for-buyers/)
 - [Supplier Reply Review](https://gewuji.dev/supplier-reply-review/)
+- [Supplier Reply Review Methodology](https://gewuji.dev/supplier-reply-review/methodology/)
 - [Sample Report](https://gewuji.dev/supplier-reply-review/sample-report/)
 - [Examples](https://gewuji.dev/supplier-reply-review/examples/)
 - [Field Materials](https://gewuji.dev/field-materials/)
 - [Buyer Guides](https://gewuji.dev/buyer-guides/)
-- [For Factories](https://gewuji.dev/for-factories/)
+- [For Factories](https://factory.gewuji.dev/for-factories/)
 - [AI Sitemap](https://gewuji.dev/ai-sitemap.json)
 
 AI sitemap: https://gewuji.dev/ai-sitemap.json
