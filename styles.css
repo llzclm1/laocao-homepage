@@ -26,6 +26,148 @@
   --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
+/* Shared link visibility for buyer-facing Bridge pages. */
+.bridge-page {
+  --bridge-link: #14543f;
+  --bridge-link-visited: #5c3f72;
+  --bridge-link-focus: #f0b84b;
+}
+
+.bridge-page main :is(p, li, blockquote) > a:not(.bridge-button):not(.bridge-resource-link),
+.bridge-page .bridge-card h3 > a {
+  color: var(--bridge-link);
+  font-weight: 760;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: .2em;
+}
+
+.bridge-page main :is(p, li, blockquote) > a:not(.bridge-button):not(.bridge-resource-link):visited,
+.bridge-page .bridge-card h3 > a:visited {
+  color: var(--bridge-link-visited);
+}
+
+.bridge-page main a:focus-visible,
+.bridge-page .bridge-footer a:focus-visible,
+.bridge-page .bridge-nav a:focus-visible {
+  border-radius: 4px;
+  outline: 3px solid var(--bridge-link-focus);
+  outline-offset: 3px;
+}
+
+.bridge-page .bridge-card h3 > a::after,
+.bridge-page .bridge-button[href]::after {
+  margin-left: .35em;
+  content: "→";
+}
+
+.bridge-related-links {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 24px !important;
+}
+
+.bridge-resource-link {
+  display: flex;
+  min-height: 76px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  border: 1px solid rgba(20, 84, 63, .28);
+  border-radius: 8px;
+  padding: 16px 18px;
+  color: var(--bridge-link) !important;
+  background: rgba(255, 255, 255, .72);
+  font-weight: 760;
+  line-height: 1.35;
+  text-decoration: none;
+}
+
+.bridge-resource-link::after {
+  flex: 0 0 auto;
+  font-size: 1.1em;
+  content: "→";
+}
+
+.bridge-resource-link:hover {
+  border-color: var(--bridge-link);
+  background: #fff;
+}
+
+.bridge-nav a[aria-current="page"] {
+  color: var(--bridge-text-dark);
+  background: rgba(20, 84, 63, .1);
+  box-shadow: inset 0 -2px 0 var(--bridge-link);
+}
+
+.bridge-footer a {
+  color: var(--bridge-link);
+  text-decoration: underline;
+  text-underline-offset: .2em;
+}
+
+.bridge-faq-list {
+  display: grid;
+  gap: 10px;
+}
+
+.bridge-faq-list > h2 {
+  margin-bottom: 12px;
+}
+
+.bridge-faq-item {
+  border: 1px solid var(--bridge-line-dark);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, .7);
+}
+
+.bridge-faq-item summary {
+  position: relative;
+  min-height: 52px;
+  padding: 16px 54px 16px 18px;
+  color: var(--bridge-text-dark);
+  cursor: pointer;
+  font-weight: 760;
+  list-style: none;
+}
+
+.bridge-faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.bridge-faq-item summary::after {
+  position: absolute;
+  top: 50%;
+  right: 18px;
+  color: var(--bridge-link);
+  font-size: 22px;
+  transform: translateY(-50%);
+  content: "+";
+}
+
+.bridge-faq-item[open] summary::after {
+  content: "−";
+}
+
+.bridge-faq-answer {
+  padding: 0 18px 18px;
+}
+
+.bridge-faq-answer p {
+  margin: 0;
+}
+
+@media (max-width: 760px) {
+  .bridge-related-links {
+    grid-template-columns: 1fr;
+  }
+
+  .bridge-resource-link {
+    min-height: 56px;
+  }
+}
+
 * {
   box-sizing: border-box;
 }
@@ -4336,6 +4478,12 @@ h2 {
   .warm-home .site-footer {
     justify-content: flex-start;
   }
+}
+
+.bridge-page .bridge-footer a {
+  color: var(--bridge-link);
+  text-decoration: underline;
+  text-underline-offset: .2em;
 }
 
 /* Factory Bridge project pages. Scoped to /for-buyers/, /for-factories/ and /field-materials/. */

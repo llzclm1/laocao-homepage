@@ -66,6 +66,7 @@ const copyEntries = [
   "index.html",
   "lab",
   "llms.txt",
+  "link-visibility.js",
   "m",
   "marketing-events.js",
   "nav",
@@ -99,6 +100,7 @@ rewriteTextFile("SEARCH_ENGINE_SUBMISSION.md", (text) =>
   text.replaceAll("https://gewuji.dev", publicBaseUrl)
 );
 injectAnalyticsTags();
+injectLinkVisibility();
 injectContentAssistantSeo();
 injectContentAssistantConfig();
 pruneUnpublishedBuyerGuides();
@@ -183,6 +185,16 @@ function injectAnalyticsTags() {
     if (!tags) continue;
     const cleanHtml = removeGoogleAnalyticsTag(html);
     fs.writeFileSync(file, cleanHtml.replace(headMatch[0], `${headMatch[0]}\n${tags}`), "utf8");
+  }
+}
+
+function injectLinkVisibility() {
+  const tag = `    <script defer src="${publicUrl("link-visibility.js")}"></script>`;
+  for (const file of listHtmlFiles(outDir)) {
+    const html = fs.readFileSync(file, "utf8");
+    if (!/<body\b[^>]*class=["'][^"']*bridge-page/i.test(html) || !html.includes("</head>")) continue;
+    const cleanHtml = html.replace(/\s*<script defer src="[^"]*link-visibility\.js"><\/script>/g, "");
+    fs.writeFileSync(file, cleanHtml.replace("</head>", `${tag}\n  </head>`), "utf8");
   }
 }
 

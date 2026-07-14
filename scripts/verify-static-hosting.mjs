@@ -27,10 +27,15 @@ assert.ok(fs.existsSync(path.join(dist, "supplier-reply-review", "index.html")),
 assert.ok(fs.existsSync(path.join(dist, "supplier-reply-review", "sample-report", "index.html")), "dist/supplier-reply-review/sample-report/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "supplier-reply-review", "before-payment", "index.html")), "dist/supplier-reply-review/before-payment/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "marketing-events.js")), "dist/marketing-events.js is missing");
+assert.ok(fs.existsSync(path.join(dist, "link-visibility.js")), "dist/link-visibility.js is missing");
 const supplierReplyReview = fs.readFileSync(path.join(dist, "supplier-reply-review", "index.html"), "utf8");
+const linkVisibility = fs.readFileSync(path.join(dist, "link-visibility.js"), "utf8");
 assert.ok(supplierReplyReview.includes('data-page-type="supplier_reply_review"'), "supplier reply review should track page views");
 assert.ok(supplierReplyReview.includes("googletagmanager.com/gtag/js?id=G-NCZSC59MVC"), "supplier reply review should load the main-domain GA4 stream");
 assert.ok(supplierReplyReview.includes("data-review-email-link"), "supplier reply review should provide a client-built email action");
+assert.ok(supplierReplyReview.includes("link-visibility.js"), "supplier reply review should load shared link visibility behavior");
+assert.ok(linkVisibility.includes("bridge-related-links"), "link visibility behavior should enhance related resource links");
+assert.ok(linkVisibility.includes("bridge-faq-item"), "link visibility behavior should enhance FAQ rows");
 assert.equal(supplierReplyReview.includes("<form"), false, "supplier reply review should not rely on a mailto form");
 assert.ok(supplierReplyReview.includes('data-track-event="outbound_email_click"'), "supplier reply review should track email handoff");
 assert.ok(supplierReplyReview.includes('"@id": "https://gewuji.dev/#website"'), "supplier reply review should reference the existing website entity");
