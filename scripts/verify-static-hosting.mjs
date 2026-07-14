@@ -31,6 +31,8 @@ const supplierReplyReview = fs.readFileSync(path.join(dist, "supplier-reply-revi
 assert.ok(supplierReplyReview.includes("data-review-email-link"), "supplier reply review should provide a client-built email action");
 assert.equal(supplierReplyReview.includes("<form"), false, "supplier reply review should not rely on a mailto form");
 assert.ok(supplierReplyReview.includes('data-track-event="outbound_email_click"'), "supplier reply review should track email handoff");
+assert.ok(supplierReplyReview.includes('"@id": "https://gewuji.dev/#website"'), "supplier reply review should reference the existing website entity");
+assert.ok(supplierReplyReview.includes('"@id": "https://gewuji.dev/#organization"'), "supplier reply review should reference the existing organization entity");
 const paidReviewLanding = fs.readFileSync(path.join(dist, "supplier-reply-review", "before-payment", "index.html"), "utf8");
 assert.ok(paidReviewLanding.includes('<meta name="robots" content="noindex, follow"'), "paid review landing page should stay out of organic discovery");
 assert.ok(paidReviewLanding.includes('data-page-type="paid_landing"'), "paid review landing page should track landing views");
@@ -38,8 +40,7 @@ assert.ok(paidReviewLanding.includes('data-track-form="paid_supplier_reply_revie
 assert.equal(paidReviewLanding.includes('type="file"'), false, "paid review landing page should not collect supplier files");
 const sampleReviewReport = fs.readFileSync(path.join(dist, "supplier-reply-review", "sample-report", "index.html"), "utf8");
 assert.ok(sampleReviewReport.includes('data-page-type="sample_report"'), "sample report should track report views");
-const legacyFreeReview = fs.readFileSync(path.join(dist, "free-supplier-reply-review", "index.html"), "utf8");
-assert.ok(legacyFreeReview.includes("../supplier-reply-review/"), "legacy free review path should redirect to supplier reply review");
+assert.equal(fs.existsSync(path.join(dist, "free-supplier-reply-review")), false, "legacy free review HTML should not be deployed behind the edge redirect");
 assert.equal(fs.existsSync(path.join(dist, "buyer-guides", "alibaba-vs-made-in-china-sourcing-safety")), false, "unpublished buyer guide should not be copied");
 assert.ok(fs.existsSync(path.join(dist, "china-supplier-checklist", "index.html")), "china supplier checklist page should exist");
 const supplierChecklistPage = fs.readFileSync(path.join(dist, "china-supplier-checklist", "index.html"), "utf8");
@@ -253,6 +254,7 @@ assert.ok(aiSitemapPaths.includes("/buyer-guides/sample-order-email-template-for
 assert.ok(aiSitemapPaths.includes("/buyer-guides/how-to-compare-chinese-suppliers/"), "AI sitemap should include supplier comparison guide");
 assert.ok(aiSitemapPaths.includes("/supplier-reply-review/"), "AI sitemap should include supplier reply review page");
 assert.ok(aiSitemapPaths.includes("/supplier-reply-review/sample-report/"), "AI sitemap should include supplier reply review sample report");
+assert.equal(aiSitemapPaths.includes("/free-supplier-reply-review/"), false, "AI sitemap should not include the legacy review URL");
 assert.equal(aiSitemapPaths.includes("/tools/photo-booth/"), false, "AI sitemap should not elevate old photo booth pages");
 assert.equal(aiSitemapPaths.includes("/tools/worldcup-advisor/advisor/"), false, "AI sitemap should not elevate World Cup Advisor pages");
 assert.ok(aiSitemapPaths.includes("/for-factories/"), "AI sitemap should include the factory bridge factory page");

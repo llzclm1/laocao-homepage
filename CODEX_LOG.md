@@ -1,5 +1,10 @@
 # CODEX_LOG
 
+## 2026-07-14 Supplier Reply Review 旧入口 301 收口
+
+- 将 `/free-supplier-reply-review/` 从客户端跳转升级为 Cloudflare HTTP 301，保留查询参数并单跳到正式 Supplier Reply Review 页面。
+- 构建停止发布旧 HTML 页面，AI Sitemap 删除旧 URL；未修改历史 backlink、推广和 migration 记录。
+
 ## 2026-07-14
 
 - 完成主站与 Factory 域站内链接边界清理：主站 Buyer 链接留在主域，Supplier Reply Review 作为核心转化页，For Chinese Factories 独立指向 Factory 服务页。

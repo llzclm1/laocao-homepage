@@ -1,5 +1,11 @@
 # CODEX_HANDOFF
 
+## 2026-07-14 Supplier Reply Review 旧入口 301 收口
+
+- Cloudflare 已启用精确路径规则：`/free-supplier-reply-review/` 单跳 301 到 `/supplier-reply-review/`，并保留 query string。
+- 构建不再发布旧 HTML 跳转页，AI Sitemap 已删除旧 URL；XML Sitemap、`llms.txt` 和历史推广记录保持不变。
+- 正式目标页继续使用 self-canonical，并引用现有 `#website` 与 `#organization` 实体。
+
 ## 2026-07-14 主站与 Factory 链接边界收口
 
 - 主站统一导航为 Home、For Buyers、Supplier Reply Review、Field Materials、Contact，并独立指向 Factory 的 For Chinese Factories。

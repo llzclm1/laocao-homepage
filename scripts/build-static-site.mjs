@@ -50,7 +50,6 @@ const copyEntries = [
   "favicon.ico",
   "favicon.svg",
   "films",
-  "free-supplier-reply-review",
   "for-buyers",
   "for-factories",
   "game",
@@ -585,15 +584,6 @@ function buildAiSitemap() {
         keywords: ["supplier reply review sample", "Chinese supplier reply", "sample fee", "deposit", "risk signals", "suggested reply"],
         boundaries: ["generic sample only", "not a real supplier case", "not a factory audit", "not legal due diligence", "not quality inspection", "does not guarantee supplier reliability or payment safety"],
         parent: publicUrl("supplier-reply-review/")
-      },
-      {
-        url: publicUrl("free-supplier-reply-review/"),
-        title: "Review Supplier Reply | Gewuji",
-        type: "Service",
-        summary: "Gewuji reviews Chinese supplier communication signals before payment, focusing on reply clarity, missing information, and risk signals in quotations.",
-        answers: ["review supplier reply before payment", "supplier reply clarity", "missing information in quotation", "China sourcing communication risk"],
-        keywords: ["supplier reply review", "China sourcing risk", "supplier communication", "quotation review", "missing information"],
-        boundaries: ["not a factory audit", "not legal due diligence", "not quality inspection", "does not guarantee supplier reliability or payment safety"]
       },
       {
         url: publicUrl("for-buyers/"),

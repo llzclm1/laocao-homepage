@@ -1,5 +1,11 @@
 # CODEX_TASKS
 
+## 2026-07-14 Supplier Reply Review 旧入口 301 收口
+
+- [x] 配置 `/free-supplier-reply-review/` 到 `/supplier-reply-review/` 的 Cloudflare 301。
+- [x] 删除旧 HTML 构建输出和 AI Sitemap 条目。
+- [x] 验证单跳、query string、目标 canonical 与实体引用。
+
 ## 2026-07-14 主站与 Factory 链接边界收口
 
 - [x] 统一主站生产页面导航与 Buyer 入口。
