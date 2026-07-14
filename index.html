@@ -721,6 +721,16 @@
         animation: fadeInUp 800ms ease 1200ms both;
       }
 
+      .warm-home .hero-assurance {
+        max-width: 660px;
+        margin: 14px 0 0;
+        color: #5f6570;
+        font-size: 13px;
+        line-height: 1.55;
+        opacity: 0;
+        animation: fadeInUp 800ms ease 1380ms both;
+      }
+
       .warm-home .hero-actions .button {
         min-width: 0;
         min-height: 48px;
@@ -879,6 +889,7 @@
         .warm-home .title-char,
         .warm-home .warm-hero-copy,
         .warm-home .hero-actions,
+        .warm-home .hero-assurance,
         .warm-home .hero-intel-card {
           animation: none;
           opacity: 1;
@@ -1947,18 +1958,19 @@
         </div>
         <div class="warm-hero-inner">
           <div class="warm-hero-content">
-            <p class="warm-label">China-based sourcing intelligence partner</p>
+            <p class="warm-label">Supplier Reply Review for overseas buyers</p>
             <h1 id="hero-title">
-              <span class="title-line">Real factories.</span>
-              <span class="title-line">Clearly understood.</span>
+              <span class="title-line">Understand a Chinese supplier reply</span>
+              <span class="title-line">before you pay.</span>
             </h1>
             <p class="warm-hero-copy" id="hero-subtitle">
-              Helping overseas buyers understand Chinese suppliers before samples, deposits and production.
+              See what the supplier confirmed, which details are still missing, and what to ask next before a sample fee, deposit, or order decision.
             </p>
             <div class="hero-actions" aria-label="Supplier review actions">
-              <a class="button primary" href="https://gewuji.dev/supplier-reply-review/" onclick="trackClarityEvent('home_zh_click_supplier_reply_review')">Review a Supplier Reply</a>
-              <a class="button factory" href="field-materials/" onclick="trackClarityEvent('home_zh_click_field_materials')">Explore Field Materials</a>
+              <a class="button primary" href="https://gewuji.dev/supplier-reply-review/" onclick="trackClarityEvent('home_zh_click_supplier_reply_review')">Review My Supplier Reply</a>
+              <a class="button factory" href="supplier-reply-review/sample-report/" onclick="trackClarityEvent('home_zh_click_sample_report')">See a Sample Review</a>
             </div>
+            <p class="hero-assurance">Communication review only. No factory audit, supplier verification, or reliability guarantee.</p>
           </div>
           <div class="hero-intel-card" aria-label="Factory Bridge focus tags" aria-hidden="true">
             <span>Factory Bridge</span>
@@ -2072,10 +2084,11 @@
 
       <section class="home-section final-cta reveal" id="contact" aria-labelledby="contact-title">
         <p class="section-kicker">Next step</p>
-        <h2 id="contact-title">Have a supplier reply, quote, or factory material you are not sure how to read?</h2>
+        <h2 id="contact-title">Know what your supplier confirmed before deciding what to do next.</h2>
+        <p>Send one focused reply, quotation, sample term, or payment detail. Gewuji separates the available information from the questions that still need answers.</p>
         <div class="hero-actions">
-          <a class="button primary" href="https://gewuji.dev/supplier-reply-review/" onclick="trackClarityEvent('home_zh_click_supplier_reply_review_bottom')">Review a Supplier Reply</a>
-          <a class="button factory" href="field-materials/" onclick="trackClarityEvent('home_zh_click_field_materials_bottom')">Explore Field Materials</a>
+          <a class="button primary" href="https://gewuji.dev/supplier-reply-review/" onclick="trackClarityEvent('home_zh_click_supplier_reply_review_bottom')">Review My Supplier Reply</a>
+          <a class="button factory" href="supplier-reply-review/sample-report/" onclick="trackClarityEvent('home_zh_click_sample_report_bottom')">See a Sample Review</a>
         </div>
       </section>
     </main>
