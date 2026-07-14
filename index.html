@@ -1967,8 +1967,8 @@
               See what the supplier confirmed, which details are still missing, and what to ask next before a sample fee, deposit, or order decision.
             </p>
             <div class="hero-actions" aria-label="Supplier review actions">
-              <a class="button primary" href="https://gewuji.dev/supplier-reply-review/" onclick="trackClarityEvent('home_zh_click_supplier_reply_review')">Review My Supplier Reply</a>
-              <a class="button factory" href="supplier-reply-review/sample-report/" onclick="trackClarityEvent('home_zh_click_sample_report')">See a Sample Review</a>
+              <a class="button primary" href="https://gewuji.dev/supplier-reply-review/" onclick="trackClarityEvent('home_zh_click_supplier_reply_review')" data-track-event="cta_click" data-track-location="homepage_hero" data-track-label="Review My Supplier Reply">Review My Supplier Reply</a>
+              <a class="button factory" href="supplier-reply-review/sample-report/" onclick="trackClarityEvent('home_zh_click_sample_report')" data-track-event="sample_report_view" data-track-location="homepage_hero" data-track-label="See a Sample Review">See a Sample Review</a>
             </div>
             <p class="hero-assurance">Communication review only. No factory audit, supplier verification, or reliability guarantee.</p>
           </div>
@@ -2087,8 +2087,8 @@
         <h2 id="contact-title">Know what your supplier confirmed before deciding what to do next.</h2>
         <p>Send one focused reply, quotation, sample term, or payment detail. Gewuji separates the available information from the questions that still need answers.</p>
         <div class="hero-actions">
-          <a class="button primary" href="https://gewuji.dev/supplier-reply-review/" onclick="trackClarityEvent('home_zh_click_supplier_reply_review_bottom')">Review My Supplier Reply</a>
-          <a class="button factory" href="supplier-reply-review/sample-report/" onclick="trackClarityEvent('home_zh_click_sample_report_bottom')">See a Sample Review</a>
+          <a class="button primary" href="https://gewuji.dev/supplier-reply-review/" onclick="trackClarityEvent('home_zh_click_supplier_reply_review_bottom')" data-track-event="cta_click" data-track-location="homepage_bottom" data-track-label="Review My Supplier Reply">Review My Supplier Reply</a>
+          <a class="button factory" href="supplier-reply-review/sample-report/" onclick="trackClarityEvent('home_zh_click_sample_report_bottom')" data-track-event="sample_report_view" data-track-location="homepage_bottom" data-track-label="See a Sample Review">See a Sample Review</a>
         </div>
       </section>
     </main>
@@ -2100,6 +2100,7 @@
       <a href="field-materials/" onclick="trackClarityEvent('home_zh_click_field_materials')">Field Materials</a>
       <a href="contact/">Contact</a>
     </footer>
+    <script src="marketing-events.js"></script>
     <script>
       const motionOK = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 

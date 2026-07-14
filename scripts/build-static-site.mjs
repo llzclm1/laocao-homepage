@@ -59,6 +59,7 @@ const copyEntries = [
   "lab",
   "llms.txt",
   "m",
+  "marketing-events.js",
   "nav",
   "robots.txt",
   "script.js",
