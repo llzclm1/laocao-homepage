@@ -1,5 +1,10 @@
 # CODEX_LOG
 
+## 2026-07-14
+
+- 完成主站与 Factory 域站内链接边界清理：主站 Buyer 链接留在主域，Supplier Reply Review 作为核心转化页，For Chinese Factories 独立指向 Factory 服务页。
+- 未修改视觉、页面正文、sitemap、AI sitemap、`llms.txt` 或广告页发现设置。
+
 ## 2026-07-06
 
 - 前次收口曾确认主站和 factory 子站 clean、本地 `main` 与 `origin/main` 同步；本轮按用户要求完成 YouTube 本地素材包后只做本地 commit，不 push。

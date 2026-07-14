@@ -1,5 +1,11 @@
 # CODEX_HANDOFF
 
+## 2026-07-14 主站与 Factory 链接边界收口
+
+- 主站统一导航为 Home、For Buyers、Supplier Reply Review、Field Materials、Contact，并独立指向 Factory 的 For Chinese Factories。
+- `/for-buyers/` 保持 Buyer 总入口，`/supplier-reply-review/` 保持核心转化入口；广告页继续 noindex 且不进入 Discovery。
+- 主站旧 `/for-factories/` canonical 已指向 Factory 最终 URL；构建与静态验证通过。
+
 ## 2026-07-13 有效积压总收口
 
 - 当前有效主线只剩三件事：核心采购页等待 GSC 真实数据、Supplier Reply Review 等待真实转化、Social Content Agent 走人工发布闭环。

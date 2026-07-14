@@ -290,7 +290,7 @@ assert.ok(quotationGuidePage.includes("../../supplier-reply-review/"), "quotatio
 assert.ok(supplierRoleGuidePage.includes('"@type":"Article"'), "supplier role guide should include Article schema");
 assert.ok(supplierRoleGuidePage.includes("../../china-supplier-checklist/"), "supplier role guide should link to the checklist");
 assert.equal(supplierRoleGuidePage.includes("alibaba-vs-made-in-china-sourcing-safety"), false, "supplier role guide should not link to an unpublished guide");
-assert.ok(factoryPage.includes('rel="canonical" href="https://gewuji.dev/for-factories/"'), "factory page should expose canonical URL");
+assert.ok(factoryPage.includes('rel="canonical" href="https://factory.gewuji.dev/for-factories/"'), "factory page should expose canonical URL");
 assert.ok(factoryPage.includes("工厂对外资料重构"), "factory page should include factory material rewrite SEO copy");
 assert.ok(factoryPage.includes('id="material-rewrite"'), "factory page should expose material rewrite anchor");
 assert.ok(factoryPage.includes('id="outreach-content"'), "factory page should expose outreach content anchor");

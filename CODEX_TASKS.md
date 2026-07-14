@@ -1,5 +1,11 @@
 # CODEX_TASKS
 
+## 2026-07-14 主站与 Factory 链接边界收口
+
+- [x] 统一主站生产页面导航与 Buyer 入口。
+- [x] 将主站 `/for-factories/` canonical 收口到 Factory 最终 URL。
+- [x] 确认广告页 noindex，且未进入 sitemap、AI sitemap 或 `llms.txt`。
+
 ## 2026-07-13 有效积压总收口
 
 以下分类是当前有效口径；下方历史记录只作追溯，不再自动转为开发任务。
