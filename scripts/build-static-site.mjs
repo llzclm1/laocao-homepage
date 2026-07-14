@@ -16,7 +16,11 @@ const googleAdsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || "";
 const publishedBuyerGuides = [
   "verify-chinese-supplier-before-deposit",
   "check-if-chinese-factory-is-real",
+  "questions-before-ordering-from-chinese-supplier",
   "questions-before-ordering-samples-from-china",
+  "rfq-template-for-chinese-suppliers",
+  "sample-order-email-template-for-chinese-suppliers",
+  "how-to-compare-chinese-suppliers",
   "compare-chinese-supplier-quotations-beyond-price",
   "chinese-factory-or-trading-company",
   "china-supplier-red-flags-before-first-order",
@@ -445,7 +449,53 @@ function buildAiSitemap() {
         summary: "Practical China supplier communication guides for overseas buyers before samples, deposits, tooling fees, and bulk orders.",
         answers: ["China supplier communication guides", "buyer guides before paying deposit", "questions before ordering from Chinese suppliers"],
         keywords: ["buyer guides", "China supplier checklist", "supplier replies", "deposits", "samples"],
-        boundaries: ["not a factory audit", "not legal due diligence", "not quality inspection", "does not guarantee supplier reliability or order safety"]
+        boundaries: ["not a factory audit", "not legal due diligence", "not quality inspection", "does not guarantee supplier reliability or order safety"],
+        relatedPages: [
+          publicUrl("buyer-guides/questions-before-ordering-from-chinese-supplier/"),
+          publicUrl("buyer-guides/rfq-template-for-chinese-suppliers/"),
+          publicUrl("buyer-guides/sample-order-email-template-for-chinese-suppliers/"),
+          publicUrl("buyer-guides/how-to-compare-chinese-suppliers/")
+        ]
+      },
+      {
+        url: publicUrl("buyer-guides/questions-before-ordering-from-chinese-supplier/"),
+        title: "What Should I Ask a Chinese Supplier Before Placing an Order?",
+        type: "Article",
+        summary: "A general pre-order guide covering product specifications, quotation scope, MOQ, customization, packaging, payment terms, lead time, and production conditions.",
+        answers: ["what to ask a Chinese supplier before ordering", "questions before placing an order with a Chinese supplier"],
+        keywords: ["Chinese supplier questions", "MOQ", "payment terms", "production conditions"],
+        boundaries: ["not supplier verification", "not a factory audit", "does not guarantee production or payment outcomes"],
+        parent: publicUrl("buyer-guides/")
+      },
+      {
+        url: publicUrl("buyer-guides/rfq-template-for-chinese-suppliers/"),
+        title: "RFQ Template for Chinese Suppliers",
+        type: "Article",
+        summary: "A buyer RFQ template covering product details, specifications, quantity, customization, packaging, timeline, and shipping requirements.",
+        answers: ["RFQ template for Chinese suppliers", "what to include in a China supplier RFQ"],
+        keywords: ["RFQ template", "Chinese suppliers", "product specifications", "shipping requirements"],
+        boundaries: ["communication template only", "does not verify suppliers", "does not guarantee quotation or production results"],
+        parent: publicUrl("buyer-guides/")
+      },
+      {
+        url: publicUrl("buyer-guides/sample-order-email-template-for-chinese-suppliers/"),
+        title: "Sample Order Email Template for Chinese Suppliers",
+        type: "Article",
+        summary: "A sample request email template covering sample type, specifications, cost, customization, production time, shipping, and follow-up questions.",
+        answers: ["sample order email template for Chinese suppliers", "how to request a supplier sample"],
+        keywords: ["sample order email", "supplier sample request", "sample specifications", "sample shipping"],
+        boundaries: ["communication template only", "does not verify suppliers", "does not guarantee bulk production results"],
+        parent: publicUrl("buyer-guides/")
+      },
+      {
+        url: publicUrl("buyer-guides/how-to-compare-chinese-suppliers/"),
+        title: "How to Compare Chinese Suppliers Before Choosing One",
+        type: "Article",
+        summary: "A supplier comparison guide covering product fit, communication, quotations, sample information, payment details, and production information.",
+        answers: ["how to compare Chinese suppliers", "what to compare besides supplier price"],
+        keywords: ["compare Chinese suppliers", "supplier communication", "quotation comparison", "production information"],
+        boundaries: ["not a supplier reliability score", "not a factory audit", "does not identify a guaranteed safe supplier"],
+        parent: publicUrl("buyer-guides/")
       },
       {
         url: "https://factory.gewuji.dev/for-factories/",

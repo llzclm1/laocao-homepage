@@ -17,6 +17,10 @@ assert.ok(fs.existsSync(path.join(dist, "es", "buyer-guides", "como-revisar-un-p
 assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "verify-chinese-supplier-before-deposit", "index.html")), "dist/buyer-guides/verify-chinese-supplier-before-deposit/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "check-if-chinese-factory-is-real", "index.html")), "dist/buyer-guides/check-if-chinese-factory-is-real/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "questions-before-ordering-samples-from-china", "index.html")), "dist/buyer-guides/questions-before-ordering-samples-from-china/index.html is missing");
+assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "questions-before-ordering-from-chinese-supplier", "index.html")), "dist/buyer-guides/questions-before-ordering-from-chinese-supplier/index.html is missing");
+assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "rfq-template-for-chinese-suppliers", "index.html")), "dist/buyer-guides/rfq-template-for-chinese-suppliers/index.html is missing");
+assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "sample-order-email-template-for-chinese-suppliers", "index.html")), "dist/buyer-guides/sample-order-email-template-for-chinese-suppliers/index.html is missing");
+assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "how-to-compare-chinese-suppliers", "index.html")), "dist/buyer-guides/how-to-compare-chinese-suppliers/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "china-supplier-red-flags-before-first-order", "index.html")), "dist/buyer-guides/china-supplier-red-flags-before-first-order/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "chinese-factory-video-call-checklist", "index.html")), "dist/buyer-guides/chinese-factory-video-call-checklist/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "supplier-reply-review", "index.html")), "dist/supplier-reply-review/index.html is missing");
@@ -168,6 +172,10 @@ assert.ok(sitemap.includes("/buyer-guides/"), "sitemap should include /buyer-gui
 assert.ok(sitemap.includes("/buyer-guides/verify-chinese-supplier-before-deposit/"), "sitemap should include verify guide");
 assert.ok(sitemap.includes("/buyer-guides/check-if-chinese-factory-is-real/"), "sitemap should include factory-real guide");
 assert.ok(sitemap.includes("/buyer-guides/questions-before-ordering-samples-from-china/"), "sitemap should include sample-questions guide");
+assert.ok(sitemap.includes("/buyer-guides/questions-before-ordering-from-chinese-supplier/"), "sitemap should include pre-order questions guide");
+assert.ok(sitemap.includes("/buyer-guides/rfq-template-for-chinese-suppliers/"), "sitemap should include RFQ template guide");
+assert.ok(sitemap.includes("/buyer-guides/sample-order-email-template-for-chinese-suppliers/"), "sitemap should include sample email template guide");
+assert.ok(sitemap.includes("/buyer-guides/how-to-compare-chinese-suppliers/"), "sitemap should include supplier comparison guide");
 assert.ok(sitemap.includes("/buyer-guides/china-supplier-red-flags-before-first-order/"), "sitemap should include red-flags guide");
 assert.ok(sitemap.includes("/buyer-guides/chinese-factory-video-call-checklist/"), "sitemap should include video-call guide");
 assert.ok(sitemap.includes("/buyer-guides/compare-chinese-supplier-quotations-beyond-price/"), "sitemap should include quotation comparison guide");
@@ -177,7 +185,7 @@ assert.ok(sitemap.includes("/supplier-reply-review/methodology/"), "sitemap shou
 assert.ok(sitemap.includes("/supplier-reply-review/sample-report/"), "sitemap should include supplier reply review sample report");
 assert.equal(sitemap.includes("/buyer-guides/alibaba-vs-made-in-china-sourcing-safety/"), false, "sitemap should not include unpublished buyer guides");
 assert.ok(sitemap.includes("/china-supplier-checklist/"), "sitemap should include the published checklist page");
-assert.equal(sitemap.includes("/rfq-template-for-chinese-suppliers/"), false, "sitemap should not include old RFQ redirect path");
+assert.equal(sitemap.includes("<loc>https://gewuji.dev/rfq-template-for-chinese-suppliers/</loc>"), false, "sitemap should not include old RFQ redirect path");
 assert.equal(sitemap.includes("/free-supplier-reply-review/"), false, "sitemap should not include old review redirect path");
 assert.equal(sitemap.includes("/fq-template-for-chinese-suppliers/"), false, "sitemap should not include misspelled RFQ path");
 assert.ok(sitemap.includes("/ai-sitemap.json"), "sitemap should include /ai-sitemap.json");
@@ -229,6 +237,10 @@ assert.equal(aiSitemapPaths.includes("/m/"), false, "AI sitemap should not inclu
 assert.equal(aiSitemapPaths.includes("/b/"), false, "AI sitemap should not include standalone trade buyer page");
 assert.equal(aiSitemapPaths.includes("/tools/"), false, "AI sitemap should not include legacy tools index");
 assert.ok(aiSitemapPaths.includes("/buyer-guides/"), "AI sitemap should include buyer guides");
+assert.ok(aiSitemapPaths.includes("/buyer-guides/questions-before-ordering-from-chinese-supplier/"), "AI sitemap should include pre-order questions guide");
+assert.ok(aiSitemapPaths.includes("/buyer-guides/rfq-template-for-chinese-suppliers/"), "AI sitemap should include RFQ template guide");
+assert.ok(aiSitemapPaths.includes("/buyer-guides/sample-order-email-template-for-chinese-suppliers/"), "AI sitemap should include sample email template guide");
+assert.ok(aiSitemapPaths.includes("/buyer-guides/how-to-compare-chinese-suppliers/"), "AI sitemap should include supplier comparison guide");
 assert.ok(aiSitemapPaths.includes("/supplier-reply-review/"), "AI sitemap should include supplier reply review page");
 assert.ok(aiSitemapPaths.includes("/supplier-reply-review/sample-report/"), "AI sitemap should include supplier reply review sample report");
 assert.equal(aiSitemapPaths.includes("/tools/photo-booth/"), false, "AI sitemap should not elevate old photo booth pages");

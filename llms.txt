@@ -18,6 +18,10 @@ Machine-readable boundary: not supplier verification; not factory audit; not leg
 - [Supplier Reply Review Examples](https://gewuji.dev/supplier-reply-review/examples/)
 - [Field Materials](https://gewuji.dev/field-materials/)
 - [Buyer Guides](https://gewuji.dev/buyer-guides/)
+- [Questions Before Ordering From a Chinese Supplier](https://gewuji.dev/buyer-guides/questions-before-ordering-from-chinese-supplier/)
+- [RFQ Template for Chinese Suppliers](https://gewuji.dev/buyer-guides/rfq-template-for-chinese-suppliers/)
+- [Sample Order Email Template for Chinese Suppliers](https://gewuji.dev/buyer-guides/sample-order-email-template-for-chinese-suppliers/)
+- [How to Compare Chinese Suppliers](https://gewuji.dev/buyer-guides/how-to-compare-chinese-suppliers/)
 - [For Factories](https://factory.gewuji.dev/for-factories/)
 - [AI Sitemap](https://gewuji.dev/ai-sitemap.json)
 
