@@ -217,7 +217,7 @@ assert.ok(sitemap.includes("/es/buyer-guides/como-revisar-un-proveedor-chino-ant
 assert.equal(sitemap.includes("/for-factories/"), false, "sitemap should not include the migrated /for-factories/ URL");
 assert.ok(sitemap.includes("/for-buyers/"), "sitemap should include /for-buyers/");
 assert.ok(sitemap.includes("/field-materials/"), "sitemap should include /field-materials/");
-assert.ok(sitemap.includes("/en/field-materials/"), "sitemap should include /en/field-materials/");
+assert.equal(sitemap.includes("/en/field-materials/"), false, "sitemap should not include the non-canonical /en/field-materials/ URL");
 assert.ok(sitemap.includes("/contact/"), "sitemap should include /contact/");
 assert.equal(sitemap.includes("/game/worldcup/"), false, "sitemap should not include old game pages");
 assert.equal(sitemap.includes("/tools/photo-booth/"), false, "sitemap should not include old tool pages");

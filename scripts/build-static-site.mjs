@@ -399,7 +399,6 @@ function buildSitemap() {
     ["supplier-reply-review/examples/we-can-make-any-product/", "0.6"],
     ["supplier-reply-review/sample-report/", "0.7"],
     ["field-materials/", "0.8"],
-    ["en/field-materials/", "0.7"],
     ["contact/", "0.5"],
     ["llms.txt", "0.6"],
     ["ai-sitemap.json", "0.6"]
