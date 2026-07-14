@@ -28,6 +28,8 @@ assert.ok(fs.existsSync(path.join(dist, "supplier-reply-review", "sample-report"
 assert.ok(fs.existsSync(path.join(dist, "supplier-reply-review", "before-payment", "index.html")), "dist/supplier-reply-review/before-payment/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "marketing-events.js")), "dist/marketing-events.js is missing");
 const supplierReplyReview = fs.readFileSync(path.join(dist, "supplier-reply-review", "index.html"), "utf8");
+assert.ok(supplierReplyReview.includes('data-page-type="supplier_reply_review"'), "supplier reply review should track page views");
+assert.ok(supplierReplyReview.includes("googletagmanager.com/gtag/js?id=G-NCZSC59MVC"), "supplier reply review should load the main-domain GA4 stream");
 assert.ok(supplierReplyReview.includes("data-review-email-link"), "supplier reply review should provide a client-built email action");
 assert.equal(supplierReplyReview.includes("<form"), false, "supplier reply review should not rely on a mailto form");
 assert.ok(supplierReplyReview.includes('data-track-event="outbound_email_click"'), "supplier reply review should track email handoff");
@@ -40,6 +42,13 @@ assert.ok(paidReviewLanding.includes('data-track-form="paid_supplier_reply_revie
 assert.equal(paidReviewLanding.includes('type="file"'), false, "paid review landing page should not collect supplier files");
 const sampleReviewReport = fs.readFileSync(path.join(dist, "supplier-reply-review", "sample-report", "index.html"), "utf8");
 assert.ok(sampleReviewReport.includes('data-page-type="sample_report"'), "sample report should track report views");
+assert.ok(sampleReviewReport.includes("googletagmanager.com/gtag/js?id=G-NCZSC59MVC"), "sample report should load GA4");
+const supplierReplyExamples = fs.readFileSync(path.join(dist, "supplier-reply-review", "examples", "index.html"), "utf8");
+assert.ok(supplierReplyExamples.includes('data-track-event="supplier_reply_review_example_click"'), "examples index should track example clicks");
+assert.ok(supplierReplyExamples.includes("marketing-events.js?v=20260714-ga4"), "examples index should load the event script");
+const sampleQuestionsGuide = fs.readFileSync(path.join(dist, "buyer-guides", "questions-before-ordering-samples-from-china", "index.html"), "utf8");
+assert.ok(sampleQuestionsGuide.includes('data-page-type="buyer_guide"'), "sample questions guide should track page views");
+assert.ok(sampleQuestionsGuide.includes("marketing-events.js?v=20260714-ga4"), "sample questions guide should load the event script");
 assert.equal(fs.existsSync(path.join(dist, "free-supplier-reply-review")), false, "legacy free review HTML should not be deployed behind the edge redirect");
 assert.equal(fs.existsSync(path.join(dist, "buyer-guides", "alibaba-vs-made-in-china-sourcing-safety")), false, "unpublished buyer guide should not be copied");
 assert.ok(fs.existsSync(path.join(dist, "china-supplier-checklist", "index.html")), "china supplier checklist page should exist");
@@ -88,7 +97,10 @@ assert.ok(home.includes('href="https://gewuji.dev/supplier-reply-review/"'), "ho
 assert.ok(home.includes('href="field-materials/"'), "homepage should link to field materials");
 assert.equal(home.includes('href="tools/"'), false, "homepage should not link legacy tools");
 assert.ok(home.includes('href="ai-sitemap.json"'), "homepage should expose the AI sitemap");
-assert.equal(home.includes("googletagmanager.com"), false, "Google Analytics should be opt-in to protect default page performance");
+assert.ok(home.includes("googletagmanager.com/gtag/js?id=G-NCZSC59MVC"), "homepage should load the main-domain GA4 stream");
+assert.ok(home.includes("marketing-events.js?v=20260714-ga4"), "homepage should keep acquisition event tracking");
+const unrelatedToolPage = fs.readFileSync(path.join(dist, "tools", "worldcup-advisor", "index.html"), "utf8");
+assert.equal(unrelatedToolPage.includes("googletagmanager.com"), false, "unrelated tools should not receive the buyer-service GA4 tag");
 assert.equal(home.includes('id="guide"'), false, "homepage should not embed the utility navigation section");
 assert.equal(home.includes("工位突围：世界杯摸鱼版"), false, "homepage should not feature the world cup event banner");
 assert.equal(home.includes('href="tools/worldcup-advisor/"'), false, "homepage should not directly feature World Cup Advisor");

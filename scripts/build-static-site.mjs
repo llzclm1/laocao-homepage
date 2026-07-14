@@ -11,8 +11,17 @@ const siteUrl = normalizeSiteUrl(process.env.SITE_URL || "https://gewuji.dev");
 const basePath = normalizeBasePath(process.env.PUBLIC_BASE_PATH || "/");
 const publicBaseUrl = new URL(basePath, `${siteUrl}/`).toString().replace(/\/$/, "");
 const lastmod = "2026-06-28";
-const googleAnalyticsId = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID || "";
+const googleAnalyticsId = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID || "G-NCZSC59MVC";
 const googleAdsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || "";
+const analyticsPagePaths = new Set([
+  "index.html",
+  "contact/index.html",
+  "supplier-reply-review/index.html",
+  "supplier-reply-review/before-payment/index.html",
+  "supplier-reply-review/examples/index.html",
+  "supplier-reply-review/sample-report/index.html",
+  "buyer-guides/questions-before-ordering-samples-from-china/index.html"
+]);
 const publishedBuyerGuides = [
   "verify-chinese-supplier-before-deposit",
   "check-if-chinese-factory-is-real",
@@ -103,7 +112,7 @@ console.log(`Static site built at ${path.relative(root, outDir)}`);
 console.log(`SITE_URL=${siteUrl}`);
 console.log(`PUBLIC_BASE_PATH=${basePath}`);
 console.log(
-  `Analytics: google=${enabledFlag(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION)} ` +
+  `Analytics: google=${enabledFlag(googleAnalyticsId)} ` +
     `cloudflare=${enabledFlag(process.env.NEXT_PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN)} ` +
     `clarity=${enabledFlag(process.env.NEXT_PUBLIC_CLARITY_ID)}`
 );
@@ -165,13 +174,13 @@ function rewriteTextFile(file, transform) {
 }
 
 function injectAnalyticsTags() {
-  const tags = buildAnalyticsTags();
-  if (!tags) return;
-
   for (const file of listHtmlFiles(outDir)) {
     const html = fs.readFileSync(file, "utf8");
     const headMatch = html.match(/<head[^>]*>/i);
     if (!headMatch) continue;
+    const relativePath = path.relative(outDir, file).split(path.sep).join("/");
+    const tags = buildAnalyticsTags({ includeGoogleAnalytics: analyticsPagePaths.has(relativePath) });
+    if (!tags) continue;
     const cleanHtml = removeGoogleAnalyticsTag(html);
     fs.writeFileSync(file, cleanHtml.replace(headMatch[0], `${headMatch[0]}\n${tags}`), "utf8");
   }
@@ -280,13 +289,13 @@ function pruneUnpublishedBuyerGuides() {
   }
 }
 
-function buildAnalyticsTags() {
+function buildAnalyticsTags({ includeGoogleAnalytics }) {
   const tags = [];
   const googleVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
   const cloudflareToken = process.env.NEXT_PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN;
   const clarityId = process.env.NEXT_PUBLIC_CLARITY_ID;
 
-  if (googleAnalyticsId) {
+  if (includeGoogleAnalytics && googleAnalyticsId) {
     const adsConfig = googleAdsId ? `\n      gtag('config', '${googleAdsId}');` : "";
     tags.push(`    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}"></script>
@@ -294,7 +303,9 @@ function buildAnalyticsTags() {
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', '${googleAnalyticsId}');${adsConfig}
+      gtag('config', '${googleAnalyticsId}', {
+        debug_mode: location.hostname === '127.0.0.1' || location.hostname === 'localhost'
+      });${adsConfig}
     </script>`);
   }
 

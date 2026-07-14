@@ -41,7 +41,9 @@
   document.addEventListener("DOMContentLoaded", () => {
     const pageType = document.body.dataset.pageType;
     if (pageType === "paid_landing") window.gewujiTrack("landing_page_view");
+    if (pageType === "supplier_reply_review") window.gewujiTrack("supplier_reply_review_view");
     if (pageType === "sample_report") window.gewujiTrack("sample_report_view");
+    if (pageType === "buyer_guide") window.gewujiTrack("buyer_guide_view");
 
     document.querySelectorAll("[data-track-event]").forEach((element) => {
       element.addEventListener("click", () => {
