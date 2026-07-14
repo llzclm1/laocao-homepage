@@ -1,6 +1,8 @@
 # Gewuji Factory Bridge
 
-Gewuji is a Factory Bridge service that helps overseas buyers understand Chinese supplier replies, quotations, sample terms, payment details, and field materials before the next sourcing step.
+GewuJi helps overseas buyers better understand Chinese suppliers and helps Chinese factories communicate clearly with global buyers.
+
+GewuJi helps overseas buyers understand Chinese supplier replies, quotations, sample terms, payment details, and field materials before the next sourcing step.
 
 Gewuji is not supplier verification, factory audit, legal due diligence, quality inspection, payment safety guarantee, supplier scoring, or supplier reliability guarantee.
 

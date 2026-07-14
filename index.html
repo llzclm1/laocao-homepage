@@ -1832,24 +1832,46 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "WebSite",
-        "@id": "https://gewuji.dev/#website",
-        "name": "Gewuji",
-        "alternateName": "GEWUJI",
-        "url": "https://gewuji.dev/",
-        "description": "Gewuji helps overseas buyers understand Chinese supplier replies, quotations, sample terms, payment details, and visible factory materials before samples, deposits, and production.",
-        "inLanguage": "en",
-        "publisher": {
-          "@type": "Person",
-          "@id": "https://gewuji.dev/#person",
-          "name": "Lao Cao",
-          "email": "llzclm@gmail.com"
-        },
-        "about": [
-          "Factory Bridge",
-          "Supplier Reply Review",
-          "Field Materials",
-          "Chinese supplier communication"
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://gewuji.dev/#organization",
+            "name": "GewuJi",
+            "alternateName": ["GEWUJI", "格物集"],
+            "url": "https://gewuji.dev/",
+            "description": "GewuJi helps overseas buyers better understand Chinese suppliers and helps Chinese factories communicate clearly with global buyers.",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://gewuji.dev/assets/brand/gewuji-app-icon.svg"
+            },
+            "founder": {
+              "@id": "https://gewuji.dev/#person"
+            }
+          },
+          {
+            "@type": "Person",
+            "@id": "https://gewuji.dev/#person",
+            "name": "Lao Cao",
+            "email": "llzclm@gmail.com"
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://gewuji.dev/#website",
+            "name": "GewuJi",
+            "alternateName": ["GEWUJI", "格物集"],
+            "url": "https://gewuji.dev/",
+            "description": "GewuJi helps overseas buyers better understand Chinese suppliers and helps Chinese factories communicate clearly with global buyers.",
+            "inLanguage": "en",
+            "publisher": {
+              "@id": "https://gewuji.dev/#organization"
+            },
+            "about": [
+              "Factory Bridge",
+              "Supplier Reply Review",
+              "Field Materials",
+              "Chinese supplier communication"
+            ]
+          }
         ]
       }
     </script>
@@ -1870,7 +1892,7 @@
             "@type": "ListItem",
             "position": 2,
             "name": "For Buyers",
-            "item": "https://factory.gewuji.dev/for-buyers/"
+            "item": "https://gewuji.dev/for-buyers/"
           },
           {
             "@type": "ListItem",
@@ -1900,7 +1922,7 @@
       </a>
       <nav class="nav" aria-label="Main navigation">
         <a href="https://factory.gewuji.dev/for-factories/" onclick="trackClarityEvent('home_zh_click_material_rewrite')">For Factories</a>
-        <a href="https://factory.gewuji.dev/for-buyers/" onclick="trackClarityEvent('home_zh_click_outreach_content')">For Buyers</a>
+        <a href="https://gewuji.dev/for-buyers/" onclick="trackClarityEvent('home_zh_click_outreach_content')">For Buyers</a>
         <a href="field-materials/" onclick="trackClarityEvent('home_zh_click_field_materials')">Field Materials</a>
         <a href="#contact">About</a>
       </nav>
@@ -1934,7 +1956,7 @@
               Helping overseas buyers understand Chinese suppliers before samples, deposits and production.
             </p>
             <div class="hero-actions" aria-label="Supplier review actions">
-              <a class="button primary" href="free-supplier-reply-review/" onclick="trackClarityEvent('home_zh_click_supplier_reply_review')">Review a Supplier Reply</a>
+              <a class="button primary" href="https://gewuji.dev/supplier-reply-review/" onclick="trackClarityEvent('home_zh_click_supplier_reply_review')">Review a Supplier Reply</a>
               <a class="button factory" href="field-materials/" onclick="trackClarityEvent('home_zh_click_field_materials')">Explore Field Materials</a>
             </div>
           </div>
@@ -2052,7 +2074,7 @@
         <p class="section-kicker">Next step</p>
         <h2 id="contact-title">Have a supplier reply, quote, or factory material you are not sure how to read?</h2>
         <div class="hero-actions">
-          <a class="button primary" href="free-supplier-reply-review/" onclick="trackClarityEvent('home_zh_click_supplier_reply_review_bottom')">Review a Supplier Reply</a>
+          <a class="button primary" href="https://gewuji.dev/supplier-reply-review/" onclick="trackClarityEvent('home_zh_click_supplier_reply_review_bottom')">Review a Supplier Reply</a>
           <a class="button factory" href="field-materials/" onclick="trackClarityEvent('home_zh_click_field_materials_bottom')">Explore Field Materials</a>
         </div>
       </section>
@@ -2060,8 +2082,8 @@
 
     <footer class="site-footer">
       <span>© 2026 Gewuji</span>
-      <a href="for-factories/" onclick="trackClarityEvent('home_zh_click_material_rewrite')">For Factories</a>
-      <a href="for-buyers/" onclick="trackClarityEvent('home_zh_click_outreach_content')">For Buyers</a>
+      <a href="https://factory.gewuji.dev/for-factories/" onclick="trackClarityEvent('home_zh_click_material_rewrite')">For Factories</a>
+      <a href="https://gewuji.dev/for-buyers/" onclick="trackClarityEvent('home_zh_click_outreach_content')">For Buyers</a>
       <a href="field-materials/" onclick="trackClarityEvent('home_zh_click_field_materials')">Field Materials</a>
       <a href="contact/">Contact</a>
     </footer>
