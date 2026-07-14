@@ -15,7 +15,7 @@ Machine-readable boundary: not supplier verification; not factory audit; not leg
 - [Supplier Reply Review](https://gewuji.dev/supplier-reply-review/)
 - [Supplier Reply Review Methodology](https://gewuji.dev/supplier-reply-review/methodology/)
 - [Sample Report](https://gewuji.dev/supplier-reply-review/sample-report/)
-- [Examples](https://gewuji.dev/supplier-reply-review/examples/)
+- [Supplier Reply Review Examples](https://gewuji.dev/supplier-reply-review/examples/)
 - [Field Materials](https://gewuji.dev/field-materials/)
 - [Buyer Guides](https://gewuji.dev/buyer-guides/)
 - [For Factories](https://factory.gewuji.dev/for-factories/)

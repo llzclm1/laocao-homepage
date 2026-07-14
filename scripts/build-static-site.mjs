@@ -378,6 +378,10 @@ function buildSitemap() {
     ["for-buyers/", "0.9"],
     ["supplier-reply-review/", "0.8"],
     ["supplier-reply-review/methodology/", "0.7"],
+    ["supplier-reply-review/examples/", "0.7"],
+    ["supplier-reply-review/examples/price-depends-on-quantity/", "0.6"],
+    ["supplier-reply-review/examples/deposit-before-sample/", "0.6"],
+    ["supplier-reply-review/examples/we-can-make-any-product/", "0.6"],
     ["supplier-reply-review/sample-report/", "0.7"],
     ["field-materials/", "0.8"],
     ["en/field-materials/", "0.7"],
@@ -479,12 +483,47 @@ function buildAiSitemap() {
       {
         url: publicUrl("supplier-reply-review/examples/"),
         title: "Supplier Reply Review Examples",
-        type: "CollectionPage",
+        type: "WebPage",
         summary: "Examples showing how supplier replies can be organized into visible information, missing details, and follow-up questions.",
         answers: ["supplier reply review examples", "missing details in supplier replies", "follow-up questions for Chinese suppliers"],
         keywords: ["supplier reply examples", "Chinese supplier communication", "missing details", "follow-up questions"],
         boundaries: ["examples do not verify suppliers", "not a factory audit", "does not guarantee supplier reliability"],
-        parent: publicUrl("supplier-reply-review/")
+        parent: publicUrl("supplier-reply-review/"),
+        relatedPages: [
+          publicUrl("supplier-reply-review/examples/price-depends-on-quantity/"),
+          publicUrl("supplier-reply-review/examples/deposit-before-sample/"),
+          publicUrl("supplier-reply-review/examples/we-can-make-any-product/")
+        ]
+      },
+      {
+        url: publicUrl("supplier-reply-review/examples/price-depends-on-quantity/"),
+        title: "Supplier Says Price Depends on Quantity: What Should a Buyer Ask Next?",
+        type: "WebPage",
+        summary: "A hypothetical example showing how to identify missing quotation details, quantity information, and pricing conditions before comparing suppliers.",
+        answers: ["what to ask when price depends on quantity", "supplier quotation quantity tiers", "questions before comparing supplier prices"],
+        keywords: ["supplier quotation", "quantity tiers", "MOQ", "buyer follow-up questions"],
+        boundaries: ["hypothetical educational example", "not a supplier evaluation", "does not guarantee supplier reliability"],
+        parent: publicUrl("supplier-reply-review/examples/")
+      },
+      {
+        url: publicUrl("supplier-reply-review/examples/deposit-before-sample/"),
+        title: "Supplier Requests Deposit Before Sample: What Should a Buyer Clarify?",
+        type: "WebPage",
+        summary: "A hypothetical example showing how to identify missing sample payment, refund, customization, shipping, and timeline details.",
+        answers: ["what to clarify before sample payment", "supplier sample fee questions", "deposit before sample questions"],
+        keywords: ["sample payment", "sample fee", "payment terms", "buyer follow-up questions"],
+        boundaries: ["hypothetical educational example", "not payment safety advice", "does not guarantee supplier reliability"],
+        parent: publicUrl("supplier-reply-review/examples/")
+      },
+      {
+        url: publicUrl("supplier-reply-review/examples/we-can-make-any-product/"),
+        title: "Supplier Says We Can Make Any Product: What Should a Buyer Ask Next?",
+        type: "WebPage",
+        summary: "A hypothetical example showing how to ask for specific product experience, materials, processes, customization, MOQ, and development details.",
+        answers: ["what to ask about supplier capability", "questions about custom manufacturing capability", "supplier says they can make any product"],
+        keywords: ["supplier capability", "custom manufacturing", "materials and processes", "buyer follow-up questions"],
+        boundaries: ["hypothetical educational example", "not factory verification", "does not prove production capability"],
+        parent: publicUrl("supplier-reply-review/examples/")
       },
       {
         url: publicUrl("supplier-reply-review/sample-report/"),
