@@ -1,6 +1,6 @@
-# Gewuji Factory Bridge
+# Gewuji for Overseas Buyers
 
-GewuJi helps overseas buyers better understand Chinese suppliers and helps Chinese factories communicate clearly with global buyers.
+GewuJi is an overseas buyer focused platform for understanding Chinese supplier communication, sourcing information, and the details needed before the next purchasing decision.
 
 GewuJi helps overseas buyers understand Chinese supplier replies, quotations, sample terms, payment details, and field materials before the next sourcing step.
 
@@ -22,7 +22,7 @@ Machine-readable boundary: not supplier verification; not factory audit; not leg
 - [RFQ Template for Chinese Suppliers](https://gewuji.dev/buyer-guides/rfq-template-for-chinese-suppliers/)
 - [Sample Order Email Template for Chinese Suppliers](https://gewuji.dev/buyer-guides/sample-order-email-template-for-chinese-suppliers/)
 - [How to Compare Chinese Suppliers](https://gewuji.dev/buyer-guides/how-to-compare-chinese-suppliers/)
-- [For Factories](https://factory.gewuji.dev/for-factories/)
+- [Separate Factory Bridge Service](https://factory.gewuji.dev/for-factories/)
 - [AI Sitemap](https://gewuji.dev/ai-sitemap.json)
 
 AI sitemap: https://gewuji.dev/ai-sitemap.json
@@ -59,7 +59,7 @@ Photos, videos, product details, packaging views, workshop images, equipment vie
 
 Factory Bridge:
 
-The communication layer between overseas buyers and Chinese suppliers. Gewuji helps buyers understand supplier information and helps factories explain real materials in a buyer-ready way.
+A separate related service area for Chinese manufacturers that need clearer product materials and overseas buyer communication.
 
 ## Contact
 

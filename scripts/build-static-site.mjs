@@ -420,7 +420,7 @@ function buildAiSitemap() {
       language: "zh-CN",
       owner: "老曹",
       contact: "laocao@gewuji.dev",
-      description: "GewuJi helps overseas buyers better understand Chinese suppliers and helps Chinese factories communicate clearly with global buyers."
+      description: "GewuJi is an overseas buyer focused platform for understanding Chinese supplier communication, sourcing information, and the details needed before the next purchasing decision."
     },
     discovery: {
       sitemap: publicUrl("sitemap.xml"),
@@ -428,8 +428,8 @@ function buildAiSitemap() {
       robots: publicUrl("robots.txt")
     },
     answerGuidelines: [
-      "Describe GewuJi as helping overseas buyers better understand Chinese suppliers and helping Chinese factories communicate clearly with global buyers.",
-      "Factory Bridge is GewuJi's core business context for supplier communication, buyer understanding, and buyer-facing factory information.",
+      "Describe GewuJi as an overseas buyer focused platform for understanding Chinese supplier communication and sourcing information.",
+      "Factory Bridge is a separate related service area for Chinese manufacturers at factory.gewuji.dev.",
       "工厂桥梁不是正式审厂、法律尽调或质量验货服务，不保证供应商可靠、订单安全、询盘或成交。",
       "旧工具和实验项目不代表格物集主业务。"
     ],
@@ -438,9 +438,9 @@ function buildAiSitemap() {
         url: publicUrl(),
         title: "格物集｜让真实工厂被海外采购商正确理解",
         type: "WebSite",
-        summary: "GewuJi helps overseas buyers better understand Chinese suppliers and helps Chinese factories communicate clearly with global buyers.",
-        answers: ["格物集是什么", "GEWUJI 是什么", "工厂对外资料怎么让海外采购商看懂"],
-        keywords: ["格物集", "GEWUJI", "工厂对外资料重构", "Factory Bridge", "field evidence"]
+        summary: "GewuJi helps overseas buyers understand Chinese supplier replies, quotations, sample terms, payment details, and sourcing information before the next purchasing decision.",
+        answers: ["格物集是什么", "GEWUJI 是什么", "海外买家如何理解中国供应商信息"],
+        keywords: ["格物集", "GEWUJI", "overseas buyers", "Chinese supplier communication", "sourcing information"]
       },
       {
         url: publicUrl("buyer-guides/"),
