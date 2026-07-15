@@ -27,6 +27,9 @@ assert.ok(fs.existsSync(path.join(dist, "supplier-reply-review", "index.html")),
 assert.ok(fs.existsSync(path.join(dist, "supplier-reply-review", "sample-report", "index.html")), "dist/supplier-reply-review/sample-report/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "supplier-reply-review", "before-payment", "index.html")), "dist/supplier-reply-review/before-payment/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "marketing-events.js")), "dist/marketing-events.js is missing");
+const marketingEvents = fs.readFileSync(path.join(dist, "marketing-events.js"), "utf8");
+assert.ok(marketingEvents.includes('params.get("source")'), "marketing events should read funnel source attribution");
+assert.ok(marketingEvents.includes('source: sessionStorage.getItem("gewuji_funnel_source")'), "marketing events should attach funnel source to events");
 assert.ok(fs.existsSync(path.join(dist, "link-visibility.js")), "dist/link-visibility.js is missing");
 const supplierReplyReview = fs.readFileSync(path.join(dist, "supplier-reply-review", "index.html"), "utf8");
 const linkVisibility = fs.readFileSync(path.join(dist, "link-visibility.js"), "utf8");
@@ -38,6 +41,7 @@ assert.ok(linkVisibility.includes("bridge-related-links"), "link visibility beha
 assert.ok(linkVisibility.includes("bridge-faq-item"), "link visibility behavior should enhance FAQ rows");
 assert.equal(supplierReplyReview.includes("<form"), false, "supplier reply review should not rely on a mailto form");
 assert.ok(supplierReplyReview.includes('data-track-event="outbound_email_click"'), "supplier reply review should track email handoff");
+assert.ok(supplierReplyReview.includes('data-track-event="review_sample_report_click"'), "supplier reply review should distinguish sample report clicks from report views");
 assert.ok(supplierReplyReview.includes('"@id": "https://gewuji.dev/#website"'), "supplier reply review should reference the existing website entity");
 assert.ok(supplierReplyReview.includes('"@id": "https://gewuji.dev/#organization"'), "supplier reply review should reference the existing organization entity");
 const paidReviewLanding = fs.readFileSync(path.join(dist, "supplier-reply-review", "before-payment", "index.html"), "utf8");
@@ -48,12 +52,14 @@ assert.equal(paidReviewLanding.includes('type="file"'), false, "paid review land
 const sampleReviewReport = fs.readFileSync(path.join(dist, "supplier-reply-review", "sample-report", "index.html"), "utf8");
 assert.ok(sampleReviewReport.includes('data-page-type="sample_report"'), "sample report should track report views");
 assert.ok(sampleReviewReport.includes("googletagmanager.com/gtag/js?id=G-NCZSC59MVC"), "sample report should load GA4");
+assert.ok(sampleReviewReport.includes('data-track-event="sample_report_review_click"'), "sample report should track return-to-review clicks");
+assert.ok(sampleReviewReport.includes('../?source=sample_report'), "sample report should preserve its source on return to review");
 const supplierReplyExamples = fs.readFileSync(path.join(dist, "supplier-reply-review", "examples", "index.html"), "utf8");
 assert.ok(supplierReplyExamples.includes('data-track-event="supplier_reply_review_example_click"'), "examples index should track example clicks");
 assert.ok(supplierReplyExamples.includes("marketing-events.js?v=20260714-ga4"), "examples index should load the event script");
 const sampleQuestionsGuide = fs.readFileSync(path.join(dist, "buyer-guides", "questions-before-ordering-samples-from-china", "index.html"), "utf8");
 assert.ok(sampleQuestionsGuide.includes('data-page-type="buyer_guide"'), "sample questions guide should track page views");
-assert.ok(sampleQuestionsGuide.includes("marketing-events.js?v=20260714-ga4"), "sample questions guide should load the event script");
+assert.ok(sampleQuestionsGuide.includes("marketing-events.js?v=20260715-funnel"), "sample questions guide should load the event script");
 assert.equal(fs.existsSync(path.join(dist, "free-supplier-reply-review")), false, "legacy free review HTML should not be deployed behind the edge redirect");
 assert.equal(fs.existsSync(path.join(dist, "buyer-guides", "alibaba-vs-made-in-china-sourcing-safety")), false, "unpublished buyer guide should not be copied");
 assert.ok(fs.existsSync(path.join(dist, "china-supplier-checklist", "index.html")), "china supplier checklist page should exist");
@@ -65,8 +71,13 @@ assert.ok(
   fs.existsSync(path.join(dist, "china-supplier-checklist", "china-supplier-verification-checklist.txt")),
   "downloadable china supplier checklist should exist"
 );
-assert.ok(fs.existsSync(path.join(dist, "rfq-template-for-chinese-suppliers", "index.html")), "old RFQ path should stay accessible");
-assert.ok(fs.existsSync(path.join(dist, "fq-template-for-chinese-suppliers", "index.html")), "misspelled FQ path should stay accessible as a compatibility redirect");
+const oldRfqPage = fs.readFileSync(path.join(dist, "rfq-template-for-chinese-suppliers", "index.html"), "utf8");
+const misspelledFqPage = fs.readFileSync(path.join(dist, "fq-template-for-chinese-suppliers", "index.html"), "utf8");
+for (const redirectPage of [oldRfqPage, misspelledFqPage]) {
+  assert.ok(redirectPage.includes('<meta name="robots" content="noindex, follow"'), "legacy RFQ paths should not be indexed");
+  assert.ok(redirectPage.includes('rel="canonical" href="https://gewuji.dev/buyer-guides/rfq-template-for-chinese-suppliers/"'), "legacy RFQ paths should canonicalize directly to the RFQ guide");
+  assert.ok(redirectPage.includes('url=../buyer-guides/rfq-template-for-chinese-suppliers/'), "legacy RFQ paths should redirect directly to the RFQ guide");
+}
 assert.ok(fs.existsSync(path.join(dist, "en", "index.html")), "dist/en/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "en", "field-materials", "index.html")), "dist/en/field-materials/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "favicon.ico")), "dist/favicon.ico is missing");
@@ -275,6 +286,8 @@ assert.equal(aiSitemapPaths.includes("/free-supplier-reply-review/"), false, "AI
 assert.equal(aiSitemapPaths.includes("/tools/photo-booth/"), false, "AI sitemap should not elevate old photo booth pages");
 assert.equal(aiSitemapPaths.includes("/tools/worldcup-advisor/advisor/"), false, "AI sitemap should not elevate World Cup Advisor pages");
 assert.ok(aiSitemapPaths.includes("/for-factories/"), "AI sitemap should include the factory bridge factory page");
+assert.ok(aiSitemap.pages.some((page) => page.url === "https://factory.gewuji.dev/for-factories/"), "AI sitemap should use the final factory subdomain URL");
+assert.equal(aiSitemap.pages.some((page) => page.url === "https://gewuji.dev/for-factories/"), false, "AI sitemap should not use the redirected main-domain factory URL");
 assert.ok(aiSitemapPaths.includes("/for-buyers/"), "AI sitemap should include the factory bridge buyer page");
 assert.ok(aiSitemapPaths.includes("/field-materials/"), "AI sitemap should include field materials");
 assert.ok(JSON.stringify(aiSitemap).includes("不是正式审厂"), "AI sitemap should include factory bridge service boundaries");
@@ -295,6 +308,11 @@ const supplierReplySamplePage = fs.readFileSync(path.join(dist, "supplier-reply-
 const supplierReplyExamplesPage = fs.readFileSync(path.join(dist, "supplier-reply-review/examples/index.html"), "utf8");
 const fieldMaterialsPage = fs.readFileSync(path.join(dist, "field-materials/index.html"), "utf8");
 const englishFieldMaterialsPage = fs.readFileSync(path.join(dist, "en/field-materials/index.html"), "utf8");
+for (const guide of [paymentGuidePage, sampleQuestionsGuide, quotationGuidePage, supplierRoleGuidePage]) {
+  assert.ok(guide.includes('data-page-type="buyer_guide"'), "core buyer guides should share the buyer_guide page type");
+  assert.ok(guide.includes('data-track-event="buyer_guide_review_click"'), "core buyer guides should track review CTA clicks");
+  assert.ok(guide.includes('data-track-event="buyer_guide_sample_report_click"'), "core buyer guides should track sample report CTA clicks separately");
+}
 const corePages = [home, factoryPage, buyerPage, shortBuyerPage, shortFactoryPage, contactPage, buyerGuidesPage, spanishBuyerGuidesPage, spanishPaymentGuidePage, paymentGuidePage, supplierReplyReviewPage, supplierReplySamplePage, supplierReplyExamplesPage, fieldMaterialsPage];
 for (const page of corePages) {
   assert.equal(page.includes('href="mailto:'), false, "core pages should not expose mailto links that Cloudflare rewrites as internal 404 URLs");

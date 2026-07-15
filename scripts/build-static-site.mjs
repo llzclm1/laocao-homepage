@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -10,7 +11,6 @@ const outDir = path.resolve(root, process.env.STATIC_OUT_DIR || "dist");
 const siteUrl = normalizeSiteUrl(process.env.SITE_URL || "https://gewuji.dev");
 const basePath = normalizeBasePath(process.env.PUBLIC_BASE_PATH || "/");
 const publicBaseUrl = new URL(basePath, `${siteUrl}/`).toString().replace(/\/$/, "");
-const lastmod = "2026-06-28";
 const googleAnalyticsId = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID || "G-NCZSC59MVC";
 const googleAdsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || "";
 const analyticsPagePaths = new Set([
@@ -417,12 +417,16 @@ function buildSitemap() {
   ];
 
   const urls = entries
-    .map(([pathname, priority]) => `  <url>
+    .map(([pathname, priority]) => {
+      const lastmod = sitemapLastmod(pathname);
+      const lastmodLine = lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : "";
+      return `  <url>
     <loc>${publicUrl(pathname)}</loc>
-    <lastmod>${lastmod}</lastmod>
+    ${lastmodLine.trimStart()}
     <changefreq>weekly</changefreq>
     <priority>${priority}</priority>
-  </url>`)
+  </url>`;
+    })
     .join("\n");
 
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -430,6 +434,25 @@ function buildSitemap() {
 ${urls}
 </urlset>
 `;
+}
+
+function sitemapLastmod(pathname) {
+  const source = pathname === ""
+    ? "index.html"
+    : pathname === "ai-sitemap.json"
+      ? "scripts/build-static-site.mjs"
+      : pathname.endsWith("/")
+        ? `${pathname}index.html`
+        : pathname;
+
+  try {
+    return execFileSync("git", ["log", "-1", "--format=%cs", "--", source], {
+      cwd: root,
+      encoding: "utf8"
+    }).trim() || null;
+  } catch {
+    return null;
+  }
 }
 
 function buildAiSitemap() {
