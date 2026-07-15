@@ -7,6 +7,7 @@
     "verify:static": "node scripts/verify-static-hosting.mjs",
     "discovery:scheduled": "node scripts/growth-os/discovery/run-scheduled-discovery.mjs",
     "test:discovery:phase-a": "node scripts/growth-os/discovery/tests/phase-a.mjs",
+    "test:social-strategy": "node scripts/growth-os/social-engine/tests/platform-strategy.mjs",
     "submit:indexnow": "node scripts/submit-indexnow.mjs",
     "stats:review": "node scripts/generate-stats-review.mjs",
     "sync:worldcup:scores": "node scripts/sync-worldcup-data.mjs",
