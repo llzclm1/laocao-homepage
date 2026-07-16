@@ -63,6 +63,7 @@ const copyEntries = [
   "for-factories",
   "game",
   "google985cfee1847b0d86.html",
+  "yandex_edfd626eb2964d84.html",
   "index.html",
   "lab",
   "llms.txt",
