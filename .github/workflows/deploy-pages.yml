@@ -36,6 +36,9 @@ jobs:
           NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION: ${{ vars.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || secrets.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }}
           VITE_PROMOTION_API_BASE_URL: https://156-238-232-37.sslip.io
 
+      - name: Include Lao Cao personal page
+        run: cp -R oldcao dist/oldcao
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
         with:
