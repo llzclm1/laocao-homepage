@@ -1,0 +1,184 @@
+{
+  "task_id": "GROWTH-004",
+  "started_at": "2026-07-20T06:42:21.362Z",
+  "completed_at": "2026-07-20T06:42:26.658Z",
+  "mode": "manual_click_playwright_browser",
+  "realtime": false,
+  "browser": {
+    "primary": "chrome",
+    "used": "chrome",
+    "fallback": false
+  },
+  "source_order": [
+    "cloudflare",
+    "gsc",
+    "clarity",
+    "semrush",
+    "geo",
+    "social",
+    "conversion",
+    "brand_monitoring"
+  ],
+  "sources": [
+    {
+      "key": "cloudflare",
+      "label": "Cloudflare",
+      "status": "unavailable",
+      "state": "unavailable",
+      "source": "https://dash.cloudflare.com/",
+      "updated_at": null,
+      "realtime": false,
+      "adapter": "chrome",
+      "note": "本轮没有可用数据。",
+      "metrics": {},
+      "diagnostics": {
+        "technical_error": "Command failed: /Users/caocao/.local/bin/browser-act --format json --session growth_morning_chrome_1784529743255 browser open direct_local_104200277420146713 https://dash.cloudflare.com/\n{\"ok\":false,\"error\":\"Chrome remote debugging is not enabled.\\nStep 1: Tell the user that browser-act cannot import or open chrome-direct until Chrome remote debugging is enabled. Enabling it requires closing Chrome, updating Chrome Local State, and restarting Chrome.\\nCurrent check: backend=process-check; reason=Chrome is running without DevToolsActivePort.\\nStep 2: After the user confirms Chrome may be closed and restarted, run: browser-act --session growth_morning_chrome_1784529743255 browser open direct_local_104200277420146713 https://dash.cloudflare.com/ --allow-restart-chrome\",\"error_code\":230325,\"error_name\":\"SESSION_REMOTE_DEBUGGING_RESTART_REQUIRED\",\"error_data\":null}\n"
+      }
+    },
+    {
+      "key": "gsc",
+      "label": "Google Search Console",
+      "status": "unavailable",
+      "state": "unavailable",
+      "source": "https://search.google.com/search-console?resource_id=https://gewuji.dev/",
+      "updated_at": null,
+      "realtime": false,
+      "adapter": "chrome",
+      "note": "本轮没有可用数据。",
+      "metrics": {},
+      "diagnostics": {
+        "technical_error": "Command failed: /Users/caocao/.local/bin/browser-act --format json --session growth_morning_chrome_1784529743255 browser open direct_local_104200277420146713 https://dash.cloudflare.com/\n{\"ok\":false,\"error\":\"Chrome remote debugging is not enabled.\\nStep 1: Tell the user that browser-act cannot import or open chrome-direct until Chrome remote debugging is enabled. Enabling it requires closing Chrome, updating Chrome Local State, and restarting Chrome.\\nCurrent check: backend=process-check; reason=Chrome is running without DevToolsActivePort.\\nStep 2: After the user confirms Chrome may be closed and restarted, run: browser-act --session growth_morning_chrome_1784529743255 browser open direct_local_104200277420146713 https://dash.cloudflare.com/ --allow-restart-chrome\",\"error_code\":230325,\"error_name\":\"SESSION_REMOTE_DEBUGGING_RESTART_REQUIRED\",\"error_data\":null}\n"
+      }
+    },
+    {
+      "key": "clarity",
+      "label": "Microsoft Clarity",
+      "status": "unavailable",
+      "state": "unavailable",
+      "source": "https://clarity.microsoft.com/projects",
+      "updated_at": null,
+      "realtime": false,
+      "adapter": "chrome",
+      "note": "本轮没有可用数据。",
+      "metrics": {},
+      "diagnostics": {
+        "technical_error": "Command failed: /Users/caocao/.local/bin/browser-act --format json --session growth_morning_chrome_1784529743255 browser open direct_local_104200277420146713 https://dash.cloudflare.com/\n{\"ok\":false,\"error\":\"Chrome remote debugging is not enabled.\\nStep 1: Tell the user that browser-act cannot import or open chrome-direct until Chrome remote debugging is enabled. Enabling it requires closing Chrome, updating Chrome Local State, and restarting Chrome.\\nCurrent check: backend=process-check; reason=Chrome is running without DevToolsActivePort.\\nStep 2: After the user confirms Chrome may be closed and restarted, run: browser-act --session growth_morning_chrome_1784529743255 browser open direct_local_104200277420146713 https://dash.cloudflare.com/ --allow-restart-chrome\",\"error_code\":230325,\"error_name\":\"SESSION_REMOTE_DEBUGGING_RESTART_REQUIRED\",\"error_data\":null}\n"
+      }
+    },
+    {
+      "key": "semrush",
+      "label": "Semrush",
+      "status": "unavailable",
+      "state": "unavailable",
+      "source": "https://www.semrush.com/projects/",
+      "updated_at": null,
+      "realtime": false,
+      "adapter": "chrome",
+      "note": "本轮没有可用数据。",
+      "metrics": {},
+      "diagnostics": {
+        "technical_error": "Command failed: /Users/caocao/.local/bin/browser-act --format json --session growth_morning_chrome_1784529743255 browser open direct_local_104200277420146713 https://dash.cloudflare.com/\n{\"ok\":false,\"error\":\"Chrome remote debugging is not enabled.\\nStep 1: Tell the user that browser-act cannot import or open chrome-direct until Chrome remote debugging is enabled. Enabling it requires closing Chrome, updating Chrome Local State, and restarting Chrome.\\nCurrent check: backend=process-check; reason=Chrome is running without DevToolsActivePort.\\nStep 2: After the user confirms Chrome may be closed and restarted, run: browser-act --session growth_morning_chrome_1784529743255 browser open direct_local_104200277420146713 https://dash.cloudflare.com/ --allow-restart-chrome\",\"error_code\":230325,\"error_name\":\"SESSION_REMOTE_DEBUGGING_RESTART_REQUIRED\",\"error_data\":null}\n"
+      }
+    },
+    {
+      "key": "geo",
+      "label": "GEO",
+      "status": "cached",
+      "state": "cached",
+      "source": "data/growth-os/geo/analysis/analysis-2026-07-11.json",
+      "updated_at": "2026-07-11T02:29:32.972Z",
+      "realtime": false,
+      "note": "缓存数据；本轮未访问实时页面。",
+      "metrics": {
+        "queries": 2,
+        "mentions": 0,
+        "citations": 0
+      }
+    },
+    {
+      "key": "social",
+      "label": "Social platforms",
+      "status": "unavailable",
+      "state": "unavailable",
+      "source": "data/growth-os/runtime/social-collector-latest.json",
+      "updated_at": "2026-07-20T06:42:24.425Z",
+      "realtime": false,
+      "note": "本轮未采集社交网页，数据暂不可用。",
+      "metrics": {
+        "linkedin_state": "unavailable",
+        "quora_state": "unavailable",
+        "new_interactions": 0,
+        "best_content": "Unknown"
+      },
+      "diagnostics": {
+        "duration_ms": 2232,
+        "failed_platforms": [
+          "linkedin",
+          "quora"
+        ]
+      }
+    },
+    {
+      "key": "conversion",
+      "label": "Website conversion",
+      "status": "manual",
+      "state": "manual",
+      "source": "data/product/supplier-reply-review-business-results.csv",
+      "updated_at": "2026-07-15T13:57:02.989Z",
+      "realtime": false,
+      "note": "人工记录；本轮未访问实时页面。",
+      "metrics": {
+        "recorded_rows": 0,
+        "material_submitted": 0
+      }
+    },
+    {
+      "key": "brand_monitoring",
+      "label": "Brand monitoring",
+      "status": "unavailable",
+      "state": "unavailable",
+      "source": "Unknown",
+      "updated_at": null,
+      "realtime": false,
+      "note": "本轮没有可用数据。",
+      "metrics": {},
+      "diagnostics": {
+        "technical_error": "Semrush AI visibility data was unavailable."
+      }
+    }
+  ],
+  "top_tasks": [
+    {
+      "priority": 1,
+      "title": "处理采集阻塞",
+      "reason": "Cloudflare、Google Search Console、Semrush、Brand monitoring",
+      "detail": "data"
+    },
+    {
+      "priority": 2,
+      "title": "查看网站转化记录",
+      "reason": "当前记录材料提交 0 条。",
+      "detail": "data"
+    }
+  ],
+  "summary": {
+    "counts": {
+      "live": 0,
+      "cached": 1,
+      "manual": 1,
+      "unavailable": 6,
+      "permission_required": 0,
+      "uncollected": 6
+    },
+    "root_cause": null,
+    "clarity_unavailable": true,
+    "social_unavailable": true,
+    "browser": {
+      "primary": "chrome",
+      "used": "chrome",
+      "fallback": false
+    },
+    "total": 8,
+    "conclusion": "本轮实时采集 0 个；缓存数据 1 个；人工记录 1 个；未采集 6 个。 Clarity 数据暂未提取，不影响其他数据。 社交采集部分不可用，不影响其他来源。"
+  }
+}

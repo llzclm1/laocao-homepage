@@ -1,0 +1,1628 @@
+{
+  "date": "2026-07-11T02:29:32.967Z",
+  "dry_run": false,
+  "new_opportunities": 8,
+  "high_priority": [
+    {
+      "source": "mock:reddit",
+      "title": "Questions before paying a China supplier deposit",
+      "question": "What should I ask before paying a China supplier deposit?",
+      "intent": "buyer research",
+      "buyer_intent": 94,
+      "commercial_value": 90,
+      "content_gap": true,
+      "service_alignment": true,
+      "boundary_fit": true,
+      "topic": "supplier deposit",
+      "id": "GO-002",
+      "score": 95,
+      "decision": "high_priority",
+      "duplicate": false,
+      "content_folder": "docs/content-pipeline/go-002/",
+      "recommended_action": "GO-002 create buyer guide brief for \"Questions before paying a China supplier deposit\""
+    },
+    {
+      "source": "mock:internal",
+      "title": "Compare Alibaba supplier quotations beyond price",
+      "question": "How do I compare Alibaba supplier quotations beyond price?",
+      "intent": "buyer research",
+      "buyer_intent": 88,
+      "commercial_value": 88,
+      "content_gap": true,
+      "service_alignment": true,
+      "boundary_fit": true,
+      "topic": "supplier quotation",
+      "id": "GO-006",
+      "score": 92,
+      "decision": "high_priority",
+      "duplicate": false,
+      "content_folder": "docs/content-pipeline/go-006/",
+      "recommended_action": "GO-006 create buyer guide brief for \"Compare Alibaba supplier quotations beyond price\""
+    }
+  ],
+  "medium_priority": [
+    {
+      "source": "mock:news",
+      "title": "What factory videos can and cannot prove",
+      "question": "What does a Chinese factory video actually prove?",
+      "intent": "buyer education",
+      "buyer_intent": 82,
+      "commercial_value": 72,
+      "content_gap": true,
+      "service_alignment": true,
+      "boundary_fit": true,
+      "topic": "factory video",
+      "id": "GO-004",
+      "score": 84,
+      "decision": "medium_priority",
+      "duplicate": false,
+      "content_folder": "docs/content-pipeline/go-004/",
+      "recommended_action": "GO-004 prepare research notes before drafting"
+    }
+  ],
+  "archived": [
+    {
+      "source": "mock:reddit",
+      "title": "Questions before ordering samples from China",
+      "question": "Questions before ordering samples from China",
+      "intent": "buyer research",
+      "buyer_intent": 90,
+      "commercial_value": 80,
+      "content_gap": false,
+      "service_alignment": true,
+      "boundary_fit": true,
+      "topic": "sample order",
+      "id": "GO-003",
+      "score": 70,
+      "decision": "archive",
+      "duplicate": true,
+      "content_folder": "docs/content-pipeline/go-003/",
+      "recommended_action": "GO-003 archive or revisit only if buyer demand becomes clearer"
+    },
+    {
+      "source": "mock:news",
+      "title": "Best AI logo generator for ecommerce",
+      "question": "What is the best AI logo generator for ecommerce?",
+      "intent": "tool research",
+      "buyer_intent": 20,
+      "commercial_value": 25,
+      "content_gap": false,
+      "service_alignment": false,
+      "boundary_fit": false,
+      "topic": "outside boundary",
+      "id": "GO-005",
+      "score": 16,
+      "decision": "archive",
+      "duplicate": false,
+      "content_folder": "docs/content-pipeline/go-005/",
+      "recommended_action": "GO-005 archive or revisit only if buyer demand becomes clearer"
+    },
+    {
+      "id": "CS-001",
+      "source": "customer-memory:Reddit",
+      "title": "What should I ask before paying a China supplier deposit?",
+      "question": "What should I ask before paying a China supplier deposit?",
+      "intent": "pre_payment",
+      "buyer_intent": 96,
+      "commercial_value": 92,
+      "content_gap": false,
+      "service_alignment": true,
+      "boundary_fit": true,
+      "topic": "trust",
+      "score": 76,
+      "decision": "archive",
+      "duplicate": false,
+      "content_folder": "docs/content-pipeline/cs-001/",
+      "recommended_action": "CS-001 archive or revisit only if buyer demand becomes clearer"
+    },
+    {
+      "id": "CS-002",
+      "source": "customer-memory:Buyer guide planning",
+      "title": "How do I compare Alibaba supplier quotations beyond price?",
+      "question": "How do I compare Alibaba supplier quotations beyond price?",
+      "intent": "quote_review",
+      "buyer_intent": 90,
+      "commercial_value": 88,
+      "content_gap": false,
+      "service_alignment": true,
+      "boundary_fit": true,
+      "topic": "unclear quote terms",
+      "score": 72,
+      "decision": "archive",
+      "duplicate": false,
+      "content_folder": "docs/content-pipeline/cs-002/",
+      "recommended_action": "CS-002 archive or revisit only if buyer demand becomes clearer"
+    },
+    {
+      "id": "CS-003",
+      "source": "customer-memory:Factory materials planning",
+      "title": "What factory photos help overseas buyers understand capability?",
+      "question": "What factory photos help overseas buyers understand capability?",
+      "intent": "factory_materials",
+      "buyer_intent": 78,
+      "commercial_value": 78,
+      "content_gap": false,
+      "service_alignment": true,
+      "boundary_fit": true,
+      "topic": "materials are hard for buyers to interpret",
+      "score": 65,
+      "decision": "archive",
+      "duplicate": false,
+      "content_folder": "docs/content-pipeline/cs-003/",
+      "recommended_action": "CS-003 archive or revisit only if buyer demand becomes clearer"
+    }
+  ],
+  "need_review": 0,
+  "review_queue": "docs/growth-os/review-queue/review-queue.md",
+  "generated_packages": [
+    {
+      "id": "GO-002",
+      "status": "existing",
+      "folder": "docs/content-pipeline/go-002",
+      "created_files": [],
+      "dry_run": false
+    },
+    {
+      "id": "GO-006",
+      "status": "existing",
+      "folder": "docs/content-pipeline/go-006",
+      "created_files": [],
+      "dry_run": false
+    },
+    {
+      "id": "GO-004",
+      "status": "existing",
+      "folder": "docs/content-pipeline/go-004",
+      "created_files": [],
+      "dry_run": false
+    }
+  ],
+  "review_state": {
+    "output": "data/growth-os/state/content-lifecycle.json",
+    "items": [
+      {
+        "id": "GO-001",
+        "title": "Questions Before Ordering Samples From China",
+        "status": "monitoring",
+        "platforms": [
+          {
+            "name": "LinkedIn",
+            "status": "ready"
+          },
+          {
+            "name": "Reddit",
+            "status": "ready"
+          },
+          {
+            "name": "X",
+            "status": "ready"
+          },
+          {
+            "name": "Substack",
+            "status": "ready"
+          },
+          {
+            "name": "Medium",
+            "status": "ready"
+          }
+        ],
+        "previous_status": "monitoring",
+        "updated": "2026-07-10",
+        "last_action": "approve",
+        "lifecycle_stage": "monitoring",
+        "review_status": "approved",
+        "publish_status": "published",
+        "monitor_status": "monitoring",
+        "learning_status": "not_started"
+      },
+      {
+        "id": "GO-002",
+        "title": "Questions Before Paying China Supplier Deposit",
+        "status": "published",
+        "platforms": [
+          {
+            "name": "LinkedIn",
+            "status": "ready"
+          },
+          {
+            "name": "Reddit",
+            "status": "ready"
+          },
+          {
+            "name": "X",
+            "status": "ready"
+          },
+          {
+            "name": "Substack",
+            "status": "ready"
+          },
+          {
+            "name": "Medium",
+            "status": "ready"
+          }
+        ],
+        "previous_status": "published",
+        "updated": "2026-07-10",
+        "last_action": "approve",
+        "lifecycle_stage": "publish",
+        "review_status": "approved",
+        "publish_status": "published",
+        "monitor_status": "not_started",
+        "learning_status": "not_started"
+      },
+      {
+        "id": "GO-004",
+        "title": "What factory videos can and cannot prove",
+        "status": "revision_required",
+        "platforms": [
+          {
+            "name": "LinkedIn",
+            "status": "draft"
+          },
+          {
+            "name": "Reddit",
+            "status": "draft"
+          },
+          {
+            "name": "X",
+            "status": "draft"
+          },
+          {
+            "name": "Substack",
+            "status": "draft"
+          },
+          {
+            "name": "Medium",
+            "status": "draft"
+          }
+        ],
+        "previous_status": "revision_required",
+        "updated": "2026-07-10",
+        "last_action": "reject",
+        "lifecycle_stage": "review",
+        "review_status": "revision_required",
+        "publish_status": "not_ready",
+        "monitor_status": "not_started",
+        "learning_status": "not_started"
+      },
+      {
+        "id": "GO-006",
+        "title": "Compare Alibaba supplier quotations beyond price",
+        "status": "publish_ready",
+        "platforms": [
+          {
+            "name": "LinkedIn",
+            "status": "ready"
+          },
+          {
+            "name": "Reddit",
+            "status": "ready"
+          },
+          {
+            "name": "X",
+            "status": "ready"
+          },
+          {
+            "name": "Substack",
+            "status": "ready"
+          },
+          {
+            "name": "Medium",
+            "status": "ready"
+          }
+        ],
+        "previous_status": "publish_ready",
+        "updated": "2026-07-10",
+        "last_action": "approve",
+        "lifecycle_stage": "publish",
+        "review_status": "approved",
+        "publish_status": "ready",
+        "monitor_status": "not_started",
+        "learning_status": "not_started"
+      }
+    ]
+  },
+  "state_validation": {
+    "errors": [],
+    "warnings": [
+      "GO-002: published requires manual approval evidence",
+      "GO-006: publish_ready requires manual approval evidence"
+    ],
+    "checked": 4
+  },
+  "geo_report": "docs/growth-os/geo/reports/geo-report-2026-07-11.md",
+  "geo_queries": 4,
+  "geo_tasks": 6,
+  "business_opportunities": [
+    {
+      "id": "GO-001",
+      "opportunity_id": "GO-001",
+      "title": "Questions Before Ordering Samples From China",
+      "status": "published_candidate",
+      "seo_score": 95,
+      "geo_score": 95,
+      "buyer_stage": "sample_order",
+      "pain_level": 100,
+      "urgency": 100,
+      "service_alignment": 100,
+      "cta_match": 96,
+      "business_intent_score": 98,
+      "conversion_probability": 99,
+      "final_priority": 97,
+      "priority": "HIGH",
+      "reason": "Buyer is preparing to order samples and needs to clarify what the sample can and cannot prove before moving forward.",
+      "recommended_action": "Keep monitoring this published candidate and use conversion signals for future optimization.",
+      "generated_at": "2026-07-11T02:29:32.967Z",
+      "rank": 1
+    },
+    {
+      "id": "GO-002",
+      "opportunity_id": "GO-002",
+      "title": "Questions before paying a China supplier deposit",
+      "status": "draft_ready",
+      "seo_score": 94,
+      "geo_score": 92,
+      "buyer_stage": "pre_payment",
+      "pain_level": 95,
+      "urgency": 92,
+      "service_alignment": 100,
+      "cta_match": 96,
+      "business_intent_score": 95,
+      "conversion_probability": 96,
+      "final_priority": 96,
+      "priority": "HIGH",
+      "reason": "Buyer is close to a payment decision and needs supplier communication clarity before sending money.",
+      "recommended_action": "Prioritize human review and prepare a buyer guide or Supplier Reply Review entry point.",
+      "generated_at": "2026-07-11T02:29:32.967Z",
+      "rank": 2
+    },
+    {
+      "id": "GO-006",
+      "opportunity_id": "GO-006",
+      "title": "Compare Alibaba supplier quotations beyond price",
+      "status": "draft_ready",
+      "seo_score": 95,
+      "geo_score": 87,
+      "buyer_stage": "quote_review",
+      "pain_level": 89,
+      "urgency": 82,
+      "service_alignment": 88,
+      "cta_match": 96,
+      "business_intent_score": 86,
+      "conversion_probability": 88,
+      "final_priority": 90,
+      "priority": "HIGH",
+      "reason": "Buyer is comparing quotation details and can naturally move into Supplier Reply Review with real supplier messages.",
+      "recommended_action": "Prioritize this content package for human review before page implementation.",
+      "generated_at": "2026-07-11T02:29:32.967Z",
+      "rank": 3
+    },
+    {
+      "id": "GO-004",
+      "opportunity_id": "GO-004",
+      "title": "What factory videos can and cannot prove",
+      "status": "draft_ready",
+      "seo_score": 68,
+      "geo_score": 68,
+      "buyer_stage": "research",
+      "pain_level": 55,
+      "urgency": 50,
+      "service_alignment": 50,
+      "cta_match": 68,
+      "business_intent_score": 54,
+      "conversion_probability": 54,
+      "final_priority": 60,
+      "priority": "LOW",
+      "reason": "Buyer intent is still broad, so this should not outrank payment, sample, quotation, or supplier-reply topics.",
+      "recommended_action": "Archive or keep as a low-priority content idea.",
+      "generated_at": "2026-07-11T02:29:32.967Z",
+      "rank": 4
+    }
+  ],
+  "cloudflare_traffic": {
+    "date": "2026-07-10",
+    "source": "data/growth-os/imports/cloudflare/cloudflare-traffic-overview-2026-07-10.json",
+    "report": "docs/growth-os/cloudflare/traffic-observation-2026-07-10.md",
+    "total_requests": 1430,
+    "total_visits": 333,
+    "cache_hit_rate": 24.46,
+    "bandwidth_served": "81.84 MB",
+    "status_codes": {
+      "2xx": 1030,
+      "3xx": 328,
+      "4xx": 68,
+      "5xx": 0
+    },
+    "levels": {
+      "crawler_traffic": "high",
+      "legacy_traffic": "present",
+      "buyer_intent_traffic": "low / not clear yet",
+      "security_scanner_traffic": "low",
+      "healthy_static_traffic": "present",
+      "site_health": "ok"
+    },
+    "counts": {
+      "crawler": 219,
+      "legacy": 133,
+      "buyer_intent": 0,
+      "security_scanner": 0,
+      "healthy_static": 217,
+      "other": 0
+    },
+    "classified_paths": [
+      {
+        "path": "/robots.txt",
+        "requests": 188,
+        "category": "crawler"
+      },
+      {
+        "path": "/",
+        "requests": 166,
+        "category": "healthy_static"
+      },
+      {
+        "path": "/tools/worldcup-advisor/advisor/",
+        "requests": 42,
+        "category": "legacy"
+      },
+      {
+        "path": "/tools/worldcup-advisor/styles.css",
+        "requests": 37,
+        "category": "legacy"
+      },
+      {
+        "path": "/favicon.ico",
+        "requests": 33,
+        "category": "healthy_static"
+      },
+      {
+        "path": "/sitemap.xml",
+        "requests": 31,
+        "category": "crawler"
+      },
+      {
+        "path": "/tools/worldcup-advisor/",
+        "requests": 30,
+        "category": "legacy"
+      },
+      {
+        "path": "/tools/worldcup-advisor/data/worldcup-odds.js",
+        "requests": 24,
+        "category": "legacy"
+      },
+      {
+        "path": "/_next/static/chunks/app.js",
+        "requests": 18,
+        "category": "healthy_static"
+      }
+    ],
+    "classified_user_agents": [
+      {
+        "agent": "Mediapartners-Google",
+        "category": "crawler"
+      },
+      {
+        "agent": "Googlebot",
+        "category": "crawler"
+      },
+      {
+        "agent": "Googlebot-Image",
+        "category": "crawler"
+      },
+      {
+        "agent": "Twitterbot",
+        "category": "crawler"
+      },
+      {
+        "agent": "AppleBot",
+        "category": "crawler"
+      },
+      {
+        "agent": "ClaudeBot",
+        "category": "crawler"
+      },
+      {
+        "agent": "BingBot",
+        "category": "crawler"
+      }
+    ],
+    "action": "monitor buyer-intent pages, do not optimize based on total request count",
+    "conclusion": "站点健康，爬虫开始访问，但真实买家信号还不明显。"
+  },
+  "performance_report": "docs/growth-os/performance/content-performance-report.md",
+  "customer_signals": {
+    "buyerSignals": [
+      {
+        "source": "Reddit",
+        "question": "What should I ask before paying a China supplier deposit?",
+        "stage": "pre_payment",
+        "pain": "trust",
+        "related_go": "GO-002",
+        "date": "2026-07-09"
+      },
+      {
+        "source": "Buyer guide planning",
+        "question": "How do I compare Alibaba supplier quotations beyond price?",
+        "stage": "quote_review",
+        "pain": "unclear quote terms",
+        "related_go": "GO-006",
+        "date": "2026-07-09"
+      }
+    ],
+    "factorySignals": [
+      {
+        "source": "Factory materials planning",
+        "question": "What factory photos help overseas buyers understand capability?",
+        "stage": "factory_materials",
+        "pain": "materials are hard for buyers to interpret",
+        "related_go": "FIELD-MATERIALS",
+        "date": "2026-07-09"
+      }
+    ],
+    "contentFeedback": [
+      {
+        "source": "Growth OS review",
+        "question": "GO-002 needs stronger FAQ and CTA before page implementation.",
+        "stage": "content_review",
+        "pain": "draft is too thin for buyer action",
+        "related_go": "GO-002",
+        "date": "2026-07-09"
+      }
+    ],
+    "total": 4
+  },
+  "content_quality": {
+    "output": "docs/growth-os/content-quality",
+    "count": 4,
+    "average": 79,
+    "items": [
+      {
+        "id": "GO-001",
+        "generated_at": "2026-07-11T02:29:32.967Z",
+        "seo": 100,
+        "geo": 100,
+        "business": 100,
+        "overall": 100,
+        "issues": [],
+        "recommendation": "Ready for human review."
+      },
+      {
+        "id": "GO-002",
+        "generated_at": "2026-07-11T02:29:32.967Z",
+        "seo": 100,
+        "geo": 50,
+        "business": 67,
+        "overall": 72,
+        "issues": [
+          "Missing FAQ",
+          "Weak entity clarity",
+          "Weak CTA match"
+        ],
+        "recommendation": "Add buyer questions section before page implementation."
+      },
+      {
+        "id": "GO-004",
+        "generated_at": "2026-07-11T02:29:32.967Z",
+        "seo": 100,
+        "geo": 50,
+        "business": 67,
+        "overall": 72,
+        "issues": [
+          "Missing FAQ",
+          "Weak entity clarity",
+          "Weak CTA match"
+        ],
+        "recommendation": "Add buyer questions section before page implementation."
+      },
+      {
+        "id": "GO-006",
+        "generated_at": "2026-07-11T02:29:32.967Z",
+        "seo": 100,
+        "geo": 50,
+        "business": 67,
+        "overall": 72,
+        "issues": [
+          "Missing FAQ",
+          "Weak entity clarity",
+          "Weak CTA match"
+        ],
+        "recommendation": "Add buyer questions section before page implementation."
+      }
+    ]
+  },
+  "internal_links": {
+    "output": "docs/growth-os/internal-links",
+    "count": 16,
+    "pages": 4,
+    "items": [
+      {
+        "id": "GO-001",
+        "generated_at": "2026-07-11T02:29:32.967Z",
+        "title": "Questions Before Ordering Samples From China",
+        "suggestions": [
+          {
+            "from": "Questions Before Ordering Samples From China",
+            "to": "/supplier-reply-review/",
+            "anchor": "supplier communication review",
+            "status": "already in brief"
+          },
+          {
+            "from": "Questions Before Ordering Samples From China",
+            "to": "/supplier-reply-review/sample-report/",
+            "anchor": "sample Supplier Reply Review report",
+            "status": "already in brief"
+          },
+          {
+            "from": "Questions Before Ordering Samples From China",
+            "to": "/supplier-reply-review/examples/",
+            "anchor": "Supplier Reply Review examples",
+            "status": "already in brief"
+          },
+          {
+            "from": "Questions Before Ordering Samples From China",
+            "to": "/field-materials/",
+            "anchor": "factory field materials",
+            "status": "already in brief"
+          }
+        ]
+      },
+      {
+        "id": "GO-002",
+        "generated_at": "2026-07-11T02:29:32.967Z",
+        "title": "Questions before paying a China supplier deposit",
+        "suggestions": [
+          {
+            "from": "Questions before paying a China supplier deposit",
+            "to": "/supplier-reply-review/",
+            "anchor": "supplier communication review",
+            "status": "already in brief"
+          },
+          {
+            "from": "Questions before paying a China supplier deposit",
+            "to": "/supplier-reply-review/sample-report/",
+            "anchor": "sample Supplier Reply Review report",
+            "status": "already in brief"
+          },
+          {
+            "from": "Questions before paying a China supplier deposit",
+            "to": "/supplier-reply-review/examples/",
+            "anchor": "Supplier Reply Review examples",
+            "status": "already in brief"
+          },
+          {
+            "from": "Questions before paying a China supplier deposit",
+            "to": "/field-materials/",
+            "anchor": "factory field materials",
+            "status": "already in brief"
+          }
+        ]
+      },
+      {
+        "id": "GO-004",
+        "generated_at": "2026-07-11T02:29:32.967Z",
+        "title": "What factory videos can and cannot prove",
+        "suggestions": [
+          {
+            "from": "What factory videos can and cannot prove",
+            "to": "/supplier-reply-review/",
+            "anchor": "supplier communication review",
+            "status": "already in brief"
+          },
+          {
+            "from": "What factory videos can and cannot prove",
+            "to": "/supplier-reply-review/sample-report/",
+            "anchor": "sample Supplier Reply Review report",
+            "status": "already in brief"
+          },
+          {
+            "from": "What factory videos can and cannot prove",
+            "to": "/supplier-reply-review/examples/",
+            "anchor": "Supplier Reply Review examples",
+            "status": "already in brief"
+          },
+          {
+            "from": "What factory videos can and cannot prove",
+            "to": "/field-materials/",
+            "anchor": "factory field materials",
+            "status": "already in brief"
+          }
+        ]
+      },
+      {
+        "id": "GO-006",
+        "generated_at": "2026-07-11T02:29:32.967Z",
+        "title": "Compare Alibaba supplier quotations beyond price",
+        "suggestions": [
+          {
+            "from": "Compare Alibaba supplier quotations beyond price",
+            "to": "/supplier-reply-review/",
+            "anchor": "supplier communication review",
+            "status": "already in brief"
+          },
+          {
+            "from": "Compare Alibaba supplier quotations beyond price",
+            "to": "/supplier-reply-review/sample-report/",
+            "anchor": "sample Supplier Reply Review report",
+            "status": "already in brief"
+          },
+          {
+            "from": "Compare Alibaba supplier quotations beyond price",
+            "to": "/supplier-reply-review/examples/",
+            "anchor": "Supplier Reply Review examples",
+            "status": "already in brief"
+          },
+          {
+            "from": "Compare Alibaba supplier quotations beyond price",
+            "to": "/field-materials/",
+            "anchor": "factory field materials",
+            "status": "already in brief"
+          }
+        ]
+      }
+    ]
+  },
+  "social_content": {
+    "output": "docs/social/content-pack",
+    "status": "generated",
+    "packages": 4,
+    "posts": 20,
+    "items": [
+      {
+        "content_id": "GO-001",
+        "platform": "linkedin",
+        "file": "docs/social/content-pack/go-001/linkedin.md",
+        "status": "generated",
+        "generated_at": "2026-07-11T02:29:32.967Z"
+      },
+      {
+        "content_id": "GO-001",
+        "platform": "reddit",
+        "file": "docs/social/content-pack/go-001/reddit.md",
+        "status": "generated",
+        "generated_at": "2026-07-11T02:29:32.967Z"
+      },
+      {
+        "content_id": "GO-001",
+        "platform": "x-thread",
+        "file": "docs/social/content-pack/go-001/x-thread.md",
+        "status": "generated",
+        "generated_at": "2026-07-11T02:29:32.967Z"
+      },
+      {
+        "content_id": "GO-001",
+        "platform": "substack",
+        "file": "docs/social/content-pack/go-001/substack.md",
+        "status": "generated",
+        "generated_at": "2026-07-11T02:29:32.967Z"
+      },
+      {
+        "content_id": "GO-001",
+        "platform": "medium",
+        "file": "docs/social/content-pack/go-001/medium.md",
+        "status": "generated",
+        "generated_at": "2026-07-11T02:29:32.967Z"
+      },
+      {
+        "content_id": "GO-002",
+        "platform": "linkedin",
+        "file": "docs/social/content-pack/go-002/linkedin.md",
+        "status": "generated",
+        "generated_at": "2026-07-11T02:29:32.967Z"
+      },
+      {
+        "content_id": "GO-002",
+        "platform": "reddit",
+        "file": "docs/social/content-pack/go-002/reddit.md",
+        "status": "generated",
+        "generated_at": "2026-07-11T02:29:32.967Z"
+      },
+      {
+        "content_id": "GO-002",
+        "platform": "x-thread",
+        "file": "docs/social/content-pack/go-002/x-thread.md",
+        "status": "generated",
+        "generated_at": "2026-07-11T02:29:32.967Z"
+      },
+      {
+        "content_id": "GO-002",
+        "platform": "substack",
+        "file": "docs/social/content-pack/go-002/substack.md",
+        "status": "generated",
+        "generated_at": "2026-07-11T02:29:32.967Z"
+      },
+      {
+        "content_id": "GO-002",
+        "platform": "medium",
+        "file": "docs/social/content-pack/go-002/medium.md",
+        "status": "generated",
+        "generated_at": "2026-07-11T02:29:32.967Z"
+      },
+      {
+        "content_id": "GO-004",
+        "platform": "linkedin",
+        "file": "docs/social/content-pack/go-004/linkedin.md",
+        "status": "generated",
+        "generated_at": "2026-07-11T02:29:32.967Z"
+      },
+      {
+        "content_id": "GO-004",
+        "platform": "reddit",
+        "file": "docs/social/content-pack/go-004/reddit.md",
+        "status": "generated",
+        "generated_at": "2026-07-11T02:29:32.967Z"
+      },
+      {
+        "content_id": "GO-004",
+        "platform": "x-thread",
+        "file": "docs/social/content-pack/go-004/x-thread.md",
+        "status": "generated",
+        "generated_at": "2026-07-11T02:29:32.967Z"
+      },
+      {
+        "content_id": "GO-004",
+        "platform": "substack",
+        "file": "docs/social/content-pack/go-004/substack.md",
+        "status": "generated",
+        "generated_at": "2026-07-11T02:29:32.967Z"
+      },
+      {
+        "content_id": "GO-004",
+        "platform": "medium",
+        "file": "docs/social/content-pack/go-004/medium.md",
+        "status": "generated",
+        "generated_at": "2026-07-11T02:29:32.967Z"
+      },
+      {
+        "content_id": "GO-006",
+        "platform": "linkedin",
+        "file": "docs/social/content-pack/go-006/linkedin.md",
+        "status": "generated",
+        "generated_at": "2026-07-11T02:29:32.967Z"
+      },
+      {
+        "content_id": "GO-006",
+        "platform": "reddit",
+        "file": "docs/social/content-pack/go-006/reddit.md",
+        "status": "generated",
+        "generated_at": "2026-07-11T02:29:32.967Z"
+      },
+      {
+        "content_id": "GO-006",
+        "platform": "x-thread",
+        "file": "docs/social/content-pack/go-006/x-thread.md",
+        "status": "generated",
+        "generated_at": "2026-07-11T02:29:32.967Z"
+      },
+      {
+        "content_id": "GO-006",
+        "platform": "substack",
+        "file": "docs/social/content-pack/go-006/substack.md",
+        "status": "generated",
+        "generated_at": "2026-07-11T02:29:32.967Z"
+      },
+      {
+        "content_id": "GO-006",
+        "platform": "medium",
+        "file": "docs/social/content-pack/go-006/medium.md",
+        "status": "generated",
+        "generated_at": "2026-07-11T02:29:32.967Z"
+      }
+    ],
+    "rules": "data/growth-os/platform-intelligence/platform-rules.json",
+    "x_image_plans": [
+      {
+        "id": "GO-001",
+        "output": "docs/social/content-pack/go-001/x-image-plan.md",
+        "recommendation": "thread",
+        "estimated_cards": 1
+      },
+      {
+        "id": "GO-002",
+        "output": "docs/social/content-pack/go-002/x-image-plan.md",
+        "recommendation": "thread",
+        "estimated_cards": 1
+      },
+      {
+        "id": "GO-004",
+        "output": "docs/social/content-pack/go-004/x-image-plan.md",
+        "recommendation": "thread",
+        "estimated_cards": 1
+      },
+      {
+        "id": "GO-006",
+        "output": "docs/social/content-pack/go-006/x-image-plan.md",
+        "recommendation": "thread",
+        "estimated_cards": 1
+      }
+    ]
+  },
+  "platform_compliance": {
+    "generated_at": "2026-07-11T02:29:32.967Z",
+    "social_ready": 20,
+    "compliance_passed": 20,
+    "need_revision": 0,
+    "reports_dir": "docs/growth-os/social-compliance",
+    "items": [
+      {
+        "id": "GO-001",
+        "platform": "LinkedIn",
+        "risk": "MEDIUM",
+        "status": "passed",
+        "issues": [],
+        "recommendation": "Ready for human review."
+      },
+      {
+        "id": "GO-001",
+        "platform": "Reddit",
+        "risk": "HIGH",
+        "status": "passed",
+        "issues": [],
+        "recommendation": "Ready for human review."
+      },
+      {
+        "id": "GO-001",
+        "platform": "X",
+        "risk": "MEDIUM",
+        "status": "passed",
+        "issues": [],
+        "recommendation": "Ready for human review."
+      },
+      {
+        "id": "GO-001",
+        "platform": "Substack",
+        "risk": "LOW",
+        "status": "passed",
+        "issues": [],
+        "recommendation": "Ready for human review."
+      },
+      {
+        "id": "GO-001",
+        "platform": "Medium",
+        "risk": "MEDIUM",
+        "status": "passed",
+        "issues": [],
+        "recommendation": "Ready for human review."
+      },
+      {
+        "id": "GO-002",
+        "platform": "LinkedIn",
+        "risk": "MEDIUM",
+        "status": "passed",
+        "issues": [],
+        "recommendation": "Ready for human review."
+      },
+      {
+        "id": "GO-002",
+        "platform": "Reddit",
+        "risk": "HIGH",
+        "status": "passed",
+        "issues": [],
+        "recommendation": "Ready for human review."
+      },
+      {
+        "id": "GO-002",
+        "platform": "X",
+        "risk": "MEDIUM",
+        "status": "passed",
+        "issues": [],
+        "recommendation": "Ready for human review."
+      },
+      {
+        "id": "GO-002",
+        "platform": "Substack",
+        "risk": "LOW",
+        "status": "passed",
+        "issues": [],
+        "recommendation": "Ready for human review."
+      },
+      {
+        "id": "GO-002",
+        "platform": "Medium",
+        "risk": "MEDIUM",
+        "status": "passed",
+        "issues": [],
+        "recommendation": "Ready for human review."
+      },
+      {
+        "id": "GO-004",
+        "platform": "LinkedIn",
+        "risk": "MEDIUM",
+        "status": "passed",
+        "issues": [],
+        "recommendation": "Ready for human review."
+      },
+      {
+        "id": "GO-004",
+        "platform": "Reddit",
+        "risk": "HIGH",
+        "status": "passed",
+        "issues": [],
+        "recommendation": "Ready for human review."
+      },
+      {
+        "id": "GO-004",
+        "platform": "X",
+        "risk": "MEDIUM",
+        "status": "passed",
+        "issues": [],
+        "recommendation": "Ready for human review."
+      },
+      {
+        "id": "GO-004",
+        "platform": "Substack",
+        "risk": "LOW",
+        "status": "passed",
+        "issues": [],
+        "recommendation": "Ready for human review."
+      },
+      {
+        "id": "GO-004",
+        "platform": "Medium",
+        "risk": "MEDIUM",
+        "status": "passed",
+        "issues": [],
+        "recommendation": "Ready for human review."
+      },
+      {
+        "id": "GO-006",
+        "platform": "LinkedIn",
+        "risk": "MEDIUM",
+        "status": "passed",
+        "issues": [],
+        "recommendation": "Ready for human review."
+      },
+      {
+        "id": "GO-006",
+        "platform": "Reddit",
+        "risk": "HIGH",
+        "status": "passed",
+        "issues": [],
+        "recommendation": "Ready for human review."
+      },
+      {
+        "id": "GO-006",
+        "platform": "X",
+        "risk": "MEDIUM",
+        "status": "passed",
+        "issues": [],
+        "recommendation": "Ready for human review."
+      },
+      {
+        "id": "GO-006",
+        "platform": "Substack",
+        "risk": "LOW",
+        "status": "passed",
+        "issues": [],
+        "recommendation": "Ready for human review."
+      },
+      {
+        "id": "GO-006",
+        "platform": "Medium",
+        "risk": "MEDIUM",
+        "status": "passed",
+        "issues": [],
+        "recommendation": "Ready for human review."
+      }
+    ]
+  },
+  "social_performance": {
+    "output": "docs/growth-os/social-reports/social-report-2026-07-11.md",
+    "records": 2,
+    "platforms": 2,
+    "best_content": "GO-002",
+    "recommendation": "Create similar content for GO-002."
+  },
+  "social_discovery": {
+    "generated_at": "2026-07-11T02:29:32.967Z",
+    "source": "data/marketing/social-outreach-log.csv",
+    "supported_platforms": [
+      "Reddit",
+      "LinkedIn",
+      "Quora",
+      "X"
+    ],
+    "items": [
+      {
+        "platform": "Reddit",
+        "thread_url": "https://www.reddit.com/r/FulfillmentByAmazon/comments/xrhfp4/alibaba_deposit_refund/",
+        "author": "Not recorded",
+        "topic": "Alibaba deposit refund",
+        "intent_score": "High",
+        "intent_rank": 3,
+        "why_relevant": "Written terms before deposit",
+        "suggested_comment": "Before paying, I would ask for one clean written summary of the product scope, quantity, price, trade term, what the deposit covers, when the balance is due, and what can change the price or lead time. It makes it easier to spot where both sides may be assuming different things.",
+        "expected_value": "Buyer",
+        "risk_status": "High",
+        "risk_note": "只回复原问题，不放链接、不提项目、不发独立推广帖。"
+      },
+      {
+        "platform": "Reddit",
+        "thread_url": "https://www.reddit.com/r/FulfillmentByAmazon/comments/3b38av/paying_chinese_supplier_company_bank_account_vs/",
+        "author": "Not recorded",
+        "topic": "Company vs personal bank account",
+        "intent_score": "High",
+        "intent_rank": 3,
+        "why_relevant": "Payment account mismatch",
+        "suggested_comment": "I would ask the supplier to restate the beneficiary name, payment details, and the order scope on the current quotation or pro forma invoice. The point is to make mismatches visible before payment, not to assume the account detail alone proves anything.",
+        "expected_value": "Buyer",
+        "risk_status": "High",
+        "risk_note": "只回复原问题，不放链接、不提项目、不发独立推广帖。"
+      },
+      {
+        "platform": "Reddit",
+        "thread_url": "https://www.reddit.com/r/FulfillmentByAmazon/comments/lw8ea0/how_do_you_pay_alibaba_suppliers/",
+        "author": "Not recorded",
+        "topic": "How to pay Alibaba suppliers",
+        "intent_score": "High",
+        "intent_rank": 3,
+        "why_relevant": "Deposit terms and PI clarity",
+        "suggested_comment": "Before paying, I would ask for one clean written summary of the product scope, quantity, price, trade term, what the deposit covers, when the balance is due, and what can change the price or lead time. It makes it easier to spot where both sides may be assuming different things.",
+        "expected_value": "Buyer",
+        "risk_status": "High",
+        "risk_note": "只回复原问题，不放链接、不提项目、不发独立推广帖。"
+      },
+      {
+        "platform": "Reddit",
+        "thread_url": "https://www.reddit.com/r/smallbusiness/comments/1de3t7g/how_to_pay_supplier/",
+        "author": "Not recorded",
+        "topic": "How to pay supplier",
+        "intent_score": "High",
+        "intent_rank": 3,
+        "why_relevant": "Payment terms and written confirmation angle",
+        "suggested_comment": "Before paying, I would ask for one clean written summary of the product scope, quantity, price, trade term, what the deposit covers, when the balance is due, and what can change the price or lead time. It makes it easier to spot where both sides may be assuming different things.",
+        "expected_value": "Buyer",
+        "risk_status": "High",
+        "risk_note": "只回复原问题，不放链接、不提项目、不发独立推广帖。"
+      },
+      {
+        "platform": "Reddit",
+        "thread_url": "https://www.reddit.com/r/smallbusiness/comments/118cyry/how_to_pay_a_manufacturer_on_alibaba/",
+        "author": "Not recorded",
+        "topic": "Pay manufacturer on Alibaba",
+        "intent_score": "High",
+        "intent_rank": 3,
+        "why_relevant": "Platform/order documentation angle",
+        "suggested_comment": "Before paying, I would ask for one clean written summary of the product scope, quantity, price, trade term, what the deposit covers, when the balance is due, and what can change the price or lead time. It makes it easier to spot where both sides may be assuming different things.",
+        "expected_value": "Buyer",
+        "risk_status": "High",
+        "risk_note": "只回复原问题，不放链接、不提项目、不发独立推广帖。"
+      }
+    ]
+  },
+  "review_actions": [
+    {
+      "id": "GO-004",
+      "action": "revision",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": "Add more buyer examples before publishing"
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "revision",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "revision",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "revision",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": "test immediate approval"
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-004",
+      "action": "reject",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-006",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-001",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-001",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-004",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-006",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-09",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-10",
+      "note": ""
+    },
+    {
+      "id": "GO-004",
+      "action": "reject",
+      "user": "local",
+      "date": "2026-07-10",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-10",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-10",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-10",
+      "note": ""
+    },
+    {
+      "id": "GO-002",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-10",
+      "note": ""
+    },
+    {
+      "id": "GO-001",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-10",
+      "note": ""
+    },
+    {
+      "id": "GO-006",
+      "action": "approve",
+      "user": "local",
+      "date": "2026-07-10",
+      "note": ""
+    }
+  ],
+  "assets": {
+    "count": 3,
+    "updated_at": "2026-07-09",
+    "output": "data/growth-os/assets/field-materials.json"
+  },
+  "experiments": {
+    "running": 1,
+    "output": "docs/growth-os/experiments/active-experiments.md"
+  },
+  "recommended_actions": [
+    "GO-002 create buyer guide brief for \"Questions before paying a China supplier deposit\"",
+    "GO-004 prepare research notes before drafting",
+    "GO-006 create buyer guide brief for \"Compare Alibaba supplier quotations beyond price\""
+  ]
+}

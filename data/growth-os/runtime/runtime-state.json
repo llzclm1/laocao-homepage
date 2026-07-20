@@ -1,0 +1,60 @@
+{
+  "last_run": "2026-07-11T02:29:32.967Z",
+  "new_opportunities": 8,
+  "high_priority": [
+    "GO-002",
+    "GO-006"
+  ],
+  "medium_priority": [
+    "GO-004"
+  ],
+  "archived": [
+    "GO-003",
+    "GO-005",
+    "CS-001",
+    "CS-002",
+    "CS-003"
+  ],
+  "geo_report": "docs/growth-os/geo/reports/geo-report-2026-07-11.md",
+  "business_opportunities": [
+    {
+      "id": "GO-001",
+      "final_priority": 97,
+      "priority": "HIGH"
+    },
+    {
+      "id": "GO-002",
+      "final_priority": 96,
+      "priority": "HIGH"
+    },
+    {
+      "id": "GO-006",
+      "final_priority": 90,
+      "priority": "HIGH"
+    },
+    {
+      "id": "GO-004",
+      "final_priority": 60,
+      "priority": "LOW"
+    }
+  ],
+  "customer_signals": 4,
+  "content_quality_average": 79,
+  "internal_link_suggestions": 16,
+  "social_posts": 20,
+  "platform_compliance_passed": 20,
+  "platform_compliance_need_revision": 0,
+  "social_best_content": "GO-002",
+  "cloudflare_traffic": {
+    "crawler_traffic": "high",
+    "legacy_traffic": "present",
+    "buyer_intent_traffic": "low / not clear yet",
+    "security_scanner_traffic": "low",
+    "healthy_static_traffic": "present",
+    "site_health": "ok"
+  },
+  "assets": 3,
+  "experiments_running": 1,
+  "morning_report": "docs/growth-os/reports/growth-report-2026-07-11.md",
+  "dashboard": "docs/growth-os/dashboard.md"
+}

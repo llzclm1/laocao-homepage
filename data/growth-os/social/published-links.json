@@ -1,0 +1,282 @@
+[
+  {
+    "content_id": "GO-001",
+    "platform": "LinkedIn",
+    "status": "draft_ready",
+    "url": "",
+    "published_date": "",
+    "metrics": {
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "clicks": 0,
+      "leads": 0
+    }
+  },
+  {
+    "content_id": "GO-001",
+    "platform": "Medium",
+    "status": "draft_ready",
+    "url": "",
+    "published_date": "",
+    "metrics": {
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "clicks": 0,
+      "leads": 0
+    }
+  },
+  {
+    "content_id": "GO-001",
+    "platform": "Reddit",
+    "status": "draft_ready",
+    "url": "",
+    "published_date": "",
+    "metrics": {
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "clicks": 0,
+      "leads": 0
+    }
+  },
+  {
+    "content_id": "GO-001",
+    "platform": "Substack",
+    "status": "draft_ready",
+    "url": "",
+    "published_date": "",
+    "metrics": {
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "clicks": 0,
+      "leads": 0
+    }
+  },
+  {
+    "content_id": "GO-001",
+    "platform": "X",
+    "status": "draft_ready",
+    "url": "",
+    "published_date": "",
+    "metrics": {
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "clicks": 0,
+      "leads": 0
+    }
+  },
+  {
+    "content_id": "GO-002",
+    "platform": "LinkedIn",
+    "status": "published",
+    "url": "https://www.linkedin.com/feed/update/urn:li:share:7481150116930801664/",
+    "published_date": "2026-07-10",
+    "metrics": {
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "clicks": 0,
+      "leads": 0
+    }
+  },
+  {
+    "content_id": "GO-002",
+    "platform": "Medium",
+    "status": "draft_ready",
+    "url": "",
+    "published_date": "",
+    "metrics": {
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "clicks": 0,
+      "leads": 0
+    }
+  },
+  {
+    "content_id": "GO-002",
+    "platform": "Reddit",
+    "status": "draft_ready",
+    "url": "",
+    "published_date": "",
+    "metrics": {
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "clicks": 0,
+      "leads": 0
+    }
+  },
+  {
+    "content_id": "GO-002",
+    "platform": "Substack",
+    "status": "draft_ready",
+    "url": "",
+    "published_date": "",
+    "metrics": {
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "clicks": 0,
+      "leads": 0
+    }
+  },
+  {
+    "content_id": "GO-002",
+    "platform": "X",
+    "status": "draft_ready",
+    "url": "",
+    "published_date": "",
+    "metrics": {
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "clicks": 0,
+      "leads": 0
+    }
+  },
+  {
+    "content_id": "GO-004",
+    "platform": "LinkedIn",
+    "status": "draft_ready",
+    "url": "",
+    "published_date": "",
+    "metrics": {
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "clicks": 0,
+      "leads": 0
+    }
+  },
+  {
+    "content_id": "GO-004",
+    "platform": "Medium",
+    "status": "draft_ready",
+    "url": "",
+    "published_date": "",
+    "metrics": {
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "clicks": 0,
+      "leads": 0
+    }
+  },
+  {
+    "content_id": "GO-004",
+    "platform": "Reddit",
+    "status": "draft_ready",
+    "url": "",
+    "published_date": "",
+    "metrics": {
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "clicks": 0,
+      "leads": 0
+    }
+  },
+  {
+    "content_id": "GO-004",
+    "platform": "Substack",
+    "status": "draft_ready",
+    "url": "",
+    "published_date": "",
+    "metrics": {
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "clicks": 0,
+      "leads": 0
+    }
+  },
+  {
+    "content_id": "GO-004",
+    "platform": "X",
+    "status": "draft_ready",
+    "url": "",
+    "published_date": "",
+    "metrics": {
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "clicks": 0,
+      "leads": 0
+    }
+  },
+  {
+    "content_id": "GO-006",
+    "platform": "LinkedIn",
+    "status": "draft_ready",
+    "url": "",
+    "published_date": "",
+    "metrics": {
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "clicks": 0,
+      "leads": 0
+    }
+  },
+  {
+    "content_id": "GO-006",
+    "platform": "Medium",
+    "status": "published",
+    "url": "https://medium.com/p/656fcfa6d61e?postPublishedType=initial",
+    "published_date": "2026-07-11",
+    "metrics": {
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "clicks": 0,
+      "leads": 0
+    }
+  },
+  {
+    "content_id": "GO-006",
+    "platform": "Reddit",
+    "status": "draft_ready",
+    "url": "",
+    "published_date": "",
+    "metrics": {
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "clicks": 0,
+      "leads": 0
+    }
+  },
+  {
+    "content_id": "GO-006",
+    "platform": "Substack",
+    "status": "draft_ready",
+    "url": "",
+    "published_date": "",
+    "metrics": {
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "clicks": 0,
+      "leads": 0
+    }
+  },
+  {
+    "content_id": "GO-006",
+    "platform": "X",
+    "status": "draft_ready",
+    "url": "",
+    "published_date": "",
+    "metrics": {
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "clicks": 0,
+      "leads": 0
+    }
+  }
+]

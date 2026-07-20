@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-13T02:55:11.795Z",
+  "generated_at": "2026-07-20T07:21:48.172Z",
   "title": "Social Content Agent",
   "keywords": [
     "China sourcing",
@@ -17,16 +17,185 @@
   ],
   "opportunities": [
     {
-      "id": "SOC-0d10dacd",
-      "platform": "X",
-      "url": "https://x.com/DeryaTR_/status/2061124643637936566",
-      "title": "One person building an operating system using Codex",
-      "topic": "One person building an operating system using Codex",
-      "author": "Derya Unutmaz",
-      "source": "Manual URL",
-      "review_status": "Manual review required",
-      "suggested_reply": "Codex gives a one-person builder leverage, but code is only part of it. The harder work is defining system boundaries, deciding what stays human-reviewed, and keeping one source of truth as the project grows. AI speeds implementation; the builder still owns the decisions.",
-      "x_character_count": 272
+      "id": "DISC-9e9e99b8f206",
+      "type": "reply_opportunity",
+      "business_line": "factory_bridge",
+      "platform": "LinkedIn",
+      "url": "https://linkedin.com/posts/oluwayimika-ekundina_procurement-globalsourcing-chinaimportation-activity-7475857290907025409-hyau",
+      "title": "6 Steps to a Proper Procurement Process",
+      "topic": "6 Steps to a Proper Procurement Process",
+      "author": "Oluwayimika Ekundina",
+      "published_at": null,
+      "captured_at": "2026-07-20T06:20:18.071Z",
+      "summary": "A public procurement post noting that a supplier may push for payment before key details such as size, material, packing, label, or MOQ are confirmed.",
+      "source": "data/growth-os/social-discovery/today-opportunities.json",
+      "source_method": "search",
+      "source_status": "public_discovery",
+      "why_relevant": "买家正在讨论付款范围与费用拆分，适合从付款主体、费用依据和付款节点角度回答。",
+      "suggested_angle": "区分货款、差旅或安装等费用，确认付款主体、书面依据和付款节点；不做安全保证。",
+      "suggested_reply": "One point I would clarify in 6 Steps to a Proper Procurement Process: what did the supplier actually confirm in writing, and which details are still assumptions? Before moving forward, I would ask for the exact specification, commercial terms, and timeline that apply to this order.",
+      "risk_flags": [
+        "Medium",
+        "Medium",
+        "仅人工确认公开可访问后参与，不做自动互动。",
+        "URL 和可评论状态尚未验证。"
+      ],
+      "risk_note": "仅人工确认公开可访问后参与，不做自动互动。",
+      "link_allowed": false,
+      "status": "pending_review",
+      "review_status": "pending_review",
+      "intent_score": "Medium",
+      "intent_rank": 2,
+      "business_intent_score": null,
+      "x_character_count": null,
+      "lifecycle": {
+        "status": "pending_review",
+        "updated_at": "2026-07-20T06:20:18.071Z"
+      },
+      "published_url": null,
+      "performance": {
+        "views": null,
+        "clicks": null,
+        "comments": null,
+        "likes": null,
+        "ctr": null
+      }
+    },
+    {
+      "id": "DISC-7539a5b2ee8b",
+      "type": "reply_opportunity",
+      "business_line": "factory_bridge",
+      "platform": "Quora",
+      "url": "https://quora.com/What-is-the-best-way-to-pay-a-Chinese-supplier",
+      "title": "What is the best way to pay a Chinese supplier?",
+      "topic": "What is the best way to pay a Chinese supplier?",
+      "author": "Not recorded",
+      "published_at": null,
+      "captured_at": "2026-07-20T06:20:18.071Z",
+      "summary": "A public buyer question about supplier payment terms and how to approach the next order decision.",
+      "source": "data/growth-os/social-discovery/today-opportunities.json",
+      "source_method": "search",
+      "source_status": "public_discovery",
+      "why_relevant": "买家正在讨论付款范围与费用拆分，适合从付款主体、费用依据和付款节点角度回答。",
+      "suggested_angle": "区分货款、差旅或安装等费用，确认付款主体、书面依据和付款节点；不做安全保证。",
+      "suggested_reply": "Direct answer: before deciding on What is the best way to pay a Chinese supplier?, separate what the supplier confirmed from what remains unclear.\n\nCheck five areas:\n1. Product specification and materials\n2. MOQ and quotation scope\n3. Sample or customization requirements\n4. Production and delivery timing\n5. Payment recipient and terms\n\nThe goal is not to label the supplier reliable or unreliable. It is to obtain enough specific information to decide the next step.",
+      "risk_flags": [
+        "Medium",
+        "Medium",
+        "先确认问题上下文与页面公开可访问性。",
+        "URL 和可评论状态尚未验证。"
+      ],
+      "risk_note": "先确认问题上下文与页面公开可访问性。",
+      "link_allowed": false,
+      "status": "pending_review",
+      "review_status": "pending_review",
+      "intent_score": "High",
+      "intent_rank": 3,
+      "business_intent_score": null,
+      "x_character_count": null,
+      "lifecycle": {
+        "status": "pending_review",
+        "updated_at": "2026-07-20T06:20:18.071Z"
+      },
+      "published_url": null,
+      "performance": {
+        "views": null,
+        "clicks": null,
+        "comments": null,
+        "likes": null,
+        "ctr": null
+      }
+    },
+    {
+      "id": "POST-f908d0d9fbc1",
+      "type": "original_post",
+      "business_line": "factory_bridge",
+      "platform": "LinkedIn",
+      "topic": "payment scope before paying a China supplier",
+      "source_signals": [
+        "DISC-9e9e99b8f206"
+      ],
+      "reason": "根据真实买家讨论或 Factory Bridge 业务信号生成；先提供判断，再决定是否人工发布。",
+      "target_audience": "overseas_buyers",
+      "content_type": "short_post",
+      "title": "Before paying a China supplier, separate the payment scope",
+      "draft": "Before paying a China supplier, separate the payment scope from the payment timing. Ask what the deposit covers, which costs are separate, who receives each payment, and what written condition triggers the next milestone.\n\nA useful record has four columns: confirmed, estimated, missing, and changed. That keeps a supplier reply from sounding more complete than it is. It does not verify a supplier or make payment safe; it gives the buyer a clearer next question before moving forward.",
+      "related_page": "/buyer-guides/verify-chinese-supplier-before-deposit/",
+      "cta": "Review a Supplier Reply",
+      "link_allowed": false,
+      "risk_flags": [
+        "人工审核",
+        "默认不带链接",
+        "不承诺审厂、质量、可靠性或付款安全"
+      ],
+      "status": "pending_review",
+      "review_status": "pending_review",
+      "created_at": "2026-07-20T07:21:48.172Z",
+      "evidence": {
+        "source": "data/growth-os/social-discovery/today-opportunities.json",
+        "source_status": "public_discovery",
+        "source_url": "https://linkedin.com/posts/oluwayimika-ekundina_procurement-globalsourcing-chinaimportation-activity-7475857290907025409-hyau",
+        "observed_at": "2026-07-20T06:20:18.071Z",
+        "supporting_reason": "A public procurement post noting that a supplier may push for payment before key details such as size, material, packing, label, or MOQ are confirmed."
+      },
+      "lifecycle": {
+        "status": "pending_review",
+        "updated_at": "2026-07-20T07:21:48.172Z"
+      },
+      "published_at": null,
+      "published_url": null,
+      "performance": {
+        "views": null,
+        "clicks": null,
+        "comments": null,
+        "likes": null,
+        "ctr": null
+      }
+    },
+    {
+      "id": "DISC-bca14543520a",
+      "type": "reply_opportunity",
+      "business_line": "factory_bridge",
+      "platform": "Reddit",
+      "url": "https://reddit.com/r/supplychain/comments/1uvihlv/machine_part_procurement_payment_breakdown",
+      "title": "Machine part procurement payment breakdown",
+      "topic": "Machine part procurement payment breakdown",
+      "author": "/u/giftofmathilda",
+      "published_at": null,
+      "captured_at": "2026-07-14T01:01:22.939Z",
+      "summary": "I dont have much experience in buying machine parts that is why i need advice about this matter. A supplier is asking for 50% advance payment for the part itself plus the travel and accommodation costs and also the actual labor costs. We are okay paying an advance amount for the part itself but making an advance payment for the travel and accommodation costs doesnt sound correct to me. I want to set a maximum amount for these costs and want to pay those after the installation and preferably when i see the related invoices. Isn’t this the normal way? Could someone help me? I dont want to make a bad deal. Thanks! &#32; submitted by &#32; /u/giftofmathilda [link] &#32; [comments]",
+      "source": "data/growth-os/social-discovery/today-opportunities.json",
+      "source_method": "reddit_rss",
+      "source_status": "public_discovery",
+      "why_relevant": "买家正在讨论付款范围与费用拆分，适合从付款主体、费用依据和付款节点角度回答。",
+      "suggested_angle": "区分货款、差旅或安装等费用，确认付款主体、书面依据和付款节点；不做安全保证。",
+      "suggested_reply": "Before paying, I would clarify three things: whether the account name matches the company you are dealing with, exactly what the payment covers, and what written terms apply if the sample or order cannot proceed.",
+      "risk_flags": [
+        "High",
+        "Medium",
+        "当前 Reddit 已有 7/10 条评论被移除；仅参与低推广风险讨论，不放链接、不提项目。",
+        "URL 和可评论状态尚未验证。"
+      ],
+      "risk_note": "当前 Reddit 已有 7/10 条评论被移除；仅参与低推广风险讨论，不放链接、不提项目。",
+      "link_allowed": false,
+      "status": "pending_review",
+      "review_status": "pending_review",
+      "intent_score": "Medium",
+      "intent_rank": 2,
+      "business_intent_score": null,
+      "x_character_count": null,
+      "lifecycle": {
+        "status": "pending_review",
+        "updated_at": "2026-07-14T01:01:22.939Z"
+      },
+      "published_url": null,
+      "performance": {
+        "views": null,
+        "clicks": null,
+        "comments": null,
+        "likes": null,
+        "ctr": null
+      }
     }
   ],
   "drafts": [
@@ -38,7 +207,7 @@
       "draft": "Two supplier quotations can look comparable because both show a unit price. The comparison becomes useful only after the scope is normalized.\n\nFor China sourcing, I would put these lines side by side before choosing a lower number: the same material and finish, the same quantity and MOQ, packaging and accessories, tooling or printing, sample and shipping charges, trade term, destination, lead-time start, price validity, and payment schedule.\n\nA cheaper quote may simply include less. Asking each supplier to restate inclusions and exclusions gives both sides a chance to correct an assumption while the order is still flexible.\n\nI would also record which lines are confirmed, which are estimates, and which changed from the previous quotation. That small version history makes later sample, packaging, and payment discussions easier to follow. This is not a supplier verification claim. It is a way to make the commercial conversation easier to compare.\n\nWhich quotation line do you always normalize first?",
       "word_count": 157,
       "publish_url": "https://www.linkedin.com/feed/?shareActive=true",
-      "published": false
+      "published": true
     },
     {
       "id": "x-quote-comparison",
@@ -48,7 +217,7 @@
       "draft": "Before comparing China supplier quotes, normalize the scope: same material, quantity, packaging, trade term, lead-time start, and extra charges. A lower unit price may simply include less. Compare assumptions before numbers.",
       "character_count": 224,
       "publish_url": "https://x.com/compose/post",
-      "published": false
+      "published": true
     },
     {
       "id": "medium-quote-comparison",
@@ -58,7 +227,7 @@
       "draft": "# How to compare China supplier quotations beyond the unit price\n\nA supplier quotation looks precise because it contains a number. That number is only useful when the scope behind it is visible. Two suppliers can quote the same product name while describing different materials, finishes, packaging, quantities, or delivery terms. A lower unit price may simply include less.\n\nStart by making the product comparable. Write down the material, dimensions, finish, color, logo, accessories, packaging, and any approved drawing or sample reference. If one supplier says “standard material” and another names a grade, the two quotes are not yet on the same basis. Ask both suppliers to define the line instead of guessing what standard means.\n\nNext, normalize quantity. A unit price at 5,000 pieces is not directly comparable with a price at 500. Check the MOQ, price breaks, setup quantities, and whether the quote assumes a full carton, pallet, or container. Small-order pricing may also include a setup or tooling charge that disappears at higher volume.\n\nThen list the costs outside the headline number. Tooling, printing plates, custom packaging, samples, inspection, inland transport, export handling, and shipping can sit in separate lines or remain unstated. The right question is not “is shipping included?” It is “which shipping leg and service level does this quote include?”\n\nDelivery terms need the same treatment. Compare the trade term, destination, lead time, validity period, and the event that starts the production clock. “Thirty days” could mean thirty days after deposit, artwork approval, material arrival, or sample confirmation. Those are different commitments even when the calendar number is identical.\n\nPayment terms can change the practical cost of a quote. Note the deposit percentage, balance milestone, payment currency, bank charges, and which document carries the current beneficiary details. A clear comparison records these items as commercial terms, not as a judgment about whether the supplier is reliable.\n\nAfter normalizing the lines, send the same short clarification to every supplier: “Please confirm the included product scope, quantity basis, packaging, extra charges, trade term, lead-time start, validity, and payment milestones for this quotation.” A consistent question makes the answers easier to compare and gives the supplier a fair chance to correct an assumption.\n\nSeparate firm terms from estimates. Freight may remain an estimate while a material price is firm for seven days. A lead time may depend on artwork approval, sample confirmation, or the arrival of a custom component. Marking each line as confirmed, estimated, or pending prevents a temporary number from becoming an accidental promise later.\n\nVersion control matters when quotations arrive through email, platform chat, and revised files. Give every quote a date or version name, and keep the clarification reply beside it. When a supplier changes the price, ask which product, packaging, delivery, or payment assumption changed. This prevents details from different versions being mixed into an offer that nobody actually made.\n\nFor a first order, the comparison can stay simple. Use one row for each commercial point and one column for each supplier. Do not convert missing information into a score. Leave the cell open and ask the question. An empty field is useful because it shows exactly where the next conversation should focus.\n\nThe lowest price may still be the right choice after the scope is normalized. The purpose is not to favor the most expensive supplier. It is to understand what each number buys, what remains flexible, and whether the order can be described consistently before money or production decisions move forward.\n\nBefore closing the comparison, ask each supplier to confirm the latest version in one message. The reply should identify the quotation date, product version, quantity, packaging basis, trade term, lead-time trigger, and payment milestones. This final written summary does not replace contracts or inspection, but it reduces the chance that the buyer and supplier move forward using different versions of the same order.\n\nThe output should be a comparison sheet with three columns: confirmed, unclear, and changed from the previous quote. This is more useful than a single score because it keeps the information gap visible. If the material is confirmed but packaging is open, the next action is a packaging question, not a confident conclusion about the lowest price.\n\nThis method does not verify a supplier, audit a factory, inspect quality, or make payment safe. It is a communication habit for reducing ambiguity in the order being discussed. Specialist due diligence, contracts, testing, inspection, and legal advice may still be needed for the product and transaction.\n\nBefore choosing a quotation, ask whether both sides can point to the same written scope and explain the same price. If they cannot, the next useful step is not another price comparison. It is a clearer question that makes the quotes genuinely comparable.\n\nCao works with Chinese factories and overseas buyers, focusing on supplier communication, quotation clarity, and factory information.\n\nHe is building Gewuji Factory Bridge:\nhttps://gewuji.dev/",
       "word_count": 815,
       "publish_url": "https://medium.com/new-story",
-      "published": false
+      "published": true
     },
     {
       "id": "substack-quote-comparison",
@@ -68,7 +237,7 @@
       "draft": "# The cheapest supplier quote may be the least comparable\n\nA low unit price is attractive because it looks like a clear answer. But supplier quotations are often built from different assumptions. One may include packaging and another may not. One may price a custom finish while another assumes a standard version. The numbers are not useful until the scope is aligned.\n\nI start by copying the lines from each quotation into the same order: product version, material, finish, quantity, MOQ, packaging, accessories, tooling, printing, shipping, trade term, lead time, validity, and payment schedule. The point is not to create a complicated spreadsheet. It is to make omissions visible.\n\nQuantity is an easy place to make a false comparison. A supplier quoting 5,000 pieces may spread setup costs across a larger run than a supplier quoting 500. Ask whether the unit price includes a minimum order, a price break, or a one-time setup. The same price at a different quantity does not describe the same decision.\n\nDelivery terms can hide another difference. “Lead time: 30 days” needs a starting event. Does the clock start after deposit, artwork approval, material confirmation, or sample sign-off? The answer affects the actual schedule more than the number alone.\n\nI also separate costs that are easy to bury: tooling, custom packaging, sample work, printing, inspection, inland transport, and export handling. A quote can be completely honest and still be hard to compare if these items are scattered across messages or left for a later reply.\n\nA useful follow-up is neutral and specific: “Could you confirm what is included in this price, which quantity it is based on, what starts the lead-time clock, and which costs are separate?” Ask the same question to every supplier. Consistency improves the comparison and gives each supplier a chance to correct the record.\n\nI also mark every line as confirmed, estimated, or still open. Freight is often estimated. Material pricing may have a short validity period. Packaging may wait for artwork approval. Those labels stop an early estimate from being remembered later as a fixed commitment.\n\nKeep quotation versions separate. If the supplier changes the price, ask what changed in the scope and save the revised answer beside the new quote. Mixing an old unit price with new packaging or payment terms creates a comparison that neither side actually offered.\n\nFor a first order, a simple table is enough. Put suppliers in columns and commercial details in rows. Leave missing information blank instead of awarding or subtracting points. The blank cell becomes the next question, keeping the discussion practical without pretending incomplete information is a reliable supplier score.\n\nBefore choosing, ask each supplier to confirm the latest version in one message: quotation date, product version, quantity, packaging basis, trade term, lead-time trigger, and payment milestones. This does not replace contracts, testing, inspection, or specialist due diligence. It simply reduces the chance that two sides continue the same order conversation while referring to different versions of the scope.\n\nThe useful outcome is not certainty about the supplier. It is a cleaner commercial record that shows the next question before the order becomes harder to change.\n\nThe result is not a supplier score. It is a clearer map of what is confirmed, what is different, and what remains open. That map can support a decision about the next sample, clarification, or negotiation without pretending that a quotation proves factory capability or future performance.\n\nBefore selecting the lowest quote, try one test: can you explain why the two prices describe the same product, quantity, inclusions, delivery basis, and payment arrangement? If not, the lower number is a prompt for a better question, not a conclusion.",
       "word_count": 612,
       "publish_url": "https://substack.com/publish/post",
-      "published": false
+      "published": true
     },
     {
       "id": "quora-quote-comparison",
@@ -78,7 +247,7 @@
       "draft": "I would compare Alibaba supplier quotations by normalizing the scope before comparing the unit price. A simple checklist is:\n\n1. Product: same material, dimensions, finish, color, logo, accessories, and packaging.\n2. Quantity: same order size, MOQ, price break, setup, or tooling basis.\n3. Inclusions: printing, custom packaging, samples, inspection, inland transport, export handling, and shipping.\n4. Delivery: same trade term, destination, lead-time start event, and quote validity.\n5. Payment: currency, deposit and balance milestones, bank charges, and the current quotation or pro forma invoice.\n\nThen ask every supplier the same follow-up: “Please confirm what is included, what is separate, and what event starts the lead time.” A lower quote may simply describe less scope.\n\nI would also label each line as confirmed, estimated, or still open. Freight may be estimated, material pricing may expire after a short period, and production may not start until artwork or sample approval. Keep revised quotations as separate versions so an old price is not accidentally compared with new packaging or payment terms.\n\nThe final comparison does not need a complicated supplier score. A table with suppliers in columns and commercial details in rows is enough. Leave missing information blank and use each blank as the next clarification question. This comparison does not verify a supplier or guarantee quality or delivery; it makes the commercial assumptions visible before the next decision.",
       "word_count": 226,
       "publish_url": "https://www.quora.com/",
-      "published": false
+      "published": true
     },
     {
       "id": "facebook-quote-comparison",
@@ -88,7 +257,7 @@
       "draft": "A lower China supplier quote may simply include less. Before comparing prices, put the same lines side by side: material, quantity, packaging, tooling, shipping, trade term, lead-time start, and payment schedule. Compare the assumptions before the numbers. Which line do you always check first?",
       "word_count": 44,
       "publish_url": "https://www.facebook.com/",
-      "published": false
+      "published": true
     }
   ],
   "reddit_trust": {
@@ -106,13 +275,19 @@
     }
   },
   "collection": {
-    "automatic_available": false,
-    "message": "Automatic public discovery is unavailable. Use verified manual URLs.",
-    "sources": []
+    "automatic_available": true,
+    "message": "Public Discovery candidates are projected from the social-discovery workspace. Review and publish actions remain manual.",
+    "sources": [
+      "data/growth-os/social-discovery/discovered-posts.json",
+      "data/growth-os/social-discovery/today-opportunities.json"
+    ]
   },
   "debug": {
-    "active_candidates": 1,
-    "selected_opportunities": 1,
-    "rule": "Only public HTTPS URLs are shown. No login, cookies, private messages, automated replies, or publishing."
+    "active_candidates": 3,
+    "selected_opportunities": 4,
+    "reply_opportunities": 3,
+    "original_posts": 1,
+    "source_of_truth": "data/growth-os/social-discovery/",
+    "rule": "Only real public HTTPS Factory Bridge candidates are shown. No login, cookies, private messages, automated replies, links, or publishing."
   }
 }

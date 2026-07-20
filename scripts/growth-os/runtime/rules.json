@@ -1,0 +1,19 @@
+{
+  "high_priority": {
+    "min_score": 85,
+    "content_gap": true,
+    "service_alignment": true,
+    "boundary_fit": true
+  },
+  "medium_priority": {
+    "min_score": 70,
+    "content_gap": true,
+    "service_alignment": true,
+    "boundary_fit": true
+  },
+  "archive": [
+    "low intent",
+    "duplicate",
+    "outside boundary"
+  ]
+}

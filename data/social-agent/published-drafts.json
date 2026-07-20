@@ -1,1 +1,38 @@
-[]
+[
+  {
+    "draft_id": "linkedin-quote-comparison",
+    "platform": "LinkedIn",
+    "marked_at": "2026-07-15T06:40:45.796Z",
+    "mode": "manual"
+  },
+  {
+    "draft_id": "medium-quote-comparison",
+    "platform": "Medium",
+    "marked_at": "2026-07-15T06:41:13.421Z",
+    "mode": "manual"
+  },
+  {
+    "draft_id": "substack-quote-comparison",
+    "platform": "Substack",
+    "marked_at": "2026-07-15T06:41:45.776Z",
+    "mode": "manual"
+  },
+  {
+    "draft_id": "quora-quote-comparison",
+    "platform": "Quora",
+    "marked_at": "2026-07-15T06:42:08.764Z",
+    "mode": "manual"
+  },
+  {
+    "draft_id": "x-quote-comparison",
+    "platform": "X",
+    "marked_at": "2026-07-18T07:36:04.704Z",
+    "mode": "manual"
+  },
+  {
+    "draft_id": "facebook-quote-comparison",
+    "platform": "Facebook",
+    "marked_at": "2026-07-18T07:36:30.523Z",
+    "mode": "manual"
+  }
+]

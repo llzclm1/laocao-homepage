@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Gewuji Market Validation Console</title>
+  <title>格物集｜增长运营中心</title>
   <style>
     :root { --ink:#172033; --muted:#667085; --line:#d9e1ea; --bg:#f4f6f8; --panel:#fff; --green:#176b52; --blue:#315ea8; --amber:#9a5b10; --red:#b42318; }
     * { box-sizing:border-box; }
@@ -52,47 +52,143 @@
     .error { background:#fef3f2; border:1px solid #fecdca; border-radius:8px; color:var(--red); padding:14px; }
     .status { min-height:20px; }
     .server { align-items:center; display:flex; gap:8px; }
+    .center-nav { display:flex; flex-wrap:wrap; gap:8px; width:min(1120px, calc(100% - 36px)); margin:0 auto 6px; }
+    .center-nav a { background:var(--panel); border:1px solid var(--line); border-radius:6px; color:var(--ink); font-weight:750; padding:8px 12px; text-decoration:none; }
+    .center-nav a:hover { border-color:var(--blue); color:var(--blue); }
+    .section-anchor { scroll-margin-top:12px; }
+    .goal-line { background:#f8fafc; border:1px solid var(--line); border-radius:6px; color:var(--muted); margin-top:10px; padding:8px 10px; }
+    .goal-line strong { color:var(--ink); }
+    .collector-status { background:#f8fafc; border:1px solid var(--line); border-radius:8px; margin-top:10px; padding:8px 10px; }
+    .collector-line { align-items:center; display:flex; flex-wrap:wrap; gap:8px; }
+    .collector-status h3 { font-size:14px; margin:0; }
+    .collector-status p { margin-top:4px; }
+    .morning-brief { border-left:4px solid var(--blue); }
+    .brief-items, .brief-actions { display:grid; gap:8px; margin-top:12px; }
+    .brief-item, .brief-action { background:#f8fafc; border:1px solid var(--line); border-radius:8px; padding:10px 12px; }
+    .brief-item strong, .brief-action strong { display:block; }
+    .brief-item .meta, .brief-action .meta { margin-top:4px; }
+    .brief-section-title { color:var(--muted); font-size:12px; font-weight:800; letter-spacing:.04em; margin-top:16px; text-transform:uppercase; }
+    pre { background:#101828; border-radius:6px; color:#f2f4f7; margin-top:10px; overflow:auto; padding:10px; white-space:pre-wrap; }
+    .today-list { display:grid; gap:10px; margin-top:14px; }
+    .today-task { align-items:center; background:#f8fafc; border:1px solid var(--line); border-radius:8px; display:grid; gap:12px; grid-template-columns:34px minmax(0, 1fr) auto; padding:14px; }
+    .today-task.is-complete { opacity:.65; }
+    .today-task.is-complete h3 { text-decoration:line-through; }
+    .task-check { align-items:center; background:transparent; border:0; color:var(--ink); display:flex; font-size:24px; height:30px; justify-content:center; padding:0; width:30px; }
+    .task-check:hover { background:#e8eef7; }
+    .task-check[aria-pressed="true"] { color:var(--green); }
+    .task-progress { color:var(--muted); font-size:13px; font-weight:700; margin-left:8px; }
+    .sr-only { height:1px; margin:-1px; overflow:hidden; position:absolute; width:1px; clip:rect(0,0,0,0); }
+    .status-grid { display:grid; gap:10px; grid-template-columns:repeat(4, minmax(0, 1fr)); margin-top:14px; }
+    .status-item { background:#f8fafc; border:1px solid var(--line); border-radius:8px; padding:12px; }
+    .status-item strong { display:block; margin-top:4px; }
+    .summary-grid { display:grid; gap:10px; grid-template-columns:repeat(3, minmax(0, 1fr)); }
+    .summary-card { align-items:flex-start; background:var(--panel); border:1px solid var(--line); border-radius:8px; color:var(--ink); display:flex; justify-content:space-between; padding:16px; text-align:left; width:100%; }
+    .summary-card strong { display:block; font-size:24px; }
+    .data-summary { display:grid; gap:10px; grid-template-columns:repeat(4, minmax(0, 1fr)); margin-top:14px; }
+    .metric { background:#f8fafc; border:1px solid var(--line); border-radius:8px; padding:12px; }
+    .metric strong { display:block; font-size:21px; margin-top:4px; }
+    .data-note { border-top:1px solid var(--line); margin-top:14px; padding-top:12px; }
+    .detail-panel[hidden] { display:none; }
+    .detail-toolbar { align-items:center; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; margin-bottom:14px; padding-bottom:12px; }
+    .source-list { display:grid; gap:8px; margin-top:12px; }
+    .source-detail { background:var(--panel); border:1px solid var(--line); border-radius:8px; margin:0; padding:0; }
+    .source-detail > summary { align-items:center; display:flex; gap:12px; justify-content:space-between; min-height:48px; padding:12px 14px; }
+    .source-detail[open] > summary { border-bottom:1px solid var(--line); }
+    .source-summary-meta { color:var(--muted); font-size:13px; font-weight:500; text-align:right; }
+    .source-detail-body { padding:0 14px 14px; }
+    .source-detail-body > .facts { margin-top:10px; }
     .dot { background:var(--green); border-radius:50%; height:8px; width:8px; }
     .dot.offline { background:var(--red); }
-    @media (max-width:820px) { .cards, .signal-grid { grid-template-columns:1fr 1fr; } }
-    @media (max-width:620px) { header { flex-direction:column; } .cards, .signal-grid, .form-grid { grid-template-columns:1fr; } .form-grid .wide { grid-column:auto; } }
+    @media (max-width:820px) { .cards, .signal-grid, .data-summary, .status-grid { grid-template-columns:1fr 1fr; } }
+    @media (max-width:620px) { header { flex-direction:column; } .cards, .signal-grid, .summary-grid, .data-summary, .status-grid, .form-grid { grid-template-columns:1fr; } .form-grid .wide { grid-column:auto; } .today-task { grid-template-columns:30px minmax(0, 1fr); } .today-task > button:not(.task-check) { grid-column:1 / -1; text-align:center; } }
   </style>
 </head>
 <body>
   <header>
     <div>
-      <h1>Market Validation Console</h1>
+      <h1>增长运营中心</h1>
       <p class="meta" id="generatedAt">读取本地数据中...</p>
     </div>
     <div class="server"><span class="dot" id="serverDot"></span><span class="meta" id="serverStatus">Local server</span><button type="button" class="secondary" id="reload">刷新</button></div>
   </header>
+
+  <nav class="center-nav" aria-label="增长运营中心导航">
+    <a href="#today">今日任务</a>
+    <a href="#publishing">待发布</a>
+    <a href="#leads">留资</a>
+    <a href="#content-opportunities">内容机会</a>
+    <a href="#growth-summary">增长摘要</a>
+    <a href="#system-health">System Health</a>
+  </nav>
 
   <main id="app"><section class="panel">加载中...</section></main>
 
   <script>
     const viewUrl = "/data/social-agent/view.json";
     const manualUrl = "/__manual-discovery";
-    const publishedUrl = "/__social-agent-draft-published";
+    const discoveryActionUrl = "/__discovery-action";
+    const growthViewUrl = "/data/growth-os/viewer/dashboard-view.json";
+    const cloudflareUrl = "/data/growth-os/imports/cloudflare/cloudflare-traffic-overview-2026-07-10.json";
+    const analyticsUrl = "/data/growth-os/imports/analytics/analytics-2026-07-09.csv";
+    const gscUrl = "/data/growth-os/imports/gsc/gsc-2026-07-09.csv";
+    const conversionUrl = "/data/product/supplier-reply-review-business-results.csv";
+    const healthUrl = "/data/growth-os/social-discovery/discovery-health.json";
+    const socialCollectorUrl = "/data/growth-os/runtime/social-collector-latest.json";
+    const briefUrl = "/data/growth-os/runtime/morning-brief-latest.json";
+    const signalsUrl = "/data/growth-os/runtime/signals-latest.json";
+    const morningUrl = "/__morning-collector";
+    const completedTasksKey = "growth-os-completed-tasks";
+    const replyQueueLimit = 20;
+    const originalQueueLimit = 10;
+    const readyToPublishLimit = 5;
+    const completedHistoryLimit = 10;
     const app = document.getElementById("app");
     const strategies = {
-      LinkedIn: { role:"Buyer Relationship Engine", priority:"P0", goal:"有效回复、关系建立、提交材料", rule:"评论优先；不自动私信或发布。" },
-      Quora: { role:"Search Intent Content Engine", priority:"P1", goal:"高意图问题、搜索访问、站内动作", rule:"只回答付款、样品、MOQ、报价和供应商沟通问题。" },
-      Reddit: { role:"Buyer Language Mining + Trust", priority:"P1", goal:"回复存活、真实追问、买家语言", rule:"不提品牌、不放链接、不 CTA。" },
+      LinkedIn: { role:"Buyer Relationship Engine", priority:"P1", goal:"有效回复、关系建立、提交材料", rule:"评论优先；不自动私信或发布。" },
+      Quora: { role:"Search Intent Content Engine", priority:"P2", goal:"高意图问题、搜索访问、站内动作", rule:"只回答付款、样品、MOQ、报价和供应商沟通问题。" },
+      Reddit: { role:"Low-frequency Research + Trust", priority:"P4", goal:"只保留高价值讨论与买家语言", rule:"不提品牌、不放链接、不 CTA；没有高价值帖子时不行动。" },
       Medium: { role:"Authority / GEO Asset", priority:"P2", goal:"已验证主题的长期阅读与引用", rule:"只沉淀已有真实问题支持的主题。" },
       X: { role:"Build in Public", priority:"P3", goal:"观点反馈与主页访问", rule:"低频，不承担询盘目标。" },
       Substack: { role:"Long-term Audience Asset", priority:"P3", goal:"订阅与主动回复", rule:"低频归档，不单独运营。" }
     };
     let state = null;
+    let growthState = null;
+    let sourceData = null;
+    let conversionRows = [];
+    let morningState = null;
+    let socialState = null;
+    let morningBrief = null;
+    let signalsState = null;
 
     load();
     document.getElementById("reload").addEventListener("click", load);
 
     async function load() {
       try {
-        const response = await fetch(`${viewUrl}?t=${Date.now()}`, { cache:"no-store" });
+        const stamp = Date.now();
+        const [response, growth, cloudflare, analytics, gsc, conversion, health, morning, social, brief, signals] = await Promise.all([
+          fetch(`${viewUrl}?t=${stamp}`, { cache:"no-store" }),
+          fetchJson(growthViewUrl),
+          fetchJson(cloudflareUrl),
+          fetchText(analyticsUrl),
+          fetchText(gscUrl),
+          fetchText(conversionUrl),
+          fetchJson(healthUrl),
+          fetchJson(morningUrl),
+          fetchJson(socialCollectorUrl),
+          fetchJson(briefUrl),
+          fetchJson(signalsUrl)
+        ]);
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         state = await response.json();
-        document.getElementById("generatedAt").textContent = `Operator Mode · Last data update: ${formatDate(state.generated_at)}`;
+        growthState = growth;
+        sourceData = buildSourceData(cloudflare, analytics, gsc, health);
+        conversionRows = parseCsv(conversion);
+        morningState = morning?.task_id === "GROWTH-004" ? morning : null;
+        socialState = social?.platforms ? social : null;
+        morningBrief = brief?.brief_mode ? brief : null;
+        signalsState = signals?.signals ? signals : null;
+        document.getElementById("generatedAt").textContent = `数据更新时间：${formatDate(state.generated_at)}`;
         setServerStatus(true);
         render();
       } catch {
@@ -102,69 +198,389 @@
     }
 
     function render() {
-      app.innerHTML = `${renderNorthStar()}${renderDailyCheck()}${renderPlatforms()}${renderSignals()}${renderReviewQueue()}${renderBoundaries()}`;
+      app.innerHTML = `${renderTodayWorkbench()}${renderPublishingOverview()}${renderLeads()}${renderContentOpportunities()}${renderGrowthSummary()}${renderSystemHealth()}${renderReviewDetail()}${renderPublishingDetail()}${renderSignalsDetail()}${renderSocialDetail()}`;
     }
 
-    function renderNorthStar() {
-      return `<section class="panel north-star"><span class="pill green">唯一北极星</span><strong>First Qualified Buyer Submission</strong><p class="meta">海外买家主动提交 supplier reply、quotation、payment request、sample issue 或 customization discussion。</p><div class="funnel"><span>Traffic Source</span><span>Core Page Visit</span><span>Understand Value</span><span>CTA Click</span><span>Submission</span><span>Delivery</span><span>Case / Content Flywheel</span></div></section>`;
+    function renderGrowthSummary() {
+      const briefItems = (morningBrief?.yesterday || morningBrief?.observed || []).filter((item) => item.area !== "system" && ["live", "manual"].includes(item.source_status));
+      const factorySignals = (signalsState?.signals || []).filter((signal) => signal.business_line === "factory_bridge" && signal.status !== "archived").slice(0, 3);
+      const facts = briefItems.map(renderBriefItem).join("");
+      const signals = factorySignals.map((signal) => `<article class="brief-item"><strong>${escapeHtml(signalTitle(signal))}</strong><p class="meta">Factory Bridge · ${escapeHtml(signalLifecycleLabel(signal.status))} · 置信度 ${escapeHtml(signal.confidence || "暂无")} · ${escapeHtml(signal.observed_at ? formatDate(signal.observed_at) : "时间暂无")}</p></article>`).join("");
+      const content = facts || signals ? `<div class="brief-items">${facts}${signals}</div>` : `<div class="empty">当前没有可确认的增长变化。</div>`;
+      return `<section class="panel section-anchor" id="growth-summary"><div class="head"><div><h2>Growth Summary</h2><p class="meta" style="margin-top:4px;">只显示有来源和证据支持的业务事实。</p></div></div>${content}</section>`;
     }
 
-    function renderDailyCheck() {
-      return `<section class="panel"><div class="head"><div><h2>Today · Signal → Meaning → Decision</h2><p class="meta">没有真实信号时不创建新功能、不扩展 Dashboard、不批量生产内容。</p></div><a class="button secondary" href="/docs/growth-os/validation/supplier-reply-review-validation-2026-07.md" target="_blank" rel="noopener noreferrer">打开验证记录</a></div><div class="signal-grid"><div class="signal-box"><strong>Signal</strong><span class="meta">目标市场访问、核心页面阅读、CTA、提交或真实买家问题。</span></div><div class="signal-box"><strong>Meaning</strong><span class="meta">它说明了哪个漏斗环节有效或受阻？证据不足就标记“待验证”。</span></div><div class="signal-box"><strong>Decision</strong><span class="meta">每周最多 1–3 个实验，必须包含 Hypothesis、Metric 和 Decision Rule。</span></div></div></section>`;
+    function renderBriefItem(item) {
+      const metric = item.supporting_metric && Object.keys(item.supporting_metric).length ? `证据：${Object.entries(item.supporting_metric).map(([key, value]) => `${key}=${value}`).join(" · ")}` : (item.supporting_reason || "暂无可比较记录");
+      return `<article class="brief-item"><strong>${escapeHtml(item.headline || "暂无可确认结论")}</strong><p class="meta">${escapeHtml(item.detail || "")} · ${escapeHtml(metric)} · 来源：${escapeHtml(item.source || "暂无来源")} · ${escapeHtml(briefSourceStatusLabel(item.source_status))} · ${escapeHtml(item.observed_at ? formatDate(item.observed_at) : "时间暂无")}</p></article>`;
     }
 
-    function renderPlatforms() {
-      return `<section class="panel"><div class="head"><div><h2>Platform Operating Rules</h2><p class="meta">平台各有任务，不再使用通用采集、通用评分或通用回复模板。</p></div><span class="pill">Human review required</span></div><div class="cards">${Object.entries(strategies).map(([platform, item]) => `<article class="card platform-card ${item.priority === "P1" ? "secondary" : item.priority === "P0" ? "" : "low"}"><div class="head"><h3>${escapeHtml(platform)}</h3><span class="pill">${escapeHtml(item.priority)}</span></div><p style="margin-top:8px;"><strong>${escapeHtml(item.role)}</strong></p><ul><li>${escapeHtml(item.goal)}</li><li>${escapeHtml(item.rule)}</li></ul></article>`).join("")}</div></section>`;
+    function briefSourceStatusLabel(status) { return ({ live:"实时", cached:"缓存", manual:"人工记录", unavailable:"暂不可用", permission_required:"需要授权" })[status] || "暂不可用"; }
+
+    function signalTitle(signal) {
+      const query = signal.payload?.query;
+      const url = signal.payload?.url;
+      if (signal.event === "search.query.first_seen") return `首次出现搜索词：${query || "暂无查询"}`;
+      if (signal.event === "search.query.high_intent") return `发现高意图搜索词：${query || "暂无查询"}`;
+      if (signal.event === "content.buyer_guide.first_impression") return `Buyer Guide 首次获得展示：${url || "暂无页面"}`;
+      if (signal.event === "content.reply_review.first_click") return `Supplier Reply Review 获得首次搜索点击`;
+      return signal.title || signal.event || "业务信号";
+    }
+    function signalLifecycleLabel(value) { return ({ detected:"已发现", confirmed:"已确认", consumed:"已进入 Brief", archived:"已归档" })[value] || "已发现"; }
+
+    function renderTodayWorkbench() {
+      if (morningBrief?.today_actions?.length) return renderTodayFromBrief();
+      const opportunities = sortOpportunities(state.opportunities || []);
+      const draft = (state.drafts || []).find((item) => !item.published);
+      const reply = (growthState?.today_actions || []).find((item) => !item.done && !isDiscoveryPlaceholder(item));
+      const planned = (growthState?.today_plan || []).find((item) => item.status !== "completed" && !isDiscoveryPlaceholder(item));
+      const tasks = [];
+      if (opportunities[0]) {
+        const item = opportunities[0];
+        const score = item.business_intent_score || item.business_score;
+        tasks.push({ id:item.id, title:`审核 ${item.platform} 候选回复`, reason:score ? `Business Intent ${score} · ${item.title}` : item.title, detail:"review", action:"开始审核" });
+      }
+      if (draft) tasks.push({ id:draft.id, title:`发布 ${draft.platform} 内容`, reason:`${draft.title} · 等待人工发布`, detail:"publishing", action:"查看内容" });
+      if (reply) tasks.push({ id:reply.id, title:`处理 ${reply.platform || "平台"} 回复`, reason:reply.reason || reply.action || "需要人工处理", detail:"signals", action:"查看信号" });
+      if (planned && tasks.length < 3) tasks.push({ id:planned.id, title:planned.title, reason:planned.status || "需要人工处理", detail:"signals", action:"查看信号" });
+      const visibleTasks = tasks.slice(0, 3).map((task, index) => ({ ...task, taskId: task.taskId || `${task.detail || "data"}:${task.id || task.title}` }));
+      const completed = readCompletedTasks();
+      const completedCount = visibleTasks.filter((task) => completed.includes(task.taskId)).length;
+      const taskList = visibleTasks.length ? visibleTasks.map((task, index) => { const done = completed.includes(task.taskId); return `<article class="today-task${done ? " is-complete" : ""}"><button type="button" class="task-check" data-complete-task="${escapeHtml(task.taskId)}" aria-pressed="${done}">${done ? "☑" : "☐"}<span class="sr-only">标记完成</span></button><div><h3>${index + 1}. ${escapeHtml(task.title)}</h3><p class="meta">原因：${escapeHtml(task.reason)}</p></div><button type="button" data-open-detail="${task.detail || "data"}">${task.action || "查看"}</button></article>`; }).join("") : `<div class="empty">当前没有可执行的业务行动。</div>`;
+      return `<section class="panel section-anchor" id="today"><div class="head"><div><span class="pill green">今日工作台</span><h2 style="margin-top:8px;">今日最重要的 ${Math.min(visibleTasks.length, 3)} 件事 <span class="task-progress">完成 ${completedCount} / ${visibleTasks.length}</span></h2><p class="goal-line"><strong>今日目标：</strong>First Qualified Buyer Submission</p></div></div><div class="today-list">${taskList}</div></section>`;
     }
 
-    function renderSignals() {
-      const items = state.opportunities || [];
+    function renderTodayFromBrief() {
+      const tasks = (morningBrief.today_actions || []).slice(0, 3).map((item) => ({ ...item, taskId: item.id || `${item.detail || "data"}:${item.title}` }));
+      const completed = readCompletedTasks();
+      const completedCount = tasks.filter((task) => completed.includes(task.taskId)).length;
+      return `<section class="panel section-anchor" id="today"><div class="head"><div><span class="pill green">今日工作台</span><h2 style="margin-top:8px;">今日最重要的 ${tasks.length} 件事 <span class="task-progress">完成 ${completedCount} / ${tasks.length}</span></h2><p class="goal-line"><strong>今日目标：</strong>First Qualified Buyer Submission</p></div></div><div class="today-list">${tasks.map((task, index) => { const done = completed.includes(task.taskId); return `<article class="today-task${done ? " is-complete" : ""}"><button type="button" class="task-check" data-complete-task="${escapeHtml(task.taskId)}" aria-pressed="${done}">${done ? "☑" : "☐"}<span class="sr-only">标记完成</span></button><div><h3>${index + 1}. ${escapeHtml(task.title || task.action)}</h3><p class="meta">原因：${escapeHtml(task.reason)}</p></div><button type="button" data-open-detail="${escapeHtml(task.detail || "signals")}">${escapeHtml(task.action || "查看")}</button></article>`; }).join("")}</div></section>`;
+    }
+
+    function renderPublishingOverview() {
+      const ready = lifecycleQueues().ready;
+      const rows = ready.length ? ready.map((item) => renderOpportunitySummary(item, "publishing")).join("") : `<div class="empty">当前没有准备发布的内容。</div>`;
+      return `<section class="panel section-anchor" id="publishing"><div class="head"><div><h2>Ready To Publish</h2><p class="meta" style="margin-top:4px;">已完成审核并准备由人工发布的内容，最多 ${readyToPublishLimit} 条。</p></div><button type="button" class="secondary" data-open-detail="publishing">查看待发布</button></div><div class="brief-items">${rows}</div></section>`;
+    }
+
+    function renderLeads() {
+      const source = (morningState?.sources || []).find((item) => item.key === "conversion");
+      const sum = (field) => conversionRows.reduce((total, row) => total + (Number(row[field]) || 0), 0);
+      const sourceNote = source?.updated_at ? `人工记录更新于 ${formatDate(source.updated_at)}` : "当前使用 Supplier Reply Review 人工记录";
+      return `<section class="panel section-anchor" id="leads"><div class="head"><div><h2>Leads</h2><p class="meta" style="margin-top:4px;">${escapeHtml(sourceNote)}；仅显示已记录的业务结果。</p></div></div><div class="cards"><div class="card"><span class="meta">Supplier Reply Review 提交</span><strong>${sum("material_submitted")}</strong></div><div class="card"><span class="meta">邮件开始填写</span><strong>${sum("email_started")}</strong></div><div class="card"><span class="meta">已记录留资</span><strong>${conversionRows.length}</strong></div><div class="card"><span class="meta">PDF 下载</span><strong>未记录</strong></div><div class="card"><span class="meta">Contact Form</span><strong>未记录</strong></div></div></section>`;
+    }
+
+    function renderContentOpportunities() {
+      const queues = reviewQueues();
+      const seo = (growthState?.opportunities || []).filter((item) => !/published/i.test(String(item.status || ""))).slice(0, 3);
+      const replies = queues.replies.length ? queues.replies.slice(0, 3).map((item) => renderOpportunitySummary(item, "review")).join("") : `<p class="meta">当前没有待审核回复机会。</p>`;
+      const originals = queues.originals.length ? queues.originals.slice(0, 2).map((item) => renderOpportunitySummary(item, "review")).join("") : `<p class="meta">当前没有待审核原创草稿。</p>`;
+      const seoRows = seo.length ? seo.map((item) => `<article class="brief-action"><strong>${escapeHtml(item.title || "未命名 SEO 机会")}</strong><p class="meta">SEO Opportunity · 状态：${escapeHtml(item.status || "待判断")}</p></article>`).join("") : `<p class="meta">当前没有待处理的 SEO Opportunity。</p>`;
+      return `<section class="panel section-anchor" id="content-opportunities"><div class="head"><div><h2>Content Opportunities</h2><p class="meta" style="margin-top:4px;">只显示可审核、可创作或可更新的内容机会。</p></div><button type="button" class="secondary" data-open-detail="review">查看审核队列</button></div><div class="brief-section-title">Reply Opportunities · ${queues.replies.length}/${replyQueueLimit}</div><div class="brief-items">${replies}</div><div class="brief-section-title">Original Posts · ${queues.originals.length}/${originalQueueLimit}</div><div class="brief-items">${originals}</div><div class="brief-section-title">SEO Opportunities</div><div class="brief-items">${seoRows}</div></section>`;
+    }
+
+    function renderOpportunitySummary(item, detail) {
+      const isOriginal = item.type === "original_post";
+      const sourceUrl = isOriginal ? item.evidence?.source_url : item.url;
+      const originalLink = sourceUrl ? `<a class="button secondary" href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener noreferrer">${isOriginal ? "查看来源" : "查看原帖"}</a>` : "";
+      const type = isOriginal ? "Original" : "Reply";
+      const status = ({ pending_review:"待审核", approved:"审核通过", ready_to_publish:"待发布", published:"已发布" })[item.status] || "待处理";
+      return `<article class="brief-action"><strong>${escapeHtml(item.title || "未命名内容")}</strong><p class="meta">${escapeHtml(normalizePlatform(item.platform))} · ${type} · ${escapeHtml(status)} · ${escapeHtml(item.reason || item.why_relevant || "已通过现有筛选")}</p><div class="actions">${originalLink}<button type="button" data-open-detail="${detail}">${detail === "publishing" ? "查看待发布" : "审核内容"}</button></div></article>`;
+    }
+
+    function renderSystemHealth() {
+      const completedAt = Date.parse(morningState?.completed_at || "");
+      const stale = !Number.isFinite(completedAt) || Date.now() - completedAt > 24 * 60 * 60 * 1000;
+      const collectionButton = morningState ? "重新采集" : "开始采集";
+      const collectionStatus = morningState ? `${collectorStatusLine(morningState)} · ${formatDate(morningState.completed_at)}` : "暂无 Morning Collector 运行记录。";
+      const alert = stale ? `<div class="error" role="status">Morning Collector 已超过 24 小时未同步，可能影响今天的业务判断。请在需要判断搜索或流量变化时手动核查。</div>` : "";
+      const sourceDetails = `<div class="data-summary">${renderMetric("访问", sourceData.visits)}${renderMetric("核心业务页访问", sourceData.coreVisits)}${renderMetric("展示", sourceData.gscImpressions)}${renderMetric("点击", sourceData.gscClicks)}</div><div class="source-list"><p><strong>Cloudflare：</strong>${escapeHtml(sourceData.cloudflareSource)}</p><p><strong>Analytics：</strong>${escapeHtml(sourceData.analyticsSource)}</p><p><strong>GSC：</strong>${escapeHtml(sourceData.gscSource)}</p><p><strong>异常扫描：</strong>${escapeHtml(sourceData.healthSource)}</p></div>${renderDataRows("核心业务页访问", sourceData.analyticsRows, (row) => `${row.url} · ${row.sessions} 次访问 · 来源 ${row.referrer || "暂无来源"}`)}${renderDataRows("GSC 查询", sourceData.gscRows, (row) => `${row.query} · 展示 ${row.impressions} · 点击 ${row.clicks}`)}${renderDataRows("Cloudflare 主要路径", sourceData.topPaths, (row) => `${row.path} · 请求 ${row.requests}`)}`;
+      return `<section class="panel section-anchor" id="system-health"><details><summary>System Health</summary><p class="meta" style="margin-top:8px;">Collector、来源状态与技术诊断只用于运维，不作为首页业务结论。</p>${alert}<div class="actions"><button type="button" id="startToday">${collectionButton}</button><span class="meta status" id="morningStatus">${escapeHtml(collectionStatus)}</span></div>${renderCollectorStatus(morningState)}${renderMorningSources()}<details><summary>查看网站与渠道数据</summary>${sourceDetails}</details></details></section>`;
+    }
+
+    function renderCollectorStatus(morning) {
+      if (!morning) return "";
+      const summary = morning.summary || {};
+      const counts = summary.counts || countCollectionStates(morning.sources || []);
+      const root = summary.root_cause || detectDashboardRootCause(morning.sources || []);
+      const browser = morning.browser || summary.browser || {};
+      const affected = (root?.affected_sources || []).map((key) => (morning.sources || []).find((source) => source.key === key)?.label || key).join("、");
+      const title = root?.code === "chrome_permission" ? "Chrome 权限未授权" : browser.fallback ? "已自动切换 Safari" : browser.fallback_attempted ? "Chrome 与 Safari 均不可用" : counts.uncollected ? "本轮采集部分完成" : "✅ 本轮完成";
+      const countsLine = `实时采集 ${counts.live || 0} · 缓存数据 ${counts.cached || 0} · 人工记录 ${counts.manual || 0} · 未采集 ${counts.uncollected || 0}`;
+      const message = root?.code === "chrome_permission"
+        ? `本轮实时采集未完成。受影响：${affected || "浏览器数据源"}`
+        : browser.fallback || browser.fallback_attempted ? (browser.public_note || "浏览器采集已按降级策略处理。") : "";
+      const action = root?.code === "chrome_permission" ? "操作：重新授权后再次采集" : browser.fallback ? "Chrome 不可用，本轮已自动切换 Safari。" : browser.fallback_attempted ? "请检查 Chrome 与 Safari 的自动化权限。" : "数据状态按来源分别标记";
+      const warning = root?.code === "chrome_permission" || browser.fallback || browser.fallback_attempted;
+      return `<div class="collector-status" role="status"><div class="collector-line"><span class="pill ${warning ? "amber" : "green"}">Morning Collector</span><h3>${escapeHtml(title)}</h3><span class="meta">${escapeHtml(countsLine)}</span></div>${warning ? `<p class="meta">${escapeHtml(message)} · ${escapeHtml(action)}</p>` : ""}</div>`;
+    }
+    function collectorStatusLine(morning) {
+      const summary = morning?.summary || {};
+      const counts = summary.counts || countCollectionStates(morning?.sources || []);
+      const root = summary.root_cause || detectDashboardRootCause(morning?.sources || []);
+      const browser = morning?.browser || summary.browser || {};
+      const countsLine = `实时 ${counts.live || 0} · 缓存 ${counts.cached || 0} · 人工 ${counts.manual || 0} · 未采集 ${counts.uncollected || 0}`;
+      if (root?.code === "chrome_permission") return `Chrome 权限未授权 · ${countsLine}`;
+      if (browser.fallback) return `Safari 降级采集 · ${countsLine}`;
+      if (browser.fallback_attempted) return `Chrome/Safari 不可用 · ${countsLine}`;
+      return countsLine;
+    }
+
+    function renderWorkSummaries() {
+      const queues = reviewQueues();
+      const lifecycle = lifecycleQueues();
+      const reviewCount = queues.replies.length + queues.originals.length;
+      const publishingCount = lifecycle.ready.length;
+      const signalCount = (state.opportunities || []).length;
+      return `<section class="summary-grid" aria-label="工作摘要"><button type="button" class="summary-card" data-open-detail="review"><span><span class="meta">待审核</span><strong>${reviewCount}</strong><span class="meta">回复 ${queues.replies.length}/${replyQueueLimit} · 原创 ${queues.originals.length}/${originalQueueLimit}</span></span><span>展开 →</span></button><button type="button" class="summary-card" data-open-detail="publishing"><span><span class="meta">待发布</span><strong>${publishingCount}</strong><span class="meta">已审核待准备 ${lifecycle.approved.length}</span></span><span>展开 →</span></button><button type="button" class="summary-card" data-open-detail="signals"><span><span class="meta">外部信号</span><strong>${signalCount}</strong></span><span>展开 →</span></button></section>`;
+    }
+
+    function renderSocialSummary() {
+      const linkedin = socialState?.platforms?.linkedin;
+      const quora = socialState?.platforms?.quora;
+      const best = socialState?.summary?.best_content;
+      const updated = socialState?.collected_at ? formatDate(socialState.collected_at) : "暂无实时采集";
+      return `<section class="panel"><div class="head"><div><h2>社交平台</h2><p class="meta">只读采集 LinkedIn、Quora；失败不影响其他来源。</p></div><button type="button" class="secondary" data-open-detail="social">展开社交数据</button></div><div class="status-grid"><div class="status-item"><span class="meta">LinkedIn</span><strong>${escapeHtml(socialSummaryStatus(linkedin))}</strong></div><div class="status-item"><span class="meta">Quora</span><strong>${escapeHtml(socialSummaryStatus(quora))}</strong></div><div class="status-item"><span class="meta">表现最好</span><strong>${escapeHtml(best ? `${best.platform} · ${best.views || 0} 次浏览` : "暂无最佳内容")}</strong></div><div class="status-item"><span class="meta">数据更新时间</span><strong>${escapeHtml(updated)}</strong></div></div></section>`;
+    }
+
+    function renderDataSummary() {
+      return `<section class="panel"><div class="head"><div><h2>网站状态</h2><p class="meta">先看结论，再展开数字。手动导入与本地扫描摘要，不是实时数据。</p></div><button type="button" class="secondary" data-open-detail="data">展开数据</button></div><div class="status-grid">${sourceData.statusSummary.map((item) => `<div class="status-item"><span class="meta">${escapeHtml(item.label)}</span><strong>${escapeHtml(item.value)}</strong></div>`).join("")}</div><div class="data-note"><strong>结论：</strong>${escapeHtml(sourceData.conclusion)}<p class="meta">数据更新时间：${escapeHtml(sourceData.updatedAt)} · 来源：${escapeHtml(sourceData.sourceSummary)}</p></div></section>`;
+    }
+
+    function renderReviewDetail() {
+      const queues = reviewQueues();
+      const lifecycle = lifecycleQueues();
+      const content = queues.replies.length || queues.originals.length || lifecycle.approved.length
+        ? `<details open><summary>回复机会 · ${queues.replies.length}/${replyQueueLimit}</summary>${queues.replies.length ? `<div class="cards">${queues.replies.map(renderOpportunity).join("")}</div>` : `<p class="meta">当前没有待审核回复。</p>`}</details><details open><summary>原创草稿 · ${queues.originals.length}/${originalQueueLimit}</summary>${queues.originals.length ? `<div class="cards">${queues.originals.map(renderOpportunity).join("")}</div>` : `<p class="meta">当前没有待审核原创草稿。</p>`}</details>${lifecycle.approved.length ? `<details open><summary>审核通过 · ${lifecycle.approved.length}</summary><div class="cards">${lifecycle.approved.map(renderOpportunity).join("")}</div></details>` : ""}`
+        : `<div class="empty">当前没有待审核候选。</div>`;
+      return renderDetailShell("review", "待审核", content);
+    }
+
+    function renderPublishingDetail() {
+      const lifecycle = lifecycleQueues();
+      const approved = lifecycle.approved.length ? `<details open><summary>审核通过，待准备发布 · ${lifecycle.approved.length}</summary><div class="cards">${lifecycle.approved.map(renderOpportunity).join("")}</div></details>` : "";
+      const ready = lifecycle.ready.length ? `<details open><summary>Ready To Publish · ${lifecycle.ready.length}/${readyToPublishLimit}</summary><div class="cards">${lifecycle.ready.map(renderOpportunity).join("")}</div></details>` : `<div class="empty">当前没有准备发布的内容。</div>`;
+      const history = lifecycle.published.length ? `<details><summary>最近发布 · ${lifecycle.published.length}/${completedHistoryLimit}</summary><div class="cards">${lifecycle.published.map(renderOpportunity).join("")}</div></details>` : "";
+      return renderDetailShell("publishing", "待发布", `${approved}${ready}${history}`);
+    }
+
+    function renderSignalsDetail() {
+      const items = reviewQueueItems();
       const grouped = groupByPlatform(items);
-      return `<section class="panel"><div class="head"><div><h2>Verified External Signals</h2><p class="meta">只保留真实公开 URL。机会数量不是 KPI，问题质量和买家阶段更重要。</p></div><span class="pill">${items.length} 条</span></div>${items.length ? Object.entries(grouped).map(([platform, rows]) => `<details open><summary>${escapeHtml(platform)} · ${rows.length}</summary><div class="cards">${rows.map(renderOpportunity).join("")}</div></details>`).join("") : `<div class="empty">当前没有新的真实外部信号。不要用模拟数据填充。</div>`}<details><summary>人工加入真实问题</summary><p class="meta" style="margin-top:8px;">只粘贴已人工确认的公开帖子。系统不会登录、发布、评论或私信。</p>${renderManualForm()}</details></section>`;
+      const content = items.length ? Object.entries(grouped).map(([platform, rows]) => `<details open><summary>${escapeHtml(platform)} · ${rows.length}</summary><div class="cards">${rows.map(renderOpportunity).join("")}</div></details>`).join("") : `<div class="empty">当前没有新的真实外部信号。</div>`;
+      return renderDetailShell("signals", "外部信号", `${content}<details><summary>人工加入真实问题</summary><p class="meta" style="margin-top:8px;">只粘贴已人工确认的公开帖子。系统不会登录、发布、评论或私信。</p>${renderManualForm()}</details>`);
     }
+
+    function renderSocialDetail() {
+      const platforms = socialState?.platforms || {};
+      const content = Object.entries(platforms).map(([key, platform]) => { const technical = platform.diagnostics?.failure_reason || ""; const statusNote = platform.status === "blocked" ? "本轮未采集，平台状态暂不可用。" : "只读采集完成；未保存页面快照。"; const label = key === "linkedin" ? "LinkedIn" : "Quora"; return `<details class="source-detail"><summary><span>${label}</span><span class="source-summary-meta">${escapeHtml(socialSummaryStatus(platform))}</span></summary><div class="source-detail-body"><p class="meta">${escapeHtml(platform.source_url || "暂无来源")} · ${escapeHtml(platform.duration_ms ? `${platform.duration_ms} ms` : "耗时暂无数据")}</p><div class="facts">${Object.entries(platform.metrics || {}).map(([metric, value]) => `<p><strong>${escapeHtml(metricLabel(metric, key))}：</strong> ${escapeHtml(displayValue(value))}</p>`).join("")}</div>${(platform.latest_posts || platform.latest_answers || []).slice(0, 5).map((item) => `<div class="draft"><strong>${escapeHtml(item.title || item.question || "暂无标题")}</strong><br><span class="meta">${escapeHtml(item.published_at || "暂无时间")} · 浏览 ${escapeHtml(displayValue(item.views))} · 评论 ${escapeHtml(displayValue(item.comments))}</span></div>`).join("")}<p class="meta" style="margin-top:8px;">${escapeHtml(statusNote)}</p>${technical ? `<details><summary>查看技术详情</summary><pre>${escapeHtml(technical)}</pre></details>` : ""}</div></details>`; }).join("");
+      return renderDetailShell("social", "社交平台详细数据", content || `<div class="empty">Social Collector 尚未运行。</div>`);
+    }
+
+    function renderDataDetail() {
+      return renderDetailShell("data", "网站与渠道详细数据", `${renderMorningSources()}<div class="data-summary">${renderMetric("访问", sourceData.visits)}${renderMetric("核心业务页访问", sourceData.coreVisits)}${renderMetric("展示", sourceData.gscImpressions)}${renderMetric("点击", sourceData.gscClicks)}</div><div class="source-list"><p><strong>Cloudflare：</strong>${escapeHtml(sourceData.cloudflareSource)}</p><p><strong>Analytics：</strong>${escapeHtml(sourceData.analyticsSource)}</p><p><strong>GSC：</strong>${escapeHtml(sourceData.gscSource)}</p><p><strong>异常扫描：</strong>${escapeHtml(sourceData.healthSource)}</p></div>${renderDataRows("核心业务页访问", sourceData.analyticsRows, (row) => `${row.url} · ${row.sessions} 次访问 · 来源 ${row.referrer || "暂无来源"}`)}${renderDataRows("GSC 查询", sourceData.gscRows, (row) => `${row.query} · 展示 ${row.impressions} · 点击 ${row.clicks}`)}${renderDataRows("Cloudflare 主要路径", sourceData.topPaths, (row) => `${row.path} · 请求 ${row.requests}`)}<p class="data-note"><strong>结论：</strong>${escapeHtml(sourceData.conclusion)}</p>`);
+    }
+
+    function renderDetailShell(key, title, content) {
+      return `<section class="panel detail-panel section-anchor" id="detail-${key}" data-detail="${key}" hidden><div class="detail-toolbar"><h2>${escapeHtml(title)}</h2><button type="button" class="secondary" data-close-detail>收起并返回今日任务</button></div>${content}</section>`;
+    }
+
+    function renderMetric(label, value) { return `<div class="metric"><span class="meta">${escapeHtml(label)}</span><strong>${escapeHtml(displayValue(value))}</strong></div>`; }
+    function renderMorningSources() { if (!morningState) return `<div class="empty">Morning Collector 尚未运行。当前下方数据来自现有手动导入文件。</div>`; return `<section><div class="head"><div><h3>Morning Collector</h3><p class="meta">${escapeHtml(collectorStatusLine(morningState))}</p></div><span class="pill">${escapeHtml(formatDate(morningState.completed_at))}</span></div><div class="source-list">${(morningState.sources || []).map((source) => { const state = collectionState(source); const technical = source.diagnostics?.technical_error || source.diagnostics?.failure_reason || (state === "permission_required" && /230404|operation not permitted/i.test(String(source.note || "")) ? source.note : ""); const adapter = source.adapter === "safari" ? "Safari" : source.adapter === "chrome" ? "Chrome" : "浏览器"; return `<details class="source-detail"><summary><span>${escapeHtml(source.label)}</span><span class="source-summary-meta">${escapeHtml(collectionStateLabel(state))} · ${escapeHtml(sourceOperationalSummary(source, state))}</span></summary><div class="source-detail-body"><p class="meta">${escapeHtml(adapter)} · ${escapeHtml(source.source || "暂无来源")} · ${escapeHtml(source.updated_at ? formatDate(source.updated_at) : "更新时间暂无数据")}</p><p style="margin-top:8px;">${escapeHtml(sourceDisplayNote(source, state))}</p><div class="facts">${Object.entries(source.metrics || {}).map(([key, value]) => `<p><strong>${escapeHtml(metricLabel(key, source.key))}：</strong> ${escapeHtml(displayMetricValue(key, value))}</p>`).join("")}</div>${technical ? `<details><summary>查看技术详情</summary><pre>${escapeHtml(technical)}</pre></details>` : ""}</div></details>`; }).join("")}</div></section>`; }
+    function renderDataRows(title, rows, format) { return `<details><summary>${escapeHtml(title)} · ${rows.length || "暂无数据"}</summary>${rows.length ? `<ul>${rows.map((row) => `<li>${escapeHtml(format(row))}</li>`).join("")}</ul>` : `<p class="meta">暂无数据</p>`}</details>`; }
 
     function renderOpportunity(item) {
       const strategy = strategies[normalizePlatform(item.platform)] || { role:"Manual research", rule:"人工判断后再行动。" };
-      return `<article class="card"><div class="head"><div><span class="pill">${escapeHtml(item.platform)}</span><h3 style="margin-top:8px;">${escapeHtml(item.title)}</h3></div></div><div class="facts"><p><strong>Platform role:</strong> ${escapeHtml(strategy.role)}</p><p><strong>Topic:</strong> ${escapeHtml(item.topic)}</p><p><strong>Author:</strong> ${escapeHtml(item.author || "Not recorded")}</p><p><strong>Rule:</strong> ${escapeHtml(strategy.rule)}</p></div><div class="draft"><strong>Candidate draft · Human review required</strong><br>${escapeHtml(item.suggested_reply)}</div><div class="actions"><a class="button secondary" href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer">Open Original</a><button type="button" class="secondary" data-copy-opportunity="${escapeHtml(item.id)}">Copy draft</button></div><p class="meta status"></p></article>`;
+      const status = String(item.status || "pending_review").toLowerCase();
+      const statusLabel = ({ pending_review:"待审核", approved:"审核通过", ready_to_publish:"待发布", published:"已发布", archived:"已归档" })[status] || "待审核";
+      const published = item.published_at || "尚未发布";
+      const summary = item.summary || "暂无原文摘要。";
+      const angle = item.suggested_angle || "先区分已确认信息与待确认信息，再提出一个具体问题。";
+      const risk = item.risk_note || (Array.isArray(item.risk_flags) && item.risk_flags.length ? item.risk_flags.join("；") : "人工审核；默认不带链接、不推广。");
+      const isOriginal = item.type === "original_post";
+      const evidence = item.evidence?.supporting_reason || item.reason || "暂无证据说明。";
+      const sourcePostUrl = item.evidence?.source_url || "";
+      const source = item.source || item.evidence?.source || "data/social-agent/view.json";
+      const sourceUrl = isOriginal ? sourcePostUrl : item.url;
+      const typeLabel = isOriginal ? "Original" : "Reply";
+      const details = isOriginal
+        ? `<p><strong>生成依据：</strong>${escapeHtml(evidence)}</p><p><strong>对应页面：</strong>${escapeHtml(item.related_page || "暂无页面")}</p><p><strong>CTA：</strong>${escapeHtml(item.cta || "暂无 CTA")}</p>`
+        : `<p><strong>作者：</strong>${escapeHtml(item.author || "Not recorded")}</p><p><strong>原文摘要：</strong>${escapeHtml(summary)}</p><p><strong>为什么值得回复：</strong>${escapeHtml(item.why_relevant || strategy.role)}</p><p><strong>建议回复角度：</strong>${escapeHtml(angle)}</p>`;
+      const sourceLink = sourceUrl ? `<a class="button secondary" href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener noreferrer">${isOriginal ? "查看来源" : "查看原帖"}</a>` : "";
+      const actions = [`${sourceLink}`, `<button type="button" class="secondary" data-copy-opportunity="${escapeHtml(item.id)}">复制草稿</button>`];
+      if (status === "pending_review") actions.push(`<button type="button" data-lifecycle-action="approve" data-opportunity-id="${escapeHtml(item.id)}">审核通过</button>`, `<button type="button" class="secondary" data-lifecycle-action="archive" data-opportunity-id="${escapeHtml(item.id)}">归档</button>`);
+      if (status === "approved") actions.push(`<button type="button" data-lifecycle-action="ready_to_publish" data-opportunity-id="${escapeHtml(item.id)}">准备发布</button>`);
+      if (status === "ready_to_publish") actions.push(`<button type="button" data-lifecycle-action="published" data-opportunity-id="${escapeHtml(item.id)}">标记已发布</button>`, `<button type="button" class="secondary" data-lifecycle-action="archive" data-opportunity-id="${escapeHtml(item.id)}">归档</button>`);
+      return `<article class="card"><div class="head"><div><span class="pill">${escapeHtml(item.platform)}</span><h3 style="margin-top:8px;">${escapeHtml(item.title)}</h3></div><span class="pill ${status === "published" ? "green" : status === "pending_review" ? "amber" : "blue"}">${escapeHtml(statusLabel)}</span></div><div class="facts"><p><strong>类型：</strong>${typeLabel}</p><p><strong>来源：</strong>${escapeHtml(source)}</p><p><strong>推荐原因：</strong>${escapeHtml(item.reason || item.why_relevant || evidence)}</p><p><strong>发布时间：</strong>${escapeHtml(published)}</p>${details}<p><strong>风险提示：</strong>${escapeHtml(risk)}</p><p><strong>规则：</strong>${escapeHtml(strategy.rule)}</p></div><div class="draft"><strong>${isOriginal ? "原创草稿" : "回复草稿"}</strong><br>${escapeHtml(item.draft || item.suggested_reply || "暂无草稿")}</div><div class="actions">${actions.filter(Boolean).join("")}</div><p class="meta status"></p></article>`;
     }
 
     function renderManualForm() {
       return `<form id="manualForm" class="form-grid"><label class="wide"><span class="meta">Public URL</span><input required name="url" type="url" placeholder="https://..."></label><label><span class="meta">Platform</span><select name="platform"><option value="">Detect from URL</option><option>LinkedIn</option><option>Reddit</option><option>Quora</option><option>X</option><option>Medium</option></select></label><label><span class="meta">Buyer question / topic</span><input required name="topic" placeholder="What is the buyer asking?"></label><label class="wide"><span class="meta">Author or role (optional)</span><input name="author" placeholder="Amazon seller, importer, procurement manager..."></label><label class="wide"><span class="meta">Evidence note (optional)</span><input name="note" placeholder="Why this is a real buyer signal"></label><div class="wide"><button type="submit">Add verified signal</button><span class="meta status" id="manualStatus" style="margin-left:8px;"></span></div></form>`;
     }
 
-    function renderReviewQueue() {
-      const items = state.drafts || [];
-      return `<section class="panel"><div class="head"><div><h2>Human Review Queue</h2><p class="meta">旧草稿保留供人工判断。Approve 只代表可手动执行，不触发自动发布。</p></div><span class="pill amber">${items.length} 份待判断</span></div>${items.length ? `<div class="cards">${items.map(renderDraft).join("")}</div>` : `<div class="empty">当前没有待人工审核内容。</div>`}</section>`;
-    }
-
-    function renderDraft(item) {
-      const strategy = strategies[normalizePlatform(item.platform)] || { role:"Manual review", rule:"人工判断后再行动。" };
-      return `<article class="card"><div class="head"><div><span class="pill">${escapeHtml(item.platform)}</span><h3 style="margin-top:8px;">${escapeHtml(item.title)}</h3></div>${item.published ? `<span class="pill green">已人工发布</span>` : ""}</div><p class="meta" style="margin-top:8px;">${escapeHtml(strategy.role)} · ${escapeHtml(strategy.rule)}</p><div class="draft">${escapeHtml(item.draft)}</div><div class="actions"><button type="button" class="secondary" data-copy-draft="${escapeHtml(item.id)}">Copy</button><a class="button secondary" href="${escapeHtml(item.publish_url)}" target="_blank" rel="noopener noreferrer">Open ${escapeHtml(item.platform)}</a>${item.published ? "" : `<button type="button" data-mark-published="${escapeHtml(item.id)}">Record manual publish</button>`}</div><p class="meta status"></p></article>`;
-    }
-
     function renderBoundaries() {
       return `<section class="panel"><h2>Frozen for 30 Days</h2><p class="meta" style="margin-top:8px;">不新增 Dashboard、Growth OS 模块、采集器、平台接入、自动评论、自动发布、自动私信或批量 Buyer Guide。只有真实用户行为证明流程受阻时才开发。</p></section>`;
     }
 
+    function lifecycleQueues() { const items = sortOpportunities(state.opportunities || []); return { pending: items.filter((item) => item.status === "pending_review"), approved: items.filter((item) => item.status === "approved").slice(0, readyToPublishLimit), ready: items.filter((item) => item.status === "ready_to_publish").slice(0, readyToPublishLimit), published: items.filter((item) => item.status === "published").slice(0, completedHistoryLimit) }; }
+    function reviewQueues() { const pending = lifecycleQueues().pending; return { replies: pending.filter((item) => item.type !== "original_post").slice(0, replyQueueLimit), originals: pending.filter((item) => item.type === "original_post").slice(0, originalQueueLimit) }; }
+    function reviewQueueItems() { const queues = reviewQueues(); return sortOpportunities([...queues.replies, ...queues.originals]); }
+    function isDiscoveryPlaceholder(item) { const type = String(item?.object_type || item?.type || "").toLowerCase(); const title = String(item?.title || item?.action || ""); return type === "discovery_task" || (!item?.url && /\b(?:linkedin|quora|reddit|x|facebook)\s+discovery\s+task\b/i.test(title)); }
     function groupByPlatform(items) { return items.reduce((groups, item) => { const key = normalizePlatform(item.platform); (groups[key] ||= []).push(item); return groups; }, {}); }
+    function sortOpportunities(items) { return [...items].sort((a, b) => opportunityPriority(b) - opportunityPriority(a) || Number(b.business_intent_score || b.business_score || 0) - Number(a.business_intent_score || a.business_score || 0)); }
+    function opportunityPriority(item) { const platform = String(item.platform || item.platform_key || "").toLowerCase(); const type = String(item.type || item.object_type || "").toLowerCase(); if (["seo_opportunity", "geo_opportunity", "content_plan", "content_task"].includes(type)) return 100; if (platform === "linkedin" && type !== "original_post") return 90; if (platform === "quora") return 85; if (platform === "email" || type === "email_opportunity") return 80; if (platform === "linkedin" && type === "original_post") return 75; if (platform === "reddit") return 60; return 0; }
     function normalizePlatform(value) { const name = String(value || "Unknown").toLowerCase(); if (name.includes("linkedin")) return "LinkedIn"; if (name.includes("reddit")) return "Reddit"; if (name.includes("quora")) return "Quora"; if (name.includes("medium")) return "Medium"; if (name === "x" || name.includes("twitter")) return "X"; if (name.includes("substack")) return "Substack"; return value || "Unknown"; }
+
+    async function fetchJson(url) { try { const response = await fetch(`${url}?t=${Date.now()}`, { cache:"no-store" }); return response.ok ? response.json() : null; } catch { return null; } }
+    async function fetchText(url) { try { const response = await fetch(`${url}?t=${Date.now()}`, { cache:"no-store" }); return response.ok ? response.text() : ""; } catch { return ""; } }
+
+    function buildSourceData(cloudflare, analyticsText, gscText, health) {
+      const analytics = parseCsv(analyticsText);
+      const gsc = parseCsv(gscText);
+      const coreRows = analytics.filter((row) => /supplier-reply-review|buyer-guides|for-buyers/i.test(row.url || ""));
+      const coreVisitsValue = sumField(coreRows, "sessions");
+      const gscImpressionsValue = sumField(gsc, "impressions");
+      const gscClicksValue = sumField(gsc, "clicks");
+      const dates = [cloudflare?.date, ...analytics.map((row) => row.date), ...gsc.map((row) => row.date), health?.last_successful_run].filter(Boolean);
+      const blocked = numberOrNull(health?.sources_blocked);
+      const healthLabel = health?.status ? `${health.status}${blocked ? ` · ${blocked} sources blocked` : ""}` : null;
+      const siteStatus = cloudflare ? (cloudflare.status_codes?.["5xx"] === 0 ? "正常 · 无 5xx" : "需检查 5xx") : "暂无站点数据";
+      const googleStatus = gsc.length ? (gscImpressionsValue ? `有曝光 · ${displayValue(gscClicksValue)} 次点击` : "暂无曝光记录") : "暂无 Google 数据";
+      const trafficStatus = cloudflare?.interpretation?.find((item) => /真实买家/.test(item)) || (coreVisitsValue ? "有核心页访问" : "真实访问暂无记录");
+      const issueStatus = health ? (blocked ? `扫描健康 · ${blocked} 个来源需处理` : "扫描正常 · 无阻塞") : "暂无扫描数据";
+      const conclusion = `${siteStatus}；Google ${googleStatus}；${trafficStatus}。`;
+      return {
+        visits: numberOrNull(cloudflare?.total_visits),
+        coreVisits: coreVisitsValue,
+        gscImpressions: gscImpressionsValue,
+        gscClicks: gscClicksValue,
+        health: healthLabel,
+        conclusion,
+        statusSummary: [
+          { label: "站点", value: siteStatus },
+          { label: "Google", value: googleStatus },
+          { label: "真实访问", value: trafficStatus },
+          { label: "异常", value: issueStatus }
+        ],
+        updatedAt: dates.length ? formatDate(dates.sort((a, b) => Date.parse(b) - Date.parse(a))[0]) : "暂无时间",
+        sourceSummary: "Cloudflare 手动导入、Analytics 手动导入、GSC 手动导入、本地异常扫描",
+        cloudflareSource: cloudflare ? `手动导入 · ${cloudflare.date || "日期暂无"} · ${cloudflare.window || "窗口暂无"}` : "暂无数据",
+        analyticsSource: analytics.length ? `手动导入 · ${latestField(analytics, "date")}` : "暂无数据",
+        gscSource: gsc.length ? `手动导入 · ${latestField(gsc, "date")}` : "暂无数据",
+        healthSource: health ? `本地扫描 · ${formatDate(health.last_successful_run)} · ${health.message || health.status}` : "暂无数据",
+        analyticsRows: coreRows,
+        gscRows: gsc,
+        topPaths: cloudflare?.top_paths || []
+      };
+    }
+
+    function parseCsv(text) {
+      const lines = String(text || "").trim().split(/\r?\n/).filter(Boolean);
+      if (lines.length < 2) return [];
+      const headers = lines[0].split(",");
+      return lines.slice(1).map((line) => { const values = line.split(","); return Object.fromEntries(headers.map((header, index) => [header, values[index] ?? ""])); });
+    }
+
+    function sumField(rows, field) { return rows.length ? rows.reduce((sum, row) => sum + (Number(row[field]) || 0), 0) : null; }
+    function latestField(rows, field) { return rows.map((row) => row[field]).filter(Boolean).sort().at(-1) || "日期暂无"; }
+    function numberOrNull(value) { return value === null || value === undefined || value === "" || Number.isNaN(Number(value)) ? null : Number(value); }
+    function displayValue(value) { return value === null || value === undefined || value === "" || value === "unavailable" ? "暂无数据" : value; }
+    function collectionState(source) {
+      const state = source?.state;
+      if (["live", "cached", "manual", "unavailable", "permission_required"].includes(state)) return state;
+      if (source?.status === "permission_required" || /230404|operation not permitted/i.test(String(source?.note || ""))) return "permission_required";
+      if (source?.status === "collected") {
+        if (source.realtime) return "live";
+        return /manual/i.test(String(source.note || "")) && !/import/i.test(String(source.note || "")) ? "manual" : "cached";
+      }
+      return "unavailable";
+    }
+    function countCollectionStates(sources) {
+      const counts = { live:0, cached:0, manual:0, unavailable:0, permission_required:0, uncollected:0 };
+      (sources || []).forEach((source) => { const state = collectionState(source); if (Object.prototype.hasOwnProperty.call(counts, state)) counts[state] += 1; else counts.unavailable += 1; });
+      counts.uncollected = counts.unavailable + counts.permission_required;
+      return counts;
+    }
+    function detectDashboardRootCause(sources) {
+      const affected = (sources || []).filter((source) => ["cloudflare", "gsc", "clarity", "semrush"].includes(source.key) && source.adapter !== "safari" && /230404|operation not permitted/i.test(String(source.note || "") + " " + String(source.diagnostics?.technical_error || ""))).map((source) => source.key);
+      return affected.length >= 2 ? { code:"chrome_permission", affected_sources:affected } : null;
+    }
+    function sourceDisplayNote(source, state) {
+      if (state === "permission_required") return "本轮未采集，原因是 Chrome 权限未通过。";
+      if (state === "cached") return `缓存数据；实际更新时间：${source.updated_at ? formatDate(source.updated_at) : "暂无时间"}；本轮未访问实时页面。`;
+      if (state === "manual") return `人工记录；实际更新时间：${source.updated_at ? formatDate(source.updated_at) : "暂无时间"}；本轮未访问实时页面。`;
+      if (state === "unavailable") return "本轮没有可用数据。";
+      return source.note || "本轮从实时网页只读采集。";
+    }
+    function sourceOperationalSummary(source, state) {
+      if (state === "permission_required") return "等待重新授权";
+      if (state === "cached") return "缓存数据";
+      if (state === "manual") return "人工记录";
+      if (state === "unavailable") return "暂无实时数据";
+      const metrics = source.metrics || {};
+      if (source.key === "semrush") return `站点健康 ${displayValue(metrics.site_health)} · 可见度 ${displayValue(metrics.visibility)}`;
+      if (source.key === "geo") return `AI 查询 ${displayValue(metrics.queries)} · AI 提及 ${displayValue(metrics.mentions)} · AI 引用 ${displayValue(metrics.citations)}`;
+      if (source.key === "conversion") return `提交数量 ${displayValue(metrics.recorded_rows)} · 新素材 ${displayValue(metrics.material_submitted)}`;
+      if (source.key === "social") return "暂无实时数据";
+      if (source.key === "gsc") return `点击 ${displayValue(metrics.web_search_clicks)}`;
+      if (source.key === "cloudflare") return metrics.web_traffic_24h ? `访问 ${displayValue(metrics.web_traffic_24h)}` : "本轮已采集";
+      return "本轮已采集";
+    }
+    function metricLabel(key, sourceKey) {
+      const labels = {
+        web_search_impressions:"展示", web_search_clicks:"点击", site_health:"站点健康", visibility:"可见度", organic_traffic:"自然流量",
+        queries:"AI 查询", mentions:sourceKey === "geo" ? "AI 提及" : sourceKey === "brand_monitoring" ? "品牌提及" : "提及", citations:"AI 引用",
+        recorded_rows:"提交数量", material_submitted:"新素材", new_interactions:"新互动", best_content:"表现最好", sessions:"会话", unique_users:"用户",
+        pages_per_session:"每次会话页数", scroll_depth:"滚动深度", active_time:"活跃时间", dead_clicks:"无效点击", dead_click_sessions:"无效点击会话",
+        rage_clicks:"愤怒点击", rage_click_sessions:"愤怒点击会话", sessions_excluding_bots:"排除机器人会话", linkedin_state:"LinkedIn", quora_state:"Quora",
+        ai_visibility:"AI 可见度", web_traffic_24h:"访问", cache_rate:"缓存命中率", security_insights:"安全异常"
+      };
+      return labels[key] || "其他数据";
+    }
+    function displayMetricValue(key, value) { return /(?:^|_)state$/.test(key) ? collectionStateLabel(value) : displayValue(value); }
+    function collectionStateLabel(state) { return ({ live:"实时", cached:"缓存", manual:"人工记录", unavailable:"暂不可用", permission_required:"需要授权" })[state] || "暂不可用"; }
+    function socialDisplayState(status) { return status === "collected" ? "实时" : status === "partial" ? "实时·部分" : "暂不可用"; }
+    function socialSummaryStatus(platform) { if (!platform) return "暂无实时数据 · 等待下次同步"; if (["collected", "partial"].includes(platform.status)) return `${socialDisplayState(platform.status)} · ${platform.new_interactions || 0} 新互动`; return "暂无实时数据 · 等待下次同步"; }
+
+    function openDetail(key) {
+      document.querySelectorAll("[data-detail]").forEach((panel) => { panel.hidden = panel.dataset.detail !== key; });
+      const target = document.querySelector(`[data-detail="${key}"]`);
+      if (target) requestAnimationFrame(() => target.scrollIntoView({ behavior:"smooth", block:"start" }));
+    }
+
+    function closeDetails() {
+      document.querySelectorAll("[data-detail]").forEach((panel) => { panel.hidden = true; });
+      document.getElementById("today")?.scrollIntoView({ behavior:"smooth", block:"start" });
+    }
 
     document.addEventListener("submit", async (event) => { if (event.target.id === "manualForm") { event.preventDefault(); await saveManual(event.target); } });
     document.addEventListener("click", async (event) => {
+      if (event.target.closest("#startToday")) return startToday(event.target.closest("#startToday"));
+      const complete = event.target.closest("[data-complete-task]");
+      if (complete) return toggleTaskComplete(complete.dataset.completeTask);
+      const open = event.target.closest("[data-open-detail]");
+      if (open) return openDetail(open.dataset.openDetail);
+      if (event.target.closest("[data-close-detail]")) return closeDetails();
       const opportunity = event.target.closest("[data-copy-opportunity]");
-      if (opportunity) return copyText((state.opportunities || []).find((item) => item.id === opportunity.dataset.copyOpportunity)?.suggested_reply, opportunity.closest(".card"));
-      const draft = event.target.closest("[data-copy-draft]");
-      if (draft) return copyText((state.drafts || []).find((item) => item.id === draft.dataset.copyDraft)?.draft, draft.closest(".card"));
-      const mark = event.target.closest("[data-mark-published]");
-      if (mark) await markPublished(mark);
+      if (opportunity) {
+        const item = (state.opportunities || []).find((entry) => entry.id === opportunity.dataset.copyOpportunity);
+        return copyText(item?.draft || item?.suggested_reply, opportunity.closest(".card"));
+      }
+      const lifecycle = event.target.closest("[data-lifecycle-action]");
+      if (lifecycle) await transitionOpportunity(lifecycle);
     });
 
     async function saveManual(form) { const status = document.getElementById("manualStatus"); const result = await post(manualUrl, Object.fromEntries(new FormData(form)), status); if (result) { status.textContent = result.added?.length ? "已加入真实信号列表。" : "该公开链接已存在。"; await load(); } }
-    async function markPublished(button) { const card = button.closest(".card"); const status = card.querySelector(".status"); const result = await post(publishedUrl, { draft_id:button.dataset.markPublished }, status); if (result) { status.textContent = "已记录人工发布。"; await load(); } }
+    async function startToday(button) { const status = document.getElementById("morningStatus"); button.disabled = true; button.textContent = "采集中…"; status.textContent = "按 Cloudflare → GSC → Clarity → Semrush → GEO → 社交 → 转化 → 品牌监控采集中。遇到登录或页面阻塞会直接记录。"; const result = await post(morningUrl, {}, status); if (result) { status.textContent = result.summary?.conclusion || "采集完成。"; await load(); } else { button.disabled = false; button.textContent = morningState ? "重新采集" : "开始采集"; } }
+    function toggleTaskComplete(taskId) { const completed = new Set(readCompletedTasks()); completed.has(taskId) ? completed.delete(taskId) : completed.add(taskId); writeCompletedTasks([...completed]); render(); }
+    function todayKey() { return new Date().toLocaleDateString("sv-SE"); }
+    function readCompletedTasks() { try { const data = JSON.parse(localStorage.getItem(completedTasksKey) || "{}"); return data[todayKey()] || []; } catch { return []; } }
+    function writeCompletedTasks(tasks) { try { const data = JSON.parse(localStorage.getItem(completedTasksKey) || "{}"); data[todayKey()] = tasks; localStorage.setItem(completedTasksKey, JSON.stringify(data)); } catch {} }
+    async function transitionOpportunity(button) { const card = button.closest(".card"); const status = card.querySelector(".status"); const result = await post(discoveryActionUrl, { id:button.dataset.opportunityId, action:button.dataset.lifecycleAction }, status); if (result) { status.textContent = "状态已更新；外部发布仍由人工完成。"; await load(); } }
     async function post(url, body, status) { try { const response = await fetch(url, { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(body) }); if (!response.ok) throw new Error(await response.text()); return response.json(); } catch { status.textContent = "Local Growth OS server is not available. Changes cannot be saved."; return null; } }
     async function copyText(text, card) { const status = card.querySelector(".status"); try { await navigator.clipboard.writeText(text || ""); status.textContent = "已复制，发布前仍需人工审核。"; } catch { status.textContent = "复制失败，请手动选择文本。"; } }
     function setServerStatus(online) { document.getElementById("serverDot").classList.toggle("offline", !online); document.getElementById("serverStatus").textContent = online ? "Local operator console available" : "Local server unavailable"; }
-    function formatDate(value) { return value ? new Date(value).toLocaleString() : "unknown"; }
+    function formatDate(value) { return value ? new Date(value).toLocaleString() : "暂无时间"; }
     function escapeHtml(value) { return String(value ?? "").replace(/[&<>"']/g, (char) => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", "\"":"&quot;", "'":"&#39;" }[char])); }
   </script>
 </body>

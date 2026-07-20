@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 
 import { lifecycleFile, loadLifecycleState } from "../state/state-manager.mjs";
 import { readDiscoveryOutcomeStats } from "../discovery/social-discovery-engine.mjs";
+import { buildPlatformOperations } from "../discovery/platform-policy.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../..");
 const dashboardFile = path.join(root, "docs/growth-os/dashboard.md");
@@ -180,6 +181,12 @@ export function refreshDashboardDiscovery(discovery, now = new Date()) {
   view.results = workspace.results;
   view.today_opportunities = workspace.inbox.slice(0, 5);
   view.discovery_summary = buildDiscoverySummaryView(discovery?.discovery_summary);
+  const platformOperations = discovery?.platform_coverage
+    ? { platform_coverage: discovery.platform_coverage, discovery_tasks: discovery.discovery_tasks || [], today_plan: discovery.today_plan || [] }
+    : buildPlatformOperations(discovery?.workspace, discovery?.discovery_summary, { now });
+  view.platform_coverage = platformOperations.platform_coverage;
+  view.discovery_tasks = platformOperations.discovery_tasks;
+  view.today_plan = platformOperations.today_plan;
   view.today_actions = buildTodayActions(workspace);
   view.business_signals = buildBusinessSignals();
   view.decision_summary = buildDecisionSummary(view.today_action, { social_discovery: discovery }, view.platform_execution || [], workspace);
@@ -271,11 +278,17 @@ function buildDashboardView(summary, priority, dashboard) {
   const businessSignals = buildBusinessSignals();
   const decisionSummary = buildDecisionSummary(action, summary, platformExecution, workspace);
   const todayActions = buildTodayActions(workspace);
+  const platformOperations = summary.social_discovery?.platform_coverage
+    ? { platform_coverage: summary.social_discovery.platform_coverage, discovery_tasks: summary.social_discovery.discovery_tasks || [], today_plan: summary.social_discovery.today_plan || [] }
+    : buildPlatformOperations(summary.social_discovery?.workspace, summary.social_discovery?.discovery_summary, { now: new Date(summary.date) });
   return {
     generated_at: summary.date,
     title: "Growth OS 增长运营中心",
     decision_summary: decisionSummary,
     today_actions: todayActions,
+    today_plan: platformOperations.today_plan,
+    discovery_tasks: platformOperations.discovery_tasks,
+    platform_coverage: platformOperations.platform_coverage,
     workspace,
     opportunity_inbox: workspace.inbox,
     today_execution: workspace.today,
@@ -1168,6 +1181,8 @@ function discoveryPlatformLabel(platform) {
   if (platform === "reddit") return "Reddit";
   if (platform === "quora") return "Quora";
   if (platform === "x") return "X";
+  if (platform === "facebook_groups") return "Facebook Groups";
+  if (platform === "indie_hackers") return "Indie Hackers";
   return String(platform || "");
 }
 

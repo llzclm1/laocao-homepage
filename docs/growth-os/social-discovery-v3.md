@@ -68,6 +68,8 @@ SOCIAL_DISCOVERY_SEARCH_RESULTS_FILE
 
 当前真实状态：RSS dry-run 曾返回 10 个公开 URL，但未持久化；自动新候选仍为 0。稳定自动采集尚未验证，连续三次真实间隔采集尚未完成。Dashboard 必须保持 `existing log + manual inbox + import` 模式提示，不得把旧库存或 dry-run 结果标为当天新发现。
 
+Quora 与 LinkedIn 当前通过 `SOCIAL_DISCOVERY_SEARCH_RESULTS_FILE` 读取本地公开结果文件。该模式验证的是导入、筛选、审核队列和 Morning Brief 的链路，不代表每天都有稳定的在线自动发现。观察期需单独记录结果文件的更新时间、来源状态、候选数量和是否确实新增；在连续多日由上游刷新并验证前，不把这两个平台标为稳定自动采集。
+
 ## 平台边界
 
 Social Discovery v3 automates public opportunity discovery and analysis.

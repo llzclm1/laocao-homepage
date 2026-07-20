@@ -3,6 +3,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { buildPlatformOperations, fitXText, platformDailyReplyCap, xCharacterCount, X_CHARACTER_LIMIT } from "./platform-policy.mjs";
+
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../..");
 const discoveryDir = path.join(root, "data/growth-os/social-discovery");
 const outreachLogFile = path.join(root, "data/marketing/social-outreach-log.csv");
@@ -13,21 +15,25 @@ const sourceStatusFile = path.join(discoveryDir, "source-status.json");
 const healthFile = path.join(discoveryDir, "discovery-health.json");
 const actionsFile = path.join(discoveryDir, "candidate-actions.jsonl");
 const outputFile = path.join(discoveryDir, "today-opportunities.json");
-export const supportedPlatforms = new Set(["reddit", "quora", "linkedin", "x"]);
+export const supportedPlatforms = new Set(["reddit", "quora", "linkedin", "x", "facebook_groups", "indie_hackers"]);
+const X_EXCLUDED_TOPIC_RE = /\b(?:ai|artificial\s+intelligence|codex|vibe\s+coding|machine\s+learning|llm|gpt|ai\s+agent(?:s)?|automation|workflow)\b/i;
+const X_PROJECT_SIGNAL_RE = /(?:china\s+sourcing|chinese\s+supplier|supplier|sourcing|procurement|factory|manufacturer|alibaba|quotation|quote|sample(?:\s+order)?|moq|payment|deposit|refund|bank\s+account|lead\s+time|delivery|packaging|trading\s+company|overseas\s+buyer|export|import|supplier\s+communication|buyer\s+(?:inquiry|question)|supplier\s+reply|factory\s+bridge|gewuji)/i;
 const sourceMethods = new Set(["search", "public_api", "reddit_rss", "outreach_log", "manual", "search_import"]);
 const inboxStates = new Set(["inbox", "later"]);
 const todayStates = new Set(["today", "viewed", "draft_prepared"]);
 const resultStates = new Set(["outcome_pending", "received_reply", "removed", "no_response", "buyer_signal", "partner_signal", "review_request", "paid_opportunity", "closed"]);
 
-export function discoverSocialOpportunities(now = new Date()) {
+export function discoverSocialOpportunities(now = new Date(), options = {}) {
   const actions = readJsonl(actionsFile);
-  const candidates = readDiscoveryCandidates(now).map((item) => applyActions(item, actions));
+  const candidates = inspectSocialDiscoveryCandidates(now, actions);
 
   const eligibleCandidates = candidates
     .filter(isDashboardCandidate)
     .sort(compareCandidates);
   const workspace = buildWorkspace(eligibleCandidates);
   const collectionSnapshot = readCollectionSnapshot();
+  const discoverySummary = buildDiscoverySummary(eligibleCandidates, workspace, collectionSnapshot.platforms, now, collectionSnapshot.last_verified_rss_result, collectionSnapshot.health);
+  const platformOperations = buildPlatformOperations(workspace, discoverySummary, { now });
   const result = {
     generated_at: now.toISOString(),
     sources: ["reddit_rss", "search", "outreach_log", "manual", "search_import"],
@@ -35,12 +41,21 @@ export function discoverSocialOpportunities(now = new Date()) {
     // Kept for existing Markdown/report consumers. The operating workspace uses inbox/today/results.
     items: workspace.inbox.slice(0, 5),
     workspace,
-    discovery_summary: buildDiscoverySummary(eligibleCandidates, workspace, collectionSnapshot.platforms, now, collectionSnapshot.last_verified_rss_result, collectionSnapshot.health)
+    discovery_summary: discoverySummary,
+    platform_coverage: platformOperations.platform_coverage,
+    discovery_tasks: platformOperations.discovery_tasks,
+    today_plan: platformOperations.today_plan
   };
 
-  fs.mkdirSync(discoveryDir, { recursive: true });
-  fs.writeFileSync(outputFile, `${JSON.stringify(result, null, 2)}\n`, "utf8");
+  if (!options.dryRun) {
+    fs.mkdirSync(discoveryDir, { recursive: true });
+    fs.writeFileSync(outputFile, `${JSON.stringify(result, null, 2)}\n`, "utf8");
+  }
   return result;
+}
+
+export function inspectSocialDiscoveryCandidates(now = new Date(), actions = readJsonl(actionsFile)) {
+  return readDiscoveryCandidates(now).map((item) => applyActions(item, actions));
 }
 
 export function outreachCandidateUrls() {
@@ -59,23 +74,32 @@ export function recordDiscoveryAction(value, now = new Date()) {
   const candidate = readDiscoveryCandidates(now).find((item) => item.id === id);
   if (!candidate) throw new Error("Discovery candidate was not found");
   const replyUrl = action === "replied" ? normalizeUrl(value.reply_url) : "";
-  if (action === "replied") {
+  if (action === "replied" && replyUrl) {
     const issue = replyUrlIssue(candidate, replyUrl);
     if (issue) throw new Error(issue);
     const duplicate = duplicateReplyAction(history, id, replyUrl);
     if (duplicate) return { ...duplicate, duplicate: true };
   }
+  if (action === "draft_prepared" && candidate.platform === "x" && xCharacterCount(candidate.suggested_comment) > X_CHARACTER_LIMIT) {
+    throw new Error(`X reply draft must not exceed ${X_CHARACTER_LIMIT} characters`);
+  }
   const fromState = candidateWorkflowState(history.filter((item) => item.id === id));
+  const duplicate = duplicateWorkflowAction(history, id, action, fromState);
+  if (duplicate) return { ...duplicate, duplicate: true };
   const toState = transitionForDiscoveryAction(fromState, action);
   if (!toState) throw new Error(`Action ${action} is not available from ${fromState}`);
   if (action === "select_today" && selectedTodayCount(history) >= 3) throw new Error("Today can contain at most three opportunities");
+  const platformCap = platformDailyReplyCap(candidate.platform);
+  if (action === "select_today" && platformCap && selectedPlatformTodayCount(history, candidate.platform, now) >= platformCap) {
+    throw new Error(`${candidate.platform} can contain at most ${platformCap} reply task per day`);
+  }
   const entry = {
     id,
     action,
     from_state: fromState,
     to_state: toState,
     reply_url: replyUrl || undefined,
-    reply_url_verification: action === "replied" ? "manual" : undefined,
+    reply_url_verification: action === "replied" ? (replyUrl ? "manual" : "not_recorded") : undefined,
     note: cleanText(value.note || ""),
     date: now.toISOString(),
     user: "local"
@@ -88,6 +112,14 @@ export function recordDiscoveryAction(value, now = new Date()) {
 export function duplicateReplyAction(history, id, replyUrl) {
   const normalized = normalizeUrl(replyUrl);
   return history.find((item) => item.id === id && item.action === "replied" && normalizeUrl(item.reply_url) === normalized) || null;
+}
+
+export function duplicateWorkflowAction(history, id, action, currentState) {
+  const candidateHistory = history
+    .filter((item) => item.id === id && item.action)
+    .sort((left, right) => Date.parse(left.date || "") - Date.parse(right.date || ""));
+  const last = candidateHistory[candidateHistory.length - 1];
+  return last?.action === action && last?.to_state === currentState ? last : null;
 }
 
 export function replyUrlIssue(candidate, replyUrl) {
@@ -195,10 +227,12 @@ export function createDiscoveredCandidate(input, now = new Date()) {
   const title = cleanText(input.title);
   const snippet = cleanText(input.snippet);
   if (!supportedPlatforms.has(platform) || !url || !title || !matchesPlatformUrl(platform, url)) return null;
+  if (platform === "x" && !isXProjectRelevant({ title, snippet })) return null;
 
   const text = `${title} ${snippet}`.toLowerCase();
   const matchedKeywords = (input.keywords || []).filter((keyword) => text.includes(String(keyword).toLowerCase()));
   const score = scoreCandidate({ platform, title, snippet, matched_keywords: matchedKeywords });
+  const redditTrust = platform === "reddit" ? redditTrustProfile({ url, title, snippet }) : null;
   const risk = riskForPlatform(platform, input.published_at);
   const opportunityRisk = opportunityRiskForCandidate(input.published_at, snippet);
   const enoughContext = snippet.length >= 40 && !/\b(deleted|removed|locked)\b/i.test(text);
@@ -217,19 +251,20 @@ export function createDiscoveredCandidate(input, now = new Date()) {
     last_seen_at: normalizeDate(input.last_seen_at) || now.toISOString(),
     source_method: sourceMethods.has(input.source_method) ? input.source_method : "search",
     matched_keywords: matchedKeywords,
-    intent_score: score.label,
-    intent_rank: score.rank,
-    expected_value: score.expected_value,
-    opportunity_quality: score.label,
+    intent_score: redditTrust?.intent_score || score.label,
+    intent_rank: redditTrust?.intent_rank || score.rank,
+    expected_value: redditTrust?.expected_value || score.expected_value,
+    opportunity_quality: redditTrust?.opportunity_quality || score.label,
     risk_status: risk.status,
     risk_note: risk.note,
     opportunity_risk_status: opportunityRisk.status,
     opportunity_risk_note: opportunityRisk.note,
     dedupe_key: dedupeKey(platform, url, title),
-    reason: score.reason,
-    why_relevant: whyRelevantForCandidate({ title, snippet, expectedValue: score.expected_value }),
-    suggested_angle: suggestedAngleForCandidate({ title, snippet }),
-    suggested_comment: enoughContext ? suggestedComment({ title, snippet, platform }) : "",
+    reason: redditTrust?.reason || score.reason,
+    why_relevant: redditTrust?.why_relevant || whyRelevantForCandidate({ title, snippet, expectedValue: score.expected_value }),
+    suggested_angle: redditTrust?.suggested_angle || suggestedAngleForCandidate({ title, snippet }),
+    suggested_comment: enoughContext && (!redditTrust || redditTrust.eligible) ? suggestedComment({ title, snippet, platform }) : "",
+    reddit_trust: redditTrust,
     needs_manual_review: true
   }, now);
   return candidate;
@@ -386,6 +421,8 @@ function platformForUrl(value) {
     if (/(^|\.)quora\.com$/.test(host)) return "quora";
     if (/(^|\.)linkedin\.com$/.test(host)) return "linkedin";
     if (/(^|\.)(x\.com|twitter\.com)$/.test(host)) return "x";
+    if (/(^|\.)(facebook\.com|fb\.com)$/.test(host)) return "facebook_groups";
+    if (/(^|\.)indiehackers\.com$/.test(host)) return "indie_hackers";
   } catch {
     return "";
   }
@@ -453,11 +490,13 @@ function normalizeCandidate(value, now) {
   const url = normalizeUrl(value.url || value.thread_url);
   const title = cleanText(value.title || value.topic);
   if (!supportedPlatforms.has(platform) || !url || !title || !matchesPlatformUrl(platform, url)) return null;
+  const excludedX = platform === "x" && !isXProjectRelevant({ title, snippet: value.snippet });
   const score = scoreCandidate({ platform, title, snippet: value.snippet, matched_keywords: value.matched_keywords || [] });
+  const redditTrust = platform === "reddit" ? redditTrustProfile({ url, title, snippet: value.snippet }) : null;
   const risk = riskForPlatform(platform, value.published_at);
   const opportunityRisk = opportunityRiskForCandidate(value.published_at, value.snippet);
   const firstSeenAt = normalizeDate(value.first_seen_at || value.discovered_at) || now.toISOString();
-  return withFreshness({
+  const candidate = withFreshness({
     id: /^DISC-[a-f0-9]{12}$/i.test(value.id || "") ? value.id : candidateId(platform, url),
     platform,
     url,
@@ -471,21 +510,23 @@ function normalizeCandidate(value, now) {
     last_seen_at: normalizeDate(value.last_seen_at) || firstSeenAt,
     source_method: sourceMethods.has(value.source_method) ? value.source_method : "manual",
     matched_keywords: Array.isArray(value.matched_keywords) ? value.matched_keywords : [],
-    intent_score: ["High", "Medium", "Low"].includes(value.intent_score) ? value.intent_score : score.label,
-    intent_rank: Number(value.intent_rank) || score.rank,
-    expected_value: ["Buyer", "Partner", "Supplier", "Audience", "Ignore"].includes(value.expected_value) ? value.expected_value : score.expected_value,
-    opportunity_quality: ["High", "Medium", "Low"].includes(value.opportunity_quality) ? value.opportunity_quality : (["High", "Medium", "Low"].includes(value.intent_score) ? value.intent_score : score.label),
+    intent_score: redditTrust?.intent_score || (["High", "Medium", "Low"].includes(value.intent_score) ? value.intent_score : score.label),
+    intent_rank: redditTrust?.intent_rank || Number(value.intent_rank) || score.rank,
+    expected_value: redditTrust?.expected_value || (["Buyer", "Partner", "Supplier", "Audience", "Ignore"].includes(value.expected_value) ? value.expected_value : score.expected_value),
+    opportunity_quality: redditTrust?.opportunity_quality || (["High", "Medium", "Low"].includes(value.opportunity_quality) ? value.opportunity_quality : (["High", "Medium", "Low"].includes(value.intent_score) ? value.intent_score : score.label)),
     risk_status: ["Low", "Medium", "High"].includes(value.risk_status) ? value.risk_status : risk.status,
     risk_note: cleanText(value.risk_note || risk.note),
     opportunity_risk_status: ["Low", "Medium", "High"].includes(value.opportunity_risk_status) ? value.opportunity_risk_status : opportunityRisk.status,
     opportunity_risk_note: cleanText(value.opportunity_risk_note || opportunityRisk.note),
     dedupe_key: cleanText(value.dedupe_key || dedupeKey(platform, url, title)),
-    reason: cleanText(value.reason || score.reason),
-    why_relevant: cleanText(value.why_relevant || whyRelevantForCandidate({ title, snippet: value.snippet, expectedValue: value.expected_value || score.expected_value })),
-    suggested_angle: cleanText(value.suggested_angle || suggestedAngleForCandidate({ title, snippet: value.snippet })),
-    suggested_comment: cleanText(value.suggested_comment || ""),
+    reason: cleanText(redditTrust?.reason || value.reason || score.reason),
+    why_relevant: cleanText(redditTrust?.why_relevant || value.why_relevant || whyRelevantForCandidate({ title, snippet: value.snippet, expectedValue: value.expected_value || score.expected_value })),
+    suggested_angle: cleanText(redditTrust?.suggested_angle || value.suggested_angle || suggestedAngleForCandidate({ title, snippet: value.snippet })),
+    suggested_comment: platform === "reddit" && !redditTrust?.eligible ? "" : (platform === "x" ? fitXText(value.suggested_comment || "") : cleanText(value.suggested_comment || suggestedComment({ title, snippet: value.snippet, platform }))),
+    reddit_trust: redditTrust,
     needs_manual_review: value.needs_manual_review !== false
   }, now);
+  return excludedX ? { ...candidate, excluded_reason: "X 内容与 Factory Bridge 无关" } : candidate;
 }
 
 function applyActions(item, actions) {
@@ -496,22 +537,26 @@ function applyActions(item, actions) {
   let replyUrl = "";
   let replyUrlVerification = null;
   let lastActionAt = null;
+  let selectedForTodayAt = null;
   for (const action of history) {
-    const next = transitionForDiscoveryAction(workflowState, action.action, true) || action.to_state;
+    const next = transitionForDiscoveryAction(workflowState, action.action, true);
     if (!next) continue;
     workflowState = next;
     if (action.reply_url) {
       replyUrl = normalizeUrl(action.reply_url);
       replyUrlVerification = action.reply_url_verification || "manual";
     }
+    if (action.action === "select_today") selectedForTodayAt = normalizeDate(action.date) || selectedForTodayAt;
     lastActionAt = normalizeDate(action.date) || lastActionAt;
   }
+  if (item.platform === "x" && !isXProjectRelevant(item)) workflowState = "ignored";
   return {
     ...item,
     workflow_state: workflowState,
     reply_url: replyUrl || null,
     reply_url_verification: replyUrlVerification,
     last_action_at: lastActionAt,
+    selected_for_today_at: selectedForTodayAt,
     needs_manual_review: inboxStates.has(workflowState)
   };
 }
@@ -536,10 +581,10 @@ export function candidateWorkflowState(history) {
   return history
     .slice()
     .sort((left, right) => Date.parse(left.date || "") - Date.parse(right.date || ""))
-    .reduce((state, item) => transitionForDiscoveryAction(state, item.action, true) || item.to_state || state, "inbox");
+    .reduce((state, item) => transitionForDiscoveryAction(state, item.action, true) || state, "inbox");
 }
 
-function selectedTodayCount(actions) {
+export function selectedTodayCount(actions) {
   const histories = new Map();
   for (const item of actions.filter((item) => item?.id && item?.action)) {
     histories.set(item.id, [...(histories.get(item.id) || []), item]);
@@ -547,14 +592,23 @@ function selectedTodayCount(actions) {
   return [...histories.values()].filter((history) => todayStates.has(candidateWorkflowState(history))).length;
 }
 
+export function selectedPlatformTodayCount(actions, platform, now = new Date()) {
+  const selectedIds = new Set(actions
+    .filter((item) => item?.id && item.action === "select_today" && String(item.date || "").slice(0, 10) === now.toISOString().slice(0, 10))
+    .map((item) => item.id));
+  if (!selectedIds.size) return 0;
+  const candidates = readDiscoveryCandidates(now);
+  return candidates.filter((item) => selectedIds.has(item.id) && normalizePlatform(item.platform) === normalizePlatform(platform)).length;
+}
+
 export function transitionForDiscoveryAction(fromState, action, replay = false) {
   const aliases = { add_today: "select_today", view: "viewed" };
   const normalizedAction = aliases[action] || action;
   const allowed = {
-    inbox: { select_today: "today", later: "later", ignore: "ignored" },
-    later: { select_today: "today", ignore: "ignored" },
-    today: { viewed: "viewed", later: "later", ignore: "ignored" },
-    viewed: { draft_prepared: "draft_prepared", later: "later", ignore: "ignored" },
+    inbox: { select_today: "today", later: "later", ignore: "ignored", replied: "outcome_pending" },
+    later: { select_today: "today", ignore: "ignored", replied: "outcome_pending" },
+    today: { viewed: "viewed", later: "later", ignore: "ignored", replied: "outcome_pending" },
+    viewed: { draft_prepared: "draft_prepared", later: "later", ignore: "ignored", replied: "outcome_pending" },
     draft_prepared: { replied: "outcome_pending", viewed: "viewed" },
     outcome_pending: {
       received_reply: "received_reply",
@@ -581,10 +635,43 @@ function isDashboardCandidate(item) {
   return item.workflow_state !== "ignored"
     && item.freshness_status !== "Archive"
     && item.expected_value !== "Ignore"
+    && (item.platform !== "x" || isXProjectRelevant(item))
+    && (item.platform !== "reddit" || item.reddit_trust?.eligible)
     && Boolean(item.url);
 }
 
-function scoreCandidate({ title, snippet, matched_keywords }) {
+export function isXProjectRelevant({ title = "", snippet = "" } = {}) {
+  const text = `${title} ${snippet}`;
+  return !X_EXCLUDED_TOPIC_RE.test(text) && X_PROJECT_SIGNAL_RE.test(text);
+}
+
+export function redditTrustProfile({ url, title, snippet }) {
+  const text = `${title || ""} ${snippet || ""}`.toLowerCase();
+  const subreddit = new URL(url).pathname.match(/^\/r\/([^/]+)/i)?.[1]?.toLowerCase() || "";
+  const communityFit = new Set(["manufacturing", "engineering", "industrialdesign", "productdesign", "3dprinting", "supplychain", "logistics", "operations"]).has(subreddit);
+  const commercialIntent = /find\s+(?:a\s+)?(?:china\s+)?supplier|need\s+(?:a\s+)?manufacturer|looking\s+for\s+(?:a\s+)?factory|best\s+supplier|alibaba\s+(?:deposit|refund)|pay\s+(?:an\s+)?supplier|supplier\s+(?:verification|risk)/.test(text);
+  const knowledgeContribution = /manufactur|production|engineering|design|tolerance|material|process|quality|logistics|operations|supply chain|cost|lead time/.test(text);
+  const lowPromotionRisk = communityFit && !commercialIntent;
+  const score = (communityFit ? 2 : 0) + (knowledgeContribution ? 2 : 0) + (lowPromotionRisk ? 2 : 0) - (commercialIntent ? 4 : 0);
+  const eligible = communityFit && knowledgeContribution && lowPromotionRisk;
+  return {
+    community_fit: communityFit ? "High" : "Low",
+    knowledge_contribution: knowledgeContribution ? "High" : "Low",
+    low_promotion_risk: lowPromotionRisk ? "High" : "Low",
+    commercial_intent: commercialIntent ? "High" : "Low",
+    opportunity_score: score,
+    eligible,
+    intent_score: eligible ? "Medium" : "Low",
+    intent_rank: eligible ? 2 : 1,
+    expected_value: "Audience",
+    opportunity_quality: eligible ? "Medium" : "Low",
+    reason: eligible ? "社区匹配、可贡献行业细节且推广风险低。" : "当前不适合 Trust Building Mode：优先跳过商业采购请求或非目标社区。",
+    why_relevant: eligible ? "该讨论适合补充一个制造、工程或供应链细节，而不是寻找买家。" : "不作为当前 Reddit 信誉建设候选。",
+    suggested_angle: eligible ? "只补充一个具体行业细节，不总结、不自我介绍、不引导下一步。" : "跳过，不生成评论草稿。"
+  };
+}
+
+function scoreCandidate({ platform, title, snippet, matched_keywords }) {
   const text = `${title || ""} ${snippet || ""} ${(matched_keywords || []).join(" ")}`.toLowerCase();
   const procurementSignals = ["supplier", "sourcing", "procurement", "alibaba", "factory", "manufacturer", "deposit", "payment", "quotation", "quote", "sample", "moq", "bank account"];
   const questionSignals = ["how", "what", "should i", "help", "problem", "risk", "refund", "changed", "reliable"];
@@ -614,7 +701,7 @@ function riskForPlatform(platform, publishedAt) {
       status: "High",
       note: old
         ? "帖子可能过旧，先确认未锁定、未删除且仍适合评论；不放链接、不提项目。"
-        : "近期 Reddit removed rate 为 33%；只回复原问题，不放链接、不提项目。"
+        : "当前 Reddit 已有 7/10 条评论被移除；仅参与低推广风险讨论，不放链接、不提项目。"
     };
   }
   if (["linkedin", "x"].includes(platform)) return { status: "Medium", note: "仅人工确认公开可访问后参与，不做自动互动。" };
@@ -633,6 +720,7 @@ function opportunityRiskForCandidate(publishedAt, snippet) {
 
 function whyRelevantForCandidate({ title, snippet, expectedValue }) {
   const text = `${title || ""} ${snippet || ""}`.toLowerCase();
+  if (/codex|ai agent|solo founder|one person|operating system|workflow|automation/.test(text)) return "讨论与 Codex、AI 工作流或一人项目建设直接相关。";
   if (expectedValue === "Partner") return "可能涉及合作意向，需要人工确认上下文。";
   if (/refund|deposit/.test(text)) return "对方正在处理付款、定金或退款问题，属于高意图采购场景。";
   if (/pay|payment|bank account|beneficiary/.test(text)) return "对方正在确认供应商付款方式或收款信息。";
@@ -643,6 +731,8 @@ function whyRelevantForCandidate({ title, snippet, expectedValue }) {
 
 function suggestedAngleForCandidate({ title, snippet }) {
   const text = `${title || ""} ${snippet || ""}`.toLowerCase();
+  if (/ai agent|ai agents|workflow|supervision/.test(text)) return "补充从能力建设转向可见性、审核和状态管理的实际经验。";
+  if (/codex|one person|solo founder|operating system/.test(text)) return "回应一人借助 Codex 构建复杂系统时，问题定义和运营闭环比代码量更关键。";
   if (/refund|deposit/.test(text)) return "检查 PI、定金覆盖范围和退款条款，并要求书面确认。";
   if (/bank account|beneficiary/.test(text)) return "核对收款账户、受益人名称和当前 PI。";
   if (/sample|shipping/.test(text)) return "拆分样品费、运费、定制范围和大货标准。";
@@ -652,9 +742,29 @@ function suggestedAngleForCandidate({ title, snippet }) {
   return "先阅读原帖，再围绕已确认与仍不清楚的信息回复。";
 }
 
-function suggestedComment({ title, snippet, platform }) {
+function suggestedComment(input) {
+  if (input.platform === "reddit") return redditTrustComment(input);
+  const draft = suggestedCommentDraft(input);
+  return input.platform === "x" ? fitXText(draft) : draft;
+}
+
+function redditTrustComment({ title, snippet }) {
+  const text = `${title || ""} ${snippet || ""}`.toLowerCase();
+  if (/cost|price|cheap/.test(text)) return "One detail that often gets lost in cost comparisons is repetition. A production line making the same part every week can spread setup time, tooling knowledge, and scrap control across far more units than a small workshop. The unit cost difference is often less about a single cheap input and more about how predictable the work is for that factory.";
+  if (/design|tolerance|material/.test(text)) return "A useful detail here is that design intent and production intent are not always the same thing. A dimension may look straightforward in CAD but create a very different inspection or fixturing problem on the shop floor. Asking which feature controls fit, function, or assembly usually gets a more useful engineering discussion than debating a single number in isolation.";
+  if (/logistics|lead time|shipping/.test(text)) return "Lead time is often treated as one number, but it is usually several queues added together: material availability, production scheduling, inspection, packing, and pickup. A small change that moves one of those queues can matter more than a faster machine cycle. Looking at where the order waits is often more useful than asking for a shorter headline lead time.";
+  return "One thing that is easy to miss is how much context sits behind a simple production decision. The same process can behave very differently depending on batch size, material condition, tooling, and how often the team makes that part. A specific detail about the process usually adds more to the discussion than a broad conclusion about the whole industry.";
+}
+
+function suggestedCommentDraft({ title, snippet, platform }) {
   const text = `${title || ""} ${snippet || ""}`.toLowerCase();
   if (platform === "reddit" && /deleted|removed|locked/.test(text)) return "";
+  if (["x", "indie_hackers"].includes(platform) && /ai agent|ai agents|workflow|supervision/.test(text)) {
+    return "This shift feels real. Once agents can complete tasks, the harder problem is knowing what is running, what needs human review, and whether polished output is actually correct. The useful layer is visible state, evidence, failures, and next actions, not simply another agent.";
+  }
+  if (["x", "indie_hackers"].includes(platform) && /codex|one person|solo founder|operating system/.test(text)) {
+    return "Codex gives a one-person builder remarkable leverage, but code is only part of it. The hard part is defining system boundaries, deciding what stays human-reviewed, and keeping one source of truth as the project grows. AI compresses implementation time; the builder still owns the operating model.";
+  }
   if (/bank account|beneficiary/.test(text)) {
     return "I would first ask the supplier to restate the beneficiary name, payment details, and the full order scope on the current quotation or pro forma invoice. Then compare the product specification, quantity, currency, trade term, deposit coverage, and balance timing in one place. I would also confirm who authorized the change and whether the same detail appears in the agreed payment record. A mismatch does not prove intent by itself, but it is a useful signal to pause and clarify before money moves.";
   }
@@ -713,12 +823,16 @@ function matchesPlatformUrl(platform, url) {
   if (platform === "reddit") return /(^|\.)reddit\.com$/.test(host) && /\/comments\//.test(pathname);
   if (platform === "quora") return /(^|\.)quora\.com$/.test(host) && pathname.length > 2 && !/\/(profile|topic|about)\//.test(pathname);
   if (platform === "linkedin") return /(^|\.)linkedin\.com$/.test(host) && /\/(posts|feed\/update)\//.test(pathname);
+  if (platform === "facebook_groups") return /(^|\.)(facebook\.com|fb\.com)$/.test(host) && /\/groups\//.test(pathname);
+  if (platform === "indie_hackers") return /(^|\.)indiehackers\.com$/.test(host) && pathname.length > 2;
   return /(^|\.)(x\.com|twitter\.com)$/.test(host) && /\/status\//.test(pathname);
 }
 
 function normalizePlatform(value) {
   const text = String(value || "").trim().toLowerCase();
   if (text === "twitter") return "x";
+  if (text === "facebook" || text === "facebook group" || text === "facebook groups") return "facebook_groups";
+  if (text === "indie hackers" || text === "indiehackers") return "indie_hackers";
   return text;
 }
 

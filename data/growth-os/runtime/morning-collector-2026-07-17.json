@@ -1,0 +1,181 @@
+{
+  "task_id": "GROWTH-004",
+  "started_at": "2026-07-17T01:05:50.490Z",
+  "completed_at": "2026-07-17T01:07:24.375Z",
+  "mode": "manual_click_playwright_browser",
+  "realtime": false,
+  "source_order": [
+    "cloudflare",
+    "gsc",
+    "clarity",
+    "semrush",
+    "geo",
+    "social",
+    "conversion",
+    "brand_monitoring"
+  ],
+  "sources": [
+    {
+      "key": "cloudflare",
+      "label": "Cloudflare",
+      "status": "blocked",
+      "source": "https://dash.cloudflare.com/5f6228cd9ee33bc16ca9c7e3b4e8b665/home",
+      "updated_at": "2026-07-17T01:06:28.113Z",
+      "realtime": false,
+      "note": "Page loaded, but expected metric labels were not found.",
+      "metrics": {}
+    },
+    {
+      "key": "gsc",
+      "label": "Google Search Console",
+      "status": "collected",
+      "source": "https://search.google.com/search-console?resource_id=https://gewuji.dev/",
+      "updated_at": "2026-07-17T01:06:32.267Z",
+      "realtime": false,
+      "note": "Read-only browser collection at button click time.",
+      "metrics": {
+        "web_search_clicks": 0
+      }
+    },
+    {
+      "key": "clarity",
+      "label": "Microsoft Clarity",
+      "status": "blocked",
+      "source": "https://clarity.microsoft.com/projects",
+      "updated_at": "2026-07-17T01:06:34.742Z",
+      "realtime": false,
+      "note": "Clarity 数据暂未提取，不影响其他数据。",
+      "metrics": {
+        "sessions": "unavailable",
+        "unique_users": "unavailable",
+        "pages_per_session": "unavailable",
+        "scroll_depth": "unavailable",
+        "active_time": "unavailable",
+        "dead_clicks": "unavailable",
+        "dead_click_sessions": "unavailable",
+        "rage_clicks": "unavailable",
+        "rage_click_sessions": "unavailable",
+        "sessions_excluding_bots": "unavailable"
+      },
+      "diagnostics": {
+        "final_url": "https://clarity.microsoft.com/projects",
+        "wait_ms": 0,
+        "failure_reason": "Clarity project for gewuji.dev was not found or a consent/login screen is blocking it.",
+        "stage_log": [
+          {
+            "stage": "clarity_opened",
+            "at": "2026-07-17T01:06:34.123Z",
+            "elapsed_ms": 1856
+          },
+          {
+            "stage": "clarity_closed",
+            "at": "2026-07-17T01:06:34.742Z",
+            "elapsed_ms": 2475
+          }
+        ]
+      }
+    },
+    {
+      "key": "semrush",
+      "label": "Semrush",
+      "status": "collected",
+      "source": "https://zh.semrush.com/home/",
+      "updated_at": "2026-07-17T01:07:09.631Z",
+      "realtime": false,
+      "note": "Read-only browser collection at button click time.",
+      "metrics": {
+        "mentions": 0,
+        "site_health": "82%",
+        "visibility": "1.65%",
+        "organic_traffic": 0
+      }
+    },
+    {
+      "key": "geo",
+      "label": "GEO",
+      "status": "collected",
+      "source": "data/growth-os/geo/analysis/analysis-2026-07-11.json",
+      "updated_at": "2026-07-11T02:29:32.972Z",
+      "realtime": false,
+      "note": "Existing local manual/import record; not collected from a live page in this run.",
+      "metrics": {
+        "queries": 2,
+        "mentions": 0,
+        "citations": 0
+      }
+    },
+    {
+      "key": "social",
+      "label": "Social platforms",
+      "status": "collected",
+      "source": "data/growth-os/runtime/social-collector-latest.json",
+      "updated_at": "2026-07-17T01:07:10.442Z",
+      "realtime": false,
+      "note": "Read-only LinkedIn and Quora collection at button click time.",
+      "metrics": {
+        "linkedin_status": "collected",
+        "quora_status": "collected",
+        "new_interactions": 4,
+        "best_content": "I built a small AI assistant for manufacturers after seeing the same problem repeatedly: factories receive overseas inquiries but often don’t know what information to ask before quoting."
+      },
+      "diagnostics": {
+        "duration_ms": 13932,
+        "failed_platforms": []
+      }
+    },
+    {
+      "key": "conversion",
+      "label": "Website conversion",
+      "status": "collected",
+      "source": "data/product/supplier-reply-review-business-results.csv",
+      "updated_at": "2026-07-15T13:57:02.989Z",
+      "realtime": false,
+      "note": "Existing local manual/import record; not collected from a live page in this run.",
+      "metrics": {
+        "recorded_rows": 0,
+        "material_submitted": 0
+      }
+    },
+    {
+      "key": "brand_monitoring",
+      "label": "Brand monitoring",
+      "status": "collected",
+      "source": "https://zh.semrush.com/home/",
+      "updated_at": "2026-07-17T01:07:09.631Z",
+      "realtime": false,
+      "note": "Reused Semrush AI visibility and mention values from this collection run.",
+      "metrics": {
+        "mentions": 0,
+        "ai_visibility": null
+      }
+    }
+  ],
+  "top_tasks": [
+    {
+      "priority": 1,
+      "title": "查看 Semrush Site Health",
+      "reason": "当前 Site Health 82%，先确认异常项是否影响核心业务页。",
+      "detail": "data"
+    },
+    {
+      "priority": 2,
+      "title": "查看 GSC 查询与页面",
+      "reason": "本次页面采集显示网页搜索点击为 0，需要继续等待并核对曝光查询。",
+      "detail": "data"
+    },
+    {
+      "priority": 3,
+      "title": "处理采集阻塞",
+      "reason": "Cloudflare",
+      "detail": "data"
+    }
+  ],
+  "summary": {
+    "collected": 6,
+    "blocked": 1,
+    "clarity_unavailable": true,
+    "social_unavailable": false,
+    "total": 8,
+    "conclusion": "6/8 个来源完成，1 个核心来源需要人工处理。Clarity 数据暂未提取，不影响其他数据。"
+  }
+}

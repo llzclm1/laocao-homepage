@@ -1,0 +1,11 @@
+[
+  {
+    "platform": "ChatGPT",
+    "query": "What should I ask before ordering samples from China?",
+    "mentioned": false,
+    "citation": false,
+    "competitors": [],
+    "accuracy": "generic",
+    "action": "improve direct answer"
+  }
+]

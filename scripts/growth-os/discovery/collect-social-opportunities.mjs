@@ -9,10 +9,12 @@ import { createSearchProvider } from "./providers/search-provider.mjs";
 import { collectRedditRssSource } from "./sources/reddit-rss-source.mjs";
 import { collectSearchSource } from "./sources/search-source.mjs";
 import { refreshDashboardDiscovery } from "../runtime/dashboard-generator.mjs";
+import { runSocialAgent } from "../../social-agent/run.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../..");
 const discoveryDir = path.join(root, "data/growth-os/social-discovery");
 const keywordsFile = path.join(discoveryDir, "discovery-keywords.json");
+const socialAgentKeywordsFile = path.join(root, "data/social-agent/keywords.json");
 const sourcesFile = path.join(discoveryDir, "sources.json");
 const discoveredPostsFile = path.join(discoveryDir, "discovered-posts.json");
 const errorsFile = path.join(discoveryDir, "discovery-errors.json");
@@ -21,7 +23,7 @@ const collectionRunsFile = path.join(discoveryDir, "collection-runs.json");
 
 export async function collectSocialOpportunities(options = {}) {
   const now = options.now || new Date();
-  const keywordsConfig = readJson(keywordsFile, { platform_queries: {} });
+  const keywordsConfig = collectorKeywords();
   const sourcesConfig = readJson(sourcesFile, {});
   const platforms = normalizePlatforms(options.platforms?.length ? options.platforms : Object.keys(keywordsConfig.platform_queries || {}));
   const sourceTypes = normalizeSourceTypes(options.sources);
@@ -106,6 +108,7 @@ export async function collectSocialOpportunities(options = {}) {
     health = writeDiscoveryHealth({ now, sourceStatus: nextStatus, runs: [...previousRuns, run].slice(-90) });
     discovery = discoverSocialOpportunities(now);
     refreshDashboardDiscovery(discovery, now);
+    await runSocialAgent({ now });
   }
 
   return {
@@ -212,6 +215,24 @@ function configuredKeywords(config) {
   return Object.entries(config)
     .filter(([key]) => key !== "platform_queries" && key !== "reddit_rss_subreddits" && key !== "negative_keywords")
     .flatMap(([, value]) => Array.isArray(value) ? value : []);
+}
+
+function collectorKeywords() {
+  const agent = readJson(socialAgentKeywordsFile, null);
+  const keywords = Array.isArray(agent?.keywords) ? agent.keywords.map((item) => String(item).trim()).filter(Boolean) : [];
+  if (!keywords.length) return readJson(keywordsFile, { platform_queries: {} });
+  const searchTerms = keywords.slice(0, 6);
+  const queryFor = (host) => searchTerms.slice(0, 3).map((term) => `site:${host} ${term}`);
+  return {
+    social_agent_keywords: keywords,
+    negative_keywords: [],
+    platform_queries: {
+      reddit: queryFor("reddit.com/r/"),
+      linkedin: queryFor("linkedin.com/posts"),
+      quora: queryFor("quora.com"),
+      x: [...queryFor("x.com"), ...searchTerms.slice(0, 1).map((term) => `site:twitter.com ${term}`)]
+    }
+  };
 }
 
 function normalizePlatforms(value) {

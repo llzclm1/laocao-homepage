@@ -1,11 +1,11 @@
 {
-  "status": "Manual Mode",
-  "last_successful_run": null,
-  "last_new_candidate": null,
-  "sources_healthy": 0,
-  "sources_blocked": 1,
-  "error_count": 1,
-  "consecutive_zero_result_days": 0,
-  "consecutive_source_failures": 1,
-  "message": "Automatic public discovery is currently unavailable. The system is running in backlog, manual inbox and import mode."
+  "status": "Degraded",
+  "last_successful_run": "2026-07-20T06:20:18.071Z",
+  "last_new_candidate": "2026-07-20T06:20:18.071Z",
+  "sources_healthy": 3,
+  "sources_blocked": 6,
+  "error_count": 6,
+  "consecutive_zero_result_days": 1,
+  "consecutive_source_failures": 22,
+  "message": "Automatic discovery is responding but has not produced enough verified candidates."
 }

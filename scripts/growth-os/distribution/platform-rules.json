@@ -1,0 +1,24 @@
+{
+  "linkedin": {
+    "sections": ["hook", "main post", "cta", "hashtags"],
+    "tone": "professional, experience sharing, not advertising"
+  },
+  "reddit": {
+    "sections": ["context", "comment"],
+    "tone": "answer-first, specific community advice, calm and respectful",
+    "avoid": ["self-promotion", "company introduction", "direct service pitch", "external links", "copied blog wording", "internal instructions", "low-effort generic answers", "politics", "name calling"],
+    "required": ["direct answer", "concrete steps or examples", "no CTA", "no brand mention unless explicitly requested"]
+  },
+  "x-thread": {
+    "sections": ["hook", "3-5 tweets", "ending"],
+    "tone": "clear, compact, practical"
+  },
+  "substack": {
+    "sections": ["outline", "opening", "key points"],
+    "tone": "newsletter outline"
+  },
+  "medium": {
+    "sections": ["article outline"],
+    "tone": "practical article outline"
+  }
+}

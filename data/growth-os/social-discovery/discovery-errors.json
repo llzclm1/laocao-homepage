@@ -6,5 +6,213 @@
     "error_type": "public_api_failed",
     "message": "Reddit public search returned 403",
     "retry_recommendation": "Use the configured public RSS sources during the next daily collection window; do not bypass access controls."
+  },
+  {
+    "platform": "reddit",
+    "source": "reddit_rss:supplychain",
+    "timestamp": "2026-07-11T04:53:02.015Z",
+    "error_type": "public_rss_blocked",
+    "message": "Reddit RSS returned 403",
+    "retry_recommendation": "Respect the source cooldown; do not bypass access controls."
+  },
+  {
+    "platform": "reddit",
+    "source": "reddit_rss:procurement",
+    "timestamp": "2026-07-11T04:53:02.015Z",
+    "error_type": "public_rss_blocked",
+    "message": "Reddit RSS returned 429",
+    "retry_recommendation": "Respect the source cooldown; do not bypass access controls."
+  },
+  {
+    "platform": "reddit",
+    "source": "reddit_rss:ecommerce",
+    "timestamp": "2026-07-11T04:53:02.015Z",
+    "error_type": "public_rss_blocked",
+    "message": "Reddit RSS returned 429",
+    "retry_recommendation": "Respect the source cooldown; do not bypass access controls."
+  },
+  {
+    "platform": "reddit",
+    "source": "reddit_rss:FulfillmentByAmazon",
+    "timestamp": "2026-07-11T04:53:02.015Z",
+    "error_type": "public_rss_blocked",
+    "message": "Reddit RSS returned 429",
+    "retry_recommendation": "Respect the source cooldown; do not bypass access controls."
+  },
+  {
+    "platform": "reddit",
+    "source": "reddit_rss:smallbusiness",
+    "timestamp": "2026-07-11T04:53:02.015Z",
+    "error_type": "public_rss_blocked",
+    "message": "Reddit RSS returned 429",
+    "retry_recommendation": "Respect the source cooldown; do not bypass access controls."
+  },
+  {
+    "platform": "reddit",
+    "source": "reddit_rss:Entrepreneur",
+    "timestamp": "2026-07-11T04:53:02.015Z",
+    "error_type": "public_rss_blocked",
+    "message": "Reddit RSS returned 429",
+    "retry_recommendation": "Respect the source cooldown; do not bypass access controls."
+  },
+  {
+    "platform": "reddit",
+    "source": "reddit_rss:manufacturing",
+    "timestamp": "2026-07-11T04:53:02.015Z",
+    "error_type": "public_rss_blocked",
+    "message": "Reddit RSS returned 429",
+    "retry_recommendation": "Respect the source cooldown; do not bypass access controls."
+  },
+  {
+    "platform": "reddit",
+    "source": "reddit_rss:procurement",
+    "timestamp": "2026-07-12T01:31:35.542Z",
+    "error_type": "public_rss_blocked",
+    "message": "Reddit RSS returned 429",
+    "retry_recommendation": "Respect the source cooldown; do not bypass access controls."
+  },
+  {
+    "platform": "reddit",
+    "source": "reddit_rss:ecommerce",
+    "timestamp": "2026-07-12T01:31:35.542Z",
+    "error_type": "public_rss_blocked",
+    "message": "Reddit RSS returned 429",
+    "retry_recommendation": "Respect the source cooldown; do not bypass access controls."
+  },
+  {
+    "platform": "reddit",
+    "source": "reddit_rss:FulfillmentByAmazon",
+    "timestamp": "2026-07-12T01:31:35.542Z",
+    "error_type": "public_rss_blocked",
+    "message": "Reddit RSS returned 429",
+    "retry_recommendation": "Respect the source cooldown; do not bypass access controls."
+  },
+  {
+    "platform": "reddit",
+    "source": "reddit_rss:smallbusiness",
+    "timestamp": "2026-07-12T01:31:35.542Z",
+    "error_type": "public_rss_blocked",
+    "message": "Reddit RSS returned 429",
+    "retry_recommendation": "Respect the source cooldown; do not bypass access controls."
+  },
+  {
+    "platform": "reddit",
+    "source": "reddit_rss:Entrepreneur",
+    "timestamp": "2026-07-12T01:31:35.542Z",
+    "error_type": "public_rss_blocked",
+    "message": "Reddit RSS returned 429",
+    "retry_recommendation": "Respect the source cooldown; do not bypass access controls."
+  },
+  {
+    "platform": "reddit",
+    "source": "reddit_rss:manufacturing",
+    "timestamp": "2026-07-12T01:31:35.542Z",
+    "error_type": "public_rss_blocked",
+    "message": "Reddit RSS returned 429",
+    "retry_recommendation": "Respect the source cooldown; do not bypass access controls."
+  },
+  {
+    "platform": "reddit",
+    "source": "reddit_rss:supplychain",
+    "timestamp": "2026-07-12T13:13:53.360Z",
+    "error_type": "public_rss_failed",
+    "message": "fetch failed",
+    "retry_recommendation": "Respect the source cooldown; do not bypass access controls."
+  },
+  {
+    "platform": "reddit",
+    "source": "reddit_rss:ecommerce",
+    "timestamp": "2026-07-13T01:01:20.583Z",
+    "error_type": "public_rss_blocked",
+    "message": "Reddit RSS returned 429",
+    "retry_recommendation": "Respect the source cooldown; do not bypass access controls."
+  },
+  {
+    "platform": "reddit",
+    "source": "reddit_rss:FulfillmentByAmazon",
+    "timestamp": "2026-07-13T01:01:20.583Z",
+    "error_type": "public_rss_blocked",
+    "message": "Reddit RSS returned 429",
+    "retry_recommendation": "Respect the source cooldown; do not bypass access controls."
+  },
+  {
+    "platform": "reddit",
+    "source": "reddit_rss:smallbusiness",
+    "timestamp": "2026-07-13T01:01:20.583Z",
+    "error_type": "public_rss_blocked",
+    "message": "Reddit RSS returned 429",
+    "retry_recommendation": "Respect the source cooldown; do not bypass access controls."
+  },
+  {
+    "platform": "reddit",
+    "source": "reddit_rss:Entrepreneur",
+    "timestamp": "2026-07-13T01:01:20.583Z",
+    "error_type": "public_rss_blocked",
+    "message": "Reddit RSS returned 429",
+    "retry_recommendation": "Respect the source cooldown; do not bypass access controls."
+  },
+  {
+    "platform": "reddit",
+    "source": "reddit_rss:manufacturing",
+    "timestamp": "2026-07-13T01:01:20.583Z",
+    "error_type": "public_rss_blocked",
+    "message": "Reddit RSS returned 429",
+    "retry_recommendation": "Respect the source cooldown; do not bypass access controls."
+  },
+  {
+    "platform": "reddit",
+    "source": "reddit_rss:procurement",
+    "timestamp": "2026-07-13T13:01:13.287Z",
+    "error_type": "public_rss_blocked",
+    "message": "Reddit RSS returned 429",
+    "retry_recommendation": "Respect the source cooldown; do not bypass access controls."
+  },
+  {
+    "platform": "reddit",
+    "source": "reddit_rss:procurement",
+    "timestamp": "2026-07-14T01:01:22.939Z",
+    "error_type": "public_rss_blocked",
+    "message": "Reddit RSS returned 429",
+    "retry_recommendation": "Respect the source cooldown; do not bypass access controls."
+  },
+  {
+    "platform": "reddit",
+    "source": "reddit_rss:ecommerce",
+    "timestamp": "2026-07-14T01:01:22.939Z",
+    "error_type": "public_rss_blocked",
+    "message": "Reddit RSS returned 429",
+    "retry_recommendation": "Respect the source cooldown; do not bypass access controls."
+  },
+  {
+    "platform": "reddit",
+    "source": "reddit_rss:FulfillmentByAmazon",
+    "timestamp": "2026-07-14T01:01:22.939Z",
+    "error_type": "public_rss_blocked",
+    "message": "Reddit RSS returned 429",
+    "retry_recommendation": "Respect the source cooldown; do not bypass access controls."
+  },
+  {
+    "platform": "reddit",
+    "source": "reddit_rss:smallbusiness",
+    "timestamp": "2026-07-14T01:01:22.939Z",
+    "error_type": "public_rss_blocked",
+    "message": "Reddit RSS returned 429",
+    "retry_recommendation": "Respect the source cooldown; do not bypass access controls."
+  },
+  {
+    "platform": "reddit",
+    "source": "reddit_rss:Entrepreneur",
+    "timestamp": "2026-07-14T01:01:22.939Z",
+    "error_type": "public_rss_blocked",
+    "message": "Reddit RSS returned 429",
+    "retry_recommendation": "Respect the source cooldown; do not bypass access controls."
+  },
+  {
+    "platform": "reddit",
+    "source": "reddit_rss:manufacturing",
+    "timestamp": "2026-07-14T01:01:22.939Z",
+    "error_type": "public_rss_blocked",
+    "message": "Reddit RSS returned 429",
+    "retry_recommendation": "Respect the source cooldown; do not bypass access controls."
   }
 ]

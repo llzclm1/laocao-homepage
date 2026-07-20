@@ -1,14 +1,24 @@
 import fs from "node:fs";
+import { createHash } from "node:crypto";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+
+import { draftPlatformContent } from "../growth-os/social-engine/index.mjs";
+import { addManualSocialOpportunity, discoverSocialOpportunities, isXProjectRelevant } from "../growth-os/discovery/social-discovery-engine.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const dataDir = path.join(root, "data/social-agent");
 const keywordsFile = path.join(dataDir, "keywords.json");
 const viewFile = path.join(dataDir, "view.json");
 const publishedDraftsFile = path.join(dataDir, "published-drafts.json");
-const opportunitiesFile = path.join(dataDir, "opportunities.json");
-const opportunityPlatforms = new Set(["linkedin", "reddit", "quora", "x", "facebook"]);
+const lifecycleActionsFile = path.join(dataDir, "opportunity-lifecycle-actions.jsonl");
+const discoveryDir = path.join(root, "data/growth-os/social-discovery");
+const discoveryViewFile = path.join(discoveryDir, "today-opportunities.json");
+const discoveredPostsFile = path.join(discoveryDir, "discovered-posts.json");
+const signalsFile = path.join(root, "data/growth-os/runtime/signals-latest.json");
+const opportunityPlatforms = new Set(["linkedin", "reddit", "quora", "x"]);
+const replyQueueLimit = 20;
+const originalQueueLimit = 10;
 const platformLabels = {
   linkedin: "LinkedIn",
   reddit: "Reddit",
@@ -26,30 +36,19 @@ export async function runSocialAgent(options = {}) {
 
 export function buildSocialAgentView(now = new Date()) {
   const keywords = readKeywords();
-  const candidates = readJson(opportunitiesFile, [])
-    .filter((item) => item.status !== "ignored" && opportunityPlatforms.has(item.platform) && isPublicUrl(item.url) && isReviewedCandidate(item))
-    .sort(compareCandidates);
-  const usedByPlatform = new Map();
-  const opportunities = [];
-  for (const item of candidates) {
-    const current = usedByPlatform.get(item.platform) || 0;
-    if (current >= 3 || opportunities.length >= 10) continue;
-    usedByPlatform.set(item.platform, current + 1);
-    opportunities.push({
-      id: item.id,
-      platform: platformLabels[item.platform],
-      url: item.url,
-      title: item.title || item.topic,
-      topic: item.topic || item.title,
-      author: item.author || "Not recorded",
-      source: "Manual URL",
-      review_status: "Manual review required",
-      suggested_reply: item.suggested_reply,
-      x_character_count: item.platform === "x" ? characterCount(item.suggested_reply) : null
-    });
-  }
-
+  const discovery = readDiscoveryProjection(now);
+  const replyOpportunities = projectDiscoveryCandidates(discovery.items, now);
   const published = new Set(readJson(publishedDraftsFile, []).map((item) => item.draft_id));
+  const originalPosts = buildOriginalPostIdeas({
+    opportunities: replyOpportunities,
+    signals: readJson(signalsFile, { signals: [] }),
+    now
+  }).slice(0, originalQueueLimit);
+  const opportunities = applyOpportunityLifecycle(
+    [...replyOpportunities, ...originalPosts],
+    readJsonl(lifecycleActionsFile)
+  ).sort(compareOpportunityPriority);
+
   const drafts = activeDrafts(keywords).map((draft) => ({ ...draft, published: published.has(draft.id) }));
   return {
     generated_at: now.toISOString(),
@@ -66,44 +65,371 @@ export function buildSocialAgentView(now = new Date()) {
       metrics: { comments_posted: 10, removed_count: 7, removal_rate: 70, target_comments: 50, community_participation: 10 }
     },
     collection: {
-      automatic_available: false,
-      message: "Automatic public discovery is unavailable. Use verified manual URLs.",
-      sources: []
+      automatic_available: replyOpportunities.length > 0 || originalPosts.length > 0,
+      message: "Public Discovery candidates are projected from the social-discovery workspace. Review and publish actions remain manual.",
+      sources: [
+        "data/growth-os/social-discovery/discovered-posts.json",
+        "data/growth-os/social-discovery/today-opportunities.json"
+      ]
     },
     debug: {
-      active_candidates: candidates.length,
+      active_candidates: replyOpportunities.length,
       selected_opportunities: opportunities.length,
-      rule: "Only public HTTPS URLs are shown. No login, cookies, private messages, automated replies, or publishing."
+      reply_opportunities: replyOpportunities.length,
+      original_posts: originalPosts.length,
+      source_of_truth: "data/growth-os/social-discovery/",
+      rule: "Only real public HTTPS Factory Bridge candidates are shown. No login, cookies, private messages, automated replies, links, or publishing."
     }
   };
 }
 
-export function addSocialAgentOpportunity(value, now = new Date()) {
-  const url = normalizeUrl(value?.url);
-  const platform = detectPlatform(value?.platform, url);
-  const topic = String(value?.topic || "").trim();
-  if (!url || !platform || !topic) throw new Error("A supported public HTTPS URL and topic are required");
-  const records = readJson(opportunitiesFile, []);
-  if (records.some((item) => normalizeUrl(item.url) === url)) return { added: [], duplicate: true, view: buildSocialAgentView(now) };
-  const record = {
-    id: `SOC-${hash(url)}`,
-    platform,
-    url,
-    title: topic,
-    topic,
-    author: String(value?.author || "").trim() || "Not recorded",
-    note: String(value?.note || "").trim(),
-    suggested_reply: suggestedReply(platform, topic, value?.note),
-    status: "pending",
-    discovered_at: now.toISOString(),
-    source_method: "manual"
+export function recordSocialAgentLifecycleAction(value, now = new Date()) {
+  const id = String(value?.id || "").trim();
+  const action = String(value?.action || "").trim();
+  const currentView = buildSocialAgentView(now);
+  const item = currentView.opportunities.find((candidate) => candidate.id === id);
+  if (!item) throw new Error("Opportunity was not found in the unified queue");
+
+  const fromStatus = normalizeLifecycleStatus(item.status);
+  const toStatus = transitionForOpportunityAction(fromStatus, action);
+  if (!toStatus) throw new Error(`Action ${action} is not available from ${fromStatus}`);
+
+  const entry = {
+    id,
+    action,
+    from_status: fromStatus,
+    to_status: toStatus,
+    at: now.toISOString(),
+    published_at: toStatus === "published" ? now.toISOString() : null,
+    published_url: normalizeOptionalUrl(value?.published_url),
+    snapshot: lifecycleSnapshot(item)
   };
-  records.push(record);
   fs.mkdirSync(dataDir, { recursive: true });
-  fs.writeFileSync(opportunitiesFile, `${JSON.stringify(records, null, 2)}\n`, "utf8");
+  fs.appendFileSync(lifecycleActionsFile, `${JSON.stringify(entry)}\n`, "utf8");
+
   const view = buildSocialAgentView(now);
   writeSocialAgentView(view);
-  return { added: [record], duplicate: false, view };
+  return { entry, view };
+}
+
+export function applyOpportunityLifecycle(items = [], actions = []) {
+  const baseItems = Array.isArray(items) ? items : [];
+  const latestActions = latestLifecycleActions(actions);
+  const seen = new Set();
+  const merged = [];
+
+  for (const item of baseItems) {
+    if (!item?.id || seen.has(item.id)) continue;
+    seen.add(item.id);
+    merged.push(withLifecycleStatus(item, latestActions.get(item.id)));
+  }
+  for (const [id, action] of latestActions) {
+    if (seen.has(id) || !action.snapshot) continue;
+    seen.add(id);
+    merged.push(withLifecycleStatus(action.snapshot, action));
+  }
+  return merged;
+}
+
+export function transitionForOpportunityAction(fromStatus, action) {
+  const status = normalizeLifecycleStatus(fromStatus);
+  const allowed = {
+    pending_review: { approve: "approved", archive: "archived" },
+    approved: { ready_to_publish: "ready_to_publish", archive: "archived" },
+    ready_to_publish: { published: "published", archive: "archived" },
+    published: { archive: "archived" }
+  };
+  return allowed[status]?.[String(action || "").trim()] || null;
+}
+
+function latestLifecycleActions(actions) {
+  const latest = new Map();
+  for (const action of Array.isArray(actions) ? actions : []) {
+    if (!action?.id || !action?.to_status || !action?.at) continue;
+    const previous = latest.get(action.id);
+    if (!previous || Date.parse(action.at) >= Date.parse(previous.at)) latest.set(action.id, action);
+  }
+  return latest;
+}
+
+function withLifecycleStatus(item, action) {
+  const status = action?.to_status ? normalizeLifecycleStatus(action.to_status) : normalizeLifecycleStatus(item.status);
+  const publishedAt = status === "published" ? (action?.published_at || item.published_at || action?.at || null) : null;
+  return {
+    ...item,
+    status,
+    review_status: status,
+    lifecycle: {
+      status,
+      updated_at: action?.at || item.updated_at || item.created_at || item.captured_at || null
+    },
+    published_at: publishedAt,
+    published_url: action?.published_url || item.published_url || null,
+    performance: item.performance || { views: null, clicks: null, comments: null, likes: null, ctr: null }
+  };
+}
+
+function normalizeLifecycleStatus(value) {
+  const status = String(value || "pending_review").trim().toLowerCase();
+  return ["pending_review", "approved", "ready_to_publish", "published", "archived"].includes(status)
+    ? status
+    : "pending_review";
+}
+
+function lifecycleSnapshot(item) {
+  return {
+    ...item,
+    draft: item.draft || item.suggested_reply || "",
+    suggested_reply: item.suggested_reply || item.draft || ""
+  };
+}
+
+function normalizeOptionalUrl(value) {
+  const url = String(value || "").trim();
+  if (!url) return null;
+  try {
+    return new URL(url).protocol === "https:" ? url : null;
+  } catch {
+    return null;
+  }
+}
+
+export function buildOriginalPostIdeas({ opportunities = [], signals = {}, now = new Date() } = {}) {
+  const reply = opportunities.find((item) => item.type === "reply_opportunity" && item.business_line === "factory_bridge");
+  const factorySignal = (Array.isArray(signals?.signals) ? signals.signals : [])
+    .find((item) => item.business_line === "factory_bridge" && item.status !== "archived");
+  const ideas = [];
+  if (reply) {
+    const topic = originalTopicFor(reply);
+    ideas.push(originalPostFromEvidence({
+      platform: "linkedin",
+      topic,
+      title: originalTitleFor(reply),
+      sourceSignals: [reply.id],
+      source: reply.source,
+      sourceStatus: reply.source_status,
+      sourceUrl: reply.url,
+      observedAt: reply.published_at || reply.captured_at,
+      evidence: reply.summary,
+      relatedPage: "/buyer-guides/verify-chinese-supplier-before-deposit/",
+      now
+    }));
+  } else if (factorySignal) {
+    const query = String(factorySignal.payload?.query || factorySignal.title || "supplier communication").trim();
+    ideas.push(originalPostFromEvidence({
+      platform: "linkedin",
+      topic: query,
+      title: `What buyers should clarify about ${query}`,
+      sourceSignals: [factorySignal.id || factorySignal.event],
+      source: factorySignal.source,
+      sourceStatus: factorySignal.source_status,
+      sourceUrl: null,
+      observedAt: factorySignal.observed_at,
+      evidence: factorySignal.detail || factorySignal.title,
+      relatedPage: "/supplier-reply-review/",
+      now
+    }));
+  }
+  return ideas.filter(Boolean).slice(0, 1);
+}
+
+function originalPostFromEvidence({ platform, topic, title, sourceSignals, source, sourceStatus, sourceUrl, observedAt, evidence, relatedPage, now }) {
+  const normalizedTopic = String(topic || "supplier communication").trim();
+  const draft = originalDraftFor(normalizedTopic);
+  if (!draft || !sourceSignals.length) return null;
+  const id = `POST-${createHash("sha1").update(`${platform}:${sourceSignals.join(",")}:${normalizedTopic}`).digest("hex").slice(0, 12)}`;
+  return {
+    id,
+    type: "original_post",
+    business_line: "factory_bridge",
+    platform: platformLabels[platform] || platform,
+    topic: normalizedTopic,
+    source_signals: sourceSignals,
+    reason: "根据真实买家讨论或 Factory Bridge 业务信号生成；先提供判断，再决定是否人工发布。",
+    target_audience: "overseas_buyers",
+    content_type: platform === "quora" ? "answer" : "short_post",
+    title,
+    draft,
+    related_page: relatedPage,
+    cta: "Review a Supplier Reply",
+    link_allowed: false,
+    risk_flags: ["人工审核", "默认不带链接", "不承诺审厂、质量、可靠性或付款安全"],
+    status: "pending_review",
+    review_status: "pending_review",
+    created_at: now.toISOString(),
+    evidence: {
+      source: source || "social-discovery",
+      source_status: sourceStatus || "public_discovery",
+      source_url: sourceUrl || null,
+      observed_at: observedAt || now.toISOString(),
+      supporting_reason: evidence || "真实业务信号"
+    }
+  };
+}
+
+function originalTopicFor(item) {
+  const text = `${item.title} ${item.summary}`;
+  if (/payment|deposit|bank|费用|付款/i.test(text)) return "payment scope before paying a China supplier";
+  if (/quote|quotation|报价/i.test(text)) return "quotation scope before comparing China suppliers";
+  if (/sample|样品/i.test(text)) return "sample scope before placing an order";
+  return "supplier communication before the next order decision";
+}
+
+function originalTitleFor(item) {
+  const topic = originalTopicFor(item);
+  if (/payment/i.test(topic)) return "Before paying a China supplier, separate the payment scope";
+  if (/quotation/i.test(topic)) return "Compare the quotation scope before comparing prices";
+  if (/sample/i.test(topic)) return "What should a buyer confirm before ordering samples?";
+  return "Make the next supplier question specific";
+}
+
+function originalDraftFor(topic) {
+  if (/payment/i.test(topic)) return `Before paying a China supplier, separate the payment scope from the payment timing. Ask what the deposit covers, which costs are separate, who receives each payment, and what written condition triggers the next milestone.\n\nA useful record has four columns: confirmed, estimated, missing, and changed. That keeps a supplier reply from sounding more complete than it is. It does not verify a supplier or make payment safe; it gives the buyer a clearer next question before moving forward.`;
+  if (/quotation/i.test(topic)) return `A lower China supplier quote may simply include less. Before comparing prices, put the same product scope, quantity, packaging, tooling, trade term, lead-time start, and payment milestones side by side.\n\nMark each line as confirmed, estimated, or still open. The blank cells are not a supplier score; they are the next clarification questions. Compare assumptions before numbers.`;
+  if (/sample/i.test(topic)) return `Before ordering a sample, ask what the sample includes: material, dimensions, finish, logo, packaging, shipping, and the event that starts the lead time.\n\nThen ask which details will remain the same for a larger order and which are still assumptions. A sample discussion should make the next question clearer, not promise that the final production will be identical.`;
+  return `Before the next supplier decision, separate what the supplier confirmed from what remains unclear. Put the product scope, quotation, sample conditions, delivery timing, and payment terms in one written summary.\n\nThe purpose is not to label a supplier reliable or unreliable. It is to make the next question specific enough for both sides to answer.`;
+}
+
+/**
+ * Read the new discovery workspace without treating the legacy Social Agent
+ * opportunities file as a second source of truth.
+ */
+export function readDiscoveryProjection(now = new Date()) {
+  const view = readJson(discoveryViewFile, null);
+  const workspace = view?.workspace || {};
+  const workspaceItems = [
+    ...(Array.isArray(workspace.inbox) ? workspace.inbox : []),
+    ...(Array.isArray(workspace.today) ? workspace.today : [])
+  ];
+  const items = workspaceItems.length
+    ? workspaceItems
+    : (Array.isArray(view?.items) && view.items.length ? view.items : readJson(discoveredPostsFile, []));
+  return { generated_at: view?.generated_at || null, items, now: now.toISOString() };
+}
+
+export function projectDiscoveryCandidates(items, now = new Date()) {
+  const seen = new Set();
+  const candidates = (Array.isArray(items) ? items : [])
+    .filter((item) => isEligibleDiscoveryCandidate(item))
+    .filter((item) => {
+      const key = String(item.id || item.url || item.thread_url || `${item.platform}:${item.title || item.topic}`).trim();
+      if (!key || seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    })
+    .map((item) => toSocialAgentOpportunity(item, now))
+    .filter(Boolean)
+    .sort(compareCandidates);
+  return candidates.slice(0, replyQueueLimit);
+}
+
+function isEligibleDiscoveryCandidate(item = {}) {
+  const platform = String(item.platform || "").trim().toLowerCase();
+  const terminal = new Set(["ignored", "archived", "replied", "published", "approved", "closed", "removed", "outcome_pending", "received_reply", "buyer_signal", "partner_signal", "review_request", "paid_opportunity"]);
+  const pending = new Set(["pending", "inbox", "pending_review", "review_pending", "needs_selection", "today", "viewed", "draft_prepared"]);
+  const states = [item.workflow_state, item.status, item.review_status].map((value) => String(value || "").trim().toLowerCase()).filter(Boolean);
+  if (!states.length) states.push("inbox");
+  if (!opportunityPlatforms.has(platform) || !isPublicUrl(item.url || item.thread_url) || !String(item.title || item.topic || "").trim()) return false;
+  if (states.some((state) => terminal.has(state)) || !states.some((state) => pending.has(state))) return false;
+  if (item.expected_value === "Ignore" || item.excluded_reason || item.reddit_trust?.eligible === false) return false;
+  const text = [item.title, item.topic, item.snippet, item.reason, item.why_relevant].filter(Boolean).join(" ");
+  if (!isFactoryBridgeCandidate(text)) return false;
+  if (platform === "x" && !isXProjectRelevant({ title: item.title || item.topic, snippet: text })) return false;
+  return true;
+}
+
+function isFactoryBridgeCandidate(text = "") {
+  const value = String(text);
+  if (/\b(?:ai|artificial\s+intelligence|codex|vibe\s*coding|machine\s+learning|llm|gpt|roblox|world\s+cup|block\s+blast|game|hiring|job|career|salary|resume|apics|pfas|study|exam|certification|learning\s+system|college|degree|confidence|3pl|freight|ltl|hs\s+code|pharma|medical|shipping\s+platform)\b/i.test(value)) return false;
+  const buyerContext = /\b(?:china|chinese\s+supplier|supplier|sourcing|procurement|factory|manufacturer|alibaba|quotation|quote|sample|moq|payment|deposit|oem|odm|trading\s+company)\b/i.test(value);
+  const decisionQuestion = /\b(?:payment|deposit|quotation|quote|sample|moq|lead\s*time|delivery|packaging|supplier\s+reply|supplier\s+communication|stopped\s+replying|not\s+replying|trading\s+company|oem|odm|verify|check|before\s+(?:paying|ordering)|compare)\b/i.test(value);
+  return buyerContext && decisionQuestion;
+}
+
+function toSocialAgentOpportunity(item, now) {
+  const platform = String(item.platform || "").trim().toLowerCase();
+  const url = normalizeUrl(item.url || item.thread_url);
+  const title = String(item.title || item.topic || "").trim();
+  const existingDraft = String(item.suggested_comment || item.suggested_reply || "").trim();
+  const sourceText = `${title} ${item.snippet || ""}`;
+  const highIntent = /\b(?:payment|deposit|quotation|quote|sample|moq|lead\s*time|delivery|supplier\s+reply|before\s+(?:paying|ordering))\b/i.test(sourceText);
+  const suggestedReply = highIntent ? (safeAdapterDraft(platform, item, title) || existingDraft) : (existingDraft || safeAdapterDraft(platform, item, title));
+  if (!url || !title || !suggestedReply) return null;
+  const riskFlags = [item.risk_status, item.opportunity_risk_status, item.risk_note, item.opportunity_risk_note].filter(Boolean);
+  return {
+    id: item.id,
+    type: "reply_opportunity",
+    business_line: "factory_bridge",
+    platform: platformLabels[platform] || platform,
+    url,
+    title,
+    topic: String(item.topic || title).trim(),
+    author: item.author || "Not recorded",
+    published_at: item.published_at || null,
+    captured_at: item.discovered_at || item.first_seen_at || now.toISOString(),
+    summary: String(item.snippet || "").trim(),
+    source: "data/growth-os/social-discovery/today-opportunities.json",
+    source_method: item.source_method || "public_discovery",
+    source_status: "public_discovery",
+    why_relevant: highIntent ? businessReason(sourceText) : (item.why_relevant || item.reason || "公开讨论与 Factory Bridge 的供应商沟通主题相关。"),
+    suggested_angle: highIntent ? businessAngle(sourceText) : (item.suggested_angle || "先区分已确认信息与待确认信息，再提出一个具体问题。"),
+    suggested_reply: suggestedReply,
+    risk_flags: riskFlags,
+    risk_note: item.risk_note || item.opportunity_risk_note || "人工审核；默认不带链接、不推广。",
+    link_allowed: false,
+    status: "pending_review",
+    review_status: "pending_review",
+    intent_score: item.intent_score || null,
+    intent_rank: Number(item.intent_rank) || null,
+    business_intent_score: Number.isFinite(Number(item.business_intent_score)) ? Number(item.business_intent_score) : null,
+    x_character_count: platform === "x" ? characterCount(suggestedReply) : null
+  };
+}
+
+function businessReason(text) {
+  if (/payment|deposit/i.test(text)) return "买家正在讨论付款范围与费用拆分，适合从付款主体、费用依据和付款节点角度回答。";
+  if (/quotation|quote/i.test(text)) return "买家正在比较供应商报价，适合指出报价范围、额外费用和缺失信息。";
+  if (/sample/i.test(text)) return "买家正在讨论样品条件，适合澄清样品范围、定制内容和交付时间。";
+  return "公开讨论涉及供应商沟通中的具体决策问题，适合提供一个可核对的下一步问题。";
+}
+
+function businessAngle(text) {
+  if (/payment|deposit/i.test(text)) return "区分货款、差旅或安装等费用，确认付款主体、书面依据和付款节点；不做安全保证。";
+  if (/quotation|quote/i.test(text)) return "把产品范围、数量、包装、额外费用和交期起算点放在同一比较表中。";
+  if (/sample/i.test(text)) return "先确认样品包含的规格、定制、包装和运输，再分别确认制作与运输时间。";
+  return "先列出已确认信息和缺失信息，再提出一个具体、可书面确认的问题。";
+}
+
+function safeAdapterDraft(platform, item, title) {
+  try {
+    return draftPlatformContent({
+      platform,
+      topic: title,
+      source_text: item.snippet || item.reason || "",
+      source_url: item.url || item.thread_url,
+      community_checked: platform === "reddit" ? true : undefined,
+      community_allows_links: false
+    });
+  } catch {
+    return "";
+  }
+}
+
+export function addSocialAgentOpportunity(value, now = new Date()) {
+  const url = normalizeUrl(value?.url);
+  const topic = String(value?.topic || "").trim();
+  if (!url || !topic) throw new Error("A supported public HTTPS URL and topic are required");
+  const result = addManualSocialOpportunity({
+    platform: value?.platform,
+    url,
+    topic,
+    author: value?.author,
+    note: value?.note
+  }, now);
+  if (result.added) discoverSocialOpportunities(now);
+  const view = buildSocialAgentView(now);
+  writeSocialAgentView(view);
+  return { added: result.added ? [result.candidate] : [], duplicate: result.duplicate, view };
 }
 
 export function saveSocialAgentKeywords(value, now = new Date()) {
@@ -120,7 +446,8 @@ export function saveSocialAgentKeywords(value, now = new Date()) {
 
 export function markSocialAgentDraftPublished(value, now = new Date()) {
   const draftId = String(value?.draft_id || "").trim();
-  const draft = activeDrafts(readKeywords()).find((item) => item.id === draftId);
+  const draft = activeDrafts(readKeywords()).find((item) => item.id === draftId)
+    || buildSocialAgentView(now).opportunities.find((item) => item.type === "original_post" && item.id === draftId);
   if (!draft) throw new Error("Unknown draft");
   const records = readJson(publishedDraftsFile, []).filter((item) => item.draft_id !== draftId);
   records.push({ draft_id: draft.id, platform: draft.platform, marked_at: now.toISOString(), mode: "manual" });
@@ -208,8 +535,26 @@ function facebookPost() {
 
 function compareCandidates(left, right) {
   const rank = { High: 3, Medium: 2, Low: 1 };
-  return (rank[right.intent_score] || 0) - (rank[left.intent_score] || 0)
+  return opportunityPriority(right) - opportunityPriority(left)
+    || (rank[right.intent_score] || 0) - (rank[left.intent_score] || 0)
     || Date.parse(right.discovered_at || 0) - Date.parse(left.discovered_at || 0);
+}
+
+function compareOpportunityPriority(left, right) {
+  return opportunityPriority(right) - opportunityPriority(left)
+    || Number(right.business_intent_score || 0) - Number(left.business_intent_score || 0)
+    || Date.parse(right.captured_at || right.created_at || 0) - Date.parse(left.captured_at || left.created_at || 0);
+}
+
+function opportunityPriority(item = {}) {
+  const platform = String(item.platform || "").trim().toLowerCase();
+  if (item.type === "seo_opportunity" || item.type === "content_plan") return 100;
+  if (platform === "linkedin" && item.type !== "original_post") return 90;
+  if (platform === "quora") return 85;
+  if (platform === "email" || item.type === "email_opportunity") return 80;
+  if (platform === "linkedin" && item.type === "original_post") return 75;
+  if (platform === "reddit") return 60;
+  return 0;
 }
 
 function isPublicUrl(value) {
@@ -218,12 +563,6 @@ function isPublicUrl(value) {
   } catch {
     return false;
   }
-}
-
-function isReviewedCandidate(item) {
-  if (!item.suggested_reply || item.source_method !== "manual") return false;
-  if (item.platform !== "reddit") return true;
-  return !/(https?:\/\/|gewuji|factory bridge|\bDM\b|direct message|message me|contact me|I help buyers|I work with factories)/i.test(item.suggested_reply);
 }
 
 function normalizeUrl(value) {
@@ -237,36 +576,18 @@ function normalizeUrl(value) {
   }
 }
 
-function detectPlatform(input, url) {
-  const value = String(input || "").toLowerCase();
-  const host = new URL(url).hostname.toLowerCase();
-  if (value.includes("linkedin") || host.includes("linkedin.com")) return "linkedin";
-  if (value.includes("reddit") || host.includes("reddit.com")) return "reddit";
-  if (value.includes("quora") || host.includes("quora.com")) return "quora";
-  if (value === "x" || value.includes("twitter") || host === "x.com" || host.includes("twitter.com")) return "x";
-  if (value.includes("facebook") || host.includes("facebook.com")) return "facebook";
-  return "";
-}
-
-function suggestedReply(platform, topic, note) {
-  const context = String(note || "").trim() || `The discussion is about ${topic}.`;
-  if (platform === "x") return fitCharacters(`${context} A useful distinction is what has been confirmed versus what is still assumed. That usually makes the next question clearer.`, 280);
-  if (platform === "reddit") return `${context} One useful detail is to separate what is confirmed from what is still assumed. That makes it easier to ask one specific follow-up without turning the discussion into a pitch.`;
-  if (platform === "quora") return `${context}\n\nI would separate the confirmed information from the open assumptions, then turn each open point into a specific question. A short checklist usually works better than a broad judgment: scope, quantity, timing, payment terms, and what could still change.\n\nThis does not prove an outcome. It gives the discussion a clearer next step and makes it easier to compare later replies.`;
-  return `${context} One useful way to look at it is to separate what has been confirmed from what is still assumed. That makes the next question more specific and keeps the discussion practical without turning it into a sales pitch.`;
-}
-
-function hash(value) {
-  let result = 2166136261;
-  for (const char of value) result = Math.imul(result ^ char.charCodeAt(0), 16777619);
-  return (result >>> 0).toString(16).padStart(8, "0");
-}
-
 function wordCount(value) { return String(value).trim().split(/\s+/).filter(Boolean).length; }
 function characterCount(value) { return Array.from(String(value)).length; }
 function fitCharacters(value, limit) { return characterCount(value) <= limit ? value : `${Array.from(value).slice(0, Math.max(0, limit - 1)).join("").trimEnd()}…`; }
 function readJson(file, fallback) {
   try { return fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, "utf8")) : fallback; } catch { return fallback; }
+}
+
+function readJsonl(file) {
+  if (!fs.existsSync(file)) return [];
+  return fs.readFileSync(file, "utf8").split(/\r?\n/).filter(Boolean).flatMap((line) => {
+    try { return [JSON.parse(line)]; } catch { return []; }
+  });
 }
 
 function parseArgs(argv) {

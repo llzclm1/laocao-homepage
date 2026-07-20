@@ -6,8 +6,13 @@ import { fileURLToPath } from "node:url";
 
 import { applyReviewAction } from "./review/apply-review-action.mjs";
 import { addManualSocialOpportunity, discoverSocialOpportunities, recordDiscoveryAction } from "./discovery/social-discovery-engine.mjs";
+import { auditSocialWorkspace } from "./discovery/audit-social-workspace.mjs";
 import { refreshDashboardDiscovery } from "./runtime/dashboard-generator.mjs";
+import { readLatestMorningCollector, runMorningCollector } from "./runtime/morning-collector.mjs";
+import { buildMorningBriefFromDisk, findPreviousRun } from "./runtime/morning-brief.mjs";
+import { buildSignalsFromDisk } from "./runtime/signals/signal-engine.mjs";
 import { markContentPublished } from "./state/state-manager.mjs";
+import { markSocialAgentDraftPublished, recordSocialAgentLifecycleAction, runSocialAgent, saveSocialAgentKeywords } from "../social-agent/run.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const port = Number(process.env.PORT || 8787);
@@ -18,9 +23,12 @@ const socialMetricsFile = path.join(root, "data/growth-os/social/social-metrics.
 const buyerSignalsFile = path.join(root, "data/growth-os/customer-memory/buyer-signals.jsonl");
 const reviewActionsFile = path.join(root, "data/growth-os/actions/review-actions.jsonl");
 const dashboardViewFile = path.join(root, "data/growth-os/viewer/dashboard-view.json");
+const debugPageFile = path.join(root, "scripts/growth-os/debug-social-workspace.html");
 const allowedPlatforms = new Set(["LinkedIn", "Reddit", "X", "Substack", "Medium"]);
 const allowedPublishingStatuses = new Set(["draft_ready", "published", "measuring"]);
 const allowedReviewActions = new Set(["approve", "reject", "revision"]);
+let lastSaveError = null;
+let lastRuntimeError = null;
 
 const types = {
   ".html": "text/html; charset=utf-8",
@@ -42,6 +50,8 @@ http.createServer((req, res) => {
   if (req.method === "GET" && url.pathname === "/__copy") {
     return copyText(url.searchParams.get("path"), url.searchParams.get("part"), res);
   }
+  if (req.method === "GET" && url.pathname === "/__social-workspace-debug") return sendWorkspaceDebug(res);
+  if (req.method === "GET" && url.pathname === "/__morning-collector") return sendJson(res, readLatestMorningCollector() || { status: "not_started" });
   if (req.method === "GET" && url.pathname === "/__review-package") return sendReviewPackage(url, res);
   if (req.method === "POST" && url.pathname === "/__copy") return copyToClipboard(req, res);
   if (req.method === "POST" && url.pathname === "/__publishing-links") return savePublishingLink(req, res);
@@ -49,11 +59,18 @@ http.createServer((req, res) => {
   if (req.method === "POST" && url.pathname === "/__review-action") return saveReviewAction(req, res);
   if (req.method === "POST" && url.pathname === "/__discovery-action") return saveDiscoveryAction(req, res);
   if (req.method === "POST" && url.pathname === "/__manual-discovery") return saveManualDiscovery(req, res);
+  if (req.method === "POST" && url.pathname === "/__social-agent-keywords") return saveSocialAgentKeywordsHandler(req, res);
+  if (req.method === "POST" && url.pathname === "/__social-agent-draft-published") return saveSocialAgentDraftPublished(req, res);
+  if (req.method === "POST" && url.pathname === "/__social-agent-run") return runSocialAgentHandler(res);
+  if (req.method === "POST" && url.pathname === "/__morning-collector") return runMorningCollectorHandler(res);
 
   const pathname = decodeURIComponent(url.pathname);
   const reviewPath = pathname.match(/^\/growth-os\/review\/(go-\d+)\/?$/i);
+  const debugPath = /^\/growth-os\/debug\/?$/i.test(pathname);
   const dashboardPath = pathname === "/" || /^\/growth-os(?:\/dashboard)?\/?$/i.test(pathname);
-  const file = path.normalize(path.join(root, reviewPath ? "/docs/growth-os/viewer/review/go-review.html" : dashboardPath ? "/docs/growth-os/dashboard.html" : pathname));
+  const file = debugPath
+    ? debugPageFile
+    : path.normalize(path.join(root, reviewPath ? "/docs/growth-os/viewer/review/go-review.html" : dashboardPath ? "/docs/growth-os/dashboard.html" : pathname));
 
   if (!file.startsWith(root)) return send(res, 403, "Forbidden");
   if (fs.existsSync(file) && fs.statSync(file).isDirectory()) return sendDirectory(res, pathname, file);
@@ -150,11 +167,27 @@ function saveDiscoveryAction(req, res) {
   readBody(req, 20000, (body) => {
     try {
       const now = new Date();
-      const entry = recordDiscoveryAction(JSON.parse(body || "{}"), now);
+      const value = JSON.parse(body || "{}");
+      if (["approve", "ready_to_publish", "published", "archive"].includes(String(value.action || ""))) {
+        const result = recordSocialAgentLifecycleAction(value, now);
+        lastSaveError = null;
+        return sendJson(res, { ok: true, entry: result.entry, social_agent: result.view, brief: refreshMorningBrief() });
+      }
+      if (!readJson(dashboardViewFile, null)?.title) throw new Error("Dashboard viewer is unavailable");
+      const entry = recordDiscoveryAction(value, now);
       const discovery = discoverSocialOpportunities(now);
-      refreshDashboardDiscovery(discovery, now);
-      sendJson(res, { ok: true, entry, workspace: discovery.workspace });
+      if (!refreshDashboardDiscovery(discovery, now)) throw new Error("Dashboard viewer is unavailable");
+      awaitSocialAgentRefresh(now)
+        .then((view) => {
+          lastSaveError = null;
+          sendJson(res, { ok: true, entry, workspace: discovery.workspace, social_agent: view, brief: refreshMorningBrief() });
+        })
+        .catch((error) => {
+          lastSaveError = error.message || "Social Agent refresh failed";
+          send(res, 400, lastSaveError);
+        });
     } catch (error) {
+      lastSaveError = error.message || "Invalid discovery action";
       send(res, 400, error.message || "Invalid discovery action");
     }
   });
@@ -164,14 +197,104 @@ function saveManualDiscovery(req, res) {
   readBody(req, 20000, (body) => {
     try {
       const now = new Date();
+      if (!readJson(dashboardViewFile, null)?.title) throw new Error("Dashboard viewer is unavailable");
       const result = addManualSocialOpportunity(JSON.parse(body || "{}"), now);
       const discovery = discoverSocialOpportunities(now);
-      refreshDashboardDiscovery(discovery, now);
-      sendJson(res, { ok: true, ...result });
+      if (!refreshDashboardDiscovery(discovery, now)) throw new Error("Dashboard viewer is unavailable");
+      awaitSocialAgentRefresh(now)
+        .then((view) => {
+          lastSaveError = null;
+          sendJson(res, { ok: true, ...result, social_agent: view });
+        })
+        .catch((error) => {
+          lastSaveError = error.message || "Social Agent refresh failed";
+          send(res, 400, lastSaveError);
+        });
     } catch (error) {
+      lastSaveError = error.message || "Invalid manual discovery entry";
       send(res, 400, error.message || "Invalid manual discovery entry");
     }
   });
+}
+
+function saveSocialAgentKeywordsHandler(req, res) {
+  readBody(req, 20000, (body) => {
+    try {
+      const view = saveSocialAgentKeywords(JSON.parse(body || "{}"), new Date());
+      lastSaveError = null;
+      sendJson(res, { ok: true, view });
+    } catch (error) {
+      lastSaveError = error.message || "Invalid keywords";
+      send(res, 400, lastSaveError);
+    }
+  });
+}
+
+function saveSocialAgentDraftPublished(req, res) {
+  readBody(req, 20000, (body) => {
+    try {
+      const view = markSocialAgentDraftPublished(JSON.parse(body || "{}"), new Date());
+      lastSaveError = null;
+      sendJson(res, { ok: true, view, brief: refreshMorningBrief() });
+    } catch (error) {
+      lastSaveError = error.message || "Unable to mark draft";
+      send(res, 400, lastSaveError);
+    }
+  });
+}
+
+function runSocialAgentHandler(res) {
+  runSocialAgent({ collect: true })
+    .then((result) => {
+      lastSaveError = null;
+      sendJson(res, { ok: true, view: result.view, collection: result.collection });
+    })
+    .catch((error) => {
+      lastSaveError = error.message || "Social Agent run failed";
+      send(res, 400, lastSaveError);
+    });
+}
+
+function runMorningCollectorHandler(res) {
+  runMorningCollector()
+    .then((result) => {
+      try {
+        const signals = buildSignalsFromDisk(result, { previous: findPreviousRun(result) });
+        return sendJson(res, { ok: true, ...result, signals, brief: buildMorningBriefFromDisk(result, { growthSignals: signals }) });
+      } catch {
+        return sendJson(res, { ok: true, ...result, brief: null, brief_status: "unavailable" });
+      }
+    })
+    .catch((error) => send(res, 400, error.message || "Morning Collector failed"));
+}
+
+async function awaitSocialAgentRefresh(now) {
+  return (await runSocialAgent({ now })).view;
+}
+
+function refreshMorningBrief() {
+  const current = readLatestMorningCollector();
+  return current ? buildMorningBriefFromDisk(current) : null;
+}
+
+function sendWorkspaceDebug(res) {
+  try {
+    const audit = auditSocialWorkspace();
+    lastRuntimeError = null;
+    sendJson(res, {
+      ...audit,
+      server_status: "available",
+      last_save_error: lastSaveError,
+      last_runtime_error: lastRuntimeError
+    });
+  } catch (error) {
+    lastRuntimeError = error.message || "Workspace audit failed";
+    sendJson(res, {
+      server_status: "available",
+      last_save_error: lastSaveError,
+      last_runtime_error: lastRuntimeError
+    });
+  }
 }
 
 function sendReviewPackage(url, res) {

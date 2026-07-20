@@ -1,0 +1,52 @@
+{
+  "date": "2026-07-10",
+  "window": "24h",
+  "total_requests": 1430,
+  "total_visits": 333,
+  "cache_hit_rate": 24.46,
+  "bandwidth_served": "81.84 MB",
+  "status_codes": {
+    "2xx": 1030,
+    "3xx": 328,
+    "4xx": 68,
+    "5xx": 0
+  },
+  "top_paths": [
+    { "path": "/robots.txt", "requests": 188 },
+    { "path": "/", "requests": 166 },
+    { "path": "/tools/worldcup-advisor/advisor/", "requests": 42 },
+    { "path": "/tools/worldcup-advisor/styles.css", "requests": 37 },
+    { "path": "/favicon.ico", "requests": 33 },
+    { "path": "/sitemap.xml", "requests": 31 },
+    { "path": "/tools/worldcup-advisor/", "requests": 30 },
+    { "path": "/tools/worldcup-advisor/data/worldcup-odds.js", "requests": 24 },
+    { "path": "/_next/static/chunks/app.js", "requests": 18 }
+  ],
+  "top_countries": [
+    { "country": "United States", "requests": 997 },
+    { "country": "China", "requests": 305 },
+    { "country": "Germany", "requests": 22 },
+    { "country": "Netherlands", "requests": 21 },
+    { "country": "Hong Kong", "requests": 13 },
+    { "country": "Brazil", "requests": 12 },
+    { "country": "Sweden", "requests": 12 }
+  ],
+  "top_user_agents": [
+    "Mediapartners-Google",
+    "Googlebot",
+    "Googlebot-Image",
+    "Twitterbot",
+    "AppleBot",
+    "ClaudeBot",
+    "BingBot"
+  ],
+  "interpretation": [
+    "真实买家流量还不明显",
+    "搜索引擎、AI crawler、social crawler 明显存在",
+    "旧 World Cup 工具路径仍有残余访问",
+    "站点健康，没有 5xx",
+    "4xx 不高",
+    "/robots.txt 排第一，crawler/scanner 占比高",
+    "不要把 Requests 当成有效买家流量"
+  ]
+}

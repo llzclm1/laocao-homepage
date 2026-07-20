@@ -1,0 +1,74 @@
+[
+  {
+    "id": "GEO-TASK-001",
+    "geo_id": null,
+    "query": "What should I ask before ordering samples from China?",
+    "platform": "ChatGPT",
+    "url": "/buyer-guides/questions-before-ordering-samples-from-china/",
+    "issue": "missing direct answer",
+    "action": "Add or strengthen a concise direct answer block.",
+    "current": "ChatGPT answer does not provide a useful Gewuji citation path.",
+    "problem": "missing direct answer",
+    "recommended": "Add or strengthen a concise direct answer block."
+  },
+  {
+    "id": "GEO-TASK-002",
+    "geo_id": null,
+    "query": "What should I ask before ordering samples from China?",
+    "platform": "ChatGPT",
+    "url": "/buyer-guides/questions-before-ordering-samples-from-china/",
+    "issue": "weak entity signal",
+    "action": "Clarify Gewuji = Factory Bridge for supplier communication clarity and factory materials.",
+    "current": "ChatGPT answer does not provide a useful Gewuji citation path.",
+    "problem": "weak entity signal",
+    "recommended": "Clarify Gewuji = Factory Bridge for supplier communication clarity and factory materials."
+  },
+  {
+    "id": "GEO-TASK-003",
+    "geo_id": null,
+    "query": "What should I ask before ordering samples from China?",
+    "platform": "ChatGPT",
+    "url": "/buyer-guides/questions-before-ordering-samples-from-china/",
+    "issue": "missing citation",
+    "action": "Strengthen source-worthy structure before expecting AI citation.",
+    "current": "ChatGPT answer does not provide a useful Gewuji citation path.",
+    "problem": "missing citation",
+    "recommended": "Strengthen source-worthy structure before expecting AI citation."
+  },
+  {
+    "id": "GEO-TASK-004",
+    "geo_id": null,
+    "query": "Questions before paying for a sample from a Chinese supplier",
+    "platform": "Gemini",
+    "url": "/buyer-guides/questions-before-ordering-samples-from-china/",
+    "issue": "missing direct answer",
+    "action": "Add or strengthen a concise direct answer block.",
+    "current": "Gemini answer does not provide a useful Gewuji citation path.",
+    "problem": "missing direct answer",
+    "recommended": "Add or strengthen a concise direct answer block."
+  },
+  {
+    "id": "GEO-TASK-005",
+    "geo_id": null,
+    "query": "Questions before paying for a sample from a Chinese supplier",
+    "platform": "Gemini",
+    "url": "/buyer-guides/questions-before-ordering-samples-from-china/",
+    "issue": "weak entity signal",
+    "action": "Clarify Gewuji = Factory Bridge for supplier communication clarity and factory materials.",
+    "current": "Gemini answer does not provide a useful Gewuji citation path.",
+    "problem": "weak entity signal",
+    "recommended": "Clarify Gewuji = Factory Bridge for supplier communication clarity and factory materials."
+  },
+  {
+    "id": "GEO-TASK-006",
+    "geo_id": null,
+    "query": "Questions before paying for a sample from a Chinese supplier",
+    "platform": "Gemini",
+    "url": "/buyer-guides/questions-before-ordering-samples-from-china/",
+    "issue": "missing citation",
+    "action": "Strengthen source-worthy structure before expecting AI citation.",
+    "current": "Gemini answer does not provide a useful Gewuji citation path.",
+    "problem": "missing citation",
+    "recommended": "Strengthen source-worthy structure before expecting AI citation."
+  }
+]

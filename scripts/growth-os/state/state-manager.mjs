@@ -51,6 +51,11 @@ export function applyReviewActionToState(action, { now = new Date(), writeHistor
     ...rows[index],
     previous_status: from,
     status: to,
+    lifecycle_stage: stageFor(to),
+    review_status: reviewStatusFor(to),
+    publish_status: publishStatusFor(to),
+    monitor_status: monitorStatusFor(to),
+    learning_status: learningStatusFor(to),
     updated: date,
     last_action: action.action
   });
@@ -65,6 +70,38 @@ export function applyReviewActionToState(action, { now = new Date(), writeHistor
     note: String(action.note || "").trim()
   };
   if (writeHistory && from !== to) appendJsonl(historyFile, transition);
+  return transition;
+}
+
+export function markContentPublished(id, { now = new Date(), note = "" } = {}) {
+  const normalizedId = normalizeId(id);
+  const rows = loadLifecycleState();
+  const index = rows.findIndex((item) => item.id === normalizedId);
+  if (index === -1) throw new Error(`Unknown content id: ${normalizedId}`);
+
+  const from = rows[index].status;
+  if (!["approved", "publish_ready", "published", "monitoring", "learning"].includes(from)) {
+    throw new Error(`${normalizedId} must be approved before it can be marked published`);
+  }
+
+  const to = ["approved", "publish_ready"].includes(from) ? "published" : from;
+  const date = now.toISOString().slice(0, 10);
+  rows[index] = normalizeLifecycleRecord({
+    ...rows[index],
+    previous_status: from,
+    status: to,
+    lifecycle_stage: stageFor(to),
+    review_status: reviewStatusFor(to),
+    publish_status: publishStatusFor(to),
+    monitor_status: monitorStatusFor(to),
+    learning_status: learningStatusFor(to),
+    updated: date,
+    last_action: "published"
+  });
+  saveLifecycleState(rows);
+
+  const transition = { id: normalizedId, action: "published", from, to, date, note: String(note).trim() };
+  if (from !== to) appendJsonl(historyFile, transition);
   return transition;
 }
 

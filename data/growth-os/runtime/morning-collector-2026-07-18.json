@@ -1,0 +1,198 @@
+{
+  "task_id": "GROWTH-004",
+  "started_at": "2026-07-18T05:52:58.552Z",
+  "completed_at": "2026-07-18T05:54:28.289Z",
+  "mode": "manual_click_playwright_browser",
+  "realtime": false,
+  "source_order": [
+    "cloudflare",
+    "gsc",
+    "clarity",
+    "semrush",
+    "geo",
+    "social",
+    "conversion",
+    "brand_monitoring"
+  ],
+  "sources": [
+    {
+      "key": "cloudflare",
+      "label": "Cloudflare",
+      "status": "unavailable",
+      "state": "unavailable",
+      "source": "https://dash.cloudflare.com/5f6228cd9ee33bc16ca9c7e3b4e8b665/home",
+      "updated_at": "2026-07-18T05:53:32.861Z",
+      "realtime": false,
+      "note": "本轮页面已打开，但未找到可用指标。",
+      "metrics": {}
+    },
+    {
+      "key": "gsc",
+      "label": "Google Search Console",
+      "status": "live",
+      "state": "live",
+      "source": "https://search.google.com/search-console?resource_id=https://gewuji.dev/",
+      "updated_at": "2026-07-18T05:53:40.215Z",
+      "realtime": true,
+      "note": "本轮从实时网页只读采集。",
+      "metrics": {
+        "web_search_clicks": 0
+      }
+    },
+    {
+      "key": "clarity",
+      "label": "Microsoft Clarity",
+      "extraction_status": "blocked",
+      "source": "https://clarity.microsoft.com/projects",
+      "updated_at": "2026-07-18T05:53:42.416Z",
+      "realtime": false,
+      "note": "本轮没有可用 Clarity 数据，不影响其他来源。",
+      "metrics": {
+        "sessions": "unavailable",
+        "unique_users": "unavailable",
+        "pages_per_session": "unavailable",
+        "scroll_depth": "unavailable",
+        "active_time": "unavailable",
+        "dead_clicks": "unavailable",
+        "dead_click_sessions": "unavailable",
+        "rage_clicks": "unavailable",
+        "rage_click_sessions": "unavailable",
+        "sessions_excluding_bots": "unavailable"
+      },
+      "diagnostics": {
+        "final_url": "https://clarity.microsoft.com/projects",
+        "wait_ms": 0,
+        "failure_reason": "Clarity project for gewuji.dev was not found or a consent/login screen is blocking it.",
+        "technical_error": "Clarity project for gewuji.dev was not found or a consent/login screen is blocking it.",
+        "stage_log": [
+          {
+            "stage": "clarity_opened",
+            "at": "2026-07-18T05:53:41.895Z",
+            "elapsed_ms": 1680
+          },
+          {
+            "stage": "clarity_closed",
+            "at": "2026-07-18T05:53:42.416Z",
+            "elapsed_ms": 2201
+          }
+        ]
+      },
+      "state": "unavailable",
+      "status": "unavailable"
+    },
+    {
+      "key": "semrush",
+      "label": "Semrush",
+      "status": "live",
+      "state": "live",
+      "source": "https://zh.semrush.com/home/",
+      "updated_at": "2026-07-18T05:54:16.991Z",
+      "realtime": true,
+      "note": "本轮从实时网页只读采集。",
+      "metrics": {
+        "mentions": 0,
+        "site_health": "82%",
+        "visibility": "1.65%",
+        "organic_traffic": 0
+      }
+    },
+    {
+      "key": "geo",
+      "label": "GEO",
+      "status": "cached",
+      "state": "cached",
+      "source": "data/growth-os/geo/analysis/analysis-2026-07-11.json",
+      "updated_at": "2026-07-11T02:29:32.972Z",
+      "realtime": false,
+      "note": "缓存数据；本轮未访问实时页面。",
+      "metrics": {
+        "queries": 2,
+        "mentions": 0,
+        "citations": 0
+      }
+    },
+    {
+      "key": "social",
+      "label": "Social platforms",
+      "status": "live",
+      "state": "live",
+      "source": "data/growth-os/runtime/social-collector-latest.json",
+      "updated_at": "2026-07-18T05:54:17.507Z",
+      "realtime": true,
+      "note": "本轮从 LinkedIn、Quora 实时网页只读采集。",
+      "metrics": {
+        "linkedin_state": "live",
+        "quora_state": "unavailable",
+        "new_interactions": 3,
+        "best_content": "I built a small AI assistant for manufacturers after seeing the same problem repeatedly: factories receive overseas inquiries but often don’t know what information to ask before quoting."
+      },
+      "diagnostics": {
+        "duration_ms": 10781,
+        "failed_platforms": []
+      }
+    },
+    {
+      "key": "conversion",
+      "label": "Website conversion",
+      "status": "manual",
+      "state": "manual",
+      "source": "data/product/supplier-reply-review-business-results.csv",
+      "updated_at": "2026-07-15T13:57:02.989Z",
+      "realtime": false,
+      "note": "人工记录；本轮未访问实时页面。",
+      "metrics": {
+        "recorded_rows": 0,
+        "material_submitted": 0
+      }
+    },
+    {
+      "key": "brand_monitoring",
+      "label": "Brand monitoring",
+      "status": "live",
+      "state": "live",
+      "source": "https://zh.semrush.com/home/",
+      "updated_at": "2026-07-18T05:54:16.991Z",
+      "realtime": true,
+      "note": "基于本轮 Semrush 实时采集结果生成。",
+      "metrics": {
+        "mentions": 0,
+        "ai_visibility": null
+      }
+    }
+  ],
+  "top_tasks": [
+    {
+      "priority": 1,
+      "title": "查看 Semrush Site Health",
+      "reason": "当前 Site Health 82%，先确认异常项是否影响核心业务页。",
+      "detail": "data"
+    },
+    {
+      "priority": 2,
+      "title": "查看 GSC 查询与页面",
+      "reason": "本次页面采集显示网页搜索点击为 0，需要继续等待并核对曝光查询。",
+      "detail": "data"
+    },
+    {
+      "priority": 3,
+      "title": "处理采集阻塞",
+      "reason": "Cloudflare",
+      "detail": "data"
+    }
+  ],
+  "summary": {
+    "counts": {
+      "live": 4,
+      "cached": 1,
+      "manual": 1,
+      "unavailable": 2,
+      "permission_required": 0,
+      "uncollected": 2
+    },
+    "root_cause": null,
+    "clarity_unavailable": true,
+    "social_unavailable": false,
+    "total": 8,
+    "conclusion": "本轮实时采集 4 个；缓存数据 1 个；人工记录 1 个；未采集 2 个。 Clarity 数据暂未提取，不影响其他数据。"
+  }
+}

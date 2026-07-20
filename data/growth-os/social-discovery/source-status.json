@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-11T03:21:52.643Z",
+  "updated_at": "2026-07-20T06:20:18.071Z",
   "sources": {
     "legacy_reddit_public_json": {
       "platform": "reddit",
@@ -44,6 +44,150 @@
       "cooldown_until": "2026-07-11T15:21:52.643Z",
       "consecutive_failures": 0,
       "last_error": null
+    },
+    "reddit_rss:supplychain": {
+      "platform": "reddit",
+      "source_name": "reddit_rss:supplychain",
+      "source_method": "reddit_rss",
+      "status": "success",
+      "last_attempt_at": "2026-07-14T01:01:22.939Z",
+      "last_success_at": "2026-07-14T01:01:22.939Z",
+      "cooldown_until": null,
+      "consecutive_failures": 0,
+      "last_error": null,
+      "last_raw_items": 10
+    },
+    "reddit_rss:procurement": {
+      "platform": "reddit",
+      "source_name": "reddit_rss:procurement",
+      "source_method": "reddit_rss",
+      "status": "blocked",
+      "last_attempt_at": "2026-07-14T01:01:22.939Z",
+      "last_success_at": "2026-07-13T01:01:20.583Z",
+      "cooldown_until": "2026-07-14T13:01:22.939Z",
+      "consecutive_failures": 2,
+      "last_error": "Reddit RSS returned 429",
+      "last_raw_items": 0
+    },
+    "reddit_rss:ecommerce": {
+      "platform": "reddit",
+      "source_name": "reddit_rss:ecommerce",
+      "source_method": "reddit_rss",
+      "status": "blocked",
+      "last_attempt_at": "2026-07-14T01:01:22.939Z",
+      "last_success_at": null,
+      "cooldown_until": "2026-07-14T13:01:22.939Z",
+      "consecutive_failures": 4,
+      "last_error": "Reddit RSS returned 429",
+      "last_raw_items": 0
+    },
+    "reddit_rss:FulfillmentByAmazon": {
+      "platform": "reddit",
+      "source_name": "reddit_rss:FulfillmentByAmazon",
+      "source_method": "reddit_rss",
+      "status": "blocked",
+      "last_attempt_at": "2026-07-14T01:01:22.939Z",
+      "last_success_at": null,
+      "cooldown_until": "2026-07-14T13:01:22.939Z",
+      "consecutive_failures": 4,
+      "last_error": "Reddit RSS returned 429",
+      "last_raw_items": 0
+    },
+    "reddit_rss:smallbusiness": {
+      "platform": "reddit",
+      "source_name": "reddit_rss:smallbusiness",
+      "source_method": "reddit_rss",
+      "status": "blocked",
+      "last_attempt_at": "2026-07-14T01:01:22.939Z",
+      "last_success_at": null,
+      "cooldown_until": "2026-07-14T13:01:22.939Z",
+      "consecutive_failures": 4,
+      "last_error": "Reddit RSS returned 429",
+      "last_raw_items": 0
+    },
+    "reddit_rss:Entrepreneur": {
+      "platform": "reddit",
+      "source_name": "reddit_rss:Entrepreneur",
+      "source_method": "reddit_rss",
+      "status": "blocked",
+      "last_attempt_at": "2026-07-14T01:01:22.939Z",
+      "last_success_at": null,
+      "cooldown_until": "2026-07-14T13:01:22.939Z",
+      "consecutive_failures": 4,
+      "last_error": "Reddit RSS returned 429",
+      "last_raw_items": 0
+    },
+    "reddit_rss:manufacturing": {
+      "platform": "reddit",
+      "source_name": "reddit_rss:manufacturing",
+      "source_method": "reddit_rss",
+      "status": "blocked",
+      "last_attempt_at": "2026-07-14T01:01:22.939Z",
+      "last_success_at": null,
+      "cooldown_until": "2026-07-14T13:01:22.939Z",
+      "consecutive_failures": 4,
+      "last_error": "Reddit RSS returned 429",
+      "last_raw_items": 0
+    },
+    "search:disabled:linkedin": {
+      "platform": "linkedin",
+      "source_name": "search:disabled:linkedin",
+      "source_method": "search",
+      "status": "not_configured",
+      "last_attempt_at": "2026-07-20T08:30:00.000Z",
+      "last_success_at": null,
+      "cooldown_until": null,
+      "consecutive_failures": 0,
+      "last_error": null,
+      "last_raw_items": 0
+    },
+    "search:disabled:quora": {
+      "platform": "quora",
+      "source_name": "search:disabled:quora",
+      "source_method": "search",
+      "status": "not_configured",
+      "last_attempt_at": "2026-07-20T08:30:00.000Z",
+      "last_success_at": null,
+      "cooldown_until": null,
+      "consecutive_failures": 0,
+      "last_error": null,
+      "last_raw_items": 0
+    },
+    "search:disabled:x": {
+      "platform": "x",
+      "source_name": "search:disabled:x",
+      "source_method": "search",
+      "status": "not_configured",
+      "last_attempt_at": "2026-07-12T07:28:05.546Z",
+      "last_success_at": null,
+      "cooldown_until": null,
+      "consecutive_failures": 0,
+      "last_error": null,
+      "last_raw_items": 0
+    },
+    "search:file:quora": {
+      "platform": "quora",
+      "source_name": "search:file:quora",
+      "source_method": "search",
+      "status": "success",
+      "last_attempt_at": "2026-07-20T06:20:18.071Z",
+      "last_success_at": "2026-07-20T06:20:18.071Z",
+      "cooldown_until": null,
+      "consecutive_failures": 0,
+      "last_error": null,
+      "last_raw_items": 3
+    },
+    "search:file:linkedin": {
+      "platform": "linkedin",
+      "source_name": "search:file:linkedin",
+      "source_method": "search",
+      "status": "success",
+      "last_attempt_at": "2026-07-20T06:20:18.071Z",
+      "last_success_at": "2026-07-20T06:20:18.071Z",
+      "cooldown_until": null,
+      "consecutive_failures": 0,
+      "last_error": null,
+      "last_raw_items": 3
     }
   }
 }

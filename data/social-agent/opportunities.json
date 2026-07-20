@@ -8,7 +8,8 @@
     "author": "Derya Unutmaz",
     "note": "One person building an operating system using Codex.",
     "suggested_reply": "Codex gives a one-person builder leverage, but code is only part of it. The harder work is defining system boundaries, deciding what stays human-reviewed, and keeping one source of truth as the project grows. AI speeds implementation; the builder still owns the decisions.",
-    "status": "pending",
+    "status": "ignored",
+    "ignore_reason": "X 内容与 Factory Bridge 无关（Codex / AI 主题）。",
     "discovered_at": "2026-07-11T00:00:00.000Z",
     "source_method": "manual"
   }

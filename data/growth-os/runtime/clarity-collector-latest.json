@@ -1,0 +1,44 @@
+{
+  "task_id": "GROWTH-004-CLARITY",
+  "started_at": "2026-07-17T00:27:47.172Z",
+  "completed_at": "2026-07-17T00:27:54.007Z",
+  "realtime": false,
+  "source": {
+    "key": "clarity",
+    "label": "Microsoft Clarity",
+    "status": "blocked",
+    "source": "https://clarity.microsoft.com/projects",
+    "updated_at": "2026-07-17T00:27:53.204Z",
+    "realtime": false,
+    "note": "Clarity 数据暂未提取，不影响其他数据。",
+    "metrics": {
+      "sessions": "unavailable",
+      "unique_users": "unavailable",
+      "pages_per_session": "unavailable",
+      "scroll_depth": "unavailable",
+      "active_time": "unavailable",
+      "dead_clicks": "unavailable",
+      "dead_click_sessions": "unavailable",
+      "rage_clicks": "unavailable",
+      "rage_click_sessions": "unavailable",
+      "sessions_excluding_bots": "unavailable"
+    },
+    "diagnostics": {
+      "final_url": "https://clarity.microsoft.com/projects",
+      "wait_ms": 0,
+      "failure_reason": "Clarity project for gewuji.dev was not found or a consent/login screen is blocking it.",
+      "stage_log": [
+        {
+          "stage": "clarity_opened",
+          "at": "2026-07-17T00:27:52.591Z",
+          "elapsed_ms": 3828
+        },
+        {
+          "stage": "clarity_closed",
+          "at": "2026-07-17T00:27:53.204Z",
+          "elapsed_ms": 4441
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "collected_at": "2026-07-20T06:42:24.425Z",
+  "browser_id": "direct_local_104200277420146713",
+  "duration_ms": 2232,
+  "platforms": {
+    "linkedin": {
+      "status": "blocked",
+      "latest_posts": [],
+      "latest_answers": [],
+      "new_interactions": 0,
+      "metrics": {},
+      "source_url": "https://www.linkedin.com/in/gewuji/recent-activity/all/",
+      "diagnostics": {
+        "failure_reason": "Command failed: /Users/caocao/.local/bin/browser-act --format json --session growth_social_linkedin_1784529744425 browser open direct_local_104200277420146713 https://www.linkedin.com/in/gewuji/recent-activity/all/\n{\"ok\":false,\"error\":\"Chrome remote debugging is not enabled.\\nStep 1: Tell the user that browser-act cannot import or open chrome-direct until Chrome remote debugging is enabled. Enabling it requires closing Chrome, updating Chrome Local State, and restarting Chrome.\\nCurrent check: backend=process-check; reason=Chrome is running without DevToolsActivePort.\\nStep 2: After the user confirms Chrome may be closed and restarted, run: browser-act --session growth_social_linkedin_1784529744425 browser open direct_local_104200277420146713 https://www.linkedin.com/in/gewuji/recent-activity/all/ --allow-restart-chrome\",\"error_code\":230325,\"error_name\":\"SESSION_REMOTE_DEBUGGING_RESTART_REQUIRED\",\"error_data\":null}\n",
+        "final_url": "https://www.linkedin.com/in/gewuji/recent-activity/all/",
+        "scrolled": false,
+        "extraction_method": "visible text + aria-label + role-adjacent values",
+        "no_snapshot_saved": true
+      },
+      "duration_ms": 1118
+    },
+    "quora": {
+      "status": "blocked",
+      "latest_posts": [],
+      "latest_answers": [],
+      "new_interactions": 0,
+      "metrics": {},
+      "source_url": "https://www.quora.com/profile/%E9%9B%B7%E9%B8%A3-%E6%9B%B9",
+      "diagnostics": {
+        "failure_reason": "Command failed: /Users/caocao/.local/bin/browser-act --format json --session growth_social_quora_1784529745543 browser open direct_local_104200277420146713 https://www.quora.com/profile/%E9%9B%B7%E9%B8%A3-%E6%9B%B9\n{\"ok\":false,\"error\":\"Chrome remote debugging is not enabled.\\nStep 1: Tell the user that browser-act cannot import or open chrome-direct until Chrome remote debugging is enabled. Enabling it requires closing Chrome, updating Chrome Local State, and restarting Chrome.\\nCurrent check: backend=process-check; reason=Chrome is running without DevToolsActivePort.\\nStep 2: After the user confirms Chrome may be closed and restarted, run: browser-act --session growth_social_quora_1784529745543 browser open direct_local_104200277420146713 https://www.quora.com/profile/%E9%9B%B7%E9%B8%A3-%E6%9B%B9 --allow-restart-chrome\",\"error_code\":230325,\"error_name\":\"SESSION_REMOTE_DEBUGGING_RESTART_REQUIRED\",\"error_data\":null}\n",
+        "final_url": "https://www.quora.com/profile/%E9%9B%B7%E9%B8%A3-%E6%9B%B9",
+        "scrolled": false,
+        "extraction_method": "visible text + aria-label + role-adjacent values",
+        "no_snapshot_saved": true
+      },
+      "duration_ms": 1114
+    }
+  },
+  "summary": {
+    "status": "blocked",
+    "new_interactions": 0,
+    "has_new_interactions": false,
+    "best_content": null,
+    "failed_platforms": [
+      "linkedin",
+      "quora"
+    ]
+  }
+}

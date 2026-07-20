@@ -1,0 +1,13 @@
+{
+  "task_id": "GROWTH-005-SIGNALS",
+  "generated_at": "2026-07-20T02:31:36.675Z",
+  "source_run_completed_at": "2026-07-20T00:30:46.779Z",
+  "signals": [],
+  "summary": {
+    "active": 0,
+    "new": 0,
+    "factory_bridge": 0,
+    "games": 0,
+    "brand": 0
+  }
+}

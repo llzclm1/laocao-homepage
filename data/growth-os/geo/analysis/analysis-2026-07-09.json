@@ -1,0 +1,32 @@
+[
+  {
+    "query": "What should I ask before ordering samples from China?",
+    "geo_id": null,
+    "url": "/buyer-guides/questions-before-ordering-samples-from-china/",
+    "platform": "ChatGPT",
+    "mentioned": false,
+    "citation": false,
+    "cited_source": null,
+    "missing": [
+      "Gewuji mention",
+      "citation",
+      "direct answer",
+      "entity signal"
+    ]
+  },
+  {
+    "query": "Questions before paying for a sample from a Chinese supplier",
+    "geo_id": null,
+    "url": "/buyer-guides/questions-before-ordering-samples-from-china/",
+    "platform": "Gemini",
+    "mentioned": false,
+    "citation": false,
+    "cited_source": null,
+    "missing": [
+      "Gewuji mention",
+      "citation",
+      "direct answer",
+      "entity signal"
+    ]
+  }
+]

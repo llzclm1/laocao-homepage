@@ -26,7 +26,7 @@
       }
     ],
     "previous_status": "monitoring",
-    "updated": "2026-07-09",
+    "updated": "2026-07-11",
     "last_action": "approve",
     "lifecycle_stage": "monitoring",
     "review_status": "approved",
@@ -37,7 +37,7 @@
   {
     "id": "GO-002",
     "title": "Questions Before Paying China Supplier Deposit",
-    "status": "approved",
+    "status": "published",
     "platforms": [
       {
         "name": "LinkedIn",
@@ -60,12 +60,12 @@
         "status": "ready"
       }
     ],
-    "previous_status": "approved",
-    "updated": "2026-07-09",
+    "previous_status": "published",
+    "updated": "2026-07-11",
     "last_action": "approve",
-    "lifecycle_stage": "review",
+    "lifecycle_stage": "publish",
     "review_status": "approved",
-    "publish_status": "ready",
+    "publish_status": "published",
     "monitor_status": "not_started",
     "learning_status": "not_started"
   },
@@ -96,7 +96,7 @@
       }
     ],
     "previous_status": "revision_required",
-    "updated": "2026-07-09",
+    "updated": "2026-07-11",
     "last_action": "approve",
     "lifecycle_stage": "review",
     "review_status": "revision_required",
@@ -107,7 +107,7 @@
   {
     "id": "GO-006",
     "title": "Compare Alibaba supplier quotations beyond price",
-    "status": "publish_ready",
+    "status": "published",
     "platforms": [
       {
         "name": "LinkedIn",
@@ -130,12 +130,12 @@
         "status": "ready"
       }
     ],
-    "previous_status": "publish_ready",
-    "updated": "2026-07-09",
+    "previous_status": "published",
+    "updated": "2026-07-11",
     "last_action": "approve",
     "lifecycle_stage": "publish",
     "review_status": "approved",
-    "publish_status": "ready",
+    "publish_status": "published",
     "monitor_status": "not_started",
     "learning_status": "not_started"
   }

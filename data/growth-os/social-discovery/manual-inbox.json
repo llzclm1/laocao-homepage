@@ -1,1 +1,38 @@
-[]
+[
+  {
+    "url": "https://linkedin.com/posts/leoli-sourcing_chinasourcing-supplychain-procurement-activity-7467493481935015936-KX1Q",
+    "platform": "linkedin",
+    "topic": "Optimize Payment Terms with China Suppliers for Profitability",
+    "author": "Leo Li",
+    "note": "Payment timing, inspection gates, milestone payments and supplier cash-flow risk.",
+    "received_at": "2026-07-11T09:41:38.076Z",
+    "candidate_id": "DISC-952d1ada235d"
+  },
+  {
+    "url": "https://quora.com/How-do-you-verify-Chinese-suppliers",
+    "platform": "quora",
+    "topic": "How do you verify Chinese suppliers?",
+    "author": null,
+    "note": "High-intent buyer question about supplier verification.",
+    "received_at": "2026-07-11T09:41:38.118Z",
+    "candidate_id": "DISC-7bb4ca24f554"
+  },
+  {
+    "url": "https://x.com/DeryaTR_/status/2061124643637936566",
+    "platform": "x",
+    "topic": "One person building an operating system using Codex",
+    "author": "Derya Unutmaz",
+    "note": "Discussion about one-person builders using Codex to create complex operating systems.",
+    "received_at": "2026-07-11T09:41:38.135Z",
+    "candidate_id": "DISC-0d10dacdcb0a"
+  },
+  {
+    "url": "https://indiehackers.com/post/i-thought-building-ai-agents-would-be-the-hardest-part-i-was-wrong-1531de465d",
+    "platform": "indie_hackers",
+    "topic": "I thought building AI agents would be the hardest part. I was wrong",
+    "author": "Vishnu K",
+    "note": "Agent supervision, visibility, review and workflow management become harder than capability.",
+    "received_at": "2026-07-11T09:41:38.151Z",
+    "candidate_id": "DISC-b7dd265527d2"
+  }
+]

@@ -1,0 +1,179 @@
+{
+  "task_id": "GROWTH-004-BRIEF",
+  "generated_at": "2026-07-20T07:21:48.177Z",
+  "source_run_completed_at": "2026-07-20T06:42:26.658Z",
+  "brief_mode": "insufficient_data",
+  "title": "目前可以确认的情况",
+  "confidence": "low",
+  "yesterday": [
+    {
+      "area": "system",
+      "status": "unavailable",
+      "headline": "本轮没有获取到搜索、流量、社交平台、部分数据来源的实时数据，暂无法判断访问、搜索或社交变化。",
+      "detail": "当前没有足够证据判断昨日表现是否变化。",
+      "source": "morning-collector",
+      "source_status": "unavailable",
+      "observed_at": "2026-07-20T06:42:26.658Z",
+      "supporting_metric": {
+        "unavailable_sources": [
+          "cloudflare",
+          "gsc",
+          "clarity",
+          "semrush",
+          "social",
+          "brand_monitoring"
+        ]
+      },
+      "supporting_reason": "本轮来源状态为 unavailable 或 permission_required。",
+      "comparison_available": false
+    },
+    {
+      "area": "geo",
+      "status": "stable",
+      "headline": "GEO 最近一次有效记录：AI 提及 0，AI 引用 0。",
+      "detail": "这是缓存记录，本轮未访问实时页面。",
+      "source": "data/growth-os/geo/analysis/analysis-2026-07-11.json",
+      "source_status": "cached",
+      "observed_at": "2026-07-11T02:29:32.972Z",
+      "supporting_metric": {
+        "queries": 2,
+        "mentions": 0,
+        "citations": 0
+      },
+      "supporting_reason": "来源文件存在，但状态为 cached。",
+      "comparison_available": false
+    },
+    {
+      "area": "conversion",
+      "status": "stable",
+      "headline": "Supplier Reply Review 最近一次人工记录：暂无提交记录。",
+      "detail": "记录行数 0，材料提交 0。",
+      "source": "data/product/supplier-reply-review-business-results.csv",
+      "source_status": "manual",
+      "observed_at": "2026-07-15T13:57:02.989Z",
+      "supporting_metric": {
+        "recorded_rows": 0,
+        "material_submitted": 0
+      },
+      "supporting_reason": "来源文件存在，但状态为 manual；本轮未访问实时页面。",
+      "comparison_available": false
+    }
+  ],
+  "observed": [
+    {
+      "area": "system",
+      "status": "unavailable",
+      "headline": "本轮没有获取到搜索、流量、社交平台、部分数据来源的实时数据，暂无法判断访问、搜索或社交变化。",
+      "detail": "当前没有足够证据判断昨日表现是否变化。",
+      "source": "morning-collector",
+      "source_status": "unavailable",
+      "observed_at": "2026-07-20T06:42:26.658Z",
+      "supporting_metric": {
+        "unavailable_sources": [
+          "cloudflare",
+          "gsc",
+          "clarity",
+          "semrush",
+          "social",
+          "brand_monitoring"
+        ]
+      },
+      "supporting_reason": "本轮来源状态为 unavailable 或 permission_required。",
+      "comparison_available": false
+    },
+    {
+      "area": "geo",
+      "status": "stable",
+      "headline": "GEO 最近一次有效记录：AI 提及 0，AI 引用 0。",
+      "detail": "这是缓存记录，本轮未访问实时页面。",
+      "source": "data/growth-os/geo/analysis/analysis-2026-07-11.json",
+      "source_status": "cached",
+      "observed_at": "2026-07-11T02:29:32.972Z",
+      "supporting_metric": {
+        "queries": 2,
+        "mentions": 0,
+        "citations": 0
+      },
+      "supporting_reason": "来源文件存在，但状态为 cached。",
+      "comparison_available": false
+    },
+    {
+      "area": "conversion",
+      "status": "stable",
+      "headline": "Supplier Reply Review 最近一次人工记录：暂无提交记录。",
+      "detail": "记录行数 0，材料提交 0。",
+      "source": "data/product/supplier-reply-review-business-results.csv",
+      "source_status": "manual",
+      "observed_at": "2026-07-15T13:57:02.989Z",
+      "supporting_metric": {
+        "recorded_rows": 0,
+        "material_submitted": 0
+      },
+      "supporting_reason": "来源文件存在，但状态为 manual；本轮未访问实时页面。",
+      "comparison_available": false
+    }
+  ],
+  "today_actions": [
+    {
+      "id": "DISC-9e9e99b8f206",
+      "priority": 1,
+      "action": "审核：LinkedIn：6 Steps to a Proper Procurement Process",
+      "title": "审核 LinkedIn：6 Steps to a Proper Procurement Process",
+      "reason": "买家正在讨论付款范围与费用拆分，适合从付款主体、费用依据和付款节点角度回答。",
+      "detail": "review",
+      "source": "data/growth-os/social-discovery/today-opportunities.json",
+      "source_status": "public_discovery",
+      "observed_at": "2026-07-20T06:20:18.071Z"
+    },
+    {
+      "id": "DISC-7539a5b2ee8b",
+      "priority": 2,
+      "action": "审核：Quora：What is the best way to pay a Chinese supplier?",
+      "title": "审核 Quora：What is the best way to pay a Chinese supplier?",
+      "reason": "买家正在讨论付款范围与费用拆分，适合从付款主体、费用依据和付款节点角度回答。",
+      "detail": "review",
+      "source": "data/growth-os/social-discovery/today-opportunities.json",
+      "source_status": "public_discovery",
+      "observed_at": "2026-07-20T06:20:18.071Z"
+    },
+    {
+      "id": "POST-f908d0d9fbc1",
+      "priority": 3,
+      "action": "审核：LinkedIn：Before paying a China supplier, separate the payment scope",
+      "title": "审核 LinkedIn：Before paying a China supplier, separate the payment scope",
+      "reason": "根据真实买家讨论或 Factory Bridge 业务信号生成；先提供判断，再决定是否人工发布。",
+      "detail": "review",
+      "source": "data/social-agent/view.json",
+      "source_status": "projected",
+      "observed_at": "2026-07-20T06:20:18.071Z"
+    }
+  ],
+  "needs_review": [],
+  "growth_signals": [],
+  "evidence": {
+    "available_sources": [],
+    "cached_sources": [
+      "geo"
+    ],
+    "manual_sources": [
+      "conversion"
+    ],
+    "unavailable_sources": [
+      "cloudflare",
+      "gsc",
+      "clarity",
+      "semrush",
+      "social",
+      "brand_monitoring"
+    ],
+    "comparison_sources": [],
+    "counts": {
+      "live": 0,
+      "cached": 1,
+      "manual": 1,
+      "unavailable": 6,
+      "permission_required": 0,
+      "uncollected": 6
+    }
+  }
+}

@@ -4,6 +4,18 @@ Gewuji Growth OS 是内部增长操作系统，用来把海外买家问题、工
 
 它不是网站改版，不是 SaaS，不是自动发帖工具，也不是批量 AI 内容系统。
 
+## 增长运营中心入口
+
+在项目根目录启动：
+
+```bash
+npm run growth:dashboard
+```
+
+浏览器打开 `http://127.0.0.1:8787/growth-os/`。这是日常操作的唯一入口；首页导航可直接到达今日任务、审核、发布和数据。
+
+点击“开始今天”前需要打开已登录的 Google Chrome。Morning Collector 会按 Cloudflare、GSC、Clarity、Semrush、GEO、社交、网站转化、品牌监控的顺序只读采集；Chrome 出现本地控制权限提示时需要人工允许。未登录、权限超时或页面结构变化会记录为 `blocked`，不会沿用旧值冒充本次采集。
+
 ## Positioning
 
 Gewuji helps:
