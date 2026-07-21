@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { LifecycleEventStore } from '../lifecycle-event-store.mjs';
-import { getBriefDeduplicationKey, getEligibleStage, isBriefEligible, isBriefExcluded, shouldSendBrief } from '../morning-brief-rules.mjs';
-import { readUnifiedView, openV2Store } from '../store.mjs';
+import { getBriefDeduplicationKey, getEligibleStage, isBriefEligible, isBriefExcluded, shouldSendBrief, shouldSendBriefFromStore } from '../morning-brief-rules.mjs';
+import { readUnifiedView, openV2Store, recordBriefDelivery } from '../store.mjs';
 import { rebuildUnifiedView, unifiedViewExists } from '../unified-view.mjs';
 
 const BASE_TIME = '2026-07-21T00:00:00.000Z';
@@ -259,4 +259,37 @@ test('Morning Brief eligibility, exclusions, cooldown, and status-change reset a
     }),
     true,
   );
+
+  const store = openTestStore();
+  try {
+    const writer = new LifecycleEventStore({ db: store.db });
+    writer.createOpportunity(opportunityInput());
+    recordBriefDelivery(store.db, {
+      briefDate: '2026-07-21',
+      opportunityId: 'opp-001',
+      eligibleStage: 'pending_review',
+      generatedAt: '2026-07-21T09:00:00.000Z',
+    });
+    assert.equal(
+      shouldSendBriefFromStore(store.db, {
+        briefDate: '2026-07-21',
+        opportunityId: 'opp-001',
+        eligibleStage: 'pending_review',
+        now: '2026-07-21T10:00:00.000Z',
+      }),
+      false,
+    );
+    assert.equal(
+      shouldSendBriefFromStore(store.db, {
+        briefDate: '2026-07-21',
+        opportunityId: 'opp-001',
+        eligibleStage: 'pending_review',
+        statusChangedAt: '2026-07-21T09:30:00.000Z',
+        now: '2026-07-21T10:00:00.000Z',
+      }),
+      true,
+    );
+  } finally {
+    store.close();
+  }
 });

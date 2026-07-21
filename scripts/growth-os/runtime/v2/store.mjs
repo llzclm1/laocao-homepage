@@ -91,3 +91,14 @@ export function recordBriefDelivery(
       .run(briefDate, opportunityId, eligibleStage, generatedAt),
   );
 }
+
+export function getBriefDelivery(
+  db,
+  { briefDate, opportunityId, eligibleStage },
+) {
+  return db
+    .prepare(
+      'SELECT brief_date, opportunity_id, eligible_stage, last_brief_generated_at FROM brief_deliveries WHERE brief_date = ? AND opportunity_id = ? AND eligible_stage = ?',
+    )
+    .get(briefDate, opportunityId, eligibleStage);
+}

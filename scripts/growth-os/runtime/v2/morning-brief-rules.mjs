@@ -1,3 +1,5 @@
+import { getBriefDelivery } from './store.mjs';
+
 export const ELIGIBLE_STATUSES = Object.freeze([
   'pending_review',
   'ready_to_publish',
@@ -78,4 +80,19 @@ export function shouldSendBrief({
     });
 
   return changedAfterLastBrief || nowTime - lastGenerated >= cooldownMs;
+}
+
+export function shouldSendBriefFromStore(
+  db,
+  { briefDate, opportunityId, eligibleStage, ...ruleInput },
+) {
+  const delivery = getBriefDelivery(db, {
+    briefDate,
+    opportunityId,
+    eligibleStage,
+  });
+  return shouldSendBrief({
+    ...ruleInput,
+    lastBriefGeneratedAt: delivery?.last_brief_generated_at ?? null,
+  });
 }

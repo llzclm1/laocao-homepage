@@ -69,6 +69,10 @@ CREATE TABLE IF NOT EXISTS lifecycle_events (
 CREATE INDEX IF NOT EXISTS lifecycle_events_opportunity_order
   ON lifecycle_events (opportunity_id, event_seq DESC);
 
+CREATE UNIQUE INDEX IF NOT EXISTS lifecycle_events_one_published_per_opportunity
+  ON lifecycle_events (opportunity_id)
+  WHERE to_status = 'published';
+
 CREATE TABLE IF NOT EXISTS performance (
   opportunity_id TEXT PRIMARY KEY
     REFERENCES opportunities (opportunity_id)
