@@ -13,6 +13,7 @@ import {
   loadLegacySources,
 } from './legacy-data-sources.mjs';
 import { buildLegacyInventory } from './legacy-data-inventory.mjs';
+import { ContentStore } from './content-store.mjs';
 import { LifecycleEventStore } from './lifecycle-event-store.mjs';
 import { isBriefExcluded } from './morning-brief-rules.mjs';
 import { PerformanceStore } from './performance-store.mjs';
@@ -67,6 +68,9 @@ const ACTION_STATUS_MAP = Object.freeze({
 const READ_ONLY_STATUSES = new Set(['viewed', 'monitoring']);
 
 function text(record, keys) {
+  if (keys === undefined) {
+    return typeof record === 'string' && record.trim() ? record.trim() : null;
+  }
   for (const key of keys) {
     const value = record?.[key];
     if (typeof value === 'string' && value.trim()) {
@@ -223,6 +227,7 @@ export function createDryRunPaths({ targetDb, reportPath, allowProductionTarget 
 class MigrationRunner {
   #db;
   #writer;
+  #content;
   #performance;
   #sources;
   #sourceSnapshot;
@@ -242,6 +247,7 @@ class MigrationRunner {
   constructor({ db, sources, sourceSnapshot }) {
     this.#db = db;
     this.#writer = new LifecycleEventStore({ db });
+    this.#content = new ContentStore({ db });
     this.#performance = new PerformanceStore({ db });
     this.#sources = sources;
     this.#sourceSnapshot = sourceSnapshot;
@@ -325,6 +331,8 @@ class MigrationRunner {
       return;
     }
 
+    this.#migrateExplicitContent(record, source, index, opportunity.id, targetStatus);
+
     if (opportunity.created) {
       this.#migrateLedger(context, 'migrated', {
         opportunity_id: opportunity.id,
@@ -382,6 +390,7 @@ class MigrationRunner {
       this.#reject(context, 'unknown_opportunity');
       return;
     }
+    this.#migrateExplicitContent(record, source, index, opportunity.id, targetStatus);
     if (targetStatus === 'published' && !hasPublicationMetadata(record) && !hasPublicationMetadata(record.snapshot)) {
       this.#reject(context, 'published_metadata_missing', undefined, opportunity.id);
       return;
@@ -441,6 +450,11 @@ class MigrationRunner {
       } else {
         this.#reject(context, 'conflicting_published_metadata', undefined, opportunity.id);
       }
+      return;
+    }
+    this.#migrateExplicitContent(record, source, index, opportunity.id, 'published');
+    if (!this.#hasPublishedContent(opportunity.id, record)) {
+      this.#reject(context, 'published_content_missing', undefined, opportunity.id);
       return;
     }
     const changed = this.#advance(opportunity.id, 'published', {
@@ -537,7 +551,7 @@ class MigrationRunner {
       dedupeKey,
       sourceUrl,
       title,
-      body: legacyBody(record),
+      body: null,
       evidence,
       actor: 'migration-dry-run',
       occurredAt: timestamp(record),
@@ -551,6 +565,7 @@ class MigrationRunner {
       source: source.relativePath,
       record: sourceRecordKey(source, index),
     });
+    this.#migrateExplicitContent(record, source, index, id, targetStatus);
     const changed = this.#advance(id, targetStatus, {
       record,
       source,
@@ -560,6 +575,49 @@ class MigrationRunner {
       throw new Error(changed.reason);
     }
     return { created: true, id };
+  }
+
+  #hasPublishedContent(opportunityId, record) {
+    const value = record?.published_content ?? record?.published_text ?? record?.published_body ?? record?.post_text ?? record?.content_text;
+    return typeof value === 'string' && value.trim();
+  }
+
+  #migrateExplicitContent(record, source, index, opportunityId, targetStatus) {
+    const snapshot = record?.snapshot ?? record;
+    const occurredAt = timestamp(snapshot);
+    const base = {
+      opportunityId,
+      platform: text(snapshot?.platform),
+      source: source.relativePath,
+      createdBy: 'migration-dry-run',
+      occurredAt,
+      metadata: {
+        source: source.relativePath,
+        migration_record: sourceRecordKey(source, index),
+        legacy_id: legacyId(record) ?? legacyId(snapshot),
+      },
+    };
+    const values = [
+      ['original_content', ['snippet']],
+      ['reply_draft', ['suggested_reply', 'suggested_comment']],
+    ];
+    if (
+      snapshot?.type === 'original_post'
+      || (targetStatus === 'ready_to_publish' && text(snapshot?.draft)
+        && ['opportunity', 'lifecycle_event', 'publication'].includes(source.category))
+    ) {
+      values.push(['publish_draft', ['draft']]);
+    }
+    for (const [contentType, keys] of values) {
+      if (this.#content.hasLatest(opportunityId, contentType)) continue;
+      const value = text(snapshot, keys);
+      if (!value) continue;
+      this.#content.saveVersion({
+        ...base,
+        contentType,
+        contentText: value,
+      });
+    }
   }
 
   #findOpportunity(record) {
@@ -630,6 +688,8 @@ class MigrationRunner {
       if (current.to_status !== 'ready_to_publish') {
         return { reason: 'invalid_transition_to_published', createdEvents };
       }
+      const publishedContent = text(publication?.publishedContent ?? record?.published_content ?? record?.published_text ?? record?.published_body ?? record?.post_text ?? record?.content_text);
+      if (!publishedContent) return { reason: 'published_content_missing', createdEvents };
       this.#writer.markPublished(
         id,
         {
@@ -637,6 +697,7 @@ class MigrationRunner {
           publishedAt: value.publishedAt,
           platform: value.platform,
           publishedUrl: value.publishedUrl,
+          publishedContent,
         },
       );
       this.#migratedLifecycleEvents += 1;

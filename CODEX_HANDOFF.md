@@ -1,5 +1,11 @@
 # CODEX_HANDOFF
 
+## 2026-07-21 Growth OS v2 Content Work Item
+
+- Implemented the typed `content_items` Source of Truth and `ContentStore` for original content, reply drafts, publish drafts, and immutable published content.
+- Added Unified View content packets, content migration tooling, and the existing Dashboard Work Item editors without changing lifecycle names or frozen runtime flows.
+- Production content migration completed after backup; lifecycle/status counts remained unchanged. Full v2 suite: 24/24 passing. Production Cutover remains unchanged.
+
 ## 2026-07-14 Supplier Reply Review 旧入口 301 收口
 
 - Cloudflare 已启用精确路径规则：`/free-supplier-reply-review/` 单跳 301 到 `/supplier-reply-review/`，并保留 query string。

@@ -24,6 +24,7 @@ const unifiedViewSql = `
     opportunities.source_url,
     opportunities.title,
     opportunities.body,
+    opportunities.evidence_json,
     opportunities.created_at,
     opportunities.updated_at,
     latest_events.to_status AS current_status,

@@ -1,4 +1,5 @@
 import { randomUUID } from 'node:crypto';
+import { ContentStore, insertContentVersionInTransaction } from './content-store.mjs';
 import { withTransaction } from './store.mjs';
 
 export const LIFECYCLE_STATUSES = Object.freeze([
@@ -48,13 +49,15 @@ function serializeEvidence(value) {
 export class LifecycleEventStore {
   #db;
   #clock;
+  #content;
 
-  constructor({ db, clock = () => new Date().toISOString() }) {
+  constructor({ db, clock = () => new Date().toISOString(), contentStore = null }) {
     if (!db) {
       throw new Error('db is required');
     }
     this.#db = db;
     this.#clock = clock;
+    this.#content = contentStore ?? new ContentStore({ db, clock });
   }
 
   createOpportunity(input) {
@@ -122,21 +125,25 @@ export class LifecycleEventStore {
       opportunityId,
       'ready_to_publish',
       'mark_ready_to_publish',
-      options,
+      { ...options, requiresPublishDraft: true },
     );
   }
 
   markPublished(
     opportunityId,
-    { publishedAt, platform, publishedUrl, ...options } = {},
+    { publishedAt, platform, publishedUrl, publishedContent, ...options } = {},
   ) {
     const publishedAtValue = requiredText(publishedAt, 'publishedAt');
     const platformValue = requiredText(platform, 'platform');
     const publishedUrlValue = requiredText(publishedUrl, 'publishedUrl');
+    const publishedContentValue = requiredText(publishedContent, 'publishedContent');
 
     return withTransaction(this.#db, () => {
       const current = this.#requireCurrentEvent(opportunityId);
       this.#assertTransition(current.to_status, 'published');
+      if (!this.#content.hasLatest(opportunityId, 'publish_draft')) {
+        throw new Error('publish_draft is required before publishing');
+      }
       const occurredAt = options.occurredAt ?? this.#clock();
       const actor = requiredText(options.actor ?? 'operator', 'actor');
       const eventId = options.eventId ?? randomUUID();
@@ -153,6 +160,21 @@ export class LifecycleEventStore {
         publishedAt: publishedAtValue,
         platform: platformValue,
         publishedUrl: publishedUrlValue,
+      });
+
+      insertContentVersionInTransaction(this.#db, {
+        opportunityId,
+        contentType: 'published_content',
+        contentText: publishedContentValue,
+        platform: platformValue,
+        source: options.source ?? 'operator',
+        createdBy: actor,
+        occurredAt,
+        metadata: {
+          published_at: publishedAtValue,
+          published_url: publishedUrlValue,
+          lifecycle_event_id: eventId,
+        },
       });
 
       this.#db
@@ -360,6 +382,9 @@ export class LifecycleEventStore {
     return withTransaction(this.#db, () => {
       const current = this.#requireCurrentEvent(id);
       this.#assertTransition(current.to_status, toStatus);
+      if (options.requiresPublishDraft && !this.#content.hasLatest(id, 'publish_draft')) {
+        throw new Error('publish_draft is required before ready_to_publish');
+      }
 
       this.#appendLifecycleEvent({
         eventId,

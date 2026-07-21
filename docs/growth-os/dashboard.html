@@ -127,6 +127,18 @@
     .detail-block { min-width: 0; }
     .detail-block .label { color: var(--subtle); display: block; font-size: 11px; font-weight: 800; margin-bottom: 4px; }
     .detail-copy { max-height: 180px; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; }
+    .work-item { display: grid; gap: 14px; margin-top: 14px; }
+    .work-item-section { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 13px; }
+    .work-item-head { align-items: center; display: flex; gap: 10px; justify-content: space-between; margin-bottom: 8px; }
+    .work-item-title { font-size: 13px; font-weight: 850; }
+    .work-item-missing { background: var(--soft); border-radius: 7px; color: var(--muted); padding: 10px; }
+    .work-item-meta { color: var(--muted); font-size: 11px; margin-top: 7px; }
+    .work-item-editor { display: grid; gap: 8px; }
+    .work-item-editor textarea { background: #fff; border: 1px solid var(--line); border-radius: 8px; color: var(--ink); min-height: 120px; padding: 10px; resize: vertical; width: 100%; }
+    .work-item-editor textarea:focus { border-color: var(--blue); outline: 3px solid var(--blue-soft); }
+    .work-item-actions { display: flex; flex-wrap: wrap; gap: 7px; }
+    .work-item-actions button { font-size: 12px; padding: 7px 9px; }
+    .published-copy { max-width: 430px; white-space: pre-wrap; overflow-wrap: anywhere; }
     .load-more { display: flex; justify-content: center; margin-top: 14px; }
     .empty { background: var(--soft); border: 1px dashed var(--line); border-radius: 9px; color: var(--muted); padding: 16px; text-align: center; }
 
@@ -135,6 +147,10 @@
     .ready-row .title { display: -webkit-box; font-weight: 750; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
     .ready-row .meta-value { color: var(--muted); font-size: 12px; }
     .ready-row .actions { justify-content: flex-end; margin: 0; }
+    .ready-work-item { grid-column: 1 / -1; }
+    .published-detail { margin-top: 7px; }
+    .published-detail summary { color: var(--blue); cursor: pointer; font-size: 12px; }
+    .published-detail .published-copy { margin-top: 7px; }
 
     .table-wrap { margin-top: 17px; overflow-x: auto; }
     table { border-collapse: collapse; min-width: 680px; width: 100%; }
@@ -221,6 +237,7 @@
   <script>
     const viewEndpoint = "/__v2/unified-view";
     const lifecycleEndpoint = "/__v2/lifecycle";
+    const contentEndpoint = "/__v2/content";
     const app = document.getElementById("app");
     const state = {
       categoryFilter: "all",
@@ -379,19 +396,46 @@
         <div class="queue-cell queue-score"><span class="queue-label">Score</span>${escapeHtml(formatScore(row))}</div>
         <div class="queue-cell"><span class="queue-label">Status</span><span class="pill ${statusTone(row.current_status)}">${escapeHtml(statusLabel(row.current_status))}</span></div>
         <div class="queue-cell queue-age"><span class="queue-label">Age</span>${escapeHtml(formatAge(row))}</div>
-        <div class="queue-actions"><button type="button" class="secondary" data-details-toggle="${detailId}" aria-expanded="false">展开详情</button>${renderActions(row, "pending_review")}</div>
-      </div><div class="queue-detail" id="${detailId}" hidden><div class="detail-grid"><div class="detail-block"><span class="label">Source</span>${sourceLink(row)}</div><div class="detail-block"><span class="label">Opportunity ID</span><span>${escapeHtml(row.opportunity_id)}</span></div><div class="detail-block"><span class="label">Dedupe Key</span><span>${escapeHtml(row.dedupe_key || "—")}</span></div></div><div class="detail-block" style="margin-top:12px;"><span class="label">原始内容</span><p class="detail-copy">${escapeHtml(row.body || "暂无原始正文")}</p></div><p class="status-feedback action-feedback"></p></div></article>`;
+        <div class="queue-actions"><button type="button" class="secondary" data-details-toggle="${detailId}" aria-expanded="false">展开工作项</button>${renderActions(row, "pending_review")}</div>
+      </div><div class="queue-detail" id="${detailId}" hidden>${renderWorkItem(row, { includePublished: true })}<p class="status-feedback action-feedback"></p></div></article>`;
     }
 
     function renderReadyToPublish(rows) {
-      const content = rows.length ? rows.map((row) => `<article class="ready-row" data-card="${escapeHtml(row.opportunity_id)}"><div><p class="title">${escapeHtml(row.title || "未命名机会")}</p><p class="meta-value">${escapeHtml(row.opportunity_id)} · ${escapeHtml(platformLabel(row))}</p></div><p class="meta-value">Draft status<br><strong>Ready to Publish</strong></p><p class="meta-value">Last updated<br><strong>${escapeHtml(formatDate(row.updated_at || row.status_changed_at))}</strong></p><p class="meta-value">Age<br><strong>${escapeHtml(formatAge(row))}</strong></p><div class="actions">${renderActions(row, "ready_to_publish")}</div><p class="status-feedback action-feedback"></p></article>`).join("") : '<div class="empty">当前没有待发布内容。</div>';
+      const content = rows.length ? rows.map((row) => `<article class="ready-row" data-card="${escapeHtml(row.opportunity_id)}"><div><p class="title">${escapeHtml(row.title || "未命名机会")}</p><p class="meta-value">${escapeHtml(row.opportunity_id)} · ${escapeHtml(platformLabel(row))}</p></div><p class="meta-value">Draft status<br><strong>Ready to Publish</strong></p><p class="meta-value">Last updated<br><strong>${escapeHtml(formatDate(row.updated_at || row.status_changed_at))}</strong></p><div class="actions">${renderActions(row, "ready_to_publish")}</div><div class="ready-work-item">${renderWorkItem(row, { includeOriginal: false, includeReply: false, includePublish: true, includePublished: false })}</div><p class="status-feedback action-feedback"></p></article>`).join("") : '<div class="empty">当前没有待发布内容。</div>';
       return `<section class="surface section-anchor" id="ready-to-publish"><div class="section-head"><div><p class="section-kicker green">Ready to Publish</p><h2 class="section-title">待发布</h2><p class="meta">每条记录保留发布动作和最后更新时间。</p></div><span class="pill green">${rows.length}</span></div><div class="ready-list">${content}</div></section>`;
     }
 
     function renderPublished(rows) {
       const visible = rows.slice(0, state.publishedVisible);
-      const content = rows.length ? `<div class="table-wrap"><table><thead><tr><th>Title</th><th>Platform</th><th>Published Time</th><th>Performance</th><th>Open Link</th></tr></thead><tbody>${visible.map((row) => `<tr><td><span class="table-title">${escapeHtml(row.title || "未命名机会")}</span><span class="meta">${escapeHtml(row.opportunity_id)}</span></td><td>${escapeHtml(platformLabel(row))}</td><td>${escapeHtml(formatDate(row.published_at))}</td><td><span class="pill ${performanceTone(row.performance_status)}">${escapeHtml(row.performance_status || "pending")}</span></td><td>${row.published_url ? `<a class="table-link" href="${escapeHtml(row.published_url)}" target="_blank" rel="noopener noreferrer">打开链接 ↗</a>` : "—"}</td></tr>`).join("")}</tbody></table></div>${rows.length > visible.length ? `<div class="load-more"><button type="button" class="secondary" data-load-published-more>加载更多（还有 ${rows.length - visible.length} 条）</button></div>` : ""}` : '<div class="empty">暂无已发布记录。</div>';
+      const content = rows.length ? `<div class="table-wrap"><table><thead><tr><th>Title</th><th>Platform</th><th>Published Time</th><th>Performance</th><th>Open Link</th></tr></thead><tbody>${visible.map((row) => `<tr><td><span class="table-title">${escapeHtml(row.title || "未命名机会")}</span><span class="meta">${escapeHtml(row.opportunity_id)}</span><details class="published-detail"><summary>查看实际正文</summary><p class="published-copy">${escapeHtml(row.content?.published_content?.content_text || "已发布正文未保存")}</p></details></td><td>${escapeHtml(platformLabel(row))}</td><td>${escapeHtml(formatDate(row.published_at))}</td><td><span class="pill ${performanceTone(row.performance_status)}">${escapeHtml(row.performance_status || "pending")}</span></td><td>${row.published_url ? `<a class="table-link" href="${escapeHtml(row.published_url)}" target="_blank" rel="noopener noreferrer">打开链接 ↗</a>` : "—"}</td></tr>`).join("")}</tbody></table></div>${rows.length > visible.length ? `<div class="load-more"><button type="button" class="secondary" data-load-published-more>加载更多（还有 ${rows.length - visible.length} 条）</button></div>` : ""}` : '<div class="empty">暂无已发布记录。</div>';
       return `<section class="surface section-anchor" id="published"><div class="section-head"><div><p class="section-kicker">Published</p><h2 class="section-title">已发布</h2><p class="meta">只显示发布事实和 Performance 状态，不混入 Today。</p></div><span class="pill">${rows.length}</span></div>${content}</section>`;
+    }
+
+    function renderWorkItem(row, options = {}) {
+      const content = row.content || {};
+      const includeOriginal = options.includeOriginal !== false;
+      const includeReply = options.includeReply !== false;
+      const includePublish = options.includePublish !== false;
+      const includePublished = options.includePublished !== false;
+      const sections = [];
+      if (includeOriginal) {
+        const original = content.original_content;
+        const reason = row.evidence?.relevance?.reasons?.join("；") || row.evidence?.why_relevant || "推荐理由未保存";
+        sections.push(`<section class="work-item-section"><div class="work-item-head"><span class="work-item-title">Original Question</span><span class="pill gray">${escapeHtml(original ? "已捕获" : "缺失")}</span></div>${original ? `<p class="detail-copy">${escapeHtml(original.content_text)}</p>` : '<p class="work-item-missing">原始正文未捕获</p>'}<p class="work-item-meta">平台：${escapeHtml(original?.platform || platformLabel(row))} · 来源：${sourceLink(row)} · 推荐理由：${escapeHtml(reason)}</p></section>`);
+      }
+      if (includeReply) sections.push(renderContentEditor(row, "reply_draft", "Reply Draft", "Copy Reply", "尚未生成回复"));
+      if (includePublish) sections.push(renderContentEditor(row, "publish_draft", "Publish Draft", "Copy Content", "尚未生成发布文案", true));
+      if (includePublished) {
+        const published = content.published_content;
+        sections.push(`<section class="work-item-section"><div class="work-item-head"><span class="work-item-title">Published Content</span><span class="pill ${published ? "green" : "gray"}">${published ? "只读事实" : "尚未发布"}</span></div>${published ? `<p class="detail-copy">${escapeHtml(published.content_text)}</p><p class="work-item-meta">平台：${escapeHtml(published.platform || row.platform || "—")} · 时间：${escapeHtml(formatDate(row.published_at))} · ${row.published_url ? `<a href="${escapeHtml(row.published_url)}" target="_blank" rel="noopener noreferrer">打开发布链接 ↗</a>` : "发布链接未保存"}</p>` : '<p class="work-item-missing">已发布正文未保存</p>'}</section>`);
+      }
+      return `<div class="work-item">${sections.join("")}</div>`;
+    }
+
+    function renderContentEditor(row, contentType, label, copyLabel, emptyLabel, isPublish = false) {
+      const current = contentType === "reply_draft" ? row.content?.latest_reply_draft : row.content?.latest_publish_draft;
+      const editorId = `content-${contentType}-${row.opportunity_id}`.replace(/[^a-zA-Z0-9_-]/g, "-");
+      return `<section class="work-item-section work-item-editor"><div class="work-item-head"><span class="work-item-title">${label}</span><span class="pill ${current ? "green" : "gray"}">${current ? `v${current.version}` : "缺失"}</span></div>${current ? `<textarea id="${editorId}" data-content-editor data-content-type="${contentType}" data-opportunity-id="${escapeHtml(row.opportunity_id)}" ${isPublish ? "data-publish-content" : ""}>${escapeHtml(current.content_text)}</textarea>` : `<p class="work-item-missing">${emptyLabel}</p><textarea id="${editorId}" data-content-editor data-content-type="${contentType}" data-opportunity-id="${escapeHtml(row.opportunity_id)}" ${isPublish ? "data-publish-content" : ""} placeholder="在此创建第一版${label}"></textarea>`}<div class="work-item-actions"><button type="button" data-content-save data-content-type="${contentType}" data-opportunity-id="${escapeHtml(row.opportunity_id)}">保存新版本</button><button type="button" class="secondary" data-content-copy data-content-type="${contentType}" data-opportunity-id="${escapeHtml(row.opportunity_id)}">${copyLabel}</button></div><p class="status-feedback content-feedback"></p></section>`;
     }
 
     function renderPerformance(rows) {
@@ -410,8 +454,8 @@
 
     function renderActions(row, status) {
       if (status === "pending_review") return `${actionButton(row, "approve", "审核通过")}${actionButton(row, "archive", "归档", "secondary")}`;
-      if (status === "approved") return actionButton(row, "ready_to_publish", "Ready to Publish");
-      if (status === "ready_to_publish") return actionButton(row, "mark_published", "记录已发布");
+      if (status === "approved") return row.content?.latest_publish_draft ? actionButton(row, "ready_to_publish", "Ready to Publish") : '<span class="pill amber">先保存 Publish Draft</span>';
+      if (status === "ready_to_publish") return row.content?.latest_publish_draft ? actionButton(row, "mark_published", "记录已发布") : '<span class="pill red">缺少 Publish Draft</span>';
       if (row.performance_status === "action_required") return '<span class="pill red">Performance attention</span>';
       return "";
     }
@@ -429,8 +473,10 @@
         payload.platform = window.prompt("平台：", "linkedin");
         payload.published_url = window.prompt("公开发布链接：", "");
         payload.published_at = new Date().toISOString();
-        if (!payload.platform || !payload.published_url) {
-          if (feedback) feedback.textContent = "发布记录未写入：platform 和 published_url 均为必填。";
+        const editor = button.closest("[data-card], .queue-row")?.querySelector("[data-publish-content]");
+        payload.published_content = editor?.value?.trim() || "";
+        if (!payload.platform || !payload.published_url || !payload.published_content) {
+          if (feedback) feedback.textContent = "发布记录未写入：正文、platform 和 published_url 均为必填。";
           return;
         }
       }
@@ -457,6 +503,8 @@
 
     function bindInteractions() {
       app.querySelectorAll("[data-lifecycle-action]").forEach((button) => button.addEventListener("click", () => applyLifecycle(button)));
+      app.querySelectorAll("[data-content-save]").forEach((button) => button.addEventListener("click", () => saveContent(button)));
+      app.querySelectorAll("[data-content-copy]").forEach((button) => button.addEventListener("click", () => copyContent(button)));
       app.querySelectorAll("[data-details-toggle]").forEach((button) => button.addEventListener("click", () => {
         const detail = document.getElementById(button.dataset.detailsToggle);
         const expanded = button.getAttribute("aria-expanded") === "true";
@@ -476,8 +524,43 @@
       app.querySelectorAll("[data-load-published-more]").forEach((button) => button.addEventListener("click", () => { state.publishedVisible += 20; render({ preserveViewport: true }); }));
     }
 
+    async function saveContent(button) {
+      const root = button.closest("[data-card], .queue-row");
+      const editor = root?.querySelector(`[data-content-editor][data-content-type="${button.dataset.contentType}"]`);
+      const feedback = button.closest(".work-item-section")?.querySelector(".content-feedback");
+      const contentText = editor?.value?.trim() || "";
+      if (!contentText) { if (feedback) feedback.textContent = "内容不能为空。"; return; }
+      button.disabled = true;
+      const payload = { opportunity_id: button.dataset.opportunityId, content_type: button.dataset.contentType, content_text: contentText, actor: state.actor, idempotency_key: `${state.actor}:${button.dataset.opportunityId}:${button.dataset.contentType}:${Date.now()}` };
+      try {
+        const response = await fetch(contentEndpoint, { method: "POST", headers: { "Content-Type": "application/json", "X-Growth-OS-CSRF": state.csrfToken, "X-Request-Id": makeRequestId() }, body: JSON.stringify(payload) });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error || "Content save failed");
+        view = result.view;
+        render({ preserveViewport: true });
+      } catch (error) {
+        button.disabled = false;
+        if (feedback) feedback.textContent = error.message;
+      }
+    }
+
+    async function copyContent(button) {
+      const root = button.closest("[data-card], .queue-row");
+      const editor = root?.querySelector(`[data-content-editor][data-content-type="${button.dataset.contentType}"]`);
+      const feedback = button.closest(".work-item-section")?.querySelector(".content-feedback");
+      const text = editor?.value?.trim() || "";
+      if (!text) { if (feedback) feedback.textContent = "没有可复制的内容。"; return; }
+      try {
+        await navigator.clipboard.writeText(text);
+        if (feedback) feedback.textContent = "已复制。";
+      } catch {
+        if (feedback) feedback.textContent = "复制失败，请手动选择文本。";
+      }
+    }
+
     function classifyRow(row) {
-      const text = `${row.title || ""} ${row.body || ""} ${row.source_url || ""}`.toLowerCase();
+      const original = row.content?.original_content?.content_text || "";
+      const text = `${row.title || ""} ${original} ${row.source_url || ""}`.toLowerCase();
       const tags = [];
       if (/(help\.|help center|\/hc\/|policies?)/.test(text)) tags.push("Help Center");
       if (/polic(y|ies)/.test(text)) tags.push("Policy");

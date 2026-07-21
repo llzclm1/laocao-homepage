@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { LifecycleEventStore } from '../lifecycle-event-store.mjs';
+import { ContentStore } from '../content-store.mjs';
 import { getBriefDeduplicationKey, getEligibleStage, isBriefEligible, isBriefExcluded, shouldSendBrief, shouldSendBriefFromStore } from '../morning-brief-rules.mjs';
 import { readUnifiedView, openV2Store, recordBriefDelivery } from '../store.mjs';
 import { rebuildUnifiedView, unifiedViewExists } from '../unified-view.mjs';
@@ -22,6 +23,17 @@ function opportunityInput(overrides = {}) {
     occurredAt: BASE_TIME,
     ...overrides,
   };
+}
+
+function savePublishDraft(store, opportunityId = 'opp-001') {
+  return new ContentStore({ db: store.db }).saveVersion({
+    opportunityId,
+    contentType: 'publish_draft',
+    contentText: 'Publish draft for testing.',
+    platform: 'linkedin',
+    createdBy: 'tester',
+    occurredAt: BASE_TIME,
+  });
 }
 
 test('Opportunity ID, dedupe key, and source URL are unique', () => {
@@ -76,6 +88,7 @@ test('Only the Lifecycle Event Store changes lifecycle state', () => {
     );
 
     writer.approve('opp-001', { actor: 'reviewer', occurredAt: '2026-07-21T00:01:00.000Z' });
+    savePublishDraft(store);
     writer.markReadyToPublish('opp-001', {
       actor: 'reviewer',
       occurredAt: '2026-07-21T00:02:00.000Z',
@@ -97,6 +110,7 @@ test('Published requires all metadata and creates pending performance in one tra
     const writer = new LifecycleEventStore({ db: store.db });
     writer.createOpportunity(opportunityInput());
     writer.approve('opp-001');
+    savePublishDraft(store);
     writer.markReadyToPublish('opp-001');
 
     assert.throws(
@@ -131,6 +145,7 @@ test('Published requires all metadata and creates pending performance in one tra
       publishedAt: '2026-07-21T00:03:00.000Z',
       platform: 'linkedin',
       publishedUrl: 'https://linkedin.com/post/001',
+      publishedContent: 'The actual published test content.',
     });
 
     const row = readUnifiedView(store.db)[0];

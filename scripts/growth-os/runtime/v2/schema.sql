@@ -100,6 +100,53 @@ CREATE TABLE IF NOT EXISTS brief_deliveries (
   PRIMARY KEY (brief_date, opportunity_id, eligible_stage)
 );
 
+CREATE TABLE IF NOT EXISTS content_items (
+  content_id TEXT PRIMARY KEY,
+  opportunity_id TEXT NOT NULL
+    REFERENCES opportunities (opportunity_id)
+    ON UPDATE CASCADE
+    ON DELETE RESTRICT,
+  content_type TEXT NOT NULL
+    CHECK (content_type IN (
+      'original_content',
+      'reply_draft',
+      'publish_draft',
+      'published_content'
+    )),
+  content_text TEXT NOT NULL
+    CHECK (length(trim(content_text)) > 0),
+  platform TEXT,
+  source TEXT,
+  status TEXT NOT NULL
+    CHECK (status IN ('captured', 'draft', 'published')),
+  version INTEGER NOT NULL
+    CHECK (version > 0),
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL,
+  created_by TEXT NOT NULL,
+  metadata_json TEXT,
+  UNIQUE (opportunity_id, content_type, version),
+  CHECK (
+    (content_type = 'original_content' AND status = 'captured')
+    OR (content_type IN ('reply_draft', 'publish_draft') AND status = 'draft')
+    OR (content_type = 'published_content' AND status = 'published')
+  ),
+  CHECK (
+    content_type <> 'published_content'
+    OR (
+      platform IS NOT NULL
+      AND length(trim(platform)) > 0
+    )
+  )
+);
+
+CREATE INDEX IF NOT EXISTS content_items_latest_lookup
+  ON content_items (opportunity_id, content_type, version DESC);
+
+CREATE UNIQUE INDEX IF NOT EXISTS content_items_one_published_content
+  ON content_items (opportunity_id)
+  WHERE content_type = 'published_content';
+
 CREATE TRIGGER IF NOT EXISTS lifecycle_events_append_only_update
 BEFORE UPDATE ON lifecycle_events
 BEGIN
@@ -110,4 +157,16 @@ CREATE TRIGGER IF NOT EXISTS lifecycle_events_append_only_delete
 BEFORE DELETE ON lifecycle_events
 BEGIN
   SELECT RAISE(ABORT, 'lifecycle_events is append-only');
+END;
+
+CREATE TRIGGER IF NOT EXISTS content_items_append_only_update
+BEFORE UPDATE ON content_items
+BEGIN
+  SELECT RAISE(ABORT, 'content_items is append-only');
+END;
+
+CREATE TRIGGER IF NOT EXISTS content_items_append_only_delete
+BEFORE DELETE ON content_items
+BEGIN
+  SELECT RAISE(ABORT, 'content_items is append-only');
 END;

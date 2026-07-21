@@ -2,6 +2,7 @@ import { readFileSync, mkdirSync } from 'node:fs';
 import { dirname } from 'node:path';
 import { DatabaseSync } from 'node:sqlite';
 import { rebuildUnifiedView } from './unified-view.mjs';
+import { readContentPackets } from './content-store.mjs';
 
 export const IMPLEMENTATION_ROOT = '/Users/caocao/Documents/我的主页';
 export const DEFAULT_DB_PATH = `${IMPLEMENTATION_ROOT}/data/growth-os/state/growth-os-v2.sqlite`;
@@ -171,13 +172,14 @@ export function openV2Store({ dbPath = DEFAULT_DB_PATH, rebuildView = true } = {
 }
 
 export function readUnifiedView(db) {
-  return db.prepare(`
+  const rows = db.prepare(`
     SELECT
       opportunity_id,
       dedupe_key,
       source_url,
       title,
       body,
+      evidence_json,
       created_at,
       updated_at,
       current_status,
@@ -191,6 +193,17 @@ export function readUnifiedView(db) {
     FROM unified_view
     ORDER BY status_changed_at ASC, opportunity_id ASC
   `).all();
+  const packets = readContentPackets(db, rows.map((row) => row.opportunity_id));
+  return rows.map((row) => {
+    let evidence = null;
+    try { evidence = row.evidence_json ? JSON.parse(row.evidence_json) : null; } catch { evidence = null; }
+    const { evidence_json: _evidenceJson, ...viewRow } = row;
+    return {
+      ...viewRow,
+      evidence,
+      content: packets.get(row.opportunity_id),
+    };
+  });
 }
 
 export function recordBriefDelivery(

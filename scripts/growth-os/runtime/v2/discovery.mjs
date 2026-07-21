@@ -2,6 +2,7 @@ import { createHash, randomUUID } from 'node:crypto';
 import { createSearchProvider } from '../../discovery/providers/search-provider.mjs';
 import { collectRedditRssSource } from '../../discovery/sources/reddit-rss-source.mjs';
 import { collectSearchSource } from '../../discovery/sources/search-source.mjs';
+import { ContentStore } from './content-store.mjs';
 import { relevanceEvidence, scoreDiscoveryItem } from './discovery-relevance.mjs';
 import { LifecycleEventStore } from './lifecycle-event-store.mjs';
 import { DEFAULT_DB_PATH, openV2Store } from './store.mjs';
@@ -128,6 +129,7 @@ export async function runV2Discovery({
 
   const store = openV2Store({ dbPath, rebuildView: false });
   const writer = new LifecycleEventStore({ db: store.db });
+  const content = new ContentStore({ db: store.db });
   const added = [];
   const duplicates = [];
   const rejected = [];
@@ -152,10 +154,26 @@ export async function runV2Discovery({
       }
       try {
         writer.createOpportunity({
-          ...candidate,
+          opportunityId: candidate.opportunityId,
+          dedupeKey: candidate.dedupeKey,
+          sourceUrl: candidate.sourceUrl,
+          title: candidate.title,
+          evidence: candidate.evidence,
           actor: 'v2-discovery',
           occurredAt: now.toISOString(),
         });
+        if (candidate.body) {
+          content.saveVersion({
+            opportunityId: candidate.opportunityId,
+            contentType: 'original_content',
+            contentText: candidate.body,
+            platform: candidate.evidence.platform || null,
+            source: candidate.sourceUrl,
+            createdBy: 'v2-discovery',
+            occurredAt: now.toISOString(),
+            metadata: candidate.evidence,
+          });
+        }
         added.push(candidate.opportunityId);
       } catch (error) {
         if (/UNIQUE constraint failed/.test(error.message)) {

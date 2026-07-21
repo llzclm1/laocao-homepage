@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { LifecycleEventStore } from '../lifecycle-event-store.mjs';
+import { ContentStore } from '../content-store.mjs';
 import { buildMorningBrief } from '../morning-brief.mjs';
 import { readReadyToPublish, readReviewQueue } from '../review-queue.mjs';
 import { openV2Store, readUnifiedView } from '../store.mjs';
@@ -22,6 +23,16 @@ function create(writer, id, url) {
   });
 }
 
+function savePublishDraft(store, id) {
+  return new ContentStore({ db: store.db }).saveVersion({
+    opportunityId: id,
+    contentType: 'publish_draft',
+    contentText: `Draft for ${id}`,
+    platform: 'linkedin',
+    createdBy: 'test',
+  });
+}
+
 test('Review Queue and Morning Brief are derived from one Unified View', () => {
   const store = openTestStore();
   try {
@@ -29,6 +40,7 @@ test('Review Queue and Morning Brief are derived from one Unified View', () => {
     create(writer, 'pending-001', 'https://example.com/pending');
     create(writer, 'ready-001', 'https://example.com/ready');
     writer.approve('ready-001', { occurredAt: '2026-07-21T00:01:00.000Z' });
+    savePublishDraft(store, 'ready-001');
     writer.markReadyToPublish('ready-001', { occurredAt: '2026-07-21T00:02:00.000Z' });
 
     assert.equal(readReviewQueue(store.db).count, 1);
@@ -54,11 +66,13 @@ test('Published rows leave the Brief and retain one complete publication fact', 
     const writer = new LifecycleEventStore({ db: store.db });
     create(writer, 'published-001', 'https://example.com/source');
     writer.approve('published-001');
+    savePublishDraft(store, 'published-001');
     writer.markReadyToPublish('published-001');
     writer.markPublished('published-001', {
       publishedAt: '2026-07-21T08:00:00.000Z',
       platform: 'linkedin',
       publishedUrl: 'https://linkedin.com/posts/001',
+      publishedContent: 'Published adapter test content.',
     });
 
     const view = readUnifiedView(store.db);

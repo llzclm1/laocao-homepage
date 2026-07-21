@@ -106,7 +106,7 @@ function stableUrl(record) {
   return legacyUrl(record);
 }
 
-function canaryOpportunity(record, { id, status, dedupeKey, title, body }) {
+function canaryOpportunity(record, { id, status, dedupeKey, title, body, draft, publishedContent }) {
   return {
     id: id ?? stableId(record, `CANARY-${dedupeKey}`),
     title: title ?? stableTitle(record, `Canary ${dedupeKey}`),
@@ -114,6 +114,8 @@ function canaryOpportunity(record, { id, status, dedupeKey, title, body }) {
     url: stableUrl(record),
     dedupe_key: dedupeKey,
     status,
+    ...(draft ? { draft } : {}),
+    ...(publishedContent ? { published_content: publishedContent } : {}),
   };
 }
 
@@ -188,6 +190,7 @@ function createCanarySnapshot({ sourceRoot, canaryRoot }) {
     dedupeKey: 'canary-ready-GO-004',
     title: stableTitle(readyTitle, 'Ready canary opportunity'),
     body: 'Canary ready-to-publish draft',
+    draft: 'Canary ready-to-publish draft',
   });
   const published = {
     ...publishedSource,
@@ -195,6 +198,8 @@ function createCanarySnapshot({ sourceRoot, canaryRoot }) {
     dedupe_key: 'canary-published-GO-002',
     title: stableTitle(publishedTitle, 'Published canary opportunity'),
     body: 'Canary published record with complete metadata',
+    draft: 'Canary publish draft before publication',
+    published_content: 'Canary published content with complete metadata',
   };
   const rejected = {
     ...published,

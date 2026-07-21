@@ -3,6 +3,7 @@ import http from 'node:http';
 import path from 'node:path';
 import { randomUUID } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
+import { ContentStore } from './content-store.mjs';
 import { LifecycleEventStore } from './lifecycle-event-store.mjs';
 import { DEFAULT_DB_PATH, openV2Store, readUnifiedView } from './store.mjs';
 import { readReadyToPublish, readReviewQueue } from './review-queue.mjs';
@@ -223,6 +224,7 @@ async function applyLifecycleAction(value) {
     publishedAt: value.published_at ?? null,
     platform: value.platform ?? null,
     publishedUrl: value.published_url ?? null,
+    publishedContent: value.published_content ?? null,
   });
   const cached = getCachedIdempotentResult(`${actor}:${idempotencyKey}`, fingerprint);
   if (cached) return cached;
@@ -242,11 +244,68 @@ async function applyLifecycleAction(value) {
         publishedAt: value.published_at,
         platform: value.platform,
         publishedUrl: value.published_url,
+        publishedContent: value.published_content,
       });
     }
     rebuildUnifiedView(store.db);
     const result = { ok: true, event, view: readView() };
     cacheIdempotentResult(`${actor}:${idempotencyKey}`, fingerprint, result);
+    return result;
+  } finally {
+    store.close();
+  }
+}
+
+async function saveContent(value) {
+  if (!value || Array.isArray(value) || typeof value !== 'object') {
+    throw new HttpError(400, 'request body must be one JSON object');
+  }
+  if (Array.isArray(value.opportunity_ids) || Array.isArray(value.opportunities)) {
+    throw new HttpError(400, 'batch content payloads are not allowed');
+  }
+  const opportunityId = typeof value.opportunity_id === 'string' ? value.opportunity_id.trim() : '';
+  const contentType = typeof value.content_type === 'string' ? value.content_type.trim() : '';
+  const contentText = typeof value.content_text === 'string' ? value.content_text.trim() : '';
+  const actor = typeof value.actor === 'string' ? value.actor.trim() : '';
+  const idempotencyKey = typeof value.idempotency_key === 'string' ? value.idempotency_key.trim() : '';
+  if (!opportunityId) throw new HttpError(400, 'opportunity_id is required');
+  if (!['reply_draft', 'publish_draft'].includes(contentType)) {
+    throw new HttpError(400, 'only reply_draft and publish_draft can be saved from the dashboard');
+  }
+  if (!contentText) throw new HttpError(400, 'content_text is required');
+  if (contentText.length > 50_000) throw new HttpError(413, 'content_text is too large');
+  if (!actor) throw new HttpError(400, 'actor is required');
+  if (!/^[A-Za-z0-9._:-]{1,80}$/.test(actor)) throw new HttpError(400, 'actor format is invalid');
+  if (actor === 'system-p0-recovery') throw new HttpError(403, 'recovery actor is not allowed on dashboard endpoint');
+  if (!idempotencyKey || idempotencyKey.length > 160) throw new HttpError(400, 'idempotency_key is required');
+
+  const fingerprint = JSON.stringify({
+    opportunityId,
+    contentType,
+    contentText,
+    platform: value.platform ?? null,
+    source: value.source ?? 'dashboard',
+    actor,
+  });
+  const cacheKey = `${actor}:content:${idempotencyKey}`;
+  const cached = getCachedIdempotentResult(cacheKey, fingerprint);
+  if (cached) return cached;
+  assertRateLimit(actor, `content:${contentType}`);
+
+  const store = openReadStore();
+  try {
+    const content = new ContentStore({ db: store.db });
+    const saved = content.saveVersion({
+      opportunityId,
+      contentType,
+      contentText,
+      platform: value.platform,
+      source: value.source ?? 'dashboard',
+      createdBy: actor,
+    });
+    rebuildUnifiedView(store.db);
+    const result = { ok: true, content: saved, view: readView() };
+    cacheIdempotentResult(cacheKey, fingerprint, result);
     return result;
   } finally {
     store.close();
@@ -288,6 +347,24 @@ const server = http.createServer(async (req, res) => {
         context = requestContext(req, value);
         assertLocalMutationRequest(req);
         const result = await applyLifecycleAction(value);
+        appendSecurityLog(context, 'success');
+        return send(res, 200, result);
+      } catch (error) {
+        appendSecurityLog(context, 'rejected', error);
+        throw error;
+      }
+    }
+    if (req.method === 'POST' && url.pathname === '/__v2/content') {
+      let value = {};
+      let context = requestContext(req, value);
+      try {
+        value = await readBody(req);
+        context = requestContext(req, {
+          ...value,
+          action: `save_${value?.content_type || 'content'}`,
+        });
+        assertLocalMutationRequest(req);
+        const result = await saveContent(value);
         appendSecurityLog(context, 'success');
         return send(res, 200, result);
       } catch (error) {

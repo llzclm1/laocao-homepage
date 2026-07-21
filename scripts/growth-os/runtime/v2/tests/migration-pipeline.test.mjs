@@ -11,6 +11,7 @@ import { join } from 'node:path';
 import { test } from 'node:test';
 import { DEFAULT_DB_PATH, openV2Store, readUnifiedView } from '../store.mjs';
 import { LifecycleEventStore } from '../lifecycle-event-store.mjs';
+import { ContentStore } from '../content-store.mjs';
 import { isBriefExcluded } from '../morning-brief-rules.mjs';
 import { runMigration } from '../migration.mjs';
 
@@ -40,6 +41,7 @@ function createFixture() {
       url: 'https://legacy.example/source/001',
       dedupe_key: 'legacy-001',
       status: 'pending_review',
+      draft: 'Explicit legacy publish draft.',
     },
     {
       id: 'L-001',
@@ -78,6 +80,10 @@ function createFixture() {
       from_status: 'pending_review',
       to_status: 'approved',
       at: '2026-07-21T01:00:00.000Z',
+      snapshot: {
+        id: 'L-001',
+        suggested_reply: 'Explicit reply draft.',
+      },
     },
     {
       id: 'L-001',
@@ -85,6 +91,10 @@ function createFixture() {
       from_status: 'approved',
       to_status: 'ready_to_publish',
       at: '2026-07-21T02:00:00.000Z',
+      snapshot: {
+        id: 'L-001',
+        draft: 'Explicit legacy publish draft.',
+      },
     },
   ];
   const publishedContent = [
@@ -94,6 +104,7 @@ function createFixture() {
       status: 'published',
       url: 'https://published.example/001',
       published_date: '2026-07-21',
+      published_content: 'Published legacy text with explicit semantics.',
     },
     {
       id: 'L-003',
@@ -295,6 +306,13 @@ test('a mid-transaction publish failure rolls back the event and leaves the prio
       occurredAt: '2026-07-21T00:00:00.000Z',
     });
     writer.approve('rollback-001');
+    new ContentStore({ db: store.db }).saveVersion({
+      opportunityId: 'rollback-001',
+      contentType: 'publish_draft',
+      contentText: 'Rollback publish draft',
+      platform: 'test',
+      createdBy: 'tester',
+    });
     writer.markReadyToPublish('rollback-001');
     store.db
       .prepare(
@@ -308,6 +326,7 @@ test('a mid-transaction publish failure rolls back the event and leaves the prio
           publishedAt: '2026-07-21T00:02:00.000Z',
           platform: 'test',
           publishedUrl: 'https://rollback.example/published',
+          publishedContent: 'Rollback published content',
         }),
       /UNIQUE constraint failed/,
     );
