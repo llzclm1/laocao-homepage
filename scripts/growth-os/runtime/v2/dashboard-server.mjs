@@ -7,7 +7,7 @@ import { DEFAULT_DB_PATH, openV2Store, readUnifiedView } from './store.mjs';
 import { readReadyToPublish, readReviewQueue } from './review-queue.mjs';
 import { rebuildUnifiedView } from './unified-view.mjs';
 
-const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..');
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../..');
 const dashboardFile = path.join(root, 'docs/growth-os/dashboard.html');
 const dbPath = process.env.GROWTH_OS_V2_DB || DEFAULT_DB_PATH;
 const host = '127.0.0.1';
