@@ -121,6 +121,12 @@ const server = http.createServer(async (req, res) => {
     if (req.method === 'GET' && url.pathname === '/__v2/unified-view') {
       return send(res, 200, readView());
     }
+    if (req.method === 'GET' && url.pathname === '/favicon.ico') {
+      const favicon = path.join(root, 'favicon.ico');
+      if (!fs.existsSync(favicon)) return send(res, 204, '');
+      res.writeHead(200, { 'Content-Type': 'image/x-icon', 'Cache-Control': 'no-store' });
+      return res.end(fs.readFileSync(favicon));
+    }
     if (req.method === 'POST' && url.pathname === '/__v2/lifecycle') {
       return send(res, 200, await applyLifecycleAction(await readBody(req)));
     }
