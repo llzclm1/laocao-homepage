@@ -322,7 +322,7 @@ function printUsage() {
   ].join('\n'));
 }
 
-if (fileURLToPath(import.meta.url) === resolve(process.argv[1] || '')) {
+if (process.argv[1] && fileURLToPath(import.meta.url) === resolve(process.argv[1])) {
   const command = process.argv[2];
   if (!['execute', 'rollback'].includes(command)) {
     printUsage();
