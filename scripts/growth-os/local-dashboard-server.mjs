@@ -27,6 +27,7 @@ const debugPageFile = path.join(root, "scripts/growth-os/debug-social-workspace.
 const allowedPlatforms = new Set(["LinkedIn", "Reddit", "X", "Substack", "Medium"]);
 const allowedPublishingStatuses = new Set(["draft_ready", "published", "measuring"]);
 const allowedReviewActions = new Set(["approve", "reject", "revision"]);
+const legacyReadOnly = process.env.GROWTH_OS_LEGACY_READ_ONLY === "1";
 let lastSaveError = null;
 let lastRuntimeError = null;
 
@@ -47,6 +48,7 @@ const types = {
 http.createServer((req, res) => {
   const url = new URL(req.url || "/", `http://${host}:${port}`);
   if (req.method === "OPTIONS") return send(res, 204, "");
+  if (legacyReadOnly && req.method === "POST") return send(res, 410, "Legacy Growth OS is read-only during rollback.");
   if (req.method === "GET" && url.pathname === "/__copy") {
     return copyText(url.searchParams.get("path"), url.searchParams.get("part"), res);
   }

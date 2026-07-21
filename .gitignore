@@ -15,6 +15,13 @@ outputs/*-homepage.png
 tools/site-stats-review/input/*
 !tools/site-stats-review/input/.gitkeep
 
+# Growth OS v2 production runtime artifacts
+data/growth-os/state/growth-os-v2.sqlite*
+data/growth-os/state/growth-os-v2-migration-report.json
+data/growth-os/state/growth-os-v2-cutover.json
+data/growth-os/v2/cutover/
+data/growth-os/logs/v2-*.log
+
 # Local temporary files
 _tmp_*
 

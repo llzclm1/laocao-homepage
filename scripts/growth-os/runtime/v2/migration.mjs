@@ -178,18 +178,21 @@ function sameValue(left, right) {
   return JSON.stringify(left ?? null) === JSON.stringify(right ?? null);
 }
 
-function safeTargetPath(targetDb) {
+function safeTargetPath(targetDb, { allowProductionTarget = false } = {}) {
   if (targetDb === ':memory:') {
     return;
   }
   if (resolve(targetDb) === resolve(DEFAULT_DB_PATH)) {
-    throw new Error('dry-run refuses the production v2 database path');
+    if (!allowProductionTarget) {
+      throw new Error('dry-run refuses the production v2 database path');
+    }
+    return;
   }
 }
 
-export function createDryRunPaths({ targetDb, reportPath } = {}) {
+export function createDryRunPaths({ targetDb, reportPath, allowProductionTarget = false } = {}) {
   if (targetDb) {
-    safeTargetPath(targetDb);
+    safeTargetPath(targetDb, { allowProductionTarget });
   }
   if (reportPath) {
     if (!targetDb) {
@@ -866,15 +869,16 @@ export function runMigration({
   sourceSnapshot = IMPLEMENTATION_ROOT,
   targetDb,
   reportPath,
+  allowProductionTarget = false,
 } = {}) {
-  const paths = createDryRunPaths({ targetDb, reportPath });
+  const paths = createDryRunPaths({ targetDb, reportPath, allowProductionTarget });
   const inventory = buildLegacyInventory({ sourceSnapshot });
   let store;
   let migration;
   let verification;
   let error = null;
   try {
-    safeTargetPath(paths.targetDb);
+    safeTargetPath(paths.targetDb, { allowProductionTarget });
     store = openV2Store({ dbPath: paths.targetDb });
     assertEmptyTarget(store.db);
     const sources = loadLegacySources({ sourceSnapshot });
