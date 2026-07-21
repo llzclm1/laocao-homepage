@@ -2,6 +2,7 @@
   "scripts": {
     "growth:dashboard": "node scripts/growth-os/local-dashboard-server.mjs",
     "growth:v2:migrate:dry-run": "node scripts/growth-os/runtime/v2/migrate-dry-run.mjs",
+    "growth:v2:canary": "node scripts/growth-os/runtime/v2/canary-trial.mjs",
     "social-agent": "node scripts/social-agent/server.mjs",
     "build": "node scripts/build-static-site.mjs",
     "build:github": "PUBLIC_BASE_PATH=/laocao-homepage/ node scripts/build-static-site.mjs",
