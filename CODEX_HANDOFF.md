@@ -407,3 +407,9 @@
 - Dashboard 默认打开 Today；旧日志、RSS、手工入池和导入候选都先进入 Inbox，最多 3 条经人工确认后加入 Today，不再按排名自动生成今日任务。
 - Results 记录真实回复 URL、删除、收到回复、买家/合作信号、审核请求和付费机会；Business Signals 只读取这些人工记录与真实发布数据。
 - RSS 第 1 次真实采集为 0 条新候选、1 个 403、6 个 429，Health 为 Blocked；第 2、3 次仍按已创建的 Codex automation 执行。Phase B 与采集器扩张继续暂停。
+
+## 2026-07-21 Invalid Ready Reconciliation
+
+- 通过冻结清单和受控 `admin_reconcile_missing_publish_draft` lifecycle compensation，将 GEO-003、GO-001、GO-004 从 `ready_to_publish` 退回 `approved`；未伪造或写入 publish draft，历史事件未修改。
+- 生产结果：`ready_to_publish` 4→1，`approved` 5→8，新增 3 条 lifecycle events，content_items 不变；生产 Dashboard 已显示唯一有效 Ready 项的 486 字符 publish draft。
+- 新增缺失 Draft 的明确 UI 状态与受控维护脚本；生产备份保留在 `data/growth-os/state/growth-os-v2-before-invalid-ready-reconciliation-20260721-130810.sqlite`，未推送。

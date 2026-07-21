@@ -36,11 +36,12 @@ CREATE TABLE IF NOT EXISTS lifecycle_events (
       'create_opportunity',
       'approve',
       'mark_ready_to_publish',
-      'mark_published',
-      'archive',
-      'archive_irrelevant_discovery',
-      'admin_restore_pending_review'
-    )),
+        'mark_published',
+        'archive',
+        'archive_irrelevant_discovery',
+        'admin_restore_pending_review',
+        'admin_reconcile_missing_publish_draft'
+      )),
   actor TEXT NOT NULL,
   occurred_at TEXT NOT NULL,
   evidence_ref TEXT,

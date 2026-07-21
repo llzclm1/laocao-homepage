@@ -1,7 +1,7 @@
 import { readFileSync, mkdirSync } from 'node:fs';
 import { dirname } from 'node:path';
 import { DatabaseSync } from 'node:sqlite';
-import { rebuildUnifiedView } from './unified-view.mjs';
+import { rebuildUnifiedView, unifiedViewExists } from './unified-view.mjs';
 import { readContentPackets } from './content-store.mjs';
 
 export const IMPLEMENTATION_ROOT = '/Users/caocao/Documents/我的主页';
@@ -34,7 +34,8 @@ const lifecycleEventsUpgradeSql = `
         'mark_published',
         'archive',
         'archive_irrelevant_discovery',
-        'admin_restore_pending_review'
+        'admin_restore_pending_review',
+        'admin_reconcile_missing_publish_draft'
       )),
     actor TEXT NOT NULL,
     occurred_at TEXT NOT NULL,
@@ -116,6 +117,7 @@ function ensureLifecycleRecoveryEventType(db) {
   if (
     table?.sql?.includes('admin_restore_pending_review')
     && table?.sql?.includes('archive_irrelevant_discovery')
+    && table?.sql?.includes('admin_reconcile_missing_publish_draft')
   ) {
     return;
   }
@@ -159,7 +161,7 @@ export function openV2Store({ dbPath = DEFAULT_DB_PATH, rebuildView = true } = {
   const db = new DatabaseSync(dbPath);
   db.exec(schemaSql);
   ensureLifecycleRecoveryEventType(db);
-  if (rebuildView) {
+  if (rebuildView || !unifiedViewExists(db)) {
     rebuildUnifiedView(db);
   }
 

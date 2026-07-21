@@ -207,6 +207,69 @@ export class LifecycleEventStore {
     );
   }
 
+  reconcileMissingPublishDraft(
+    opportunityId,
+    {
+      reconciliationId,
+      recoveryReason,
+      sourceAssessment,
+      dryRunReport,
+      actor,
+      occurredAt,
+      eventId,
+    } = {},
+  ) {
+    const id = requiredText(opportunityId, 'opportunityId');
+    const reconciliation = requiredText(reconciliationId, 'reconciliationId');
+    const reason = requiredText(recoveryReason, 'recoveryReason');
+    const assessment = requiredText(sourceAssessment, 'sourceAssessment');
+    const report = requiredText(dryRunReport, 'dryRunReport');
+    const reconciliationActor = requiredText(actor, 'actor');
+    if (reconciliationActor !== 'system-content-reconciliation') {
+      throw new Error(
+        'reconcileMissingPublishDraft requires actor system-content-reconciliation',
+      );
+    }
+    const at = requiredText(occurredAt ?? this.#clock(), 'occurredAt');
+    const event = eventId ?? randomUUID();
+
+    return withTransaction(this.#db, () => {
+      const current = this.#requireCurrentEvent(id);
+      if (current.to_status !== 'ready_to_publish') {
+        throw new Error(
+          `missing-publish-draft reconciliation requires ready_to_publish, got ${current.to_status}`,
+        );
+      }
+      if (this.#content.hasLatest(id, 'publish_draft')) {
+        throw new Error('cannot reconcile an opportunity that has a publish_draft');
+      }
+
+      this.#appendLifecycleEvent({
+        eventId: event,
+        opportunityId: id,
+        fromStatus: 'ready_to_publish',
+        toStatus: 'approved',
+        eventType: 'admin_reconcile_missing_publish_draft',
+        actor: reconciliationActor,
+        occurredAt: at,
+        evidenceRef: {
+          reconciliation_id: reconciliation,
+          recovery_reason: reason,
+          source_assessment: assessment,
+          dry_run_report: report,
+          reconciled_at: at,
+          actor: reconciliationActor,
+        },
+      });
+
+      this.#db
+        .prepare('UPDATE opportunities SET updated_at = ? WHERE opportunity_id = ?')
+        .run(at, id);
+
+      return this.#getLatestEvent(id);
+    });
+  }
+
   archiveIrrelevantDiscovery(
     opportunityId,
     {

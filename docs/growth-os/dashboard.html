@@ -435,7 +435,10 @@
     function renderContentEditor(row, contentType, label, copyLabel, emptyLabel, isPublish = false) {
       const current = contentType === "reply_draft" ? row.content?.latest_reply_draft : row.content?.latest_publish_draft;
       const editorId = `content-${contentType}-${row.opportunity_id}`.replace(/[^a-zA-Z0-9_-]/g, "-");
-      return `<section class="work-item-section work-item-editor"><div class="work-item-head"><span class="work-item-title">${label}</span><span class="pill ${current ? "green" : "gray"}">${current ? `v${current.version}` : "缺失"}</span></div>${current ? `<textarea id="${editorId}" data-content-editor data-content-type="${contentType}" data-opportunity-id="${escapeHtml(row.opportunity_id)}" ${isPublish ? "data-publish-content" : ""}>${escapeHtml(current.content_text)}</textarea>` : `<p class="work-item-missing">${emptyLabel}</p><textarea id="${editorId}" data-content-editor data-content-type="${contentType}" data-opportunity-id="${escapeHtml(row.opportunity_id)}" ${isPublish ? "data-publish-content" : ""} placeholder="在此创建第一版${label}"></textarea>`}<div class="work-item-actions"><button type="button" data-content-save data-content-type="${contentType}" data-opportunity-id="${escapeHtml(row.opportunity_id)}">保存新版本</button><button type="button" class="secondary" data-content-copy data-content-type="${contentType}" data-opportunity-id="${escapeHtml(row.opportunity_id)}">${copyLabel}</button></div><p class="status-feedback content-feedback"></p></section>`;
+      if (!current && isPublish) {
+        return `<section class="work-item-section work-item-editor"><div class="work-item-head"><span class="work-item-title">${label}</span><span class="pill red">缺失</span></div><p class="work-item-missing">Publish Draft missing</p><button type="button" data-content-create data-content-type="${contentType}" data-opportunity-id="${escapeHtml(row.opportunity_id)}">Create Publish Draft</button><div data-content-create-shell hidden><textarea id="${editorId}" data-content-editor data-content-type="${contentType}" data-opportunity-id="${escapeHtml(row.opportunity_id)}" data-publish-content placeholder="在此创建第一版${label}"></textarea><div class="work-item-actions"><button type="button" data-content-save data-content-type="${contentType}" data-opportunity-id="${escapeHtml(row.opportunity_id)}">保存新版本</button><button type="button" class="secondary" data-content-copy data-content-type="${contentType}" data-opportunity-id="${escapeHtml(row.opportunity_id)}" disabled>${copyLabel}</button></div></div><p class="status-feedback content-feedback"></p></section>`;
+      }
+      return `<section class="work-item-section work-item-editor"><div class="work-item-head"><span class="work-item-title">${label}</span><span class="pill ${current ? "green" : "gray"}">${current ? `v${current.version}` : "缺失"}</span></div>${current ? `<textarea id="${editorId}" data-content-editor data-content-type="${contentType}" data-opportunity-id="${escapeHtml(row.opportunity_id)}" ${isPublish ? "data-publish-content" : ""}>${escapeHtml(current.content_text)}</textarea>` : `<p class="work-item-missing">${emptyLabel}</p><textarea id="${editorId}" data-content-editor data-content-type="${contentType}" data-opportunity-id="${escapeHtml(row.opportunity_id)}" placeholder="在此创建第一版${label}"></textarea>`}<div class="work-item-actions"><button type="button" data-content-save data-content-type="${contentType}" data-opportunity-id="${escapeHtml(row.opportunity_id)}">保存新版本</button><button type="button" class="secondary" data-content-copy data-content-type="${contentType}" data-opportunity-id="${escapeHtml(row.opportunity_id)}">${copyLabel}</button></div><p class="status-feedback content-feedback"></p></section>`;
     }
 
     function renderPerformance(rows) {
@@ -505,6 +508,14 @@
       app.querySelectorAll("[data-lifecycle-action]").forEach((button) => button.addEventListener("click", () => applyLifecycle(button)));
       app.querySelectorAll("[data-content-save]").forEach((button) => button.addEventListener("click", () => saveContent(button)));
       app.querySelectorAll("[data-content-copy]").forEach((button) => button.addEventListener("click", () => copyContent(button)));
+      app.querySelectorAll("[data-content-create]").forEach((button) => button.addEventListener("click", () => {
+        const section = button.closest(".work-item-section");
+        const shell = section?.querySelector("[data-content-create-shell]");
+        if (!shell) return;
+        button.hidden = true;
+        shell.hidden = false;
+        shell.querySelector("textarea")?.focus();
+      }));
       app.querySelectorAll("[data-details-toggle]").forEach((button) => button.addEventListener("click", () => {
         const detail = document.getElementById(button.dataset.detailsToggle);
         const expanded = button.getAttribute("aria-expanded") === "true";
