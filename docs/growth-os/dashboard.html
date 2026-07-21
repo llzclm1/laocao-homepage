@@ -149,11 +149,13 @@
     function render() {
       const rows = Array.isArray(view?.items) ? view.items : [];
       const pending = rows.filter((row) => row.current_status === "pending_review");
+      const approved = rows.filter((row) => row.current_status === "approved");
       const ready = rows.filter((row) => row.current_status === "ready_to_publish");
       const published = rows.filter((row) => row.current_status === "published");
       const actionRequired = rows.filter((row) => row.performance_status === "action_required");
       app.innerHTML = [
         renderToday(pending, ready, actionRequired),
+        renderQueue("approved", "Approved", approved, "approved"),
         renderQueue("publishing", "Ready to Publish", ready, "ready_to_publish"),
         renderQueue("content-opportunities", "Review Queue", pending, "pending_review"),
         renderPublished(published),
