@@ -38,6 +38,7 @@ CREATE TABLE IF NOT EXISTS lifecycle_events (
       'mark_ready_to_publish',
       'mark_published',
       'archive',
+      'archive_irrelevant_discovery',
       'admin_restore_pending_review'
     )),
   actor TEXT NOT NULL,

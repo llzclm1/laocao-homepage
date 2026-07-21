@@ -185,6 +185,57 @@ export class LifecycleEventStore {
     );
   }
 
+  archiveIrrelevantDiscovery(
+    opportunityId,
+    {
+      cleanupId,
+      relevanceScore,
+      relevanceCategory,
+      rejectionReason,
+      sourceUrl,
+      dryRunReport,
+      archivedAt,
+      actor,
+      eventId,
+    } = {},
+  ) {
+    const cleanup = requiredText(cleanupId, 'cleanupId');
+    const category = requiredText(relevanceCategory, 'relevanceCategory');
+    const reason = requiredText(rejectionReason, 'rejectionReason');
+    const report = requiredText(dryRunReport, 'dryRunReport');
+    const archivedAtValue = requiredText(archivedAt, 'archivedAt');
+    const cleanupActor = requiredText(actor, 'actor');
+    if (cleanupActor !== 'system-relevance-cleanup') {
+      throw new Error(
+        'archiveIrrelevantDiscovery requires actor system-relevance-cleanup',
+      );
+    }
+    if (!Number.isFinite(Number(relevanceScore))) {
+      throw new Error('relevanceScore is required');
+    }
+
+    return this.#transition(
+      opportunityId,
+      'archived',
+      'archive_irrelevant_discovery',
+      {
+        actor: cleanupActor,
+        eventId,
+        occurredAt: archivedAtValue,
+        evidenceRef: {
+          cleanup_id: cleanup,
+          relevance_score: Number(relevanceScore),
+          relevance_category: category,
+          rejection_reason: reason,
+          source_url: sourceUrl ?? null,
+          dry_run_report: report,
+          archived_at: archivedAtValue,
+          actor: cleanupActor,
+        },
+      },
+    );
+  }
+
   restorePendingReview(
     opportunityId,
     {

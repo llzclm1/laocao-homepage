@@ -2,14 +2,32 @@ import { createHash, randomUUID } from 'node:crypto';
 import { createSearchProvider } from '../../discovery/providers/search-provider.mjs';
 import { collectRedditRssSource } from '../../discovery/sources/reddit-rss-source.mjs';
 import { collectSearchSource } from '../../discovery/sources/search-source.mjs';
+import { relevanceEvidence, scoreDiscoveryItem } from './discovery-relevance.mjs';
 import { LifecycleEventStore } from './lifecycle-event-store.mjs';
 import { DEFAULT_DB_PATH, openV2Store } from './store.mjs';
 
 const DEFAULT_QUERIES = Object.freeze({
-  quora: ['site:quora.com Chinese supplier payment'],
-  linkedin: ['site:linkedin.com/posts Chinese supplier payment'],
+  quora: [
+    'site:quora.com China Chinese supplier manufacturer factory MOQ sample quotation payment lead time',
+  ],
+  linkedin: [
+    'site:linkedin.com/posts China Chinese supplier manufacturer factory MOQ sample quotation payment lead time',
+  ],
+  reddit: [
+    'site:reddit.com/r/Alibaba supplier manufacturer factory MOQ sample quotation',
+    'site:reddit.com/r/smallbusiness China supplier sourcing import quotation sample',
+    'site:reddit.com/r/Entrepreneur Chinese supplier manufacturer MOQ payment',
+    'site:reddit.com/r/FulfillmentByAmazon China supplier shipping MOQ sample',
+    'site:reddit.com/r/ecommerce China supplier quotation sample manufacturing',
+  ],
 });
-const DEFAULT_SUBREDDITS = Object.freeze(['supplychain', 'procurement']);
+const DEFAULT_SUBREDDITS = Object.freeze([
+  'Alibaba',
+  'smallbusiness',
+  'Entrepreneur',
+  'FulfillmentByAmazon',
+  'ecommerce',
+]);
 
 function normalizeUrl(value) {
   try {
@@ -48,10 +66,11 @@ function readConfig(environment = process.env) {
   };
 }
 
-function candidateFromItem(item, now) {
+export function candidateFromItem(item, now = new Date()) {
   const sourceUrl = normalizeUrl(item.canonical_url || item.url);
   const title = text(item.title || item.raw_topic);
   if (!sourceUrl || !title) return null;
+  const relevance = scoreDiscoveryItem({ ...item, source_url: sourceUrl });
   const dedupeKey = `url:${sourceUrl}`;
   return {
     opportunityId: opportunityId(dedupeKey),
@@ -67,34 +86,44 @@ function candidateFromItem(item, now) {
       author: item.author ?? null,
       discovered_at: item.discovered_at || now.toISOString(),
       query: item.query ?? null,
+      relevance: relevanceEvidence(relevance),
     },
+    relevance,
   };
 }
 
-export async function runV2Discovery({ dbPath = DEFAULT_DB_PATH, now = new Date(), force = true, environment = process.env } = {}) {
+export async function runV2Discovery({
+  dbPath = DEFAULT_DB_PATH,
+  now = new Date(),
+  force = true,
+  environment = process.env,
+  sourceResults: injectedSourceResults = null,
+} = {}) {
   const config = readConfig(environment);
   const provider = createSearchProvider({ ...environment, SOCIAL_DISCOVERY_PUBLIC_SEARCH: environment.SOCIAL_DISCOVERY_PUBLIC_SEARCH || '1' });
-  const sourceResults = [];
+  const sourceResults = injectedSourceResults || [];
   const queryConfig = config.queries || DEFAULT_QUERIES;
   const searchPlatforms = config.searchPlatforms || Object.keys(queryConfig);
 
-  for (const platform of searchPlatforms) {
-    sourceResults.push(await collectSearchSource({
-      platform,
-      queries: queryConfig[platform] || [],
-      provider,
-      now,
-      perSourceLimit: 10,
-      cooldownHours: 12,
-    }));
-  }
-  for (const subreddit of config.subreddits || []) {
-    sourceResults.push(await collectRedditRssSource({
-      subreddit,
-      now,
-      perSourceLimit: 10,
-      cooldownHours: 12,
-    }));
+  if (!injectedSourceResults) {
+    for (const platform of searchPlatforms) {
+      sourceResults.push(await collectSearchSource({
+        platform,
+        queries: queryConfig[platform] || [],
+        provider,
+        now,
+        perSourceLimit: 10,
+        cooldownHours: 12,
+      }));
+    }
+    for (const subreddit of config.subreddits || []) {
+      sourceResults.push(await collectRedditRssSource({
+        subreddit,
+        now,
+        perSourceLimit: 10,
+        cooldownHours: 12,
+      }));
+    }
   }
 
   const store = openV2Store({ dbPath, rebuildView: false });
@@ -107,6 +136,18 @@ export async function runV2Discovery({ dbPath = DEFAULT_DB_PATH, now = new Date(
       const candidate = candidateFromItem(item, now);
       if (!candidate) {
         rejected.push({ source_url: item.url || null, reason: 'missing_public_url_or_title' });
+        continue;
+      }
+      if (candidate.relevance.decision !== 'keep') {
+        rejected.push({
+          opportunity_id: candidate.opportunityId,
+          title: candidate.title,
+          source_url: candidate.sourceUrl,
+          reason: candidate.relevance.decision,
+          category: candidate.relevance.category,
+          score: candidate.relevance.score,
+          relevance_reasons: candidate.relevance.reasons,
+        });
         continue;
       }
       try {

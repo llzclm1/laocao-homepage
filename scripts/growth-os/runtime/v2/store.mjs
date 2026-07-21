@@ -32,6 +32,7 @@ const lifecycleEventsUpgradeSql = `
         'mark_ready_to_publish',
         'mark_published',
         'archive',
+        'archive_irrelevant_discovery',
         'admin_restore_pending_review'
       )),
     actor TEXT NOT NULL,
@@ -111,7 +112,10 @@ function ensureLifecycleRecoveryEventType(db) {
   const table = db
     .prepare("SELECT sql FROM sqlite_schema WHERE type = 'table' AND name = 'lifecycle_events'")
     .get();
-  if (table?.sql?.includes('admin_restore_pending_review')) {
+  if (
+    table?.sql?.includes('admin_restore_pending_review')
+    && table?.sql?.includes('archive_irrelevant_discovery')
+  ) {
     return;
   }
 

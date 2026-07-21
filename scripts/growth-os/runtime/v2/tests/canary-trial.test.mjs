@@ -5,6 +5,7 @@ import { DEFAULT_DB_PATH } from '../store.mjs';
 import { runCanaryTrial } from '../canary-trial.mjs';
 
 test('canary trial is isolated, verifies the operator workflow, and cleans up', () => {
+  const productionDatabaseExistedBefore = existsSync(DEFAULT_DB_PATH);
   const report = runCanaryTrial();
 
   assert.equal(report.success, true);
@@ -61,5 +62,5 @@ test('canary trial is isolated, verifies the operator workflow, and cleans up', 
   assert.equal(report.rollback.source_snapshot_removed, true);
   assert.equal(report.rollback.canary_root_removed, true);
   assert.equal(existsSync(report.canary_database), false);
-  assert.equal(existsSync(DEFAULT_DB_PATH), false);
+  assert.equal(existsSync(DEFAULT_DB_PATH), productionDatabaseExistedBefore);
 });
