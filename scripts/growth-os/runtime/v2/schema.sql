@@ -37,7 +37,8 @@ CREATE TABLE IF NOT EXISTS lifecycle_events (
       'approve',
       'mark_ready_to_publish',
       'mark_published',
-      'archive'
+      'archive',
+      'admin_restore_pending_review'
     )),
   actor TEXT NOT NULL,
   occurred_at TEXT NOT NULL,

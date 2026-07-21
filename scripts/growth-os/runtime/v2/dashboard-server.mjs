@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import http from 'node:http';
 import path from 'node:path';
+import { randomUUID } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { LifecycleEventStore } from './lifecycle-event-store.mjs';
 import { DEFAULT_DB_PATH, openV2Store, readUnifiedView } from './store.mjs';
@@ -12,6 +13,22 @@ const dashboardFile = path.join(root, 'docs/growth-os/dashboard.html');
 const dbPath = process.env.GROWTH_OS_V2_DB || DEFAULT_DB_PATH;
 const host = '127.0.0.1';
 const port = Number(process.env.PORT || 8787);
+const allowedOrigins = new Set([
+  `http://${host}:${port}`,
+  `http://localhost:${port}`,
+]);
+const allowedHosts = new Set([
+  `${host}:${port}`,
+  `localhost:${port}`,
+]);
+const csrfToken = randomUUID();
+const securityLogPath = process.env.GROWTH_OS_V2_SECURITY_LOG
+  || path.join(root, 'data/growth-os/logs/v2-security.jsonl');
+const lifecycleRateWindows = new Map();
+const idempotencyResults = new Map();
+const RATE_LIMIT = 10;
+const RATE_WINDOW_MS = 60_000;
+const IDEMPOTENCY_TTL_MS = 5 * 60_000;
 
 const contentTypes = Object.freeze({
   '.html': 'text/html; charset=utf-8',
@@ -29,11 +46,111 @@ function send(res, status, value) {
   res.writeHead(status, {
     'Content-Type': typeof value === 'string' ? 'text/plain; charset=utf-8' : 'application/json; charset=utf-8',
     'Cache-Control': 'no-store',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Origin': `http://${host}:${port}`,
+    'Access-Control-Allow-Headers': 'Content-Type, X-Growth-OS-CSRF, X-Request-Id',
     'Access-Control-Allow-Methods': 'GET,POST,OPTIONS',
+    Vary: 'Origin',
   });
   res.end(body);
+}
+
+class HttpError extends Error {
+  constructor(status, message) {
+    super(message);
+    this.status = status;
+  }
+}
+
+function requestContext(req, value = {}) {
+  const input = value && typeof value === 'object' ? value : {};
+  return {
+    request_id: String(req.headers['x-request-id'] || randomUUID()).slice(0, 120),
+    actor: input.actor ?? null,
+    opportunity_id: input.opportunity_id ?? null,
+    action: input.action ?? null,
+    request_time: new Date().toISOString(),
+    origin: req.headers.origin ?? null,
+    user_agent: req.headers['user-agent'] ?? null,
+  };
+}
+
+function appendSecurityLog(context, result, error = null) {
+  const record = {
+    ...context,
+    result,
+    error: error ? String(error.message || error) : null,
+  };
+  try {
+    fs.mkdirSync(path.dirname(securityLogPath), { recursive: true });
+    fs.appendFileSync(securityLogPath, `${JSON.stringify(record)}\n`);
+  } catch (logError) {
+    console.error(`Growth OS v2 security log failed: ${logError.message}`);
+  }
+}
+
+function assertLocalMutationRequest(req) {
+  const origin = String(req.headers.origin || '');
+  const requestHost = String(req.headers.host || '');
+  if (!allowedOrigins.has(origin)) {
+    throw new HttpError(403, 'origin is not allowed');
+  }
+  if (!allowedHosts.has(requestHost)) {
+    throw new HttpError(403, 'host is not allowed');
+  }
+  if (!/^application\/json(?:\s*;|$)/i.test(String(req.headers['content-type'] || ''))) {
+    throw new HttpError(415, 'Content-Type must be application/json');
+  }
+  if (req.headers['x-growth-os-csrf'] !== csrfToken) {
+    throw new HttpError(403, 'CSRF token is invalid or missing');
+  }
+}
+
+function rateLimitKey(actor, action) {
+  return `${actor}\u0000${action}`;
+}
+
+function pruneRateWindow(key, now) {
+  const values = lifecycleRateWindows.get(key) || [];
+  const fresh = values.filter((timestamp) => now - timestamp < RATE_WINDOW_MS);
+  if (fresh.length) lifecycleRateWindows.set(key, fresh);
+  else lifecycleRateWindows.delete(key);
+  return fresh;
+}
+
+function assertRateLimit(actor, action) {
+  const now = Date.now();
+  const actorKey = rateLimitKey(actor, '*');
+  const actionKey = rateLimitKey(actor, action);
+  const actorWindow = pruneRateWindow(actorKey, now);
+  const actionWindow = pruneRateWindow(actionKey, now);
+  if (actorWindow.length >= RATE_LIMIT || actionWindow.length >= RATE_LIMIT) {
+    throw new HttpError(429, 'lifecycle write rate limit exceeded');
+  }
+  actorWindow.push(now);
+  actionWindow.push(now);
+  lifecycleRateWindows.set(actorKey, actorWindow);
+  lifecycleRateWindows.set(actionKey, actionWindow);
+}
+
+function getCachedIdempotentResult(key, fingerprint) {
+  const cached = idempotencyResults.get(key);
+  if (!cached) return null;
+  if (cached.expiresAt <= Date.now()) {
+    idempotencyResults.delete(key);
+    return null;
+  }
+  if (cached.fingerprint !== fingerprint) {
+    throw new HttpError(409, 'idempotency key was reused for a different request');
+  }
+  return cached.result;
+}
+
+function cacheIdempotentResult(key, fingerprint, result) {
+  idempotencyResults.set(key, {
+    fingerprint,
+    result,
+    expiresAt: Date.now() + IDEMPOTENCY_TTL_MS,
+  });
 }
 
 function readBody(req) {
@@ -42,13 +159,13 @@ function readBody(req) {
     req.setEncoding('utf8');
     req.on('data', (chunk) => {
       body += chunk;
-      if (body.length > 100_000) reject(new Error('request body too large'));
+      if (body.length > 100_000) reject(new HttpError(413, 'request body too large'));
     });
     req.on('end', () => {
       try {
         resolve(body ? JSON.parse(body) : {});
       } catch {
-        reject(new Error('request body must be JSON'));
+        reject(new HttpError(400, 'request body must be JSON'));
       }
     });
     req.on('error', reject);
@@ -79,17 +196,42 @@ function readView() {
 }
 
 async function applyLifecycleAction(value) {
-  const opportunityId = String(value.opportunity_id || '').trim();
-  const action = String(value.action || '').trim();
-  if (!opportunityId) throw new Error('opportunity_id is required');
-  if (!['approve', 'ready_to_publish', 'mark_published', 'archive'].includes(action)) {
-    throw new Error(`unsupported lifecycle action: ${action}`);
+  if (!value || Array.isArray(value) || typeof value !== 'object') {
+    throw new HttpError(400, 'request body must be one JSON object');
   }
+  if (Array.isArray(value.opportunity_ids) || Array.isArray(value.opportunities)) {
+    throw new HttpError(400, 'batch lifecycle payloads are not allowed');
+  }
+  const opportunityId = typeof value.opportunity_id === 'string' ? value.opportunity_id.trim() : '';
+  const action = typeof value.action === 'string' ? value.action.trim() : '';
+  const actor = typeof value.actor === 'string' ? value.actor.trim() : '';
+  const idempotencyKey = typeof value.idempotency_key === 'string' ? value.idempotency_key.trim() : '';
+  if (!opportunityId) throw new HttpError(400, 'opportunity_id is required');
+  if (!actor) throw new HttpError(400, 'actor is required');
+  if (!/^[A-Za-z0-9._:-]{1,80}$/.test(actor)) throw new HttpError(400, 'actor format is invalid');
+  if (actor === 'system-p0-recovery') throw new HttpError(403, 'recovery actor is not allowed on dashboard endpoint');
+  if (!idempotencyKey || idempotencyKey.length > 160) throw new HttpError(400, 'idempotency_key is required');
+  if (!['approve', 'ready_to_publish', 'mark_published', 'archive'].includes(action)) {
+    throw new HttpError(400, `unsupported lifecycle action: ${action}`);
+  }
+
+  const fingerprint = JSON.stringify({
+    opportunityId,
+    action,
+    actor,
+    idempotencyKey,
+    publishedAt: value.published_at ?? null,
+    platform: value.platform ?? null,
+    publishedUrl: value.published_url ?? null,
+  });
+  const cached = getCachedIdempotentResult(`${actor}:${idempotencyKey}`, fingerprint);
+  if (cached) return cached;
+  assertRateLimit(actor, action);
 
   const store = openReadStore();
   try {
     const writer = new LifecycleEventStore({ db: store.db });
-    const options = { actor: 'dashboard-operator' };
+    const options = { actor };
     let event;
     if (action === 'approve') event = writer.approve(opportunityId, options);
     if (action === 'ready_to_publish') event = writer.markReadyToPublish(opportunityId, options);
@@ -103,7 +245,9 @@ async function applyLifecycleAction(value) {
       });
     }
     rebuildUnifiedView(store.db);
-    return { ok: true, event, view: readView() };
+    const result = { ok: true, event, view: readView() };
+    cacheIdempotentResult(`${actor}:${idempotencyKey}`, fingerprint, result);
+    return result;
   } finally {
     store.close();
   }
@@ -111,9 +255,18 @@ async function applyLifecycleAction(value) {
 
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url || '/', `http://${host}:${port}`);
-  if (req.method === 'OPTIONS') return send(res, 204, '');
+  if (req.method === 'OPTIONS') {
+    if (!allowedHosts.has(String(req.headers.host || '')) || !allowedOrigins.has(String(req.headers.origin || ''))) {
+      return send(res, 403, { ok: false, error: 'origin or host is not allowed' });
+    }
+    return send(res, 204, '');
+  }
 
   try {
+    if (req.method === 'GET' && url.pathname === '/__v2/csrf') {
+      if (!allowedHosts.has(String(req.headers.host || ''))) throw new HttpError(403, 'host is not allowed');
+      return send(res, 200, { csrf_token: csrfToken });
+    }
     if (req.method === 'GET' && url.pathname === '/__v2/health') {
       const view = readView();
       return send(res, 200, { ok: true, db_path: dbPath, unified_view_count: view.items.length });
@@ -128,7 +281,19 @@ const server = http.createServer(async (req, res) => {
       return res.end(fs.readFileSync(favicon));
     }
     if (req.method === 'POST' && url.pathname === '/__v2/lifecycle') {
-      return send(res, 200, await applyLifecycleAction(await readBody(req)));
+      let value = {};
+      let context = requestContext(req, value);
+      try {
+        value = await readBody(req);
+        context = requestContext(req, value);
+        assertLocalMutationRequest(req);
+        const result = await applyLifecycleAction(value);
+        appendSecurityLog(context, 'success');
+        return send(res, 200, result);
+      } catch (error) {
+        appendSecurityLog(context, 'rejected', error);
+        throw error;
+      }
     }
     if (req.method === 'GET' && (url.pathname === '/' || /^\/growth-os(?:\/dashboard)?\/?$/i.test(url.pathname))) {
       const data = fs.readFileSync(dashboardFile);
@@ -137,7 +302,7 @@ const server = http.createServer(async (req, res) => {
     }
     return send(res, 404, 'Not found');
   } catch (error) {
-    return send(res, 503, { ok: false, error: error.message });
+    return send(res, error.status || 503, { ok: false, error: error.message });
   }
 });
 

@@ -185,6 +185,79 @@ export class LifecycleEventStore {
     );
   }
 
+  restorePendingReview(
+    opportunityId,
+    {
+      incidentId,
+      originalApproveEventId,
+      recoveryReason,
+      recoveredAt,
+      actor,
+      eventId,
+    } = {},
+  ) {
+    const id = requiredText(opportunityId, 'opportunityId');
+    const recoveryActor = requiredText(actor, 'actor');
+    if (recoveryActor !== 'system-p0-recovery') {
+      throw new Error('restorePendingReview requires actor system-p0-recovery');
+    }
+    const incident = requiredText(incidentId, 'incidentId');
+    const originalEventId = requiredText(
+      originalApproveEventId,
+      'originalApproveEventId',
+    );
+    const reason = requiredText(recoveryReason, 'recoveryReason');
+    const occurredAt = recoveredAt ?? this.#clock();
+    const recoveryEventId = eventId ?? randomUUID();
+
+    return withTransaction(this.#db, () => {
+      const original = this.#db
+        .prepare(`
+          SELECT event_seq, event_id, opportunity_id, from_status, to_status, event_type
+          FROM lifecycle_events
+          WHERE event_id = ?
+        `)
+        .get(originalEventId);
+      if (
+        !original
+        || original.opportunity_id !== id
+        || original.from_status !== 'pending_review'
+        || original.to_status !== 'approved'
+        || original.event_type !== 'approve'
+      ) {
+        throw new Error('original approve event is not valid for recovery');
+      }
+
+      const current = this.#requireCurrentEvent(id);
+      if (current.event_seq !== original.event_seq || current.to_status !== 'approved') {
+        throw new Error('opportunity has subsequent activity and is not safe to recover');
+      }
+
+      this.#appendLifecycleEvent({
+        eventId: recoveryEventId,
+        opportunityId: id,
+        fromStatus: 'approved',
+        toStatus: 'pending_review',
+        eventType: 'admin_restore_pending_review',
+        actor: recoveryActor,
+        occurredAt,
+        evidenceRef: {
+          incident_id: incident,
+          original_approve_event_id: originalEventId,
+          recovery_reason: reason,
+          recovered_at: occurredAt,
+          actor: recoveryActor,
+        },
+      });
+
+      this.#db
+        .prepare('UPDATE opportunities SET updated_at = ? WHERE opportunity_id = ?')
+        .run(occurredAt, id);
+
+      return this.#getLatestEvent(id);
+    });
+  }
+
   transition(opportunityId, toStatus, options = {}) {
     if (!LIFECYCLE_STATUSES.includes(toStatus)) {
       throw new Error(`invalid lifecycle status: ${toStatus}`);
@@ -334,7 +407,7 @@ export class LifecycleEventStore {
         eventType,
         actor,
         occurredAt,
-        optionalText(evidenceRef),
+        serializeEvidence(evidenceRef),
         publishedAt,
         platform,
         publishedUrl,

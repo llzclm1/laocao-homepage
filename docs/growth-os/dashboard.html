@@ -229,7 +229,9 @@
       hideAnnouncement: true,
       sort: "age",
       queueVisible: 12,
-      publishedVisible: 20
+      publishedVisible: 20,
+      csrfToken: null,
+      actor: (() => { try { return localStorage.getItem("growth_os_actor") || "dashboard-operator"; } catch { return "dashboard-operator"; } })()
     };
     let view = null;
     let lastLoadError = null;
@@ -239,6 +241,7 @@
 
     async function load(options = {}) {
       try {
+        await ensureCsrfToken();
         const response = await fetch(`${viewEndpoint}?t=${Date.now()}`, { cache: "no-store" });
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         view = await response.json();
@@ -250,6 +253,15 @@
         setServerStatus(false);
         app.innerHTML = `<section class="error">v2 Unified View 不可用：${escapeHtml(error.message)}</section>`;
       }
+    }
+
+    async function ensureCsrfToken() {
+      if (state.csrfToken) return;
+      const response = await fetch(`/__v2/csrf?t=${Date.now()}`, { cache: "no-store" });
+      if (!response.ok) throw new Error(`CSRF token unavailable (HTTP ${response.status})`);
+      const result = await response.json();
+      if (!result.csrf_token) throw new Error("CSRF token unavailable");
+      state.csrfToken = result.csrf_token;
     }
 
     function render(options = {}) {
@@ -411,7 +423,8 @@
     async function applyLifecycle(button) {
       const action = button.dataset.lifecycleAction;
       const feedback = button.closest("[data-card], .queue-row")?.querySelector(".action-feedback");
-      const payload = { opportunity_id: button.dataset.opportunityId, action };
+      button.dataset.idempotencyKey ||= `${state.actor}:${button.dataset.opportunityId}:${action}:${Date.now()}`;
+      const payload = { opportunity_id: button.dataset.opportunityId, action, actor: state.actor, idempotency_key: button.dataset.idempotencyKey };
       if (action === "mark_published") {
         payload.platform = window.prompt("平台：", "linkedin");
         payload.published_url = window.prompt("公开发布链接：", "");
@@ -423,7 +436,7 @@
       }
       button.disabled = true;
       try {
-        const response = await fetch(lifecycleEndpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+        const response = await fetch(lifecycleEndpoint, { method: "POST", headers: { "Content-Type": "application/json", "X-Growth-OS-CSRF": state.csrfToken, "X-Request-Id": makeRequestId() }, body: JSON.stringify(payload) });
         const result = await response.json();
         if (!response.ok) throw new Error(result.error || "Lifecycle action failed");
         if (result.view) {
@@ -436,6 +449,10 @@
         button.disabled = false;
         if (feedback) feedback.textContent = error.message;
       }
+    }
+
+    function makeRequestId() {
+      return window.crypto?.randomUUID ? window.crypto.randomUUID() : `dashboard-${Date.now()}-${Math.random().toString(16).slice(2)}`;
     }
 
     function bindInteractions() {

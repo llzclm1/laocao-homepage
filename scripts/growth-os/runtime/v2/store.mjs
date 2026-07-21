@@ -8,6 +8,128 @@ export const DEFAULT_DB_PATH = `${IMPLEMENTATION_ROOT}/data/growth-os/state/grow
 
 const schemaSql = readFileSync(new URL('./schema.sql', import.meta.url), 'utf8');
 
+const lifecycleEventsUpgradeSql = `
+  CREATE TABLE lifecycle_events_v2 (
+    event_seq INTEGER PRIMARY KEY AUTOINCREMENT,
+    event_id TEXT NOT NULL UNIQUE,
+    opportunity_id TEXT NOT NULL
+      REFERENCES opportunities (opportunity_id)
+      ON UPDATE CASCADE
+      ON DELETE RESTRICT,
+    from_status TEXT,
+    to_status TEXT NOT NULL
+      CHECK (to_status IN (
+        'pending_review',
+        'approved',
+        'ready_to_publish',
+        'published',
+        'archived'
+      )),
+    event_type TEXT NOT NULL
+      CHECK (event_type IN (
+        'create_opportunity',
+        'approve',
+        'mark_ready_to_publish',
+        'mark_published',
+        'archive',
+        'admin_restore_pending_review'
+      )),
+    actor TEXT NOT NULL,
+    occurred_at TEXT NOT NULL,
+    evidence_ref TEXT,
+    published_at TEXT,
+    platform TEXT,
+    published_url TEXT,
+    CHECK (
+      to_status <> 'published'
+      OR (
+        published_at IS NOT NULL
+        AND length(trim(published_at)) > 0
+        AND platform IS NOT NULL
+        AND length(trim(platform)) > 0
+        AND published_url IS NOT NULL
+        AND length(trim(published_url)) > 0
+      )
+    ),
+    CHECK (
+      to_status = 'published'
+      OR (
+        published_at IS NULL
+        AND platform IS NULL
+        AND published_url IS NULL
+      )
+    )
+  );
+  INSERT INTO lifecycle_events_v2 (
+    event_seq,
+    event_id,
+    opportunity_id,
+    from_status,
+    to_status,
+    event_type,
+    actor,
+    occurred_at,
+    evidence_ref,
+    published_at,
+    platform,
+    published_url
+  )
+  SELECT
+    event_seq,
+    event_id,
+    opportunity_id,
+    from_status,
+    to_status,
+    event_type,
+    actor,
+    occurred_at,
+    evidence_ref,
+    published_at,
+    platform,
+    published_url
+  FROM lifecycle_events;
+  DROP TABLE lifecycle_events;
+  ALTER TABLE lifecycle_events_v2 RENAME TO lifecycle_events;
+  CREATE INDEX lifecycle_events_opportunity_order
+    ON lifecycle_events (opportunity_id, event_seq DESC);
+  CREATE UNIQUE INDEX lifecycle_events_one_published_per_opportunity
+    ON lifecycle_events (opportunity_id)
+    WHERE to_status = 'published';
+  CREATE TRIGGER lifecycle_events_append_only_update
+  BEFORE UPDATE ON lifecycle_events
+  BEGIN
+    SELECT RAISE(ABORT, 'lifecycle_events is append-only');
+  END;
+  CREATE TRIGGER lifecycle_events_append_only_delete
+  BEFORE DELETE ON lifecycle_events
+  BEGIN
+    SELECT RAISE(ABORT, 'lifecycle_events is append-only');
+  END;
+`;
+
+function ensureLifecycleRecoveryEventType(db) {
+  const table = db
+    .prepare("SELECT sql FROM sqlite_schema WHERE type = 'table' AND name = 'lifecycle_events'")
+    .get();
+  if (table?.sql?.includes('admin_restore_pending_review')) {
+    return;
+  }
+
+  db.exec('DROP VIEW IF EXISTS unified_view');
+  db.exec('BEGIN IMMEDIATE');
+  try {
+    db.exec(lifecycleEventsUpgradeSql);
+    db.exec('COMMIT');
+  } catch (error) {
+    try {
+      db.exec('ROLLBACK');
+    } catch {
+      // Preserve the original schema upgrade error.
+    }
+    throw error;
+  }
+}
+
 export function withTransaction(db, operation) {
   db.exec('BEGIN IMMEDIATE');
   try {
@@ -31,6 +153,7 @@ export function openV2Store({ dbPath = DEFAULT_DB_PATH, rebuildView = true } = {
 
   const db = new DatabaseSync(dbPath);
   db.exec(schemaSql);
+  ensureLifecycleRecoveryEventType(db);
   if (rebuildView) {
     rebuildUnifiedView(db);
   }
