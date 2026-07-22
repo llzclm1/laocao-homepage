@@ -243,3 +243,13 @@
 - [x] Discovery 默认加入 X 查询，支持 x.com/twitter.com status URL；新捕获原文清理 Reddit footer，旧异常不自动改写。
 - [x] 临时库 v2 测试通过 38/38；生产库未写入，Dashboard 进程已重载并完成 API/DOM 契约复核。
 - [x] Social Workspace 与 Growth OS 全量回归通过 59/59；生产 SQLite SHA-256 指纹重载前后保持 `34a7bf35bfbdcb5ab936493a4e71b13b50ea516936b8a723851918a6540ea0b9`。
+
+## 2026-07-22 Operator Workspace 最后一次产品尝试
+
+- [x] 首页主视图改为 `Today’s Work`，最多展示 5 条内容完整且可以立即行动的 Work Item。
+- [x] Today 只选择有效的 `pending_review` 与 `ready_to_publish`；`approved` 留在二级工作区，`published`、`archived` 不进入首页。
+- [x] Today 按 Ready 优先、relevance score、最近活动时间排序；审核完成后记录离开 Today，下一条工作项补位。
+- [x] 全量 Review Queue、Approved、Ready、Published、Performance、System Health 收入默认折叠的“其他工作区”，保留原有 v2 数据和操作入口。
+- [x] 未修改数据库、Lifecycle、Discovery、Scheduler、Performance 或历史记录；真实生产页面 DOM 验收通过，首屏显示 4 条有效工作项且二级工作区默认关闭。
+- [x] v2 测试 39/39、Social Workspace 与 Runtime 全量回归 59/59、Dashboard 内联脚本解析通过。
+- [ ] 生产候选当前仍以 Reddit 为主，这是本轮明确冻结的 Discovery/数据问题，不在本次首页重组中伪造多平台工作项。

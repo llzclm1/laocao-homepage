@@ -372,3 +372,11 @@
 - `npm run test:growth:v2` 通过 38/38；Social Workspace 与 Runtime 全量回归通过 59/59；Dashboard 内联脚本解析通过。
 - 生产 Dashboard LaunchAgent 已重载到最新 v2 代码；生产 SQLite 只读，重载前后 SHA-256 均为 `34a7bf35bfbdcb5ab936493a4e71b13b50ea516936b8a723851918a6540ea0b9`。
 - 生产当前状态为 pending_review 18、approved 8、ready_to_publish 1、published 4、archived 55；活动异常仍只读暴露并由门禁阻止，不自动伪造或修复历史内容。
+
+## 2026-07-22 Operator Workspace 最后一次产品尝试
+
+- 将首页从状态摘要重组为 `Today’s Work`：首屏最多 5 条可执行 Work Item，不再渲染全量 Pending、Published 历史或顶部 KPI。
+- Today 仅接收内容完整且可立即操作的 pending/ready 记录；Ready 优先，其次 relevance score 和最近活动时间。Approved、Published、Archived 保留在默认折叠的其他工作区。
+- 真实生产 Dashboard DOM 验收：Today 显示 4 条工作项，卡片包含原始问题、来源、推荐理由、分类、Reply Draft、Publish Draft 和当前操作；二级工作区默认关闭，Published 不在首屏。
+- 未写入生产 SQLite，未修改 Lifecycle、Discovery、Scheduler、Performance 或历史数据。
+- 验证：`npm run test:growth:v2` 39/39；Social Workspace 与 Runtime 全量回归 59/59；Dashboard 内联脚本解析通过。

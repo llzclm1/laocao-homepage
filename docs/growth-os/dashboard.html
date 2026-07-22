@@ -92,6 +92,20 @@
     .actionable-item .work-item { margin-top: 12px; }
     .actionable-item .work-item-section { padding: 11px; }
     .lane-more { color: var(--muted); font-size: 12px; margin-top: 8px; }
+    .today-work-list { display: grid; gap: 14px; margin-top: 18px; }
+    .today-work-card { background: var(--soft); border: 1px solid var(--line); border-radius: 12px; padding: 15px; }
+    .today-work-card .work-item { margin-top: 14px; }
+    .today-work-card .actionable-title { font-size: 16px; }
+    .today-work-card .actions { margin-top: 12px; }
+    .today-work-card .actions button { font-size: 13px; padding: 8px 11px; }
+    .today-work-priority { align-items: center; display: flex; flex-wrap: wrap; gap: 7px; margin-top: 8px; }
+    .secondary-workspace { background: transparent; border: 1px solid rgba(229, 233, 239, .9); border-radius: 14px; box-shadow: var(--shadow); }
+    .secondary-workspace > summary { align-items: center; background: var(--panel); border-radius: 14px; cursor: pointer; display: flex; gap: 14px; justify-content: space-between; list-style: none; padding: 18px 22px; }
+    .secondary-workspace > summary::-webkit-details-marker { display: none; }
+    .secondary-workspace > summary::after { color: var(--subtle); content: "＋"; font-size: 18px; font-weight: 400; }
+    .secondary-workspace[open] > summary { border-bottom: 1px solid var(--line); border-radius: 14px 14px 0 0; }
+    .secondary-workspace[open] > summary::after { content: "−"; }
+    .secondary-workspace-body { display: grid; gap: 20px; padding: 20px; }
 
     .pill, .tag { align-items: center; background: var(--blue-soft); border-radius: 999px; color: var(--blue); display: inline-flex; font-size: 11px; font-weight: 800; line-height: 1; padding: 5px 8px; white-space: nowrap; }
     .pill.green, .tag.green { background: var(--green-soft); color: var(--green); }
@@ -227,11 +241,8 @@
   </header>
 
   <nav class="nav" aria-label="增长运营中心导航">
-    <a href="#today">Today</a>
-    <a href="#review-queue">Review Queue</a>
-    <a href="#ready-to-publish">Ready to Publish</a>
-    <a href="#published">Published</a>
-    <a href="#system-health">System Health</a>
+    <a href="#today">Today’s Work</a>
+    <a href="#secondary-workspace">其他工作区</a>
   </nav>
 
   <main id="app"><section class="surface">加载 v2 控制台中...</section></main>
@@ -302,66 +313,67 @@
       const published = rows.filter((row) => row.current_status === "published");
       const actionRequired = rows.filter((row) => row.performance_status === "action_required");
       const publishingErrors = rows.filter((row) => row.publish_error || row.publishing_status === "error");
+      const todayWork = selectTodayWork(rows);
       workItemRenderSequence = 0;
 
       const scrollY = options.preserveViewport ? window.scrollY : null;
       app.innerHTML = [
-        renderHeaderKpis(rows, pending, ready),
-        renderToday(pending, approved, ready, publishingErrors, actionRequired),
-        renderReviewQueue(pending),
-        renderReadyToPublish(ready),
-        renderPublished(published),
-        renderPerformance(published),
-        renderSystemHealth(rows)
+        renderToday(todayWork),
+        renderSecondaryWorkspace({ pending, approved, ready, published, rows, publishingErrors, actionRequired })
       ].join("");
       bindInteractions();
       if (scrollY !== null) requestAnimationFrame(() => window.scrollTo(0, scrollY));
     }
 
-    function renderHeaderKpis(rows, pending, ready) {
-      const failedJobs = view?.failed_jobs ?? view?.counts?.failed_jobs ?? null;
-      const health = lastLoadError ? "Error" : contentIntegrityComplete(rows) ? "Healthy" : "Warning";
-      const healthClass = health === "Healthy" ? "good" : health === "Warning" ? "warn" : "bad";
-      return `<section class="kpi-grid" aria-label="Growth OS 状态摘要">
-        ${kpi("Growth OS", health, healthClass, "v2 Unified View")}
-        ${kpi("上次运行", formatDate(view?.generated_at), "", "Unified View 更新时间", true)}
-        ${kpi("下次运行", nextSchedulerRun(), "", "预计计划时间", true)}
-        ${kpi("Pending Review", pending.length, "warn", "需要人工审核")}
-        ${kpi("Ready to Publish", ready.length, ready.length ? "good" : "", "等待发布")}
-        ${kpi("Failed Jobs", failedJobs === null ? "—" : failedJobs, failedJobs ? "bad" : "", failedJobs === null ? "v2 View 未暴露" : "生产任务异常")}
-      </section>`;
+    function selectTodayWork(rows, limit = 5) {
+      const candidates = rows.filter((row) => {
+        if (row.current_status === "published" || row.current_status === "archived") return false;
+        if (!["pending_review", "ready_to_publish"].includes(row.current_status)) return false;
+        if (row.current_status === "pending_review") return row.content_integrity?.approve?.valid === true;
+        return row.content_integrity?.ready?.valid === true;
+      });
+      return candidates
+        .sort((a, b) => {
+          const readyRank = (row) => row.current_status === "ready_to_publish" ? 0 : 1;
+          return readyRank(a) - readyRank(b)
+            || scoreValue(b) - scoreValue(a)
+            || ageValue(b) - ageValue(a);
+        })
+        .slice(0, limit);
     }
 
-    function kpi(label, value, tone, note, small = false) {
-      return `<article class="kpi ${tone || ""}"><span class="kpi-label">${escapeHtml(label)}</span><strong class="kpi-value ${small ? "small" : ""}">${escapeHtml(value)}</strong><p class="kpi-note">${escapeHtml(note)}</p></article>`;
-    }
-
-    function renderToday(pending, approved, ready, publishingErrors, actionRequired) {
-      const attention = [...approved, ...actionRequired];
-      const lanes = [
-        { title: "Pending Review", kicker: "人工审核", rows: pending, status: "pending_review", tone: "amber", empty: "没有待审核机会。" },
-        { title: "Ready to Publish", kicker: "发布动作", rows: ready, status: "ready_to_publish", tone: "green", empty: "没有待发布内容。" },
-        { title: "Publishing Errors", kicker: "异常", rows: publishingErrors, status: "error", tone: "red", empty: "没有发现发布错误。" },
-        { title: "Requires Attention", kicker: "需要跟进", rows: attention, status: "attention", tone: "", empty: "没有需要额外关注的记录。" }
-      ];
+    function renderToday(rows) {
+      const content = rows.length
+        ? `<div class="today-work-list">${rows.map(renderTodayCard).join("")}</div>`
+        : '<div class="empty">今天没有满足“内容完整且可立即行动”的工作项。</div>';
       return `<section class="surface section-anchor" id="today">
-        <div class="section-head"><div><p class="section-kicker green">Today / 今日</p><h2 class="section-title">现在需要处理什么？</h2><p class="meta">只显示当前 v2 主链上的人工动作，不显示 Published 历史。</p></div><span class="pill green">${pending.length + ready.length + attention.length} 项待处理</span></div>
-        <div class="today-grid">${lanes.map(renderTodayLane).join("")}</div>
+        <div class="section-head"><div><p class="section-kicker green">Today</p><h2 class="section-title">Today’s Work</h2><p class="meta">只显示今天值得先处理的 ${rows.length ? rows.length : "0"} 条工作，不显示 Published 历史。</p></div><span class="pill green">${rows.length} 条</span></div>
+        ${content}
       </section>`;
     }
 
-    function renderTodayLane(lane) {
-      const visible = lane.rows.slice(0, 3);
-      const content = visible.length ? visible.map((row) => renderActionableItem(row, lane.status)).join("") : `<div class="empty">${lane.empty}</div>`;
-      const more = lane.rows.length > visible.length ? `<p class="lane-more">另有 ${lane.rows.length - visible.length} 项，见下方列表。</p>` : "";
-      return `<article class="today-lane"><div class="today-lane-head"><div><p class="section-kicker ${lane.tone}">${lane.kicker}</p><h3>${lane.title}</h3></div><span class="lane-count">${lane.rows.length}</span></div><div class="lane-list">${content}</div>${more}</article>`;
+    function renderTodayCard(row) {
+      const nextAction = row.current_status === "ready_to_publish" ? "准备发布" : "审核并回复";
+      const actions = renderActions(row, row.current_status);
+      return `<article class="today-work-card" data-card="${escapeHtml(row.opportunity_id)}"><p class="actionable-title">${escapeHtml(row.title || "未命名机会")}</p><div class="today-work-priority"><span class="pill green">${escapeHtml(nextAction)}</span><span class="pill">${escapeHtml(platformLabel(row))}</span><span class="pill ${scoreValue(row) >= 80 ? "green" : scoreValue(row) >= 60 ? "amber" : "gray"}">优先级 ${escapeHtml(formatScore(row))}</span><span class="meta">${escapeHtml(formatAge(row))}</span></div>${renderWorkItem(row, { includePublished: false })}<div class="actions">${actions}</div><p class="status-feedback action-feedback"></p></article>`;
     }
 
-    function renderActionableItem(row, laneStatus) {
-      const actionStatus = laneStatus === "attention" ? row.current_status : laneStatus;
-      const actions = laneStatus === "error" ? `<span class="pill red">检查发布状态</span>` : renderActions(row, actionStatus);
-      const workItem = laneStatus === "error" ? renderWorkItem(row, { includePublished: true }) : renderWorkItem(row, { includePublished: false });
-      return `<article class="actionable-item" data-card="${escapeHtml(row.opportunity_id)}"><p class="actionable-title">${escapeHtml(row.title || "未命名机会")}</p><div class="actionable-meta"><span class="pill ${statusTone(row.current_status)}">${escapeHtml(statusLabel(row.current_status))}</span><span class="meta">${escapeHtml(platformLabel(row))}</span><span class="meta">${escapeHtml(formatAge(row))}</span></div>${workItem}<div class="actions">${actions}</div><p class="status-feedback action-feedback"></p></article>`;
+    function renderSecondaryWorkspace({ pending, approved, ready, published, rows, publishingErrors, actionRequired }) {
+      return `<details class="secondary-workspace section-anchor" id="secondary-workspace"><summary><span class="summary-status"><strong>其他工作区</strong><span class="meta">Review Queue · Approved · Ready · Analytics · Health</span></span><span class="meta">需要时展开</span></summary><div class="secondary-workspace-body">${renderSecondaryAttention(publishingErrors, actionRequired)}${renderReviewQueue(pending)}${renderApprovedQueue(approved)}${renderReadyToPublish(ready)}${renderPublished(published)}${renderPerformance(published)}${renderSystemHealth(rows)}</div></details>`;
+    }
+
+    function renderSecondaryAttention(publishingErrors, actionRequired) {
+      const rows = [
+        ...publishingErrors.map((row) => ({ row, label: "发布异常", tone: "red" })),
+        ...actionRequired.map((row) => ({ row, label: "Performance 待处理", tone: "amber" })),
+      ];
+      if (!rows.length) return "";
+      return `<section class="surface section-anchor" id="attention"><div class="section-head"><div><p class="section-kicker red">Attention</p><h2 class="section-title">需要额外处理</h2></div><span class="pill red">${rows.length} 条</span></div><div class="queue-list">${rows.map(({ row, label, tone }) => `<article class="queue-row"><div class="queue-main"><div class="queue-cell"><p class="queue-title">${escapeHtml(row.title || "未命名机会")}</p><span class="meta">${escapeHtml(platformLabel(row))}</span></div><span class="pill ${tone}">${label}</span><div class="queue-actions">${renderActions(row, row.current_status)}</div></div></article>`).join("")}</div></section>`;
+    }
+
+    function renderApprovedQueue(rows) {
+      if (!rows.length) return "";
+      return `<section class="surface section-anchor" id="approved"><div class="section-head"><div><p class="section-kicker">Approved</p><h2 class="section-title">已审核，等待发布准备</h2><p class="meta">不占用 Today；内容完整的记录可以继续进入 Ready。</p></div><span class="pill">${rows.length} 条</span></div><div class="queue-list">${rows.map((row) => `<article class="queue-row"><div class="queue-main"><div class="queue-cell"><p class="queue-title">${escapeHtml(row.title || "未命名机会")}</p><span class="meta">${escapeHtml(platformLabel(row))}</span></div><span class="pill">已审核</span><div class="queue-actions">${renderActions(row, "approved")}</div></div><div class="queue-detail">${renderWorkItem(row, { includePublished: false })}</div></article>`).join("")}</div></section>`;
     }
 
     function renderReviewQueue(rows) {
