@@ -157,6 +157,57 @@ test('P0 recovery is append-only and dashboard lifecycle writes are protected', 
     );
     afterIdempotency.close();
 
+    const savedPublishDraft = await jsonRequest(`${baseUrl}/__v2/content`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        opportunity_id: opportunities[0],
+        content_type: 'publish_draft',
+        content_text: 'Publish content about the supplier opportunity before ordering.',
+        actor: 'qa-operator',
+        idempotency_key: 'qa-publish-draft',
+      }),
+    });
+    assert.equal(savedPublishDraft.response.status, 200);
+    const ready = await jsonRequest(`${baseUrl}/__v2/lifecycle`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        opportunity_id: opportunities[0],
+        action: 'ready_to_publish',
+        actor: 'qa-operator',
+        idempotency_key: 'qa-ready-once',
+      }),
+    });
+    assert.equal(ready.response.status, 200);
+    const published = await jsonRequest(`${baseUrl}/__v2/lifecycle`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        opportunity_id: opportunities[0],
+        action: 'mark_published',
+        actor: 'qa-operator',
+        idempotency_key: 'qa-publish-once',
+        published_at: '2026-07-22T01:00:00.000Z',
+        platform: 'reddit',
+        published_url: 'https://reddit.example/p0-test-0',
+        published_content: 'The actual published supplier guidance.',
+      }),
+    });
+    assert.equal(published.response.status, 200);
+    const editPublished = await jsonRequest(`${baseUrl}/__v2/content`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        opportunity_id: opportunities[0],
+        content_type: 'reply_draft',
+        content_text: 'A draft must not be edited after publishing.',
+        actor: 'qa-operator',
+        idempotency_key: 'qa-edit-published',
+      }),
+    });
+    assert.equal(editPublished.response.status, 409);
+
     const invalidOrigin = await jsonRequest(`${baseUrl}/__v2/lifecycle`, {
       method: 'POST',
       headers: { ...headers, Origin: 'http://evil.example' },
@@ -170,6 +221,13 @@ test('P0 recovery is append-only and dashboard lifecycle writes are protected', 
       body: JSON.stringify({ ...legitimatePayload, opportunity_id: opportunities[1], idempotency_key: 'missing-token' }),
     });
     assert.equal(missingToken.response.status, 403);
+
+    const genericActor = await jsonRequest(`${baseUrl}/__v2/lifecycle`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ ...legitimatePayload, opportunity_id: opportunities[1], actor: 'dashboard-operator', idempotency_key: 'generic-actor' }),
+    });
+    assert.equal(genericActor.response.status, 403);
 
     const batchPayload = await jsonRequest(`${baseUrl}/__v2/lifecycle`, {
       method: 'POST',

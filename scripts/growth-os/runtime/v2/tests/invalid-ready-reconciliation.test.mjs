@@ -104,4 +104,7 @@ test('Dashboard shows a non-empty action for missing Publish Draft without expos
   assert.equal(html.includes('Publish Draft missing'), true);
   assert.equal(html.includes('Create Publish Draft'), true);
   assert.equal(html.includes('data-content-create-shell hidden'), true);
+  assert.equal(html.includes('dashboard-operator'), false);
+  assert.equal(html.includes('row.content_integrity?.approve'), true);
+  assert.equal(html.includes('contentIntegrityComplete(rows)'), true);
 });

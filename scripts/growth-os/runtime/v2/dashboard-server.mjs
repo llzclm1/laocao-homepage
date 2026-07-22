@@ -221,6 +221,7 @@ async function applyLifecycleAction(value) {
   if (!opportunityId) throw new HttpError(400, 'opportunity_id is required');
   if (!actor) throw new HttpError(400, 'actor is required');
   if (!/^[A-Za-z0-9._:-]{1,80}$/.test(actor)) throw new HttpError(400, 'actor format is invalid');
+  if (actor === 'dashboard-operator') throw new HttpError(403, 'an explicit operator actor is required');
   if (actor === 'system-p0-recovery') throw new HttpError(403, 'recovery actor is not allowed on dashboard endpoint');
   if (!idempotencyKey || idempotencyKey.length > 160) throw new HttpError(400, 'idempotency_key is required');
   if (!['approve', 'ready_to_publish', 'mark_published', 'archive'].includes(action)) {
@@ -291,6 +292,7 @@ async function saveContent(value) {
   if (contentText.length > 50_000) throw new HttpError(413, 'content_text is too large');
   if (!actor) throw new HttpError(400, 'actor is required');
   if (!/^[A-Za-z0-9._:-]{1,80}$/.test(actor)) throw new HttpError(400, 'actor format is invalid');
+  if (actor === 'dashboard-operator') throw new HttpError(403, 'an explicit operator actor is required');
   if (actor === 'system-p0-recovery') throw new HttpError(403, 'recovery actor is not allowed on dashboard endpoint');
   if (!idempotencyKey || idempotencyKey.length > 160) throw new HttpError(400, 'idempotency_key is required');
 
@@ -309,6 +311,11 @@ async function saveContent(value) {
 
   const store = openReadStore();
   try {
+    const current = store.db.prepare('SELECT current_status FROM unified_view WHERE opportunity_id = ?').get(opportunityId);
+    if (!current) throw new HttpError(404, 'opportunity not found');
+    if (['published', 'archived'].includes(current.current_status)) {
+      throw new HttpError(409, `content cannot be edited after ${current.current_status}`);
+    }
     const content = new ContentStore({ db: store.db });
     const saved = content.saveVersion({
       opportunityId,

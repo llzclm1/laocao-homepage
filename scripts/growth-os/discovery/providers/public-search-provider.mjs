@@ -80,6 +80,7 @@ function matchesPlatform(value, platform) {
     if (platform === "quora") return host === "quora.com" && pathname.length > 2 && !/^\/(?:profile|topic|about|help|policy|rules)\//.test(pathname);
     if (platform === "linkedin") return (host === "linkedin.com" || host.endsWith(".linkedin.com")) && /\/(?:posts|feed\/update)\//.test(pathname);
     if (platform === "reddit") return host === "reddit.com" && /^\/r\/[^/]+\/comments\/[^/]+/.test(pathname);
+    if (platform === "x") return (host === "x.com" || host === "twitter.com") && /^\/[^/]+\/status\/\d+/.test(pathname);
     return false;
   } catch {
     return false;

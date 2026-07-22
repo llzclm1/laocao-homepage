@@ -3,6 +3,7 @@ import { dirname } from 'node:path';
 import { DatabaseSync } from 'node:sqlite';
 import { rebuildUnifiedView, unifiedViewExists } from './unified-view.mjs';
 import { readContentPackets } from './content-store.mjs';
+import { getOpportunityContentIntegrity } from './content-integrity.mjs';
 
 export const IMPLEMENTATION_ROOT = '/Users/caocao/Documents/我的主页';
 export const DEFAULT_DB_PATH = `${IMPLEMENTATION_ROOT}/data/growth-os/state/growth-os-v2.sqlite`;
@@ -200,12 +201,63 @@ export function readUnifiedView(db) {
     let evidence = null;
     try { evidence = row.evidence_json ? JSON.parse(row.evidence_json) : null; } catch { evidence = null; }
     const { evidence_json: _evidenceJson, ...viewRow } = row;
+    const content = packets.get(row.opportunity_id);
+    const approveIntegrity = summarizeIntegrity(getOpportunityContentIntegrity(db, row.opportunity_id));
+    const readyIntegrity = summarizeIntegrity(getOpportunityContentIntegrity(db, row.opportunity_id, { requirePublishDraft: true }));
+    const publishedIntegrity = summarizePublishedIntegrity({ row: viewRow, content });
+    const platform = viewRow.platform
+      || content?.original_content?.platform
+      || content?.latest_reply_draft?.platform
+      || content?.latest_publish_draft?.platform
+      || evidence?.platform
+      || evidence?.source_platform
+      || null;
+    const statusIntegrity = row.current_status === 'pending_review' || row.current_status === 'approved'
+      ? approveIntegrity
+      : row.current_status === 'ready_to_publish'
+        ? readyIntegrity
+        : row.current_status === 'published'
+          ? publishedIntegrity
+          : null;
     return {
       ...viewRow,
+      platform,
       evidence,
-      content: packets.get(row.opportunity_id),
+      relevance_score: evidence?.relevance?.relevance_score ?? null,
+      relevance_band: evidence?.relevance?.relevance_band ?? null,
+      relevance_category: evidence?.relevance?.relevance_category ?? null,
+      relevance_reasons: evidence?.relevance?.relevance_reasons ?? [],
+      content_integrity: {
+        approve: approveIntegrity,
+        ready: readyIntegrity,
+        published: publishedIntegrity,
+      },
+      content_repair_required: Boolean(statusIntegrity && !statusIntegrity.valid),
+      content_repair_reasons: statusIntegrity?.reasons ?? [],
+      content,
     };
   });
+}
+
+function summarizeIntegrity(result) {
+  return {
+    valid: Boolean(result?.valid),
+    missing: result?.missing ?? [],
+    reasons: result?.reasons ?? [],
+  };
+}
+
+function summarizePublishedIntegrity({ row, content }) {
+  const missing = [];
+  if (!content?.published_content?.content_text) missing.push('published_content');
+  if (!row.published_at) missing.push('published_at');
+  if (!row.platform) missing.push('platform');
+  if (!row.published_url) missing.push('published_url');
+  return {
+    valid: missing.length === 0,
+    missing,
+    reasons: missing.map((field) => `missing_${field}`),
+  };
 }
 
 export function recordBriefDelivery(

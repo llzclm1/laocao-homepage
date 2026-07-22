@@ -8,7 +8,11 @@ import {
   loadLegacySources,
 } from './legacy-data-sources.mjs';
 import { insertContentVersionInTransaction } from './content-store.mjs';
-import { assessDraftAssociation, assessOriginalContent } from './content-integrity.mjs';
+import {
+  assessDraftAssociation,
+  assessOriginalContent,
+  cleanCapturedOriginalContent,
+} from './content-integrity.mjs';
 import { DEFAULT_DB_PATH, IMPLEMENTATION_ROOT, openV2Store, readUnifiedView } from './store.mjs';
 import { withTransaction } from './store.mjs';
 
@@ -95,7 +99,7 @@ function uniqueCandidates(matches, contentType) {
   for (const match of matches) {
     const snapshot = recordSnapshot(match.record);
     if (contentType === 'original_content') {
-      const value = getFirstText(match.record, ORIGINAL_KEYS);
+      const value = cleanCapturedOriginalContent(getFirstText(match.record, ORIGINAL_KEYS));
       if (value && assessOriginalContent(value).valid) {
         candidates.push({ contentText: value, ...match });
       }
@@ -286,7 +290,7 @@ export function buildContentCompletionPlan({ db, sourceSnapshot = IMPLEMENTATION
           metadata: {
             migration_source: selected.candidate.source.relativePath,
             migration_record: selected.candidate.source_record,
-            migration_content_type: 'snippet',
+            migration_content_type: 'original_content',
             source_occurred_at: legacyTimestamp(recordSnapshot(selected.candidate.record)),
           },
         });

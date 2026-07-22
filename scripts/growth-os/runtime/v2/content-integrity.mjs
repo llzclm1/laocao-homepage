@@ -19,6 +19,23 @@ function text(value) {
   return typeof value === 'string' && value.trim() ? value.trim() : null;
 }
 
+function decodeCapturedEntities(value) {
+  return String(value || '')
+    .replace(/&(?:nbsp|#32);/gi, ' ')
+    .replace(/&(?:amp|#38);/gi, '&')
+    .replace(/&(?:quot|#34);/gi, '"')
+    .replace(/&(?:apos|#39);/gi, "'")
+    .replace(/&lt;/gi, '<')
+    .replace(/&gt;/gi, '>');
+}
+
+const REDDIT_FOOTER = /\s+submitted by\s+\/?u\/[^\s]+\s+\[link\]\s+\[comments\]\s*$/i;
+
+export function cleanCapturedOriginalContent(value) {
+  const content = text(decodeCapturedEntities(value));
+  return content ? content.replace(REDDIT_FOOTER, '').trim() : null;
+}
+
 function parseEvidence(value) {
   if (!value) return {};
   if (typeof value === 'object') return value;
@@ -49,8 +66,12 @@ function meaningfulTokens(value) {
 }
 
 export function assessOriginalContent(value) {
-  const content = text(value);
+  const rawContent = text(value);
+  const content = cleanCapturedOriginalContent(rawContent);
   if (!content) return { valid: false, reason: 'missing_original_content' };
+  if (rawContent !== content && REDDIT_FOOTER.test(decodeCapturedEntities(rawContent))) {
+    return { valid: false, reason: 'source_footer_present' };
+  }
   if (content.length < 40) return { valid: false, reason: 'short_original_content' };
   if (INVALID_ORIGINAL_PATTERNS.some((pattern) => pattern.test(content))) {
     return { valid: false, reason: 'snippet_or_footer_original_content' };

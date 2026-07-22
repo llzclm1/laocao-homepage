@@ -89,6 +89,8 @@
     .actionable-meta { align-items: center; display: flex; gap: 6px; margin-top: 6px; }
     .actionable-item .actions { margin-top: 9px; }
     .actionable-item .actions button { font-size: 12px; padding: 7px 9px; }
+    .actionable-item .work-item { margin-top: 12px; }
+    .actionable-item .work-item-section { padding: 11px; }
     .lane-more { color: var(--muted); font-size: 12px; margin-top: 8px; }
 
     .pill, .tag { align-items: center; background: var(--blue-soft); border-radius: 999px; color: var(--blue); display: inline-flex; font-size: 11px; font-weight: 800; line-height: 1; padding: 5px 8px; white-space: nowrap; }
@@ -248,10 +250,21 @@
       queueVisible: 12,
       publishedVisible: 20,
       csrfToken: null,
-      actor: (() => { try { return localStorage.getItem("growth_os_actor") || "dashboard-operator"; } catch { return "dashboard-operator"; } })()
+      actor: (() => {
+        try {
+          const stored = localStorage.getItem("growth_os_actor");
+          if (stored && /^operator-[A-Za-z0-9._:-]+$/.test(stored)) return stored;
+          const generated = `operator-${window.crypto?.randomUUID?.().slice(0, 12) || `${Date.now()}-${Math.random().toString(16).slice(2)}`}`;
+          localStorage.setItem("growth_os_actor", generated);
+          return generated;
+        } catch {
+          return `operator-session-${Date.now()}`;
+        }
+      })()
     };
-    let view = null;
-    let lastLoadError = null;
+  let view = null;
+  let lastLoadError = null;
+  let workItemRenderSequence = 0;
 
     load();
     document.getElementById("reload").addEventListener("click", () => load());
@@ -289,6 +302,7 @@
       const published = rows.filter((row) => row.current_status === "published");
       const actionRequired = rows.filter((row) => row.performance_status === "action_required");
       const publishingErrors = rows.filter((row) => row.publish_error || row.publishing_status === "error");
+      workItemRenderSequence = 0;
 
       const scrollY = options.preserveViewport ? window.scrollY : null;
       app.innerHTML = [
@@ -306,7 +320,7 @@
 
     function renderHeaderKpis(rows, pending, ready) {
       const failedJobs = view?.failed_jobs ?? view?.counts?.failed_jobs ?? null;
-      const health = lastLoadError ? "Error" : publishedMetadataComplete(rows) ? "Healthy" : "Warning";
+      const health = lastLoadError ? "Error" : contentIntegrityComplete(rows) ? "Healthy" : "Warning";
       const healthClass = health === "Healthy" ? "good" : health === "Warning" ? "warn" : "bad";
       return `<section class="kpi-grid" aria-label="Growth OS 状态摘要">
         ${kpi("Growth OS", health, healthClass, "v2 Unified View")}
@@ -346,7 +360,8 @@
     function renderActionableItem(row, laneStatus) {
       const actionStatus = laneStatus === "attention" ? row.current_status : laneStatus;
       const actions = laneStatus === "error" ? `<span class="pill red">检查发布状态</span>` : renderActions(row, actionStatus);
-      return `<article class="actionable-item" data-card="${escapeHtml(row.opportunity_id)}"><p class="actionable-title">${escapeHtml(row.title || "未命名机会")}</p><div class="actionable-meta"><span class="pill ${statusTone(row.current_status)}">${escapeHtml(statusLabel(row.current_status))}</span><span class="meta">${escapeHtml(formatAge(row))}</span></div><div class="actions">${actions}</div><p class="status-feedback action-feedback"></p></article>`;
+      const workItem = laneStatus === "error" ? renderWorkItem(row, { includePublished: true }) : renderWorkItem(row, { includePublished: false });
+      return `<article class="actionable-item" data-card="${escapeHtml(row.opportunity_id)}"><p class="actionable-title">${escapeHtml(row.title || "未命名机会")}</p><div class="actionable-meta"><span class="pill ${statusTone(row.current_status)}">${escapeHtml(statusLabel(row.current_status))}</span><span class="meta">${escapeHtml(platformLabel(row))}</span><span class="meta">${escapeHtml(formatAge(row))}</span></div>${workItem}<div class="actions">${actions}</div><p class="status-feedback action-feedback"></p></article>`;
     }
 
     function renderReviewQueue(rows) {
@@ -420,8 +435,12 @@
       const sections = [];
       if (includeOriginal) {
         const original = content.original_content;
-        const reason = row.evidence?.relevance?.reasons?.join("；") || row.evidence?.why_relevant || "推荐理由未保存";
-        sections.push(`<section class="work-item-section"><div class="work-item-head"><span class="work-item-title">Original Question</span><span class="pill gray">${escapeHtml(original ? "已捕获" : "缺失")}</span></div>${original ? `<p class="detail-copy">${escapeHtml(original.content_text)}</p>` : '<p class="work-item-missing">原始正文未捕获</p>'}<p class="work-item-meta">平台：${escapeHtml(original?.platform || platformLabel(row))} · 来源：${sourceLink(row)} · 推荐理由：${escapeHtml(reason)}</p></section>`);
+        const originalValid = !row.content_integrity?.approve?.missing?.includes("original_content");
+        const reason = row.evidence?.relevance?.relevance_reasons?.join("；") || row.evidence?.relevance?.reasons?.join("；") || row.evidence?.why_relevant || "推荐理由未保存";
+        const classification = classifyRow(row);
+        const originalLabel = original && originalValid ? "已捕获" : "缺失/无效";
+        const originalBody = original && originalValid ? `<p class="detail-copy">${escapeHtml(original.content_text)}</p>` : `<p class="work-item-missing">原始正文未捕获或内容质量不合格：${escapeHtml(formatIntegrityReasons(row.content_integrity?.approve))}</p>`;
+        sections.push(`<section class="work-item-section"><div class="work-item-head"><span class="work-item-title">Original Question</span><span class="pill ${original && originalValid ? "gray" : "red"}">${escapeHtml(originalLabel)}</span></div>${originalBody}<p class="work-item-meta">平台：${escapeHtml(original?.platform || platformLabel(row))} · 来源：${sourceLink(row)} · 推荐理由：${escapeHtml(reason)} · 分类：${escapeHtml(classification.length ? classification.join(" · ") : "未分类")}</p></section>`);
       }
       if (includeReply) sections.push(renderContentEditor(row, "reply_draft", "Reply Draft", "Copy Reply", "尚未生成回复"));
       if (includePublish) sections.push(renderContentEditor(row, "publish_draft", "Publish Draft", "Copy Content", "尚未生成发布文案", true));
@@ -434,11 +453,13 @@
 
     function renderContentEditor(row, contentType, label, copyLabel, emptyLabel, isPublish = false) {
       const current = contentType === "reply_draft" ? row.content?.latest_reply_draft : row.content?.latest_publish_draft;
-      const editorId = `content-${contentType}-${row.opportunity_id}`.replace(/[^a-zA-Z0-9_-]/g, "-");
+      const editorId = `content-${contentType}-${row.opportunity_id}-${++workItemRenderSequence}`.replace(/[^a-zA-Z0-9_-]/g, "-");
       if (!current && isPublish) {
         return `<section class="work-item-section work-item-editor"><div class="work-item-head"><span class="work-item-title">${label}</span><span class="pill red">缺失</span></div><p class="work-item-missing">Publish Draft missing</p><button type="button" data-content-create data-content-type="${contentType}" data-opportunity-id="${escapeHtml(row.opportunity_id)}">Create Publish Draft</button><div data-content-create-shell hidden><textarea id="${editorId}" data-content-editor data-content-type="${contentType}" data-opportunity-id="${escapeHtml(row.opportunity_id)}" data-publish-content placeholder="在此创建第一版${label}"></textarea><div class="work-item-actions"><button type="button" data-content-save data-content-type="${contentType}" data-opportunity-id="${escapeHtml(row.opportunity_id)}">保存新版本</button><button type="button" class="secondary" data-content-copy data-content-type="${contentType}" data-opportunity-id="${escapeHtml(row.opportunity_id)}" disabled>${copyLabel}</button></div></div><p class="status-feedback content-feedback"></p></section>`;
       }
-      return `<section class="work-item-section work-item-editor"><div class="work-item-head"><span class="work-item-title">${label}</span><span class="pill ${current ? "green" : "gray"}">${current ? `v${current.version}` : "缺失"}</span></div>${current ? `<textarea id="${editorId}" data-content-editor data-content-type="${contentType}" data-opportunity-id="${escapeHtml(row.opportunity_id)}" ${isPublish ? "data-publish-content" : ""}>${escapeHtml(current.content_text)}</textarea>` : `<p class="work-item-missing">${emptyLabel}</p><textarea id="${editorId}" data-content-editor data-content-type="${contentType}" data-opportunity-id="${escapeHtml(row.opportunity_id)}" placeholder="在此创建第一版${label}"></textarea>`}<div class="work-item-actions"><button type="button" data-content-save data-content-type="${contentType}" data-opportunity-id="${escapeHtml(row.opportunity_id)}">保存新版本</button><button type="button" class="secondary" data-content-copy data-content-type="${contentType}" data-opportunity-id="${escapeHtml(row.opportunity_id)}">${copyLabel}</button></div><p class="status-feedback content-feedback"></p></section>`;
+      const statusText = current ? (current.status === "draft" ? "Draft" : current.status) : "Missing";
+      const updatedText = current?.updated_at ? ` · 最后更新：${formatDate(current.updated_at)}` : "";
+      return `<section class="work-item-section work-item-editor"><div class="work-item-head"><span class="work-item-title">${label}</span><span class="pill ${current ? "green" : "gray"}">${current ? `${escapeHtml(statusText)} · v${current.version}` : "缺失"}</span></div>${current ? `<textarea id="${editorId}" data-content-editor data-content-type="${contentType}" data-opportunity-id="${escapeHtml(row.opportunity_id)}" ${isPublish ? "data-publish-content" : ""}>${escapeHtml(current.content_text)}</textarea>` : `<p class="work-item-missing">${emptyLabel}</p><textarea id="${editorId}" data-content-editor data-content-type="${contentType}" data-opportunity-id="${escapeHtml(row.opportunity_id)}" placeholder="在此创建第一版${label}"></textarea>`}<p class="work-item-meta">状态：${escapeHtml(statusText)}${updatedText} · 文本框可编辑</p><div class="work-item-actions"><button type="button" data-content-save data-content-type="${contentType}" data-opportunity-id="${escapeHtml(row.opportunity_id)}">保存新版本</button><button type="button" class="secondary" data-content-copy data-content-type="${contentType}" data-opportunity-id="${escapeHtml(row.opportunity_id)}">${copyLabel}</button></div><p class="status-feedback content-feedback"></p></section>`;
     }
 
     function renderPerformance(rows) {
@@ -450,15 +471,25 @@
     }
 
     function renderSystemHealth(rows) {
-      const health = lastLoadError ? "Error" : publishedMetadataComplete(rows) ? "Healthy" : "Warning";
+      const health = lastLoadError ? "Error" : contentIntegrityComplete(rows) ? "Healthy" : "Warning";
       const tone = health === "Healthy" ? "green" : health === "Warning" ? "amber" : "red";
-      return `<details class="health section-anchor" id="system-health"><summary><span class="summary-status"><span class="pill ${tone}">${health}</span><strong>System Health</strong></span><span class="meta">技术详情默认隐藏</span></summary><div class="health-body"><div class="health-grid"><div class="health-item"><span class="meta">Unified View</span><strong>${rows.length} rows</strong></div><div class="health-item"><span class="meta">Published metadata</span><strong>${publishedMetadataComplete(rows) ? "Complete" : "Check"}</strong></div><div class="health-item"><span class="meta">Dashboard source</span><strong>v2 only</strong></div><div class="health-item"><span class="meta">Lifecycle writes</span><strong>Single Writer</strong></div></div><p class="health-detail">${escapeHtml(lastLoadError ? lastLoadError.message : `view=${viewEndpoint} · generated_at=${view?.generated_at || "—"} · lifecycle=${lifecycleEndpoint}`)}</p></div></details>`;
+      return `<details class="health section-anchor" id="system-health"><summary><span class="summary-status"><span class="pill ${tone}">${health}</span><strong>System Health</strong></span><span class="meta">技术详情默认隐藏</span></summary><div class="health-body"><div class="health-grid"><div class="health-item"><span class="meta">Unified View</span><strong>${rows.length} rows</strong></div><div class="health-item"><span class="meta">Content integrity</span><strong>${contentIntegrityComplete(rows) ? "Complete" : "Check"}</strong></div><div class="health-item"><span class="meta">Published content</span><strong>${publishedMetadataComplete(rows) ? "Complete" : "Check"}</strong></div><div class="health-item"><span class="meta">Dashboard source</span><strong>v2 only</strong></div><div class="health-item"><span class="meta">Lifecycle writes</span><strong>Single Writer</strong></div></div><p class="health-detail">${escapeHtml(lastLoadError ? lastLoadError.message : `view=${viewEndpoint} · generated_at=${view?.generated_at || "—"} · lifecycle=${lifecycleEndpoint}`)}</p></div></details>`;
     }
 
     function renderActions(row, status) {
-      if (status === "pending_review") return `${actionButton(row, "approve", "审核通过")}${actionButton(row, "archive", "归档", "secondary")}`;
-      if (status === "approved") return row.content?.latest_publish_draft ? actionButton(row, "ready_to_publish", "Ready to Publish") : '<span class="pill amber">先保存 Publish Draft</span>';
-      if (status === "ready_to_publish") return row.content?.latest_publish_draft ? actionButton(row, "mark_published", "记录已发布") : '<span class="pill red">缺少 Publish Draft</span>';
+      if (status === "pending_review") {
+        const integrity = row.content_integrity?.approve;
+        const action = integrity?.valid ? actionButton(row, "approve", "审核通过") : blockedAction("无法审核", integrity);
+        return `${action}${actionButton(row, "archive", "归档", "secondary")}`;
+      }
+      if (status === "approved") {
+        const integrity = row.content_integrity?.ready;
+        return integrity?.valid ? actionButton(row, "ready_to_publish", "Ready to Publish") : blockedAction("无法进入 Ready", integrity);
+      }
+      if (status === "ready_to_publish") {
+        const integrity = row.content_integrity?.ready;
+        return integrity?.valid ? actionButton(row, "mark_published", "记录已发布") : blockedAction("无法发布", integrity);
+      }
       if (row.performance_status === "action_required") return '<span class="pill red">Performance attention</span>';
       return "";
     }
@@ -467,13 +498,36 @@
       return `<button type="button" class="${className}" data-lifecycle-action="${action}" data-opportunity-id="${escapeHtml(row.opportunity_id)}">${label}</button>`;
     }
 
+    function blockedAction(label, integrity) {
+      const reasons = formatIntegrityReasons(integrity);
+      return `<span class="pill red" title="${escapeHtml(reasons)}">${escapeHtml(label)}：${escapeHtml(reasons)}</span>`;
+    }
+
+    function formatIntegrityReasons(integrity) {
+      const labels = {
+        missing_original_content: "原始正文缺失",
+        short_original_content: "原始正文过短",
+        source_footer_present: "原文包含来源页脚",
+        missing_reply_draft: "Reply Draft 缺失",
+        reply_draft_semantic_mismatch: "Reply Draft 与原文不匹配",
+        missing_platform: "平台缺失",
+        missing_source_url: "来源链接缺失",
+        invalid_source_url: "来源链接无效",
+        missing_publish_draft: "Publish Draft 缺失",
+        missing_published_content: "Published Content 缺失",
+        missing_published_at: "发布时间缺失",
+        missing_published_url: "发布链接缺失",
+      };
+      return integrity?.reasons?.length ? integrity.reasons.map((reason) => labels[reason] || reason).join("、") : "内容完整性未确认";
+    }
+
     async function applyLifecycle(button) {
       const action = button.dataset.lifecycleAction;
       const feedback = button.closest("[data-card], .queue-row")?.querySelector(".action-feedback");
       button.dataset.idempotencyKey ||= `${state.actor}:${button.dataset.opportunityId}:${action}:${Date.now()}`;
       const payload = { opportunity_id: button.dataset.opportunityId, action, actor: state.actor, idempotency_key: button.dataset.idempotencyKey };
       if (action === "mark_published") {
-        payload.platform = window.prompt("平台：", "linkedin");
+          payload.platform = window.prompt("平台（例如 reddit、quora、linkedin、x）：", "");
         payload.published_url = window.prompt("公开发布链接：", "");
         payload.published_at = new Date().toISOString();
         const editor = button.closest("[data-card], .queue-row")?.querySelector("[data-publish-content]");
@@ -599,7 +653,7 @@
       try { return new URL(value, window.location.origin).hostname.replace(/^www\./, "") || value; } catch { return value; }
     }
 
-    function platformLabel(row) { return row.platform || "Unassigned"; }
+    function platformLabel(row) { return row.platform || row.evidence?.platform || "Unassigned"; }
 
     function scoreValue(row) {
       const value = row.score ?? row.relevance_score ?? row.quality_score;
@@ -634,7 +688,16 @@
     function performanceTone(status) { return status === "action_required" ? "red" : status === "confirmed" ? "green" : "gray"; }
 
     function publishedMetadataComplete(rows) {
-      return rows.filter((row) => row.current_status === "published").every((row) => row.published_at && row.platform && row.published_url);
+      return rows.filter((row) => row.current_status === "published").every((row) => row.published_at && row.platform && row.published_url && row.content?.published_content?.content_text);
+    }
+
+    function contentIntegrityComplete(rows) {
+      return rows.filter((row) => row.current_status !== "archived").every((row) => {
+        if (row.current_status === "pending_review" || row.current_status === "approved") return row.content_integrity?.approve?.valid === true;
+        if (row.current_status === "ready_to_publish") return row.content_integrity?.ready?.valid === true;
+        if (row.current_status === "published") return row.content_integrity?.published?.valid === true;
+        return true;
+      });
     }
 
     function nextSchedulerRun() {

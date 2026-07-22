@@ -3,9 +3,10 @@ import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { test } from 'node:test';
-import { candidateFromItem, runV2Discovery } from '../discovery.mjs';
+import { candidateFromItem, DEFAULT_QUERIES, runV2Discovery } from '../discovery.mjs';
 import { scoreDiscoveryItem } from '../discovery-relevance.mjs';
 import { openV2Store } from '../store.mjs';
+import { parseDuckDuckGoHtml } from '../../../discovery/providers/public-search-provider.mjs';
 
 function item(overrides = {}) {
   return {
@@ -133,4 +134,14 @@ test('candidate evidence persists relevance without changing lifecycle semantics
   const candidate = candidateFromItem(item(), new Date('2026-07-21T10:00:00.000Z'));
   assert.equal(candidate.relevance.decision, 'keep');
   assert.equal(candidate.evidence.relevance.relevance_score, candidate.relevance.score);
+});
+
+test('X is enabled in the default discovery configuration and accepts status URLs', () => {
+  assert.equal(DEFAULT_QUERIES.x.length, 2);
+  const items = parseDuckDuckGoHtml(
+    '<a class="result__a" href="https://x.com/buyer/status/123">Supplier question</a><a class="result__snippet">China supplier MOQ question</a>',
+    'x',
+  );
+  assert.equal(items.length, 1);
+  assert.equal(items[0].url, 'https://x.com/buyer/status/123');
 });

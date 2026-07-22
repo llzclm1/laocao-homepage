@@ -1,5 +1,63 @@
 # CODEX_LOG
 
+## 2026-07-21 Growth OS v2 Dashboard UI/UX
+
+- 将 Growth OS v2 控制台收紧为 Header KPI、Today、Review Queue、Ready to Publish、Published、Performance 和默认折叠的 System Health。
+- Review Queue 默认只渲染有限数量的紧凑记录；正文、原始字段和技术细节默认折叠，增加类型筛选、低价值隐藏、排序和加载更多。
+- Published 改为紧凑表格；现有 v2 Unified View 读取、Lifecycle 写入路径和生产运行时未修改。
+- 浏览器实际验收通过：页面服务正常、默认筛选开启、详情折叠、浏览器控制台无报错、网络仅请求 v2 页面和 Unified View。
+
+## 2026-07-20 Growth OS Publishing Pipeline P0
+
+- 在统一 Social Agent opportunity 投影上补齐 `pending_review → approved → ready_to_publish → published → archived` 生命周期；Reply 与 Original Post 使用同一套状态和本地操作日志，不增加数据库、Collector、Signal Engine 或外部账号操作。
+- Dashboard 的待发布区只显示最多 5 条 `ready_to_publish` 项；待审核区只统计 `pending_review`，审核通过项保留在同页等待“准备发布”，最近发布最多显示 10 条。
+- Morning Brief 优先显示 `ready_to_publish` 的具体发布动作；没有真实待发布项时，不以旧静态草稿或 Discovery 占位项填充。
+- Published 记录保留发布时间、平台、类型、来源、关联链接与 Performance 空字段（views/clicks/comments/likes/CTR）；本轮不采集表现数据。
+- 36 项 Social Agent、Morning Brief、Social Collector 测试及 Discovery workspace、Dashboard 内联脚本解析均通过；本地浏览器确认真实候选可查看原帖、复制草稿、审核通过或归档。未提交或推送。
+
+## 2026-07-20 Growth OS Phase 2.5 Signal Engine P0
+
+- 新增 `scripts/growth-os/runtime/signals/`：按 search/content 分类生成事件式业务信号；核心链路为 Fact → Normalize → Merge → Signal → Morning Brief。
+- Signal 保留 `status`、`first_seen`、`last_seen`、`times_seen`、`consumed_at`；七天未再出现的历史信号在下一次运行时标记为 `archived`，不新增定时任务。
+- GSC 查询与页面信号按 `normalized_key` 合并证据，区分 Factory Bridge、Games、Brand；GSC 不可用时不使用旧缓存伪造实时信号。
+- Morning Collector 完成后先写入 `data/growth-os/runtime/signals-latest.json`，Morning Brief 读取该文件；Dashboard 仅增加折叠式 Growth Signals 摘要，不新增路由、数据库、API 或采集器。
+- 39 项相关测试、Dashboard 内联脚本语法和本次改动范围差异检查通过；按用户要求不提交、不推送。
+
+## 2026-07-19 SEO P0 页面信号收拢
+
+- 收拢 Checklist 元数据、H1、可下载文本和 Buyer Guides 索引卡片的 verification 口径；未改 URL、301、robots。
+- `/for-buyers/` 已通过品牌与 canonical 检查；quotation comparison 锚文本在现有工作树中已正确指向正式页面。
+- XML sitemap 生成器与根 sitemap 不再列出 `llms.txt`/`ai-sitemap.json`；机器资源继续由直接 URL/现有链接提供。
+- 本轮不处理 P1 证据内容、P2 外部分发，不提交或推送。
+
+## 2026-07-19 SEO P1 核心入口 CTA 收口
+
+- Buyer Guides 首页主 CTA 改为直达 Supplier Reply Review，次级入口直达 Sample Report。
+- 样品前问题、付款前检查、报价比较页面的 Review / Sample Report / Examples 路径已复核；报价比较页补充 Examples 链接。
+- Supplier Reply Review 保持现有直接答案、匿名示例、案例入口和主 CTA；未改 URL、canonical、robots 或 sitemap。
+
+## 2026-07-16 GROWTH-004
+
+- 新增 Morning Collector 本地脚本和现有 8787 服务端点；仅由首页“开始今天”触发，不新增服务、API 接入、数据库、计划任务或外部互动。
+- 浏览器采集只读访问 Cloudflare、GSC、Clarity、Semrush；GEO、社交、转化复用现有本地记录，品牌监控复用本次 Semrush 结果。
+- 结果写入 `data/growth-os/runtime/morning-collector-latest.json` 和日期文件，所有记录明确包含来源、更新时间、`realtime: false` 与阻塞原因。
+- 真实演练曾完成 7/8 来源；随后验证 Chrome Direct 每次新会话都可能要求人工允许控制权限，未确认时系统正确记录 3/8 完成和 5 个阻塞，不复用旧值。
+- 现有工作台可显示八个来源卡片、最近结果和三项今日建议；未自动发布、点赞、评论、私信或发送任何内容。
+- 修复“开始今天无反应”：8787 服务进程的 PATH 找不到 `browser-act`，请求会立即以 `spawn browser-act ENOENT` 结束；现改为解析显式配置、服务 PATH 和用户目录下的可执行文件，并增加回归测试。修复后真实请求完成 7/8 来源，Clarity 因页面指标结构未匹配保留为 `blocked`。
+
+## 2026-07-16 GROWTH-003
+
+- 将增长运营中心默认首页从长篇信息总览收紧为 3 个有顺序的今日任务、3 个工作摘要和 1 个网站与渠道数据摘要。
+- 长正文与详细数据默认隐藏；审核、发布、外部信号、数据区域在同页互斥展开，并可收起返回今日任务。
+- 数据摘要复用现有 Cloudflare、Analytics、GSC 和异常扫描文件，显示来源与更新时间，明确标记手动导入而非实时数据；未新增路由、状态或监控能力。
+- 本地浏览器验证默认页高度 992px（720px 视口）、全部详情默认隐藏、互斥展开、返回入口及原有操作控件均通过。
+
+## 2026-07-16 GROWTH-002
+
+- 将现有 `dashboard.html` 明确为“增长运营中心”，增加今日任务、审核、发布、数据四个首页导航，不新增第二入口或业务模块。
+- 新增 `npm run growth:dashboard` 固定启动方式，并在 Growth OS README 记录默认端口和打开地址。
+- 已确认 PID 1644 正在运行 `local-dashboard-server.mjs`，`http://127.0.0.1:8787/growth-os/` 与数据视图均返回 HTTP 200；未执行任何对外发布。
+
 ## 2026-07-14 Supplier Reply Review 旧入口 301 收口
 
 - 将 `/free-supplier-reply-review/` 从客户端跳转升级为 Cloudflare HTTP 301，保留查询参数并单跳到正式 Supplier Reply Review 页面。
@@ -9,6 +67,10 @@
 
 - 完成主站与 Factory 域站内链接边界清理：主站 Buyer 链接留在主域，Supplier Reply Review 作为核心转化页，For Chinese Factories 独立指向 Factory 服务页。
 - 未修改视觉、页面正文、sitemap、AI sitemap、`llms.txt` 或广告页发现设置。
+
+## 2026-07-12
+
+- 修正 Social Content Agent 固定模板问题：新增“比较中国供应商报价时不要只看单价”主题，为 LinkedIn、X、Medium、Substack、Quora、Facebook 生成新的平台草稿 ID；未发布到外部平台。
 
 ## 2026-07-06
 
@@ -230,3 +292,83 @@
 - 将候选工作流收口为 Inbox、Today、Results、Reports 四个视图，Today 默认最多显示 3 条人工选择的候选。
 - 增加严格的 Viewed、Draft Prepared、Replied（必须有真实回复 URL）和结果动作；本地操作后立即刷新 Viewer 数据，不等待 Runtime。
 - Business Signals 只从 Results 的人工结果与真实发布记录计算；未新增登录、评论、发布或采集功能。
+# 2026-07-17
+
+- Growth OS 首页 UX：将今日前三项收口为业务动作优先（审核、发布、回复），补充 `First Qualified Buyer Submission` 目标和当日完成度；“开始今天”改为“开始采集/重新采集”；网站数据摘要改为结论式状态卡，并保留详细数据折叠区。仅修改 `docs/growth-os/dashboard.html`，未新增 API、路由、模块或自动外部互动。
+- GROWTH-006：Morning Collector 的 Clarity 改为独立会话和 15 秒硬预算（13 秒工作 + 2 秒关闭），增加阶段日志与 `collected/partial/extraction_failed/blocked` 状态；Clarity 不再进入今日前三任务。连续 3 次完整运行均到达 Semrush，Clarity 会话已清理；未提交或推送。
+- GROWTH-006 Social Collector P0：将社交阶段从本地历史记录改为只读 LinkedIn/Quora 浏览器采集；每个平台独立会话和 15 秒硬超时，社交阶段总预算 35 秒，失败隔离并继续后续来源。两次独立运行均完成，Morning Collector 整轮不被阻塞，首页摘要/详情验证通过，未提交或推送。
+- Morning Collector 状态口径修复：识别重复 Chrome / Browser Act 权限错误为单一根因；区分实时、缓存、人工、暂不可用和需要授权；Dashboard 隐藏原始错误并保留折叠技术详情。Morning/Social 测试 18/18、脚本语法和 diff 检查通过；未提交或推送。
+- Chrome → Safari 降级适配：新增 Browser Adapter 与 Safari WebDriver 备用实现；Chrome 失败时按有限路径尝试 Safari，并在 Dashboard 标明适配器。22 项测试通过；真实运行时 Chrome 已恢复，Cloudflare 页面未提取指标、GSC/Semrush/品牌监控实时采集成功，Safari 真实降级待开启 Remote Automation 后验证；未提交或推送。
+- Growth OS Dashboard P0 UX 收紧：Morning Collector 改为紧凑状态行；社交摘要不再显示 `Unknown`；网站与渠道详细来源改为默认折叠；GSC、Semrush、GEO、转化指标改用运营语言。Dashboard 内联脚本、22 项 Runtime/Social/Browser 测试、页面 HTTP 200 和相关文案检查通过；未提交或推送。
+- X 相关性过滤：移除 X 对 Build in Public / AI builder 主题的默认匹配，新增项目相关信号过滤；更新 X 平台规则为中国采购、供应商沟通和买家问题；无关 Vibe Coding 候选不再进入候选或 Dashboard。新增过滤断言通过；Phase A 与平台策略测试通过。Workspace-flow 的既有审计数据仍有 2 个历史一致性错误，未因本次任务修改。
+- X AI 内容排除：新增 AI、Codex、Vibe Coding、LLM、GPT、自动化和 workflow 排除词；刷新本地候选视图，历史发现记录保留追溯但不再作为可执行机会展示。未发布或操作 X 账号。
+
+## 2026-07-20 Today Actions 与 Review Queue 对齐
+
+- 修正 Morning Brief 的数据源错位：审核任务改为只读取 `data/social-agent/view.json` 的 Review Queue；Growth OS `opportunities` 不再被误标为审核。
+- 空 Review Queue 不生成审核任务；显式内容计划使用“建议创作”文案；补充空队列、真实队列、状态过滤和内容计划测试。
+- 未修改 Collector、Signal Engine、Dashboard 主结构、路由或外部账号操作；未提交、未推送。
+
+## 2026-07-20 Growth OS 平台优先级
+
+- 将 Today Actions、Morning Brief 与 Review Queue 默认顺序统一为：SEO/GEO（100）、LinkedIn 回复（90）、Quora 回复（85）、Email/Lead（80）、LinkedIn 原创（75）、Reddit 回复（60）。
+- Reddit 仍保留在统一审核队列，但不会为了凑满今日三项而进入 Today Actions；真实候选排序验证为 LinkedIn 回复、Quora 回复、LinkedIn 原创、Reddit 回复。
+- 未修改 Discovery、Collector、Signal Engine、Morning Collector、队列数据结构、路由或外部账号；未提交、未推送。
+
+## 2026-07-20 Growth OS Opportunity 数量策略
+
+- 统一审核池限制为回复最多 20 条、原创最多 10 条；按现有优先级和业务评分保留靠前候选，来源层的发现记录不因此删除。
+- Today Actions 保持最多 3 项，SEO/GEO 最多占 2 项；无 URL 的 Discovery Task 与网站状态占位不再进入今日任务。
+- LinkedIn、Quora 的每日人工回复上限设为 2，Reddit 设为 1；Dashboard 显示回复/原创池计数，并将最近完成展示限制为 10 条。
+- 自动原创草稿每天最多生成 1 条 LinkedIn；当前没有独立的 X 自动生成分支，因此在缺少证据时保持 0。
+- 未新增 Collector、路由、端口、数据库或外部账号操作；未提交、未推送。
+
+## 2026-07-20 Growth OS 全链路逻辑修复
+
+- 修正 Morning Brief 与 Social Agent 生命周期的边界：旧 `dashboard-view.today_plan` 中已被 Social Queue 接管的机会不再重复生成 Today Action。
+- 发布生命周期增加公开 HTTPS URL 门槛；Dashboard 通过人工输入 URL 后才允许记录 `published`，并展示已发布链接。
+- Reply Opportunity 的待发布按钮恢复为“标记已回复”，直接复用已知原帖链接；Original Post 仍要求填写实际发布链接。
+- Leads Dashboard 改读本地 buyer-signal JSONL 兼容入口，保留原有转化 CSV；新增记录带有采集时间和人工来源标记。
+- 定时 Discovery 刷新时同步重建 Signals 与 Morning Brief；DuckDuckGo 202 异步挑战记录为 `blocked`。
+- scheduled Discovery 默认把 Morning Collector → Signals → Morning Brief 纳入同一轮；保留 `--skip-morning-collector` 作为显式降级选项。
+- 回归验证：63 项 Node 测试、Discovery Phase A、workspace-flow、platform strategy 全部通过；未提交、未推送。
+- 发布动作修正：审核通过的 Reply / Original 可直接标记完成；系统追加 published 记录后自动追加 archived 记录，保留发布时间与原帖/发布链接，Dashboard 从当前队列隐藏该项。新增生命周期回归测试；未提交、未推送。
+- Ready To Publish 口径收紧为仅主动生成的 Original Post；Reply Opportunity 从待发布区移出，在待审核/待回复区继续保留，Morning Brief 仍以“回复”动作表达。新增优先级回归测试；未提交、未推送。
+- Dashboard 增加单一“生成今日内容”按钮，调用现有 `/__social-agent-run` 并执行 Discovery → Social Agent → Review Queue → Morning Brief；不登录、不自动回复或发布。实跑结果：Reddit 抓取 10 条、加入 2 条；Quora/LinkedIn 当前未配置搜索 Provider，正确返回 `not_configured`。
+- 更新 Social Agent 搜索关键词为用户指定的 20 个 Factory Bridge 主题；Discovery 查询生成不再只取前 6 个关键词，而是按现有轮换机制使用完整列表。
+- 修正“生成今日内容”反馈：不再只显示平台新增候选数，改为显示回复机会、原创发帖和本轮新增发现的实际数量。
+
+## 2026-07-21 Growth OS v2 Content Work Item
+
+- Implemented the typed `content_items` Source of Truth and `ContentStore` for original content, versioned reply/publish drafts, and immutable published content.
+- Added typed Unified View fields and Work Item editing/copying/published-content display in the existing Growth OS Dashboard.
+- Completed production backup and explicit-content migration without changing lifecycle/status counts; v2 regression suite passes 24/24.
+- Content Layer vertical slice: Today and Review Queue now reuse the same Work Item renderer; added visible original/source/reason/classification/draft status and enforced Reply Draft + Publish Draft before Ready. Temporary browser E2E reached Published with complete metadata; production DB was not written.
+
+## 2026-07-21 Production Content Layer Completion
+
+- 新增受控 `scripts/growth-os/runtime/v2/content-completion.mjs`：明确旧草稿优先迁移；缺失回复基于已捕获原文生成并标记 `review_required`；Publish Draft 从 Reply Draft 派生并保留版本；不伪造历史 Published Content。
+- 生产库完成备份 `data/growth-os/state/growth-os-v2-before-content-completion-20260721-145935.sqlite`，按固化 dry-run 追加 12 条 Reply Draft、21 条 Publish Draft；Opportunity、Lifecycle、状态分布未变化。
+- 临时库与生产校验通过：v2 测试 30/30，真实 Work Item 副本完成 Reply/Publish 版本编辑 → Approved → Ready → Published，发布事实包含时间、平台、链接，Performance 为 pending。
+- 4 条历史 Published 因没有可证实正文来源保持缺失，未从旧 URL 或通用 body 推断；未提交、未推送。
+
+## 2026-07-22 Content Integrity Gates
+
+- 新增 `content-integrity.mjs`，统一校验正文有效性、平台、来源链接和草稿语义关联；Lifecycle API 对门禁失败返回 422，不写入 Lifecycle Event。
+- Discovery 只接受明确捕获的正文，拒绝 snippet/footer/短正文；成功记录在进入 pending_review 前通过 ContentStore 保存 original、reply 和 publish draft。
+- Content Completion 与迁移停止把 `snippet` 当作 original_content；旧草稿语义错配或无法确认关联时跳过。
+- 临时库 `npm run test:growth:v2` 通过 35/35；生产库只读审计指纹不变，当前 14 条活动记录会被门禁阻止，未执行生产修复。
+
+## 2026-07-22 Production Bug Audit 修复
+
+- 统一 Dashboard 与 Lifecycle 的内容完整性判断，阻止缺失原文、回复草稿、平台、来源 URL 或发布草稿的操作按钮。
+- 修复健康状态误报、relevance score/platform 未暴露、默认通用 actor、重复 DOM id；已发布/归档记录禁止继续保存草稿。
+- Discovery 默认纳入 X；新原文清理 Reddit footer，历史生产内容仅计算标记，不自动迁移或覆盖。
+- 临时数据库 `npm run test:growth:v2` 通过 38/38；生产 SQLite 保持只读，使用副本完成浏览器 DOM 验证。
+
+## 2026-07-22 Production Bug Audit 回归收口
+
+- 发现并修正旧 Social Workspace 测试仍断言已移除的 v1 Dashboard 错误文案；测试改为校验 v2 Unified View 入口并确认旧文案不存在。
+- `npm run test:growth:v2` 通过 38/38；Social Workspace 与 Runtime 全量回归通过 59/59；Dashboard 内联脚本解析通过。
+- 生产 Dashboard LaunchAgent 已重载到最新 v2 代码；生产 SQLite 只读，重载前后 SHA-256 均为 `34a7bf35bfbdcb5ab936493a4e71b13b50ea516936b8a723851918a6540ea0b9`。
+- 生产当前状态为 pending_review 18、approved 8、ready_to_publish 1、published 4、archived 55；活动异常仍只读暴露并由门禁阻止，不自动伪造或修复历史内容。

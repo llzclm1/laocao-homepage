@@ -6,6 +6,7 @@ import { test } from 'node:test';
 import { ContentStore } from '../content-store.mjs';
 import {
   assessOriginalContent,
+  cleanCapturedOriginalContent,
   getOpportunityContentIntegrity,
 } from '../content-integrity.mjs';
 import { runV2Discovery } from '../discovery.mjs';
@@ -156,6 +157,45 @@ test('Discovery rejects snippet-only and footer content before creating an oppor
     }
   } finally {
     rmSync(directory, { recursive: true, force: true });
+  }
+});
+
+test('Original content quality rejects source footers and cleans new captures', () => {
+  const raw = 'A complete buyer question about a China supplier order. &#32; submitted by &#32; /u/buyer [link] &#32; [comments]';
+  assert.equal(cleanCapturedOriginalContent(raw), 'A complete buyer question about a China supplier order.');
+  assert.deepEqual(assessOriginalContent(raw), { valid: false, reason: 'source_footer_present' });
+});
+
+test('Unified View exposes relevance, platform, and computed repair state', () => {
+  const store = openV2Store({ dbPath: ':memory:' });
+  try {
+    const writer = new LifecycleEventStore({ db: store.db });
+    writer.createOpportunity({
+      opportunityId: 'view-fields-001',
+      dedupeKey: 'view-fields-001',
+      sourceUrl: 'https://quora.com/view-fields-001',
+      title: 'China supplier quotation question',
+      evidence: {
+        platform: 'quora',
+        relevance: {
+          relevance_score: 90,
+          relevance_band: '80-100',
+          relevance_category: 'A',
+          relevance_reasons: ['buyer_intent_present'],
+        },
+      },
+      actor: 'view-test',
+    });
+    saveContent(store, 'view-fields-001', 'original_content', 'A buyer asks about a China supplier quotation before placing an order.', 'quora');
+    saveContent(store, 'view-fields-001', 'reply_draft', 'Ask the supplier about the quotation before placing the order.', 'quora');
+    const row = readUnifiedView(store.db)[0];
+    assert.equal(row.platform, 'quora');
+    assert.equal(row.relevance_score, 90);
+    assert.deepEqual(row.relevance_reasons, ['buyer_intent_present']);
+    assert.equal(row.content_integrity.approve.valid, true);
+    assert.equal(row.content_repair_required, false);
+  } finally {
+    store.close();
   }
 });
 

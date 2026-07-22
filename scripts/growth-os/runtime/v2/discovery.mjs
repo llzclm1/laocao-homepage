@@ -2,18 +2,26 @@ import { createHash, randomUUID } from 'node:crypto';
 import { createSearchProvider } from '../../discovery/providers/search-provider.mjs';
 import { collectRedditRssSource } from '../../discovery/sources/reddit-rss-source.mjs';
 import { collectSearchSource } from '../../discovery/sources/search-source.mjs';
-import { assessDraftAssociation, assessOriginalContent } from './content-integrity.mjs';
+import {
+  assessDraftAssociation,
+  assessOriginalContent,
+  cleanCapturedOriginalContent,
+} from './content-integrity.mjs';
 import { generateReplyDraft } from './content-completion.mjs';
 import { relevanceEvidence, scoreDiscoveryItem } from './discovery-relevance.mjs';
 import { LifecycleEventStore } from './lifecycle-event-store.mjs';
 import { DEFAULT_DB_PATH, openV2Store } from './store.mjs';
 
-const DEFAULT_QUERIES = Object.freeze({
+export const DEFAULT_QUERIES = Object.freeze({
   quora: [
     'site:quora.com China Chinese supplier manufacturer factory MOQ sample quotation payment lead time',
   ],
   linkedin: [
     'site:linkedin.com/posts China Chinese supplier manufacturer factory MOQ sample quotation payment lead time',
+  ],
+  x: [
+    'site:x.com China Chinese supplier manufacturer factory MOQ sample quotation payment lead time',
+    'site:twitter.com China Chinese supplier manufacturer factory MOQ sample quotation payment lead time',
   ],
   reddit: [
     'site:reddit.com/r/Alibaba supplier manufacturer factory MOQ sample quotation',
@@ -73,7 +81,7 @@ export function candidateFromItem(item, now = new Date()) {
   const title = text(item.title || item.raw_topic);
   if (!sourceUrl || !title) return null;
   const relevance = scoreDiscoveryItem({ ...item, source_url: sourceUrl });
-  const originalContent = text(item.original_content || item.body || item.post_body);
+  const originalContent = cleanCapturedOriginalContent(item.original_content || item.body || item.post_body);
   const dedupeKey = `url:${sourceUrl}`;
   return {
     opportunityId: opportunityId(dedupeKey),
