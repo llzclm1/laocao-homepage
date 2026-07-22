@@ -1,5 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { ContentStore, insertContentVersionInTransaction } from './content-store.mjs';
+import { assertOpportunityContentIntegrity } from './content-integrity.mjs';
 import { withTransaction } from './store.mjs';
 
 export const LIFECYCLE_STATUSES = Object.freeze([
@@ -70,6 +71,7 @@ export class LifecycleEventStore {
     const occurredAt = input.occurredAt ?? this.#clock();
     const actor = requiredText(input.actor ?? 'operator', 'actor');
     const eventId = input.eventId ?? randomUUID();
+    const initialContent = Array.isArray(input.initialContent) ? input.initialContent : [];
 
     return withTransaction(this.#db, () => {
       this.#db
@@ -107,6 +109,14 @@ export class LifecycleEventStore {
         evidenceRef: input.evidenceRef,
       });
 
+      for (const content of initialContent) {
+        insertContentVersionInTransaction(this.#db, {
+          ...content,
+          opportunityId,
+          occurredAt: content.occurredAt ?? occurredAt,
+        });
+      }
+
       return this.#getLatestEvent(opportunityId);
     });
   }
@@ -125,7 +135,7 @@ export class LifecycleEventStore {
       opportunityId,
       'ready_to_publish',
       'mark_ready_to_publish',
-      { ...options, requiresPublishDraft: true },
+      { ...options, requiresReplyDraft: true, requiresPublishDraft: true },
     );
   }
 
@@ -141,9 +151,7 @@ export class LifecycleEventStore {
     return withTransaction(this.#db, () => {
       const current = this.#requireCurrentEvent(opportunityId);
       this.#assertTransition(current.to_status, 'published');
-      if (!this.#content.hasLatest(opportunityId, 'publish_draft')) {
-        throw new Error('publish_draft is required before publishing');
-      }
+      assertOpportunityContentIntegrity(this.#db, opportunityId, { requirePublishDraft: true });
       const occurredAt = options.occurredAt ?? this.#clock();
       const actor = requiredText(options.actor ?? 'operator', 'actor');
       const eventId = options.eventId ?? randomUUID();
@@ -445,8 +453,17 @@ export class LifecycleEventStore {
     return withTransaction(this.#db, () => {
       const current = this.#requireCurrentEvent(id);
       this.#assertTransition(current.to_status, toStatus);
+      if (options.requiresReplyDraft && !this.#content.hasLatest(id, 'reply_draft')) {
+        throw new Error('reply_draft is required before ready_to_publish');
+      }
       if (options.requiresPublishDraft && !this.#content.hasLatest(id, 'publish_draft')) {
         throw new Error('publish_draft is required before ready_to_publish');
+      }
+      if (toStatus === 'approved') {
+        assertOpportunityContentIntegrity(this.#db, id);
+      }
+      if (toStatus === 'ready_to_publish') {
+        assertOpportunityContentIntegrity(this.#db, id, { requirePublishDraft: true });
       }
 
       this.#appendLifecycleEvent({

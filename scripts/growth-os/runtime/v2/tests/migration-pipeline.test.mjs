@@ -41,6 +41,8 @@ function createFixture() {
       url: 'https://legacy.example/source/001',
       dedupe_key: 'legacy-001',
       status: 'pending_review',
+      body: 'A buyer asks how to compare a China supplier sample before ordering.',
+      platform: 'LinkedIn',
       draft: 'Explicit legacy publish draft.',
     },
     {
@@ -63,6 +65,8 @@ function createFixture() {
       url: 'https://legacy.example/source/003',
       dedupe_key: 'legacy-003',
       status: 'ready_to_publish',
+      body: 'A buyer asks about a China supplier quotation before ordering.',
+      platform: 'X',
       draft: 'Ready draft',
     },
     {
@@ -82,7 +86,8 @@ function createFixture() {
       at: '2026-07-21T01:00:00.000Z',
       snapshot: {
         id: 'L-001',
-        suggested_reply: 'Explicit reply draft.',
+        platform: 'LinkedIn',
+        suggested_reply: 'Ask the supplier for sample acceptance criteria before production.',
       },
     },
     {
@@ -93,6 +98,7 @@ function createFixture() {
       at: '2026-07-21T02:00:00.000Z',
       snapshot: {
         id: 'L-001',
+        platform: 'LinkedIn',
         draft: 'Explicit legacy publish draft.',
       },
     },
@@ -305,8 +311,23 @@ test('a mid-transaction publish failure rolls back the event and leaves the prio
       actor: 'tester',
       occurredAt: '2026-07-21T00:00:00.000Z',
     });
+    const content = new ContentStore({ db: store.db });
+    content.saveVersion({
+      opportunityId: 'rollback-001',
+      contentType: 'original_content',
+      contentText: 'A buyer asks about a supplier rollback opportunity before ordering.',
+      platform: 'test',
+      createdBy: 'tester',
+    });
+    content.saveVersion({
+      opportunityId: 'rollback-001',
+      contentType: 'reply_draft',
+      contentText: 'Reply about the supplier rollback opportunity before ordering.',
+      platform: 'test',
+      createdBy: 'tester',
+    });
     writer.approve('rollback-001');
-    new ContentStore({ db: store.db }).saveVersion({
+    content.saveVersion({
       opportunityId: 'rollback-001',
       contentType: 'publish_draft',
       contentText: 'Rollback publish draft',

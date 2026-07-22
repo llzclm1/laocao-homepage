@@ -8,6 +8,7 @@ import { fileURLToPath } from 'node:url';
 import test from 'node:test';
 import { openV2Store, readUnifiedView } from '../store.mjs';
 import { LifecycleEventStore } from '../lifecycle-event-store.mjs';
+import { ContentStore } from '../content-store.mjs';
 
 const ROOT = fileURLToPath(new URL('../../../../../', import.meta.url));
 
@@ -27,6 +28,21 @@ function createTempDatabase() {
       title: `P0 test opportunity ${index}`,
       body: 'P0 protection test body',
       actor: 'p0-test-fixture',
+    });
+    const content = new ContentStore({ db: store.db });
+    content.saveVersion({
+      opportunityId,
+      contentType: 'original_content',
+      contentText: `A buyer asks about the supplier opportunity ${index} before ordering.`,
+      platform: 'reddit',
+      createdBy: 'p0-test-fixture',
+    });
+    content.saveVersion({
+      opportunityId,
+      contentType: 'reply_draft',
+      contentText: `Reply about the supplier opportunity ${index} before ordering.`,
+      platform: 'reddit',
+      createdBy: 'p0-test-fixture',
     });
     opportunities.push(opportunityId);
   }
@@ -82,6 +98,37 @@ test('P0 recovery is append-only and dashboard lifecycle writes are protected', 
       'Content-Type': 'application/json',
       'X-Growth-OS-CSRF': token,
     };
+
+    const incompleteStore = openV2Store({ dbPath, rebuildView: true });
+    const incompleteWriter = new LifecycleEventStore({ db: incompleteStore.db });
+    incompleteWriter.createOpportunity({
+      opportunityId: 'p0-missing-reply',
+      dedupeKey: 'p0-missing-reply',
+      sourceUrl: 'https://example.com/p0-missing-reply',
+      title: 'P0 missing reply fixture',
+      evidence: { platform: 'reddit' },
+      actor: 'p0-test-fixture',
+    });
+    new ContentStore({ db: incompleteStore.db }).saveVersion({
+      opportunityId: 'p0-missing-reply',
+      contentType: 'original_content',
+      contentText: 'A buyer asks about a supplier reply before placing an order.',
+      platform: 'reddit',
+      createdBy: 'p0-test-fixture',
+    });
+    incompleteStore.close();
+    const blockedApprove = await jsonRequest(`${baseUrl}/__v2/lifecycle`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        opportunity_id: 'p0-missing-reply',
+        action: 'approve',
+        actor: 'qa-operator',
+        idempotency_key: 'qa-missing-reply',
+      }),
+    });
+    assert.equal(blockedApprove.response.status, 422);
+    assert.match(blockedApprove.body.error, /reply_draft/);
 
     const legitimatePayload = {
       opportunity_id: opportunities[0],
@@ -168,6 +215,21 @@ test('P0 recovery is append-only and dashboard lifecycle writes are protected', 
       sourceUrl: 'https://example.com/p0-recovery',
       title: 'P0 recovery fixture',
       actor: 'p0-test-fixture',
+    });
+    const recoveryContent = new ContentStore({ db: recoveryStore.db });
+    recoveryContent.saveVersion({
+      opportunityId: recoveryOpportunity,
+      contentType: 'original_content',
+      contentText: 'A buyer asks about a supplier recovery opportunity before ordering.',
+      platform: 'reddit',
+      createdBy: 'p0-test-fixture',
+    });
+    recoveryContent.saveVersion({
+      opportunityId: recoveryOpportunity,
+      contentType: 'reply_draft',
+      contentText: 'Reply about the supplier recovery opportunity before ordering.',
+      platform: 'reddit',
+      createdBy: 'p0-test-fixture',
     });
     const approved = recoveryWriter.approve(recoveryOpportunity, { actor: 'dashboard-operator' });
     const historicalIds = recoveryStore.db.prepare('SELECT event_id FROM lifecycle_events ORDER BY event_seq').all().map(({ event_id }) => event_id);

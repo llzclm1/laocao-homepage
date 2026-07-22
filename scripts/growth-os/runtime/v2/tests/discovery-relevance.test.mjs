@@ -13,11 +13,13 @@ function item(overrides = {}) {
     url: 'https://www.reddit.com/r/Alibaba/comments/abc123/supplier_question',
     canonical_url: 'https://www.reddit.com/r/Alibaba/comments/abc123/supplier_question',
     title: 'How do I source from a Chinese supplier?',
+    body: 'I am a buyer comparing a Chinese supplier sample, MOQ, quotation, payment, and lead time before placing an order.',
     snippet: 'I need MOQ, sample, quotation, payment and lead time guidance before placing an order.',
     source_name: 'reddit_rss:Alibaba',
     source_method: 'reddit_rss',
     author: 'buyer-question',
     ...overrides,
+    body: overrides.body ?? overrides.snippet ?? 'I am a buyer comparing a Chinese supplier sample, MOQ, quotation, payment, and lead time before placing an order.',
   };
 }
 
@@ -111,6 +113,11 @@ test('Discovery filter blocks rejected items before the Single Writer', async ()
     const store = openV2Store({ dbPath, rebuildView: false });
     try {
       assert.equal(store.db.prepare('SELECT COUNT(*) AS count FROM opportunities').get().count, 1);
+      const contentTypes = store.db.prepare('SELECT content_type, COUNT(*) AS count FROM content_items GROUP BY content_type').all();
+      assert.deepEqual(
+        Object.fromEntries(contentTypes.map((row) => [row.content_type, row.count])),
+        { original_content: 1, publish_draft: 1, reply_draft: 1 },
+      );
       const evidence = JSON.parse(store.db.prepare('SELECT evidence_json FROM opportunities').get().evidence_json);
       assert.equal(evidence.relevance.relevance_decision, 'keep');
       assert.ok(evidence.relevance.relevance_score >= 80);

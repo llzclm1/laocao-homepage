@@ -107,13 +107,16 @@ function stableUrl(record) {
 }
 
 function canaryOpportunity(record, { id, status, dedupeKey, title, body, draft, publishedContent }) {
+  const canaryTitle = title ?? stableTitle(record, `Canary ${dedupeKey}`);
   return {
     id: id ?? stableId(record, `CANARY-${dedupeKey}`),
-    title: title ?? stableTitle(record, `Canary ${dedupeKey}`),
-    body: body ?? stableBody(record, 'Canary selection from legacy snapshot'),
-    url: stableUrl(record),
+    title: canaryTitle,
+    body: body ?? `A buyer asks about a supplier opportunity and ordering requirements for ${canaryTitle}.`,
+    url: stableUrl(record) ?? `https://canary.example/source/${id ?? dedupeKey}`,
+    platform: record?.platform ?? record?.channel ?? record?.network ?? 'reddit',
     dedupe_key: dedupeKey,
     status,
+    suggested_reply: `Canary reply about the supplier opportunity and ordering requirements for ${canaryTitle}.`,
     ...(draft ? { draft } : {}),
     ...(publishedContent ? { published_content: publishedContent } : {}),
   };
@@ -189,8 +192,8 @@ function createCanarySnapshot({ sourceRoot, canaryRoot }) {
     status: 'draft_ready',
     dedupeKey: 'canary-ready-GO-004',
     title: stableTitle(readyTitle, 'Ready canary opportunity'),
-    body: 'Canary ready-to-publish draft',
-    draft: 'Canary ready-to-publish draft',
+    body: 'A buyer asks about a China supplier quotation before ordering.',
+    draft: 'Canary ready-to-publish draft with the supplier quotation details.',
   });
   const published = {
     ...publishedSource,
@@ -198,6 +201,7 @@ function createCanarySnapshot({ sourceRoot, canaryRoot }) {
     dedupe_key: 'canary-published-GO-002',
     title: stableTitle(publishedTitle, 'Published canary opportunity'),
     body: 'Canary published record with complete metadata',
+    suggested_reply: 'Canary reply draft for the published record',
     draft: 'Canary publish draft before publication',
     published_content: 'Canary published content with complete metadata',
   };

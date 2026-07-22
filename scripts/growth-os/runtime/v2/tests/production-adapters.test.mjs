@@ -11,7 +11,8 @@ function openTestStore() {
   return openV2Store({ dbPath: ':memory:' });
 }
 
-function create(writer, id, url) {
+function create(store, id, url) {
+  const writer = new LifecycleEventStore({ db: store.db });
   writer.createOpportunity({
     opportunityId: id,
     dedupeKey: `url:${url}`,
@@ -21,10 +22,29 @@ function create(writer, id, url) {
     actor: 'test',
     occurredAt: '2026-07-21T00:00:00.000Z',
   });
+  new ContentStore({ db: store.db }).saveVersion({
+    opportunityId: id,
+    contentType: 'original_content',
+    contentText: `A buyer asks about the supplier opportunity ${id} before ordering.`,
+    platform: 'linkedin',
+    createdBy: 'test',
+  });
+}
+
+function saveReplyDraft(store, id) {
+  const content = new ContentStore({ db: store.db });
+  return content.saveVersion({
+    opportunityId: id,
+    contentType: 'reply_draft',
+    contentText: `Reply for ${id}`,
+    platform: 'linkedin',
+    createdBy: 'test',
+  });
 }
 
 function savePublishDraft(store, id) {
-  return new ContentStore({ db: store.db }).saveVersion({
+  const content = new ContentStore({ db: store.db });
+  return content.saveVersion({
     opportunityId: id,
     contentType: 'publish_draft',
     contentText: `Draft for ${id}`,
@@ -37,8 +57,9 @@ test('Review Queue and Morning Brief are derived from one Unified View', () => {
   const store = openTestStore();
   try {
     const writer = new LifecycleEventStore({ db: store.db });
-    create(writer, 'pending-001', 'https://example.com/pending');
-    create(writer, 'ready-001', 'https://example.com/ready');
+    create(store, 'pending-001', 'https://example.com/pending');
+    create(store, 'ready-001', 'https://example.com/ready');
+    saveReplyDraft(store, 'ready-001');
     writer.approve('ready-001', { occurredAt: '2026-07-21T00:01:00.000Z' });
     savePublishDraft(store, 'ready-001');
     writer.markReadyToPublish('ready-001', { occurredAt: '2026-07-21T00:02:00.000Z' });
@@ -64,7 +85,8 @@ test('Published rows leave the Brief and retain one complete publication fact', 
   const store = openTestStore();
   try {
     const writer = new LifecycleEventStore({ db: store.db });
-    create(writer, 'published-001', 'https://example.com/source');
+    create(store, 'published-001', 'https://example.com/source');
+    saveReplyDraft(store, 'published-001');
     writer.approve('published-001');
     savePublishDraft(store, 'published-001');
     writer.markReadyToPublish('published-001');

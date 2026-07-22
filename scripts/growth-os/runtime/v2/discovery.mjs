@@ -2,7 +2,8 @@ import { createHash, randomUUID } from 'node:crypto';
 import { createSearchProvider } from '../../discovery/providers/search-provider.mjs';
 import { collectRedditRssSource } from '../../discovery/sources/reddit-rss-source.mjs';
 import { collectSearchSource } from '../../discovery/sources/search-source.mjs';
-import { ContentStore } from './content-store.mjs';
+import { assessDraftAssociation, assessOriginalContent } from './content-integrity.mjs';
+import { generateReplyDraft } from './content-completion.mjs';
 import { relevanceEvidence, scoreDiscoveryItem } from './discovery-relevance.mjs';
 import { LifecycleEventStore } from './lifecycle-event-store.mjs';
 import { DEFAULT_DB_PATH, openV2Store } from './store.mjs';
@@ -72,13 +73,14 @@ export function candidateFromItem(item, now = new Date()) {
   const title = text(item.title || item.raw_topic);
   if (!sourceUrl || !title) return null;
   const relevance = scoreDiscoveryItem({ ...item, source_url: sourceUrl });
+  const originalContent = text(item.original_content || item.body || item.post_body);
   const dedupeKey = `url:${sourceUrl}`;
   return {
     opportunityId: opportunityId(dedupeKey),
     dedupeKey,
     sourceUrl,
     title,
-    body: text(item.snippet || item.body || item.description),
+    body: originalContent,
     evidence: {
       source: 'public_discovery',
       platform: text(item.platform),
@@ -87,6 +89,10 @@ export function candidateFromItem(item, now = new Date()) {
       author: item.author ?? null,
       discovered_at: item.discovered_at || now.toISOString(),
       query: item.query ?? null,
+      content_capture: {
+        source_field: item.original_content ? 'original_content' : item.body ? 'body' : item.post_body ? 'post_body' : null,
+        completeness: assessOriginalContent(originalContent),
+      },
       relevance: relevanceEvidence(relevance),
     },
     relevance,
@@ -129,7 +135,6 @@ export async function runV2Discovery({
 
   const store = openV2Store({ dbPath, rebuildView: false });
   const writer = new LifecycleEventStore({ db: store.db });
-  const content = new ContentStore({ db: store.db });
   const added = [];
   const duplicates = [];
   const rejected = [];
@@ -152,7 +157,40 @@ export async function runV2Discovery({
         });
         continue;
       }
+      const originalAssessment = assessOriginalContent(candidate.body);
+      if (!originalAssessment.valid) {
+        rejected.push({
+          opportunity_id: candidate.opportunityId,
+          title: candidate.title,
+          source_url: candidate.sourceUrl,
+          reason: originalAssessment.reason,
+          category: candidate.relevance.category,
+          score: candidate.relevance.score,
+        });
+        continue;
+      }
+      const replyDraft = generateReplyDraft({
+        title: candidate.title,
+        originalContent: candidate.body,
+      });
+      const replyAssociation = assessDraftAssociation({
+        title: candidate.title,
+        originalContent: candidate.body,
+        draftContent: replyDraft,
+      });
+      if (!replyAssociation.valid) {
+        rejected.push({
+          opportunity_id: candidate.opportunityId,
+          title: candidate.title,
+          source_url: candidate.sourceUrl,
+          reason: replyAssociation.reason,
+          category: candidate.relevance.category,
+          score: candidate.relevance.score,
+        });
+        continue;
+      }
       try {
+        const originalContentId = randomUUID();
         writer.createOpportunity({
           opportunityId: candidate.opportunityId,
           dedupeKey: candidate.dedupeKey,
@@ -161,19 +199,44 @@ export async function runV2Discovery({
           evidence: candidate.evidence,
           actor: 'v2-discovery',
           occurredAt: now.toISOString(),
+          initialContent: [
+            {
+              contentId: originalContentId,
+              contentType: 'original_content',
+              contentText: candidate.body,
+              platform: candidate.evidence.platform || null,
+              source: candidate.sourceUrl,
+              createdBy: 'v2-discovery',
+              metadata: candidate.evidence,
+            },
+            {
+              contentId: randomUUID(),
+              contentType: 'reply_draft',
+              contentText: replyDraft,
+              platform: candidate.evidence.platform || null,
+              source: 'content-completion',
+              createdBy: 'system-content-completion',
+              metadata: {
+                generation_method: 'operator_assist_from_captured_content',
+                source_content_id: originalContentId,
+                external_action: 'not_posted',
+              },
+            },
+            {
+              contentId: randomUUID(),
+              contentType: 'publish_draft',
+              contentText: replyDraft,
+              platform: candidate.evidence.platform || null,
+              source: 'content-completion',
+              createdBy: 'system-content-completion',
+              metadata: {
+                derivation: 'latest_reply_draft',
+                source_content_id: originalContentId,
+                external_action: 'not_posted',
+              },
+            },
+          ],
         });
-        if (candidate.body) {
-          content.saveVersion({
-            opportunityId: candidate.opportunityId,
-            contentType: 'original_content',
-            contentText: candidate.body,
-            platform: candidate.evidence.platform || null,
-            source: candidate.sourceUrl,
-            createdBy: 'v2-discovery',
-            occurredAt: now.toISOString(),
-            metadata: candidate.evidence,
-          });
-        }
         added.push(candidate.opportunityId);
       } catch (error) {
         if (/UNIQUE constraint failed/.test(error.message)) {

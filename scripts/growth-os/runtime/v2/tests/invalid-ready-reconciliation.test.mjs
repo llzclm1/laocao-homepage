@@ -17,8 +17,22 @@ test('controlled reconciliation returns invalid ready item to approved without c
       actor: 'test',
       occurredAt: '2026-07-21T00:00:00.000Z',
     });
-    writer.approve('invalid-ready-001');
     const content = new ContentStore({ db: store.db });
+    content.saveVersion({
+      opportunityId: 'invalid-ready-001',
+      contentType: 'original_content',
+      contentText: 'A buyer asks about a supplier draft before ordering.',
+      platform: 'reddit',
+      createdBy: 'test',
+    });
+    content.saveVersion({
+      opportunityId: 'invalid-ready-001',
+      contentType: 'reply_draft',
+      contentText: 'Reply about the supplier draft before ordering.',
+      platform: 'reddit',
+      createdBy: 'test',
+    });
+    writer.approve('invalid-ready-001');
     content.saveVersion({
       opportunityId: 'invalid-ready-001',
       contentType: 'publish_draft',
@@ -45,7 +59,6 @@ test('controlled reconciliation returns invalid ready item to approved without c
       title: 'Historical invalid Ready item without draft',
       actor: 'test',
     });
-    writer.approve('invalid-ready-002');
     store.db.prepare('INSERT INTO lifecycle_events (event_id, opportunity_id, from_status, to_status, event_type, actor, occurred_at) VALUES (?, ?, ?, ?, ?, ?, ?)').run(
       'legacy-ready-event',
       'invalid-ready-002',

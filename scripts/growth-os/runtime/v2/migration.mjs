@@ -14,6 +14,7 @@ import {
 } from './legacy-data-sources.mjs';
 import { buildLegacyInventory } from './legacy-data-inventory.mjs';
 import { ContentStore } from './content-store.mjs';
+import { assessOriginalContent } from './content-integrity.mjs';
 import { LifecycleEventStore } from './lifecycle-event-store.mjs';
 import { isBriefExcluded } from './morning-brief-rules.mjs';
 import { PerformanceStore } from './performance-store.mjs';
@@ -587,7 +588,7 @@ class MigrationRunner {
     const occurredAt = timestamp(snapshot);
     const base = {
       opportunityId,
-      platform: text(snapshot?.platform),
+      platform: text(snapshot, ['platform', 'channel', 'network']),
       source: source.relativePath,
       createdBy: 'migration-dry-run',
       occurredAt,
@@ -598,7 +599,7 @@ class MigrationRunner {
       },
     };
     const values = [
-      ['original_content', ['snippet']],
+      ['original_content', ['original_content', 'original_body', 'post_body', 'question', 'body']],
       ['reply_draft', ['suggested_reply', 'suggested_comment']],
     ];
     if (
@@ -612,6 +613,7 @@ class MigrationRunner {
       if (this.#content.hasLatest(opportunityId, contentType)) continue;
       const value = text(snapshot, keys);
       if (!value) continue;
+      if (contentType === 'original_content' && !assessOriginalContent(value).valid) continue;
       this.#content.saveVersion({
         ...base,
         contentType,

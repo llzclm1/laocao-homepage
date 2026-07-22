@@ -154,6 +154,17 @@ function cacheIdempotentResult(key, fingerprint, result) {
   });
 }
 
+function normalizeLifecycleMutationError(error) {
+  if (
+    /content integrity gate failed|(?:original_content|reply_draft|publish_draft) is required/.test(
+      String(error?.message || ''),
+    )
+  ) {
+    return new HttpError(422, error.message);
+  }
+  return error;
+}
+
 function readBody(req) {
   return new Promise((resolve, reject) => {
     let body = '';
@@ -235,17 +246,21 @@ async function applyLifecycleAction(value) {
     const writer = new LifecycleEventStore({ db: store.db });
     const options = { actor };
     let event;
-    if (action === 'approve') event = writer.approve(opportunityId, options);
-    if (action === 'ready_to_publish') event = writer.markReadyToPublish(opportunityId, options);
-    if (action === 'archive') event = writer.archive(opportunityId, options);
-    if (action === 'mark_published') {
-      event = writer.markPublished(opportunityId, {
-        ...options,
-        publishedAt: value.published_at,
-        platform: value.platform,
-        publishedUrl: value.published_url,
-        publishedContent: value.published_content,
-      });
+    try {
+      if (action === 'approve') event = writer.approve(opportunityId, options);
+      if (action === 'ready_to_publish') event = writer.markReadyToPublish(opportunityId, options);
+      if (action === 'archive') event = writer.archive(opportunityId, options);
+      if (action === 'mark_published') {
+        event = writer.markPublished(opportunityId, {
+          ...options,
+          publishedAt: value.published_at,
+          platform: value.platform,
+          publishedUrl: value.published_url,
+          publishedContent: value.published_content,
+        });
+      }
+    } catch (error) {
+      throw normalizeLifecycleMutationError(error);
     }
     rebuildUnifiedView(store.db);
     const result = { ok: true, event, view: readView() };

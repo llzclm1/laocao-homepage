@@ -25,11 +25,35 @@ function opportunityInput(overrides = {}) {
   };
 }
 
+function saveReplyDraft(store, opportunityId = 'opp-001') {
+  const content = new ContentStore({ db: store.db });
+  return content.saveVersion({
+    opportunityId,
+    contentType: 'reply_draft',
+    contentText: 'Reply draft for testing.',
+    platform: 'linkedin',
+    createdBy: 'tester',
+    occurredAt: BASE_TIME,
+  });
+}
+
 function savePublishDraft(store, opportunityId = 'opp-001') {
-  return new ContentStore({ db: store.db }).saveVersion({
+  const content = new ContentStore({ db: store.db });
+  return content.saveVersion({
     opportunityId,
     contentType: 'publish_draft',
     contentText: 'Publish draft for testing.',
+    platform: 'linkedin',
+    createdBy: 'tester',
+    occurredAt: BASE_TIME,
+  });
+}
+
+function saveOriginal(store, opportunityId = 'opp-001') {
+  return new ContentStore({ db: store.db }).saveVersion({
+    opportunityId,
+    contentType: 'original_content',
+    contentText: 'A buyer asks about supplier testing and quotation requirements before ordering.',
     platform: 'linkedin',
     createdBy: 'tester',
     occurredAt: BASE_TIME,
@@ -87,6 +111,8 @@ test('Only the Lifecycle Event Store changes lifecycle state', () => {
       /invalid lifecycle status/,
     );
 
+    saveOriginal(store);
+    saveReplyDraft(store);
     writer.approve('opp-001', { actor: 'reviewer', occurredAt: '2026-07-21T00:01:00.000Z' });
     savePublishDraft(store);
     writer.markReadyToPublish('opp-001', {
@@ -109,6 +135,8 @@ test('Published requires all metadata and creates pending performance in one tra
   try {
     const writer = new LifecycleEventStore({ db: store.db });
     writer.createOpportunity(opportunityInput());
+    saveOriginal(store);
+    saveReplyDraft(store);
     writer.approve('opp-001');
     savePublishDraft(store);
     writer.markReadyToPublish('opp-001');
@@ -170,6 +198,8 @@ test('Unified View is derived, contains one current row, and can be rebuilt afte
   try {
     const writer = new LifecycleEventStore({ db: store.db });
     writer.createOpportunity(opportunityInput());
+    saveOriginal(store);
+    saveReplyDraft(store);
     writer.approve('opp-001');
     const beforeDelete = readUnifiedView(store.db);
 
