@@ -17,6 +17,8 @@ assert.ok(fs.existsSync(path.join(dist, "es", "buyer-guides", "como-revisar-un-p
 assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "verify-chinese-supplier-before-deposit", "index.html")), "dist/buyer-guides/verify-chinese-supplier-before-deposit/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "check-if-chinese-factory-is-real", "index.html")), "dist/buyer-guides/check-if-chinese-factory-is-real/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "questions-before-ordering-samples-from-china", "index.html")), "dist/buyer-guides/questions-before-ordering-samples-from-china/index.html is missing");
+assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "sample-order-before-bulk-production-china", "index.html")), "dist/buyer-guides/sample-order-before-bulk-production-china/index.html is missing");
+assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "reduce-risk-first-order-from-china", "index.html")), "dist/buyer-guides/reduce-risk-first-order-from-china/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "questions-before-ordering-from-chinese-supplier", "index.html")), "dist/buyer-guides/questions-before-ordering-from-chinese-supplier/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "rfq-template-for-chinese-suppliers", "index.html")), "dist/buyer-guides/rfq-template-for-chinese-suppliers/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "sample-order-email-template-for-chinese-suppliers", "index.html")), "dist/buyer-guides/sample-order-email-template-for-chinese-suppliers/index.html is missing");
@@ -301,8 +303,12 @@ const buyerGuidesPage = fs.readFileSync(path.join(dist, "buyer-guides/index.html
 const spanishBuyerGuidesPage = fs.readFileSync(path.join(dist, "es/buyer-guides/index.html"), "utf8");
 const spanishPaymentGuidePage = fs.readFileSync(path.join(dist, "es/buyer-guides/como-revisar-un-proveedor-chino-antes-de-pagar/index.html"), "utf8");
 const paymentGuidePage = fs.readFileSync(path.join(dist, "buyer-guides/verify-chinese-supplier-before-deposit/index.html"), "utf8");
+const factoryCheckGuidePage = fs.readFileSync(path.join(dist, "buyer-guides/check-if-chinese-factory-is-real/index.html"), "utf8");
 const quotationGuidePage = fs.readFileSync(path.join(dist, "buyer-guides/compare-chinese-supplier-quotations-beyond-price/index.html"), "utf8");
 const supplierRoleGuidePage = fs.readFileSync(path.join(dist, "buyer-guides/chinese-factory-or-trading-company/index.html"), "utf8");
+const redFlagsGuidePage = fs.readFileSync(path.join(dist, "buyer-guides/china-supplier-red-flags-before-first-order/index.html"), "utf8");
+const sampleToBulkGuidePage = fs.readFileSync(path.join(dist, "buyer-guides/sample-order-before-bulk-production-china/index.html"), "utf8");
+const firstOrderGuidePage = fs.readFileSync(path.join(dist, "buyer-guides/reduce-risk-first-order-from-china/index.html"), "utf8");
 const supplierReplyReviewPage = fs.readFileSync(path.join(dist, "supplier-reply-review/index.html"), "utf8");
 const supplierReplySamplePage = fs.readFileSync(path.join(dist, "supplier-reply-review/sample-report/index.html"), "utf8");
 const supplierReplyExamplesPage = fs.readFileSync(path.join(dist, "supplier-reply-review/examples/index.html"), "utf8");
@@ -311,9 +317,10 @@ const englishFieldMaterialsPage = fs.readFileSync(path.join(dist, "en/field-mate
 for (const guide of [paymentGuidePage, sampleQuestionsGuide, quotationGuidePage, supplierRoleGuidePage]) {
   assert.ok(guide.includes('data-page-type="buyer_guide"'), "core buyer guides should share the buyer_guide page type");
 }
-for (const guide of [paymentGuidePage, sampleQuestionsGuide]) {
+for (const guide of [paymentGuidePage, factoryCheckGuidePage, sampleQuestionsGuide, redFlagsGuidePage, sampleToBulkGuidePage, firstOrderGuidePage]) {
   assert.ok(guide.includes('data-track-event="supplier_reply_check_click"'), "high-intent buyer guides should track paid-review CTA clicks");
   assert.ok(guide.includes('https://factory.gewuji.dev/supplier-reply-check/'), "high-intent buyer guides should link to the paid review page");
+  assert.ok(guide.includes("googletagmanager.com/gtag/js?id=G-NCZSC59MVC"), "high-intent buyer guides should load the main-domain GA4 stream");
 }
 for (const guide of [quotationGuidePage, supplierRoleGuidePage]) {
   assert.ok(guide.includes('data-track-event="buyer_guide_review_click"'), "existing buyer guides should retain review CTA tracking");

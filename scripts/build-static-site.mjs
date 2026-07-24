@@ -13,6 +13,14 @@ const basePath = normalizeBasePath(process.env.PUBLIC_BASE_PATH || "/");
 const publicBaseUrl = new URL(basePath, `${siteUrl}/`).toString().replace(/\/$/, "");
 const googleAnalyticsId = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID || "G-NCZSC59MVC";
 const googleAdsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || "";
+const highIntentBuyerGuideSlugs = [
+  "verify-chinese-supplier-before-deposit",
+  "questions-before-ordering-samples-from-china",
+  "sample-order-before-bulk-production-china",
+  "china-supplier-red-flags-before-first-order",
+  "check-if-chinese-factory-is-real",
+  "reduce-risk-first-order-from-china",
+];
 const analyticsPagePaths = new Set([
   "index.html",
   "contact/index.html",
@@ -20,19 +28,21 @@ const analyticsPagePaths = new Set([
   "supplier-reply-review/before-payment/index.html",
   "supplier-reply-review/examples/index.html",
   "supplier-reply-review/sample-report/index.html",
-  "buyer-guides/questions-before-ordering-samples-from-china/index.html"
+  ...highIntentBuyerGuideSlugs.map((slug) => `buyer-guides/${slug}/index.html`),
 ]);
 const publishedBuyerGuides = [
   "verify-chinese-supplier-before-deposit",
   "check-if-chinese-factory-is-real",
   "questions-before-ordering-from-chinese-supplier",
   "questions-before-ordering-samples-from-china",
+  "sample-order-before-bulk-production-china",
   "rfq-template-for-chinese-suppliers",
   "sample-order-email-template-for-chinese-suppliers",
   "how-to-compare-chinese-suppliers",
   "compare-chinese-supplier-quotations-beyond-price",
   "chinese-factory-or-trading-company",
   "china-supplier-red-flags-before-first-order",
+  "reduce-risk-first-order-from-china",
   "chinese-factory-video-call-checklist"
 ];
 const publishedSpanishBuyerGuides = [
