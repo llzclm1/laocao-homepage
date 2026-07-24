@@ -68,3 +68,10 @@
 - [x] 修正 `/free-supplier-reply-review/` 到正式 Review 页面。
 - [x] 为 quotation comparison 与 factory-vs-trading 页面补结构化数据和明确转化内链。
 - [x] 清理 factory-vs-trading 页面指向未发布文章的 404 链接。
+
+## 2026-07-24 Supplier Reply Review Conversion Funnel P0
+
+- [x] 收口 Supplier Reply Review 首页、Examples 与 Sample Report 的付费 CTA。
+- [x] 为 6 篇高意图 Buyer Guides 增加上下文付费 CTA，不全站统一替换。
+- [x] 新 CTA 使用 `supplier_reply_check_click`，并同步静态托管校验。
+- [ ] 在 GA4 观察 `supplier_reply_check_click` → `payment_page_view` → `submit_page_view`，以真实数据决定下一步。

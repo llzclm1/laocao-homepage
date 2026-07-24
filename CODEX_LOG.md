@@ -230,3 +230,9 @@
 - 将候选工作流收口为 Inbox、Today、Results、Reports 四个视图，Today 默认最多显示 3 条人工选择的候选。
 - 增加严格的 Viewed、Draft Prepared、Replied（必须有真实回复 URL）和结果动作；本地操作后立即刷新 Viewer 数据，不等待 Runtime。
 - Business Signals 只从 Results 的人工结果与真实发布记录计算；未新增登录、评论、发布或采集功能。
+
+## 2026-07-24 Supplier Reply Review Conversion Funnel P0
+
+- Supplier Reply Review 主按钮已指向 Supplier Reply Check；邮箱联系降为“Ask a Question”。
+- Examples、Sample Report 和 6 篇付款前高意图 Buyer Guides 已增加自然的跨域付费入口；未改 SEO 结构。
+- 静态校验已更新为验证新的付费 CTA；`npm run build:prod` 与 `npm run verify:static` 通过。

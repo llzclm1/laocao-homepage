@@ -401,3 +401,9 @@
 - Dashboard 默认打开 Today；旧日志、RSS、手工入池和导入候选都先进入 Inbox，最多 3 条经人工确认后加入 Today，不再按排名自动生成今日任务。
 - Results 记录真实回复 URL、删除、收到回复、买家/合作信号、审核请求和付费机会；Business Signals 只读取这些人工记录与真实发布数据。
 - RSS 第 1 次真实采集为 0 条新候选、1 个 403、6 个 429，Health 为 Blocked；第 2、3 次仍按已创建的 Codex automation 执行。Phase B 与采集器扩张继续暂停。
+
+## 2026-07-24 Supplier Reply Review Conversion Funnel P0
+
+- Supplier Reply Review 首页主 CTA、Examples、Sample Report 和指定的 6 篇高意图 Buyer Guides 已连接到 `https://factory.gewuji.dev/supplier-reply-check/`。
+- 原邮箱路径保留为“Ask a Question”；未改 canonical、sitemap、schema、现有正文定位或主站 / Factory 域名边界。
+- 所有新的付费页入口记录 `supplier_reply_check_click`；静态构建和托管校验通过。

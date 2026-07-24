@@ -52,8 +52,8 @@ assert.equal(paidReviewLanding.includes('type="file"'), false, "paid review land
 const sampleReviewReport = fs.readFileSync(path.join(dist, "supplier-reply-review", "sample-report", "index.html"), "utf8");
 assert.ok(sampleReviewReport.includes('data-page-type="sample_report"'), "sample report should track report views");
 assert.ok(sampleReviewReport.includes("googletagmanager.com/gtag/js?id=G-NCZSC59MVC"), "sample report should load GA4");
-assert.ok(sampleReviewReport.includes('data-track-event="sample_report_review_click"'), "sample report should track return-to-review clicks");
-assert.ok(sampleReviewReport.includes('../?source=sample_report'), "sample report should preserve its source on return to review");
+assert.ok(sampleReviewReport.includes('data-track-event="supplier_reply_check_click"'), "sample report should track paid-review clicks");
+assert.ok(sampleReviewReport.includes('href="https://factory.gewuji.dev/supplier-reply-check/"'), "sample report should link to the paid review page");
 const supplierReplyExamples = fs.readFileSync(path.join(dist, "supplier-reply-review", "examples", "index.html"), "utf8");
 assert.ok(supplierReplyExamples.includes('data-track-event="supplier_reply_review_example_click"'), "examples index should track example clicks");
 assert.ok(supplierReplyExamples.includes("marketing-events.js?v=20260714-ga4"), "examples index should load the event script");
@@ -310,8 +310,14 @@ const fieldMaterialsPage = fs.readFileSync(path.join(dist, "field-materials/inde
 const englishFieldMaterialsPage = fs.readFileSync(path.join(dist, "en/field-materials/index.html"), "utf8");
 for (const guide of [paymentGuidePage, sampleQuestionsGuide, quotationGuidePage, supplierRoleGuidePage]) {
   assert.ok(guide.includes('data-page-type="buyer_guide"'), "core buyer guides should share the buyer_guide page type");
-  assert.ok(guide.includes('data-track-event="buyer_guide_review_click"'), "core buyer guides should track review CTA clicks");
-  assert.ok(guide.includes('data-track-event="buyer_guide_sample_report_click"'), "core buyer guides should track sample report CTA clicks separately");
+}
+for (const guide of [paymentGuidePage, sampleQuestionsGuide]) {
+  assert.ok(guide.includes('data-track-event="supplier_reply_check_click"'), "high-intent buyer guides should track paid-review CTA clicks");
+  assert.ok(guide.includes('https://factory.gewuji.dev/supplier-reply-check/'), "high-intent buyer guides should link to the paid review page");
+}
+for (const guide of [quotationGuidePage, supplierRoleGuidePage]) {
+  assert.ok(guide.includes('data-track-event="buyer_guide_review_click"'), "existing buyer guides should retain review CTA tracking");
+  assert.ok(guide.includes('data-track-event="buyer_guide_sample_report_click"'), "existing buyer guides should track sample report CTA clicks separately");
 }
 const corePages = [home, factoryPage, buyerPage, shortBuyerPage, shortFactoryPage, contactPage, buyerGuidesPage, spanishBuyerGuidesPage, spanishPaymentGuidePage, paymentGuidePage, supplierReplyReviewPage, supplierReplySamplePage, supplierReplyExamplesPage, fieldMaterialsPage];
 for (const page of corePages) {
