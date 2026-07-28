@@ -36,6 +36,7 @@ const publishedBuyerGuides = [
   "questions-before-ordering-from-chinese-supplier",
   "questions-before-ordering-samples-from-china",
   "sample-order-before-bulk-production-china",
+  "check-before-sending-tooling-money-chinese-factory",
   "rfq-template-for-chinese-suppliers",
   "sample-order-email-template-for-chinese-suppliers",
   "how-to-compare-chinese-suppliers",
