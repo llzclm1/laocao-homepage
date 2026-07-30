@@ -9408,10 +9408,12 @@ body.bridge-page::before {
 body.bridge-page .bridge-header {
   position: sticky;
   top: 0;
-  left: 0;
-  width: 100%;
+  left: auto;
+  right: auto;
+  width: min(1180px, calc(100% - 48px)) !important;
   min-height: 72px;
   gap: 28px;
+  margin-inline: auto;
   border: 0 !important;
   border-bottom: 1px solid rgba(8, 10, 13, .1) !important;
   border-radius: 0;
@@ -9479,6 +9481,23 @@ body.bridge-page .bridge-nav a[aria-current="page"] {
 body.bridge-page .bridge-nav .bridge-lang {
   margin-left: 4px;
   border: 0;
+}
+
+@media (min-width: 961px) {
+  body.bridge-page .bridge-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    justify-content: normal;
+  }
+
+  body.bridge-page .bridge-brand {
+    justify-self: start;
+  }
+
+  body.bridge-page .bridge-nav {
+    min-width: 0;
+    justify-self: center;
+  }
 }
 
 body.bridge-page .bridge-hero {
