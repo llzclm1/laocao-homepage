@@ -111,7 +111,7 @@ for (const file of textFiles) {
 }
 
 const home = fs.readFileSync(path.join(dist, "index.html"), "utf8");
-assert.ok(home.includes('href="https://factory.gewuji.dev/for-factories/"'), "homepage should link to the factory-side entrance");
+assert.ok(home.includes('href="https://gewuji.dev/for-factories/"'), "homepage should link to the main-domain factory-side entrance");
 assert.ok(home.includes('href="https://gewuji.dev/for-buyers/"'), "homepage should link to the buyer-side entrance");
 assert.ok(home.includes('href="field-materials/"'), "homepage should link to the manufacturing context entrance");
 assert.ok(home.includes(">Manufacturing Context<"), "homepage should label the context entrance as Manufacturing Context");
@@ -236,7 +236,7 @@ assert.equal(sitemap.includes("/fq-template-for-chinese-suppliers/"), false, "si
 assert.ok(sitemap.includes("/ai-sitemap.json"), "sitemap should include /ai-sitemap.json");
 assert.ok(sitemap.includes("/es/buyer-guides/"), "sitemap should include /es/buyer-guides/");
 assert.ok(sitemap.includes("/es/buyer-guides/como-revisar-un-proveedor-chino-antes-de-pagar/"), "sitemap should include the first Spanish buyer guide");
-assert.equal(sitemap.includes("/for-factories/"), false, "sitemap should not include the migrated /for-factories/ URL");
+assert.ok(sitemap.includes("/for-factories/"), "sitemap should include the main-domain factory-side entrance");
 assert.ok(sitemap.includes("/for-buyers/"), "sitemap should include /for-buyers/");
 assert.ok(sitemap.includes("/field-materials/"), "sitemap should include /field-materials/");
 assert.equal(sitemap.includes("/en/field-materials/"), false, "sitemap should not include the non-canonical /en/field-materials/ URL");
@@ -255,7 +255,7 @@ assert.ok(llms.includes("AI sitemap: https://gewuji.dev/ai-sitemap.json"), "llms
 assert.equal(llms.includes("https://gewuji.dev/m/"), false, "llms should not link standalone trade manufacturer page");
 assert.equal(llms.includes("https://gewuji.dev/b/"), false, "llms should not link standalone trade buyer page");
 for (const expected of [
-  "Factory Bridge",
+  "For Factories",
   "Supplier Reply Review",
   "supplier replies",
   "quotations",
@@ -291,12 +291,13 @@ assert.ok(aiSitemapPaths.includes("/supplier-reply-review/sample-report/"), "AI 
 assert.equal(aiSitemapPaths.includes("/free-supplier-reply-review/"), false, "AI sitemap should not include the legacy review URL");
 assert.equal(aiSitemapPaths.includes("/tools/photo-booth/"), false, "AI sitemap should not elevate old photo booth pages");
 assert.equal(aiSitemapPaths.includes("/tools/worldcup-advisor/advisor/"), false, "AI sitemap should not elevate World Cup Advisor pages");
-assert.ok(aiSitemapPaths.includes("/for-factories/"), "AI sitemap should include the factory bridge factory page");
-assert.ok(aiSitemap.pages.some((page) => page.url === "https://factory.gewuji.dev/for-factories/"), "AI sitemap should use the final factory subdomain URL");
-assert.equal(aiSitemap.pages.some((page) => page.url === "https://gewuji.dev/for-factories/"), false, "AI sitemap should not use the redirected main-domain factory URL");
-assert.ok(aiSitemapPaths.includes("/for-buyers/"), "AI sitemap should include the factory bridge buyer page");
+assert.ok(aiSitemapPaths.includes("/for-factories/"), "AI sitemap should include the factory-side page");
+assert.ok(aiSitemap.pages.some((page) => page.url === "https://gewuji.dev/for-factories/"), "AI sitemap should use the main-domain factory-side entrance");
+assert.equal(aiSitemap.pages.some((page) => page.url === "https://factory.gewuji.dev/for-factories/"), false, "AI sitemap should not retain the redirected factory subdomain URL");
+assert.ok(aiSitemapPaths.includes("/for-buyers/"), "AI sitemap should include the buyer-side page");
 assert.ok(aiSitemapPaths.includes("/field-materials/"), "AI sitemap should include Manufacturing Context");
-assert.ok(JSON.stringify(aiSitemap).includes("不是正式审厂"), "AI sitemap should include factory bridge service boundaries");
+assert.ok(JSON.stringify(aiSitemap).includes("不是正式审厂"), "AI sitemap should include GEWUJI service boundaries");
+assert.equal(JSON.stringify(aiSitemap).includes("Factory Bridge"), false, "AI sitemap should not present Factory Bridge as a public brand");
 
 const factoryPage = fs.readFileSync(path.join(dist, "for-factories/index.html"), "utf8");
 const buyerPage = fs.readFileSync(path.join(dist, "for-buyers/index.html"), "utf8");
@@ -344,7 +345,7 @@ assert.ok(quotationGuidePage.includes("../../supplier-reply-review/"), "quotatio
 assert.ok(supplierRoleGuidePage.includes('"@type":"Article"'), "supplier role guide should include Article schema");
 assert.ok(supplierRoleGuidePage.includes("../../china-supplier-checklist/"), "supplier role guide should link to the checklist");
 assert.equal(supplierRoleGuidePage.includes("alibaba-vs-made-in-china-sourcing-safety"), false, "supplier role guide should not link to an unpublished guide");
-assert.ok(factoryPage.includes('rel="canonical" href="https://factory.gewuji.dev/for-factories/"'), "factory page should expose canonical URL");
+assert.ok(factoryPage.includes('rel="canonical" href="https://gewuji.dev/for-factories/"'), "factory page should expose the main-domain canonical URL");
 assert.ok(factoryPage.includes("工厂对外资料重构"), "factory page should include factory material rewrite SEO copy");
 assert.ok(factoryPage.includes('id="material-rewrite"'), "factory page should expose material rewrite anchor");
 assert.ok(factoryPage.includes('id="outreach-content"'), "factory page should expose outreach content anchor");
