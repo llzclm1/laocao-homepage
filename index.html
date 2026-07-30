@@ -10,7 +10,7 @@
     />
     <meta
       name="keywords"
-      content="Gewuji, Factory Bridge, Chinese suppliers, overseas buyers, supplier replies, factory materials, field materials, supplier communication"
+      content="Gewuji, Factory Bridge, Chinese suppliers, overseas buyers, supplier replies, factory materials, manufacturing context, supplier communication"
     />
     <meta name="author" content="Lao Cao" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -45,14 +45,6 @@
     <meta name="twitter:image" content="https://gewuji.dev/assets/home/hero-scene-electronics-assembly.webp" />
     <meta name="twitter:image:alt" content="Premium industrial electronics assembly line with clean production details" />
     <title>Gewuji | Real factories. Clearly understood.</title>
-    <link
-      rel="preload"
-      as="image"
-      href="assets/home/hero-scene-electronics-assembly-800.jpg"
-      imagesrcset="assets/home/hero-scene-electronics-assembly-800.jpg 800w, assets/home/hero-scene-electronics-assembly.webp 1672w"
-      imagesizes="100vw"
-      fetchpriority="high"
-    />
     <link rel="preload" as="style" href="styles.css?v=20260704-serif-visible" onload="this.onload=null;this.rel='stylesheet'" />
     <noscript><link rel="stylesheet" href="styles.css?v=20260704-serif-visible" /></noscript>
     <style>
@@ -1880,7 +1872,7 @@
             "about": [
               "Factory Bridge",
               "Supplier Reply Review",
-              "Field Materials",
+              "Manufacturing Context",
               "Chinese supplier communication"
             ]
           }
@@ -1892,7 +1884,7 @@
         "@context": "https://schema.org",
         "@type": "ItemList",
         "name": "Gewuji homepage",
-        "description": "Main Gewuji entry for overseas buyers, Supplier Reply Review, and Field Materials.",
+        "description": "Main Gewuji entry for overseas buyers, Supplier Reply Review, and Manufacturing Context.",
         "itemListElement": [
           {
             "@type": "ListItem",
@@ -1909,7 +1901,7 @@
           {
             "@type": "ListItem",
             "position": 3,
-            "name": "Field Materials",
+            "name": "Manufacturing Context",
             "item": "https://gewuji.dev/field-materials/"
           }
         ]
@@ -1926,183 +1918,93 @@
   <body class="warm-home">
     <header class="site-header">
       <a class="brand" href="#hero" aria-label="Back to homepage">
-        <span class="brand-mark" aria-hidden="true"></span>
         <span class="brand-text">
           <strong>GEWUJI</strong>
-          <small>Factory Bridge · Field Materials</small>
+          <b class="brand-cn">格物集</b>
+          <small>Understanding manufacturing<br />Connecting the world</small>
         </span>
       </a>
       <nav class="nav" aria-label="Main navigation">
-        <a href="https://gewuji.dev/">Home</a>
         <a href="https://gewuji.dev/for-buyers/" onclick="trackClarityEvent('home_zh_click_outreach_content')">For Buyers</a>
-        <a href="https://gewuji.dev/supplier-reply-review/">Supplier Reply Review</a>
-        <a href="field-materials/" onclick="trackClarityEvent('home_zh_click_field_materials')">Field Materials</a>
-        <a href="https://gewuji.dev/contact/">Contact</a>
-        <a href="https://factory.gewuji.dev/for-factories/" onclick="trackClarityEvent('home_zh_click_material_rewrite')">For Chinese Factories</a>
+        <a href="https://factory.gewuji.dev/for-factories/" onclick="trackClarityEvent('home_zh_click_material_rewrite')">For Factories</a>
+        <a href="field-materials/">Manufacturing Context</a>
       </nav>
     </header>
 
     <main>
-      <section class="warm-hero scene-left" id="hero" aria-labelledby="hero-title">
-        <div class="hero-visual-rotation" aria-hidden="true">
-          <img class="warm-hero-bg hero-scene is-active" src="assets/home/hero-scene-electronics-assembly.webp" srcset="assets/home/hero-scene-electronics-assembly-800.jpg 800w, assets/home/hero-scene-electronics-assembly.webp 1672w" sizes="100vw" alt="" fetchpriority="high" decoding="async" />
-          <img class="warm-hero-bg hero-scene" src="assets/home/hero-scene-cnc-machining.webp" srcset="assets/home/hero-scene-cnc-machining-800.jpg 800w, assets/home/hero-scene-cnc-machining.webp 1714w" sizes="100vw" alt="" loading="lazy" decoding="async" />
-          <img class="warm-hero-bg hero-scene" src="assets/home/hero-scene-workshop-environment.webp" srcset="assets/home/hero-scene-workshop-environment-800.jpg 800w, assets/home/hero-scene-workshop-environment.webp 1672w" sizes="100vw" alt="" loading="lazy" decoding="async" />
-          <img class="warm-hero-bg hero-scene" src="assets/home/hero-scene-packaging-shipping.webp" srcset="assets/home/hero-scene-packaging-shipping-800.jpg 800w, assets/home/hero-scene-packaging-shipping.webp 1672w" sizes="100vw" alt="" loading="lazy" decoding="async" />
-          <img class="warm-hero-bg hero-scene" src="assets/home/hero-scene-product-inspection.webp" srcset="assets/home/hero-scene-product-inspection-800.jpg 800w, assets/home/hero-scene-product-inspection.webp 1672w" sizes="100vw" alt="" loading="lazy" decoding="async" />
-          <img class="warm-hero-bg hero-scene" src="assets/home/hero-scene-cleanroom-manufacturing.webp" srcset="assets/home/hero-scene-cleanroom-manufacturing-800.jpg 800w, assets/home/hero-scene-cleanroom-manufacturing.webp 1672w" sizes="100vw" alt="" loading="lazy" decoding="async" />
+      <section class="warm-hero" id="hero" aria-labelledby="hero-title">
+        <div class="reference-hero-copy">
+          <h1 id="hero-title" class="hero-brand-name">Make your capabilities<br>clearer for global buyers<span aria-hidden="true">.</span></h1>
+          <p>Turn factory capabilities, products, and production details into clearer information for global buyers.</p>
         </div>
-        <div class="warm-hero-scrim" aria-hidden="true"></div>
-        <div class="supplier-info-layer" aria-label="Supplier information clarity cue">
-          <p>Supplier Reply</p>
-          <span class="confirmed">✓ Confirmed information</span>
-          <span>? Missing details</span>
-          <span>→ Next questions</span>
+        <figure class="reference-hero-artwork">
+          <video autoplay muted playsinline preload="metadata" poster="assets/home/gewuji-hero-manufacturing-room.png" aria-label="Animated GEWUJI manufacturing logo">
+            <source src="assets/home/gewuji-manufacturing-logo-animation.mp4" type="video/mp4" />
+          </video>
+        </figure>
+        <aside class="reference-hero-note" aria-label="GEWUJI purpose">
+          <h2>Understand Suppliers<br>Before You Decide<span aria-hidden="true">.</span></h2>
+          <p>See clearer information about<br>factory context, product details,<br>and supplier communication.</p>
+        </aside>
+      </section>
+
+      <section class="reference-entry-section reveal" id="entries" aria-label="GEWUJI directions">
+        <a class="reference-entry-card buyer-card" href="https://gewuji.dev/for-buyers/">
+          <span class="reference-entry-icon">01</span>
+          <h2>For Buyers</h2>
+          <p>Understand supplier information before you pay.</p>
+          <img src="assets/home/hero-scene-product-inspection.webp" alt="Product inspection material" loading="lazy" decoding="async" />
+          <b>Explore <span aria-hidden="true">→</span></b>
+        </a>
+        <a class="reference-entry-card factory-card" href="https://factory.gewuji.dev/for-factories/">
+          <span class="reference-entry-icon">02</span>
+          <h2>For Factories</h2>
+          <p>Make your capability clear, professional, and easy to understand.</p>
+          <img src="assets/home/hero-scene-workshop-environment.webp" alt="Factory workshop material" loading="lazy" decoding="async" />
+          <b>Explore <span aria-hidden="true">→</span></b>
+        </a>
+        <a class="reference-entry-card materials-card" href="field-materials/">
+          <span class="reference-entry-icon">03</span>
+          <h2>Manufacturing<br>Context</h2>
+          <p>Real factory context, not just supplier claims.</p>
+          <span class="reference-material-grid" aria-hidden="true">
+            <img src="assets/home/hero-scene-textile-workshop.webp" alt="" loading="lazy" decoding="async" />
+            <img src="assets/home/hero-scene-cnc-machining.webp" alt="" loading="lazy" decoding="async" />
+            <img src="assets/home/hero-scene-cleanroom-manufacturing.webp" alt="" loading="lazy" decoding="async" />
+            <img src="assets/home/hero-scene-packaging-shipping.webp" alt="" loading="lazy" decoding="async" />
+          </span>
+          <b>Explore <span aria-hidden="true">→</span></b>
+        </a>
+      </section>
+
+      <section class="reference-bridge-section reveal" id="factory-bridge" aria-labelledby="bridge-title">
+        <div class="reference-bridge-copy">
+          <p class="reference-eyebrow">Our project</p>
+          <h2 id="bridge-title">Factory Bridge</h2>
+          <i aria-hidden="true"></i>
+          <p>Bridging manufacturing reality and global buyer understanding.</p>
         </div>
-        <div class="warm-hero-inner">
-          <div class="warm-hero-content">
-            <p class="warm-label">Supplier Reply Review for overseas buyers</p>
-            <h1 id="hero-title">
-              <span class="title-line">Understand a Chinese supplier reply</span>
-              <span class="title-line">before you pay.</span>
-            </h1>
-            <p class="warm-hero-copy" id="hero-subtitle">
-              See what the supplier confirmed, which details are still missing, and what to ask next before a sample fee, deposit, or order decision.
-            </p>
-            <div class="hero-actions" aria-label="Supplier review actions">
-              <a class="button primary" href="https://gewuji.dev/supplier-reply-review/" onclick="trackClarityEvent('home_zh_click_supplier_reply_review')" data-track-event="cta_click" data-track-location="homepage_hero" data-track-label="Review My Supplier Reply">Review My Supplier Reply</a>
-              <a class="button factory" href="supplier-reply-review/sample-report/" onclick="trackClarityEvent('home_zh_click_sample_report')" data-track-event="sample_report_view" data-track-location="homepage_hero" data-track-label="See a Sample Review">See a Sample Review</a>
-            </div>
-            <p class="hero-assurance">Communication review only. No factory audit, supplier verification, or reliability guarantee.</p>
+        <div class="reference-bridge-model" aria-label="Factory Bridge connects factory reality and buyer understanding">
+          <div class="reference-bridge-list">
+            <span>Factory Reality</span>
+            <strong>Products</strong><strong>Production</strong><strong>Materials</strong><strong>Documents</strong><strong>Supplier Replies</strong>
           </div>
-          <div class="hero-intel-card" aria-label="Factory Bridge focus tags" aria-hidden="true">
-            <span>Factory Bridge</span>
-            <span>Field Materials</span>
-            <span>Buyer Communication</span>
+          <div class="reference-bridge-core" aria-hidden="true">
+            <img src="assets/brand/gewuji-wordmark-lockup.svg" width="1800" height="480" alt="" />
+          </div>
+          <div class="reference-bridge-list buyer-list">
+            <span>Buyer Understanding</span>
+            <strong>Information</strong><strong>Context</strong><strong>Evaluation</strong><strong>Decisions</strong>
           </div>
         </div>
       </section>
 
-      <section class="home-section problem-section reveal" id="entries" aria-labelledby="problem-title">
-        <p class="section-kicker">The buyer problem</p>
-        <h2 id="problem-title">Finding suppliers is easy. Understanding them is harder.</h2>
-        <div class="plain-grid">
-          <article class="reveal">
-            <span>Supplier Reply</span>
-            <h3>What is confirmed?</h3>
-            <p class="problem-note">Supplier: “We can provide best price.”</p>
-            <dl>
-              <dt>Confirmed</dt>
-              <dd>Price received</dd>
-              <dt>Missing</dt>
-              <dd>MOQ / Lead time</dd>
-            </dl>
-          </article>
-          <article class="reveal">
-            <span>Quotation</span>
-            <h3>What is still unclear?</h3>
-            <p class="quote-shift">Listed price → Actual quote</p>
-          </article>
-          <article class="reveal">
-            <span>Factory Materials</span>
-            <h3>What can you actually see?</h3>
-            <dl>
-              <dt>Visible</dt>
-              <dd>Machine / Workshop / Packaging</dd>
-              <dt>Cannot confirm</dt>
-              <dd>Production control / Order outcome</dd>
-            </dl>
-          </article>
-        </div>
-      </section>
-
-      <section class="home-section bridge-section reveal" id="signals" aria-labelledby="bridge-title">
-        <div>
-          <p class="section-kicker">Factory Bridge method</p>
-          <h2 id="bridge-title" class="bridge-flow">
-            <span class="flow-step reveal">Supplier Communication</span>
-            <span class="flow-step reveal">Factory Materials</span>
-            <span class="flow-step reveal">Buyer Decision</span>
-          </h2>
-        </div>
-        <p>
-          Gewuji connects supplier replies, visible factory context, and the buyer's next sourcing decision. The work is not supplier scoring. It is making unclear information easier to read before the next commitment.
-        </p>
-      </section>
-
-      <section class="home-section review-section reveal" aria-labelledby="review-title">
-        <div>
-          <p class="section-kicker">Supplier Reply Review</p>
-          <h2 id="review-title">What supplier information should you clarify before paying?</h2>
-        </div>
-        <div class="review-example reveal">
-          <div class="document-fragment" aria-label="Supplier message fragment">
-            <span>Supplier message</span>
-            <p>Best quality · Fast delivery · Custom packaging available</p>
-          </div>
-          <p class="supplier-says">“We can provide best quality and fast delivery.”</p>
-          <div class="analysis-grid">
-            <div class="reveal">
-              <span>Confirmed</span>
-              <p>Price received</p>
-            </div>
-            <div class="reveal">
-              <span>Unclear</span>
-              <p>Material details</p>
-            </div>
-            <div class="reveal">
-              <span>Missing</span>
-              <p>Lead time / packaging / sample scope</p>
-            </div>
-          </div>
-          <p class="next-question">Next question: “Could you confirm the material, packaging method, sample scope, and production lead time in writing?”</p>
-        </div>
-      </section>
-
-      <section class="home-section field-section reveal" aria-labelledby="field-title">
-        <div>
-          <p class="section-kicker">Field Materials</p>
-          <h2 id="field-title">Real factory context, not just supplier claims.</h2>
-          <p>Workshop, equipment, product details, and packaging help buyers understand visible information. This is not a formal audit report.</p>
-        </div>
-        <div class="field-gallery" aria-label="Field material types">
-          <figure class="reveal">
-            <img src="assets/home/hero-scene-textile-workshop.webp" srcset="assets/home/hero-scene-textile-workshop-800.jpg 800w, assets/home/hero-scene-textile-workshop.webp 1672w" sizes="(max-width: 700px) 100vw, 25vw" alt="Workshop view" loading="lazy" decoding="async" />
-            <figcaption>Workshop</figcaption>
-          </figure>
-          <figure class="reveal">
-            <img src="assets/home/hero-scene-cleanroom-manufacturing.webp" srcset="assets/home/hero-scene-cleanroom-manufacturing-800.jpg 800w, assets/home/hero-scene-cleanroom-manufacturing.webp 1672w" sizes="(max-width: 700px) 100vw, 25vw" alt="Equipment detail" loading="lazy" decoding="async" />
-            <figcaption>Equipment</figcaption>
-          </figure>
-          <figure class="reveal">
-            <img src="assets/home/hero-scene-product-inspection.webp" srcset="assets/home/hero-scene-product-inspection-800.jpg 800w, assets/home/hero-scene-product-inspection.webp 1672w" sizes="(max-width: 700px) 100vw, 25vw" alt="Product detail" loading="lazy" decoding="async" />
-            <figcaption>Product details</figcaption>
-          </figure>
-          <figure class="reveal">
-            <img src="assets/home/hero-scene-packaging-shipping.webp" srcset="assets/home/hero-scene-packaging-shipping-800.jpg 800w, assets/home/hero-scene-packaging-shipping.webp 1672w" sizes="(max-width: 700px) 100vw, 25vw" alt="Packaging and material context" loading="lazy" decoding="async" />
-            <figcaption>Packaging</figcaption>
-          </figure>
-        </div>
-      </section>
-
-      <section class="home-section final-cta reveal" id="contact" aria-labelledby="contact-title">
-        <p class="section-kicker">Next step</p>
-        <h2 id="contact-title">Know what your supplier confirmed before deciding what to do next.</h2>
-        <p>Send one focused reply, quotation, sample term, or payment detail. Gewuji separates the available information from the questions that still need answers.</p>
-        <div class="hero-actions">
-          <a class="button primary" href="https://gewuji.dev/supplier-reply-review/" onclick="trackClarityEvent('home_zh_click_supplier_reply_review_bottom')" data-track-event="cta_click" data-track-location="homepage_bottom" data-track-label="Review My Supplier Reply">Review My Supplier Reply</a>
-          <a class="button factory" href="supplier-reply-review/sample-report/" onclick="trackClarityEvent('home_zh_click_sample_report_bottom')" data-track-event="sample_report_view" data-track-location="homepage_bottom" data-track-label="See a Sample Review">See a Sample Review</a>
-        </div>
-      </section>
     </main>
 
     <footer class="site-footer">
       <span>© 2026 Gewuji</span>
-      <a href="https://gewuji.dev/for-buyers/" onclick="trackClarityEvent('home_zh_click_outreach_content')">For Buyers</a>
-      <a href="https://gewuji.dev/supplier-reply-review/">Supplier Reply Review</a>
-      <a href="field-materials/" onclick="trackClarityEvent('home_zh_click_field_materials')">Field Materials</a>
-      <a href="https://gewuji.dev/contact/">Contact</a>
-      <a href="https://factory.gewuji.dev/for-factories/" onclick="trackClarityEvent('home_zh_click_material_rewrite')">For Chinese Factories</a>
+      <a href="privacy-policy/">Privacy Policy</a>
+      <a href="terms-of-service/">Terms of Service</a>
     </footer>
     <script src="marketing-events.js?v=20260714-ga4"></script>
     <script>
@@ -2131,72 +2033,6 @@
         observer.observe(node);
       });
 
-      const hero = document.querySelector(".warm-hero");
-      const heroScenes = Array.from(document.querySelectorAll(".hero-scene"));
-      const heroSubtitle = document.querySelector("#hero-subtitle");
-      const supplierCue = document.querySelector(".supplier-info-layer");
-      const heroStory = [
-        {
-          subtitle: "Helping overseas buyers understand Chinese suppliers before samples, deposits and production.",
-          position: "left",
-          cue: true
-        },
-        {
-          subtitle: "Reading machining details beyond supplier descriptions.",
-          position: "left",
-          cue: true
-        },
-        {
-          subtitle: "Looking beyond supplier profiles to understand real production context.",
-          position: "left",
-          cue: false
-        },
-        {
-          subtitle: "Clarifying packaging, shipping and order details before commitment.",
-          position: "left",
-          cue: true
-        },
-        {
-          subtitle: "Turning visible factory signals into better buyer questions.",
-          position: "right",
-          cue: false
-        },
-        {
-          subtitle: "Helping buyers understand product details before moving forward.",
-          position: "left",
-          cue: true
-        },
-        {
-          subtitle: "Turning visible factory signals into better buyer questions.",
-          position: "right",
-          cue: false
-        }
-      ];
-
-      if (motionOK && hero && heroScenes.length > 1 && heroSubtitle) {
-        let heroIndex = 0;
-        if (supplierCue && heroStory[0].cue) {
-          window.setTimeout(() => supplierCue.classList.add("is-visible"), 1200);
-        }
-
-        window.setInterval(() => {
-          heroScenes[heroIndex].classList.remove("is-active");
-          heroIndex = (heroIndex + 1) % heroScenes.length;
-          heroScenes[heroIndex].classList.add("is-active");
-
-          const story = heroStory[heroIndex];
-          hero.classList.toggle("scene-left", story.position === "left");
-          hero.classList.toggle("scene-right", story.position === "right");
-          heroSubtitle.textContent = story.subtitle;
-
-          if (supplierCue) {
-            supplierCue.classList.remove("is-visible");
-            if (story.cue) {
-              window.setTimeout(() => supplierCue.classList.add("is-visible"), 900);
-            }
-          }
-        }, 7000);
-      }
     </script>
   </body>
 </html>

@@ -1,6 +1,9 @@
 (function () {
   const campaignKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"];
   const params = new URLSearchParams(window.location.search);
+  const funnelSource = params.get("source");
+
+  if (funnelSource) sessionStorage.setItem("gewuji_funnel_source", funnelSource);
 
   campaignKeys.forEach((key) => {
     const value = params.get(key);
@@ -16,6 +19,7 @@
       campaign: sessionStorage.getItem("gewuji_utm_campaign") || "",
       campaign_content: sessionStorage.getItem("gewuji_utm_content") || "",
       campaign_term: sessionStorage.getItem("gewuji_utm_term") || "",
+      source: sessionStorage.getItem("gewuji_funnel_source") || "direct",
     };
   }
 

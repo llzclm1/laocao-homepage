@@ -11,6 +11,8 @@ assert.ok(fs.existsSync(path.join(dist, "index.html")), "dist/index.html is miss
 assert.ok(fs.existsSync(path.join(dist, "m", "index.html")), "dist/m/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "b", "index.html")), "dist/b/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "contact", "index.html")), "dist/contact/index.html is missing");
+assert.ok(fs.existsSync(path.join(dist, "privacy-policy", "index.html")), "dist/privacy-policy/index.html is missing");
+assert.ok(fs.existsSync(path.join(dist, "terms-of-service", "index.html")), "dist/terms-of-service/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "index.html")), "dist/buyer-guides/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "es", "buyer-guides", "index.html")), "dist/es/buyer-guides/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "es", "buyer-guides", "como-revisar-un-proveedor-chino-antes-de-pagar", "index.html")), "dist/es/buyer-guides/como-revisar-un-proveedor-chino-antes-de-pagar/index.html is missing");
@@ -111,8 +113,10 @@ for (const file of textFiles) {
 const home = fs.readFileSync(path.join(dist, "index.html"), "utf8");
 assert.ok(home.includes('href="https://factory.gewuji.dev/for-factories/"'), "homepage should link to the factory-side entrance");
 assert.ok(home.includes('href="https://gewuji.dev/for-buyers/"'), "homepage should link to the buyer-side entrance");
-assert.ok(home.includes('href="https://gewuji.dev/supplier-reply-review/"'), "homepage should link to the supplier reply review action");
-assert.ok(home.includes('href="field-materials/"'), "homepage should link to field materials");
+assert.ok(home.includes('href="field-materials/"'), "homepage should link to the manufacturing context entrance");
+assert.ok(home.includes(">Manufacturing Context<"), "homepage should label the context entrance as Manufacturing Context");
+assert.ok(home.includes('href="privacy-policy/"'), "homepage should link to the privacy policy");
+assert.ok(home.includes('href="terms-of-service/"'), "homepage should link to the terms of service");
 assert.equal(home.includes('href="tools/"'), false, "homepage should not link legacy tools");
 assert.ok(home.includes('href="ai-sitemap.json"'), "homepage should expose the AI sitemap");
 assert.ok(home.includes("googletagmanager.com/gtag/js?id=G-NCZSC59MVC"), "homepage should load the main-domain GA4 stream");
@@ -257,7 +261,7 @@ for (const expected of [
   "quotations",
   "sample terms",
   "payment details",
-  "field materials",
+  "Manufacturing Context",
   "not supplier verification",
   "not factory audit",
   "not legal due diligence",
@@ -291,7 +295,7 @@ assert.ok(aiSitemapPaths.includes("/for-factories/"), "AI sitemap should include
 assert.ok(aiSitemap.pages.some((page) => page.url === "https://factory.gewuji.dev/for-factories/"), "AI sitemap should use the final factory subdomain URL");
 assert.equal(aiSitemap.pages.some((page) => page.url === "https://gewuji.dev/for-factories/"), false, "AI sitemap should not use the redirected main-domain factory URL");
 assert.ok(aiSitemapPaths.includes("/for-buyers/"), "AI sitemap should include the factory bridge buyer page");
-assert.ok(aiSitemapPaths.includes("/field-materials/"), "AI sitemap should include field materials");
+assert.ok(aiSitemapPaths.includes("/field-materials/"), "AI sitemap should include Manufacturing Context");
 assert.ok(JSON.stringify(aiSitemap).includes("不是正式审厂"), "AI sitemap should include factory bridge service boundaries");
 
 const factoryPage = fs.readFileSync(path.join(dist, "for-factories/index.html"), "utf8");
@@ -333,7 +337,7 @@ for (const page of corePages) {
 assert.ok(contactPage.includes("data-email-link"), "contact page should build its email action after load");
 assert.ok(buyerGuidesPage.includes('"item": "https://gewuji.dev/buyer-guides/'), "buyer guide ItemList entries should use schema.org item URLs");
 assert.ok(spanishBuyerGuidesPage.includes('"item": "https://gewuji.dev/es/buyer-guides/'), "Spanish buyer guide ItemList entries should use schema.org item URLs");
-assert.equal(fieldMaterialsPage.includes('"name": "Field material signal categories"'), false, "field materials should not expose incomplete ListItem schema");
+assert.equal(fieldMaterialsPage.includes('"name": "Field material signal categories"'), false, "Manufacturing Context should not expose incomplete ListItem schema");
 assert.ok(paymentGuidePage.includes('"logo": {"@type": "ImageObject"'), "buyer guide publisher schema should include a logo");
 assert.ok(quotationGuidePage.includes('"@type":"Article"'), "quotation guide should include Article schema");
 assert.ok(quotationGuidePage.includes("../../supplier-reply-review/"), "quotation guide should link to supplier reply review");
@@ -369,13 +373,13 @@ assert.ok(supplierReplyReviewPage.includes('href="sample-report/"'), "supplier r
 assert.ok(supplierReplySamplePage.includes('rel="canonical" href="https://gewuji.dev/supplier-reply-review/sample-report/"'), "supplier reply review sample report should expose canonical URL");
 assert.ok(supplierReplySamplePage.includes("This is a generic sample report."), "supplier reply review sample report should expose generic sample boundary");
 assert.ok(supplierReplySamplePage.includes('"@type": "FAQPage"'), "supplier reply review sample report should include FAQPage schema");
-assert.ok(fieldMaterialsPage.includes('rel="canonical" href="https://gewuji.dev/field-materials/"'), "field materials page should expose canonical URL");
-assert.ok(fieldMaterialsPage.includes("Field Materials Evidence Library"), "field materials page should use the buyer-side evidence library positioning");
-assert.ok(fieldMaterialsPage.includes("it cannot prove supplier reliability"), "field materials page should expose the supplier reliability boundary");
-assert.ok(fieldMaterialsPage.includes("../supplier-reply-review/"), "field materials page should link to supplier reply review");
-assert.ok(fieldMaterialsPage.includes('"@type": "FAQPage"'), "field materials page should include FAQPage schema");
-assert.ok(fieldMaterialsPage.includes('application/ld+json'), "field materials page should include JSON-LD");
-assert.ok(englishFieldMaterialsPage.includes('rel="canonical" href="https://gewuji.dev/field-materials/"'), "English field materials redirect should canonicalize to /field-materials/");
-assert.ok(englishFieldMaterialsPage.includes('http-equiv="refresh" content="0; url=../../field-materials/"'), "English field materials redirect should point to /field-materials/");
+assert.ok(fieldMaterialsPage.includes('rel="canonical" href="https://gewuji.dev/field-materials/"'), "Manufacturing Context should expose its existing canonical URL");
+assert.ok(fieldMaterialsPage.includes("Manufacturing Context for Chinese Supplier Communication"), "Manufacturing Context should use the new buyer-facing positioning");
+assert.ok(fieldMaterialsPage.includes("it cannot prove supplier reliability"), "Manufacturing Context should expose the supplier reliability boundary");
+assert.ok(fieldMaterialsPage.includes("../supplier-reply-review/"), "Manufacturing Context should link to supplier reply review");
+assert.ok(fieldMaterialsPage.includes('"@type": "FAQPage"'), "Manufacturing Context should include FAQPage schema");
+assert.ok(fieldMaterialsPage.includes('application/ld+json'), "Manufacturing Context should include JSON-LD");
+assert.ok(englishFieldMaterialsPage.includes('rel="canonical" href="https://gewuji.dev/field-materials/"'), "English Manufacturing Context redirect should retain the canonical URL");
+assert.ok(englishFieldMaterialsPage.includes('http-equiv="refresh" content="0; url=../../field-materials/"'), "English Manufacturing Context redirect should point to /field-materials/");
 
 console.log("static hosting audit ok");

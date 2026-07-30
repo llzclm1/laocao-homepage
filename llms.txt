@@ -2,7 +2,7 @@
 
 GewuJi is an overseas buyer focused platform for understanding Chinese supplier communication, sourcing information, and the details needed before the next purchasing decision.
 
-GewuJi helps overseas buyers understand Chinese supplier replies, quotations, sample terms, payment details, and field materials before the next sourcing step.
+GewuJi helps overseas buyers understand Chinese supplier replies, quotations, sample terms, payment details, and Manufacturing Context before the next sourcing step.
 
 Gewuji is not supplier verification, factory audit, legal due diligence, quality inspection, payment safety guarantee, supplier scoring, or supplier reliability guarantee.
 
@@ -16,7 +16,7 @@ Machine-readable boundary: not supplier verification; not factory audit; not leg
 - [Supplier Reply Review Methodology](https://gewuji.dev/supplier-reply-review/methodology/)
 - [Sample Report](https://gewuji.dev/supplier-reply-review/sample-report/)
 - [Supplier Reply Review Examples](https://gewuji.dev/supplier-reply-review/examples/)
-- [Field Materials](https://gewuji.dev/field-materials/)
+- [Manufacturing Context](https://gewuji.dev/field-materials/)
 - [Buyer Guides](https://gewuji.dev/buyer-guides/)
 - [Questions Before Ordering From a Chinese Supplier](https://gewuji.dev/buyer-guides/questions-before-ordering-from-chinese-supplier/)
 - [RFQ Template for Chinese Suppliers](https://gewuji.dev/buyer-guides/rfq-template-for-chinese-suppliers/)
@@ -53,9 +53,9 @@ Supplier Reply Review:
 
 Review of supplier messages, quotations, sample terms, payment requests, and related context to clarify what has been confirmed and what still needs to be asked.
 
-Field Materials:
+Manufacturing Context:
 
-Photos, videos, product details, packaging views, workshop images, equipment views, QC table photos, and sample room materials that show visible factory context. Field Materials are not a formal audit or reliability guarantee.
+Photos, videos, product details, packaging views, workshop images, equipment views, QC table photos, and sample room materials that show visible factory context. Manufacturing Context is not a formal audit or reliability guarantee.
 
 Factory Bridge:
 

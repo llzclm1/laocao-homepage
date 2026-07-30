@@ -81,6 +81,7 @@ const copyEntries = [
   "m",
   "marketing-events.js",
   "nav",
+  "privacy-policy",
   "robots.txt",
   "script.js",
   "SEARCH_ENGINE_SUBMISSION.md",
@@ -88,6 +89,7 @@ const copyEntries = [
   "stats.html",
   "supplier-reply-review",
   "styles.css",
+  "terms-of-service",
   "trade.css",
   "tools"
 ];
@@ -645,18 +647,18 @@ function buildAiSitemap() {
         url: publicUrl("for-buyers/"),
         title: "Gewuji | Clearer Factory Information for Overseas Buyers",
         type: "Service",
-        summary: "Gewuji organizes supplier replies, product materials, factory profiles, workshop photos, and field materials into clearer context before samples, deposits, or larger orders.",
+        summary: "Gewuji helps overseas buyers clarify supplier replies, quotations, sample terms, payment details, and Manufacturing Context before samples, deposits, or larger orders.",
         answers: ["clearer factory information before samples", "supplier reply context", "factory communication questions"],
         keywords: ["clearer factory information", "supplier replies", "product materials", "factory profiles", "overseas buyers"],
         boundaries: ["not a factory audit", "not legal due diligence", "not quality inspection", "does not guarantee supplier reliability or order safety"]
       },
       {
         url: publicUrl("field-materials/"),
-        title: "Gewuji | Field Evidence for Factory Materials",
+        title: "Gewuji | Manufacturing Context for Factory Information",
         type: "CollectionPage",
-        summary: "Privacy-protected workshop, equipment, packaging and production details show how real factory information can support buyer-facing materials.",
-        answers: ["field evidence for factory materials", "factory photos for buyer-facing materials", "how to explain real factory information"],
-        keywords: ["field evidence", "factory photos", "buyer-facing materials", "factory communication"],
+        summary: "Manufacturing Context uses privacy-protected workshop, equipment, packaging, and production details to show how real factory information can support clearer buyer understanding.",
+        answers: ["manufacturing context for factory information", "factory photos for buyer understanding", "how to explain real factory information"],
+        keywords: ["manufacturing context", "factory photos", "buyer understanding", "factory communication"],
         boundaries: ["examples are anonymized", "no customer names or factory names are disclosed", "not a supplier guarantee", "not an inspection report"]
       }
     ]
