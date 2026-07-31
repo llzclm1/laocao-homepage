@@ -1938,7 +1938,7 @@
           <p>Turn factory capabilities, products, and production details into clearer information for global buyers.</p>
         </div>
         <figure class="reference-hero-artwork">
-          <video autoplay muted playsinline preload="metadata" poster="assets/home/gewuji-hero-manufacturing-room.png" aria-label="Animated GEWUJI manufacturing logo">
+          <video muted playsinline preload="metadata" poster="assets/home/gewuji-hero-manufacturing-room.webp" aria-label="Animated GEWUJI manufacturing logo">
             <source src="assets/home/gewuji-manufacturing-logo-animation.mp4" type="video/mp4" />
           </video>
         </figure>
@@ -2009,6 +2009,15 @@
     <script src="marketing-events.js?v=20260714-ga4"></script>
     <script>
       const motionOK = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const heroVideo = document.querySelector(".reference-hero-artwork video");
+
+      if (heroVideo) {
+        if (motionOK) {
+          heroVideo.play().catch(() => {});
+        } else {
+          heroVideo.pause();
+        }
+      }
 
       if (motionOK) {
         const updateScrollMotion = () => {
