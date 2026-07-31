@@ -1,6 +1,6 @@
-CHINA SUPPLIER VERIFICATION CHECKLIST
+CHINA SUPPLIER INFORMATION CHECKLIST BEFORE PAYMENT
 
-Use before samples, deposits, tooling fees, or a first bulk order.
+Use to organize supplier names, quote scope, sample terms, payment details, and open questions before paying.
 
 BUSINESS IDENTITY
 [ ] Quotation company name recorded
@@ -42,7 +42,7 @@ FINAL PAUSE CHECK
 [ ] No unexplained mismatch remains before payment
 
 BOUNDARY
-This checklist organizes visible information and questions. It is not a factory audit, legal due diligence, quality inspection, or supplier reliability guarantee.
+This checklist organizes visible information and questions. It does not verify a supplier or prove factory capability, quality, delivery, or payment safety.
 
 Buyer guides: https://gewuji.dev/buyer-guides/
 Supplier Reply Review: https://gewuji.dev/supplier-reply-review/

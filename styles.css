@@ -9907,6 +9907,15 @@ body.bridge-page .bridge-footer a:focus-visible {
     line-height: 1.02;
   }
 
+  body.bridge-page.buyer-guides-hub .bridge-hero-copy {
+    min-width: 0;
+  }
+
+  body.bridge-page.buyer-guides-hub .bridge-hero h1 {
+    max-width: 100%;
+    font-size: 38px;
+  }
+
   body.bridge-page .bridge-hero-aside {
     padding-left: 18px;
   }
