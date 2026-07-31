@@ -8,6 +8,8 @@ const dist = path.join(root, "dist");
 const githubPagesHostSuffix = ["github", "io"].join(".");
 
 assert.ok(fs.existsSync(path.join(dist, "index.html")), "dist/index.html is missing");
+const oldcaoIndex = fs.readFileSync(path.join(root, "oldcao", "index.html"), "utf8");
+assert.ok(oldcaoIndex.includes('<meta name="robots" content="noindex, follow"'), "oldcao should stay accessible but leave search discovery");
 assert.ok(fs.existsSync(path.join(dist, "m", "index.html")), "dist/m/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "b", "index.html")), "dist/b/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "contact", "index.html")), "dist/contact/index.html is missing");
@@ -34,6 +36,10 @@ assert.ok(fs.existsSync(path.join(dist, "marketing-events.js")), "dist/marketing
 const marketingEvents = fs.readFileSync(path.join(dist, "marketing-events.js"), "utf8");
 assert.ok(marketingEvents.includes('params.get("source")'), "marketing events should read funnel source attribution");
 assert.ok(marketingEvents.includes('source: sessionStorage.getItem("gewuji_funnel_source")'), "marketing events should attach funnel source to events");
+assert.ok(marketingEvents.includes('window.gewujiTrack("contact_page_view")'), "marketing events should track contact page views");
+const contactTrackingPage = fs.readFileSync(path.join(dist, "contact", "index.html"), "utf8");
+assert.ok(contactTrackingPage.includes('data-page-type="contact"'), "contact page should track page views");
+assert.ok(contactTrackingPage.includes('data-track-event="contact_email_click"'), "contact page should track email clicks");
 assert.ok(fs.existsSync(path.join(dist, "link-visibility.js")), "dist/link-visibility.js is missing");
 const supplierReplyReview = fs.readFileSync(path.join(dist, "supplier-reply-review", "index.html"), "utf8");
 const linkVisibility = fs.readFileSync(path.join(dist, "link-visibility.js"), "utf8");
@@ -65,12 +71,21 @@ const sampleQuestionsGuide = fs.readFileSync(path.join(dist, "buyer-guides", "qu
 assert.ok(sampleQuestionsGuide.includes('data-page-type="buyer_guide"'), "sample questions guide should track page views");
 assert.ok(sampleQuestionsGuide.includes("marketing-events.js?v=20260715-funnel"), "sample questions guide should load the event script");
 assert.equal(fs.existsSync(path.join(dist, "free-supplier-reply-review")), false, "legacy free review HTML should not be deployed behind the edge redirect");
-assert.equal(fs.existsSync(path.join(dist, "buyer-guides", "alibaba-vs-made-in-china-sourcing-safety")), false, "unpublished buyer guide should not be copied");
+for (const slug of [
+  "documents-chinese-supplier-should-provide",
+  "alibaba-vs-made-in-china-sourcing-safety",
+  "should-you-trust-alibaba-supplier-badges",
+  "verify-ce-ul-rohs-certificates-china"
+]) {
+  assert.ok(fs.existsSync(path.join(dist, "buyer-guides", slug, "index.html")), `${slug} buyer guide should be published`);
+}
 assert.ok(fs.existsSync(path.join(dist, "china-supplier-checklist", "index.html")), "china supplier checklist page should exist");
 const supplierChecklistPage = fs.readFileSync(path.join(dist, "china-supplier-checklist", "index.html"), "utf8");
 assert.ok(supplierChecklistPage.includes('rel="canonical" href="https://gewuji.dev/china-supplier-checklist/"'), "supplier checklist should expose canonical URL");
 assert.ok(supplierChecklistPage.includes('"@type": "WebPage"'), "supplier checklist should expose WebPage schema");
 assert.ok(supplierChecklistPage.includes('"@type": "BreadcrumbList"'), "supplier checklist should expose breadcrumb schema");
+assert.ok(supplierChecklistPage.includes("China Supplier Pre-Payment Checklist | Free Download"), "supplier checklist should use the pre-payment title");
+assert.ok(supplierChecklistPage.includes("China Supplier Information Checklist Before Payment"), "supplier checklist should use information-checklist positioning");
 assert.ok(
   fs.existsSync(path.join(dist, "china-supplier-checklist", "china-supplier-verification-checklist.txt")),
   "downloadable china supplier checklist should exist"
@@ -81,6 +96,21 @@ for (const redirectPage of [oldRfqPage, misspelledFqPage]) {
   assert.ok(redirectPage.includes('<meta name="robots" content="noindex, follow"'), "legacy RFQ paths should not be indexed");
   assert.ok(redirectPage.includes('rel="canonical" href="https://gewuji.dev/buyer-guides/rfq-template-for-chinese-suppliers/"'), "legacy RFQ paths should canonicalize directly to the RFQ guide");
   assert.ok(redirectPage.includes('url=../buyer-guides/rfq-template-for-chinese-suppliers/'), "legacy RFQ paths should redirect directly to the RFQ guide");
+}
+
+const noindexArchivePages = [
+  "docs/growth-os/dashboard.html",
+  "en/game/worldcup/index.html",
+  "en/tools/photo-booth/index.html",
+  "game/worldcup/index.html",
+  "lab/index.html",
+  "tools/content-assistant/index.html",
+  "tools/seo-content-tools/index.html",
+  "tools/worldcup-advisor/index.html"
+];
+for (const relativePath of noindexArchivePages) {
+  const archivePage = fs.readFileSync(path.join(dist, relativePath), "utf8");
+  assert.ok(archivePage.includes('<meta name="robots" content="noindex, follow"'), `${relativePath} should stay accessible but leave search discovery`);
 }
 assert.ok(fs.existsSync(path.join(dist, "en", "index.html")), "dist/en/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "en", "field-materials", "index.html")), "dist/en/field-materials/index.html is missing");
@@ -228,12 +258,22 @@ assert.ok(sitemap.includes("/buyer-guides/chinese-factory-or-trading-company/"),
 assert.ok(sitemap.includes("/supplier-reply-review/"), "sitemap should include supplier reply review page");
 assert.ok(sitemap.includes("/supplier-reply-review/methodology/"), "sitemap should include supplier reply review methodology");
 assert.ok(sitemap.includes("/supplier-reply-review/sample-report/"), "sitemap should include supplier reply review sample report");
-assert.equal(sitemap.includes("/buyer-guides/alibaba-vs-made-in-china-sourcing-safety/"), false, "sitemap should not include unpublished buyer guides");
+assert.ok(sitemap.includes("/privacy-policy/"), "sitemap should include the privacy policy");
+assert.ok(sitemap.includes("/terms-of-service/"), "sitemap should include the terms of service");
+for (const slug of [
+  "documents-chinese-supplier-should-provide",
+  "alibaba-vs-made-in-china-sourcing-safety",
+  "should-you-trust-alibaba-supplier-badges",
+  "verify-ce-ul-rohs-certificates-china"
+]) {
+  assert.ok(sitemap.includes(`/buyer-guides/${slug}/`), `${slug} buyer guide should be included in the sitemap`);
+}
 assert.ok(sitemap.includes("/china-supplier-checklist/"), "sitemap should include the published checklist page");
 assert.equal(sitemap.includes("<loc>https://gewuji.dev/rfq-template-for-chinese-suppliers/</loc>"), false, "sitemap should not include old RFQ redirect path");
 assert.equal(sitemap.includes("/free-supplier-reply-review/"), false, "sitemap should not include old review redirect path");
 assert.equal(sitemap.includes("/fq-template-for-chinese-suppliers/"), false, "sitemap should not include misspelled RFQ path");
-assert.ok(sitemap.includes("/ai-sitemap.json"), "sitemap should include /ai-sitemap.json");
+assert.equal(sitemap.includes("/llms.txt"), false, "sitemap should not include the machine-readable llms.txt resource");
+assert.equal(sitemap.includes("/ai-sitemap.json"), false, "sitemap should not include the machine-readable AI sitemap resource");
 assert.ok(sitemap.includes("/es/buyer-guides/"), "sitemap should include /es/buyer-guides/");
 assert.ok(sitemap.includes("/es/buyer-guides/como-revisar-un-proveedor-chino-antes-de-pagar/"), "sitemap should include the first Spanish buyer guide");
 assert.ok(sitemap.includes("/for-factories/"), "sitemap should include the main-domain factory-side entrance");

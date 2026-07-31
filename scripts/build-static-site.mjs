@@ -33,6 +33,7 @@ const analyticsPagePaths = new Set([
 const publishedBuyerGuides = [
   "verify-chinese-supplier-before-deposit",
   "check-if-chinese-factory-is-real",
+  "documents-chinese-supplier-should-provide",
   "questions-before-ordering-from-chinese-supplier",
   "questions-before-ordering-samples-from-china",
   "sample-order-before-bulk-production-china",
@@ -44,10 +45,22 @@ const publishedBuyerGuides = [
   "chinese-factory-or-trading-company",
   "china-supplier-red-flags-before-first-order",
   "reduce-risk-first-order-from-china",
-  "chinese-factory-video-call-checklist"
+  "chinese-factory-video-call-checklist",
+  "alibaba-vs-made-in-china-sourcing-safety",
+  "should-you-trust-alibaba-supplier-badges",
+  "verify-ce-ul-rohs-certificates-china"
 ];
 const publishedSpanishBuyerGuides = [
   "como-revisar-un-proveedor-chino-antes-de-pagar"
+];
+const noindexPathPrefixes = [
+  "docs/",
+  "en/game/",
+  "en/tools/",
+  "game/",
+  "godot/",
+  "lab/",
+  "tools/"
 ];
 
 const copyEntries = [
@@ -117,6 +130,7 @@ injectLinkVisibility();
 injectContentAssistantSeo();
 injectContentAssistantConfig();
 pruneUnpublishedBuyerGuides();
+applyNoindexPolicies();
 
 fs.writeFileSync(path.join(outDir, "robots.txt"), buildRobots(), "utf8");
 fs.writeFileSync(path.join(outDir, "sitemap.xml"), buildSitemap(), "utf8");
@@ -314,6 +328,20 @@ function pruneUnpublishedBuyerGuides() {
   }
 }
 
+function applyNoindexPolicies() {
+  for (const file of listHtmlFiles(outDir)) {
+    const relativePath = path.relative(outDir, file).split(path.sep).join("/");
+    if (!noindexPathPrefixes.some((prefix) => relativePath.startsWith(prefix))) continue;
+
+    const html = fs.readFileSync(file, "utf8");
+    if (!html.includes("</head>")) continue;
+
+    const withoutRobots = html.replace(/\s*<meta\s+name=["']robots["'][^>]*>/gi, "");
+    const robotsMeta = '    <meta name="robots" content="noindex, follow" />';
+    fs.writeFileSync(file, withoutRobots.replace("</head>", `${robotsMeta}\n  </head>`), "utf8");
+  }
+}
+
 function buildAnalyticsTags({ includeGoogleAnalytics }) {
   const tags = [];
   const googleVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
@@ -426,8 +454,8 @@ function buildSitemap() {
     ["supplier-reply-review/sample-report/", "0.7"],
     ["field-materials/", "0.8"],
     ["contact/", "0.5"],
-    ["llms.txt", "0.6"],
-    ["ai-sitemap.json", "0.6"]
+    ["privacy-policy/", "0.3"],
+    ["terms-of-service/", "0.3"]
   ];
 
   const urls = entries
