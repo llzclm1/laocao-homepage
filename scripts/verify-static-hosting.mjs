@@ -37,6 +37,7 @@ const marketingEvents = fs.readFileSync(path.join(dist, "marketing-events.js"), 
 assert.ok(marketingEvents.includes('params.get("source")'), "marketing events should read funnel source attribution");
 assert.ok(marketingEvents.includes('source: sessionStorage.getItem("gewuji_funnel_source")'), "marketing events should attach funnel source to events");
 assert.ok(marketingEvents.includes('window.gewujiTrack("contact_page_view")'), "marketing events should track contact page views");
+assert.ok(marketingEvents.includes("window.gewujiTrackAndContinue"), "marketing events should support navigation-safe conversion tracking");
 const contactTrackingPage = fs.readFileSync(path.join(dist, "contact", "index.html"), "utf8");
 assert.ok(contactTrackingPage.includes('data-page-type="contact"'), "contact page should track page views");
 assert.ok(contactTrackingPage.includes('data-track-event="contact_email_click"'), "contact page should track email clicks");
@@ -58,7 +59,15 @@ const paidReviewLanding = fs.readFileSync(path.join(dist, "supplier-reply-review
 assert.ok(paidReviewLanding.includes('<meta name="robots" content="noindex, follow"'), "paid review landing page should stay out of organic discovery");
 assert.ok(paidReviewLanding.includes('data-page-type="paid_landing"'), "paid review landing page should track landing views");
 assert.ok(paidReviewLanding.includes('data-track-form="paid_supplier_reply_review"'), "paid review landing page should expose the review request funnel");
+assert.ok(paidReviewLanding.includes('data-track-submit-mode="manual"'), "paid review landing page should own its navigation-safe handoff event");
+assert.ok(paidReviewLanding.includes('supplier_material_email_click'), "paid review landing page should track the email handoff event");
 assert.equal(paidReviewLanding.includes('type="file"'), false, "paid review landing page should not collect supplier files");
+assert.ok(fs.existsSync(path.join(dist, "ads.txt")), "ads.txt is missing from the production artifact");
+assert.equal(
+  fs.readFileSync(path.join(dist, "ads.txt"), "utf8").trim(),
+  "google.com, pub-8632220983091472, DIRECT, f08c47fec0942fa0",
+  "ads.txt should contain the configured AdSense publisher record"
+);
 const sampleReviewReport = fs.readFileSync(path.join(dist, "supplier-reply-review", "sample-report", "index.html"), "utf8");
 assert.ok(sampleReviewReport.includes('data-page-type="sample_report"'), "sample report should track report views");
 assert.ok(sampleReviewReport.includes("googletagmanager.com/gtag/js?id=G-NCZSC59MVC"), "sample report should load GA4");

@@ -154,7 +154,7 @@
             <h2 id="start-title">Prepare Your Review Request</h2>
             <p class="bridge-contact-copy">Share only the decision context here. Your supplier reply, quotation, PI, screenshots, or files stay in your email and are not collected by site analytics.</p>
           </div>
-          <form class="bridge-form" data-track-form="paid_supplier_reply_review" id="review-request-form">
+          <form class="bridge-form" data-track-form="paid_supplier_reply_review" data-track-submit-event="supplier_material_email_click" data-track-submit-mode="manual" id="review-request-form">
             <label>
               Product category
               <input name="product_category" type="text" autocomplete="off" placeholder="Example: custom metal enclosure" required />
@@ -181,6 +181,7 @@
             </label>
             <button class="bridge-button primary full" type="submit">Open Review Email</button>
             <p class="bridge-form-note full">Your email app will open with this context. No full procurement brief is required. Attach one focused supplier material there after removing information you do not want to share. Pilot availability and scope are confirmed before any payment.</p>
+            <noscript><p class="bridge-form-note full">JavaScript is required to prefill the review context. You can still email Gewuji directly at <a href="mailto:llzclm@gmail.com">llzclm@gmail.com</a>.</p></noscript>
           </form>
         </div>
       </section>
@@ -191,11 +192,8 @@
     <script>
       document.getElementById("review-request-form").addEventListener("submit", (event) => {
         event.preventDefault();
-        window.gewujiTrack("outbound_email_click", {
-          action_location: "paid_landing_form",
-          action_label: "Open Review Email",
-        });
-        const data = new FormData(event.currentTarget);
+        const form = event.currentTarget;
+        const data = new FormData(form);
         const body = [
           `Product category: ${data.get("product_category")}`,
           `Payment stage: ${data.get("payment_stage")}`,
@@ -204,7 +202,17 @@
           "",
           "I will attach the supplier reply, quotation, PI, or screenshots to this email.",
         ].join("\n");
-        window.location.href = `mailto:llzclm@gmail.com?subject=${encodeURIComponent("Supplier Reply Review Request")}&body=${encodeURIComponent(body)}`;
+        const openReviewEmail = () => {
+          window.location.href = `mailto:llzclm@gmail.com?subject=${encodeURIComponent("Supplier Reply Review Request")}&body=${encodeURIComponent(body)}`;
+        };
+        if (typeof window.gewujiTrackAndContinue === "function") {
+          window.gewujiTrackAndContinue("supplier_material_email_click", {
+            form_name: form.dataset.trackForm,
+            submission_method: "email_handoff",
+          }, openReviewEmail);
+        } else {
+          openReviewEmail();
+        }
       });
     </script>
   </body>
