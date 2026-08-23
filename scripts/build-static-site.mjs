@@ -348,13 +348,13 @@ function buildAnalyticsTags({ includeGoogleAnalytics }) {
   const googleVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
   const cloudflareToken = process.env.NEXT_PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN;
   const clarityId = process.env.NEXT_PUBLIC_CLARITY_ID;
-  const primaryHostCheck = '(location.hostname === "gewuji.dev" || location.hostname === "www.gewuji.dev" || location.hostname === "localhost" || location.hostname === "127.0.0.1")';
+  const primaryAnalyticsCheck = '(location.hostname === "gewuji.dev" || location.hostname === "www.gewuji.dev" || location.hostname === "localhost" || location.hostname === "127.0.0.1") && !/^\\/(?:game|games|godot|lab|tools|docs|oldcao|en\\/game|en\\/tools)(?:\\/|$)/.test(location.pathname)';
 
   if (includeGoogleAnalytics && googleAnalyticsId) {
     const adsConfig = googleAdsId ? `\n      gtag('config', '${googleAdsId}');` : "";
     tags.push(`    <!-- Google tag (gtag.js) -->
     <script>
-      if (${primaryHostCheck}) {
+      if (${primaryAnalyticsCheck}) {
         const googleTag = document.createElement("script");
         googleTag.async = true;
         googleTag.src = "https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}";
@@ -377,7 +377,7 @@ function buildAnalyticsTags({ includeGoogleAnalytics }) {
     const beaconConfig = escapeJsString(JSON.stringify({ token: cloudflareToken }));
     tags.push(
       `    <script>
-      if (${primaryHostCheck}) {
+      if (${primaryAnalyticsCheck}) {
         const cloudflareBeacon = document.createElement("script");
         cloudflareBeacon.defer = true;
         cloudflareBeacon.src = "https://static.cloudflareinsights.com/beacon.min.js";
@@ -390,7 +390,7 @@ function buildAnalyticsTags({ includeGoogleAnalytics }) {
 
   if (clarityId) {
     tags.push(`    <script>
-      if (${primaryHostCheck}) {
+      if (${primaryAnalyticsCheck}) {
         (function(c,l,a,r,i,t,y){
           c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
           t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
