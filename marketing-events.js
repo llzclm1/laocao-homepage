@@ -100,6 +100,7 @@
     if (pageType === "sample_report") window.gewujiTrack("sample_report_view");
     if (pageType === "buyer_guide") window.gewujiTrack("buyer_guide_view");
     if (pageType === "contact") window.gewujiTrack("contact_page_view");
+    if (pageType === "factory_page") window.gewujiTrack("factory_page_view");
 
     document.querySelectorAll("[data-track-event]").forEach((element) => {
       element.addEventListener("click", () => {

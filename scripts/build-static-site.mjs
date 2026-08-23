@@ -24,6 +24,7 @@ const highIntentBuyerGuideSlugs = [
 const analyticsPagePaths = new Set([
   "index.html",
   "contact/index.html",
+  "for-factories/index.html",
   "supplier-reply-review/index.html",
   "supplier-reply-review/before-payment/index.html",
   "supplier-reply-review/examples/index.html",
@@ -347,18 +348,24 @@ function buildAnalyticsTags({ includeGoogleAnalytics }) {
   const googleVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
   const cloudflareToken = process.env.NEXT_PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN;
   const clarityId = process.env.NEXT_PUBLIC_CLARITY_ID;
+  const primaryHostCheck = '(location.hostname === "gewuji.dev" || location.hostname === "www.gewuji.dev" || location.hostname === "localhost" || location.hostname === "127.0.0.1")';
 
   if (includeGoogleAnalytics && googleAnalyticsId) {
     const adsConfig = googleAdsId ? `\n      gtag('config', '${googleAdsId}');` : "";
     tags.push(`    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', '${googleAnalyticsId}', {
-        debug_mode: location.hostname === '127.0.0.1' || location.hostname === 'localhost'
-      });${adsConfig}
+      if (${primaryHostCheck}) {
+        const googleTag = document.createElement("script");
+        googleTag.async = true;
+        googleTag.src = "https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}";
+        document.head.appendChild(googleTag);
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '${googleAnalyticsId}', {
+          debug_mode: location.hostname === '127.0.0.1' || location.hostname === 'localhost'
+        });${adsConfig}
+      }
     </script>`);
   }
 
@@ -367,19 +374,29 @@ function buildAnalyticsTags({ includeGoogleAnalytics }) {
   }
 
   if (cloudflareToken) {
-    const beaconConfig = escapeHtmlAttribute(JSON.stringify({ token: cloudflareToken }));
+    const beaconConfig = escapeJsString(JSON.stringify({ token: cloudflareToken }));
     tags.push(
-      `    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="${beaconConfig}"></script>`
+      `    <script>
+      if (${primaryHostCheck}) {
+        const cloudflareBeacon = document.createElement("script");
+        cloudflareBeacon.defer = true;
+        cloudflareBeacon.src = "https://static.cloudflareinsights.com/beacon.min.js";
+        cloudflareBeacon.setAttribute("data-cf-beacon", "${beaconConfig}");
+        document.head.appendChild(cloudflareBeacon);
+      }
+    </script>`
     );
   }
 
   if (clarityId) {
     tags.push(`    <script>
-      (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-      })(window, document, "clarity", "script", "${escapeJsString(clarityId)}");
+      if (${primaryHostCheck}) {
+        (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "${escapeJsString(clarityId)}");
+      }
     </script>`);
   }
 

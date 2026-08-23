@@ -55,6 +55,13 @@ assert.ok(supplierReplyReview.includes('data-track-event="outbound_email_click"'
 assert.ok(supplierReplyReview.includes('data-track-event="review_sample_report_click"'), "supplier reply review should distinguish sample report clicks from report views");
 assert.ok(supplierReplyReview.includes('"@id": "https://gewuji.dev/#website"'), "supplier reply review should reference the existing website entity");
 assert.ok(supplierReplyReview.includes('"@id": "https://gewuji.dev/#organization"'), "supplier reply review should reference the existing organization entity");
+const factoryTrackingPage = fs.readFileSync(path.join(dist, "for-factories", "index.html"), "utf8");
+assert.ok(factoryTrackingPage.includes('data-page-type="factory_page"'), "factory page should track page views");
+assert.ok(factoryTrackingPage.includes('data-track-event="factory_cta_click"'), "factory page should track the primary CTA");
+assert.ok(factoryTrackingPage.includes('data-track-event="factory_contact_click"'), "factory page should track contact intent");
+assert.ok(factoryTrackingPage.includes("marketing-events.js?v=20260714-ga4"), "factory page should load the event script");
+assert.ok(factoryTrackingPage.includes('googletagmanager.com/gtag/js?id=G-NCZSC59MVC'), "factory page should load the main-domain GA4 stream");
+assert.ok(factoryTrackingPage.includes('location.hostname === "gewuji.dev"'), "analytics tags should restrict collection to the main host");
 const paidReviewLanding = fs.readFileSync(path.join(dist, "supplier-reply-review", "before-payment", "index.html"), "utf8");
 assert.ok(paidReviewLanding.includes('<meta name="robots" content="noindex, follow"'), "paid review landing page should stay out of organic discovery");
 assert.ok(paidReviewLanding.includes('data-page-type="paid_landing"'), "paid review landing page should track landing views");
