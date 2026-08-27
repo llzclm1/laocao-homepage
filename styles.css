@@ -9058,6 +9058,52 @@ body.warm-home .reference-eyebrow { margin: 0 0 14px; color: #1f6bff; font-size:
 body.warm-home .reference-hero-copy h1 { max-width: 330px; margin: 0; color: #07090c; font-size: clamp(43px, 4.15vw, 64px); font-weight: 790; letter-spacing: 0; line-height: .98; }
 body.warm-home .reference-hero-copy h1 span { color: #1f6bff; }
 body.warm-home .reference-hero-copy > p:not(.reference-eyebrow) { max-width: 295px; margin: 24px 0 0; color: #4e5661; font-size: 14px; line-height: 1.68; }
+body.warm-home .reference-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 26px;
+}
+body.warm-home .reference-hero-action {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 10px;
+  padding: 0 15px;
+  border: 1px solid var(--gewuji-ink);
+  border-radius: 4px;
+  color: #fff;
+  background: var(--gewuji-ink);
+  font-size: 11px;
+  font-weight: 730;
+  line-height: 1;
+  text-decoration: none;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+body.warm-home .reference-hero-action.secondary {
+  border-color: var(--gewuji-line);
+  color: var(--gewuji-ink);
+  background: rgba(255, 255, 255, .72);
+}
+body.warm-home .reference-hero-action:hover,
+body.warm-home .reference-hero-action:focus-visible {
+  border-color: var(--gewuji-blue);
+  color: #fff;
+  background: var(--gewuji-blue);
+  transform: translateY(-1px);
+}
+body.warm-home .reference-hero-action.secondary:hover,
+body.warm-home .reference-hero-action.secondary:focus-visible {
+  color: var(--gewuji-blue);
+  background: #f4f7ff;
+}
+body.warm-home .reference-hero-hint {
+  max-width: 32ch;
+  margin: 12px 0 0;
+  color: var(--gewuji-muted);
+  font-size: 11px;
+  line-height: 1.55;
+}
 body.warm-home .reference-hero-copy .hero-actions { display: flex !important; width: auto !important; gap: 12px; margin-top: 30px !important; }
 body.warm-home .reference-hero-copy .button { min-height: 40px; padding: 0 16px !important; border-radius: 4px !important; font-size: 11px; white-space: nowrap; }
 
@@ -9114,6 +9160,14 @@ body.warm-home .reference-bridge-core img { position: absolute; bottom: 22px; wi
   body.warm-home .nav { gap: 16px; }
   body.warm-home .nav a:nth-of-type(3), body.warm-home .nav a:nth-of-type(6) { display: none; }
   body.warm-home .warm-hero { grid-template-columns: minmax(230px, .85fr) minmax(360px, 1.35fr) !important; padding-inline: 32px !important; }
+  body.warm-home .reference-hero-copy,
+  body.warm-home .reference-hero-note {
+    padding: 10px 12px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, .58);
+    box-shadow: 0 8px 24px rgba(18, 30, 44, .04);
+    backdrop-filter: blur(8px);
+  }
   body.warm-home .reference-hero-note { display: none; }
   body.warm-home .reference-entry-section, body.warm-home .reference-bridge-section { width: min(100% - 48px, 1180px); }
 }
@@ -9130,6 +9184,8 @@ body.warm-home .reference-bridge-core img { position: absolute; bottom: 22px; wi
   body.warm-home .reference-hero-copy { max-width: none; }
   body.warm-home .reference-hero-copy h1 { max-width: 360px; font-size: clamp(42px, 12vw, 54px); }
   body.warm-home .reference-hero-copy > p:not(.reference-eyebrow) { max-width: 310px; }
+  body.warm-home .reference-hero-actions { align-items: stretch; flex-direction: column; }
+  body.warm-home .reference-hero-action { justify-content: space-between; }
   body.warm-home .reference-hero-copy .hero-actions { flex-wrap: wrap; }
   body.warm-home .reference-hero-stage { min-height: 268px; margin-top: 28px; }
   body.warm-home .reference-material { border-radius: 4px; }
@@ -9209,10 +9265,10 @@ body.warm-home .reference-hero-copy .hero-actions .button {
   body.warm-home .site-header .nav {
     flex: 1 1 auto;
     min-width: 0;
-    gap: 12px;
+    gap: 4px;
     margin-left: 14px;
     justify-content: flex-start;
-    overflow-x: auto;
+    overflow-x: visible;
     scrollbar-width: none;
   }
 
@@ -9223,7 +9279,9 @@ body.warm-home .reference-hero-copy .hero-actions .button {
   body.warm-home .site-header .nav a {
     display: inline-flex !important;
     flex: 0 0 auto;
-    font-size: 10px;
+    padding-inline: 4px !important;
+    font-size: 10px !important;
+    letter-spacing: -0.01em;
   }
 }
 
@@ -9933,5 +9991,34 @@ body.bridge-page .bridge-footer a:focus-visible {
     border-color: rgba(8, 10, 13, .14);
     border-radius: 2px;
     background: #ffffff;
+  }
+}
+
+/* Keep the three public GEWUJI directions at the same navigation weight. */
+body.warm-home .site-header .nav a:last-child {
+  margin-left: 0;
+  padding: 8px 10px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  color: var(--gewuji-ink) !important;
+  background: transparent !important;
+}
+
+body.warm-home .site-header .nav a:last-child:hover,
+body.warm-home .site-header .nav a:last-child:focus-visible {
+  color: var(--gewuji-blue) !important;
+  background: transparent !important;
+}
+
+@media (max-width: 720px) {
+  body.warm-home .site-header .nav {
+    gap: 2px !important;
+    margin-left: 4px !important;
+    overflow-x: visible !important;
+  }
+
+  body.warm-home .site-header .nav a {
+    padding: 8px 4px !important;
+    font-size: 10px !important;
   }
 }
