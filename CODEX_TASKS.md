@@ -87,3 +87,10 @@
 - P1：真实授权案例、信任材料、服务层级细化、存量 Guide CTA 质量与自媒体归因验证；不扩内容规模。
 
 - 2026-09-10 GEWUJI-BF-001 移动端复核：提高本次标题规则的选择器优先级，避免历史 CSS 覆盖手机字号。
+
+## GEWUJI-BF-002 发布闭环
+
+- Buyer 业务代码保持 92e580d。Pages 构建/上传/权限/环境/来源配置正常，旧 cee12b0 部署超时残留占用导致后续 HTTP 400。队列释放后重跑原产物，运行 34470351401 于 2026-09-10 11:55:30 UTC 部署成功。
+- 生产首页 Buyer-only；线上 styles.css SHA256 与 92e580d 完全一致。Review、Examples、Sample Report、before-payment 均 200 且主漏斗无 Factory 跳出。
+- Cloudflare 现有规则 d018b879554b45819bd55000a3ccadcd 已改为 Factory 首页并启用；/for-factories/?utm_source=bf002&x=a%2Bb 实测单跳 301 → 200，query 原样保留。
+- 本轮无 Buyer 业务代码修改，无 P1。成功收件 KPI 继续为 Qualified Buyer Submission。
