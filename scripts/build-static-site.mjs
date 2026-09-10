@@ -543,7 +543,7 @@ function buildAiSitemap() {
       alternateName: ["GEWUJI", "格物集"],
       url: publicUrl(),
       language: "en",
-      owner: "老曹",
+      owner: "GEWUJI",
       contact: "laocao@gewuji.dev",
       description: "GEWUJI is an overseas buyer focused platform for understanding Chinese supplier communication, sourcing information, and the details needed before the next purchasing decision."
     },

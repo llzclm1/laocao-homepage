@@ -108,3 +108,10 @@
 - [x] 生产响应包含本轮首页、Review、Sample Report、Buyer Guides 新文案。
 - [x] 线上 Factory 首页与 '/cases/' 已复核，案例入口和 Demonstration Case 标识可见。
 - [ ] 在真实手机或可调 viewport 环境完成移动端人工复核。
+
+## 2026-09-10 移除公开个人字样
+
+- [x] 主站公开页面和公开元数据不再显示 老曹 / Lao Cao。
+- [x] 旧入口、工具页、Spanish 页面和统计页同步清理。
+- [x] 保留功能性邮箱与内部历史记录。
+- [x] 构建、静态校验和差异检查通过。

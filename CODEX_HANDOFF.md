@@ -440,3 +440,9 @@
 - 生产响应已出现本轮新文案，包括首页海外买家说明、Supplier Reply Review 的确认项说明、Sample Report 的 generic / non-client 边界，以及 Buyer Guides 的 'Pick the next step'。
 - Codex 内置浏览器已查看本地主站首页与线上 Factory 首页、案例页；Factory 首页的 Case 01-03 入口、Case 04 补充入口、Demonstration Case / 模拟诊断案例标识和“这些判断从哪里来？”区块可见。
 - 本轮未改响应式样式；当前浏览器接口未提供独立手机 viewport，移动端仍需在真实手机或可调 viewport 环境做最终人工复核。
+
+## 2026-09-10 移除公开个人字样
+
+- 主站公开 HTML、Spanish 页面、工具页、旧入口 m/ 与 oldcao/、统计页以及 AI sitemap 的公开名称已统一移除 老曹 / Lao Cao，展示品牌统一为 GEWUJI。
+- 保留功能性邮箱地址、内部历史文档、测试夹具和 Git 历史中的原始标识，不影响收件或内部排障。
+- 本地 npm run build:prod、npm run verify:static 与差异检查通过。
