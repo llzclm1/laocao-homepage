@@ -101,3 +101,10 @@
 - [x] 保留 URL、canonical、robots、sitemap、JSON-LD、内链、法律页及旧项目/工具页；示例继续标明为 hypothetical / generic。
 - [x] 通过 `npm run build:prod` 与 `npm run verify:static`。
 - [ ] 提交部署后复核生产路由与移动端展示。
+
+## 2026-09-10 GEWUJI 主站文案人化上线复核
+
+- [x] 生产业务路由返回 HTTP 200。
+- [x] 生产响应包含本轮首页、Review、Sample Report、Buyer Guides 新文案。
+- [x] 线上 Factory 首页与 '/cases/' 已复核，案例入口和 Demonstration Case 标识可见。
+- [ ] 在真实手机或可调 viewport 环境完成移动端人工复核。

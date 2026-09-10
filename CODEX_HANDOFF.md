@@ -433,3 +433,10 @@
 - 仅调整可见英文文案和静态校验期望；保留 URL、canonical、robots、sitemap、JSON-LD、内链、法律页及旧项目/工具页。
 - 所有示例继续明确为 hypothetical / generic，不新增真实客户、结果或交易事实。
 - 本地 `npm run build:prod` 与 `npm run verify:static` 已通过；等待提交后做生产路由与移动端复核。
+
+## 2026-09-10 GEWUJI 主站文案人化上线复核
+
+- 生产复核：'https://gewuji.dev/'、'/buyer-guides/'、'/supplier-reply-review/'、'/supplier-reply-review/sample-report/'、'/field-materials/'、'/for-buyers/'、'/china-supplier-checklist/'、'/contact/' 均返回 HTTP 200。
+- 生产响应已出现本轮新文案，包括首页海外买家说明、Supplier Reply Review 的确认项说明、Sample Report 的 generic / non-client 边界，以及 Buyer Guides 的 'Pick the next step'。
+- Codex 内置浏览器已查看本地主站首页与线上 Factory 首页、案例页；Factory 首页的 Case 01-03 入口、Case 04 补充入口、Demonstration Case / 模拟诊断案例标识和“这些判断从哪里来？”区块可见。
+- 本轮未改响应式样式；当前浏览器接口未提供独立手机 viewport，移动端仍需在真实手机或可调 viewport 环境做最终人工复核。

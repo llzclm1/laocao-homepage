@@ -261,3 +261,9 @@
 - 对主站公开业务页做了 humanizer pass：改写首页、Buyer Guides、Supplier Reply Review、示例、Manufacturing Context、For Buyers、Checklist 与 Contact 的可见表达，减少模板化标题、抽象名词和被动句。
 - 保留 URL、canonical、robots、sitemap、JSON-LD、内链、法律页和旧项目/工具页；没有添加客户事实或业绩主张。
 - 本地 `npm run build:prod`、`npm run verify:static` 与差异检查通过。
+
+## 2026-09-10 GEWUJI 主站文案人化上线复核
+
+- 8 个主站公开业务路由均为 HTTP 200；线上响应包含本轮新文案。
+- 线上 Factory 首页与 '/cases/' 的 3 个首批案例、补充案例、模拟案例标识和专业证据区块已检查。
+- 未改响应式样式；手机 viewport 需另行人工复核。
