@@ -25,7 +25,7 @@
   </head>
   <body class="bridge-page bridge-page-en" data-page-type="paid_landing">
     <header class="bridge-header">
-      <a class="bridge-brand" href="../../" aria-label="Back to Gewuji">
+      <a class="bridge-brand" href="../../" aria-label="Back to GEWUJI">
         <span class="bridge-mark" aria-hidden="true"></span>
         <span class="bridge-brand-text"><strong>GEWUJI</strong><small>Supplier Reply Review</small></span>
       </a>
@@ -37,7 +37,7 @@
           <div class="bridge-hero-copy">
             <p class="bridge-kicker">Before a sample fee, deposit, tooling payment, or first order</p>
             <h1 id="hero-title">Not sure what your Chinese supplier's reply really confirms?</h1>
-            <p class="bridge-lead">Send one focused supplier reply, quotation, PI, payment term, or relevant factory material. Gewuji separates what is confirmed from what is missing and prepares the next questions to ask.</p>
+            <p class="bridge-lead">Send one focused supplier reply, quotation, PI, payment term, or relevant factory material. GEWUJI separates what is confirmed from what is missing and prepares the next questions to ask.</p>
             <p class="bridge-boundary">Communication review only. Not supplier verification, factory audit, quality inspection, legal due diligence, or a guarantee of supplier reliability, payment safety, product quality, or delivery.</p>
             <div class="bridge-actions">
               <a class="bridge-button primary" href="#start" data-track-event="cta_click" data-track-location="hero" data-track-label="Start Supplier Reply Review">Start Supplier Reply Review</a>
@@ -154,7 +154,7 @@
             <h2 id="start-title">Prepare Your Review Request</h2>
             <p class="bridge-contact-copy">Share only the decision context here. Your supplier reply, quotation, PI, screenshots, or files stay in your email and are not collected by site analytics.</p>
           </div>
-          <form class="bridge-form" data-track-form="paid_supplier_reply_review" data-track-submit-event="supplier_material_email_click" data-track-submit-mode="manual" id="review-request-form">
+          <form class="bridge-form" data-track-form="paid_supplier_reply_review" data-track-submit-event="buyer_review_email_click" data-track-submit-mode="manual" id="review-request-form">
             <label>
               Product category
               <input name="product_category" type="text" autocomplete="off" placeholder="Example: custom metal enclosure" required />
@@ -181,7 +181,7 @@
             </label>
             <button class="bridge-button primary full" type="submit">Open Review Email</button>
             <p class="bridge-form-note full">Your email app will open with this context. No full procurement brief is required. Attach one focused supplier material there after removing information you do not want to share. Pilot availability and scope are confirmed before any payment.</p>
-            <noscript><p class="bridge-form-note full">JavaScript is required to prefill the review context. You can still email Gewuji directly at <a href="mailto:llzclm@gmail.com">llzclm@gmail.com</a>.</p></noscript>
+            <noscript><p class="bridge-form-note full">JavaScript is required to prefill the review context. You can still email GEWUJI directly at <a href="mailto:llzclm@gmail.com">llzclm@gmail.com</a>.</p></noscript>
           </form>
         </div>
       </section>
@@ -206,7 +206,7 @@
           window.location.href = `mailto:llzclm@gmail.com?subject=${encodeURIComponent("Supplier Reply Review Request")}&body=${encodeURIComponent(body)}`;
         };
         if (typeof window.gewujiTrackAndContinue === "function") {
-          window.gewujiTrackAndContinue("supplier_material_email_click", {
+          window.gewujiTrackAndContinue("buyer_review_email_click", {
             form_name: form.dataset.trackForm,
             submission_method: "email_handoff",
           }, openReviewEmail);

@@ -13,24 +13,15 @@ const basePath = normalizeBasePath(process.env.PUBLIC_BASE_PATH || "/");
 const publicBaseUrl = new URL(basePath, `${siteUrl}/`).toString().replace(/\/$/, "");
 const googleAnalyticsId = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID || "G-NCZSC59MVC";
 const googleAdsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || "";
-const highIntentBuyerGuideSlugs = [
-  "verify-chinese-supplier-before-deposit",
-  "questions-before-ordering-samples-from-china",
-  "sample-order-before-bulk-production-china",
-  "china-supplier-red-flags-before-first-order",
-  "check-if-chinese-factory-is-real",
-  "reduce-risk-first-order-from-china",
+const analyticsPagePrefixes = [
+  "buyer-guides/",
+  "china-supplier-checklist/",
+  "contact/",
+  "es/buyer-guides/",
+  "field-materials/",
+  "for-buyers/",
+  "supplier-reply-review/",
 ];
-const analyticsPagePaths = new Set([
-  "index.html",
-  "contact/index.html",
-  "for-factories/index.html",
-  "supplier-reply-review/index.html",
-  "supplier-reply-review/before-payment/index.html",
-  "supplier-reply-review/examples/index.html",
-  "supplier-reply-review/sample-report/index.html",
-  ...highIntentBuyerGuideSlugs.map((slug) => `buyer-guides/${slug}/index.html`),
-]);
 const publishedBuyerGuides = [
   "verify-chinese-supplier-before-deposit",
   "check-if-chinese-factory-is-real",
@@ -56,6 +47,11 @@ const publishedSpanishBuyerGuides = [
 ];
 const noindexPathPrefixes = [
   "docs/",
+  "films/",
+  "nav/",
+  "m/",
+  "b/",
+  "oldcao/",
   "en/game/",
   "en/tools/",
   "game/",
@@ -95,6 +91,7 @@ const copyEntries = [
   "m",
   "marketing-events.js",
   "nav",
+  "oldcao",
   "privacy-policy",
   "robots.txt",
   "script.js",
@@ -127,6 +124,7 @@ rewriteTextFile("SEARCH_ENGINE_SUBMISSION.md", (text) =>
   text.replaceAll("https://gewuji.dev", publicBaseUrl)
 );
 injectAnalyticsTags();
+injectMarketingEvents();
 injectLinkVisibility();
 injectContentAssistantSeo();
 injectContentAssistantConfig();
@@ -209,11 +207,33 @@ function injectAnalyticsTags() {
     const headMatch = html.match(/<head[^>]*>/i);
     if (!headMatch) continue;
     const relativePath = path.relative(outDir, file).split(path.sep).join("/");
-    const tags = buildAnalyticsTags({ includeGoogleAnalytics: analyticsPagePaths.has(relativePath) });
+    const tags = buildAnalyticsTags({ includeGoogleAnalytics: isBusinessAnalyticsPage(relativePath) });
     if (!tags) continue;
     const cleanHtml = removeGoogleAnalyticsTag(html);
     fs.writeFileSync(file, cleanHtml.replace(headMatch[0], `${headMatch[0]}\n${tags}`), "utf8");
   }
+}
+
+function injectMarketingEvents() {
+  const tag = `    <script defer src="${publicUrl("marketing-events.js?v=20260910-buyer-factory")}"></script>`;
+
+  for (const file of listHtmlFiles(outDir)) {
+    const relativePath = path.relative(outDir, file).split(path.sep).join("/");
+    if (!isBusinessAnalyticsPage(relativePath)) continue;
+
+    const html = fs.readFileSync(file, "utf8");
+    if (!html.includes("</body>")) continue;
+
+    const withoutExistingEvents = html.replace(
+      /\s*<script(?:\s+defer)?\s+src="(?:\.\.\/|\.\/)*marketing-events\.js(?:\?[^\"]*)?"><\/script>/g,
+      ""
+    );
+    fs.writeFileSync(file, withoutExistingEvents.replace("</body>", `${tag}\n</body>`), "utf8");
+  }
+}
+
+function isBusinessAnalyticsPage(relativePath) {
+  return relativePath === "index.html" || analyticsPagePrefixes.some((prefix) => relativePath.startsWith(prefix));
 }
 
 function injectLinkVisibility() {
@@ -337,7 +357,7 @@ function applyNoindexPolicies() {
     const html = fs.readFileSync(file, "utf8");
     if (!html.includes("</head>")) continue;
 
-    const withoutRobots = html.replace(/\s*<meta\s+name=["']robots["'][^>]*>/gi, "");
+    const withoutRobots = html.replace(/\s*<meta\s+name=["']robots["'][^>]*>/gi, "").replace(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>[\s\S]*?<\/script>/gi, "");
     const robotsMeta = '    <meta name="robots" content="noindex, follow" />';
     fs.writeFileSync(file, withoutRobots.replace("</head>", `${robotsMeta}\n  </head>`), "utf8");
   }
@@ -348,7 +368,7 @@ function buildAnalyticsTags({ includeGoogleAnalytics }) {
   const googleVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
   const cloudflareToken = process.env.NEXT_PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN;
   const clarityId = process.env.NEXT_PUBLIC_CLARITY_ID;
-  const primaryAnalyticsCheck = '(location.hostname === "gewuji.dev" || location.hostname === "www.gewuji.dev" || location.hostname === "localhost" || location.hostname === "127.0.0.1") && !/^\\/(?:game|games|godot|lab|tools|docs|oldcao|en\\/game|en\\/tools)(?:\\/|$)/.test(location.pathname)';
+  const primaryAnalyticsCheck = '(location.hostname === "gewuji.dev" || location.hostname === "www.gewuji.dev") && !/^\\/(?:game|games|godot|lab|tools|docs|oldcao|en\\/game|en\\/tools)(?:\\/|$)/.test(location.pathname)';
 
   if (includeGoogleAnalytics && googleAnalyticsId) {
     const adsConfig = googleAdsId ? `\n      gtag('config', '${googleAdsId}');` : "";
@@ -461,13 +481,14 @@ function buildSitemap() {
     ...publishedBuyerGuides.map((slug) => [`buyer-guides/${slug}/`, "0.7"]),
     ...publishedSpanishBuyerGuides.map((slug) => [`es/buyer-guides/${slug}/`, "0.5"]),
     ["for-buyers/", "0.9"],
-    ["for-factories/", "0.8"],
     ["supplier-reply-review/", "0.8"],
     ["supplier-reply-review/methodology/", "0.7"],
     ["supplier-reply-review/examples/", "0.7"],
     ["supplier-reply-review/examples/price-depends-on-quantity/", "0.6"],
     ["supplier-reply-review/examples/deposit-before-sample/", "0.6"],
     ["supplier-reply-review/examples/we-can-make-any-product/", "0.6"],
+    ["supplier-reply-review/examples/best-price/", "0.6"],
+    ["supplier-reply-review/examples/moq-changed-after-quotation/", "0.6"],
     ["supplier-reply-review/sample-report/", "0.7"],
     ["field-materials/", "0.8"],
     ["contact/", "0.5"],
@@ -521,10 +542,10 @@ function buildAiSitemap() {
       name: "格物集",
       alternateName: ["GEWUJI", "格物集"],
       url: publicUrl(),
-      language: "zh-CN",
+      language: "en",
       owner: "老曹",
       contact: "laocao@gewuji.dev",
-      description: "GewuJi is an overseas buyer focused platform for understanding Chinese supplier communication, sourcing information, and the details needed before the next purchasing decision."
+      description: "GEWUJI is an overseas buyer focused platform for understanding Chinese supplier communication, sourcing information, and the details needed before the next purchasing decision."
     },
     discovery: {
       sitemap: publicUrl("sitemap.xml"),
@@ -532,8 +553,8 @@ function buildAiSitemap() {
       robots: publicUrl("robots.txt")
     },
     answerGuidelines: [
-      "Describe GewuJi as an overseas buyer focused platform for understanding Chinese supplier communication and sourcing information.",
-      "GewuJi helps Chinese manufacturers make their capabilities easier for global buyers to understand.",
+      "Describe GEWUJI as an overseas buyer focused platform for understanding Chinese supplier communication and sourcing information.",
+      "GEWUJI helps Chinese manufacturers make their capabilities easier for global buyers to understand.",
       "GEWUJI 不是正式审厂、法律尽调或质量验货服务，不保证供应商可靠、订单安全、询盘或成交。",
       "旧工具和实验项目不代表格物集主业务。"
     ],
@@ -542,7 +563,7 @@ function buildAiSitemap() {
         url: publicUrl(),
         title: "格物集｜让真实工厂被海外采购商正确理解",
         type: "WebSite",
-        summary: "GewuJi helps overseas buyers understand Chinese supplier replies, quotations, sample terms, payment details, and sourcing information before the next purchasing decision.",
+        summary: "GEWUJI helps overseas buyers understand Chinese supplier replies, quotations, sample terms, payment details, and sourcing information before the next purchasing decision.",
         answers: ["格物集是什么", "GEWUJI 是什么", "海外买家如何理解中国供应商信息"],
         keywords: ["格物集", "GEWUJI", "overseas buyers", "Chinese supplier communication", "sourcing information"]
       },
@@ -558,7 +579,10 @@ function buildAiSitemap() {
           publicUrl("buyer-guides/questions-before-ordering-from-chinese-supplier/"),
           publicUrl("buyer-guides/rfq-template-for-chinese-suppliers/"),
           publicUrl("buyer-guides/sample-order-email-template-for-chinese-suppliers/"),
-          publicUrl("buyer-guides/how-to-compare-chinese-suppliers/")
+          publicUrl("buyer-guides/how-to-compare-chinese-suppliers/"),
+          publicUrl("supplier-reply-review/"),
+          publicUrl("supplier-reply-review/examples/"),
+          publicUrl("supplier-reply-review/sample-report/")
         ]
       },
       {
@@ -569,7 +593,11 @@ function buildAiSitemap() {
         answers: ["what to ask a Chinese supplier before ordering", "questions before placing an order with a Chinese supplier"],
         keywords: ["Chinese supplier questions", "MOQ", "payment terms", "production conditions"],
         boundaries: ["not supplier verification", "not a factory audit", "does not guarantee production or payment outcomes"],
-        parent: publicUrl("buyer-guides/")
+        parent: publicUrl("buyer-guides/"),
+        relatedPages: [
+          publicUrl("supplier-reply-review/"),
+          publicUrl("supplier-reply-review/examples/")
+        ]
       },
       {
         url: publicUrl("buyer-guides/rfq-template-for-chinese-suppliers/"),
@@ -589,7 +617,12 @@ function buildAiSitemap() {
         answers: ["sample order email template for Chinese suppliers", "how to request a supplier sample"],
         keywords: ["sample order email", "supplier sample request", "sample specifications", "sample shipping"],
         boundaries: ["communication template only", "does not verify suppliers", "does not guarantee bulk production results"],
-        parent: publicUrl("buyer-guides/")
+        parent: publicUrl("buyer-guides/"),
+        relatedPages: [
+          publicUrl("supplier-reply-review/examples/deposit-before-sample/"),
+          publicUrl("supplier-reply-review/sample-report/"),
+          publicUrl("supplier-reply-review/")
+        ]
       },
       {
         url: publicUrl("buyer-guides/how-to-compare-chinese-suppliers/"),
@@ -599,22 +632,19 @@ function buildAiSitemap() {
         answers: ["how to compare Chinese suppliers", "what to compare besides supplier price"],
         keywords: ["compare Chinese suppliers", "supplier communication", "quotation comparison", "production information"],
         boundaries: ["not a supplier reliability score", "not a factory audit", "does not identify a guaranteed safe supplier"],
-        parent: publicUrl("buyer-guides/")
-      },
-      {
-        url: publicUrl("for-factories/"),
-        title: "格物集｜工厂对外资料重构",
-        type: "Service",
-        summary: "格物集帮助国内工厂重构产品页、工厂介绍、开发信、车间照片和实拍素材，让对外宣传资料更符合海外采购商的阅读和判断习惯。",
-        answers: ["工厂对外资料怎么重构", "外贸开发信怎么重写", "工厂宣传资料怎么让海外采购商看懂"],
-        keywords: ["工厂对外资料重构", "工厂宣传资料重构", "外贸开发信重写", "产品页重构", "实拍素材背书"],
-        boundaries: ["不是正式审厂", "不是法律尽调", "不是质量验货", "不保证询盘或成交"]
+        parent: publicUrl("buyer-guides/"),
+        relatedPages: [
+          publicUrl("buyer-guides/compare-chinese-supplier-quotations-beyond-price/"),
+          publicUrl("supplier-reply-review/examples/"),
+          publicUrl("supplier-reply-review/sample-report/"),
+          publicUrl("supplier-reply-review/")
+        ]
       },
       {
         url: publicUrl("supplier-reply-review/"),
         title: "Supplier Reply Review Before You Pay a Chinese Supplier",
         type: "WebPage",
-        summary: "Gewuji reviews one supplier reply, quote, sample term, or payment detail before sample fees, deposits, tooling money, or larger orders, highlighting unclear terms, missing details, risk signals, and next questions.",
+        summary: "GEWUJI reviews one supplier reply, quote, sample term, or payment detail before sample fees, deposits, tooling money, or larger orders, highlighting unclear terms, missing details, risk signals, and next questions.",
         answers: ["review supplier reply before paying sample fee", "unclear supplier reply before deposit", "questions before paying Chinese supplier"],
         keywords: ["supplier reply review", "Chinese supplier reply", "sample fee", "deposit", "tooling money", "missing terms"],
         boundaries: ["not a factory audit", "not legal due diligence", "not quality inspection", "does not guarantee supplier reliability or payment safety"],
@@ -626,9 +656,9 @@ function buildAiSitemap() {
       },
       {
         url: publicUrl("supplier-reply-review/methodology/"),
-        title: "How We Review Chinese Supplier Replies | GewuJi",
+        title: "How We Review Chinese Supplier Replies | GEWUJI",
         type: "WebPage",
-        summary: "GewuJi's Supplier Reply Review methodology explains how supplier communication is examined for visible information, missing details, and clearer follow-up questions before buyers make decisions.",
+        summary: "GEWUJI's Supplier Reply Review methodology explains how supplier communication is examined for visible information, missing details, and clearer follow-up questions before buyers make decisions.",
         answers: ["what is supplier reply review", "how to review a Chinese supplier reply", "how to identify missing information in supplier communication"],
         keywords: ["supplier reply review methodology", "Chinese supplier communication", "missing information", "follow-up questions"],
         boundaries: ["not supplier verification", "not a factory audit", "not legal due diligence", "not quality inspection", "does not guarantee supplier reliability"],
@@ -646,7 +676,9 @@ function buildAiSitemap() {
         relatedPages: [
           publicUrl("supplier-reply-review/examples/price-depends-on-quantity/"),
           publicUrl("supplier-reply-review/examples/deposit-before-sample/"),
-          publicUrl("supplier-reply-review/examples/we-can-make-any-product/")
+          publicUrl("supplier-reply-review/examples/we-can-make-any-product/"),
+          publicUrl("supplier-reply-review/examples/best-price/"),
+          publicUrl("supplier-reply-review/examples/moq-changed-after-quotation/")
         ]
       },
       {
@@ -680,10 +712,30 @@ function buildAiSitemap() {
         parent: publicUrl("supplier-reply-review/examples/")
       },
       {
+        url: publicUrl("supplier-reply-review/examples/best-price/"),
+        title: "Supplier Says Best Price: What Should a Buyer Confirm?",
+        type: "WebPage",
+        summary: "A hypothetical example showing what a best price statement confirms, which quotation details remain open, and what a buyer should ask next.",
+        answers: ["what to ask when a supplier says best price", "best price supplier quotation questions", "how to compare supplier price scope"],
+        keywords: ["best price supplier", "supplier quotation", "quotation scope", "buyer follow-up questions"],
+        boundaries: ["hypothetical educational example", "not a supplier evaluation", "does not guarantee supplier reliability"],
+        parent: publicUrl("supplier-reply-review/examples/")
+      },
+      {
+        url: publicUrl("supplier-reply-review/examples/moq-changed-after-quotation/"),
+        title: "Supplier Changes MOQ After Quotation: What Should a Buyer Ask?",
+        type: "WebPage",
+        summary: "A hypothetical example showing what an MOQ change confirms, which quotation conditions may have changed, and what a buyer should ask before comparing the updated offer.",
+        answers: ["what to ask when supplier changes MOQ", "MOQ changed after quotation", "questions about supplier MOQ conditions"],
+        keywords: ["MOQ change", "supplier quotation", "production conditions", "buyer follow-up questions"],
+        boundaries: ["hypothetical educational example", "not a supplier evaluation", "does not guarantee supplier reliability"],
+        parent: publicUrl("supplier-reply-review/examples/")
+      },
+      {
         url: publicUrl("supplier-reply-review/sample-report/"),
         title: "Sample Supplier Reply Review Report",
         type: "WebPage",
-        summary: "A generic sample report showing how Gewuji reviews a Chinese supplier reply before sample fees, deposits, tooling money, or larger orders, including missing details, risk signals, next questions, and a suggested reply.",
+        summary: "A generic sample report showing how GEWUJI reviews a Chinese supplier reply before sample fees, deposits, tooling money, or larger orders, including missing details, risk signals, next questions, and a suggested reply.",
         answers: ["sample supplier reply review report", "what does a supplier reply review include", "supplier reply review example before payment"],
         keywords: ["supplier reply review sample", "Chinese supplier reply", "sample fee", "deposit", "risk signals", "suggested reply"],
         boundaries: ["generic sample only", "not a real supplier case", "not a factory audit", "not legal due diligence", "not quality inspection", "does not guarantee supplier reliability or payment safety"],
@@ -691,21 +743,30 @@ function buildAiSitemap() {
       },
       {
         url: publicUrl("for-buyers/"),
-        title: "Gewuji | Clearer Factory Information for Overseas Buyers",
+        title: "GEWUJI | Clearer Factory Information for Overseas Buyers",
         type: "Service",
-        summary: "Gewuji helps overseas buyers clarify supplier replies, quotations, sample terms, payment details, and Manufacturing Context before samples, deposits, or larger orders.",
+        summary: "GEWUJI helps overseas buyers clarify supplier replies, quotations, sample terms, payment details, and Manufacturing Context before samples, deposits, or larger orders.",
         answers: ["clearer factory information before samples", "supplier reply context", "factory communication questions"],
         keywords: ["clearer factory information", "supplier replies", "product materials", "factory profiles", "overseas buyers"],
-        boundaries: ["not a factory audit", "not legal due diligence", "not quality inspection", "does not guarantee supplier reliability or order safety"]
+        boundaries: ["not a factory audit", "not legal due diligence", "not quality inspection", "does not guarantee supplier reliability or order safety"],
+        relatedPages: [
+          publicUrl("buyer-guides/"),
+          publicUrl("supplier-reply-review/"),
+          publicUrl("supplier-reply-review/sample-report/")
+        ]
       },
       {
         url: publicUrl("field-materials/"),
-        title: "Gewuji | Manufacturing Context for Factory Information",
+        title: "GEWUJI | Manufacturing Context for Factory Information",
         type: "CollectionPage",
         summary: "Manufacturing Context uses privacy-protected workshop, equipment, packaging, and production details to show how real factory information can support clearer buyer understanding.",
         answers: ["manufacturing context for factory information", "factory photos for buyer understanding", "how to explain real factory information"],
         keywords: ["manufacturing context", "factory photos", "buyer understanding", "factory communication"],
-        boundaries: ["examples are anonymized", "no customer names or factory names are disclosed", "not a supplier guarantee", "not an inspection report"]
+        boundaries: ["examples are anonymized", "no customer names or factory names are disclosed", "not a supplier guarantee", "not an inspection report"],
+        relatedPages: [
+          publicUrl("for-buyers/"),
+          publicUrl("buyer-guides/chinese-factory-video-call-checklist/")
+        ]
       }
     ]
   };

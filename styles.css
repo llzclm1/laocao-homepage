@@ -10022,3 +10022,10 @@ body.warm-home .site-header .nav a:last-child:focus-visible {
     font-size: 10px !important;
   }
 }
+
+/* GEWUJI-BF-001: keep all Buyer navigation visible on phones. */
+@media(max-width: 720px) {
+ body.warm-home .site-header { flex-wrap: wrap !important; }
+ body.warm-home .site-header .nav { width: 100%; flex: 1 1 100%; flex-wrap: wrap !important; overflow: visible !important; white-space: normal !important; margin: 8px 0 0 !important; }
+ body.warm-home .hero-brand-name { font-size: clamp(32px, 9vw, 44px) !important; line-height: 1.08 !important; }
+}

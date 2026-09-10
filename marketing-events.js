@@ -53,6 +53,7 @@
     const payload = {
       ...campaignData(),
       page_path: window.location.pathname,
+      audience: "buyer",
       ...(properties || {}),
     };
     let continued = false;
@@ -94,20 +95,52 @@
 
   document.addEventListener("DOMContentLoaded", () => {
     decorateFactoryLinks();
-    const pageType = document.body.dataset.pageType;
+    document.querySelectorAll('a[href*="/supplier-reply-review/"]').forEach((link) => {
+      if (/^\/(?:es\/)?buyer-guides\//.test(window.location.pathname)) {
+        link.dataset.trackEvent = "buyer_guide_to_review_click";
+      }
+    });
+    const pageType = document.body.dataset.pageType || inferPageType(window.location.pathname);
     if (pageType === "paid_landing") window.gewujiTrack("landing_page_view");
     if (pageType === "supplier_reply_review") window.gewujiTrack("supplier_reply_review_view");
-    if (pageType === "sample_report") window.gewujiTrack("sample_report_view");
+    if (pageType === "sample_report") window.gewujiTrack("buyer_sample_report_view");
     if (pageType === "buyer_guide") window.gewujiTrack("buyer_guide_view");
     if (pageType === "contact") window.gewujiTrack("contact_page_view");
     if (pageType === "factory_page") window.gewujiTrack("factory_page_view");
+    if (pageType === "buyer_landing") window.gewujiTrack("buyer_page_view");
+    if (pageType === "buyer_guides_index") window.gewujiTrack("buyer_guides_index_view");
+    if (pageType === "manufacturing_context") window.gewujiTrack("manufacturing_context_view");
+    if (pageType === "supplier_reply_examples") window.gewujiTrack("buyer_example_view");
+    if (pageType === "supplier_reply_methodology") window.gewujiTrack("supplier_reply_methodology_view");
+    if (pageType === "supplier_checklist") window.gewujiTrack("supplier_checklist_view");
 
     document.querySelectorAll("[data-track-event]").forEach((element) => {
-      element.addEventListener("click", () => {
-        window.gewujiTrack(element.dataset.trackEvent, {
+      element.addEventListener("click", (event) => {
+        const properties = {
           action_location: element.dataset.trackLocation || "unknown",
           action_label: element.dataset.trackLabel || element.textContent.trim(),
-        });
+        };
+        const href = element instanceof HTMLAnchorElement ? element.href : "";
+        const preservesNativeAction =
+          !href ||
+          href.startsWith("#") ||
+          element.target === "_blank" ||
+          event.metaKey ||
+          event.ctrlKey ||
+          event.shiftKey ||
+          event.altKey;
+
+        if (preservesNativeAction) {
+          window.gewujiTrack(element.dataset.trackEvent, properties);
+          return;
+        }
+
+        event.preventDefault();
+        window.gewujiTrackAndContinue(
+          element.dataset.trackEvent,
+          properties,
+          () => window.location.assign(href),
+        );
       });
     });
 
@@ -116,11 +149,11 @@
       form.addEventListener("focusin", () => {
         if (started) return;
         started = true;
-        window.gewujiTrack("form_start", { form_name: form.dataset.trackForm });
+        window.gewujiTrack("buyer_review_start", { form_name: form.dataset.trackForm });
       });
       form.addEventListener("submit", () => {
         if (form.dataset.trackSubmitMode === "manual") return;
-        const submitEvent = form.dataset.trackSubmitEvent || "form_submit";
+        const submitEvent = form.dataset.trackSubmitEvent || "buyer_review_email_click";
         window.gewujiTrack(submitEvent, {
           form_name: form.dataset.trackForm,
           submission_method: "email_handoff",
@@ -128,4 +161,19 @@
       });
     });
   });
+
+  function inferPageType(pathname) {
+    const normalizedPath = pathname.replace(/\/+$/, "") || "/";
+    if (normalizedPath === "/for-buyers") return "buyer_landing";
+    if (normalizedPath === "/buyer-guides") return "buyer_guides_index";
+    if (normalizedPath === "/field-materials") return "manufacturing_context";
+    if (normalizedPath === "/china-supplier-checklist") return "supplier_checklist";
+    if (normalizedPath === "/supplier-reply-review/sample-report") return "sample_report";
+    if (normalizedPath.startsWith("/supplier-reply-review/examples/")) return "supplier_reply_examples";
+    if (normalizedPath === "/supplier-reply-review/examples") return "supplier_reply_examples";
+    if (normalizedPath === "/supplier-reply-review/methodology") return "supplier_reply_methodology";
+    if (normalizedPath.startsWith("/supplier-reply-review/")) return "supplier_reply_review";
+    if (normalizedPath.startsWith("/buyer-guides/") || normalizedPath.startsWith("/es/buyer-guides/")) return "buyer_guide";
+    return "";
+  }
 })();

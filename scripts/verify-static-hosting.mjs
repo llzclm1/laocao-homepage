@@ -38,6 +38,11 @@ assert.ok(marketingEvents.includes('params.get("source")'), "marketing events sh
 assert.ok(marketingEvents.includes('source: sessionStorage.getItem("gewuji_funnel_source")'), "marketing events should attach funnel source to events");
 assert.ok(marketingEvents.includes('window.gewujiTrack("contact_page_view")'), "marketing events should track contact page views");
 assert.ok(marketingEvents.includes("window.gewujiTrackAndContinue"), "marketing events should support navigation-safe conversion tracking");
+assert.ok(marketingEvents.includes("event.preventDefault()"), "tracked navigation should wait for analytics before leaving the page");
+assert.ok(marketingEvents.includes("window.location.assign(href)"), "tracked navigation should continue after the analytics callback");
+assert.ok(marketingEvents.includes("inferPageType"), "marketing events should infer page types for active pages");
+assert.ok(marketingEvents.includes('window.gewujiTrack("buyer_page_view")'), "marketing events should track buyer landing views");
+assert.ok(marketingEvents.includes('window.gewujiTrack("manufacturing_context_view")'), "marketing events should track manufacturing context views");
 const contactTrackingPage = fs.readFileSync(path.join(dist, "contact", "index.html"), "utf8");
 assert.ok(contactTrackingPage.includes('data-page-type="contact"'), "contact page should track page views");
 assert.ok(contactTrackingPage.includes('data-track-event="contact_email_click"'), "contact page should track email clicks");
@@ -56,18 +61,12 @@ assert.ok(supplierReplyReview.includes('data-track-event="review_sample_report_c
 assert.ok(supplierReplyReview.includes('"@id": "https://gewuji.dev/#website"'), "supplier reply review should reference the existing website entity");
 assert.ok(supplierReplyReview.includes('"@id": "https://gewuji.dev/#organization"'), "supplier reply review should reference the existing organization entity");
 const factoryTrackingPage = fs.readFileSync(path.join(dist, "for-factories", "index.html"), "utf8");
-assert.ok(factoryTrackingPage.includes('data-page-type="factory_page"'), "factory page should track page views");
-assert.ok(factoryTrackingPage.includes('data-track-event="factory_cta_click"'), "factory page should track the primary CTA");
-assert.ok(factoryTrackingPage.includes('data-track-event="factory_contact_click"'), "factory page should track contact intent");
-assert.ok(factoryTrackingPage.includes("marketing-events.js?v=20260714-ga4"), "factory page should load the event script");
-assert.ok(factoryTrackingPage.includes('googletagmanager.com/gtag/js?id=G-NCZSC59MVC'), "factory page should load the main-domain GA4 stream");
-assert.ok(factoryTrackingPage.includes('location.hostname === "gewuji.dev"'), "analytics tags should restrict collection to the main host");
 const paidReviewLanding = fs.readFileSync(path.join(dist, "supplier-reply-review", "before-payment", "index.html"), "utf8");
 assert.ok(paidReviewLanding.includes('<meta name="robots" content="noindex, follow"'), "paid review landing page should stay out of organic discovery");
 assert.ok(paidReviewLanding.includes('data-page-type="paid_landing"'), "paid review landing page should track landing views");
 assert.ok(paidReviewLanding.includes('data-track-form="paid_supplier_reply_review"'), "paid review landing page should expose the review request funnel");
 assert.ok(paidReviewLanding.includes('data-track-submit-mode="manual"'), "paid review landing page should own its navigation-safe handoff event");
-assert.ok(paidReviewLanding.includes('supplier_material_email_click'), "paid review landing page should track the email handoff event");
+assert.ok(paidReviewLanding.includes('buyer_review_email_click'), "paid review landing page should track the email handoff event");
 assert.equal(paidReviewLanding.includes('type="file"'), false, "paid review landing page should not collect supplier files");
 assert.ok(fs.existsSync(path.join(dist, "ads.txt")), "ads.txt is missing from the production artifact");
 assert.equal(
@@ -78,14 +77,14 @@ assert.equal(
 const sampleReviewReport = fs.readFileSync(path.join(dist, "supplier-reply-review", "sample-report", "index.html"), "utf8");
 assert.ok(sampleReviewReport.includes('data-page-type="sample_report"'), "sample report should track report views");
 assert.ok(sampleReviewReport.includes("googletagmanager.com/gtag/js?id=G-NCZSC59MVC"), "sample report should load GA4");
-assert.ok(sampleReviewReport.includes('data-track-event="supplier_reply_check_click"'), "sample report should track paid-review clicks");
-assert.ok(sampleReviewReport.includes('href="https://factory.gewuji.dev/supplier-reply-check/"'), "sample report should link to the paid review page");
+assert.ok(sampleReviewReport.includes('data-track-event="buyer_review_start"'), "sample report should track paid-review clicks");
+assert.ok(sampleReviewReport.includes('href="https://gewuji.dev/supplier-reply-review/before-payment/#start"'), "sample report should link to the paid review page");
 const supplierReplyExamples = fs.readFileSync(path.join(dist, "supplier-reply-review", "examples", "index.html"), "utf8");
 assert.ok(supplierReplyExamples.includes('data-track-event="supplier_reply_review_example_click"'), "examples index should track example clicks");
-assert.ok(supplierReplyExamples.includes("marketing-events.js?v=20260714-ga4"), "examples index should load the event script");
+assert.ok(supplierReplyExamples.includes("marketing-events.js?v=20260910-buyer-factory"), "examples index should load the event script");
 const sampleQuestionsGuide = fs.readFileSync(path.join(dist, "buyer-guides", "questions-before-ordering-samples-from-china", "index.html"), "utf8");
 assert.ok(sampleQuestionsGuide.includes('data-page-type="buyer_guide"'), "sample questions guide should track page views");
-assert.ok(sampleQuestionsGuide.includes("marketing-events.js?v=20260715-funnel"), "sample questions guide should load the event script");
+assert.ok(sampleQuestionsGuide.includes("marketing-events.js?v=20260910-buyer-factory"), "sample questions guide should load the event script");
 assert.equal(fs.existsSync(path.join(dist, "free-supplier-reply-review")), false, "legacy free review HTML should not be deployed behind the edge redirect");
 for (const slug of [
   "documents-chinese-supplier-should-provide",
@@ -157,8 +156,8 @@ for (const file of textFiles) {
 }
 
 const home = fs.readFileSync(path.join(dist, "index.html"), "utf8");
-assert.ok(home.includes('href="https://gewuji.dev/for-factories/"'), "homepage should link to the main-domain factory-side entrance");
-assert.ok(home.includes('href="https://gewuji.dev/for-buyers/"'), "homepage should link to the buyer-side entrance");
+assert.ok(home.includes('href="https://factory.gewuji.dev/"'), "homepage footer may link to Factory");
+assert.ok(home.includes('href="https://gewuji.dev/supplier-reply-review/"'), "homepage should lead directly to the Buyer hub");
 assert.ok(home.includes('href="field-materials/"'), "homepage should link to the manufacturing context entrance");
 assert.ok(home.includes(">Manufacturing Context<"), "homepage should label the context entrance as Manufacturing Context");
 assert.ok(home.includes('href="privacy-policy/"'), "homepage should link to the privacy policy");
@@ -166,7 +165,7 @@ assert.ok(home.includes('href="terms-of-service/"'), "homepage should link to th
 assert.equal(home.includes('href="tools/"'), false, "homepage should not link legacy tools");
 assert.ok(home.includes('href="ai-sitemap.json"'), "homepage should expose the AI sitemap");
 assert.ok(home.includes("googletagmanager.com/gtag/js?id=G-NCZSC59MVC"), "homepage should load the main-domain GA4 stream");
-assert.ok(home.includes("marketing-events.js?v=20260714-ga4"), "homepage should keep acquisition event tracking");
+assert.ok(home.includes("marketing-events.js?v=20260910-buyer-factory"), "homepage should keep acquisition event tracking");
 const unrelatedToolPage = fs.readFileSync(path.join(dist, "tools", "worldcup-advisor", "index.html"), "utf8");
 assert.equal(unrelatedToolPage.includes("googletagmanager.com"), false, "unrelated tools should not receive the buyer-service GA4 tag");
 assert.equal(home.includes('id="guide"'), false, "homepage should not embed the utility navigation section");
@@ -274,6 +273,8 @@ assert.ok(sitemap.includes("/buyer-guides/chinese-factory-or-trading-company/"),
 assert.ok(sitemap.includes("/supplier-reply-review/"), "sitemap should include supplier reply review page");
 assert.ok(sitemap.includes("/supplier-reply-review/methodology/"), "sitemap should include supplier reply review methodology");
 assert.ok(sitemap.includes("/supplier-reply-review/sample-report/"), "sitemap should include supplier reply review sample report");
+assert.ok(sitemap.includes("/supplier-reply-review/examples/best-price/"), "sitemap should include best-price example");
+assert.ok(sitemap.includes("/supplier-reply-review/examples/moq-changed-after-quotation/"), "sitemap should include MOQ-change example");
 assert.ok(sitemap.includes("/privacy-policy/"), "sitemap should include the privacy policy");
 assert.ok(sitemap.includes("/terms-of-service/"), "sitemap should include the terms of service");
 for (const slug of [
@@ -292,7 +293,7 @@ assert.equal(sitemap.includes("/llms.txt"), false, "sitemap should not include t
 assert.equal(sitemap.includes("/ai-sitemap.json"), false, "sitemap should not include the machine-readable AI sitemap resource");
 assert.ok(sitemap.includes("/es/buyer-guides/"), "sitemap should include /es/buyer-guides/");
 assert.ok(sitemap.includes("/es/buyer-guides/como-revisar-un-proveedor-chino-antes-de-pagar/"), "sitemap should include the first Spanish buyer guide");
-assert.ok(sitemap.includes("/for-factories/"), "sitemap should include the main-domain factory-side entrance");
+assert.equal(sitemap.includes("/for-factories/"), false, "Buyer sitemap excludes Factory redirect");
 assert.ok(sitemap.includes("/for-buyers/"), "sitemap should include /for-buyers/");
 assert.ok(sitemap.includes("/field-materials/"), "sitemap should include /field-materials/");
 assert.equal(sitemap.includes("/en/field-materials/"), false, "sitemap should not include the non-canonical /en/field-materials/ URL");
@@ -308,10 +309,11 @@ assert.equal(sitemap.includes("/b/"), false, "sitemap should not include standal
 
 const llms = fs.readFileSync(path.join(dist, "llms.txt"), "utf8");
 assert.ok(llms.includes("AI sitemap: https://gewuji.dev/ai-sitemap.json"), "llms.txt should link to the AI sitemap");
+assert.ok(llms.includes("https://gewuji.dev/supplier-reply-review/examples/best-price/"), "llms.txt should link to the best-price example");
+assert.ok(llms.includes("https://gewuji.dev/supplier-reply-review/examples/moq-changed-after-quotation/"), "llms.txt should link to the MOQ-change example");
 assert.equal(llms.includes("https://gewuji.dev/m/"), false, "llms should not link standalone trade manufacturer page");
 assert.equal(llms.includes("https://gewuji.dev/b/"), false, "llms should not link standalone trade buyer page");
 for (const expected of [
-  "For Factories",
   "Supplier Reply Review",
   "supplier replies",
   "quotations",
@@ -333,7 +335,9 @@ assert.equal(robots.includes("LLMs:"), false, "robots should not include non-sta
 
 const aiSitemap = JSON.parse(fs.readFileSync(path.join(dist, "ai-sitemap.json"), "utf8"));
 const aiSitemapPaths = aiSitemap.pages.map((page) => new URL(page.url).pathname.replace(/^\/laocao-homepage/, ""));
+const aiPage = (pathname) => aiSitemap.pages.find((page) => new URL(page.url).pathname === pathname);
 assert.equal(aiSitemap.site.name, "格物集", "AI sitemap should describe the site");
+assert.equal(aiSitemap.site.language, "en", "AI sitemap should declare the primary site language");
 assert.equal(aiSitemapPaths.includes("/m/"), false, "AI sitemap should not include standalone trade manufacturer page");
 assert.equal(aiSitemapPaths.includes("/b/"), false, "AI sitemap should not include standalone trade buyer page");
 assert.equal(aiSitemapPaths.includes("/tools/"), false, "AI sitemap should not include legacy tools index");
@@ -344,16 +348,22 @@ assert.ok(aiSitemapPaths.includes("/buyer-guides/sample-order-email-template-for
 assert.ok(aiSitemapPaths.includes("/buyer-guides/how-to-compare-chinese-suppliers/"), "AI sitemap should include supplier comparison guide");
 assert.ok(aiSitemapPaths.includes("/supplier-reply-review/"), "AI sitemap should include supplier reply review page");
 assert.ok(aiSitemapPaths.includes("/supplier-reply-review/sample-report/"), "AI sitemap should include supplier reply review sample report");
+assert.ok(aiSitemapPaths.includes("/supplier-reply-review/examples/best-price/"), "AI sitemap should include best-price example");
+assert.ok(aiSitemapPaths.includes("/supplier-reply-review/examples/moq-changed-after-quotation/"), "AI sitemap should include MOQ-change example");
 assert.equal(aiSitemapPaths.includes("/free-supplier-reply-review/"), false, "AI sitemap should not include the legacy review URL");
 assert.equal(aiSitemapPaths.includes("/tools/photo-booth/"), false, "AI sitemap should not elevate old photo booth pages");
 assert.equal(aiSitemapPaths.includes("/tools/worldcup-advisor/advisor/"), false, "AI sitemap should not elevate World Cup Advisor pages");
-assert.ok(aiSitemapPaths.includes("/for-factories/"), "AI sitemap should include the factory-side page");
-assert.ok(aiSitemap.pages.some((page) => page.url === "https://gewuji.dev/for-factories/"), "AI sitemap should use the main-domain factory-side entrance");
+assert.equal(aiSitemapPaths.includes("/for-factories/"), false, "Buyer AI sitemap excludes Factory redirect");
 assert.equal(aiSitemap.pages.some((page) => page.url === "https://factory.gewuji.dev/for-factories/"), false, "AI sitemap should not retain the redirected factory subdomain URL");
 assert.ok(aiSitemapPaths.includes("/for-buyers/"), "AI sitemap should include the buyer-side page");
 assert.ok(aiSitemapPaths.includes("/field-materials/"), "AI sitemap should include Manufacturing Context");
 assert.ok(JSON.stringify(aiSitemap).includes("不是正式审厂"), "AI sitemap should include GEWUJI service boundaries");
 assert.equal(JSON.stringify(aiSitemap).includes("Factory Bridge"), false, "AI sitemap should not present Factory Bridge as a public brand");
+assert.ok(aiPage("/buyer-guides/")?.relatedPages?.includes("https://gewuji.dev/supplier-reply-review/"), "buyer guides should point AI systems to the review service");
+assert.ok(aiPage("/buyer-guides/how-to-compare-chinese-suppliers/")?.relatedPages?.includes("https://gewuji.dev/supplier-reply-review/examples/"), "comparison guide should point AI systems to review examples");
+assert.ok(aiPage("/buyer-guides/sample-order-email-template-for-chinese-suppliers/")?.relatedPages?.includes("https://gewuji.dev/supplier-reply-review/sample-report/"), "sample email guide should point AI systems to the sample report");
+assert.ok(aiPage("/for-buyers/")?.relatedPages?.includes("https://gewuji.dev/supplier-reply-review/"), "for buyers should point AI systems to the review service");
+assert.ok(aiPage("/field-materials/")?.relatedPages?.includes("https://gewuji.dev/for-buyers/"), "manufacturing context should point AI systems to the buyer context");
 
 const factoryPage = fs.readFileSync(path.join(dist, "for-factories/index.html"), "utf8");
 const buyerPage = fs.readFileSync(path.join(dist, "for-buyers/index.html"), "utf8");
@@ -375,12 +385,22 @@ const supplierReplySamplePage = fs.readFileSync(path.join(dist, "supplier-reply-
 const supplierReplyExamplesPage = fs.readFileSync(path.join(dist, "supplier-reply-review/examples/index.html"), "utf8");
 const fieldMaterialsPage = fs.readFileSync(path.join(dist, "field-materials/index.html"), "utf8");
 const englishFieldMaterialsPage = fs.readFileSync(path.join(dist, "en/field-materials/index.html"), "utf8");
+for (const [page, label] of [
+  [buyerPage, "for-buyers"],
+  [buyerGuidesPage, "buyer-guides index"],
+  [fieldMaterialsPage, "field-materials"],
+  [spanishBuyerGuidesPage, "Spanish buyer-guides index"],
+]) {
+  assert.ok(page.includes("marketing-events.js?v=20260910-buyer-factory"), `${label} should load the event script`);
+}
+const exampleBestPricePage = fs.readFileSync(path.join(dist, "supplier-reply-review/examples/best-price/index.html"), "utf8");
+assert.ok(exampleBestPricePage.includes("marketing-events.js?v=20260910-buyer-factory"), "example pages should load the event script");
 for (const guide of [paymentGuidePage, sampleQuestionsGuide, quotationGuidePage, supplierRoleGuidePage]) {
   assert.ok(guide.includes('data-page-type="buyer_guide"'), "core buyer guides should share the buyer_guide page type");
 }
 for (const guide of [paymentGuidePage, factoryCheckGuidePage, sampleQuestionsGuide, redFlagsGuidePage, sampleToBulkGuidePage, firstOrderGuidePage]) {
-  assert.ok(guide.includes('data-track-event="supplier_reply_check_click"'), "high-intent buyer guides should track paid-review CTA clicks");
-  assert.ok(guide.includes('https://factory.gewuji.dev/supplier-reply-check/'), "high-intent buyer guides should link to the paid review page");
+  assert.ok(guide.includes('data-track-event="buyer_guide_to_review_click"'), "high-intent buyer guides should track paid-review CTA clicks");
+  assert.ok(guide.includes('https://gewuji.dev/supplier-reply-review/'), "high-intent buyer guides should link to the paid review page");
   assert.ok(guide.includes("googletagmanager.com/gtag/js?id=G-NCZSC59MVC"), "high-intent buyer guides should load the main-domain GA4 stream");
 }
 for (const guide of [quotationGuidePage, supplierRoleGuidePage]) {
@@ -401,12 +421,6 @@ assert.ok(quotationGuidePage.includes("../../supplier-reply-review/"), "quotatio
 assert.ok(supplierRoleGuidePage.includes('"@type":"Article"'), "supplier role guide should include Article schema");
 assert.ok(supplierRoleGuidePage.includes("../../china-supplier-checklist/"), "supplier role guide should link to the checklist");
 assert.equal(supplierRoleGuidePage.includes("alibaba-vs-made-in-china-sourcing-safety"), false, "supplier role guide should not link to an unpublished guide");
-assert.ok(factoryPage.includes('rel="canonical" href="https://gewuji.dev/for-factories/"'), "factory page should expose the main-domain canonical URL");
-assert.ok(factoryPage.includes("工厂对外资料重构"), "factory page should include factory material rewrite SEO copy");
-assert.ok(factoryPage.includes('id="material-rewrite"'), "factory page should expose material rewrite anchor");
-assert.ok(factoryPage.includes('id="outreach-content"'), "factory page should expose outreach content anchor");
-assert.ok(factoryPage.includes("GEWUJI"), "factory page should use the unified Gewuji brand shell");
-assert.ok(factoryPage.includes('application/ld+json'), "factory page should include JSON-LD");
 assert.ok(buyerPage.includes('rel="canonical" href="https://gewuji.dev/for-buyers/"'), "buyer page should expose canonical URL");
 assert.ok(buyerPage.includes("Clearer Factory Information for Overseas Buyers"), "buyer page should include auxiliary buyer context SEO copy");
 assert.ok(buyerPage.includes("GEWUJI"), "buyer page should use the unified Gewuji brand shell");
@@ -440,3 +454,14 @@ assert.ok(englishFieldMaterialsPage.includes('rel="canonical" href="https://gewu
 assert.ok(englishFieldMaterialsPage.includes('http-equiv="refresh" content="0; url=../../field-materials/"'), "English Manufacturing Context redirect should point to /field-materials/");
 
 console.log("static hosting audit ok");
+
+assert.ok(factoryTrackingPage.includes('content="noindex, follow"'), "Factory redirect fallback stays noindex");
+
+// GEWUJI-BF-001: normal Buyer journeys never enter the Factory service funnel.
+assert.equal(home.split('<footer')[0].includes('factory.gewuji.dev'), false);
+for (const page of [buyerPage, buyerGuidesPage, paymentGuidePage, supplierReplyReviewPage, supplierReplySamplePage, supplierReplyExamplesPage, fieldMaterialsPage]) {
+  assert.equal(page.includes('factory.gewuji.dev'), false, 'Buyer content should remain in the Buyer funnel');
+  assert.equal(page.includes('https://gewuji.dev/for-factories/'), false);
+}
+assert.ok(home.includes('Decision support for overseas buyers'));
+assert.equal(llms.includes('/for-factories/'), false);

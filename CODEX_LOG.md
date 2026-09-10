@@ -236,3 +236,13 @@
 - Supplier Reply Review 主按钮已指向 Supplier Reply Check；邮箱联系降为“Ask a Question”。
 - Examples、Sample Report 和 6 篇付款前高意图 Buyer Guides 已增加自然的跨域付费入口；未改 SEO 结构。
 - 静态校验已更新为验证新的付费 CTA；`npm run build:prod` 与 `npm run verify:static` 通过。
+
+## 2026-09-10 GEWUJI-BF-001 P0
+
+- 统一 GEWUJI 品牌；主域仅面向海外 Buyer，Factory 子域承接中国制造企业。
+- Buyer 首页、导航和 CTA 已收口到 Supplier Reply Review；保留 For Buyers 为辅助页，Manufacturing Context 保持买家视角。
+- Factory 复用免费初筛邮件交接为 /check/，首页进入诊断服务流程；新增最小 cases/about/contact 页面，示例明确非客户业绩。
+- 两端事件携带独立 audience，邮件交接不等于成功提交；收件和付费成功需要人工/服务端确认。
+- 历史非业务路径保持可访问、移出发现入口并 noindex；未新增 410。
+- 本地构建、静态检查与事件测试通过；Git 推送及线上部署结果以交付报告为准。主域 /for-factories/ 的真实 301 仍需 Cloudflare 规则发布和 query 验证。
+- P1：真实授权案例、信任材料、服务层级细化、存量 Guide CTA 质量与自媒体归因验证；不扩内容规模。
