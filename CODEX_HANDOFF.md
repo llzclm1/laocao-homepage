@@ -454,4 +454,4 @@
 - `sitemap.xml`、`ai-sitemap.json` 和 IndexNow URL 列表不再包含这些路径；GA4 业务页注入规则保持不变，历史数据不删除。
 - 专属迁移/实现计划文档已删除；历史审计、运行报告和 Git 记录保留追溯信息，不进入业务入口。
 - 本地 `npm run build:prod`、`npm run verify:static`、Growth OS 52 项测试与 `git diff --check` 已通过。
-- 部署后应复核 `/game/worldcup/`、`/en/game/worldcup/`、`/game/worldcup-godot/`、`/godot/worldcup-poc/` 与 `/tools/worldcup-advisor/` 返回 404，并确认 Buyer/Factory 生产路由不受影响。
+- 已复核线上 `/game/worldcup/`、`/en/game/worldcup/`、`/game/worldcup-godot/`、`/godot/worldcup-poc/` 与 `/tools/worldcup-advisor/` 均返回 404；Buyer 核心页与 Factory 首页、案例、关于、提交页均返回 200。

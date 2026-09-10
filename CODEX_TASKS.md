@@ -123,4 +123,4 @@
 - [x] 删除专属迁移计划与 Godot POC 计划文档；历史报告与运行数据只作追溯。
 - [x] 更新 IndexNow URL、构建校验和静态托管校验，确保已删除路径不进入输出、sitemap 或 AI sitemap。
 - [x] 本地 `npm run build:prod`、`npm run verify:static`、Growth OS 测试与差异检查通过。
-- [ ] 提交并部署后核验旧游戏与世界杯 URL 返回 404，Buyer/Factory 核心路由继续返回 200。
+- [x] 提交并部署后核验旧游戏与世界杯 URL 返回 404，Buyer/Factory 核心路由继续返回 200。
