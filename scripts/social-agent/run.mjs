@@ -340,7 +340,7 @@ function isEligibleDiscoveryCandidate(item = {}) {
 
 function isFactoryBridgeCandidate(text = "") {
   const value = String(text);
-  if (/\b(?:ai|artificial\s+intelligence|codex|vibe\s*coding|machine\s+learning|llm|gpt|roblox|world\s+cup|block\s+blast|game|hiring|job|career|salary|resume|apics|pfas|study|exam|certification|learning\s+system|college|degree|confidence|3pl|freight|ltl|hs\s+code|pharma|medical|shipping\s+platform)\b/i.test(value)) return false;
+  if (/\b(?:ai|artificial\s+intelligence|codex|vibe\s*coding|machine\s+learning|llm|gpt|roblox|block\s+blast|game|hiring|job|career|salary|resume|apics|pfas|study|exam|certification|learning\s+system|college|degree|confidence|3pl|freight|ltl|hs\s+code|pharma|medical|shipping\s+platform)\b/i.test(value)) return false;
   const buyerContext = /\b(?:china|chinese\s+supplier|supplier|sourcing|procurement|factory|manufacturer|alibaba|quotation|quote|sample|moq|payment|deposit|oem|odm|trading\s+company)\b/i.test(value);
   const decisionQuestion = /\b(?:payment|deposit|quotation|quote|sample|moq|lead\s*time|delivery|packaging|supplier\s+reply|supplier\s+communication|stopped\s+replying|not\s+replying|trading\s+company|oem|odm|verify|check|before\s+(?:paying|ordering)|compare)\b/i.test(value);
   return buyerContext && decisionQuestion;
