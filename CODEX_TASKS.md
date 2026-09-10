@@ -94,3 +94,10 @@
 - 生产首页 Buyer-only；线上 styles.css SHA256 与 92e580d 完全一致。Review、Examples、Sample Report、before-payment 均 200 且主漏斗无 Factory 跳出。
 - Cloudflare 现有规则 d018b879554b45819bd55000a3ccadcd 已改为 Factory 首页并启用；/for-factories/?utm_source=bf002&x=a%2Bb 实测单跳 301 → 200，query 原样保留。
 - 本轮无 Buyer 业务代码修改，无 P1。成功收件 KPI 继续为 Qualified Buyer Submission。
+
+## 2026-09-10 GEWUJI 主站文案人化
+
+- [x] 完成首页、Buyer Guides、Supplier Reply Review、示例、Manufacturing Context、For Buyers、Checklist 与 Contact 的可见文案人化。
+- [x] 保留 URL、canonical、robots、sitemap、JSON-LD、内链、法律页及旧项目/工具页；示例继续标明为 hypothetical / generic。
+- [x] 通过 `npm run build:prod` 与 `npm run verify:static`。
+- [ ] 提交部署后复核生产路由与移动端展示。

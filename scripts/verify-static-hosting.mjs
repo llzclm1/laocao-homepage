@@ -442,7 +442,7 @@ assert.ok(spanishPaymentGuidePage.includes("Esta guía no verifica proveedores")
 assert.ok(spanishPaymentGuidePage.includes("No es auditoría de fábrica"), "Spanish payment guide should expose audit boundary");
 assert.ok(supplierReplyReviewPage.includes('href="sample-report/"'), "supplier reply review page should link to the sample report");
 assert.ok(supplierReplySamplePage.includes('rel="canonical" href="https://gewuji.dev/supplier-reply-review/sample-report/"'), "supplier reply review sample report should expose canonical URL");
-assert.ok(supplierReplySamplePage.includes("This is a generic sample report."), "supplier reply review sample report should expose generic sample boundary");
+assert.ok(supplierReplySamplePage.includes("This generic report does not refer to a real supplier"), "supplier reply review sample report should expose generic sample boundary");
 assert.ok(supplierReplySamplePage.includes('"@type": "FAQPage"'), "supplier reply review sample report should include FAQPage schema");
 assert.ok(fieldMaterialsPage.includes('rel="canonical" href="https://gewuji.dev/field-materials/"'), "Manufacturing Context should expose its existing canonical URL");
 assert.ok(fieldMaterialsPage.includes("Manufacturing Context for Chinese Supplier Communication"), "Manufacturing Context should use the new buyer-facing positioning");
@@ -463,5 +463,5 @@ for (const page of [buyerPage, buyerGuidesPage, paymentGuidePage, supplierReplyR
   assert.equal(page.includes('factory.gewuji.dev'), false, 'Buyer content should remain in the Buyer funnel');
   assert.equal(page.includes('https://gewuji.dev/for-factories/'), false);
 }
-assert.ok(home.includes('Decision support for overseas buyers'));
+assert.ok(home.includes('For overseas buyers, GEWUJI reviews supplier replies'));
 assert.equal(llms.includes('/for-factories/'), false);
