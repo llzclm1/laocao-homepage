@@ -451,6 +451,7 @@
 
 - 已删除 Canvas 世界杯 H5、Godot Web POC、世界杯参谋站及其专属素材、实时数据脚本和赔率测试脚本。
 - 主站工具导航、项目详情、首页动态逻辑与世界杯专属样式已清理；静态构建不再复制游戏、Godot 或世界杯工具目录。
+- 当前 GSC 简报与社媒候选过滤不再保留世界杯主题；通用游戏信号隔离仍用于历史数据识别。
 - `sitemap.xml`、`ai-sitemap.json` 和 IndexNow URL 列表不再包含这些路径；GA4 业务页注入规则保持不变，历史数据不删除。
 - 专属迁移/实现计划文档已删除；历史审计、运行报告和 Git 记录保留追溯信息，不进入业务入口。
 - 本地 `npm run build:prod`、`npm run verify:static`、Growth OS 52 项测试与 `git diff --check` 已通过。
