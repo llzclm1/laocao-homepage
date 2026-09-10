@@ -29,11 +29,11 @@ Gewuji 的 GEO 目标不是“骗 AI 引用”，而是让 AI 正确理解三件
 | `llms.txt` | Confirmed | 已是 Markdown 格式，有 H1、核心链接、AI sitemap 链接和边界说明。 |
 | AI sitemap | Needs verification | 当前根目录未读到 `ai-sitemap.json` 源文件；构建产物或线上状态需另行确认。 |
 | `security.txt` | Confirmed | `.well-known/security.txt` 存在，含 contact、canonical 和 expiry。 |
-| old project archive / noindex | Partially confirmed | 抽样看到 `tools/`、`game/worldcup/`、`tools/photo-booth/`、`tools/worldcup-advisor/` 多个页面有 `noindex, follow`；完整覆盖需后续专门核对。 |
+| old project archive / noindex | Confirmed | 旧实验页面已从静态构建中移除；保留的历史文档继续使用 `noindex, follow`。 |
 | Buyer Guides verification language softening | Needs verification | 历史任务已处理过，但本轮未逐页审计。 |
 | Spanish pilot | Confirmed | `/es/buyer-guides/` 和 payment/deposit 西语 pilot 已上线提交。 |
 | Field Materials real photo gallery | Confirmed | 已完成实拍图 gallery scoped commit；仍应避免把实拍图表述成审厂证明。 |
-| Sitemap old project cleanup | Locally sampled | `sitemap.xml` 未命中 `tools/photo-booth`、`worldcup-advisor`、`game/worldcup` 等旧项目关键词。 |
+| Sitemap old project cleanup | Confirmed | `sitemap.xml` 未命中旧工具、游戏实验或其他已移除项目关键词。 |
 
 ## 3. Technical Foundation Checklist
 

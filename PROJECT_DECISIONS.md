@@ -34,7 +34,7 @@ Supplier Reply Review does not answer:
 
 ## Legacy Project Handling
 
-Old game / tools / worldcup / photo booth pages are archive content.
+Old experiment and tool pages are either removed from the build or kept as noindex archive content.
 
 Current decision:
 

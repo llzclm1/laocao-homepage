@@ -25,7 +25,6 @@
 - Factory 子域名源头：`factory.gewuji.dev` 实际源码在 `/Users/caocao/Documents/工厂桥梁`；本仓库 `CNAME` 为 `gewuji.dev`，当前只控制主站静态页面。两个仓库都需要部署后才能让线上主站和子域名完全同步。
 - 外链观察：定期把 Ahrefs / GSC 发现的外链补入 `data/backlinks/backlink-audit-log.csv`；无手动处罚前不提交 disavow。
 - 干净外链第一批：LinkedIn profile、GitHub profile、GitHub README resource repository、Notion public checklist、About.me profile 已完成并补入 `data/backlinks/backlink-audit-log.csv`；下一步只做定期索引/可访问性复查。
-- Godot H5 POC：`game/worldcup-godot/` 已可预览，已套入角色 PNG 并补充轻量背景/特效；下一步如继续推进，应优先做移动端手感、性能和玩法节奏验证，再决定是否替换 `/game/worldcup/`。
 - Reddit 海外推广：继续找制造业、找中国供应商、找工厂相关真实问题跟帖。
 - 批量回复：内容在项目边界内时可直接按条目发布；越界或高风险动作先停下确认。
 - 每日跟进：检查已发过的海外站点是否有回复、评论、私信或连接请求，边界内回复可自动处理，潜在线索继续记录。

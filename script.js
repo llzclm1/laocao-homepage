@@ -13,8 +13,6 @@ const detailImage = document.querySelector(".project-detail-image");
 const detailQr = document.querySelector(".project-detail-qr");
 const detailQrImage = document.querySelector(".project-detail-qr-image");
 const detailDownloads = document.querySelector(".project-detail-downloads");
-const worldcupHomeSummary = document.querySelector("#worldcup-home-summary");
-const worldcupHomeStatus = document.querySelector("#worldcup-home-status");
 
 function trackHomeAction(action, label) {
   window.gtag?.("event", action, {
@@ -66,23 +64,6 @@ const projectDetails = {
     downloads: [
       ["下载 Mac 免费版", "https://github.com/llzclm1/laocao-homepage/releases/download/memoris-free-20260623/memoris-mac-free.zip"],
       ["下载 Windows 免费版", "https://github.com/llzclm1/laocao-homepage/releases/download/memoris-free-20260623/memoris-windows-free.zip"],
-    ],
-  },
-  "office-survivor": {
-    title: "工位突围",
-    image: "assets/projects/office-survivor-cover.webp",
-    intro: "一款微信小游戏，测试版已上架，正式版正在审批，把空间、成长和爽感做成轻量化玩法。",
-    meta: [
-      ["定位", "上班族题材的轻量生存小游戏"],
-      ["解决", "碎片时间需要低门槛爽感体验"],
-      ["阶段", "测试版已上架，正式版在审批"],
-    ],
-    summary:
-      "工位突围测试版已经上架，正式版正在审批。当前重点是围绕正式发布和早期反馈继续推进。",
-    points: [
-      "测试版已经上架，可用于收集早期体验反馈。",
-      "正式版正在审批，审批通过后进入更完整的公开发布阶段。",
-      "商业化方向包含激励广告、分享传播、商城和留存目标。",
     ],
   },
   "motorcycle-garage": {
@@ -199,31 +180,6 @@ filterButtons.forEach((button) => {
   });
 });
 }
-
-function updateWorldCupHome() {
-  const data = window.worldCupAdvisorData;
-  if (!data) return;
-
-  const completed = Number.isFinite(data.completedMatches) ? data.completedMatches : null;
-  const remaining = Number.isFinite(data.totalMatches) && completed !== null ? data.totalMatches - completed : null;
-  const updatedAt = data.syncedAt ?? "待同步";
-  if (worldcupHomeSummary && completed !== null) {
-    worldcupHomeSummary.textContent = `按当天赛程整理比赛、重点场、赛前判断和赛后复盘，当前已同步 ${completed} 场完赛数据，页面会继续跟进最新赛果。`;
-  }
-  if (worldcupHomeStatus && completed !== null && remaining !== null) {
-    worldcupHomeStatus.textContent = window.WorldCupStatus
-      ? window.WorldCupStatus.buildWorldCupStatusText({
-          completedMatches: completed,
-          totalMatches: completed + remaining,
-          syncedAt: updatedAt,
-          lastRefreshAt: data.lastRefreshAt
-        })
-      : `已收录 ${completed} 场已完赛结果 · 还剩 ${remaining} 场 · 已更新 ${updatedAt}`;
-  }
-}
-
-window.addEventListener?.("worldcup-advisor-data-ready", updateWorldCupHome);
-updateWorldCupHome();
 
 if (projectCards.length) {
 projectCards.forEach((card) => {

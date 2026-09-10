@@ -52,10 +52,7 @@ const noindexPathPrefixes = [
   "m/",
   "b/",
   "oldcao/",
-  "en/game/",
   "en/tools/",
-  "game/",
-  "godot/",
   "lab/",
   "tools/"
 ];
@@ -82,7 +79,6 @@ const copyEntries = [
   "films",
   "for-buyers",
   "for-factories",
-  "game",
   "google985cfee1847b0d86.html",
   "index.html",
   "lab",
@@ -368,7 +364,7 @@ function buildAnalyticsTags({ includeGoogleAnalytics }) {
   const googleVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
   const cloudflareToken = process.env.NEXT_PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN;
   const clarityId = process.env.NEXT_PUBLIC_CLARITY_ID;
-  const primaryAnalyticsCheck = '(location.hostname === "gewuji.dev" || location.hostname === "www.gewuji.dev") && !/^\\/(?:game|games|godot|lab|tools|docs|oldcao|en\\/game|en\\/tools)(?:\\/|$)/.test(location.pathname)';
+  const primaryAnalyticsCheck = '(location.hostname === "gewuji.dev" || location.hostname === "www.gewuji.dev") && !/^\\/(?:lab|tools|docs|oldcao|en\\/tools)(?:\\/|$)/.test(location.pathname)';
 
   if (includeGoogleAnalytics && googleAnalyticsId) {
     const adsConfig = googleAdsId ? `\n      gtag('config', '${googleAdsId}');` : "";

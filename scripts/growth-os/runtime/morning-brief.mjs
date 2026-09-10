@@ -483,7 +483,7 @@ function actionItem(item) {
 function currentRunDate(source) { return source.updated_at || null; }
 function areaFor(key, source = {}) {
   const signal = JSON.stringify({ source: source.source, metrics: source.metrics }).toLowerCase();
-  if (key === "gsc" && /games\.|repo extraction|roblox|world cup|block blast/.test(signal)) return "games";
+  if (key === "gsc" && /games\.|repo extraction|roblox|block blast/.test(signal)) return "games";
   if (key === "gsc" && /supplier|factory|buyer|sample|payment|quotation|reply/.test(signal)) return "factory";
   return ({ cloudflare: "traffic", gsc: "search", semrush: "search", social: "social", geo: "geo", conversion: "conversion" })[key] || "system";
 }

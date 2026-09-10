@@ -272,3 +272,11 @@
 
 - 清理主站公开 HTML、旧入口、工具页、Spanish 页面、统计页和 AI sitemap 中的个人品牌字样，统一使用 GEWUJI。
 - 功能性邮箱和内部历史记录保持不变；构建、静态校验、Factory 回归测试通过。
+
+## 2026-09-11 移除游戏与世界杯内容
+
+- 删除世界杯参谋站、Canvas H5、Godot POC、专属素材及数据同步/缩略图脚本；同时移除主站工具导航、项目卡片和相关 CSS。
+- 构建输出已明确禁止 `game/`、`en/game/`、`godot/` 与 `tools/worldcup-advisor/`，并在静态校验中断言这些目录不存在。
+- `sitemap.xml`、`ai-sitemap.json`、IndexNow 提交清单和业务 GA4 注入边界已同步；GA4 历史记录与 GSC 历史报告不做删除。
+- 删除专属游戏迁移计划和 Godot POC 计划；历史数据与日志保留作为审计记录。
+- 已通过 `npm run build:prod`、`npm run verify:static`、Growth OS 52 项测试和 `git diff --check`。

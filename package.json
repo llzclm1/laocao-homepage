@@ -10,9 +10,6 @@
     "test:discovery:phase-a": "node scripts/growth-os/discovery/tests/phase-a.mjs",
     "test:social-strategy": "node scripts/growth-os/social-engine/tests/platform-strategy.mjs",
     "submit:indexnow": "node scripts/submit-indexnow.mjs",
-    "stats:review": "node scripts/generate-stats-review.mjs",
-    "sync:worldcup:scores": "node scripts/sync-worldcup-data.mjs",
-    "sync:worldcup:odds": "node scripts/sync-worldcup-odds.mjs",
-    "sync:worldcup": "npm run sync:worldcup:scores && npm run sync:worldcup:odds"
+    "stats:review": "node scripts/generate-stats-review.mjs"
   }
 }

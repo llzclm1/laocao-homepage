@@ -446,3 +446,12 @@
 - 主站公开 HTML、Spanish 页面、工具页、旧入口 m/ 与 oldcao/、统计页以及 AI sitemap 的公开名称已统一移除 老曹 / Lao Cao，展示品牌统一为 GEWUJI。
 - 保留功能性邮箱地址、内部历史文档、测试夹具和 Git 历史中的原始标识，不影响收件或内部排障。
 - 本地 npm run build:prod、npm run verify:static 与差异检查通过。
+
+## 2026-09-11 移除游戏与世界杯内容
+
+- 已删除 Canvas 世界杯 H5、Godot Web POC、世界杯参谋站及其专属素材、实时数据脚本和赔率测试脚本。
+- 主站工具导航、项目详情、首页动态逻辑与世界杯专属样式已清理；静态构建不再复制游戏、Godot 或世界杯工具目录。
+- `sitemap.xml`、`ai-sitemap.json` 和 IndexNow URL 列表不再包含这些路径；GA4 业务页注入规则保持不变，历史数据不删除。
+- 专属迁移/实现计划文档已删除；历史审计、运行报告和 Git 记录保留追溯信息，不进入业务入口。
+- 本地 `npm run build:prod`、`npm run verify:static`、Growth OS 52 项测试与 `git diff --check` 已通过。
+- 部署后应复核 `/game/worldcup/`、`/en/game/worldcup/`、`/game/worldcup-godot/`、`/godot/worldcup-poc/` 与 `/tools/worldcup-advisor/` 返回 404，并确认 Buyer/Factory 生产路由不受影响。

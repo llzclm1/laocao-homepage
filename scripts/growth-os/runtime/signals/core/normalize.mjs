@@ -1,5 +1,5 @@
 const FACTORY_TERMS = /supplier|factory|buyer|sample|payment|quotation|reply|manufacturer|moq|communication|checklist/i;
-const GAME_TERMS = /repo|roblox|world cup|block blast|game|forest|steam|kpi monster/i;
+const GAME_TERMS = /repo|roblox|block blast|game|forest|steam|kpi monster/i;
 
 export function normalizeQuery(value) {
   return String(value || "")

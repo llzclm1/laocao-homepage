@@ -115,13 +115,10 @@ for (const redirectPage of [oldRfqPage, misspelledFqPage]) {
 
 const noindexArchivePages = [
   "docs/growth-os/dashboard.html",
-  "en/game/worldcup/index.html",
   "en/tools/photo-booth/index.html",
-  "game/worldcup/index.html",
   "lab/index.html",
   "tools/content-assistant/index.html",
-  "tools/seo-content-tools/index.html",
-  "tools/worldcup-advisor/index.html"
+  "tools/seo-content-tools/index.html"
 ];
 for (const relativePath of noindexArchivePages) {
   const archivePage = fs.readFileSync(path.join(dist, relativePath), "utf8");
@@ -133,7 +130,9 @@ assert.ok(fs.existsSync(path.join(dist, "favicon.ico")), "dist/favicon.ico is mi
 assert.ok(fs.existsSync(path.join(dist, "lab", "index.html")), "dist/lab/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "trade.css")), "dist/trade.css is missing");
 assert.ok(fs.existsSync(path.join(dist, "nav", "index.html")), "dist/nav/index.html is missing");
-assert.ok(fs.existsSync(path.join(dist, "game", "worldcup", "index.html")), "dist/game/worldcup/index.html is missing");
+for (const removedPath of ["game", "en/game", "godot", "tools/worldcup-advisor"]) {
+  assert.equal(fs.existsSync(path.join(dist, removedPath)), false, `${removedPath} should not be deployed`);
+}
 assert.ok(fs.existsSync(path.join(dist, "tools", "photo-booth", "index.html")), "dist/tools/photo-booth/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "tools", "photo-booth", "camera.html")), "dist/tools/photo-booth/camera.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "tools", "content-assistant", "index.html")), "dist/tools/content-assistant/index.html is missing");
@@ -142,7 +141,6 @@ assert.equal(fs.readFileSync(path.join(dist, "CNAME"), "utf8").trim(), "gewuji.d
 
 const textFiles = [
   "index.html",
-  "game/worldcup/index.html",
   "stats.html",
   "sitemap.xml",
   "robots.txt",
@@ -166,12 +164,9 @@ assert.equal(home.includes('href="tools/"'), false, "homepage should not link le
 assert.ok(home.includes('href="ai-sitemap.json"'), "homepage should expose the AI sitemap");
 assert.ok(home.includes("googletagmanager.com/gtag/js?id=G-NCZSC59MVC"), "homepage should load the main-domain GA4 stream");
 assert.ok(home.includes("marketing-events.js?v=20260910-buyer-factory"), "homepage should keep acquisition event tracking");
-const unrelatedToolPage = fs.readFileSync(path.join(dist, "tools", "worldcup-advisor", "index.html"), "utf8");
+const unrelatedToolPage = fs.readFileSync(path.join(dist, "tools", "seo-content-tools", "index.html"), "utf8");
 assert.equal(unrelatedToolPage.includes("googletagmanager.com"), false, "unrelated tools should not receive the buyer-service GA4 tag");
 assert.equal(home.includes('id="guide"'), false, "homepage should not embed the utility navigation section");
-assert.equal(home.includes("工位突围：世界杯摸鱼版"), false, "homepage should not feature the world cup event banner");
-assert.equal(home.includes('href="tools/worldcup-advisor/"'), false, "homepage should not directly feature World Cup Advisor");
-assert.equal(home.includes('src="assets/projects/worldcup-game-preview.png"'), false, "homepage should not use the old world cup PNG preview image");
 assert.equal(home.includes('href="/'), false, "homepage should not use root-relative href paths");
 assert.equal(home.includes('src="/'), false, "homepage should not use root-relative src paths");
 
@@ -205,56 +200,6 @@ assert.match(contentAssistantAdmin, /href="\.\/styles\.css(?:\?[^"]*)?"/, "conte
 assert.match(contentAssistantAdmin, /src="\.\/script\.js(?:\?[^"]*)?"/, "content assistant admin should use relative script paths");
 assert.equal(contentAssistantAdmin.includes('src="/'), false, "content assistant admin should not use root-relative src paths");
 assert.equal(contentAssistantAdmin.includes('href="/'), false, "content assistant admin should not use root-relative href paths");
-
-const worldcupAdvisor = fs.readFileSync(path.join(dist, "tools", "worldcup-advisor", "advisor", "index.html"), "utf8");
-assert.ok(worldcupAdvisor.includes("../data/worldcup-odds.js"), "worldcup advisor should load odds cache");
-assert.ok(worldcupAdvisor.includes("AI 摘要口径"), "worldcup advisor should expose GEO summary facts");
-assert.ok(worldcupAdvisor.includes("世界杯最近比赛预测"), "worldcup advisor should use updated SEO schema");
-assert.ok(fs.existsSync(path.join(dist, "tools", "worldcup-advisor", "data", "worldcup-odds.js")), "worldcup odds cache should be copied");
-
-const worldcup = fs.readFileSync(path.join(dist, "game", "worldcup", "index.html"), "utf8");
-assert.ok(worldcup.includes('assets/worldcup/worldcup_player_idle.png'), "worldcup page should use relative worldcup assets");
-assert.equal(worldcup.includes(githubPagesHostSuffix), false, "worldcup page should not hard-code GitHub Pages");
-assert.equal(worldcup.includes('src="/'), false, "worldcup page should not use root-relative src paths");
-assert.equal(worldcup.includes('href="/'), false, "worldcup page should not use root-relative href paths");
-assert.equal(worldcup.includes("../wechat-game/"), false, "worldcup page should not request old wechat-game fallback assets");
-assert.equal(worldcup.includes("手机APP版"), false, "worldcup page should not request old local app fallback assets");
-assert.equal(worldcup.includes("assets/premium/"), false, "worldcup page should not request missing premium fallback assets");
-assert.equal(worldcup.includes("if (simplified && !e.boss && !e.elite)"), false, "low quality should not draw old simple enemy colors");
-assert.ok(worldcup.includes("function defaultQualityMode()"), "worldcup page should choose quality defaults per device");
-assert.ok(worldcup.includes('return lowMemory ? "auto" : "high";'), "browser H5 should default to high quality unless memory is constrained");
-assert.ok(worldcup.includes("@media (max-width: 820px), (pointer: coarse)"), "mobile browser should fill the viewport height");
-assert.ok(worldcup.includes("premiumName && premiumSources[premiumName]"), "worldcup characters should not fall back to old atlas sprites");
-
-const godotWorldcup = path.join(dist, "game", "worldcup-godot", "index.html");
-if (fs.existsSync(godotWorldcup)) {
-  const godot = fs.readFileSync(godotWorldcup, "utf8");
-  assert.equal(godot.includes(githubPagesHostSuffix), false, "godot worldcup page should not hard-code GitHub Pages");
-  assert.equal(godot.includes('src="/'), false, "godot worldcup page should not use root-relative src paths");
-  assert.equal(godot.includes('href="/'), false, "godot worldcup page should not use root-relative href paths");
-  assert.ok(fs.existsSync(path.join(dist, "game", "worldcup-godot", "index.js")), "godot worldcup JS is missing");
-  assert.ok(fs.existsSync(path.join(dist, "game", "worldcup-godot", "index.wasm")), "godot worldcup WASM is missing");
-  assert.ok(fs.existsSync(path.join(dist, "game", "worldcup-godot", "index.pck")), "godot worldcup pack is missing");
-}
-
-const requiredAssets = [
-  "game/worldcup/assets/office_survivor_atlas.png",
-  "game/worldcup/assets/worldcup/worldcup_player_idle.png",
-  "game/worldcup/assets/worldcup/worldcup_player_run.png",
-  "game/worldcup/assets/worldcup/worldcup_patrol_colleague.png",
-  "game/worldcup/assets/worldcup/worldcup_hr.png",
-  "game/worldcup/assets/worldcup/worldcup_boss.png",
-  "game/worldcup/assets/worldcup/worldcup_message_supervisor.png",
-  "game/worldcup/assets/worldcup/worldcup_meeting_notice.png",
-  "assets/projects/worldcup-game-preview.png"
-];
-
-for (const file of requiredAssets) {
-  const asset = path.join(dist, file);
-  assert.ok(fs.existsSync(asset), `${file} is missing`);
-  const bytes = fs.readFileSync(asset);
-  assert.equal(bytes.slice(1, 4).toString("ascii"), "PNG", `${file} should be PNG`);
-}
 
 const sitemap = fs.readFileSync(path.join(dist, "sitemap.xml"), "utf8");
 assert.equal(sitemap.includes("/tools/"), false, "sitemap should not include legacy tools index");
@@ -298,9 +243,7 @@ assert.ok(sitemap.includes("/for-buyers/"), "sitemap should include /for-buyers/
 assert.ok(sitemap.includes("/field-materials/"), "sitemap should include /field-materials/");
 assert.equal(sitemap.includes("/en/field-materials/"), false, "sitemap should not include the non-canonical /en/field-materials/ URL");
 assert.ok(sitemap.includes("/contact/"), "sitemap should include /contact/");
-assert.equal(sitemap.includes("/game/worldcup/"), false, "sitemap should not include old game pages");
 assert.equal(sitemap.includes("/tools/photo-booth/"), false, "sitemap should not include old tool pages");
-assert.equal(sitemap.includes("/tools/worldcup-advisor/"), false, "sitemap should not include World Cup Advisor pages");
 assert.equal(sitemap.includes("/tools/content-assistant/"), false, "sitemap should not include temporary tool pages");
 assert.equal(sitemap.includes("/tools/content-assistant/admin/"), false, "sitemap should not include admin tool pages");
 assert.equal(sitemap.includes("/nav/"), false, "sitemap should not include old navigation helper pages");
@@ -352,7 +295,6 @@ assert.ok(aiSitemapPaths.includes("/supplier-reply-review/examples/best-price/")
 assert.ok(aiSitemapPaths.includes("/supplier-reply-review/examples/moq-changed-after-quotation/"), "AI sitemap should include MOQ-change example");
 assert.equal(aiSitemapPaths.includes("/free-supplier-reply-review/"), false, "AI sitemap should not include the legacy review URL");
 assert.equal(aiSitemapPaths.includes("/tools/photo-booth/"), false, "AI sitemap should not elevate old photo booth pages");
-assert.equal(aiSitemapPaths.includes("/tools/worldcup-advisor/advisor/"), false, "AI sitemap should not elevate World Cup Advisor pages");
 assert.equal(aiSitemapPaths.includes("/for-factories/"), false, "Buyer AI sitemap excludes Factory redirect");
 assert.equal(aiSitemap.pages.some((page) => page.url === "https://factory.gewuji.dev/for-factories/"), false, "AI sitemap should not retain the redirected factory subdomain URL");
 assert.ok(aiSitemapPaths.includes("/for-buyers/"), "AI sitemap should include the buyer-side page");

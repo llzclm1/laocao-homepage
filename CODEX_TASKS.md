@@ -115,3 +115,12 @@
 - [x] 旧入口、工具页、Spanish 页面和统计页同步清理。
 - [x] 保留功能性邮箱与内部历史记录。
 - [x] 构建、静态校验和差异检查通过。
+
+## 2026-09-11 移除游戏与世界杯内容
+
+- [x] 删除 Canvas 世界杯 H5、Godot POC、世界杯参谋站页面及专属素材、同步脚本。
+- [x] 删除主站工具导航、项目入口和相关样式；静态构建不再复制 `game/`、`godot/` 内容。
+- [x] 删除专属迁移计划与 Godot POC 计划文档；历史报告与运行数据只作追溯。
+- [x] 更新 IndexNow URL、构建校验和静态托管校验，确保已删除路径不进入输出、sitemap 或 AI sitemap。
+- [x] 本地 `npm run build:prod`、`npm run verify:static`、Growth OS 测试与差异检查通过。
+- [ ] 提交并部署后核验旧游戏与世界杯 URL 返回 404，Buyer/Factory 核心路由继续返回 200。
