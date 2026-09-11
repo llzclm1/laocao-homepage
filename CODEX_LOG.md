@@ -281,3 +281,9 @@
 - `sitemap.xml`、`ai-sitemap.json`、IndexNow 提交清单和业务 GA4 注入边界已同步；GA4 历史记录与 GSC 历史报告不做删除。
 - 删除专属游戏迁移计划和 Godot POC 计划；历史数据与日志保留作为审计记录。
 - 已通过 `npm run build:prod`、`npm run verify:static`、Growth OS 52 项测试和 `git diff --check`。
+
+## 2026-09-11 隔离内部 docs
+
+- `docs/` 保留在仓库中作为内部工作档案，但从静态生产构建的 `copyEntries` 移除，不再发布到 `gewuji.dev/docs/`。
+- 静态托管校验新增 `dist/docs/` 不存在断言；构建后内部文档、Growth OS 数据、Dashboard 和历史设计文件不会进入生产产物。
+- 部署后需复核旧 `/docs/` URL 返回 404，并在 GSC 检查历史文档是否仍有收录。

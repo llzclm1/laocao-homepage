@@ -1,5 +1,11 @@
 # CODEX_HANDOFF
 
+## 2026-09-11 生产 docs 隔离
+
+- 仓库 `docs/` 继续保留，用于内部方案、审计、运营记录和历史追溯。
+- 静态构建已停止复制 `docs/`，生产产物不再包含内部 Markdown、JSON、Dashboard 或历史设计文件。
+- `scripts/verify-static-hosting.mjs` 已增加 `dist/docs/` 缺失断言；部署后需要复核旧 `/docs/` URL 的 404 与 GSC 历史收录状态。
+
 ## 2026-07-14 Supplier Reply Review 旧入口 301 收口
 
 - Cloudflare 已启用精确路径规则：`/free-supplier-reply-review/` 单跳 301 到 `/supplier-reply-review/`，并保留 query string。

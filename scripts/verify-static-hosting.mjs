@@ -114,7 +114,6 @@ for (const redirectPage of [oldRfqPage, misspelledFqPage]) {
 }
 
 const noindexArchivePages = [
-  "docs/growth-os/dashboard.html",
   "en/tools/photo-booth/index.html",
   "lab/index.html",
   "tools/content-assistant/index.html",
@@ -124,6 +123,7 @@ for (const relativePath of noindexArchivePages) {
   const archivePage = fs.readFileSync(path.join(dist, relativePath), "utf8");
   assert.ok(archivePage.includes('<meta name="robots" content="noindex, follow"'), `${relativePath} should stay accessible but leave search discovery`);
 }
+assert.equal(fs.existsSync(path.join(dist, "docs")), false, "internal docs should not be deployed");
 assert.ok(fs.existsSync(path.join(dist, "en", "index.html")), "dist/en/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "en", "field-materials", "index.html")), "dist/en/field-materials/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "favicon.ico")), "dist/favicon.ico is missing");

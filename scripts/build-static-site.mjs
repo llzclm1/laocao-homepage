@@ -69,7 +69,6 @@ const copyEntries = [
   "china-supplier-checklist",
   "CNAME",
   "contact",
-  "docs",
   "en",
   "es",
   "factory-assets",

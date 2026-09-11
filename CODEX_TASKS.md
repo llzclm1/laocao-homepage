@@ -1,5 +1,11 @@
 # CODEX_TASKS
 
+## 2026-09-11 生产 docs 隔离
+
+- [x] 保留仓库 `docs/` 作为内部工作档案，不再复制到主站生产构建输出。
+- [x] 更新静态托管校验，断言 `dist/docs/` 不存在，防止内部文档再次公开。
+- [ ] 部署后复核旧 `/docs/` URL 返回 404，并在 GSC 检查是否仍有已收录的历史文档 URL。
+
 ## 2026-07-14 Supplier Reply Review 旧入口 301 收口
 
 - [x] 配置 `/free-supplier-reply-review/` 到 `/supplier-reply-review/` 的 Cloudflare 301。
