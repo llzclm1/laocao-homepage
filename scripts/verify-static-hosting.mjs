@@ -8,6 +8,11 @@ const dist = path.join(root, "dist");
 const githubPagesHostSuffix = ["github", "io"].join(".");
 
 assert.ok(fs.existsSync(path.join(dist, "index.html")), "dist/index.html is missing");
+const buyerHome = fs.readFileSync(path.join(dist, "index.html"), "utf8");
+const buyerMain = buyerHome.match(/<main\b[^>]*>[\s\S]*?<\/main>/i)?.[0];
+assert.ok(buyerMain, "Buyer homepage main content is missing");
+assert.doesNotMatch(buyerMain, /href=["'][^"']*(?:factory\.gewuji\.dev|for-factories)[^"']*["']/i, "Buyer main funnel must not link to Factory");
+assert.match(buyerHome, /<footer\b[^>]*>[\s\S]*href="https:\/\/factory\.gewuji\.dev\/"[\s\S]*?<\/footer>/i, "Keep Factory as a low-weight footer link");
 const oldcaoIndex = fs.readFileSync(path.join(root, "oldcao", "index.html"), "utf8");
 assert.ok(oldcaoIndex.includes('<meta name="robots" content="noindex, follow"'), "oldcao should stay accessible but leave search discovery");
 assert.ok(fs.existsSync(path.join(dist, "m", "index.html")), "dist/m/index.html is missing");

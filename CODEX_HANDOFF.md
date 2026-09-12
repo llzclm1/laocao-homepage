@@ -462,3 +462,10 @@
 - 专属迁移/实现计划文档已删除；历史审计、运行报告和 Git 记录保留追溯信息，不进入业务入口。
 - 本地 `npm run build:prod`、`npm run verify:static`、Growth OS 52 项测试与 `git diff --check` 已通过。
 - 已复核线上 `/game/worldcup/`、`/en/game/worldcup/`、`/game/worldcup-godot/`、`/godot/worldcup-poc/` 与 `/tools/worldcup-advisor/` 均返回 404；Buyer 核心页与 Factory 首页、案例、关于、提交页均返回 200。
+
+## 2026-09-13 BF-002 P0 回归修复
+
+- 当前生产 ee28c35 的首页首屏重新引入 Buyer/Factory 分流，违反 BF-002；删除该分流段，保留页脚 Factory 直达入口，未新增页面或改动 UI 样式。
+- 静态验收新增首页主内容不含 Factory 链接的回归断言；修复前失败、修复后通过。GitHub Pages 上传前执行现有静态验收，防止同类回归上线。
+- 现有 301 保留 query 且单跳至 Factory 200；生产 /check/ 已实走失败和成功状态，测试收件 7c111d54-917b-4b92-83d2-5e1b157a6b09，不计业务线索。
+- Buyer build / static audit、Factory 收件与前端事件测试通过。发布后继续核对生产版本与漏斗路径；P1 未开始。
