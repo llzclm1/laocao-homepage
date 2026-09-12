@@ -294,3 +294,9 @@
 - 静态验收新增首页主内容不含 Factory 链接的回归断言；修复前失败、修复后通过。GitHub Pages 上传前执行现有静态验收，防止同类回归上线。
 - 现有 301 保留 query 且单跳至 Factory 200；生产 /check/ 已实走失败和成功状态，测试收件 7c111d54-917b-4b92-83d2-5e1b157a6b09，不计业务线索。
 - Buyer build / static audit、Factory 收件与前端事件测试通过。发布后继续核对生产版本与漏斗路径；P1 未开始。
+
+### BF-002 本次生产验收完成
+
+- 002221c 已成功发布；运行 34724075489 的 build / verify / upload / deploy 全通过。生产首页 main 与构建完全匹配，完整 Buyer 路径和 390px 手机检查通过。
+- 单跳 301 query 保留与最终 200 通过；Factory 测试收件已 D1 独立读回，is_test=1、pending；当前生产 success 分支语义核对通过。
+- 结论 P0 RELEASE GO；详细证据见 docs/release/bf002-p0-2026-09-13.md。P1 未开始。
