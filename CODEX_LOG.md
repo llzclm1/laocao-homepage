@@ -313,3 +313,5 @@
 - 13 个 Buyer 页面（11 篇英文指南、1 篇西班牙语指南、Review 主页面）和 16 个旧工具页，共 29 个页面，仅修改 JSON-LD。25 处 Person 定义改为 Organization，4 处仅 ID 的引用改为共享 #organization。
 - 非 JSON-LD 内容逐文件对比一致；未新增页面、扩写指南、修改 URL/canonical/robots/noindex 或 UI。
 - 静态验收新增全部构建 HTML 的结构化数据解析、旧 #person 残留检查及品牌实体类型检查；修复前重现失败，修复后 build 和 verify:static 通过。
+
+- 发布证据：4fba0b6；GitHub Actions https://github.com/llzclm1/laocao-homepage/actions/runs/34938424325 build / verify / upload / deploy 全部 success。逐一请求 29 个受影响地址，29/29 HTTP 200，提取的 JSON-LD 与构建一致且无旧 #person 引用。构建产物扫描未发现名为 GEWUJI / Gewuji / 格物集的 Person。此结果不代表 AI 引用或流量增长。

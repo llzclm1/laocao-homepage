@@ -482,4 +482,4 @@
 
 ## GEO 作者实体统一
 
-29 个既有页面的 GEWUJI 作者统一引用 #organization；下一步复核本次发布。范围及验证见 CODEX_LOG.md“GEO 作者实体统一”。
+29 个既有页面的 GEWUJI 作者统一引用 #organization；4fba0b6 已发布，29/29 线上复核通过。范围及验证见 CODEX_LOG.md“GEO 作者实体统一”。
