@@ -605,6 +605,103 @@ function buildAiSitemap() {
         parent: publicUrl("buyer-guides/")
       },
       {
+        url: publicUrl("buyer-guides/verify-chinese-supplier-before-deposit/"),
+        title: "How to Check a Chinese Supplier Before Payment | Communication Checks",
+        type: "Article",
+        summary: "A buyer communication checklist for company details, product scope, payment account, sample terms, and unclear supplier replies before sending a deposit.",
+        answers: ["how to check a Chinese supplier before payment", "what to confirm before paying a supplier deposit", "Chinese supplier payment questions"],
+        keywords: ["Chinese supplier payment", "supplier deposit", "payment account", "sample terms", "supplier reply"],
+        boundaries: ["communication checks only", "not supplier verification", "not a factory audit", "does not guarantee payment safety or supplier reliability"],
+        parent: publicUrl("buyer-guides/")
+      },
+      {
+        url: publicUrl("buyer-guides/questions-before-ordering-samples-from-china/"),
+        title: "What Should I Ask a Chinese Supplier Before Ordering a Sample?",
+        type: "Article",
+        summary: "Questions for sample scope, MOQ, lead time, customization, shipping, and payment terms before placing a sample order from China.",
+        answers: ["what to ask a Chinese supplier before ordering a sample", "Chinese supplier sample terms", "questions before a sample order"],
+        keywords: ["supplier sample", "sample terms", "MOQ", "sample payment", "sample shipping"],
+        boundaries: ["communication guide only", "not supplier verification", "not a quality inspection", "does not guarantee sample or bulk-order outcomes"],
+        parent: publicUrl("buyer-guides/"),
+        relatedPages: [
+          publicUrl("supplier-reply-review/examples/deposit-before-sample/"),
+          publicUrl("supplier-reply-review/sample-report/"),
+          publicUrl("supplier-reply-review/")
+        ]
+      },
+      {
+        url: publicUrl("buyer-guides/chinese-supplier-deposit-before-sample/"),
+        title: "Chinese Supplier Asks for a Deposit Before a Sample: What to Confirm",
+        type: "Article",
+        summary: "A practical communication guide for clarifying sample scope, payment terms, timing, customization, and follow-up questions when a supplier requests a deposit first.",
+        answers: ["Chinese supplier asks for a deposit before a sample", "what to confirm before sample payment", "deposit before sample questions"],
+        keywords: ["deposit before sample", "sample payment", "supplier payment terms", "sample scope"],
+        boundaries: ["communication guide only", "not payment safety advice", "not supplier verification", "does not guarantee a transaction"],
+        parent: publicUrl("buyer-guides/"),
+        relatedPages: [
+          publicUrl("supplier-reply-review/examples/deposit-before-sample/"),
+          publicUrl("supplier-reply-review/")
+        ]
+      },
+      {
+        url: publicUrl("buyer-guides/sample-order-before-bulk-production-china/"),
+        title: "What Should Be Written in a Sample Order Before Bulk Production?",
+        type: "Article",
+        summary: "A sample-order guide covering specifications, materials, packaging, customization, lead time, shipping, sample limits, and what must be confirmed before bulk production.",
+        answers: ["what to include in a sample order from China", "sample order before bulk production", "sample approval questions"],
+        keywords: ["sample order", "bulk production", "sample approval", "product specifications", "packaging"],
+        boundaries: ["communication template guidance", "not a legal contract", "not a quality inspection", "does not guarantee bulk production results"],
+        parent: publicUrl("buyer-guides/"),
+        relatedPages: [
+          publicUrl("buyer-guides/questions-before-ordering-samples-from-china/"),
+          publicUrl("supplier-reply-review/sample-report/")
+        ]
+      },
+      {
+        url: publicUrl("buyer-guides/compare-chinese-supplier-quotations-beyond-price/"),
+        title: "How to Compare Chinese Supplier Quotations Beyond Price",
+        type: "Article",
+        summary: "A quotation comparison guide covering MOQ, material, packaging, sample terms, lead time, payment terms, customization, and assumptions that may differ between offers.",
+        answers: ["how to compare Chinese supplier quotations", "what to compare besides supplier price", "supplier quotation missing details"],
+        keywords: ["supplier quotation", "quotation comparison", "MOQ", "packaging", "lead time", "payment terms"],
+        boundaries: ["comparison framework only", "not a supplier reliability score", "not a factory audit", "does not identify a guaranteed safe supplier"],
+        parent: publicUrl("buyer-guides/"),
+        relatedPages: [
+          publicUrl("buyer-guides/how-to-compare-chinese-suppliers/"),
+          publicUrl("supplier-reply-review/examples/price-depends-on-quantity/"),
+          publicUrl("supplier-reply-review/sample-report/")
+        ]
+      },
+      {
+        url: publicUrl("buyer-guides/china-supplier-red-flags-before-first-order/"),
+        title: "China Supplier Red Flags Before Your First Order | Buyer Guide",
+        type: "Article",
+        summary: "A buyer communication guide to vague replies, mismatched payment details, unclear sample terms, unrealistic prices, and requests that still need clarification before a first order.",
+        answers: ["China supplier red flags before a first order", "what to ask when a supplier reply is vague", "supplier payment details to clarify"],
+        keywords: ["China supplier red flags", "vague supplier reply", "sample terms", "payment details", "first order"],
+        boundaries: ["communication signals only", "not supplier verification", "not a factory audit", "does not guarantee supplier reliability or payment safety"],
+        parent: publicUrl("buyer-guides/"),
+        relatedPages: [
+          publicUrl("supplier-reply-review/"),
+          publicUrl("supplier-reply-review/examples/"),
+          publicUrl("supplier-reply-review/sample-report/")
+        ]
+      },
+      {
+        url: publicUrl("buyer-guides/check-before-sending-tooling-money-chinese-factory/"),
+        title: "What to Check Before Sending Tooling Money to a Chinese Factory",
+        type: "Article",
+        summary: "Questions to clarify about tooling ownership, drawings, sample approval, payment account, refund terms, timeline, and project changes before sending tooling money.",
+        answers: ["what to check before sending tooling money", "Chinese factory tooling payment questions", "tooling ownership and sample approval"],
+        keywords: ["tooling money", "tooling ownership", "sample approval", "payment account", "Chinese factory"],
+        boundaries: ["communication checklist only", "not legal advice", "not supplier verification", "does not guarantee payment safety or project outcome"],
+        parent: publicUrl("buyer-guides/"),
+        relatedPages: [
+          publicUrl("supplier-reply-review/"),
+          publicUrl("supplier-reply-review/sample-report/")
+        ]
+      },
+      {
         url: publicUrl("buyer-guides/sample-order-email-template-for-chinese-suppliers/"),
         title: "Sample Order Email Template for Chinese Suppliers",
         type: "Article",

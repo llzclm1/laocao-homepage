@@ -739,7 +739,7 @@ h1 {
 
 .button {
   display: inline-flex;
-  min-height: 46px;
+  min-height: 48px;
   align-items: center;
   justify-content: center;
   border: 1px solid transparent;
