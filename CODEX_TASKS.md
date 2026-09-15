@@ -145,4 +145,4 @@
 - 结论 P0 RELEASE GO；详细证据见 docs/release/bf002-p0-2026-09-13.md。P1 未开始。
 
 - [x] GEO：首页 Person / founder 最小修复与回归验证。
-- [ ] 本次 GitHub Pages 发布及生产 JSON-LD 复核（见 CODEX_LOG.md）。
+- [x] 本次 GitHub Pages 发布及生产 JSON-LD 复核（见 CODEX_LOG.md）。

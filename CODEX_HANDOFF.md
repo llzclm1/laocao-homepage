@@ -478,4 +478,4 @@
 
 ## GEO 首页实体修复
 
-首页仅保留品牌 Organization，删除无公开身份依据的 Person 及 founder。下一步核对本次发布；验证证据见 CODEX_LOG.md 的“GEO 首页实体修复”。
+首页仅保留品牌 Organization，删除无公开身份依据的 Person 及 founder。6d4e697 已发布并线上复核通过；验证证据见 CODEX_LOG.md 的“GEO 首页实体修复”。其他页面仍有旧 Person 作者标记，未纳入此次首页范围。

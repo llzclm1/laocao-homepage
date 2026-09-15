@@ -304,3 +304,6 @@
 ## GEO 首页实体修复
 
 仅删除 index.html 中 Person 节点及 Organization.founder；共享 Organization ID、页面正文和 URL 不变。现有静态测试新增解析、品牌实体保留、Person 与悬空引用检查，修复前重现失败。修复后生产构建和完整静态测试通过。
+
+- 发布证据：6d4e697，GitHub Actions 34938042553 的 build / verify / upload / deploy 全部 success。生产首页 HTTP 200，JSON-LD 可解析、Organization 保留，Person 和 founder 均已移除。
+- 范围提醒：Supplier Reply Review 等其他既有页面仍定义 GEWUJI 为 Person 作者，本次未修改；不声称全站实体问题已清零。
