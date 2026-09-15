@@ -630,20 +630,6 @@ function buildAiSitemap() {
         ]
       },
       {
-        url: publicUrl("buyer-guides/chinese-supplier-deposit-before-sample/"),
-        title: "Chinese Supplier Asks for a Deposit Before a Sample: What to Confirm",
-        type: "Article",
-        summary: "A practical communication guide for clarifying sample scope, payment terms, timing, customization, and follow-up questions when a supplier requests a deposit first.",
-        answers: ["Chinese supplier asks for a deposit before a sample", "what to confirm before sample payment", "deposit before sample questions"],
-        keywords: ["deposit before sample", "sample payment", "supplier payment terms", "sample scope"],
-        boundaries: ["communication guide only", "not payment safety advice", "not supplier verification", "does not guarantee a transaction"],
-        parent: publicUrl("buyer-guides/"),
-        relatedPages: [
-          publicUrl("supplier-reply-review/examples/deposit-before-sample/"),
-          publicUrl("supplier-reply-review/")
-        ]
-      },
-      {
         url: publicUrl("buyer-guides/sample-order-before-bulk-production-china/"),
         title: "What Should Be Written in a Sample Order Before Bulk Production?",
         type: "Article",
