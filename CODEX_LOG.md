@@ -300,3 +300,7 @@
 - 002221c 已成功发布；运行 34724075489 的 build / verify / upload / deploy 全通过。生产首页 main 与构建完全匹配，完整 Buyer 路径和 390px 手机检查通过。
 - 单跳 301 query 保留与最终 200 通过；Factory 测试收件已 D1 独立读回，is_test=1、pending；当前生产 success 分支语义核对通过。
 - 结论 P0 RELEASE GO；详细证据见 docs/release/bf002-p0-2026-09-13.md。P1 未开始。
+
+## GEO 首页实体修复
+
+仅删除 index.html 中 Person 节点及 Organization.founder；共享 Organization ID、页面正文和 URL 不变。现有静态测试新增解析、品牌实体保留、Person 与悬空引用检查，修复前重现失败。修复后生产构建和完整静态测试通过。

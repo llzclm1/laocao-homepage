@@ -9,6 +9,13 @@ const githubPagesHostSuffix = ["github", "io"].join(".");
 
 assert.ok(fs.existsSync(path.join(dist, "index.html")), "dist/index.html is missing");
 const buyerHome = fs.readFileSync(path.join(dist, "index.html"), "utf8");
+const homeEntities = [...buyerHome.matchAll(/<script\b[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi)]
+  .flatMap((match) => { const data = JSON.parse(match[1]); return data["@graph"] || [data]; });
+const brandOrganization = homeEntities.find((entity) => entity["@id"] === "https://gewuji.dev/#organization");
+assert.equal(brandOrganization?.["@type"], "Organization", "Keep the shared GEWUJI Organization entity");
+assert.equal(brandOrganization.founder, undefined, "Do not identify GEWUJI brand as its own personal founder");
+assert.equal(homeEntities.some((entity) => entity["@id"] === "https://gewuji.dev/#person"), false, "Remove the unsupported homepage Person entity");
+assert.equal(JSON.stringify(homeEntities).includes("https://gewuji.dev/#person"), false, "Homepage schema must not retain dangling Person references");
 const buyerMain = buyerHome.match(/<main\b[^>]*>[\s\S]*?<\/main>/i)?.[0];
 assert.ok(buyerMain, "Buyer homepage main content is missing");
 assert.doesNotMatch(buyerMain, /href=["'][^"']*(?:factory\.gewuji\.dev|for-factories)[^"']*["']/i, "Buyer main funnel must not link to Factory");

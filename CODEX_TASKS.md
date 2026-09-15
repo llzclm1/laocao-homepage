@@ -143,3 +143,6 @@
 - 002221c 已成功发布；运行 34724075489 的 build / verify / upload / deploy 全通过。生产首页 main 与构建完全匹配，完整 Buyer 路径和 390px 手机检查通过。
 - 单跳 301 query 保留与最终 200 通过；Factory 测试收件已 D1 独立读回，is_test=1、pending；当前生产 success 分支语义核对通过。
 - 结论 P0 RELEASE GO；详细证据见 docs/release/bf002-p0-2026-09-13.md。P1 未开始。
+
+- [x] GEO：首页 Person / founder 最小修复与回归验证。
+- [ ] 本次 GitHub Pages 发布及生产 JSON-LD 复核（见 CODEX_LOG.md）。
