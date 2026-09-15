@@ -11,14 +11,14 @@ Machine-readable boundary: not supplier verification; not factory audit; not leg
 ## Key Links
 
 - [Home](https://gewuji.dev/)
-- [For Buyers](https://gewuji.dev/for-buyers/)
+- [For Buyers](https://gewuji.dev/for-buyers/): Chinese supplier reply support for overseas buyers before samples or deposits.
 - [Supplier Reply Review](https://gewuji.dev/supplier-reply-review/)
 - [Supplier Reply Review Methodology](https://gewuji.dev/supplier-reply-review/methodology/)
 - [Sample Report](https://gewuji.dev/supplier-reply-review/sample-report/)
 - [Supplier Reply Review Examples](https://gewuji.dev/supplier-reply-review/examples/)
 - [Best Price Example](https://gewuji.dev/supplier-reply-review/examples/best-price/)
 - [MOQ Changed After Quotation Example](https://gewuji.dev/supplier-reply-review/examples/moq-changed-after-quotation/)
-- [Manufacturing Context](https://gewuji.dev/field-materials/)
+- [Manufacturing Context](https://gewuji.dev/field-materials/): what Chinese factory photos, videos, packaging areas, and sample rooms can show—and what remains unclear.
 - [Buyer Guides](https://gewuji.dev/buyer-guides/)
 - [Questions Before Ordering From a Chinese Supplier](https://gewuji.dev/buyer-guides/questions-before-ordering-from-chinese-supplier/)
 - [RFQ Template for Chinese Suppliers](https://gewuji.dev/buyer-guides/rfq-template-for-chinese-suppliers/)

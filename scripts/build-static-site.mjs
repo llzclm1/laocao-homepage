@@ -738,11 +738,11 @@ function buildAiSitemap() {
       },
       {
         url: publicUrl("for-buyers/"),
-        title: "GEWUJI | Clearer Factory Information for Overseas Buyers",
+        title: "Chinese Supplier Reply Support for Overseas Buyers | GEWUJI",
         type: "Service",
-        summary: "GEWUJI helps overseas buyers clarify supplier replies, quotations, sample terms, payment details, and Manufacturing Context before samples, deposits, or larger orders.",
-        answers: ["clearer factory information before samples", "supplier reply context", "factory communication questions"],
-        keywords: ["clearer factory information", "supplier replies", "product materials", "factory profiles", "overseas buyers"],
+        summary: "For overseas buyers, GEWUJI clarifies Chinese supplier replies, quotations, sample terms, payment details, and visible factory context before samples or deposits.",
+        answers: ["Chinese supplier reply support for overseas buyers", "how to clarify Chinese supplier replies", "factory communication questions"],
+        keywords: ["Chinese supplier replies", "supplier quotation review", "sample terms", "payment terms", "overseas buyers"],
         boundaries: ["not a factory audit", "not legal due diligence", "not quality inspection", "does not guarantee supplier reliability or order safety"],
         relatedPages: [
           publicUrl("buyer-guides/"),
@@ -752,11 +752,11 @@ function buildAiSitemap() {
       },
       {
         url: publicUrl("field-materials/"),
-        title: "GEWUJI | Manufacturing Context for Factory Information",
+        title: "Chinese Factory Photos & Videos: What Buyers Can See | GEWUJI",
         type: "CollectionPage",
-        summary: "Manufacturing Context uses privacy-protected workshop, equipment, packaging, and production details to show how real factory information can support clearer buyer understanding.",
-        answers: ["manufacturing context for factory information", "factory photos for buyer understanding", "how to explain real factory information"],
-        keywords: ["manufacturing context", "factory photos", "buyer understanding", "factory communication"],
+        summary: "See what Chinese factory photos, videos, packaging areas, and sample rooms can show—and what remains unclear—before you pay a supplier.",
+        answers: ["what Chinese factory photos can show buyers", "factory videos before paying a supplier", "visible factory communication signals"],
+        keywords: ["Chinese factory photos", "factory videos", "packaging area", "sample room", "buyer questions"],
         boundaries: ["examples are anonymized", "no customer names or factory names are disclosed", "not a supplier guarantee", "not an inspection report"],
         relatedPages: [
           publicUrl("for-buyers/"),

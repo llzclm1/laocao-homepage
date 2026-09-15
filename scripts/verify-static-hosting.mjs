@@ -296,6 +296,8 @@ for (const expected of [
 ]) {
   assert.ok(llms.includes(expected), `llms.txt should include current Gewuji positioning: ${expected}`);
 }
+assert.ok(llms.includes("Chinese supplier reply support for overseas buyers"), "llms.txt should describe the Buyer entry point");
+assert.ok(llms.includes("what Chinese factory photos, videos"), "llms.txt should describe the Manufacturing Context entry point");
 
 const robots = fs.readFileSync(path.join(dist, "robots.txt"), "utf8");
 assert.equal(robots.includes("AI-Sitemap:"), false, "robots should not include non-standard AI-Sitemap directives");
@@ -389,9 +391,10 @@ assert.ok(supplierRoleGuidePage.includes('"@type":"Article"'), "supplier role gu
 assert.ok(supplierRoleGuidePage.includes("../../china-supplier-checklist/"), "supplier role guide should link to the checklist");
 assert.equal(supplierRoleGuidePage.includes("alibaba-vs-made-in-china-sourcing-safety"), false, "supplier role guide should not link to an unpublished guide");
 assert.ok(buyerPage.includes('rel="canonical" href="https://gewuji.dev/for-buyers/"'), "buyer page should expose canonical URL");
-assert.ok(buyerPage.includes("Clearer Factory Information for Overseas Buyers"), "buyer page should include auxiliary buyer context SEO copy");
+assert.ok(buyerPage.includes("Chinese Supplier Reply Support for Overseas Buyers | GEWUJI"), "buyer page should include buyer-focused SEO copy");
 assert.ok(buyerPage.includes("GEWUJI"), "buyer page should use the unified Gewuji brand shell");
 assert.ok(buyerPage.includes('application/ld+json'), "buyer page should include JSON-LD");
+assert.ok(buyerPage.includes("<h2>Short answer</h2>"), "buyer page should expose a concise answer block");
 assert.ok(buyerGuidesPage.includes('rel="canonical" href="https://gewuji.dev/buyer-guides/"'), "buyer guides page should expose canonical URL");
 assert.ok(buyerGuidesPage.includes('hreflang="es" href="https://gewuji.dev/es/buyer-guides/"'), "buyer guides page should expose Spanish hreflang");
 assert.ok(buyerGuidesPage.includes("Practical China supplier communication guides"), "buyer guides page should include buyer guide SEO copy");
@@ -412,11 +415,12 @@ assert.ok(supplierReplySamplePage.includes('rel="canonical" href="https://gewuji
 assert.ok(supplierReplySamplePage.includes("This generic report does not refer to a real supplier"), "supplier reply review sample report should expose generic sample boundary");
 assert.ok(supplierReplySamplePage.includes('"@type": "FAQPage"'), "supplier reply review sample report should include FAQPage schema");
 assert.ok(fieldMaterialsPage.includes('rel="canonical" href="https://gewuji.dev/field-materials/"'), "Manufacturing Context should expose its existing canonical URL");
-assert.ok(fieldMaterialsPage.includes("Manufacturing Context for Chinese Supplier Communication"), "Manufacturing Context should use the new buyer-facing positioning");
+assert.ok(fieldMaterialsPage.includes("Chinese Factory Photos & Videos: What Buyers Can See | GEWUJI"), "Manufacturing Context should use the current buyer-facing positioning");
 assert.ok(fieldMaterialsPage.includes("it cannot prove supplier reliability"), "Manufacturing Context should expose the supplier reliability boundary");
 assert.ok(fieldMaterialsPage.includes("../supplier-reply-review/"), "Manufacturing Context should link to supplier reply review");
 assert.ok(fieldMaterialsPage.includes('"@type": "FAQPage"'), "Manufacturing Context should include FAQPage schema");
 assert.ok(fieldMaterialsPage.includes('application/ld+json'), "Manufacturing Context should include JSON-LD");
+assert.ok(fieldMaterialsPage.includes("<h2>Short answer</h2>"), "Manufacturing Context should expose a concise answer block");
 assert.ok(englishFieldMaterialsPage.includes('rel="canonical" href="https://gewuji.dev/field-materials/"'), "English Manufacturing Context redirect should retain the canonical URL");
 assert.ok(englishFieldMaterialsPage.includes('http-equiv="refresh" content="0; url=../../field-materials/"'), "English Manufacturing Context redirect should point to /field-materials/");
 
