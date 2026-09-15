@@ -307,3 +307,9 @@
 
 - 发布证据：6d4e697，GitHub Actions 34938042553 的 build / verify / upload / deploy 全部 success。生产首页 HTTP 200，JSON-LD 可解析、Organization 保留，Person 和 founder 均已移除。
 - 范围提醒：Supplier Reply Review 等其他既有页面仍定义 GEWUJI 为 Person 作者，本次未修改；不声称全站实体问题已清零。
+
+## GEO 作者实体统一
+
+- 13 个 Buyer 页面（11 篇英文指南、1 篇西班牙语指南、Review 主页面）和 16 个旧工具页，共 29 个页面，仅修改 JSON-LD。25 处 Person 定义改为 Organization，4 处仅 ID 的引用改为共享 #organization。
+- 非 JSON-LD 内容逐文件对比一致；未新增页面、扩写指南、修改 URL/canonical/robots/noindex 或 UI。
+- 静态验收新增全部构建 HTML 的结构化数据解析、旧 #person 残留检查及品牌实体类型检查；修复前重现失败，修复后 build 和 verify:static 通过。

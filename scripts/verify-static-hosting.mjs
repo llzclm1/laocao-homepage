@@ -20,6 +20,19 @@ const buyerMain = buyerHome.match(/<main\b[^>]*>[\s\S]*?<\/main>/i)?.[0];
 assert.ok(buyerMain, "Buyer homepage main content is missing");
 assert.doesNotMatch(buyerMain, /href=["'][^"']*(?:factory\.gewuji\.dev|for-factories)[^"']*["']/i, "Buyer main funnel must not link to Factory");
 assert.match(buyerHome, /<footer\b[^>]*>[\s\S]*href="https:\/\/factory\.gewuji\.dev\/"[\s\S]*?<\/footer>/i, "Keep Factory as a low-weight footer link");
+for (const file of fs.readdirSync(dist, { recursive: true }).filter((file) => file.endsWith(".html"))) {
+  const html = fs.readFileSync(path.join(dist, file), "utf8");
+  for (const match of html.matchAll(/<script\b[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi)) {
+    const schema = JSON.parse(match[1]);
+    assert.equal(JSON.stringify(schema).includes("https://gewuji.dev/#person"), false, `${file}: GEWUJI authors must reference the shared Organization`);
+    JSON.stringify(schema, (key, value) => {
+      if (value && value["@id"] === "https://gewuji.dev/#organization" && value["@type"]) {
+        assert.equal(value["@type"], "Organization", `${file}: GEWUJI is an Organization`);
+      }
+      return value;
+    });
+  }
+}
 const oldcaoIndex = fs.readFileSync(path.join(root, "oldcao", "index.html"), "utf8");
 assert.ok(oldcaoIndex.includes('<meta name="robots" content="noindex, follow"'), "oldcao should stay accessible but leave search discovery");
 assert.ok(fs.existsSync(path.join(dist, "m", "index.html")), "dist/m/index.html is missing");

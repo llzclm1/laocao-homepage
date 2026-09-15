@@ -146,3 +146,6 @@
 
 - [x] GEO：首页 Person / founder 最小修复与回归验证。
 - [x] 本次 GitHub Pages 发布及生产 JSON-LD 复核（见 CODEX_LOG.md）。
+
+- [x] GEO：修复其他页面 GEWUJI Person 作者及旧 #person 引用。
+- [ ] GEO：本次作者实体修复发布与线上验证。
