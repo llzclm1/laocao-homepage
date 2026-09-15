@@ -483,3 +483,11 @@
 ## GEO 作者实体统一
 
 29 个既有页面的 GEWUJI 作者统一引用 #organization；4fba0b6 已发布，29/29 线上复核通过。范围及验证见 CODEX_LOG.md“GEO 作者实体统一”。
+
+## 2026-09-15 Buyer SEO/GEO 与 BF-002 收口
+
+- Buyer SEO/GEO 提交 `71eed7a` 已纳入主线；后续 `e027b7e` 为现有页面图片补充尺寸并扩展 AI sitemap，`3f4d26a` 清理不存在的 AI sitemap 条目。
+- 最新 GitHub Pages production head 为 `3f4d26a`，Actions `34946526017` 的 build / verify / upload / deploy 全部成功；生产首页 HTTP 200。
+- Buyer 首页主内容只保留 Supplier Reply Review、Sample Report、Examples、Manufacturing Context 路径；Factory 仅保留页脚低权重入口。390px 视口无横向溢出，移动导航显示核心 Buyer 链接，桌面导航显示完整导航。
+- 生产链路 `gewuji.dev → Supplier Reply Review → Sample Report → Review CTA` 均 HTTP 200，主页面正文不含 `factory.gewuji.dev` 或 `/for-factories/` 链接。
+- 本轮未新增页面、未扩写 Buyer Guides、未改支付或数据边界；后续只观察索引、查询和真实 Qualified Buyer Submission 数据。

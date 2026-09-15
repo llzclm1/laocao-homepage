@@ -149,3 +149,10 @@
 
 - [x] GEO：修复其他页面 GEWUJI Person 作者及旧 #person 引用。
 - [x] GEO：本次作者实体修复发布与线上验证。
+
+## 2026-09-15 Buyer SEO/GEO 与 BF-002 收口
+
+- [x] Buyer SEO/GEO 提交 `71eed7a`、布局稳定性提交 `e027b7e`、AI sitemap 清理提交 `3f4d26a` 已推送并部署。
+- [x] Actions `34946526017` 的 build / verify / upload / deploy 全部成功。
+- [x] 首页 Buyer-only 主漏斗、desktop navigation、390px mobile navigation、Supplier Reply Review → Sample Report → Review CTA 已复核。
+- [x] 主内容没有 Factory CTA；仅保留低权重页脚入口。未新增页面、未扩写 Guides、未启动 P1。

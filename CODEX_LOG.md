@@ -315,3 +315,11 @@
 - 静态验收新增全部构建 HTML 的结构化数据解析、旧 #person 残留检查及品牌实体类型检查；修复前重现失败，修复后 build 和 verify:static 通过。
 
 - 发布证据：4fba0b6；GitHub Actions https://github.com/llzclm1/laocao-homepage/actions/runs/34938424325 build / verify / upload / deploy 全部 success。逐一请求 29 个受影响地址，29/29 HTTP 200，提取的 JSON-LD 与构建一致且无旧 #person 引用。构建产物扫描未发现名为 GEWUJI / Gewuji / 格物集的 Person。此结果不代表 AI 引用或流量增长。
+
+## 2026-09-15 Buyer SEO/GEO 与 BF-002 收口
+
+- `71eed7a` 增加 Buyer 首页与既有页面的 SEO/GEO 入口说明；`e027b7e` 为现有图片补充尺寸并扩展 AI sitemap；`3f4d26a` 删除不存在的 AI sitemap 条目。
+- Actions `34946526017` 已通过 build / verify / upload / deploy；生产首页与 Buyer 核心页面均 HTTP 200。
+- desktop AX 导航包含 Supplier Reply Review、Manufacturing Context、Buyer Guides、Examples、Methodology；390px 视口无横向溢出，移动导航保留四个核心 Buyer 链接并隐藏 Methodology，行为符合现有响应式规则。
+- 生产首页主内容链接均指向 Buyer 路径；`Supplier Reply Review → Sample Report → Review CTA` 保持站内 Buyer 路径，Factory 仅出现在页脚低权重入口。
+- AI sitemap 只描述现有 Buyer 页面与边界；未把邮件草稿、CTA click 或 Factory 入口当作成功转化，也未新增页面或启动 P1。
