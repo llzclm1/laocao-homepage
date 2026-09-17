@@ -88,6 +88,7 @@ const copyEntries = [
   "nav",
   "oldcao",
   "privacy-policy",
+  "product-spec-grabber",
   "robots.txt",
   "script.js",
   "SEARCH_ENGINE_SUBMISSION.md",
