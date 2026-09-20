@@ -83,6 +83,7 @@ const copyEntries = [
   "lab",
   "llms.txt",
   "link-visibility.js",
+  "margin-lens",
   "m",
   "marketing-events.js",
   "nav",

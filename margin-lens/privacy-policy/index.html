@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Privacy Policy for the Margin Lens Chrome extension." />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#f4f1ea" />
+    <meta name="color-scheme" content="light" />
+    <link rel="canonical" href="https://gewuji.dev/margin-lens/privacy-policy/" />
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="../../assets/brand/gewuji-app-icon.svg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://gewuji.dev/margin-lens/privacy-policy/" />
+    <meta property="og:title" content="Margin Lens Privacy Policy" />
+    <meta property="og:description" content="How the Margin Lens Chrome extension handles public product-page information and local scenario settings." />
+    <meta property="og:site_name" content="Gewuji" />
+    <title>Margin Lens Privacy Policy | Gewuji</title>
+    <link rel="stylesheet" href="../../styles.css?v=20260828-bridge-nav" />
+  </head>
+  <body class="bridge-page bridge-page-en">
+    <header class="bridge-header">
+      <a class="bridge-brand" href="../../" aria-label="Back to Gewuji">
+        <span class="bridge-mark" aria-hidden="true"></span>
+        <span class="bridge-brand-text">
+          <strong>GEWUJI</strong>
+          <small>Margin Lens / Legal</small>
+        </span>
+      </a>
+      <nav class="bridge-nav" aria-label="Margin Lens privacy navigation">
+        <a href="../../">Gewuji</a>
+        <a href="../../privacy-policy/">Site Privacy Policy</a>
+        <a href="../../terms-of-service/">Terms of Service</a>
+        <a href="../../contact/">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="bridge-hero" aria-labelledby="hero-title">
+        <div class="bridge-hero-inner">
+          <div class="bridge-hero-copy">
+            <p class="bridge-kicker">Margin Lens / Privacy</p>
+            <h1 id="hero-title">Margin Lens Privacy Policy</h1>
+            <p class="bridge-lead">This policy explains how the Margin Lens Chrome extension handles information from a public product page selected by you.</p>
+            <p class="bridge-boundary"><strong>Effective date: September 20, 2026.</strong> This policy applies to Margin Lens, not to the separate Gewuji website services.</p>
+          </div>
+          <aside class="bridge-hero-aside" aria-label="Privacy summary">
+            <span>In brief</span>
+            <ul>
+              <li>Reading starts after your toolbar action.</li>
+              <li>Scenario settings stay in Chrome local storage.</li>
+              <li>No page HTML upload, login, order flow, or remote API.</li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <section class="bridge-section">
+        <div class="bridge-shell bridge-split">
+          <div class="bridge-section-header"><h2>What Margin Lens Does</h2></div>
+          <div class="bridge-callout">
+            <p>Margin Lens is a local-first calculator for estimating one-unit cross-border product economics from the public product page you are viewing. It shows page facts, source traces, missing or conflicting values, and calculations such as estimated profit, margin, break-even price, CAC, and CPC.</p>
+            <p>It does not provide supplier verification, tax advice, logistics quotes, advertising advice, or a guarantee that a page claim or calculation is accurate.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="bridge-section">
+        <div class="bridge-shell">
+          <div class="bridge-section-header">
+            <h2>Information Read After Your Action</h2>
+            <p>When you click the Margin Lens toolbar button on a normal HTTP(S) product page, the extension may read publicly visible product information from that current page.</p>
+          </div>
+          <ul class="bridge-line-list">
+            <li><strong>Page context</strong><span>Page URL, title, hostname, platform marker, and capture time.</span></li>
+            <li><strong>Product fields</strong><span>Procurement price, retail price, MOQ, weight, package dimensions, product dimensions, SKU or model, and supplier name when readable.</span></li>
+            <li><strong>Source evidence</strong><span>Readable excerpts and DOM or JSON-LD locators used to show where a field came from.</span></li>
+          </ul>
+          <p class="bridge-boundary">Page values remain source claims, not independently verified facts. Missing procurement prices are not converted to zero. Conflicts and partial values remain marked for review.</p>
+        </div>
+      </section>
+
+      <section class="bridge-section">
+        <div class="bridge-shell">
+          <div class="bridge-section-header">
+            <h2>Local Storage and Processing</h2>
+            <p>Margin Lens performs the MVP calculation in the browser.</p>
+          </div>
+          <div class="bridge-grid two">
+            <article class="bridge-card"><h3>Scenario settings</h3><p>FX assumptions, selling price, freight, platform fee, advertising, returns, payment fee, import tax, and related settings are saved in Chrome <code>storage.local</code> so the scenario can be restored after a refresh.</p></article>
+            <article class="bridge-card"><h3>Current page session</h3><p>The extracted page snapshot is used to render the current side panel and calculate the scenario. This MVP does not upload page HTML or send the snapshot to a Margin Lens server.</p></article>
+          </div>
+          <p class="bridge-boundary">You can use Reset in the side panel to restore default scenario settings, or remove locally stored extension data through Chrome.</p>
+        </div>
+      </section>
+
+      <section class="bridge-section">
+        <div class="bridge-shell bridge-split">
+          <div class="bridge-section-header"><h2>Permissions and Boundaries</h2></div>
+          <ul class="bridge-line-list">
+            <li><strong>activeTab</strong><span>Access the current page only after the user invokes the toolbar action.</span></li>
+            <li><strong>scripting</strong><span>Inject the reader bundled with the extension into the user-selected page.</span></li>
+            <li><strong>sidePanel</strong><span>Display page facts, evidence, inputs, and calculations in the Chrome side panel.</span></li>
+            <li><strong>storage</strong><span>Save and restore local scenario settings in Chrome.</span></li>
+          </ul>
+          <div class="bridge-callout">
+            <p>Margin Lens does not request <code>&lt;all_urls&gt;</code> or host permissions. It does not read passwords, payment details, cookies, browsing history, or pages outside the current user-selected tab. It does not include remote code, login, checkout, order placement, messaging, or account workflows.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="bridge-section">
+        <div class="bridge-shell bridge-split">
+          <div class="bridge-section-header"><h2>Network, Sharing, and Retention</h2></div>
+          <div class="bridge-callout">
+            <p>The MVP does not call exchange-rate, logistics, tax, advertising, or other third-party data APIs. It does not sell, share, or transmit page information to a remote service operated by Margin Lens.</p>
+            <p>Information generated for the current side panel stays in the browser session unless you independently copy or record it. Scenario settings remain in Chrome local storage until reset, extension data is cleared, or the extension is removed.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="bridge-section">
+        <div class="bridge-shell bridge-split">
+          <div class="bridge-section-header"><h2>Changes and Contact</h2></div>
+          <div class="bridge-callout">
+            <p>We may update this policy if Margin Lens changes its data handling. The effective date at the top will identify the current version.</p>
+            <p>For questions about this policy or a privacy request, contact <a href="mailto:llzclm@gmail.com">llzclm@gmail.com</a>. The separate Gewuji website policy is available at <a href="../../privacy-policy/">gewuji.dev/privacy-policy/</a>.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bridge-footer">
+      <div class="bridge-footer-inner">
+        <div>
+          <strong>GEWUJI</strong>
+          <p>Margin Lens · Local-first product economics</p>
+          <p>Gewuji by Lao Cao</p>
+        </div>
+        <nav aria-label="Footer navigation">
+          <a href="../../">Home</a>
+          <a href="../../privacy-policy/">Site Privacy Policy</a>
+          <a href="../../terms-of-service/">Terms of Service</a>
+          <a href="../../contact/">Contact</a>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>
