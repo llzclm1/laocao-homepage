@@ -52,6 +52,9 @@ assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "questions-before-orderi
 assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "rfq-template-for-chinese-suppliers", "index.html")), "dist/buyer-guides/rfq-template-for-chinese-suppliers/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "sample-order-email-template-for-chinese-suppliers", "index.html")), "dist/buyer-guides/sample-order-email-template-for-chinese-suppliers/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "how-to-compare-chinese-suppliers", "index.html")), "dist/buyer-guides/how-to-compare-chinese-suppliers/index.html is missing");
+assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "chinese-supplier-deposit-before-sample", "index.html")), "dist/buyer-guides/chinese-supplier-deposit-before-sample/index.html is missing");
+assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "chinese-supplier-best-price-what-to-ask", "index.html")), "dist/buyer-guides/chinese-supplier-best-price-what-to-ask/index.html is missing");
+assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "chinese-supplier-moq-changed-after-quotation", "index.html")), "dist/buyer-guides/chinese-supplier-moq-changed-after-quotation/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "china-supplier-red-flags-before-first-order", "index.html")), "dist/buyer-guides/china-supplier-red-flags-before-first-order/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "buyer-guides", "chinese-factory-video-call-checklist", "index.html")), "dist/buyer-guides/chinese-factory-video-call-checklist/index.html is missing");
 assert.ok(fs.existsSync(path.join(dist, "supplier-reply-review", "index.html")), "dist/supplier-reply-review/index.html is missing");
@@ -237,6 +240,9 @@ assert.ok(sitemap.includes("/buyer-guides/questions-before-ordering-from-chinese
 assert.ok(sitemap.includes("/buyer-guides/rfq-template-for-chinese-suppliers/"), "sitemap should include RFQ template guide");
 assert.ok(sitemap.includes("/buyer-guides/sample-order-email-template-for-chinese-suppliers/"), "sitemap should include sample email template guide");
 assert.ok(sitemap.includes("/buyer-guides/how-to-compare-chinese-suppliers/"), "sitemap should include supplier comparison guide");
+assert.ok(sitemap.includes("/buyer-guides/chinese-supplier-deposit-before-sample/"), "sitemap should include deposit-before-sample guide");
+assert.ok(sitemap.includes("/buyer-guides/chinese-supplier-best-price-what-to-ask/"), "sitemap should include best-price guide");
+assert.ok(sitemap.includes("/buyer-guides/chinese-supplier-moq-changed-after-quotation/"), "sitemap should include MOQ-change guide");
 assert.ok(sitemap.includes("/buyer-guides/china-supplier-red-flags-before-first-order/"), "sitemap should include red-flags guide");
 assert.ok(sitemap.includes("/buyer-guides/chinese-factory-video-call-checklist/"), "sitemap should include video-call guide");
 assert.ok(sitemap.includes("/buyer-guides/compare-chinese-supplier-quotations-beyond-price/"), "sitemap should include quotation comparison guide");
