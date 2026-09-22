@@ -212,7 +212,7 @@ function injectAnalyticsTags() {
 }
 
 function injectMarketingEvents() {
-  const tag = `    <script defer src="${publicUrl("marketing-events.js?v=20260910-buyer-factory")}"></script>`;
+  const tag = `    <script defer src="${publicUrl("marketing-events.js?v=20260922-sample-report-event")}"></script>`;
 
   for (const file of listHtmlFiles(outDir)) {
     const relativePath = path.relative(outDir, file).split(path.sep).join("/");

@@ -103,7 +103,7 @@
     const pageType = document.body.dataset.pageType || inferPageType(window.location.pathname);
     if (pageType === "paid_landing") window.gewujiTrack("landing_page_view");
     if (pageType === "supplier_reply_review") window.gewujiTrack("supplier_reply_review_view");
-    if (pageType === "sample_report") window.gewujiTrack("buyer_sample_report_view");
+    if (pageType === "sample_report") window.gewujiTrack("sample_report_view");
     if (pageType === "buyer_guide") window.gewujiTrack("buyer_guide_view");
     if (pageType === "contact") window.gewujiTrack("contact_page_view");
     if (pageType === "factory_page") window.gewujiTrack("factory_page_view");

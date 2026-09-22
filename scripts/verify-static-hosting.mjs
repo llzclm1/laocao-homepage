@@ -101,15 +101,16 @@ assert.equal(
 );
 const sampleReviewReport = fs.readFileSync(path.join(dist, "supplier-reply-review", "sample-report", "index.html"), "utf8");
 assert.ok(sampleReviewReport.includes('data-page-type="sample_report"'), "sample report should track report views");
+assert.ok(marketingEvents.includes('pageType === "sample_report") window.gewujiTrack("sample_report_view")'), "sample report should use the canonical report-view event");
 assert.ok(sampleReviewReport.includes("googletagmanager.com/gtag/js?id=G-NCZSC59MVC"), "sample report should load GA4");
 assert.ok(sampleReviewReport.includes('data-track-event="buyer_review_start"'), "sample report should track paid-review clicks");
 assert.ok(sampleReviewReport.includes('href="https://gewuji.dev/supplier-reply-review/before-payment/#start"'), "sample report should link to the paid review page");
 const supplierReplyExamples = fs.readFileSync(path.join(dist, "supplier-reply-review", "examples", "index.html"), "utf8");
 assert.ok(supplierReplyExamples.includes('data-track-event="supplier_reply_review_example_click"'), "examples index should track example clicks");
-assert.ok(supplierReplyExamples.includes("marketing-events.js?v=20260910-buyer-factory"), "examples index should load the event script");
+assert.ok(supplierReplyExamples.includes("marketing-events.js?v=20260922-sample-report-event"), "examples index should load the event script");
 const sampleQuestionsGuide = fs.readFileSync(path.join(dist, "buyer-guides", "questions-before-ordering-samples-from-china", "index.html"), "utf8");
 assert.ok(sampleQuestionsGuide.includes('data-page-type="buyer_guide"'), "sample questions guide should track page views");
-assert.ok(sampleQuestionsGuide.includes("marketing-events.js?v=20260910-buyer-factory"), "sample questions guide should load the event script");
+assert.ok(sampleQuestionsGuide.includes("marketing-events.js?v=20260922-sample-report-event"), "sample questions guide should load the event script");
 assert.equal(fs.existsSync(path.join(dist, "free-supplier-reply-review")), false, "legacy free review HTML should not be deployed behind the edge redirect");
 for (const slug of [
   "documents-chinese-supplier-should-provide",
@@ -188,7 +189,7 @@ assert.ok(home.includes('href="terms-of-service/"'), "homepage should link to th
 assert.equal(home.includes('href="tools/"'), false, "homepage should not link legacy tools");
 assert.ok(home.includes('href="ai-sitemap.json"'), "homepage should expose the AI sitemap");
 assert.ok(home.includes("googletagmanager.com/gtag/js?id=G-NCZSC59MVC"), "homepage should load the main-domain GA4 stream");
-assert.ok(home.includes("marketing-events.js?v=20260910-buyer-factory"), "homepage should keep acquisition event tracking");
+assert.ok(home.includes("marketing-events.js?v=20260922-sample-report-event"), "homepage should keep acquisition event tracking");
 const unrelatedToolPage = fs.readFileSync(path.join(dist, "tools", "seo-content-tools", "index.html"), "utf8");
 assert.equal(unrelatedToolPage.includes("googletagmanager.com"), false, "unrelated tools should not receive the buyer-service GA4 tag");
 assert.equal(home.includes('id="guide"'), false, "homepage should not embed the utility navigation section");
@@ -360,10 +361,10 @@ for (const [page, label] of [
   [fieldMaterialsPage, "field-materials"],
   [spanishBuyerGuidesPage, "Spanish buyer-guides index"],
 ]) {
-  assert.ok(page.includes("marketing-events.js?v=20260910-buyer-factory"), `${label} should load the event script`);
+  assert.ok(page.includes("marketing-events.js?v=20260922-sample-report-event"), `${label} should load the event script`);
 }
 const exampleBestPricePage = fs.readFileSync(path.join(dist, "supplier-reply-review/examples/best-price/index.html"), "utf8");
-assert.ok(exampleBestPricePage.includes("marketing-events.js?v=20260910-buyer-factory"), "example pages should load the event script");
+assert.ok(exampleBestPricePage.includes("marketing-events.js?v=20260922-sample-report-event"), "example pages should load the event script");
 for (const guide of [paymentGuidePage, sampleQuestionsGuide, quotationGuidePage, supplierRoleGuidePage]) {
   assert.ok(guide.includes('data-page-type="buyer_guide"'), "core buyer guides should share the buyer_guide page type");
 }
