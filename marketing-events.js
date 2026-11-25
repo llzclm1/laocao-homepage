@@ -144,6 +144,32 @@
       });
     });
 
+    document.querySelectorAll("[data-copy-template]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const selector = button.dataset.copyTemplate;
+        const target = selector ? document.querySelector(selector) : null;
+        if (!target) return;
+        const text = target.innerText.trim();
+        const originalLabel = button.dataset.originalLabel || button.textContent.trim();
+        button.dataset.originalLabel = originalLabel;
+        try {
+          if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
+            await navigator.clipboard.writeText(text);
+          }
+          button.textContent = "Copied to clipboard ✓";
+          window.setTimeout(() => {
+            button.textContent = originalLabel;
+          }, 2200);
+        } catch {
+          // Clipboard access may be blocked in restricted contexts.
+        }
+        window.gewujiTrack("buyer_template_copy", {
+          template_name: button.dataset.templateName || "unknown",
+          action_location: button.dataset.trackLocation || "buyer_guide_template",
+        });
+      });
+    });
+
     document.querySelectorAll("[data-track-form]").forEach((form) => {
       let started = false;
       form.addEventListener("focusin", () => {
