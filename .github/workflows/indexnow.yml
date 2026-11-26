@@ -1,0 +1,31 @@
+name: Notify IndexNow on Main Push
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: indexnow-main
+  cancel-in-progress: true
+
+jobs:
+  indexnow:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Build static sitemap
+        run: node scripts/build-static-site.mjs
+
+      - name: Submit sitemap URLs to IndexNow
+        run: node scripts/submit-indexnow.mjs

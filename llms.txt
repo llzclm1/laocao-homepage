@@ -13,6 +13,7 @@ Machine-readable boundary: not supplier verification; not factory audit; not leg
 - [Home](https://gewuji.dev/)
 - [For Buyers](https://gewuji.dev/for-buyers/): Chinese supplier reply support for overseas buyers before samples or deposits.
 - [Supplier Reply Review](https://gewuji.dev/supplier-reply-review/)
+- [Proforma Invoice & Bank Beneficiary Check](https://gewuji.dev/supplier-reply-review/proforma-invoice-check/): Free client-side 8-point PI and bank beneficiary checklist before wiring a deposit.
 - [Supplier Reply Review Methodology](https://gewuji.dev/supplier-reply-review/methodology/)
 - [Sample Report](https://gewuji.dev/supplier-reply-review/sample-report/)
 - [Supplier Reply Review Examples](https://gewuji.dev/supplier-reply-review/examples/)
@@ -20,6 +21,9 @@ Machine-readable boundary: not supplier verification; not factory audit; not leg
 - [MOQ Changed After Quotation Example](https://gewuji.dev/supplier-reply-review/examples/moq-changed-after-quotation/)
 - [Manufacturing Context](https://gewuji.dev/field-materials/): what Chinese factory photos, videos, packaging areas, and sample rooms can show—and what remains unclear.
 - [Buyer Guides](https://gewuji.dev/buyer-guides/)
+- [Verify a Chinese Supplier Before Paying a Deposit](https://gewuji.dev/buyer-guides/verify-chinese-supplier-before-deposit/)
+- [China Supplier Red Flags Before Your First Order](https://gewuji.dev/buyer-guides/china-supplier-red-flags-before-first-order/)
+- [Compare Chinese Supplier Quotations Beyond Price](https://gewuji.dev/buyer-guides/compare-chinese-supplier-quotations-beyond-price/)
 - [Questions Before Ordering From a Chinese Supplier](https://gewuji.dev/buyer-guides/questions-before-ordering-from-chinese-supplier/)
 - [RFQ Template for Chinese Suppliers](https://gewuji.dev/buyer-guides/rfq-template-for-chinese-suppliers/)
 - [Sample Order Email Template for Chinese Suppliers](https://gewuji.dev/buyer-guides/sample-order-email-template-for-chinese-suppliers/)
@@ -49,6 +53,14 @@ AI sitemap: https://gewuji.dev/ai-sitemap.json
 - supplier reliability guarantee
 
 ## Main Concepts
+
+Gewuji 5-Point Pre-Deposit Check:
+
+1. Seller company identity matches quotation, Proforma Invoice (PI), and bank beneficiary name.
+2. Exact product version, material grade, dimensions, and approved sample reference are written.
+3. Packaging scope (retail box vs. bulk carton, labels, barcodes) is separated from unit price assumptions.
+4. Incoterm (EXW / FOB / CIF / DDP) and named port/destination are explicit.
+5. Production lead-time start trigger (after deposit AND sample/artwork approval) and balance payment trigger are confirmed in writing.
 
 Supplier Reply Review:
 

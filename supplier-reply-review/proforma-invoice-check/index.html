@@ -119,7 +119,10 @@
               <div>
                 <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;">
                   <strong>Ready-to-send PI clarification email</strong>
-                  <button type="button" id="copy-pi-email" class="bridge-button ghost" style="padding:6px 14px;min-height:36px;font-size:13px;">Copy Email</button>
+                  <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                    <button type="button" id="copy-pi-email" class="bridge-button ghost" style="padding:6px 14px;min-height:36px;font-size:13px;">Copy Email</button>
+                    <button type="button" id="copy-pi-summary" class="bridge-button ghost" style="padding:6px 14px;min-height:36px;font-size:13px;">Copy Review Summary</button>
+                  </div>
                 </div>
                 <pre id="pi-email-text" style="white-space:pre-wrap;word-break:break-word;margin:0;padding:12px;border:1px solid var(--line);border-radius:6px;background:var(--soft);font:inherit;font-size:14px;line-height:1.55;"></pre>
               </div>
@@ -156,11 +159,15 @@
         const list = document.getElementById("pi-missing-list");
         const emailBox = document.getElementById("pi-email-text");
         const copyBtn = document.getElementById("copy-pi-email");
+        const copySummaryBtn = document.getElementById("copy-pi-summary");
         if (!btn || !out) return;
+
+        let lastMissing = [];
 
         function run() {
           const items = Array.from(document.querySelectorAll(".pi-item"));
           const unchecked = items.filter((el) => !el.checked);
+          lastMissing = unchecked.map((el) => el.dataset.missing);
           list.innerHTML = (unchecked.length ? unchecked.map((el) => `<li>${el.dataset.missing}</li>`) : ["<li>All 8 core PI items are checked. Keep the signed PI and bank confirmation in one written record.</li>"]).join("");
           emailBox.textContent = unchecked.length
             ? `Subject: Proforma Invoice Clarification Before Deposit - [PI Number]\n\nHello [Supplier Name],\n\nThank you for sending the Proforma Invoice. Before we arrange the deposit, please update or confirm the following points in writing:\n\n${unchecked.map((el, i) => `${i + 1}. ${el.dataset.q}`).join("\n")}\n\nOnce confirmed on the updated PI, we will proceed with the payment.\n\nThank you.`
@@ -188,6 +195,38 @@
               window.gewujiTrack("buyer_template_copy", { template_name: "pi_clarification_email", action_location: "pi_checker" });
             }
           });
+        }
+        if (copySummaryBtn) {
+          copySummaryBtn.addEventListener("click", async () => {
+            const summaryText = [
+              "Proforma Invoice & Bank Beneficiary Check Summary",
+              `Open / Unclear (${lastMissing.length}): ${lastMissing.length ? lastMissing.join("; ") : "All 8 core items confirmed"}`,
+              "Checked via https://gewuji.dev/supplier-reply-review/proforma-invoice-check/"
+            ].join("\n");
+            try {
+              if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
+                await navigator.clipboard.writeText(summaryText);
+              }
+              const orig = copySummaryBtn.dataset.orig || copySummaryBtn.textContent;
+              copySummaryBtn.dataset.orig = orig;
+              copySummaryBtn.textContent = "Copied ✓";
+              window.setTimeout(() => { copySummaryBtn.textContent = orig; }, 2000);
+            } catch {}
+            if (typeof window.gewujiTrack === "function") {
+              window.gewujiTrack("buyer_template_copy", { template_name: "pi_check_summary", action_location: "pi_checker" });
+            }
+          });
+        }
+
+        const presetKey = new URLSearchParams(window.location.search).get("preset");
+        if (presetKey === "mismatched-beneficiary") {
+          const items = Array.from(document.querySelectorAll(".pi-item"));
+          items.forEach((el, idx) => { el.checked = idx > 1; });
+          run();
+        } else if (presetKey === "missing-incoterms") {
+          const items = Array.from(document.querySelectorAll(".pi-item"));
+          items.forEach((el, idx) => { el.checked = idx < 3 || idx > 5; });
+          run();
         }
       })();
     </script>

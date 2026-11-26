@@ -216,7 +216,10 @@
               <div>
                 <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;">
                   <strong>Ready-to-send follow-up email</strong>
-                  <button type="button" id="copy-checker-followup" class="bridge-button ghost" style="padding:6px 14px;min-height:36px;font-size:13px;">Copy Follow-Up Questions</button>
+                  <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                    <button type="button" id="copy-checker-followup" class="bridge-button ghost" style="padding:6px 14px;min-height:36px;font-size:13px;">Copy Follow-Up Questions</button>
+                    <button type="button" id="copy-checker-summary" class="bridge-button ghost" style="padding:6px 14px;min-height:36px;font-size:13px;">Copy Review Summary</button>
+                  </div>
                 </div>
                 <pre id="checker-followup-text" style="white-space:pre-wrap;word-break:break-word;margin:0;padding:12px;border:1px solid var(--line);border-radius:6px;background:var(--soft);font:inherit;font-size:14px;line-height:1.55;"></pre>
               </div>
@@ -584,7 +587,11 @@
         const missingList = document.getElementById("checker-missing-list");
         const followupEl = document.getElementById("checker-followup-text");
         const copyBtn = document.getElementById("copy-checker-followup");
+        const copySummaryBtn = document.getElementById("copy-checker-summary");
         if (!input || !runBtn || !outputEl) return;
+
+        let lastStated = [];
+        let lastMissing = [];
 
         const rules = [
           {
@@ -676,6 +683,8 @@
           const body = questions.length
             ? `Subject: Clarification before next step - [Product Name]\n\nHello [Supplier Name],\n\nThank you for your reply. Before we move forward, please confirm these points in writing:\n\n${questions.map((q, i) => `${i + 1}. ${q}`).join("\n")}\n\nThank you.`
             : "All 7 core dimensions appear referenced. Ask for one signed proforma invoice summarizing specs, sample basis, Incoterm, and beneficiary name.";
+          lastStated = stated;
+          lastMissing = missing;
           followupEl.textContent = body;
           statusEl.textContent = `${missing.length} open item(s) flagged across 7 checks.`;
           outputEl.hidden = false;
@@ -715,6 +724,43 @@
               });
             }
           });
+        }
+        if (copySummaryBtn) {
+          copySummaryBtn.addEventListener("click", async () => {
+            const summaryText = [
+              "Supplier Reply Self-Check Summary",
+              `Stated (${lastStated.length}): ${lastStated.length ? lastStated.join("; ") : "None detected"}`,
+              `Open / Unclear (${lastMissing.length}): ${lastMissing.length ? lastMissing.join("; ") : "None flagged"}`,
+              "Checked via https://gewuji.dev/supplier-reply-review/"
+            ].join("\n");
+            try {
+              if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
+                await navigator.clipboard.writeText(summaryText);
+              }
+              const orig = copySummaryBtn.dataset.orig || copySummaryBtn.textContent;
+              copySummaryBtn.dataset.orig = orig;
+              copySummaryBtn.textContent = "Copied ✓";
+              window.setTimeout(() => { copySummaryBtn.textContent = orig; }, 2000);
+            } catch {}
+            if (typeof window.gewujiTrack === "function") {
+              window.gewujiTrack("buyer_template_copy", {
+                template_name: "self_check_summary",
+                action_location: "instant_checker"
+              });
+            }
+          });
+        }
+
+        const presets = {
+          "price-depends": "Yes, we can make it. Price depends on quantity. Sample fee is $120, delivery 7 days. Please T/T to start.",
+          "hk-account": "Tooling is $2,800. We can start next week. Please arrange 50% deposit to our HK account.",
+          "fob-quote": "Unit price $4.20 FOB Ningbo for 1,000 pcs, 6061 aluminum, standard export carton, 25 days production after sample approval and 30% deposit.",
+          "trading-moq": "We are factory, best price for you. MOQ 500 pcs, can ship next week by express. T/T 100% before shipping."
+        };
+        const presetKey = new URLSearchParams(window.location.search).get("preset");
+        if (presetKey && presets[presetKey]) {
+          input.value = presets[presetKey];
+          analyze(input.value);
         }
       })();
     </script>
