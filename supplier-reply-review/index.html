@@ -171,13 +171,61 @@
               This is a communication review. It is not supplier verification, a factory audit, legal due diligence, quality inspection, payment safety advice, or a guarantee of the order outcome.
             </p>
             <div class="bridge-actions">
-              <a class="bridge-button primary" href="https://gewuji.dev/supplier-reply-review/before-payment/#start" data-track-event="buyer_review_start" data-track-location="service_hero" data-track-label="Review a Supplier Reply">Review a Supplier Reply</a>
+              <a class="bridge-button primary" href="#instant-checker" data-track-event="buyer_self_check_focus" data-track-location="service_hero" data-track-label="Try Instant Reply Checker">Try Instant Reply Checker ↓</a>
+              <a class="bridge-button ghost" href="https://gewuji.dev/supplier-reply-review/before-payment/#start" data-track-event="buyer_review_start" data-track-location="service_hero" data-track-label="Review a Supplier Reply">Human Review</a>
               <a class="bridge-button ghost" href="#contact" data-review-email-link data-track-event="outbound_email_click" data-track-location="service_hero" data-track-label="Ask a Question">Ask a Question</a>
             </div>
           </div>
           <figure class="material-hero-media bridge-rendered-visual">
             <img src="../assets/home/hero-scene-packaging-shipping.webp" alt="Abstract industrial composition of packaged materials and product preparation details." width="1672" height="941" fetchpriority="high" decoding="async" />
           </figure>
+        </div>
+      </section>
+
+      <section class="bridge-section" id="instant-checker" aria-labelledby="instant-checker-title">
+        <div class="bridge-shell">
+          <div class="bridge-section-header">
+            <p class="bridge-kicker">Free Instant Tool · No Sign-up</p>
+            <h2 id="instant-checker-title">Instant Supplier Reply Self-Check</h2>
+            <p>Paste a Chinese supplier’s quotation, sample reply, or payment message below. Runs locally in your browser—no data is uploaded.</p>
+          </div>
+          <div class="bridge-callout" style="display:grid;gap:14px;">
+            <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;">
+              <span style="font-size:13px;font-weight:600;color:var(--muted);">Try an example:</span>
+              <button type="button" class="bridge-button ghost" data-sample-reply="Yes, we can make it. Price depends on quantity. Sample fee is $120, delivery 7 days. Please T/T to start." style="padding:6px 12px;min-height:34px;font-size:13px;">“Price depends on quantity”</button>
+              <button type="button" class="bridge-button ghost" data-sample-reply="Tooling is $2,800. We can start next week. Please arrange 50% deposit to our HK account." style="padding:6px 12px;min-height:34px;font-size:13px;">“Tooling $2,800 + HK account”</button>
+              <button type="button" class="bridge-button ghost" data-sample-reply="Unit price $4.20 FOB Ningbo for 1,000 pcs, 6061 aluminum, standard export carton, 25 days production after sample approval and 30% deposit." style="padding:6px 12px;min-height:34px;font-size:13px;">Complete FOB quote</button>
+            </div>
+            <label for="reply-checker-input" style="font-weight:600;font-size:14px;">Supplier message or quotation text</label>
+            <textarea id="reply-checker-input" rows="4" placeholder="Paste what the supplier wrote (e.g. price, MOQ, sample fee, lead time, tooling, or payment terms)..." style="width:100%;padding:12px;border:1px solid var(--line);border-radius:6px;font:inherit;background:#fff;color:var(--ink);resize:vertical;"></textarea>
+            <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;">
+              <button type="button" id="run-reply-check" class="bridge-button primary">Check Missing Details →</button>
+              <span id="reply-checker-status" style="font-size:13px;color:var(--muted);" aria-live="polite"></span>
+            </div>
+            <div id="reply-checker-output" hidden style="display:grid;gap:16px;padding-top:12px;border-top:1px solid var(--line);">
+              <div class="bridge-grid two">
+                <article class="bridge-card" style="margin:0;">
+                  <h3>What looks stated</h3>
+                  <ul id="checker-stated-list"></ul>
+                </article>
+                <article class="bridge-card" style="margin:0;">
+                  <h3>Missing or unclear (Ask before paying)</h3>
+                  <ul id="checker-missing-list"></ul>
+                </article>
+              </div>
+              <div>
+                <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;">
+                  <strong>Ready-to-send follow-up email</strong>
+                  <button type="button" id="copy-checker-followup" class="bridge-button ghost" style="padding:6px 14px;min-height:36px;font-size:13px;">Copy Follow-Up Questions</button>
+                </div>
+                <pre id="checker-followup-text" style="white-space:pre-wrap;word-break:break-word;margin:0;padding:12px;border:1px solid var(--line);border-radius:6px;background:var(--soft);font:inherit;font-size:14px;line-height:1.55;"></pre>
+              </div>
+              <p style="margin:0;font-size:14px;">
+                Want a second pair of eyes on a complex quote or proforma invoice?
+                <a href="https://gewuji.dev/supplier-reply-review/before-payment/#start" data-track-event="buyer_review_start" data-track-location="instant_checker_result" data-track-label="Request Human Review">Request a focused human review →</a>
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -525,6 +573,149 @@
           "mai" +
           "lto:llzclm@gmail.com?subject=Supplier%20Reply%20Review&body=Product%20category%3A%0APayment%20stage%3A%0ADecision%20I%20am%20about%20to%20make%3A%0AWhat%20is%20unclear%3A%0A%0APlease%20attach%20the%20supplier%20reply%2C%20quotation%2C%20or%20screenshots.";
       });
+
+      (function initReplyChecker() {
+        const input = document.getElementById("reply-checker-input");
+        const runBtn = document.getElementById("run-reply-check");
+        const statusEl = document.getElementById("reply-checker-status");
+        const outputEl = document.getElementById("reply-checker-output");
+        const statedList = document.getElementById("checker-stated-list");
+        const missingList = document.getElementById("checker-missing-list");
+        const followupEl = document.getElementById("checker-followup-text");
+        const copyBtn = document.getElementById("copy-checker-followup");
+        if (!input || !runBtn || !outputEl) return;
+
+        const rules = [
+          {
+            id: "pricing_moq",
+            statedRe: /\b(moq|pcs|pieces|units|tiers?|quantity\s*:\s*\d+)\b|\$\s*\d|\busd\s*\d/i,
+            vagueRe: /\b(depends on quantity|best price|competitive price|flexible moq)\b/i,
+            statedLabel: "Price or quantity figure mentioned",
+            missingLabel: "Exact MOQ and unit price by quantity tier (e.g. 100 / 500 / 1,000 pcs)",
+            question: "What is the exact MOQ and unit price for [quantity tier 1] and [quantity tier 2]?"
+          },
+          {
+            id: "specs",
+            statedRe: /\b(material|grade|mm|cm|inch|weight|gsm|aluminum|steel|silicone|abs|drawing|spec|version|tolerance)\b/i,
+            statedLabel: "Material, spec, or product version referenced",
+            missingLabel: "Confirmed material grade, exact dimensions, tolerance, and product/drawing version",
+            question: "Which exact material grade, dimensions, and drawing/product version does this quote cover?"
+          },
+          {
+            id: "sample",
+            statedRe: /\b(stock sample|custom sample|pre-production sample|sample fee|sample cost)\b/i,
+            statedLabel: "Sample cost or sample mention included",
+            missingLabel: "Whether the sample is stock vs. custom-made, what is included, and if the fee is deductible",
+            question: "Is the sample a stock item or customized to our spec, and is the sample fee deductible from a bulk order?"
+          },
+          {
+            id: "timeline",
+            statedRe: /\b(production time|lead time|after deposit|after sample approval|working days)\b/i,
+            vagueRe: /\b(\d+\s*(days?|weeks?)|next week|soon|fast delivery)\b/i,
+            statedLabel: "Timeline or delivery estimate mentioned",
+            missingLabel: "Whether lead time covers production only or shipping, and what event starts the clock",
+            question: "Does the stated lead time cover production completion only, and does the clock start after deposit or sample approval?"
+          },
+          {
+            id: "packaging",
+            statedRe: /\b(packaging|carton|polybag|box|label|barcode|insert|pallet)\b/i,
+            statedLabel: "Packaging or carton scope mentioned",
+            missingLabel: "Included packaging (bulk vs. retail box, labels, barcodes) vs. extra charges",
+            question: "What packaging and labeling are included in the unit price, and what is charged separately?"
+          },
+          {
+            id: "incoterm",
+            statedRe: /\b(exw|fob|cif|ddp|ddu|dap|port|ningbo|shenzhen|shanghai|freight)\b/i,
+            statedLabel: "Incoterm or shipping responsibility referenced",
+            missingLabel: "Incoterm (EXW / FOB / CIF / DDP) and named port or delivery scope",
+            question: "Which Incoterm (EXW, FOB, CIF, or DDP) and named port/destination apply to this quotation?"
+          },
+          {
+            id: "payment",
+            statedRe: /\b(beneficiary|company name|invoice|alibaba|trade assurance|paypal|letter of credit|l\/c)\b/i,
+            vagueRe: /\b(t\/t|wire|deposit|hk account|bank|arrange payment)\b/i,
+            statedLabel: "Payment method or account term referenced",
+            missingLabel: "Legal beneficiary company name on the invoice/bank account (especially if HK or third-party)",
+            question: "Please confirm the exact legal company name on the commercial invoice and bank beneficiary account before payment."
+          }
+        ];
+
+        function analyze(rawText) {
+          const text = rawText.trim();
+          if (!text) {
+            statusEl.textContent = "Paste a supplier reply or pick an example above first.";
+            outputEl.hidden = true;
+            return;
+          }
+          const stated = [];
+          const missing = [];
+          const questions = [];
+
+          rules.forEach((rule) => {
+            const hasConcrete = rule.statedRe.test(text);
+            const hasVague = rule.vagueRe ? rule.vagueRe.test(text) : false;
+            if (hasConcrete && !hasVague) {
+              stated.push(rule.statedLabel);
+            } else {
+              if (hasConcrete || hasVague) {
+                stated.push(`${rule.statedLabel} (partial / needs specifics)`);
+              }
+              missing.push(rule.missingLabel);
+              questions.push(rule.question);
+            }
+          });
+
+          statedList.innerHTML = (stated.length ? stated : ["General willingness to quote or proceed, but no concrete commercial specs detected."])
+            .map((item) => `<li>${item}</li>`)
+            .join("");
+          missingList.innerHTML = (missing.length ? missing : ["No major gaps detected in these 7 checks—still confirm written specs & invoice match before wiring."])
+            .map((item) => `<li>${item}</li>`)
+            .join("");
+
+          const body = questions.length
+            ? `Subject: Clarification before next step - [Product Name]\n\nHello [Supplier Name],\n\nThank you for your reply. Before we move forward, please confirm these points in writing:\n\n${questions.map((q, i) => `${i + 1}. ${q}`).join("\n")}\n\nThank you.`
+            : "All 7 core dimensions appear referenced. Ask for one signed proforma invoice summarizing specs, sample basis, Incoterm, and beneficiary name.";
+          followupEl.textContent = body;
+          statusEl.textContent = `${missing.length} open item(s) flagged across 7 checks.`;
+          outputEl.hidden = false;
+
+          if (typeof window.gewujiTrack === "function") {
+            window.gewujiTrack("buyer_self_check_run", {
+              flagged_count: missing.length,
+              input_length: text.length
+            });
+          }
+        }
+
+        document.querySelectorAll("[data-sample-reply]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            input.value = btn.dataset.sampleReply || "";
+            analyze(input.value);
+          });
+        });
+
+        runBtn.addEventListener("click", () => analyze(input.value));
+
+        if (copyBtn) {
+          copyBtn.addEventListener("click", async () => {
+            try {
+              if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
+                await navigator.clipboard.writeText(followupEl.textContent);
+              }
+              const orig = copyBtn.dataset.orig || copyBtn.textContent;
+              copyBtn.dataset.orig = orig;
+              copyBtn.textContent = "Copied ✓";
+              window.setTimeout(() => { copyBtn.textContent = orig; }, 2000);
+            } catch {}
+            if (typeof window.gewujiTrack === "function") {
+              window.gewujiTrack("buyer_template_copy", {
+                template_name: "self_check_followup",
+                action_location: "instant_checker"
+              });
+            }
+          });
+        }
+      })();
     </script>
   </body>
 </html>
