@@ -490,6 +490,7 @@ function buildSitemap() {
     ["supplier-reply-review/examples/best-price/", "0.6"],
     ["supplier-reply-review/examples/moq-changed-after-quotation/", "0.6"],
     ["supplier-reply-review/sample-report/", "0.7"],
+    ["supplier-reply-review/proforma-invoice-check/", "0.7"],
     ["field-materials/", "0.8"],
     ["contact/", "0.5"],
     ["privacy-policy/", "0.3"],

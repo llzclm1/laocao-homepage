@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Free Proforma Invoice (PI) and Chinese supplier bank account checklist tool. Spot beneficiary mismatches, missing Incoterms, unclear deposit triggers, and copy follow-up questions before wiring."
+    />
+    <meta name="author" content="GEWUJI" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#f4f1ea" />
+    <meta name="color-scheme" content="light" />
+    <link rel="canonical" href="https://gewuji.dev/supplier-reply-review/proforma-invoice-check/" />
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+    <title>Proforma Invoice &amp; Chinese Supplier Bank Account Check | GEWUJI</title>
+    <link rel="stylesheet" href="../../styles.css?v=20260704-bridge-archive" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://gewuji.dev/supplier-reply-review/proforma-invoice-check/#webpage",
+            "url": "https://gewuji.dev/supplier-reply-review/proforma-invoice-check/",
+            "name": "Proforma Invoice & Chinese Supplier Bank Account Check | GEWUJI",
+            "description": "Free Proforma Invoice (PI) and Chinese supplier bank account checklist tool before wiring a deposit.",
+            "isPartOf": { "@id": "https://gewuji.dev/#website" },
+            "author": { "@id": "https://gewuji.dev/#organization" },
+            "publisher": { "@id": "https://gewuji.dev/#organization" }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://gewuji.dev/" },
+              { "@type": "ListItem", "position": 2, "name": "Supplier Reply Review", "item": "https://gewuji.dev/supplier-reply-review/" },
+              { "@type": "ListItem", "position": 3, "name": "Proforma Invoice Check", "item": "https://gewuji.dev/supplier-reply-review/proforma-invoice-check/" }
+            ]
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Why is a Chinese supplier asking me to wire to a Hong Kong or different company name?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Many Chinese factories use a Hong Kong trading entity or export agent for USD settlement, but an unexplained beneficiary mismatch is a major payment risk. Ask for a written explanation linking the quoted company, invoice issuer, and bank beneficiary before wiring."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What must be written on a Chinese supplier Proforma Invoice before paying a deposit?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "A clear PI should state the legal seller and bank beneficiary name, exact product spec/version, unit price and currency, MOQ/quantity, packaging scope, Incoterm and named port, lead-time start trigger, and sample approval condition."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body class="bridge-page bridge-page-en" data-page-type="supplier_reply_review">
+    <header class="bridge-header">
+      <a class="bridge-brand" href="../../" aria-label="Back to GEWUJI">
+        <span class="bridge-mark" aria-hidden="true"></span>
+        <span class="bridge-brand-text">
+          <strong>GEWUJI</strong>
+          <small>Proforma Invoice Check</small>
+        </span>
+      </a>
+      <nav class="bridge-nav" aria-label="Main navigation">
+        <a href="https://gewuji.dev/supplier-reply-review/">Supplier Reply Review</a>
+        <a href="https://gewuji.dev/field-materials/">Manufacturing Context</a>
+        <a href="https://gewuji.dev/buyer-guides/">Buyer Guides</a>
+        <a href="https://gewuji.dev/supplier-reply-review/examples/">Examples</a>
+        <a href="https://gewuji.dev/supplier-reply-review/methodology/">Methodology</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="bridge-hero">
+        <div class="bridge-hero-inner">
+          <div class="bridge-hero-copy">
+            <p class="bridge-kicker">Free Pre-Payment Tool · Runs Locally</p>
+            <h1>Proforma Invoice &amp; Bank Beneficiary Check</h1>
+            <p class="bridge-lead">Before wiring a deposit to a Chinese supplier, check these 8 items on your Proforma Invoice (PI) and generate a written clarification email for any missing or mismatched details.</p>
+            <p class="bridge-boundary">Communication check only—not legal due diligence, bank verification, or a payment safety guarantee.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="bridge-section" id="pi-checker">
+        <div class="bridge-shell">
+          <div class="bridge-callout" style="display:grid;gap:14px;">
+            <h2 style="margin:0;">Check what your Proforma Invoice currently shows</h2>
+            <p style="margin:0;color:var(--muted);">Uncheck any item that is missing, vague, or mismatched on your PI.</p>
+            <div style="display:grid;gap:10px;">
+              <label><input type="checkbox" class="pi-item" data-missing="Legal company name on the PI matches the quotation and business license" data-q="Please confirm why the company name on the PI differs from the quotation or business license, and provide a written authorization letter if an export agent or HK entity is used." /> 1. Seller company name on PI matches the quotation &amp; business license</label>
+              <label><input type="checkbox" class="pi-item" data-missing="Bank beneficiary name matches the PI seller (not an unexplained HK or personal account)" data-q="Please confirm the exact legal bank beneficiary name and explain any difference from the PI issuer before we wire." /> 2. Bank beneficiary name matches the PI seller (not an unexplained third-party/HK account)</label>
+              <label><input type="checkbox" class="pi-item" data-missing="Exact product version, material grade, dimensions, and drawing/sample reference" data-q="Please list the exact product version, material grade, dimensions, and approved sample/drawing reference on the PI." checked /> 3. Exact product version, material grade, and approved sample reference are listed</label>
+              <label><input type="checkbox" class="pi-item" data-missing="Packaging scope (retail box vs. bulk carton, labels, barcodes) explicitly included/excluded" data-q="Please confirm what packaging, labeling, and barcodes are included in the unit price versus billed separately." /> 4. Packaging, labeling, and carton scope are explicitly stated</label>
+              <label><input type="checkbox" class="pi-item" data-missing="Incoterm (EXW / FOB / CIF / DDP) and named port/destination" data-q="Please state the exact Incoterm (EXW, FOB, CIF, or DDP) and named port or destination on the PI." checked /> 5. Incoterm (EXW / FOB / CIF / DDP) and named port are stated</label>
+              <label><input type="checkbox" class="pi-item" data-missing="Clear production lead-time start trigger (e.g. after deposit AND sample approval)" data-q="Please confirm what event starts the production lead-time clock (deposit receipt, sample approval, or artwork sign-off)." /> 6. Lead-time start trigger (after deposit + sample/artwork approval) is clear</label>
+              <label><input type="checkbox" class="pi-item" data-missing="Balance payment trigger (e.g. after pre-shipment inspection / BL copy, not blind upfront)" data-q="Please confirm the balance payment trigger (e.g. after pre-shipment inspection or Bill of Lading copy)." /> 7. Balance payment trigger and inspection condition are written</label>
+              <label><input type="checkbox" class="pi-item" data-missing="PI validity date, currency (USD/RMB), and refund/revision terms if sample fails" data-q="Please state the PI validity date, settlement currency, and what happens if the pre-production sample does not meet the agreed spec." /> 8. Currency, PI validity date, and sample-failure revision terms are stated</label>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;">
+              <button type="button" id="run-pi-check" class="bridge-button primary">Generate PI Clarification Email →</button>
+              <span id="pi-status" style="font-size:13px;color:var(--muted);" aria-live="polite"></span>
+            </div>
+            <div id="pi-output" hidden style="display:grid;gap:12px;padding-top:12px;border-top:1px solid var(--line);">
+              <div>
+                <strong>Open items to clarify before wiring:</strong>
+                <ul id="pi-missing-list"></ul>
+              </div>
+              <div>
+                <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;">
+                  <strong>Ready-to-send PI clarification email</strong>
+                  <button type="button" id="copy-pi-email" class="bridge-button ghost" style="padding:6px 14px;min-height:36px;font-size:13px;">Copy Email</button>
+                </div>
+                <pre id="pi-email-text" style="white-space:pre-wrap;word-break:break-word;margin:0;padding:12px;border:1px solid var(--line);border-radius:6px;background:var(--soft);font:inherit;font-size:14px;line-height:1.55;"></pre>
+              </div>
+              <p style="margin:0;font-size:14px;">
+                Still unsure about a mismatched HK/third-party account or complex terms?
+                <a href="https://gewuji.dev/supplier-reply-review/before-payment/#start" data-track-event="buyer_review_start" data-track-location="pi_checker_result" data-track-label="Request Human Review">Send the reply for a human review →</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="bridge-section">
+        <div class="bridge-shell">
+          <div class="bridge-section-header">
+            <h2>Related Buyer Tools &amp; Guides</h2>
+            <p>
+              <a href="../#instant-checker">Instant Supplier Reply Self-Check</a> ·
+              <a href="../../buyer-guides/verify-chinese-supplier-before-deposit/">How to Check a Chinese Supplier Before Payment</a> ·
+              <a href="../../buyer-guides/rfq-template-for-chinese-suppliers/">RFQ Email Template</a> ·
+              <a href="../../buyer-guides/china-supplier-red-flags-before-first-order/">China Supplier Red Flags</a>
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="../../marketing-events.js?v=20260715-funnel"></script>
+    <script>
+      (function () {
+        const btn = document.getElementById("run-pi-check");
+        const status = document.getElementById("pi-status");
+        const out = document.getElementById("pi-output");
+        const list = document.getElementById("pi-missing-list");
+        const emailBox = document.getElementById("pi-email-text");
+        const copyBtn = document.getElementById("copy-pi-email");
+        if (!btn || !out) return;
+
+        function run() {
+          const items = Array.from(document.querySelectorAll(".pi-item"));
+          const unchecked = items.filter((el) => !el.checked);
+          list.innerHTML = (unchecked.length ? unchecked.map((el) => `<li>${el.dataset.missing}</li>`) : ["<li>All 8 core PI items are checked. Keep the signed PI and bank confirmation in one written record.</li>"]).join("");
+          emailBox.textContent = unchecked.length
+            ? `Subject: Proforma Invoice Clarification Before Deposit - [PI Number]\n\nHello [Supplier Name],\n\nThank you for sending the Proforma Invoice. Before we arrange the deposit, please update or confirm the following points in writing:\n\n${unchecked.map((el, i) => `${i + 1}. ${el.dataset.q}`).join("\n")}\n\nOnce confirmed on the updated PI, we will proceed with the payment.\n\nThank you.`
+            : "All 8 core PI checks are marked confirmed. Confirm the final signed PDF matches your approved sample before wiring.";
+          status.textContent = `${unchecked.length} open item(s) flagged.`;
+          out.hidden = false;
+          if (typeof window.gewujiTrack === "function") {
+            window.gewujiTrack("buyer_pi_check_run", { open_items: unchecked.length });
+          }
+        }
+
+        btn.addEventListener("click", run);
+        if (copyBtn) {
+          copyBtn.addEventListener("click", async () => {
+            try {
+              if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
+                await navigator.clipboard.writeText(emailBox.textContent);
+              }
+              const orig = copyBtn.dataset.orig || copyBtn.textContent;
+              copyBtn.dataset.orig = orig;
+              copyBtn.textContent = "Copied ✓";
+              window.setTimeout(() => { copyBtn.textContent = orig; }, 2000);
+            } catch {}
+            if (typeof window.gewujiTrack === "function") {
+              window.gewujiTrack("buyer_template_copy", { template_name: "pi_clarification_email", action_location: "pi_checker" });
+            }
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>
